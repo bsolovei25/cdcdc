@@ -13,7 +13,6 @@ import * as d3Selection from 'd3-selection';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { analyticChartData } from './kpe-charts-analytic-main-chart.mock';
 import { KpeHelperService } from '../../../shared/kpe-helper.service';
-import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 export type LineType = 'fact' | 'plan';
@@ -82,7 +81,10 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
 
     public scales: { x: any; y: any } = { x: null, y: null };
 
-    public sizeX: { min: Date | null; max: Date | null } = { min: new Date(1627776000000), max: new Date(1630368000000) };
+    public sizeX: { min: Date | null; max: Date | null } = {
+        min: new Date(1627776000000),
+        max: new Date(1630368000000),
+    };
 
     public sizeY: { min: number; max: number } = { min: 0, max: 0 };
 
@@ -115,8 +117,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         }
     }
 
-    private configChartArea(): void {
-    }
+    private configChartArea(): void {}
 
     @AsyncRender
     private drawSvg(): void {
@@ -315,16 +316,15 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             if (className === 'fact-curve') {
                 this.svg
                     .append('path')
-                    .datum([this.dayFact, ...dataset.filter(item => +item.x >= +this.day)])
+                    .datum([this.dayFact, ...dataset.filter((item) => +item.x >= +this.day)])
                     .attr('class', className + '-dashed')
                     .attr('d', line);
                 this.svg
                     .append('path')
-                    .datum([...dataset.filter(item => +item.x <= +this.day), this.dayFact])
+                    .datum([...dataset.filter((item) => +item.x <= +this.day), this.dayFact])
                     .attr('class', className)
                     .attr('d', line);
-            }
-            else {
+            } else {
                 this.svg
                     .append('path')
                     .datum(dataset)
@@ -360,22 +360,32 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             if (className.indexOf('Colorize') === -1) {
                 const dayBorderIndex = dataset.findIndex((item) => +item.x > +this.day);
                 if (dayBorderIndex !== 0 && dayBorderIndex !== dataset.length) {
-                    const k = ((dataset[dayBorderIndex].y - dataset[dayBorderIndex - 1].y))
-                        / (+dataset[dayBorderIndex].x - +this.factDataset[dayBorderIndex - 1].x);
+                    const k =
+                        (dataset[dayBorderIndex].y - dataset[dayBorderIndex - 1].y) /
+                        (+dataset[dayBorderIndex].x - +this.factDataset[dayBorderIndex - 1].x);
                     this.dayFactBorder = {
                         x: this.day,
-                        y:  k * +this.day + dataset[dayBorderIndex].y - k * +dataset[dayBorderIndex].x
+                        y:
+                            k * +this.day +
+                            dataset[dayBorderIndex].y -
+                            k * +dataset[dayBorderIndex].x,
                     };
                 } else {
                     this.dayFactBorder = {
                         x: this.day,
-                        y:  dataset[dayBorderIndex].y
+                        y: dataset[dayBorderIndex].y,
                     };
                 }
                 this.svg
                     .append('path')
                     .attr('class', className + '-area')
-                    .attr('d', areaFn([...dataset.filter(item => +item.x <= +this.day), this.dayFactBorder]));
+                    .attr(
+                        'd',
+                        areaFn([
+                            ...dataset.filter((item) => +item.x <= +this.day),
+                            this.dayFactBorder,
+                        ])
+                    );
             } else {
                 this.svg
                     .append('path')
@@ -481,16 +491,20 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
 
         const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
         if (dayFactIndex !== 0 && dayFactIndex !== this.factDataset.length) {
-            const k = ((this.factDataset[dayFactIndex].y - this.factDataset[dayFactIndex - 1].y))
-                / (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
+            const k =
+                (this.factDataset[dayFactIndex].y - this.factDataset[dayFactIndex - 1].y) /
+                (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
             this.dayFact = {
                 x: this.day,
-                y:  k * +this.day + this.factDataset[dayFactIndex].y - k * +this.factDataset[dayFactIndex].x
+                y:
+                    k * +this.day +
+                    this.factDataset[dayFactIndex].y -
+                    k * +this.factDataset[dayFactIndex].x,
             };
         } else {
             this.dayFact = {
                 x: this.day,
-                y:  this.factDataset[dayFactIndex].y
+                y: this.factDataset[dayFactIndex].y,
             };
         }
 
@@ -504,7 +518,8 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .style('height')
             .slice(0, -2);
 
-        this.svg.append('text')
+        this.svg
+            .append('text')
             .attr('x', this.scales.x(this.day) + 30)
             .attr('y', graphMaxY - 40)
             .attr('text-anchor', 'middle')
