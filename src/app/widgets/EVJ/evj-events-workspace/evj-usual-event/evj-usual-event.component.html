@@ -234,12 +234,18 @@
               <span>Автор</span>
             </div>
             <div class="creator__field">
-          <span>
-          {{
-            this.ewService.event.fixedBy?.displayName ?
-              this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
+              <div class="block">
+              <span>
+                {{ this.ewService.event.fixedBy?.displayName ?
+                this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
                 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
-            </span>
+              </span>
+                <ng-container *ngIf="this.ewService.event.fixedBy?.positionDescription">
+                  <span class="block__position">
+                    {{this.ewService.event.fixedBy?.positionDescription}}
+                  </span>
+                </ng-container>
+              </div>
             </div>
           </div>
         </div>
