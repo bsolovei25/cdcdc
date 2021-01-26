@@ -4,127 +4,127 @@ export const analyticChartData: IChartsAnalyticMainChart[] = [
         graphType: 'fact',
         graph: [
             {
-                time: 1627776000,
+                time: new Date(1627776000000),
                 value: 700,
             },
             {
-                time: 1627862400,
+                time: new Date(1627862400000),
                 value: 800,
             },
             {
-                time: 1627948800,
+                time: new Date(1627948800000),
                 value: 900,
             },
             {
-                time: 1628035200,
+                time: new Date(1628035200000),
                 value: 850,
             },
             {
-                time: 1628121600,
+                time: new Date(1628121600000),
                 value: 800,
             },
             {
-                time: 1628208000,
+                time: new Date(1628208000000),
                 value: 750,
             },
             {
-                time: 1628294400,
+                time: new Date(1628294400000),
                 value: 730,
             },
             {
-                time: 1628380800,
+                time: new Date(1628380800000),
                 value: 730,
             },
             {
-                time: 1628467200,
+                time: new Date(1628467200000),
                 value: 730,
             },
             {
-                time: 1628553600,
+                time: new Date(1628553600000),
                 value: 730,
             },
             {
-                time: 1628640000,
+                time: new Date(1628640000000),
                 value: 830,
             },
             {
-                time: 1628726400,
+                time: new Date(1628726400000),
                 value: 900,
             },
             {
-                time: 1628812800,
+                time: new Date(1628812800000),
                 value: 950,
             },
             {
-                time: 1628899200,
+                time: new Date(1628899200000),
                 value: 1200,
             },
             {
-                time: 1628985600,
+                time: new Date(1628985600000),
                 value: 700,
             },
             {
-                time: 1629072000,
+                time: new Date(1629072000000),
                 value: 400,
             },
             {
-                time: 1629158400,
+                time: new Date(1629158400000),
                 value: 360,
             },
             {
-                time: 1629244800,
+                time: new Date(1629244800000),
                 value: 320,
             },
             {
-                time: 1629331200,
+                time: new Date(1629331200000),
                 value: 280,
             },
             {
-                time: 1629417600,
+                time: new Date(1629417600000),
                 value: 320,
             },
             {
-                time: 1629504000,
+                time: new Date(1629504000000),
                 value: 360,
             },
             {
-                time: 1629590400,
+                time: new Date(1629590400000),
                 value: 400,
             },
             {
-                time: 1629676800,
+                time: new Date(1629676800000),
                 value: 400,
             },
             {
-                time: 1629763200,
+                time: new Date(1629763200000),
                 value: 700,
             },
             {
-                time: 1629849600,
+                time: new Date(1629849600000),
                 value: 800,
             },
             {
-                time: 1629936000,
+                time: new Date(1629936000000),
                 value: 900,
             },
             {
-                time: 1630022400,
+                time: new Date(1630022400000),
                 value: 1000,
             },
             {
-                time: 1630108800,
+                time: new Date(1630108800000),
                 value: 1100,
             },
             {
-                time: 1630195200,
+                time: new Date(1630195200000),
                 value: 1200,
             },
             {
-                time: 1630281600,
+                time: new Date(1630281600000),
                 value: 1100,
             },
             {
-                time: 1630368000,
+                time: new Date(1630368000000),
                 value: 1000,
             }
         ],
@@ -133,127 +133,127 @@ export const analyticChartData: IChartsAnalyticMainChart[] = [
         graphType: 'plan',
         graph: [
             {
-                time: 1627776000,
+                time: new Date(1627776000000),
                 value: 900
             },
             {
-                time: 1627862400,
+                time: new Date(1627862400000),
                 value: 900
             },
             {
-                time: 1627948800,
+                time: new Date(1627948800000),
                 value: 900
             },
             {
-                time: 1628035200,
+                time: new Date(1628035200000),
                 value: 900
             },
             {
-                time: 1628121600,
+                time: new Date(1628121600000),
                 value: 900
             },
             {
-                time: 1628208000,
+                time: new Date(1628208000000),
                 value: 900
             },
             {
-                time: 1628294400,
+                time: new Date(1628294400000),
                 value: 900
             },
             {
-                time: 1628380800,
+                time: new Date(1628380800000),
                 value: 900
             },
             {
-                time: 1628467200,
+                time: new Date(1628467200000),
                 value: 900
             },
             {
-                time: 1628553600,
+                time: new Date(1628553600000),
                 value: 900
             },
             {
-                time: 1628640000,
+                time: new Date(1628640000000),
                 value: 900
             },
             {
-                time: 1628726400,
+                time: new Date(1628726400000),
                 value: 900
             },
             {
-                time: 1628812800,
+                time: new Date(1628812800000),
                 value: 900
             },
             {
-                time: 1628899200,
+                time: new Date(1628899200000),
                 value: 900
             },
             {
-                time: 1628985600,
+                time: new Date(1628985600000),
                 value: 800
             },
             {
-                time: 1629072000,
+                time: new Date(1629072000000),
                 value: 700
             },
             {
-                time: 1629158400,
+                time: new Date(1629158400000),
                 value: 700
             },
             {
-                time: 1629244800,
+                time: new Date(1629244800000),
                 value: 700
             },
             {
-                time: 1629331200,
+                time: new Date(1629331200000),
                 value: 700
             },
             {
-                time: 1629417600,
+                time: new Date(1629417600000),
                 value: 700
             },
             {
-                time: 1629504000,
+                time: new Date(1629504000000),
                 value: 700
             },
             {
-                time: 1629590400,
+                time: new Date(1629590400000),
                 value: 700
             },
             {
-                time: 1629676800,
+                time: new Date(1629676800000),
                 value: 700
             },
             {
-                time: 1629763200,
+                time: new Date(1629763200000),
                 value: 700
             },
             {
-                time: 1629849600,
+                time: new Date(1629849600000),
                 value: 700
             },
             {
-                time: 1629936000,
+                time: new Date(1629936000000),
                 value: 700
             },
             {
-                time: 1630022400,
+                time: new Date(1630022400000),
                 value: 700
             },
             {
-                time: 1630108800,
+                time: new Date(1630108800000),
                 value: 700
             },
             {
-                time: 1630195200,
+                time: new Date(1630195200000),
                 value: 700
             },
             {
-                time: 1630281600,
+                time: new Date(1630281600000),
                 value: 700
             },
             {
-                time: 1630368000,
+                time: new Date(1630368000000),
                 value: 700
             }
         ],
@@ -262,127 +262,127 @@ export const analyticChartData: IChartsAnalyticMainChart[] = [
         graphType: 'lowerBorder',
         graph: [
             {
-                time: 1627776000,
+                time: new Date(1627776000000),
                 value: 700
             },
             {
-                time: 1627862400,
+                time: new Date(1627862400000),
                 value: 700
             },
             {
-                time: 1627948800,
+                time: new Date(1627948800000),
                 value: 700
             },
             {
-                time: 1628035200,
+                time: new Date(1628035200000),
                 value: 700
             },
             {
-                time: 1628121600,
+                time: new Date(1628121600000),
                 value: 700
             },
             {
-                time: 1628208000,
+                time: new Date(1628208000000),
                 value: 700
             },
             {
-                time: 1628294400,
+                time: new Date(1628294400000),
                 value: 700
             },
             {
-                time: 1628380800,
+                time: new Date(1628380800000),
                 value: 700
             },
             {
-                time: 1628467200,
+                time: new Date(1628467200000),
                 value: 700
             },
             {
-                time: 1628553600,
+                time: new Date(1628553600000),
                 value: 700
             },
             {
-                time: 1628640000,
+                time: new Date(1628640000000),
                 value: 700
             },
             {
-                time: 1628726400,
+                time: new Date(1628726400000),
                 value: 700
             },
             {
-                time: 1628812800,
+                time: new Date(1628812800000),
                 value: 700
             },
             {
-                time: 1628899200,
+                time: new Date(1628899200000),
                 value: 700
             },
             {
-                time: 1628985600,
+                time: new Date(1628985600000),
                 value: 600
             },
             {
-                time: 1629072000,
+                time: new Date(1629072000000),
                 value: 500
             },
             {
-                time: 1629158400,
+                time: new Date(1629158400000),
                 value: 500
             },
             {
-                time: 1629244800,
+                time: new Date(1629244800000),
                 value: 500
             },
             {
-                time: 1629331200,
+                time: new Date(1629331200000),
                 value: 500
             },
             {
-                time: 1629417600,
+                time: new Date(1629417600000),
                 value: 500
             },
             {
-                time: 1629504000,
+                time: new Date(1629504000000),
                 value: 500
             },
             {
-                time: 1629590400,
+                time: new Date(1629590400000),
                 value: 500
             },
             {
-                time: 1629676800,
+                time: new Date(1629676800000),
                 value: 500
             },
             {
-                time: 1629763200,
+                time: new Date(1629763200000),
                 value: 500
             },
             {
-                time: 1629849600,
+                time: new Date(1629849600000),
                 value: 500
             },
             {
-                time: 1629936000,
+                time: new Date(1629936000000),
                 value: 500
             },
             {
-                time: 1630022400,
+                time: new Date(1630022400000),
                 value: 500
             },
             {
-                time: 1630108800,
+                time: new Date(1630108800000),
                 value: 500
             },
             {
-                time: 1630195200,
+                time: new Date(1630195200000),
                 value: 500
             },
             {
-                time: 1630281600,
+                time: new Date(1630281600000),
                 value: 500
             },
             {
-                time: 1630368000,
+                time: new Date(1630368000000),
                 value: 500
             }
         ],
@@ -391,127 +391,127 @@ export const analyticChartData: IChartsAnalyticMainChart[] = [
         graphType: 'higherBorder',
         graph: [
             {
-                time: 1627776000,
+                time: new Date(1627776000000),
                 value: 1100
             },
             {
-                time: 1627862400,
+                time: new Date(1627862400000),
                 value: 1100
             },
             {
-                time: 1627948800,
+                time: new Date(1627948800000),
                 value: 1100
             },
             {
-                time: 1628035200,
+                time: new Date(1628035200000),
                 value: 1100
             },
             {
-                time: 1628121600,
+                time: new Date(1628121600000),
                 value: 1100
             },
             {
-                time: 1628208000,
+                time: new Date(1628208000000),
                 value: 1100
             },
             {
-                time: 1628294400,
+                time: new Date(1628294400000),
                 value: 1100
             },
             {
-                time: 1628380800,
+                time: new Date(1628380800000),
                 value: 1100
             },
             {
-                time: 1628467200,
+                time: new Date(1628467200000),
                 value: 1100
             },
             {
-                time: 1628553600,
+                time: new Date(1628553600000),
                 value: 1100
             },
             {
-                time: 1628640000,
+                time: new Date(1628640000000),
                 value: 1100
             },
             {
-                time: 1628726400,
+                time: new Date(1628726400000),
                 value: 1100
             },
             {
-                time: 1628812800,
+                time: new Date(1628812800000),
                 value: 1100
             },
             {
-                time: 1628899200,
+                time: new Date(1628899200000),
                 value: 1100
             },
             {
-                time: 1628985600,
+                time: new Date(1628985600000),
                 value: 1000
             },
             {
-                time: 1629072000,
+                time: new Date(1629072000000),
                 value: 900
             },
             {
-                time: 1629158400,
+                time: new Date(1629158400000),
                 value: 900
             },
             {
-                time: 1629244800,
+                time: new Date(1629244800000),
                 value: 900
             },
             {
-                time: 1629331200,
+                time: new Date(1629331200000),
                 value: 900
             },
             {
-                time: 1629417600,
+                time: new Date(1629417600000),
                 value: 900
             },
             {
-                time: 1629504000,
+                time: new Date(1629504000000),
                 value: 900
             },
             {
-                time: 1629590400,
+                time: new Date(1629590400000),
                 value: 900
             },
             {
-                time: 1629676800,
+                time: new Date(1629676800000),
                 value: 900
             },
             {
-                time: 1629763200,
+                time: new Date(1629763200000),
                 value: 900
             },
             {
-                time: 1629849600,
+                time: new Date(1629849600000),
                 value: 900
             },
             {
-                time: 1629936000,
+                time: new Date(1629936000000),
                 value: 900
             },
             {
-                time: 1630022400,
+                time: new Date(1630022400000),
                 value: 900
             },
             {
-                time: 1630108800,
+                time: new Date(1630108800000),
                 value: 900
             },
             {
-                time: 1630195200,
+                time: new Date(1630195200000),
                 value: 900
             },
             {
-                time: 1630281600,
+                time: new Date(1630281600000),
                 value: 900
             },
             {
-                time: 1630368000,
+                time: new Date(1630368000000),
                 value: 900
             }
         ],
