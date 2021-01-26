@@ -51,10 +51,13 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
+            this.mnemonicSchemeService.selectedOptions$.asObservable().subscribe((ref) => {
+                console.log('o', ref);
                 this.data = null;
-                const el = this.options.find((value) => value.manufacture === ref.name);
-                this.setWsOptions(el);
+                if (!ref) {
+                    return;
+                }
+                this.setWsOptions(ref);
             })
         );
     }
