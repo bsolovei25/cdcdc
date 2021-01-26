@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-analytic-dates-picker/kpe-charts-analytic-dates-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { KpeChartsAnalyticMainChartComponent } from "./components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component";
+import { KpeSharedModule } from "../shared/kpe-shared.module";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { KpeChartsAnalyticMainChartComponent } from "./components/kpe-charts-ana
     imports: [
         CommonModule,
         SharedModule,
+        KpeSharedModule,
         MatSelectModule,
         AngularSvgIconModule,
         MatDatepickerModule,

@@ -13,10 +13,32 @@
 }
 
 ::ng-deep {
+  .lowerBorder, .higherBorder {
+    fill: none;
+    stroke-dasharray: 2 1;
+    stroke: var(--color-kpe-gaude-additional);
+    opacity: 1;
+    &-area{
+      fill: var(--color-kpe-line-diagram-bg);
+      opacity: 0.25;
+    }
+  }
+
+  .lowerColorize, .higherColorize {
+    fill: none;
+    stroke-dasharray: 2 1;
+    stroke: var(--color-astue-onpz-warning);
+    opacity: 1;
+    &-area{
+      fill: var(--color-astue-onpz-warning);
+      opacity: 0.1;
+    }
+  }
+
   .grid {
     color: var(--color-lines-bg-dia);
     stroke-width: 1;
-    fill: var(--color-sou-bg);
+    fill: var(--color-kpe-gaude-back);
 
     path {
       fill: var(--color-sou-bg);
@@ -45,6 +67,11 @@
 
   .fact-curve {
     stroke: var(--color-text-main);
+    &-dashed {
+      fill: none;
+      stroke: var(--color-kpe-pasportize-text);
+      stroke-dasharray: 4 4;
+    }
   }
 
   .plan-curve {
@@ -54,6 +81,15 @@
   .day-threshold-line {
     stroke: var(--color-marker-diagram);
     stroke-width: 1px;
+  }
+
+  .day-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    fill: var(--sou-mvp-color-text-diagram-main);
   }
 
   .deviation-line {
@@ -90,7 +126,7 @@
   }
 
   .rect-left {
-    fill: var(--color-sou-bg);
+    fill: transparent;
   }
 }
 
