@@ -129,7 +129,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     get nextHourPlan(): number {
-        return this.data?.find((x) => x.graphType === 'forecast')?.nextPlanValue ?? null;
+        return this.data?.find((x) => x.graphType === 'plan')?.nextPlanValue ?? null;
     }
 
     get nextPlanValue(): number {
