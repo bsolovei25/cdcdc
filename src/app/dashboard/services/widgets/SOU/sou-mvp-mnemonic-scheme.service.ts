@@ -11,6 +11,10 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root',
 })
 export class SouMvpMnemonicSchemeService {
+    selectedOptions$: BehaviorSubject<{ manufacture: string; unit: string }> = new BehaviorSubject<{
+        manufacture: string;
+        unit: string;
+    }>(null);
     selectedManufactures$: BehaviorSubject<{ index: number; name: string }> = new BehaviorSubject<{
         index: number;
         name: string;
