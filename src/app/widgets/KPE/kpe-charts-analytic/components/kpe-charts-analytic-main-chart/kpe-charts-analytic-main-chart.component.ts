@@ -2,7 +2,6 @@ import {
     Component,
     ElementRef,
     HostListener,
-    Inject,
     Input,
     OnChanges,
     SimpleChanges,
@@ -39,12 +38,6 @@ export interface IChartsAnalyticMainGraph {
 export class KpeChartsAnalyticMainChartComponent implements OnChanges {
     @Input()
     public data: IChartsAnalyticMainChart[] = analyticChartData;
-
-    @Input()
-    public currentMonth: Date = new Date();
-
-    @Input()
-    public bottomCalendarFull: boolean = false;
 
     @ViewChild('chart')
     private chart: ElementRef;
@@ -482,11 +475,6 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
     }
 
     private drawDayThreshold(): void {
-        const displayedMonth = new Date(this.currentMonth).getMonth();
-        const currentMonth = new Date().getMonth();
-        if (displayedMonth !== currentMonth) {
-            return;
-        }
         this.appendLine(+this.day, +this.day, this.sizeY.max, this.sizeY.min, 'day-threshold-line');
 
         const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
