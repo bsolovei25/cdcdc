@@ -44,10 +44,11 @@ export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy 
     }
 
     protected disconnectWs(): void {
+        this.widgetService.removeChannel(this.widgetId, this.channelId);
         if (!this.wsSubscription) {
             return;
         }
         this.wsSubscription.unsubscribe();
-        this.widgetService.removeChannel(this.widgetId, this.channelId);
+        this.wsSubscription = null;
     }
 }
