@@ -23,11 +23,11 @@ export interface IDeviationDiagramData {
 }
 export interface IChartsAnalyticMainChart {
     graphType: string;
-    graph: IChartsAnalyticMainGraph[];
+    graph: IChartsAnalyticDataset[];
 }
-export interface IChartsAnalyticMainGraph {
-    time: Date;
-    value: number;
+export interface IChartsAnalyticDataset {
+    x: Date;
+    y: number;
 }
 
 @Component({
@@ -50,25 +50,13 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         this.initScale();
     }
 
-    public factDataset: {
-        x: Date;
-        y: number;
-    }[] = [];
+    public factDataset: IChartsAnalyticDataset[] = [];
 
-    public planDataset: {
-        x: Date;
-        y: number;
-    }[] = [];
+    public planDataset: IChartsAnalyticDataset[] = [];
 
-    public lowerBorderDataset: {
-        x: Date;
-        y: number;
-    }[] = [];
+    public lowerBorderDataset: IChartsAnalyticDataset[] = [];
 
-    public higherBorderDataset: {
-        x: Date;
-        y: number;
-    }[] = [];
+    public higherBorderDataset: IChartsAnalyticDataset[] = [];
 
     public size: { width: number | null; height: number | null } = { width: null, height: null };
 
@@ -89,14 +77,8 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
     };
 
     private day: Date | null = new Date(1629849600000); // День с которого факт становится пунктирным
-    private dayFact: {
-        x: Date;
-        y: number;
-    } | null; // Координаты с которого факт становится пунктирным
-    private dayFactBorder: {
-        x: Date;
-        y: number;
-    } | null; // Координаты границы с которого факт становится пунктирным
+    private dayFact: IChartsAnalyticDataset | null; // Координаты с которого факт становится пунктирным
+    private dayFactBorder: IChartsAnalyticDataset | null; // Координаты границы с которого факт становится пунктирным
 
     private svg: any = null;
 
@@ -110,12 +92,9 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         }
     }
 
-    private configChartArea(): void {}
-
     @AsyncRender
     private drawSvg(): void {
         this.prepareData();
-        this.configChartArea();
         this.initScale();
         this.initSvg();
         this.drawAxises();
@@ -135,7 +114,68 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         this.customizeAreas('lower');
         this.customizeAreas('higher');
     }
+    // Приводим графики к заданному интервалу
+    private dataInInteval(
+        dataset: IChartsAnalyticDataset[],
+        interval: { min: Date | null; max: Date | null }
+    ): IChartsAnalyticDataset[] {
+        if (
+            dataset.length === 0 ||
+            +dataset[0] > +interval.max ||
+            +dataset[dataset.length - 1] < +interval.min ||
+            (dataset.length === 1 && +dataset[0] >= +interval.min && +dataset[0] <= +interval.max)
+        ) {
+            return [];
+        }
+        let result: IChartsAnalyticDataset[] = [];
+        dataset.forEach((coordinate, index) => {
+            if (coordinate.x <= interval.max && coordinate.x >= interval.min) {
+                result.push({ x: coordinate.x, y: coordinate.y });
+            } else if (coordinate.x > interval.max && dataset[index - 1].x <= interval.max) {
+                const k =
+                    (coordinate.y - dataset[index - 1].y) / (+coordinate.x - +dataset[index - 1].x);
+                const b = coordinate.y - k * +coordinate.x;
+                result.push({ x: interval.max, y: k * +interval.max + b });
+            } else if (coordinate.x < interval.min && dataset[index + 1].x >= interval.min) {
+                const k =
+                    (coordinate.y - dataset[index + 1].y) / (+coordinate.x - +dataset[index + 1].x);
+                const b = coordinate.y - k * +coordinate.x;
+                result = [{ x: interval.min, y: k * +interval.min + b }, ...result];
+            }
+        });
+        return result;
+    }
 
+    // Приводим графики к заданному интервалу
+    private addPoints(
+        dataset1: IChartsAnalyticDataset[],
+        dataset2: IChartsAnalyticDataset[]
+    ): IChartsAnalyticDataset[] {
+        if (dataset1.length === 0 || dataset2.length === 0) {
+            return [];
+        }
+        const result: IChartsAnalyticDataset[] = [];
+        let xCoordinates: number[] | Date[] = Array.from(
+            new Set([...dataset1, ...dataset2].map((item) => +item.x))
+        ).sort((a, b) => +a - +b);
+        xCoordinates = xCoordinates.map((item) => {
+            return new Date(item);
+        });
+        xCoordinates.forEach((item) => {
+            const searchResult: IChartsAnalyticDataset = dataset1.find((date) => +date.x === +item);
+            if (searchResult) {
+                result.push(searchResult);
+            } else {
+                const index = dataset1.findIndex((date) => +date.x > +item);
+                const k =
+                    (dataset1[index].y - dataset1[index - 1].y) /
+                    (+dataset1[index].x - +dataset1[index - 1].x);
+                const b = dataset1[index].y - k * +dataset1[index].x;
+                result.push({ x: item, y: k * +item + b });
+            }
+        });
+        return result;
+    }
     private prepareData(): void {
         this.factDataset = [];
         this.planDataset = [];
@@ -145,42 +185,32 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         this.data.forEach((item) => {
             switch (item.graphType) {
                 case 'fact':
-                    item.graph.forEach((coordinate) =>
-                        this.factDataset.push({ x: coordinate.time, y: coordinate.value })
-                    );
+                    this.factDataset = this.dataInInteval(item.graph, this.sizeX);
                     break;
                 case 'plan':
-                    item.graph.forEach((coordinate) =>
-                        this.planDataset.push({ x: coordinate.time, y: coordinate.value })
-                    );
+                    this.planDataset = this.dataInInteval(item.graph, this.sizeX);
                     break;
                 case 'higherBorder':
-                    item.graph.forEach((coordinate) =>
-                        this.higherBorderDataset.push({ x: coordinate.time, y: coordinate.value })
-                    );
+                    this.higherBorderDataset = this.dataInInteval(item.graph, this.sizeX);
                     break;
                 case 'lowerBorder':
-                    item.graph.forEach((coordinate) =>
-                        this.lowerBorderDataset.push({ x: coordinate.time, y: coordinate.value })
-                    );
+                    this.lowerBorderDataset = this.dataInInteval(item.graph, this.sizeX);
                     break;
                 default:
                     break;
             }
         });
 
-        if (this.factDataset.length && this.planDataset.length) {
-            [this.sizeY.min, this.sizeY.max] = d3.extent(
-                [
-                    ...this.lowerBorderDataset,
-                    ...this.higherBorderDataset,
-                    ...this.planDataset,
-                    ...this.factDataset,
-                ].map((item) => item.y)
-            );
-            this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
-            this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
-        }
+        [this.sizeY.min, this.sizeY.max] = d3.extent(
+            [
+                ...this.lowerBorderDataset,
+                ...this.higherBorderDataset,
+                ...this.planDataset,
+                ...this.factDataset,
+            ].map((item) => item.y)
+        );
+        this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
+        this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
     }
 
     private drawRectLeft(): void {
@@ -355,7 +385,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                 if (dayBorderIndex !== 0 && dayBorderIndex !== dataset.length) {
                     const k =
                         (dataset[dayBorderIndex].y - dataset[dayBorderIndex - 1].y) /
-                        (+dataset[dayBorderIndex].x - +this.factDataset[dayBorderIndex - 1].x);
+                        (+dataset[dayBorderIndex].x - +dataset[dayBorderIndex - 1].x);
                     this.dayFactBorder = {
                         x: this.day,
                         y:
@@ -390,128 +420,141 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
 
     private customizeAreas(borderType: string): void {
         // borderType это тип границы, чтобы узнать нижнюю рассматриваем или верхнюю
-        let colorizeCoordinates: {
-            x: Date;
-            y: number;
-        }[] = []; // Координаты кторые надо закрасить
+        let colorizeCoordinates: IChartsAnalyticDataset[] = []; // Координаты кторые надо закрасить
         let coeff: number; // Принимает значения 1 или -1, это чтоб не переписывать неравенства
-        let border: {
-            x: Date;
-            y: number;
-        }[]; // Координаты границы
+        let border: IChartsAnalyticDataset[]; // Координаты границы
+        let fact: IChartsAnalyticDataset[]; // Координаты фактической кривой
         let className: string;
 
-        const fact = this.factDataset ?? [];
-
         if (borderType === 'lower') {
-            border = this.lowerBorderDataset ?? [];
+            border = this.lowerBorderDataset;
             coeff = -1;
             className = 'lowerColorize';
         } else {
-            border = this.higherBorderDataset ?? [];
+            border = this.higherBorderDataset;
             coeff = 1;
             className = 'higherColorize';
         }
+        if (border.length > 0 && this.factDataset.length > 0) {
+            const intervalColorize: { min: Date | null; max: Date | null } = {
+                min: new Date(Math.max(+border[0].x, +this.factDataset[0].x)),
+                max: new Date(
+                    Math.min(
+                        +border[border.length - 1].x,
+                        +this.factDataset[this.factDataset.length - 1].x
+                    )
+                ),
+            };
+            border = this.dataInInteval(border, intervalColorize);
+            fact = this.dataInInteval(this.factDataset, intervalColorize);
+            if (border.length > 0 && fact.length > 0) {
+                border = this.addPoints(border, fact);
+                fact = this.addPoints(fact, border);
 
-        fact.forEach((item, i) => {
-            if (i > 0) {
-                // Уравнение участка нижней границы
-                const k1 = (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
-                const b1 = -k1 * +border[i - 1].x + +border[i - 1].y;
-                // Уравнение участка фактической кривой
-                const k2 = (item.y - fact[i - 1].y) / (+item.x - +fact[i - 1].x);
-                const b2 = -k2 * +fact[i - 1].x + fact[i - 1].y;
-                // Точка пересечения границы с кривой факта
-                const x = (b2 - b1) / (k1 - k2);
-                if (!!x && x <= +item.x && x >= +fact[i - 1].x) {
-                    if (coeff * k1 >= k2 * coeff) {
-                        colorizeCoordinates.push(
-                            {
-                                x: border[i - 1].x,
-                                y: border[i - 1].y,
-                            },
-                            {
-                                x: new Date(x),
-                                y: k1 * x + b1,
-                            }
-                        );
-                    } else {
-                        this.drawBorder(colorizeCoordinates, className);
-                        this.drawCurve(colorizeCoordinates, className);
-                        colorizeCoordinates = [];
+                fact.forEach((item, i) => {
+                    if (i > 0) {
+                        // Уравнение участка нижней границы
+                        const k1 =
+                            (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
+                        const b1 = -k1 * +border[i - 1].x + +border[i - 1].y;
+                        // Уравнение участка фактической кривой
+                        const k2 = (item.y - fact[i - 1].y) / (+item.x - +fact[i - 1].x);
+                        const b2 = -k2 * +fact[i - 1].x + fact[i - 1].y;
+                        // Точка пересечения границы с кривой факта
+                        const x = (b2 - b1) / (k1 - k2);
+                        if (!!x && x <= +item.x && x >= +fact[i - 1].x) {
+                            if (coeff * k1 >= k2 * coeff) {
+                                colorizeCoordinates.push(
+                                    {
+                                        x: border[i - 1].x,
+                                        y: border[i - 1].y,
+                                    },
+                                    {
+                                        x: new Date(x),
+                                        y: k1 * x + b1,
+                                    }
+                                );
+                            } else {
+                                this.drawBorder(colorizeCoordinates, className);
+                                this.drawCurve(colorizeCoordinates, className);
+                                colorizeCoordinates = [];
 
-                        colorizeCoordinates.push(
-                            {
-                                x: new Date(x),
-                                y: k1 * x + b1,
-                            },
-                            {
-                                x: border[i].x,
-                                y: border[i].y,
+                                colorizeCoordinates.push(
+                                    {
+                                        x: new Date(x),
+                                        y: k1 * x + b1,
+                                    },
+                                    {
+                                        x: border[i].x,
+                                        y: border[i].y,
+                                    }
+                                );
                             }
-                        );
-                    }
-                } else if (coeff * item.y >= border[i].y * coeff) {
-                    colorizeCoordinates.push(
-                        {
-                            x: border[i - 1].x,
-                            y: border[i - 1].y,
-                        },
-                        {
-                            x: border[i].x,
-                            y: border[i].y,
+                        } else if (coeff * item.y >= border[i].y * coeff) {
+                            colorizeCoordinates.push(
+                                {
+                                    x: border[i - 1].x,
+                                    y: border[i - 1].y,
+                                },
+                                {
+                                    x: border[i].x,
+                                    y: border[i].y,
+                                }
+                            );
+                        } else {
+                            this.drawBorder(colorizeCoordinates, className);
+                            this.drawCurve(colorizeCoordinates, className);
+                            colorizeCoordinates = [];
                         }
-                    );
-                } else {
-                    this.drawBorder(colorizeCoordinates, className);
-                    this.drawCurve(colorizeCoordinates, className);
-                    colorizeCoordinates = [];
-                }
-            }
-        });
+                    }
+                });
 
-        this.drawBorder(colorizeCoordinates, className);
-        this.drawCurve(colorizeCoordinates, className);
+                this.drawBorder(colorizeCoordinates, className);
+                this.drawCurve(colorizeCoordinates, className);
+            }
+        }
     }
 
     private drawDayThreshold(): void {
         this.appendLine(+this.day, +this.day, this.sizeY.max, this.sizeY.min, 'day-threshold-line');
 
-        const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
-        if (dayFactIndex !== 0 && dayFactIndex !== this.factDataset.length) {
-            const k =
-                (this.factDataset[dayFactIndex].y - this.factDataset[dayFactIndex - 1].y) /
-                (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
-            this.dayFact = {
-                x: this.day,
-                y:
-                    k * +this.day +
-                    this.factDataset[dayFactIndex].y -
-                    k * +this.factDataset[dayFactIndex].x,
-            };
-        } else {
-            this.dayFact = {
-                x: this.day,
-                y: this.factDataset[dayFactIndex].y,
-            };
+        if (this.factDataset.length > 0) {
+            const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
+            if (dayFactIndex !== 0 && dayFactIndex !== this.factDataset.length) {
+                const k =
+                    (this.factDataset[dayFactIndex].y - this.factDataset[dayFactIndex - 1].y) /
+                    (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
+                this.dayFact = {
+                    x: this.day,
+                    y:
+                        k * +this.day +
+                        this.factDataset[dayFactIndex].y -
+                        k * +this.factDataset[dayFactIndex].x,
+                };
+            } else {
+                this.dayFact = {
+                    x: this.day,
+                    y: this.factDataset[dayFactIndex].y,
+                };
+            }
+
+            this.appendCircle(16, +this.day, this.dayFact?.y, 'day-circle-1');
+            this.appendCircle(8, +this.day, this.dayFact?.y, 'day-circle-2');
+            this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3');
+            this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4');
+
+            const graphMaxY: number = +d3Selection
+                .select(this.chart.nativeElement)
+                .style('height')
+                .slice(0, -2);
+
+            this.svg
+                .append('text')
+                .attr('x', this.scales.x(this.day) + 30)
+                .attr('y', graphMaxY - 40)
+                .attr('text-anchor', 'middle')
+                .attr('class', 'day-text')
+                .text('14:02');
         }
-
-        this.appendCircle(16, +this.day, this.dayFact?.y, 'day-circle-1');
-        this.appendCircle(8, +this.day, this.dayFact?.y, 'day-circle-2');
-        this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3');
-        this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4');
-
-        const graphMaxY: number = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
-
-        this.svg
-            .append('text')
-            .attr('x', this.scales.x(this.day) + 30)
-            .attr('y', graphMaxY - 40)
-            .attr('text-anchor', 'middle')
-            .attr('class', 'day-text')
-            .text('14:02');
     }
 }
