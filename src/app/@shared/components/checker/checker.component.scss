@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  gap: 9px;
+  color: #8C99B2;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.checker {
+  display: flex;
+  width: 15px;
+  min-width: 15px;
+  height: 15px;
+  margin: auto 0;
+  background: #12151E;
+  border-radius: 2px;
+
+  svg-icon {
+    margin: -2px auto;
+    color: transparent;
+    box-sizing: border-box;
+
+    &::ng-deep {
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  &__active {
+    background: #0089FF;
+
+    svg-icon {
+      color: white;
+    }
+  }
+}
+
+.text {
+  flex-grow: 1;
+  font-size: 12px;
+}

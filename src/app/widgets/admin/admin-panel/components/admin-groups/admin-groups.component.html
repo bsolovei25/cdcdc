@@ -142,8 +142,8 @@
                   <div class="claim__button claim__button-toggle"></div>
                 </div>
                 <div class="claim__items">
-                  <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
-                    {{findEntityByClaimValue(item)}}
+                  <div class="claim__item" *ngFor="let item of getSelectedSpecialClaims(claim)">
+                    {{getClaimTitleByValue(item)}}
                     <div
                       class="claim__button claim__button-delete"
                       (click)="onRemoveSpecialClaim(item)"
@@ -179,6 +179,7 @@
     [ngClass]="{'popup_active':isCreateClaim}"
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
+    [workerSpecialClaims]="this.groupSelection.selected[0].claims"
   ></evj-aws-create-claim>
 
   <evj-alert-window [info]="alert"></evj-alert-window>

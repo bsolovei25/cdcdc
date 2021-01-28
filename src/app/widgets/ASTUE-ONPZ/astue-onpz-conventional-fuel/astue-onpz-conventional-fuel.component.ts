@@ -120,6 +120,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                     return;
                 }
                 this.data = !!data ? this.multilineDataMapper(data) : [];
+                console.log(this.data);
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
@@ -128,7 +129,11 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     get nextHourPlan(): number {
-        return this.data?.find((x) => !!x?.nextPlanValue)?.nextPlanValue ?? null;
+        return this.data?.find((x) => x.graphType === 'plan')?.nextPlanValue ?? null;
+    }
+
+    get nextPlanValue(): number {
+        return this.data?.find((x) => x.graphType === 'factModel')?.nextPlanValue ?? null;
     }
 
     public ngOnDestroy(): void {

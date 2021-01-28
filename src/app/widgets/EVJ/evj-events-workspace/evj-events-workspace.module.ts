@@ -68,7 +68,7 @@ import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events
         EvjEventsWorkspaceSelectComponent,
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
-        EvjEventsWorkspaceExtraOptionsComponent
+        EvjEventsWorkspaceExtraOptionsComponent,
     ],
     imports: [
         CommonModule,
