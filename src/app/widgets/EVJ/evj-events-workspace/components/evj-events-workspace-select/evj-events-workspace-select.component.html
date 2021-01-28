@@ -25,7 +25,7 @@
         [compareWith]="compareFn"
       >
         <mat-option
-          *ngFor="let item of ewService.status; i as index"
+          *ngFor="let item of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent); i as index"
           [value]="item">
           {{ ewService.statuses[item.name] }}
         </mat-option>
