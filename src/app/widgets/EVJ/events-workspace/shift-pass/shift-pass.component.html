@@ -58,7 +58,7 @@
             [(ngModel)]="ewService.event.status"
             [compareWith]="compareFn"
           >
-            <mat-option *ngFor="let p of ewService.status" [value]="p"
+            <mat-option *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
             >{{ ewService.statuses[p.name] }}
             </mat-option>
           </mat-select>
