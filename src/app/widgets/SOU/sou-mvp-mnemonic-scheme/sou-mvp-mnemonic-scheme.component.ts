@@ -147,8 +147,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         }
 
         if (
-            (ref?.section?.length && ref?.section[0]?.name === 'АВТ-10-АБ') ||
-            ref?.section?.length && ref?.section[0]?.name === 'АВТ-10-ВБ'
+            (ref?.section?.[0]?.name === 'АВТ-10-АБ') ||
+            ref?.section?.[0]?.name === 'АВТ-10-ВБ'
         ) {
             this.flowInAb = ref?.section[0]?.flowIn;
             this.flowInVb = ref?.section[1]?.flowIn;
