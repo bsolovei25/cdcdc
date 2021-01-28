@@ -9,7 +9,7 @@ export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
     SortType: SortTypeEvents;
-    unitId?: number;
+    UnitId?: number;
 }
 
 export interface IEventsWidgetNotificationPreview {
