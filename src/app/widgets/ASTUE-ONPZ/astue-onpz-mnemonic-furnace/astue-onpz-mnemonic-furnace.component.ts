@@ -4,10 +4,10 @@ import {
     Component,
     ElementRef,
     HostListener,
-    Inject,
+    Inject, OnDestroy,
     OnInit,
-    ViewChild,
-} from '@angular/core';
+    ViewChild
+} from "@angular/core";
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import {
     AstueOnpzMnemonicFurnaceElementType,
@@ -55,7 +55,7 @@ interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStream
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements OnInit {
+export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('schema') public schemaContainer: ElementRef;
     private readonly defaultSchemaSize: { x: number; y: number } = {
         x: 1483,
@@ -138,6 +138,11 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                         break;
                 }
             });
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.mnemonicFurnaceService.selectedItem$.next(null);
     }
 
     @AsyncRender
