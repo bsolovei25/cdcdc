@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnDestroy, OnInit } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -64,7 +64,7 @@ type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
         ]),
     ],
 })
-export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit {
+export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
         'bar'
     );
@@ -97,12 +97,18 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     ngOnInit(): void {
         super.widgetInit();
-        this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
-            this.selectedChannelId = item;
-            if (!!item) {
-                this.changePage('chart');
-            }
-        });
+        this.subscriptions.push(
+            this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
+                this.selectedChannelId = item;
+                if (!!item) {
+                    this.changePage('chart');
+                }
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     public changePage(type: 'chart' | 'bar'): void {
@@ -134,7 +140,6 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
                 resourceName: 'Топливо',
             });
             this.conventionalFuelService.selectedOptions.subscribe((ref) => {
-                console.log(ref);
                 this.setWsOptions({
                     manufactureName: ref.manufacture,
                     unitName: ref.unit,
