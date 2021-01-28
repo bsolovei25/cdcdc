@@ -38,7 +38,6 @@ import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-works
 import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-events-workspace-responsible/evj-events-workspace-responsible-select.component';
 import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-events-place.component';
 import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events-workspace-extra-options/evj-events-workspace-extra-options.component';
-import { FormatStatusPipe } from "./components/evj-events-workspace-select/formatStatus.pipe";
 
 @NgModule({
     declarations: [
@@ -70,7 +69,6 @@ import { FormatStatusPipe } from "./components/evj-events-workspace-select/forma
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
         EvjEventsWorkspaceExtraOptionsComponent,
-        FormatStatusPipe
     ],
     imports: [
         CommonModule,
