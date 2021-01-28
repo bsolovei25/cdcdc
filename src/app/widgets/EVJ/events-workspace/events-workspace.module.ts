@@ -33,6 +33,7 @@ import { TasksEventComponent } from './tasks-event/tasks-event.component';
 import { ShiftPassComponent } from './shift-pass/shift-pass.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EventsPlaceComponent } from './components/events-place/events-place.component';
+import { FormatStatusPipe } from "../evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe";
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { EventsPlaceComponent } from './components/events-place/events-place.com
         FileAttachMenuComponent,
         TasksEventComponent,
         ShiftPassComponent,
-        EventsPlaceComponent
+        EventsPlaceComponent,
+        FormatStatusPipe
     ],
     imports: [
         CommonModule,
