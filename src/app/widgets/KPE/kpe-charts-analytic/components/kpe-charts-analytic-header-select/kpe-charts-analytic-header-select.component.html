@@ -1,0 +1,48 @@
+<div class="selects" [formGroup]="formGroup">
+  <svg-icon
+    class="arrow-circle"
+    src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+    [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+  ></svg-icon>
+
+  <div (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()" class="option-select">
+    <div class="dropdown">
+      <mat-select formControlName="manufacture" class="dropdown__select" placeholder="Производство">
+        <mat-option> Не выбрано </mat-option>
+        <mat-option [value]="1"> 1 </mat-option>
+        <mat-option [value]="2"> 2 </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <svg-icon
+    class="arrow-circle"
+    src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+    [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+  ></svg-icon>
+
+  <div (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()" class="option-select">
+    <div class="dropdown">
+      <mat-select class="dropdown__select" placeholder="Установка">
+        <mat-option> Не выбрано </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <svg-icon
+    class="arrow-circle"
+    src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+    [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+  ></svg-icon>
+
+  <div (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()" class="option-select">
+    <div class="dropdown">
+      <mat-select class="dropdown__select" placeholder="Элемент">
+        <mat-option> Не выбрано </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>

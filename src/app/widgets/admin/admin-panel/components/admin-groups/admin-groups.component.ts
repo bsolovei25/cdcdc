@@ -1,5 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IButtonImgSrc, IWorkspace, IGroup, IGlobalClaim } from '../../../../../dashboard/models/ADMIN/admin-panel';
+import {
+    IButtonImgSrc,
+    IWorkspace,
+    IGroup,
+    IGlobalClaim,
+} from '../../../../../dashboard/models/ADMIN/admin-panel';
 import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -177,30 +182,35 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
+    public getSelectedSpecialClaims(claim: IGlobalClaim): IGlobalClaim[] {
         const currentGroup = this.groupSelection.selected[0];
         return currentGroup
             ? currentGroup.claims.filter((item) => item.claimType === claim.claimType)
             : [];
     }
 
-    public findEntityByClaimValue(claim: IGlobalClaim): string {
-        let entity: IUnitEvents | IWidget;
+    public getClaimTitleByValue(claim: IGlobalClaim): string {
         switch (claim.claimValueType) {
-            case 'unit':
-                entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity ? entity.name : '';
             case 'widget':
-                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity ? entity.title : '';
+                return (
+                    this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ??
+                    ''
+                );
+            case 'unit':
+                return this.adminService.units.find((item) => item.id === +claim.value)?.name ?? '';
+            case 'notificationCategory':
+                return (
+                    this.adminService.eventsCategories.find((item) => item.name === claim.value)
+                        ?.description ?? ''
+                );
+            default:
+                return '';
         }
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {
         const currentGroup = this.groupSelection.selected[0];
-        const index: number = currentGroup.claims.findIndex(
-            (item) => item.claimType === claim.claimType
-        );
+        const index: number = currentGroup.claims.findIndex((item) => item === claim);
         currentGroup.claims.splice(index, 1);
         this.onEditGroup();
         this.isDataChanged = true;

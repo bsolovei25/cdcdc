@@ -64,12 +64,15 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
 import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
+import { CheckerComponent } from './components/checker/checker.component';
+import { FormatStatusPipe } from "../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe";
 
 @NgModule({
     declarations: [
         HeaderComponent,
         ContentComponent,
         FnPipe,
+        FormatStatusPipe,
         DateFormatPipe,
         PreLoaderComponent,
         UiElementsComponent,
@@ -108,11 +111,13 @@ import { RectButtonComponent } from '@shared/components/rect-button/rect-button.
         ApsProgressBarComponent,
         TimeDataPickerComponent,
         RectangleInputComponent,
-        RectButtonComponent
+        RectButtonComponent,
+        CheckerComponent,
     ],
     exports: [
         HeaderComponent,
         ContentComponent,
+        FormatStatusPipe,
         FnPipe,
         PreLoaderComponent,
         ButtonComponent,
@@ -147,7 +152,8 @@ import { RectButtonComponent } from '@shared/components/rect-button/rect-button.
         ApsProgressBarComponent,
         TimeDataPickerComponent,
         RectangleInputComponent,
-        RectButtonComponent
+        RectButtonComponent,
+        CheckerComponent,
     ],
     imports: [
         CommonModule,

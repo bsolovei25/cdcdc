@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IWidget } from '../../../../../../dashboard/models/widget.model';
 import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
-import { ICategory, IUnitEvents } from "../../../../../../dashboard/models/EVJ/events-widget";
+import { ICategory, IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { fillDataShape } from '@shared/functions/common-functions';
@@ -21,6 +21,10 @@ export class AwsCreateClaimComponent implements OnInit {
     >();
     @Input() workerSpecialClaims: IGlobalClaim[] = [];
 
+    // TODO new
+    public allSpecialClaims: IGlobalClaim[] = [];
+    public selectedSpecialClaims: IGlobalClaim[] = [];
+
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidget[] = [];
     public allUnits: IUnitEvents[] = [];
@@ -31,167 +35,116 @@ export class AwsCreateClaimComponent implements OnInit {
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
     search: string = '';
-    public selectCounter: boolean;
 
     constructor(private adminService: AdminPanelService) {}
 
     ngOnInit(): void {
-        this.allClaims = this.adminService.specialClaims;
-        console.log('all claims', this.allClaims);
         this.allWidgets = this.adminService.allWidgets.filter((value) => !value.isHidden);
         this.allUnits = this.adminService.units;
         this.allEventsCategories = this.adminService.eventsCategories;
-        console.log('this.allEventsCategories', this.allEventsCategories);
-        this.allClaims.forEach((value) => this.allClaimsMapper(value));
+
+        this.allSpecialClaims = this.adminService.specialClaims.filter(
+            (x) => x.claimValueType !== 'screen'
+        );
+        this.selectedSpecialClaims = [...this.workerSpecialClaims];
     }
 
-    private allClaimsMapper(value: IGlobalClaim): void {
-        switch (value.claimValueType) {
+    // Проверка "Выбрать все"
+    public checkIsAllSelected(): boolean {
+        const currentClaim = this.selectClaim.selected[0];
+        const checkerFunction = (list) => {
+            for (const x of list) {
+                if (!this.checkClaim(currentClaim, x)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        switch (currentClaim.claimValueType) {
             case 'widget':
-                const copyWidgets: IWidget[] = this.allWidgets.map((v) => fillDataShape(v));
-                this.workerSpecialClaims.forEach((workerClaim) => {
-                    if (
-                        workerClaim.claimType === value.claimType &&
-                        workerClaim.claimValueType === 'widget'
-                    ) {
-                        copyWidgets.forEach((valueW) => {
-                            workerClaim.widgets.forEach((widget) => {
-                                if (valueW?.id === widget?.id) {
-                                    valueW.isActive = true;
-                                }
-                            });
-                        });
-                    }
-                });
-                value.widgets = copyWidgets;
+                return checkerFunction(this.allWidgets);
+            case 'unit':
+                return checkerFunction(this.allUnits);
+            case 'notificationCategory':
+                return checkerFunction(this.allEventsCategories);
+        }
+        return false;
+    }
+
+    // Выбрать все
+    public onClickListButton(): void {
+        const isAllSelected = this.checkIsAllSelected();
+        const currentClaim = this.selectClaim.selected[0];
+        const selectFunction = (list, isUnselect) => {
+            list.forEach((x) => {
+                this.chooseClaim(currentClaim, x, isUnselect);
+            });
+        };
+        switch (currentClaim.claimValueType) {
+            case 'widget':
+                selectFunction(this.allWidgets, isAllSelected);
                 break;
             case 'unit':
-                const copyUnits: IUnitEvents[] = this.allUnits.map((v) => fillDataShape(v));
-                this.workerSpecialClaims.forEach((workerClaim) => {
-                    if (
-                        workerClaim.claimType === value.claimType &&
-                        workerClaim.claimValueType === 'unit'
-                    ) {
-                        copyUnits.forEach((valueW) => {
-                            workerClaim.units.forEach((unit) => {
-                                valueW.isActive = valueW.id === unit.id;
-                            });
-                        });
-                    }
-                });
-                value.units = copyUnits;
+                selectFunction(this.allUnits, isAllSelected);
                 break;
             case 'notificationCategory':
-                const copyCategories: ICategory[] = this.allEventsCategories.map((v) => fillDataShape(v));
-                this.workerSpecialClaims.forEach((workerClaim) => {
-                    if (
-                        workerClaim.claimType === value.claimType &&
-                        workerClaim.claimValueType === 'notificationCategory'
-                    ) {
-                        copyCategories.forEach((valueW) => {
-                            workerClaim.notificationCategory?.forEach((c) => {
-                                valueW.isActive = valueW.id === c.id;
-                            });
-                        });
-                    }
-                });
-                value.notificationCategory = copyCategories;
+                selectFunction(this.allEventsCategories, isAllSelected);
                 break;
         }
     }
 
-    public changeActiveWidget(widget: IWidget): void {
-        widget.isActive = !widget.isActive;
-    }
-
-    // Клик на Виджет
-    public changeActiveUnit(unit: IUnitEvents): void {
-        unit.isActive = !unit.isActive;
-    }
-
-    // Клик на Юнит
-    public claimsFilter(claim: IGlobalClaim): boolean {
-        return !(claim.claimValueType === 'screen');
-    }
-
-    // start Выбрать все
-    public checkIsAllSelected(): boolean {
-        this.selectClaim.selected[0].widgets?.forEach((v) => {
-            if (v.isActive) {
-                this.selectCounter = true;
-            }
-        });
-        this.selectClaim.selected[0].units?.forEach((v) => {
-            if (v.isActive) {
-                this.selectCounter = true;
-            }
-        });
-        return this.selectCounter;
-    }
-
-    public onClickListButton(): void {
-        const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        if (
-            selectedClaim.widgets?.find((v) => v.isActive) ||
-            selectedClaim.units?.find((v) => v.isActive)
-        ) {
-            selectedClaim?.widgets?.forEach((value) => {
-                value.isActive = false;
-            });
-            selectedClaim?.units?.forEach((value) => {
-                value.isActive = false;
-            });
-            this.selectCounter = false;
-        } else {
-            selectedClaim?.widgets?.forEach((value) => {
-                value.isActive = true;
-            });
-            selectedClaim?.units?.forEach((value) => {
-                value.isActive = true;
-            });
-            this.selectCounter = true;
+    public chooseClaim(claim: IGlobalClaim, ref, isUnselect: boolean = true): void {
+        let value = null;
+        switch (claim.claimValueType) {
+            case 'unit':
+                value = ref.id.toString();
+                break;
+            case 'widget':
+                value = ref.id;
+                break;
+            case 'notificationCategory':
+                value = ref.name;
+                break;
+            default:
+                return;
+        }
+        const chooseClaimIdx = this.selectedSpecialClaims.findIndex(
+            (x) => x.value === value && x.claimType === claim.claimType
+        );
+        if (chooseClaimIdx !== -1 && isUnselect) {
+            this.selectedSpecialClaims.splice(chooseClaimIdx, 1);
+        } else if (chooseClaimIdx === -1) {
+            this.selectedSpecialClaims.push({ ...claim, value });
         }
     }
 
-    // end Выбрать все
+    public checkClaim(claim: IGlobalClaim, ref): boolean {
+        let value = null;
+        switch (claim.claimValueType) {
+            case 'unit':
+                value = ref.id.toString();
+                break;
+            case 'widget':
+                value = ref.id;
+                break;
+            case 'notificationCategory':
+                value = ref.name;
+                break;
+            default:
+                return false;
+        }
+        return !!this.selectedSpecialClaims.find(
+            (x) => x.value === value && x.claimType === claim.claimType
+        );
+    }
 
+    // Отменить
     public onBack(): void {
         this.createdClaim.emit();
     }
 
     // Сохранить
     public onSave(): void {
-        const claims: IGlobalClaim[] = [];
-        this.allClaims.forEach((value) => {
-            if (value?.widgets?.filter((v) => v.isActive).length) {
-                claims.push(value);
-            }
-            if (value?.units?.filter((v) => v.isActive).length) {
-                claims.push(value);
-            }
-            if (value?.notificationCategory?.filter((v) => v.isActive).length) {
-                claims.push(value);
-            }
-        });
-        claims.forEach((v) => {
-            if (v.claimValueType === 'widget') {
-                v.widgets?.forEach((w) => {
-                    if (w.isActive !== true) {
-                        w.title = '';
-                    }
-                });
-            }
-            if (v.claimValueType === 'unit') {
-                v.units?.forEach((u) => {
-                    if (u.isActive !== true) {
-                        u.name = '';
-                    }
-                });
-            }
-            if (v.claimValueType === 'notificationCategory') {
-                v.notificationCategory = v.notificationCategory?.filter((u) => u.isActive);
-            }
-        });
-        this.createdClaim.emit(claims);
+        this.createdClaim.emit(this.selectedSpecialClaims);
     }
 }

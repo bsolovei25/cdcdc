@@ -5,6 +5,7 @@ export interface IAstueOnpzConventionalFuelTransfer {
     predictors: any[];
     plan: any;
     fact: any;
+    factModel: any;
     units: string;
 }
 

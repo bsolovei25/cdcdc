@@ -359,6 +359,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 .pipe(debounceTime(1000), distinctUntilChanged())
                 .subscribe(this.getStats.bind(this))
         );
+        this.ewService.attributes$.next(this.attributes);
     }
 
     protected dataHandler(ref: {
