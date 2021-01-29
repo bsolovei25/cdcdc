@@ -177,7 +177,6 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
 
         const g = svg.append('g').attr('class', 'text');
 
-        addText(`${this.plan}`, 'text text__plan', 15);
         addText(`${this.fact}`, 'text text__value', this.displayType ? 3 : -2);
         if (!this.displayType) {
             g.append('line')
