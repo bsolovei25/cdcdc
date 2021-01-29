@@ -58,7 +58,8 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
         this.users = this.ewService.users.filter(
             (user) =>
                 user.firstName.toLowerCase().indexOf(value) > -1 ||
-                user.lastName.toLowerCase().indexOf(value) > -1
+                user.lastName.toLowerCase().indexOf(value) > -1 ||
+                user.positionDescription?.toLowerCase().indexOf(value) > -1
         );
     }
 }
