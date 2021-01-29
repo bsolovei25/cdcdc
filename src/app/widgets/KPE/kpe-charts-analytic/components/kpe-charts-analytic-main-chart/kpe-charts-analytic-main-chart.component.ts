@@ -452,60 +452,61 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                 fact = this.addPoints(fact, border);
 
                 fact.forEach((item, i) => {
-                    if (i > 0) {
-                        // Уравнение участка нижней границы
-                        const k1 =
-                            (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
-                        const b1 = -k1 * +border[i - 1].x + +border[i - 1].y;
-                        // Уравнение участка фактической кривой
-                        const k2 = (item.y - fact[i - 1].y) / (+item.x - +fact[i - 1].x);
-                        const b2 = -k2 * +fact[i - 1].x + fact[i - 1].y;
-                        // Точка пересечения границы с кривой факта
-                        const x = (b2 - b1) / (k1 - k2);
-                        if (!!x && x <= +item.x && x >= +fact[i - 1].x) {
-                            if (coeff * k1 >= k2 * coeff) {
-                                colorizeCoordinates.push(
-                                    {
-                                        x: border[i - 1].x,
-                                        y: border[i - 1].y,
-                                    },
-                                    {
-                                        x: new Date(x),
-                                        y: k1 * x + b1,
-                                    }
-                                );
-                            } else {
-                                this.drawBorder(colorizeCoordinates, className);
-                                this.drawCurve(colorizeCoordinates, className);
-                                colorizeCoordinates = [];
-
-                                colorizeCoordinates.push(
-                                    {
-                                        x: new Date(x),
-                                        y: k1 * x + b1,
-                                    },
-                                    {
-                                        x: border[i].x,
-                                        y: border[i].y,
-                                    }
-                                );
-                            }
-                        } else if (coeff * item.y >= border[i].y * coeff) {
+                    if (i <= 0) {
+                        return;
+                    }
+                    // Уравнение участка нижней границы
+                    const k1 =
+                        (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
+                    const b1 = -k1 * +border[i - 1].x + +border[i - 1].y;
+                    // Уравнение участка фактической кривой
+                    const k2 = (item.y - fact[i - 1].y) / (+item.x - +fact[i - 1].x);
+                    const b2 = -k2 * +fact[i - 1].x + fact[i - 1].y;
+                    // Точка пересечения границы с кривой факта
+                    const x = (b2 - b1) / (k1 - k2);
+                    if (!!x && x <= +item.x && x >= +fact[i - 1].x) {
+                        if (coeff * k1 >= k2 * coeff) {
                             colorizeCoordinates.push(
                                 {
                                     x: border[i - 1].x,
                                     y: border[i - 1].y,
                                 },
                                 {
-                                    x: border[i].x,
-                                    y: border[i].y,
+                                    x: new Date(x),
+                                    y: k1 * x + b1,
                                 }
                             );
                         } else {
                             this.drawBorder(colorizeCoordinates, className);
                             this.drawCurve(colorizeCoordinates, className);
                             colorizeCoordinates = [];
+
+                            colorizeCoordinates.push(
+                                {
+                                    x: new Date(x),
+                                    y: k1 * x + b1,
+                                },
+                                {
+                                    x: border[i].x,
+                                    y: border[i].y,
+                                }
+                            );
                         }
+                    } else if (coeff * item.y >= border[i].y * coeff) {
+                        colorizeCoordinates.push(
+                            {
+                                x: border[i - 1].x,
+                                y: border[i - 1].y,
+                            },
+                            {
+                                x: border[i].x,
+                                y: border[i].y,
+                            }
+                        );
+                    } else {
+                        this.drawBorder(colorizeCoordinates, className);
+                        this.drawCurve(colorizeCoordinates, className);
+                        colorizeCoordinates = [];
                     }
                 });
 
