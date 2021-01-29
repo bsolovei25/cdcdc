@@ -1,0 +1,33 @@
+# [1.1.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.0...v1.1.0) (2021-01-29)
+
+
+### Bug Fixes
+
+* init ([08f84c7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/08f84c71112c8368deaa5286bc92d5de258ed72a))
+* stage to release ([a5574bd](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a5574bdeabb611b7d39de93c974fe51ee0f97049))
+* **alerting:** switch on alerting in angular pipelines ([b845af6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b845af6ae4b08a2a3d320f6c6655b328b1ebaee6))
+* **ci:** imrpoved exports ([5eaab11](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5eaab11eb4249d0fdaae280ab7fd9f59f3e234e6))
+* **ci:** refreshed ([74892c8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/74892c8ddb1bf34b943b0789610bd8cd6acff57c))
+* **small-impov:** pipelines ([87f2824](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/87f2824fddfdb7bc30b90633d5b867675fb315b5))
+* **small-impov:** pipelines ([67431f1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/67431f18bdc80d9d741a82ba97908d6d37809d23))
+* **small-impov:** pipelines ([1ef9090](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1ef9090b0d03d413902a9f8fdd1509d654b0fe01))
+* **small-impov:** pipelines ([a2acedf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a2acedf01e714f566ad0cf39221d508aa05c5275))
+* **small-impov:** pipelines ([f6bfa88](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f6bfa880175dcccd8db35067d53d511af7493222))
+* **small-impov:** pipelines ([239420f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/239420f0b40c89d185c13600cd2f1da5dd58ee75))
+* **tag:** new logic ([03a9288](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03a92884a0ee947b866dd6a72f40b591b1d36270))
+* **zyfra:** pipelines ([67a5a39](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/67a5a3926f8d275a2501b862124175c1865d4ebb))
+* **zyfra:** pipelines ([4274a57](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4274a57c3e6769f39c07c8fc0cac8781174ace0b))
+* **zyfra:** pipelines ([0d56831](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0d568319dce764c1573d2b8f6300c90c7a2a8674))
+* **zyfra:** pipelines ([9cee214](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9cee214e4c93e629d85350d3011745ae96d41af3))
+* **zyfra:** pipelines ([1ff1947](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1ff1947b0ca414c43934f815988665709a88a7e0))
+
+
+### Features
+
+* **ci:** reworking ([14b12c3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/14b12c36a807ebecc368f7adf2c777720ac21e51))
+* **ci:** reworking ([3b36431](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3b364314f5814020af97064b71a0c9ccf516b751))
+
+
+### Reverts
+
+* Revert "fix astue" ([1d61c94](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1d61c949663dc1be058ec513d74d306a7abbcc56))
