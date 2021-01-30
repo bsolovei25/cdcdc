@@ -1,3 +1,13 @@
+## [1.1.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.1.0...v1.1.1) (2021-01-30)
+
+
+### Bug Fixes
+
+* **semver:** reworking envs; switch to prefixed ([a7c3e3a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a7c3e3a436f6934d319fda6a3c87a33f30706a0d))
+* **semver:** reworking envs; switch to prefixed ([ec72d24](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ec72d24a45be17ea6c9d7ce3be6646ea2e7a1cf7))
+* **semver:** reworking envs; switch to prefixed ([117f4af](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/117f4afccb4d268020e9b9c973a205ea8967967c))
+* **semver:** reworking envs; switch to prefixed ([4f9fcce](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4f9fccec5e181386e4db1bed11d182eaa65f47e2))
+
 # [1.1.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.0...v1.1.0) (2021-01-29)
 
 
