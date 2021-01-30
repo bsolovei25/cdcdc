@@ -20,6 +20,7 @@ plugins:
 branches:
   - "master"
   - "develop"
-  - "devops"
+  - name: "devops"
+    prerelease: true
   - name: "alpha"
     prerelease: true
