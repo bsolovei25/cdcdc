@@ -194,7 +194,7 @@ semantic-release:
   needs: []
   variables:
     SKIP_BUILD: "true"
-    IS_EXPORTING: "false"
+    SR_IS_EXPORTING: "false"
     # DOCKERHUB_URL: "nexus.funcoff.club"
     # DOCKER_REPO: "asplatform"
   trigger:
