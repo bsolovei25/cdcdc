@@ -1,25 +1,20 @@
-import { AfterViewChecked, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    QueryList,
+    ViewChildren,
+} from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
     ISOUFlowIn,
     ISOUFlowOut,
     ISOUObjects,
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
-
-interface IDataSou {
-    id: number;
-    deviation?: boolean;
-    text: string;
-    value?: number;
-    active: boolean;
-    percent?: number;
-}
-
-interface IDataMetaFile {
-    elementId: number;
-    id: number;
-    related: number[];
-}
 
 interface IElementFull {
     metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects;
@@ -38,76 +33,64 @@ interface IElementFullAndUI {
     elementFull: IElementFull;
 }
 
+type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
+
 @Component({
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     fullElement: Map<number, IElementFullAndUI> = new Map();
-    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
+    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Данные с бэка
     localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+
+    srcNameElement: string = 'ng-reflect-src';
 
     @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
     @Input() chosenSetting: number = 1;
     @Input() chosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+
+    @ViewChildren('svg_sou') svg: QueryList<ElementRef>;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
+        console.log(this.sectionsDataPark);
         if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+            // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.localChosenInstall = this.chosenInstall;
             this.flag = true;
-            this.dataPark = [];
-            this.elementsNode = [];
-            this.dataAttribute.clear();
-            this.fullElement.clear();
-
-            setTimeout((value) => {
-                this.loadSchema();
-                if (this.dataPark.length) {
-                    this.loadData(false);
-                }
-            }, 1000);
+            this.resetComponent();
         }
+
         if (this.dataPark?.length) {
-            const newArray = [];
-            this.sectionsDataPark?.forEach((value) => {
-                const element = this.dataPark.find((park) => value?.code === park?.code);
-                if (element) {
-                    element.isExceedingConfInterval = value?.isExceedingConfInterval;
-                    element.isEnable = value?.isEnable;
-                    element.related = value?.related;
-                    if ('productName' in value && 'productName' in element) {
-                        element.productName = value?.productName;
-                        element.valueTank = value?.valueTank;
-                        element.valueMoment = value?.valueMoment;
-                        element.valueByHour = value?.valueByHour;
-                    }
-                    if ('name' in value && 'name' in element) {
-                        element.name = value?.name;
-                    }
-                } else {
-                    newArray.push(value);
-                }
-            });
-            this.dataPark.push(...newArray);
+            // Если есть старые данные с бэка
+            // 1. Изменяем и дополняем
+            this.dataPark.push(...this.setNewDataToSchema());
+            // 2. Отрисовываем
             this.loadData(true);
-        } else {
-            if (this.dataAttribute?.size) {
-                this.dataPark = this.sectionsDataPark;
-                this.loadData(false);
-            }
+        } else if (this.dataAttribute?.size) {
+            // Если данных с бэка нет, то заполняем
+            this.dataPark = this.sectionsDataPark;
+            // this.loadData(false);
         }
     }
 
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1`) && this.flag) {
+        const element: Element = document.getElementById('svg_elements')?.firstElementChild;
+        const src = element?.getAttribute(this.srcNameElement);
+        if (
+            document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) &&
+            src?.includes(this.getSvgName(this.localChosenInstall)) &&
+            this.flag
+        ) {
             this.flag = false;
             this.loadSchema();
             if (this.dataPark.length) {
@@ -116,8 +99,39 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    loadData(reload: boolean): void {
-        // tests
+    setNewDataToSchema(): (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] {
+        // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
+        const newArray = [];
+        this.sectionsDataPark?.forEach((value) => {
+            const element = this.dataPark.find((park) => value?.code === park?.code);
+            if (element) {
+                element.isExceedingConfInterval = value?.isExceedingConfInterval;
+                element.isEnable = value?.isEnable;
+                element.related = value?.related;
+                if ('productName' in value && 'productName' in element) {
+                    element.productName = value?.productName;
+                    element.valueTank = value?.valueTank;
+                    element.valueMoment = value?.valueMoment;
+                    element.valueByHour = value?.valueByHour;
+                }
+                if ('name' in value && 'name' in element) {
+                    element.name = value?.name;
+                }
+            } else {
+                newArray.push(value);
+            }
+        });
+        return newArray;
+    }
+
+    resetComponent(): void {
+        this.dataPark = [];
+        this.elementsNode = [];
+        this.dataAttribute.clear();
+        this.fullElement.clear();
+    }
+
+    testsToLogPanel(): void {
         const countZeroId = this.dataPark?.filter((value) => value?.code === 0)?.length;
         const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
         let countRepeat: number = 0;
@@ -138,28 +152,56 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         console.log(`Данных (code = 0) - ${countZeroId}`);
         console.log(`Данных (isActive = true) - ${countIsActive}`);
         console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
-        // end tests
+    }
 
+    loadData(reload: boolean): void {
+        // tests
+        // this.testsToLogPanel();
+        //
         this.dataPark?.forEach((data) => {
-            data.related =
-                typeof data?.related === 'string'
-                    ? data?.related
-                          .split(';')
-                          .map((value) => +value)
-                          .filter((value) => !isNaN(value))
-                    : data?.related;
-            const element = reload
-                ? this.fullElement.get(data.code)?.element
-                : this.dataAttribute.get(data?.code);
-            if (element) {
-                const mode = data?.isExceedingConfInterval
-                    ? 'deviation'
-                    : data?.isEnable
-                    ? 'standard'
-                    : 'disabled';
-                this.elementEdit(reload, mode, element, data, data.code);
+            data.related = this.relatedArray(data?.related);
+            if (reload) {
+                this.reloadOldData(data);
+            } else {
+                this.loadNewData(data);
             }
         });
+    }
+
+    reloadOldData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+        const element = this.fullElement.get(data.code)?.element;
+        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        // this.elementEdit(true, mode, element, data);
+        if (element?.children) {
+            this.addClassAndTextToElement(
+                element,
+                this.fullElement?.get(data?.code)?.elementFull,
+                mode,
+                '',
+                0,
+                0
+            );
+        }
+    }
+
+    loadNewData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+        const element = this.dataAttribute.get(data?.code);
+        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        this.elementEdit(false, mode, element, data);
+    }
+
+    modeToElement(isExceedingConfInterval: boolean, isEnable: boolean): TypeMode {
+        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    }
+
+    relatedArray(related: number[] | string): number[] {
+        // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
+        return typeof related === 'string'
+            ? related
+                  .split(';')
+                  .map((value) => +value)
+                  .filter((value) => !isNaN(value))
+            : related;
     }
 
     loadSchema(): void {
@@ -176,52 +218,40 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     elementEdit(
         reload: boolean,
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
+        mode: TypeMode,
         element: Element,
         metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects,
-        idBack?: number,
         percent: number = 0,
         value: number = 0,
         text: string = ''
     ): void {
         if (element?.children) {
-            if (reload) {
-                this.addClassAndTextToElement(
+            let elementFull: IElementFull = {
+                metaFile,
+                rects: [],
+                points: [],
+                arrows: [],
+                texts: [],
+                circle: null,
+                textValue: null,
+                textPercent: null,
+                flag: true,
+            };
+            const elements = Array.from(element?.children);
+            // Search
+            elements?.forEach((elem) => {
+                elementFull = this.searchElementsInElement(elem, elementFull);
+            });
+            // add class and text to element
+            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+            // Event
+            if (metaFile) {
+                this.eventClick(element, elementFull);
+                const elementFullAndUI: IElementFullAndUI = {
                     element,
-                    this.fullElement?.get(metaFile?.code)?.elementFull,
-                    mode,
-                    text,
-                    percent,
-                    value
-                );
-            } else {
-                let elementFull: IElementFull = {
-                    metaFile,
-                    rects: [],
-                    points: [],
-                    arrows: [],
-                    texts: [],
-                    circle: null,
-                    textValue: null,
-                    textPercent: null,
-                    flag: true,
+                    elementFull,
                 };
-                const elements = Array.from(element?.children);
-                // Search
-                elements?.forEach((elem) => {
-                    elementFull = this.searchElementsInElement(elem, elementFull);
-                });
-                // add class and text to element
-                this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
-                // Event
-                if (metaFile) {
-                    this.eventClick(element, elementFull);
-                    const elementFullAndUI: IElementFullAndUI = {
-                        element,
-                        elementFull,
-                    };
-                    this.fullElement.set(metaFile?.code, elementFullAndUI);
-                }
+                this.fullElement.set(metaFile?.code, elementFullAndUI);
             }
         }
     }
@@ -229,7 +259,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
+        mode: TypeMode,
         text: string,
         percent: number,
         value: number
@@ -315,6 +345,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             );
             elementFull?.textValue?.classList.add(`${mode}-text`);
         }
+
         // related elements
         if (typeof elementFull?.metaFile?.related === 'object') {
             elementFull?.metaFile?.related.forEach((id) => {
@@ -569,9 +600,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElements(elementIndex: number): Element[] {
         let i = 1; // счетчик элементов
-
         const localElements: Element[] = [];
-
         while (i < 300) {
             // поиск по id  - id=element-1_2
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
@@ -585,17 +614,18 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             }
             i++;
         }
+
         return localElements;
     }
 
     getSvgName(chosenInstall: string): string {
         switch (chosenInstall) {
             case 'АССБ Авиасмеси':
-                return chosenInstall;
+                return 'АССБ-Авиасмеси';
             case 'АССБ А-95':
-                return chosenInstall;
+                return 'АССБ-А-95';
             case 'АССБ А-98':
-                return chosenInstall;
+                return 'АССБ-А-98';
             case 'Насосная т.1163-1164 парк БГС':
                 return 'Насосная-парк-БГС';
             case 'Насосная т.1163-1164 парк А-95':
