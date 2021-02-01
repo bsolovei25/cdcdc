@@ -219,6 +219,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             };
         }
         this.setWsOptions(a);
+        this.mvpService.selectedOptions$.next({
+            manufacture: a.manufacture,
+            unit: a.name,
+        });
     }
 
     stateController(): { save; load } {
@@ -246,9 +250,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.selectedManufacture = res.manufacture;
     }
 
-    findSection(
-        selected: number
-    ): ISouSectionUI[] {
+    findSection(selected: number): ISouSectionUI[] {
         let array: ISouSectionUI[];
         this.sections.forEach((value) => {
             value.find((el) => {

@@ -42,7 +42,7 @@
               [compareWith]="compareFn"
               [disabled]="true"
             >
-              <mat-option *ngFor="let p of ewService.status" [value]="p"
+              <mat-option *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
                 >{{ ewService.statuses[p.name] }}
               </mat-option>
             </mat-select>
@@ -51,9 +51,9 @@
       </div>
       <div class="row__cell cell cell_right">
         <evj-events-workspace-button
-          [disabled]="isDisabledCloseButton()"
+          [disabled]="true"
           status="close"
-          (click)="openClosePopup()"
+          (click)="openClosePopup(true)"
         ></evj-events-workspace-button>
       </div>
     </div>

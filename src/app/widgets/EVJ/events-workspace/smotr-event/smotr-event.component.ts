@@ -62,11 +62,13 @@ export class SmotrEventComponent implements OnInit {
         }
         this.ewService.event.directReasons = reason.name;
     }
-    public openClosePopup(): void {
+    public openClosePopup(disabled: boolean): void {
         if (this.isDisabledCloseButton()) {
             return;
         }
-        this.isClosePopupOpen = true;
+        if (!disabled) {
+            this.isClosePopupOpen = true;
+        }
     }
 
     public onClickUrl(): void {

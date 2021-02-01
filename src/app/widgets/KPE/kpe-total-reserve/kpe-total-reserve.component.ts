@@ -41,14 +41,12 @@ export class KpeTotalReserveComponent extends WidgetPlatform<unknown> implements
     super.widgetInit();
   }
 
-  public changeSettinge(i: number) {
+  public changeSettings(i: number): void {
     this.choosenItem = i;
   }
 
-  protected dataHandler(ref: any): void {
+  protected dataHandler(ref: { productGroup: ITotalReserve[] }): void {
     this.data = ref.productGroup;
-    this.data[0].title = 'Общий запас по качеству от PIMS'
-    this.data[1].title = 'Общий запас по качеству ГОСТ'
   }
 
 }

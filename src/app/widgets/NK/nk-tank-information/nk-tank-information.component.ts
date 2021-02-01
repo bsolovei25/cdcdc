@@ -4,12 +4,16 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Inject, Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+interface INkTankInformationAttributes {
+    IsVideoWall: boolean;
+}
+
 @Component({
     selector: 'evj-nk-tank-information',
     templateUrl: './nk-tank-information.component.html',
     styleUrls: ['./nk-tank-information.component.scss']
 })
-export class NkTankInformationComponent extends WidgetPlatform<unknown> implements
+export class NkTankInformationComponent extends WidgetPlatform<INkTankInformationAttributes> implements
     OnInit, OnDestroy, OnChanges {
 
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
@@ -62,7 +66,7 @@ export class NkTankInformationComponent extends WidgetPlatform<unknown> implemen
         super.dataConnect();
         const interval = 10000;
 
-        if (this.widgetIsVideoWall) {
+        if (this.attributes.IsVideoWall) {
             this.timer = setInterval(() => {
                 this.selectedFilter = this.filterList[(this.count % this.filterList.length)]
                     ?? 'Все резервуары';
