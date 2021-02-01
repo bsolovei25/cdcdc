@@ -40,7 +40,7 @@
             <mat-form-field appearance="none">
               <mat-select
                 panelClass="mat-select-custom"
-                [(ngModel)]="ewService.event.category"
+                [(ngModel)]="ewService.event?.category"
                 [compareWith]="compareFn"
                 (selectionChange)="ewService.changeCategory()"
                 [disabled]="!ewService.isCategoryEdit"
