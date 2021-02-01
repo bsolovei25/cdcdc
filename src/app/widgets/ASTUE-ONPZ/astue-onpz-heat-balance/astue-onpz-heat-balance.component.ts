@@ -22,7 +22,7 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         IAstueOnpzHeatBalanceItem[]
     >([]);
     columnsToDisplay: IColumnsToDisplay[] = [
-        { name: 'Показатели, Дж', id: 0, date: new Date() },
+        { name: 'Показатели, Ккал', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
         { name: 'Относительная величина', id: 2, date: new Date('2020-02-02T03:24:00') },
     ];
@@ -32,6 +32,7 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     selectedType$: BehaviorSubject<AstueHeatBalanceDataType> = new BehaviorSubject<
         AstueHeatBalanceDataType
     >('oven');
+    selectedItem$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
@@ -82,13 +83,15 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
 
     onClickRow(event: MouseEvent, element?: IAstueOnpzHeatBalanceItem): void {
         event.stopPropagation();
-        this.mnemonicFurnaceService.selectItem(element.id);
+        if (this.selectedItem$.getValue() === element.name) {
+            this.selectedItem$.next(null);
+        } else {
+            this.selectedItem$.next(element.name);
+        }
     }
 
     public selectedProduct$(element: IAstueOnpzHeatBalanceItem): Observable<boolean> {
-        return this.mnemonicFurnaceService.selectedItem$
-            .asObservable()
-            .pipe(map((x) => x === element?.id));
+        return this.selectedItem$.asObservable().pipe(map((x) => x === element?.name));
     }
 
     public dataFilter(type: AstueHeatBalanceDataType): Observable<IAstueOnpzHeatBalanceItem[]> {
