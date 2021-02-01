@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <svg-icon 
+        <svg-icon
             src = 'assets/icons/widgets/events/letter.svg'
             class = 'title__icon'
         ></svg-icon>
@@ -17,7 +17,7 @@
                 *ngFor="let card of data"
                 [cardData] = "card"
                 [icon2] = "'smotr'"
-                (click) = "openWorkspace(card.id)"
+                (click) = "eventClick(card.id)"
             ></evj-user-events-item>
         </div>
     </div>
