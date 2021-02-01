@@ -9,8 +9,10 @@ import {
     IAsusTmPlace,
     IAsusTpPlace,
     IAsusWorkgroup,
-    ICategory, IEventsWidgetAttributes,
-    IEventsWidgetNotification, IExtraOptionsWindow,
+    ICategory,
+    IEventsWidgetAttributes,
+    IEventsWidgetNotification,
+    IExtraOptionsWindow,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -19,7 +21,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser
+    IUser,
 } from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../../snack-bar.service';
@@ -61,7 +63,9 @@ export class EventsWorkspaceService {
     public isOverlayChartOpen: boolean = false;
     //#endregion
 
-    public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<IEventsWidgetAttributes>(null);
+    public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<
+        IEventsWidgetAttributes
+    >(null);
 
     //#region REFERENCES
     public priority: IPriority[] = [];
@@ -152,7 +156,7 @@ export class EventsWorkspaceService {
     >(null);
     public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<
         IExtraOptionsWindow
-        >(null);
+    >(null);
 
     get isCategoryEdit(): boolean {
         return (
@@ -503,7 +507,7 @@ export class EventsWorkspaceService {
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unit: this.units.find((u) => u.id === this.attributes$.getValue().UnitId) ?? null,
+            unit: this.units.find((u) => u.id === this.attributes$?.getValue()?.UnitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],

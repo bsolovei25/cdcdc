@@ -174,7 +174,14 @@
           </div>
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
-            <div class="value">{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</div>
+            <div class="value">
+              <div class="block">
+                <span>{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event.productionTasks?.createdBy?.positionDescription">
+                <span class="block__position">{{ewService.event.productionTasks?.createdBy?.positionDescription}}</span>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -188,7 +195,14 @@
 
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
-            <div class="value">{{ewService.event.productionTasks?.acceptedBy?.displayName || '-'}}</div>
+            <div class="value">
+              <div class="block">
+                <span>{{ewService.event.productionTasks?.acceptedBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event.productionTasks?.acceptedBy?.positionDescription">
+                  <span class="block__position">{{ewService.event.productionTasks?.acceptedBy?.positionDescription}}</span>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -201,7 +215,14 @@
           </div>
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
-            <div class="value">{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</div>
+            <div class="value">
+              <div class="block">
+                <span>{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event.productionTasks?.closedBy?.positionDescription">
+                  <span class="block__position">{{ewService.event.productionTasks?.closedBy?.positionDescription}}</span>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
       </div>

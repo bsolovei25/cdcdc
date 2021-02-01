@@ -13,7 +13,10 @@
   <div class="container"
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()">
-    <div class="area area__chart"></div>
+    <div class="area area__chart">
+      <evj-kpe-charts-analytic-main-chart>
+      </evj-kpe-charts-analytic-main-chart>
+    </div>
 
     <div class="area area__stats">
       <div class="selects" [formGroup]="entryStates">
