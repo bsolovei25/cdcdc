@@ -356,7 +356,7 @@ export class UserSettingsService {
         this.widgetsOnScreen.clear();
     }
 
-    private async getScreenByWidgetType(widgetType: string): Promise<number> {
+    public async getScreenByWidgetType(widgetType: string): Promise<number> {
         const screen = await this.http
             .get<IScreenSettings>(
                 `${this.restUrl}` + `/api/user-management/screens/widget/${widgetType}`
