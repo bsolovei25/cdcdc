@@ -9,8 +9,10 @@ import {
     IAsusTmPlace,
     IAsusTpPlace,
     IAsusWorkgroup,
-    ICategory, IEventsWidgetAttributes,
-    IEventsWidgetNotification, IExtraOptionsWindow,
+    ICategory,
+    IEventsWidgetAttributes,
+    IEventsWidgetNotification,
+    IExtraOptionsWindow,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -19,7 +21,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser
+    IUser,
 } from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../../snack-bar.service';
@@ -61,7 +63,9 @@ export class EventsWorkspaceService {
     public isOverlayChartOpen: boolean = false;
     //#endregion
 
-    public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<IEventsWidgetAttributes>(null);
+    public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<
+        IEventsWidgetAttributes
+    >(null);
 
     //#region REFERENCES
     public priority: IPriority[] = [];
@@ -152,7 +156,7 @@ export class EventsWorkspaceService {
     >(null);
     public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<
         IExtraOptionsWindow
-        >(null);
+    >(null);
 
     get isCategoryEdit(): boolean {
         return (
@@ -182,12 +186,12 @@ export class EventsWorkspaceService {
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
         try {
+            await this.loadReferences();
             this.setDefaultEvent();
             if (id) {
                 await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
-            this.loadReferences();
         } catch (err) {
             console.error(err);
         } finally {
@@ -196,8 +200,8 @@ export class EventsWorkspaceService {
     }
 
     private async getEvent(id: number): Promise<void> {
-        this.event = await this.eventService.getEvent(id);
-        this.event = { ...this.defaultEvent, ...this.event };
+        const event = await this.eventService.getEvent(id);
+        this.event = {...this.defaultEvent, ...event};
         this.event.comments = await this.processAttachments(this.event.comments);
         this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
@@ -492,18 +496,17 @@ export class EventsWorkspaceService {
             responsibleOperator: null,
             retrievalEvents: [],
             severity: 'Critical',
-            status: this.status
-                ? this.status[0]
-                : {
-                      id: 0,
-                      name: null,
-                      code: null,
-                  },
+            status: this.status ? this.status[0] : {
+                id: 0,
+                name: null,
+                code: null,
+                description: null,
+            },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unit: this.units.find((u) => u.id === this.attributes$.getValue().UnitId) ?? null,
+            unit: this.units.find((u) => u.id === this.attributes$?.getValue()?.UnitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],

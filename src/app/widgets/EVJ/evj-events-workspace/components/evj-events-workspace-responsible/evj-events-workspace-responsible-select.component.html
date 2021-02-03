@@ -39,7 +39,7 @@
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let p of users">
           <mat-option [value]="p" (click)="chooseRespons(p)">
-            {{ p.lastName }} {{ p.firstName }}
+            {{ p.lastName }} {{ p.firstName }} <span class="position">{{ p.positionDescription }}</span>
           </mat-option>
         </ng-container>
       </mat-select>
