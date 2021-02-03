@@ -7,8 +7,8 @@
 <line id="line_bottom" x1="497" y1="285.5" x2="587" y2="285.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top" x1="497" y1="56.5" x2="587" y2="56.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume" x="501" y="120" width="82" height="1" fill="#0089FF"/>
-<text id="text" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="525.445" y="94.8516">P-91</tspan></text>
-<text id="text_value" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="525.081" y="252.058">331 &#x442;</tspan></text>
+<text id="text" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="542.445" y="94.8516">P-91</tspan></text>
+<text id="text_value" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="542.081" y="252.058">331 &#x442;</tspan></text>
 <circle id="point" cx="498" cy="123" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_2" cx="498" cy="220" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_3" cx="586" cy="69" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -35,7 +35,7 @@
 <path id="point_9" d="M283.414 220C283.414 221.938 281.861 223.5 279.957 223.5C278.053 223.5 276.5 221.938 276.5 220C276.5 218.062 278.053 216.5 279.957 216.5C281.861 216.5 283.414 218.062 283.414 220Z" fill="#1C1F2B" stroke="#272A38"/>
 <path id="point_10" d="M458.5 220C458.5 221.938 456.947 223.5 455.043 223.5C453.139 223.5 451.586 221.938 451.586 220C451.586 218.062 453.139 216.5 455.043 216.5C456.947 216.5 458.5 218.062 458.5 220Z" fill="#1C1F2B" stroke="#272A38"/>
 </g>
-<g id="element-1_1__АССБ-А-98">
+<g id="element-1_1__ASSB-A-98">
 <rect id="rect_6" x="25.5" y="103.5" width="113" height="39" rx="1.5" fill="#1C1F2B" stroke="#272A38"/>
 <text id="text_4" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="45" y="120.764">&#x41f;&#x440;&#x438;&#x433;&#x43e;&#x442;&#x43e;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x435;&#10;</tspan><tspan x="45" y="134.764">&#x438;&#x437; &#x43b;. 417</tspan></text>
 <circle id="point_11" cx="139" cy="123.5" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -267,8 +267,8 @@
 <line id="line_bottom_2" x1="497" y1="584.5" x2="587" y2="584.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top_2" x1="497" y1="355.5" x2="587" y2="355.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume_2" x="501" y="419" width="82" height="1" fill="#0089FF"/>
-<text id="text_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="525.445" y="393.852">P-91</tspan></text>
-<text id="text_value_8" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="525.081" y="551.058">331 &#x442;</tspan></text>
+<text id="text_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="542.445" y="393.852">P-91</tspan></text>
+<text id="text_value_8" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="542.081" y="551.058">331 &#x442;</tspan></text>
 <circle id="point_27" cx="498" cy="422" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_28" cx="498" cy="519" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_29" cx="586" cy="368" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -282,8 +282,8 @@
 <line id="line_bottom_3" x1="496" y1="931.5" x2="586" y2="931.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top_3" x1="496" y1="674.5" x2="586" y2="674.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume_3" x="500" y="738" width="82" height="1" fill="#0089FF"/>
-<text id="text_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="524.445" y="712.852">P-91</tspan></text>
-<text id="text_value_9" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="524.081" y="870.058">331 &#x442;</tspan></text>
+<text id="text_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="541.445" y="712.852">P-91</tspan></text>
+<text id="text_value_9" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="541.081" y="870.058">331 &#x442;</tspan></text>
 <circle id="point_33" cx="498" cy="687" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_34" cx="585" cy="726" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_35" cx="497" cy="915" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
