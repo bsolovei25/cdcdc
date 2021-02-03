@@ -54,6 +54,14 @@
   border-right: solid 1px var(--astue-onpz-factory-analisys-grid-opacity);
   background: var(--astue-onpz-factory-analisys-grid-bg);
 
+  &__units {
+    position: absolute;
+    top: 30px;
+    font-size: 10px;
+    left: 15px;
+    color: var(--astue-onpz-factory-analisys-label);
+  }
+
   &__value-wrapper {
     display: flex;
     flex-flow: column-reverse;
