@@ -20,6 +20,7 @@
         [@rightTrigger]
         class="factor-analysis"
         [dataTemp]="barData"
+        [isUnit]="(viewType$ | async) !== 'Furnace'"
       ></evj-astue-onpz-factor-analysis-page>
       <div *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis">
        <ng-container *ngIf="selectedChannelId">

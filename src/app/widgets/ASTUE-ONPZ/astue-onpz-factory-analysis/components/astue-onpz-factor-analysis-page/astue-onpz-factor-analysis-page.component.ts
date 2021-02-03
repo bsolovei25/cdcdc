@@ -32,6 +32,7 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit, OnChanges {
     public legendValues$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
 
     @Input() public dataTemp: IAstueOnpzFactoryAnalysisDiagram = null;
+    @Input() public isUnit: boolean = false;
     public data: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(private changeDetector: ChangeDetectorRef) {}
