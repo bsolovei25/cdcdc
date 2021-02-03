@@ -186,12 +186,12 @@ export class EventsWorkspaceService {
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
         try {
+            await this.loadReferences();
             this.setDefaultEvent();
             if (id) {
                 await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
-            this.loadReferences();
         } catch (err) {
             console.error(err);
         } finally {
@@ -200,8 +200,8 @@ export class EventsWorkspaceService {
     }
 
     private async getEvent(id: number): Promise<void> {
-        this.event = await this.eventService.getEvent(id);
-        this.event = { ...this.defaultEvent, ...this.event };
+        const event = await this.eventService.getEvent(id);
+        this.event = {...this.defaultEvent, ...event};
         this.event.comments = await this.processAttachments(this.event.comments);
         this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
@@ -496,13 +496,12 @@ export class EventsWorkspaceService {
             responsibleOperator: null,
             retrievalEvents: [],
             severity: 'Critical',
-            status: this.status
-                ? this.status[0]
-                : {
-                      id: 0,
-                      name: null,
-                      code: null,
-                  },
+            status: this.status ? this.status[0] : {
+                id: 0,
+                name: null,
+                code: null,
+                description: null,
+            },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
