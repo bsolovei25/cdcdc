@@ -19,7 +19,7 @@ export class EvjTasksEventComponent implements OnInit {
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
-        this.ewService.event.status = this.ewService.status.find((value) => value.name === 'new');
+        this.ewService.event.status = this.ewService.event.status ? this.ewService.event.status : this.ewService.status.find((value) => value.name === 'new');
         this.ewService.extraOptionsWindow$.subscribe((value) => {
             console.log(value, this.ewService.event.kpeAdditionalParameter);
             if (
