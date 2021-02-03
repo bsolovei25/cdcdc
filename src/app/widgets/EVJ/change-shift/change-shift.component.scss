@@ -43,13 +43,12 @@
   color: var(--color-text-sub);
   width: 100%;
   height: 100%;
-  padding: 10px 15px;
+  padding: 10px 10px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  overflow: hidden;
 
   &__mainWorker {
     width: 100%;
@@ -185,7 +184,10 @@
   }
 
   &__onShift {
+    flex-grow: 1;
+    height: 100%;
     width: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -193,12 +195,12 @@
     box-sizing: border-box;
     padding-top: 15px;
     margin-bottom: 5px;
-    min-height: 80px;
+    min-height: 40px;
 
     .onShift {
       &__label {
         position: absolute;
-        top: -8px;
+        top: 0;
         left: 0;
         padding-right: 10px;
         background-color: var(--color-astue-onpz-widget-bg);
@@ -206,9 +208,7 @@
 
       &__add {
         position: absolute;
-        box-sizing: border-box;
-
-        top: -10px;
+        top: 0;
         right: 0;
 
         display: flex;
@@ -231,8 +231,8 @@
       }
 
       &__people {
-        width: 100%;
-        height: 80px;
+        width: 110%;
+        height: 100%;
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -297,33 +297,36 @@
   }
 
   &__absent {
+    flex-grow: 1;
+    height: 100%;
     width: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
     box-sizing: border-box;
     padding-top: 15px;
-    min-height: 100px;
+    min-height: 40px;
 
     .absent {
       &__label {
         position: absolute;
-        top: -8px;
+        top: 0px;
         left: 0;
         padding-right: 10px;
         background-color: var(--color-astue-onpz-widget-bg);
       }
 
       &__people {
-        width: 100%;
+        width: 110%;
+        height: 100%;
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         overflow: auto;
         box-sizing: border-box;
         padding: 3px 0 0;
-        height: 85px;
       }
 
       &__person {
@@ -436,9 +439,8 @@
   &__comment {
     display: flex;
     flex-flow: column;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    height: 150px;
+    margin: 10px 0;
+    height: 180px;
     .comment {
       &__title {
         width: 100%;
@@ -600,7 +602,7 @@
 }
 
 .buttons {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
 }
 

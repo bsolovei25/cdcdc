@@ -134,7 +134,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="change-shift__comment" style="min-height: 90px;">
+      <div class="change-shift__comment">
         <div class="comment__title">
           Комментарии оператора
         </div>
@@ -172,7 +172,7 @@
       >
         <div class="buttons">
           <div class="change-shift__submit">
-            <button type="submit" (click)="shiftApply()">
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">
               Передать смену
             </button>
           </div>
@@ -184,13 +184,13 @@
       >
         <div class="buttons">
           <div class="change-shift__submit">
-            <button type="submit" (click)="shiftApply()">
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">
               Принять смену
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <button (click)="this.shiftCancel()">
+            <button (click)="this.shiftCancel()" matRipple matRippleColor="white">
               Отказаться
             </button>
           </div>
@@ -200,13 +200,13 @@
       <ng-container *ngIf="this.shiftService.getIsCommentRequired(widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
-            <button type="submit" (click)="onSendMessage()">
+            <button type="submit" (click)="onSendMessage()" matRipple matRippleColor="white">
               Подтвердить (оставить комментарий)
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <button (click)="unsetRequireComment()">
+            <button (click)="unsetRequireComment()" matRipple matRippleColor="white">
               Отмена
             </button>
           </div>
