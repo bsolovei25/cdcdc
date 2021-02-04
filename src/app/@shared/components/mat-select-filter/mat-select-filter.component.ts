@@ -26,7 +26,6 @@ import { MatSelect } from '@angular/material/select';
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
     @Input()

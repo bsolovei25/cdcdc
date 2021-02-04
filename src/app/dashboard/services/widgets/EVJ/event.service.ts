@@ -26,7 +26,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 
 export interface IEventsFilter {
-    unitNames?: string;
+    unitNames?: string[];
     description?: string;
     categoryIds?: number[];
     priority: string;
@@ -461,11 +461,11 @@ export class EventService {
     }
 
     private getOptionString(lastId: number, options: IEventsWidgetOptions): string {
-        let res = `take=${this.batchSize}&lastId=${lastId}&`;
+        let res = `take=${this.batchSize}&lastId=${lastId}`;
         if (options.dates) {
             res +=
-                `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
-                `toDateTime=${options.dates?.toDateTime.toISOString()}`;
+                `&fromDateTime=${options.dates?.fromDateTime.toISOString()}` +
+                `&toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         if (options.categories?.length > 0 && options.categoriesType === 'default') {
             for (const category of options.categories) {
@@ -508,7 +508,9 @@ export class EventService {
             res += `&sortType=${options.sortType}`;
         }
         if (options.units) {
-            res += `&unitNames=${options.units.name}`;
+            options.units.forEach((value) => {
+                res += `&unitNames=${value.name}`;
+            });
         }
         if (options.priority) {
             res += `&priorityIds=${options.priority.id}`;
@@ -533,14 +535,16 @@ export class EventService {
     }
 
     async getEventsFilter(
-        unitNames?: string,
+        unitNames?: string[],
         categoryIds?: number[],
         statusIds?: number[],
         description?: string
     ): Promise<IUnitEvents[]> {
         let searchString: string = '';
         if (this.filterEvent.unitNames) {
-            searchString += `UnitName=${this.filterEvent.unitNames}`;
+            this.filterEvent.unitNames.forEach((value) => {
+                searchString += `UnitName=${value}`;
+            });
         }
         if (categoryIds) {
             categoryIds.forEach((value) => {
@@ -568,7 +572,7 @@ export class EventService {
         this.filterEvent.priority = priority;
     }
 
-    setEventUnit(unit: string): void {
-        this.filterEvent.unitNames = unit;
+    setEventUnit(units: string[]): void {
+        this.filterEvent.unitNames = units;
     }
 }

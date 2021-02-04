@@ -231,7 +231,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     ];
 
     public priority: IPriority;
-    public units: IUnits;
+    public units: IUnits[];
     public description: string;
 
     public iconStatus: { name: string; iconUrl: string }[] = [
@@ -836,7 +836,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     }
 
     async sortByFilter(
-        unitNames: string,
+        unitNames: string[],
         categoryIds: number[],
         statusIds: number[],
         description: string
@@ -850,7 +850,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         this.getStats();
     }
 
-    unitsOfFilter(units: IUnits): void {
+    unitsOfFilter(units: IUnits[]): void {
         this.units = units;
         this.getData();
         this.getStats();
