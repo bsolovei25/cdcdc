@@ -20,6 +20,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserSettingsService {
     private screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
+    public iconsList$: BehaviorSubject<IGroupScreens[]> = new BehaviorSubject(null);
+    public groupsList$: BehaviorSubject<IGroupScreens[]> = new BehaviorSubject(null);
     public screensShared: Observable<IScreenSettings[]> = this.screens$
         .asObservable()
         .pipe(filter((item) => item !== null));
@@ -58,6 +60,36 @@ export class UserSettingsService {
             // tslint:disable-next-line:no-bitwise
             return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
         });
+    }
+
+    public async getIcons(): Promise<any[]> {
+        try {
+            const icons = await this.http
+                .get<any>(`${this.restUrl}/api/ref-book/IconGroup`)
+                .toPromise();
+            this.iconsList$.next(icons);
+            return [];
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    }
+
+    public async addIcons(icon: File): Promise<any[]> {
+        try {
+            const icons = await this.http
+                .post<any>(`${this.restUrl}/api/ref-book/IconGroup`, icon, {
+                    headers: {
+                        'Content-Type' : 'multipart/form-data'
+                    }
+                })
+                .toPromise();
+            this.iconsList$.next(icons);
+            return [];
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
     }
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
@@ -145,9 +177,11 @@ export class UserSettingsService {
 
     public async getGroups(): Promise<IGroupScreens[]> {
         try {
-            return await this.http
+            const groups = await this.http
                 .get<IGroupScreens[]>(`${this.restUrl}/api/user-management/screen-groups`)
                 .toPromise();
+            this.groupsList$.next(groups);
+            return this.groupsList$.getValue();
         } catch (e) {
             console.error(e);
             return [];
@@ -156,9 +190,14 @@ export class UserSettingsService {
 
     public async addGroup(group: IGroupScreens): Promise<IGroupScreens> {
         try {
-            return await this.http
+            const newGroup = await this.http
                 .post<IGroupScreens>(`${this.restUrl}/api/user-management/screen-group`, group)
                 .toPromise();
+            this.snackBar.openSnackBar('Новая группа успешно создана');
+            const groups = this.groupsList$.getValue();
+            groups.push(newGroup);
+            this.groupsList$.next(groups);
+            return newGroup;
         } catch (e) {
             console.error(e);
             return null;
@@ -167,9 +206,18 @@ export class UserSettingsService {
 
     public async updateGroup(group: IGroupScreens): Promise<IGroupScreens> {
         try {
-            return await this.http
+            const res = await this.http
                 .put<IGroupScreens>(`${this.restUrl}/api/user-management/screen-group`, group)
                 .toPromise();
+            let groups = this.groupsList$.getValue();
+            groups = groups.map((item) => {
+                if (item.id === res.id) {
+                    return res;
+                }
+                return item;
+            });
+            this.groupsList$.next(groups);
+            return res;
         } catch (e) {
             console.error(e);
             return group;
@@ -183,6 +231,8 @@ export class UserSettingsService {
                     `${this.restUrl}/api/user-management/screen-group/${groupId}`
                 )
                 .toPromise();
+            const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
+            this.groupsList$.next(groups);
             return true;
         } catch (e) {
             console.error(e);

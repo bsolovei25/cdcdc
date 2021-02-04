@@ -73,6 +73,10 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
 import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module';
+import { GroupSelectorDialogComponent } from './components/header-components/group-selector/group-selector-dialog/group-selector-dialog.component';
+import { GroupSelectorGroupItemComponent } from './components/header-components/group-selector/group-selector-group-item/group-selector-group-item.component';
+import { OverlayModule } from "@angular/cdk/overlay";
+import { GroupSelectorOverlayComponent } from './components/header-components/group-selector/group-selector-overlay/group-selector-overlay.component';
 
 @NgModule({
     declarations: [
@@ -114,6 +118,9 @@ import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz
         UserEventsItemComponent,
         TankFilterComponent,
         OilOperationsFilterComponent,
+        GroupSelectorDialogComponent,
+        GroupSelectorGroupItemComponent,
+        GroupSelectorOverlayComponent,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [
@@ -158,6 +165,7 @@ import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz
         NgxMatNativeDateModule,
         NgxMatMomentModule,
         MatDialogModule,
+        OverlayModule,
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,

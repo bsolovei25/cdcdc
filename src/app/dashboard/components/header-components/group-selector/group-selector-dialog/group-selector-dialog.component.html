@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon src="assets/icons/control-group-icons/headerIcon.svg"></svg-icon>
+    </div>
+    <span class="header__title">Управление проектами</span>
+    <div class="header__icon header__icon_close">
+      <svg-icon src="assets/icons/control-group-icons/close.svg" (click)="closeDialog()"></svg-icon>
+    </div>
+  </div>
+  <div class="content">
+    <div class="project-list">
+      <evj-group-selector-group-item
+        *ngIf="isCreateNewGroup"
+        [group]="newGroup"
+        (changed)="onChanged($event)"
+        [saveNewGroup]="{
+          flag: saveNewGroup,
+          id: newGroup.id
+        }"
+      ></evj-group-selector-group-item>
+
+      <evj-group-selector-group-item
+        *ngFor="let group of groups; let i = index"
+        [group]="group"
+        (changed)="onChanged($event)"
+        [saveNewGroup]="{
+          flag: saveNewGroup,
+          id: group.id
+        }"
+      ></evj-group-selector-group-item>
+    </div>
+  </div>
+  <div class="buttons">
+    <div
+      class="add-project btn"
+      matRipple
+      [matRippleColor]="'white'"
+      (click)="addNewProject()"
+    >
+      Добавить проект
+    </div>
+    <div class="save-cancel">
+      <div
+        class="btn"
+        [class.save]="isCreateNewGroup"
+        matRipple
+        [matRippleColor]="'white'"
+        (click)="saveNewProject()"
+      >
+        Сохранить
+      </div>
+      <div
+        class="cancel btn"
+        matRipple
+        [matRippleColor]="'white'"
+        (click)="closeDialog()"
+      >
+        Отменить
+      </div>
+    </div>
+  </div>
+</div>

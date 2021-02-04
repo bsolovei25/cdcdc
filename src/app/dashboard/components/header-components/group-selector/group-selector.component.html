@@ -2,28 +2,28 @@
   <span class="group-selector__name">
     {{selector.selected[0]?.name}}
   </span>
-
-  <div class="group-selector__dropdown dropdown" *ngIf="isDropdownShowing">
-    <ng-container *ngFor="let group of groups">
-      <div class="dropdown__row">
-        <evj-group-selector-row
-          [isClaimsAvailable]="getClaims(group?.id)"
-          [group]="group"
-          (selectGroup)="onSelect(group)"
-          (editGroup)="onEdit(group, $event)"
-          (deleteGroup)="onDelete(group)"
-        ></evj-group-selector-row>
-      </div>
-    </ng-container>
-    <div class="dropdown__row create">
-      <input class=" create__input input" type="text" [formControl]="formControl" />
-      <div
-        class="create__add add"
-        [class.add_active]="!!formControl.value"
-        (click)="onCreateGroup()"
-      ></div>
+  <ng-container *ngIf="isDropdownShowing">
+    <div class="group-selector__dropdown dropdown" #group>
+      <ng-container *ngFor="let group of groups">
+        <div class="dropdown__row">
+          <evj-group-selector-row
+            [isClaimsAvailable]="getClaims(group?.id)"
+            [group]="group"
+            (selectGroup)="onSelect(group)"
+            (editGroup)="onEdit(group, $event)"
+            (deleteGroup)="onDelete(group)"
+          ></evj-group-selector-row>
+        </div>
+      </ng-container>
     </div>
-  </div>
-
+    <div class="dropdown__row create">
+      <button
+        class="control__bnt"
+        [class.control__bnt_active]=true
+        mat-raised-button
+        (click)="openDialog()"
+      >Управление проектами</button>
+    </div>
+  </ng-container>
   <svg-icon class="group-selector__collapse" src="assets/icons/collapse.svg"></svg-icon>
 </div>

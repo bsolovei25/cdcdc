@@ -3,11 +3,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { UserSettingsService } from '../../../services/user-settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSelectorDialogComponent } from './group-selector-dialog/group-selector-dialog.component';
 
 export interface IGroupScreens {
     id: number;
     name: string;
     description?: string;
+    isEnabled: boolean;
     userScreens?: {
         id: number;
         name: string;
@@ -31,7 +34,8 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     constructor(
         private userSettingsService: UserSettingsService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public dialog: MatDialog
     ) {}
 
     public ngOnInit(): void {
@@ -41,7 +45,8 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {}
 
     private async asyncStart(): Promise<void> {
-        this.groups = await this.getGroups();
+        await this.getGroups();
+        this.userSettingsService.groupsList$.subscribe((item) => (this.groups = item));
         this.selectFirstGroup();
     }
 
@@ -91,6 +96,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
             const newGroup = await this.userSettingsService.addGroup({
                 id: 0,
                 name: this.formControl.value.slice(),
+                isEnabled: true,
             });
             if (!newGroup) {
                 return;
@@ -137,5 +143,9 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     private async getGroups(): Promise<IGroupScreens[]> {
         const groups = await this.userSettingsService.getGroups();
         return groups;
+    }
+
+    private openDialog(): void {
+        this.dialog.open(GroupSelectorDialogComponent, { data: this.groups });
     }
 }

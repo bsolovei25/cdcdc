@@ -1,0 +1,45 @@
+<form [formGroup]="projectForm" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
+  <div class="container" [class.disabled]="!switchStatus">
+    <div class="logo" (click)="editLogo()" [class.logo-active]="isEditLogo">
+      <svg-icon src="assets/icons/control-group-icons/upload.svg"></svg-icon>
+    </div>
+    <div class="content">
+      <input
+        type="text"
+        class="title"
+        [readonly]="editName"
+        formControlName="name"
+        placeholder="Введите название"
+        #nameElement
+      />
+      <div class="btns-list">
+        <div class="btn btn__accept" (click)="acceptEdit()">
+          <svg-icon src="assets/icons/control-group-icons/accept.svg" *ngIf="!editName"></svg-icon>
+        </div>
+        <div class="btn btn__edit" (click)="onEditName()">
+          <svg-icon
+            src="assets/icons/control-group-icons/{{editName ? 'edit.svg' : 'cancelEdit.svg'}}"
+          ></svg-icon>
+        </div>
+        <div class="btn btn__delete" (click)="onDelete()">
+          <svg-icon src="assets/icons/control-group-icons/delete.svg"></svg-icon>
+        </div>
+      </div>
+      <div class="switch-btn" [class.switch-on]="switchStatus">
+        <input type="checkbox" formControlName="isEnabled" />
+      </div>
+    </div>
+  </div>
+</form>
+<ng-template
+  cdkConnectedOverlay
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayOrigin]="originOverlay"
+  [cdkConnectedOverlayOpen]="isEditLogo"
+>
+  <evj-group-selector-overlay
+    (changed)="onChanged($event)"
+  ></evj-group-selector-overlay>
+</ng-template>
