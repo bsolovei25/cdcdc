@@ -217,8 +217,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                         item.graphType === 'plan'
                     ))
             );
+            const factChart = this.data?.find((x) => x.graphType === 'fact')?.graph;
+            if (!!factChart?.length) {
+                this.data.find((x) => x.graphType === 'fact').graph = factChart.filter(
+                    (x) => x.timeStamp.getTime() < new Date().getTime()
+                );
+            }
         }
-
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
         if (filterData.length !== this.data.length) {
             console.error('BACK ERROR: Timeline is not in interval!!!');
