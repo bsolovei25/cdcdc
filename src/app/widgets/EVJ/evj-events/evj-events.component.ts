@@ -411,9 +411,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         }
     }
 
-    public toggle(id: number): void {
-        this.expandedElement.toggle(id);
-        setTimeout(() => this.viewport?.checkViewportSize(), 0);
+    public toggle(): void {
+        this.viewport.setRenderedRange({start: 0, end: this.viewport.getRenderedRange().end - 1});
+        this.viewport.checkViewportSize();
     }
 
     private async updateWidgetSettings(

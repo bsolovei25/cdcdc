@@ -36,7 +36,7 @@ export class EvjEventCardComponent implements OnInit {
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
     @Output()
-    public selectionExpandedElement: EventEmitter<number> = new EventEmitter<number>();
+    public selectionExpandedElement: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private eventService: EventService) {
     }
@@ -68,6 +68,7 @@ export class EvjEventCardComponent implements OnInit {
     public toggle(event: MouseEvent, id: number): void {
         event.stopPropagation();
         this.expandedElement.toggle(id);
+        this.selectionExpandedElement.emit();
     }
 
 }
