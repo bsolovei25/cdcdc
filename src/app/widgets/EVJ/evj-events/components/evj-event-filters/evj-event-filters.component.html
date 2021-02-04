@@ -13,20 +13,21 @@
       <!--          </mat-select>-->
       <!--        </mat-form-field>-->
       <!--      </div>-->
-      <div class="event-mat-select">
-        <div (click)="clearFilter()">
+      <div class="event-mat-select" (click)="clearFilter()">
         <mat-form-field>
           <mat-label>Установка</mat-label>
-          <mat-select panelClass="mat-balance-select"
-                      [formControl]="unitsSelect"
-                      (selectionChange)="onUnitsSelect($event)">
+          <mat-select
+            panelClass="evj-event-filters-background "
+            [formControl]="unitsSelect"
+            (selectionChange)="onUnitsSelect($event)"
+            multiple
+          >
             <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
             <mat-option *ngFor="let item of units" [value]="item.id">
               {{ item.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        </div>
       </div>
       <div class="event-mat-select">
         <mat-form-field>
@@ -34,6 +35,7 @@
           <mat-select panelClass="mat-balance-select"
                       [formControl]="prioritySelect"
                       (selectionChange)="onPrioritySelect($event)">
+            <mat-option [value]="null">Выбрать все</mat-option>
             <mat-option *ngFor="let item of priority" [value]="item.id">
               {{ ewService.priorities[item.name] }}
             </mat-option>
