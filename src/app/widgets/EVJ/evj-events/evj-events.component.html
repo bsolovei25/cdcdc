@@ -46,13 +46,12 @@
         [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
-          [itemSize]="isList ? attributes?.IsVideoWall ? 390 : 225 : 111"
           autosize
           class="scroll-bar"
           [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
           (scroll)="scrollHandler($event)"
         >
-          <ng-container *cdkVirtualFor="let n of notificationsGrouped">
+          <div *cdkVirtualFor="let n of notificationsGrouped">
             <evj-evj-event-card
               [cardDataArr]="n"
               [viewType]="isList ? 'block' : 'list'"
@@ -60,11 +59,11 @@
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
               [expandedElement]="expandedElement"
-              (selectionExpandedElement)="toggle($event)"
+              (selectionExpandedElement)="toggle()"
               [isVideoWall]="attributes?.IsVideoWall"
             >
             </evj-evj-event-card>
-          </ng-container>
+          </div>
         </cdk-virtual-scroll-viewport>
       </div>
       <ng-container *ngIf="!attributes?.IsVideoWall">
