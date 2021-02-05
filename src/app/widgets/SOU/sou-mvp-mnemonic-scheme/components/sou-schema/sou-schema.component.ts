@@ -572,7 +572,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     searchElements(elementIndex: number): Element[] {
-        let i = 1; // счетчик элементов
+        let i = 1; // счетчик элементовs
 
         const localElements: Element[] = [];
 
