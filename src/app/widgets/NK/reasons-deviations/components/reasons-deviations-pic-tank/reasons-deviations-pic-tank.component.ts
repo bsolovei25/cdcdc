@@ -6,11 +6,11 @@ declare var d3: any;
 @Component({
     selector: 'evj-reasons-deviations-pic-tank',
     templateUrl: './reasons-deviations-pic-tank.component.html',
-    styleUrls: ['./reasons-deviations-pic-tank.component.scss']
+    styleUrls: ['./reasons-deviations-pic-tank.component.scss'],
 })
 export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit {
-    @ViewChild
-    ('reasonsPic') oilIcon: ElementRef;
+    @ViewChild('reasonsPic')
+    oilIcon: ElementRef;
 
     @Input() public data: {
         type: OilOperationsShipmentType;
@@ -20,11 +20,9 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
 
     public tankersPicture: any; // d3
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.drawPicture(this.oilIcon?.nativeElement);
@@ -61,10 +59,7 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
         if (this.data.type === 'manual') {
             const pictureWork = this.tankersPicture
                 .append('image')
-                .attr(
-                    'xlink:href',
-                    work
-                )
+                .attr('xlink:href', work)
                 .attr('height', '25px')
                 .attr('width', '60px')
                 .attr('class', 'textProduct')
@@ -73,17 +68,13 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
         } else {
             const pictureIcon = this.tankersPicture
                 .append('image')
-                .attr(
-                    'xlink:href',
-                    this.data.type === 'tankTruck' ? tug : this.data.type === 'pipeline' ? tube : cis
-                )
+                .attr('xlink:href', this.data.type === 'tankTruck' ? tug : this.data.type === 'pipeline' ? tube : cis)
                 .attr('height', '50px')
                 .attr('width', '50px')
                 .attr('class', 'textProduct')
                 .attr('x', '33')
                 .attr('y', '42');
         }
-
 
         const planText1 = this.tankersPicture
             .append('text')
@@ -97,5 +88,4 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
             .attr('fill', 'var(--color-border-active)')
             .text(this.data.quantity);
     }
-
 }

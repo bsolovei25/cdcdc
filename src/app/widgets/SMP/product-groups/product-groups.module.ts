@@ -8,7 +8,7 @@ import { SmpSharedModule } from '../smp-shared/smp-shared.module';
 
 @NgModule({
     declarations: [ProductGroupsComponent],
-    imports: [CommonModule, SharedModule, AngularSvgIconModule, HttpClientModule, SmpSharedModule]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, HttpClientModule, SmpSharedModule],
 })
 export class ProductGroupsModule {
     enterComponent = ProductGroupsComponent;

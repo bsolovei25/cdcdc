@@ -1,125 +1,124 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .innage {
-    width: 68px;
-    height: 150px;
+  width: 68px;
+  height: 150px;
 
-    background:  var(--nk-color-bg-component);
+  background: var(--nk-color-bg-component);
 
-    border-radius: 0px 0px 3px 3px;
+  border-radius: 0px 0px 3px 3px;
 
-    position: absolute;
-    left: 15px;
-    top: 15px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
 .innage__title {
-    height: 20px;
+  height: 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background: var(--nk-color-bg-component-title);
-    border-radius: 2px;
+  background: var(--nk-color-bg-component-title);
+  border-radius: 2px;
 
-    line-height: 14px;
-    font-size: 12px;
-    color: var(--nk-color-font-title-sub);
+  line-height: 14px;
+  font-size: 12px;
+  color: var(--nk-color-font-title-sub);
 }
 
 .innage__body {
-    height: 130px;
-    padding: 1em 3px;
-    padding-bottom: 6px;
+  height: 130px;
+  padding: 1em 3px;
+  padding-bottom: 6px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    line-height: 19px;
-    font-size: 16px;
+  line-height: 19px;
+  font-size: 16px;
 }
 
 .innage-border {
-    height: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  span {
+    width: 100%;
+    padding-left: 10px;
 
     display: flex;
-    flex-direction: column;
-
-    position: relative;
-
-    span {
-        width: 100%;
-        padding-left: 10px;
-
-        display: flex;
-
-        position: absolute;
-    }
-
-    .innage__higherBorder {
-        top: -1em;
-    }
-    
-    .innage__lowerBorder{
-        height: 20px;
-
-        background: var(--nk-color-bg-innage-min);
-
-        bottom: 0;
-        align-items: center;
-
-        &_repair {
-            background: transparent;
-        }
-    }
-    
-    .innage__current {
-        padding-bottom: 20px;
-        bottom: 0;
-        background: var(--nk-color-bg-innage-daigram);
-    }
-}
-
-
-.innage-axis {
-    height: 100%;
-    width: 1px;
-    background: var(--nk-color-innage-axis);
-
-    display: flex;
-    align-items: flex-end;
 
     position: absolute;
+  }
 
-    .innage-axis__value {
-        width: 1px;
-        background: var(--nk-color-active);
-        z-index: 1;
+  .innage__higherBorder {
+    top: -1em;
+  }
+
+  .innage__lowerBorder {
+    height: 20px;
+
+    background: var(--nk-color-bg-innage-min);
+
+    bottom: 0;
+    align-items: center;
+
+    &_repair {
+      background: transparent;
     }
+  }
+
+  .innage__current {
+    padding-bottom: 20px;
+    bottom: 0;
+    background: var(--nk-color-bg-innage-daigram);
+  }
+}
+
+.innage-axis {
+  height: 100%;
+  width: 1px;
+  background: var(--nk-color-innage-axis);
+
+  display: flex;
+  align-items: flex-end;
+
+  position: absolute;
+
+  .innage-axis__value {
+    width: 1px;
+    background: var(--nk-color-active);
+    z-index: 1;
+  }
 }
 
 .innage-lines {
-    height: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 100%;
 
-    position: absolute;
-    z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    .innage-lines__item {
-        height: 1px;
-        width: 4px;
+  position: absolute;
+  z-index: 999999;
 
-        background: var(--nk-color-innage-axis);
-        border-radius: 0 3px 3px 0;   
-    }
+  .innage-lines__item {
+    height: 1px;
+    width: 4px;
 
-    .innage-lines__item_active {
-        background: var(--nk-color-active);
-    }
+    background: var(--nk-color-innage-axis);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .innage-lines__item_active {
+    background: var(--nk-color-active);
+  }
 }

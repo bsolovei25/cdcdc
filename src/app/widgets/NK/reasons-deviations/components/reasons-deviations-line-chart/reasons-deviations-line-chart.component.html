@@ -1,11 +1,7 @@
 <div class="container-line-chart">
   <div class="container-line-chart__content">
     <ng-container *ngIf="data?.length && points?.length">
-      <evj-line-chart-shared
-        [data]="data"
-        [points]="points"
-        chartType="reasons-deviations"
-      ></evj-line-chart-shared>
+      <evj-line-chart-shared [data]="data" [points]="points" chartType="reasons-deviations"></evj-line-chart-shared>
     </ng-container>
   </div>
 </div>

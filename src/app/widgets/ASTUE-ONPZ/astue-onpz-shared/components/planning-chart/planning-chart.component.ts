@@ -1,19 +1,7 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnChanges,
-    Output,
-    ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import {
-    IProductionTrend,
-    ProductionTrendType,
-} from '../../../../../dashboard/models/LCO/production-trends.model';
+import { IProductionTrend, ProductionTrendType } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
@@ -121,12 +109,8 @@ export class PlanningChartComponent implements OnChanges {
         const currentDatetime = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         this.dateTimeInterval = newArray(2);
-        this.dateTimeInterval[0] = new Date(
-            currentDatetime.getTime() - 1000 * 60 * 60 * this.intervalHours[0]
-        );
-        this.dateTimeInterval[1] = new Date(
-            currentDatetime.getTime() + 1000 * 60 * 60 * this.intervalHours[1]
-        );
+        this.dateTimeInterval[0] = new Date(currentDatetime.getTime() - 1000 * 60 * 60 * this.intervalHours[0]);
+        this.dateTimeInterval[1] = new Date(currentDatetime.getTime() + 1000 * 60 * 60 * this.intervalHours[1]);
     }
 
     private initData(): void {
@@ -136,23 +120,15 @@ export class PlanningChartComponent implements OnChanges {
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
             .attr(
                 'viewBox',
-                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${
-                    this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
-                }`
+                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
             );
     }
 
@@ -182,9 +158,7 @@ export class PlanningChartComponent implements OnChanges {
             minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
         });
 
-        [this.dataMin, this.dataMax] = d3.extent(
-            this.data.flatMap((x) => x.graph).map((x) => x.value)
-        );
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
         this.dataMin -= (this.dataMax - this.dataMin) * this.deltaCf;
         this.dataMax += (this.dataMax - this.dataMin) * this.deltaCf;
         this.dateMax = d3.max(maxDate);
@@ -200,17 +174,11 @@ export class PlanningChartComponent implements OnChanges {
             new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
 
         if (!!this.currentDates) {
             this.axis.axisX = d3
@@ -225,10 +193,7 @@ export class PlanningChartComponent implements OnChanges {
                 .tickFormat(d3.timeFormat('%H'))
                 .tickSizeOuter(0);
         }
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(5)
-            .tickSize(0);
+        this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(5).tickSize(0);
     }
 
     private transformData(): void {
@@ -278,17 +243,11 @@ export class PlanningChartComponent implements OnChanges {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            this.svg
-                .append('path')
-                .attr('class', `graph-line-${chart.graphType}`)
-                .attr('d', line(chart.graph));
+            this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
 
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
-                this.svg
-                    .append('path')
-                    .attr('class', `graph-area-${chart.graphType}`)
-                    .attr('d', areaFn(chart.graph));
+                this.svg.append('path').attr('class', `graph-area-${chart.graphType}`).attr('d', areaFn(chart.graph));
             }
         });
     }

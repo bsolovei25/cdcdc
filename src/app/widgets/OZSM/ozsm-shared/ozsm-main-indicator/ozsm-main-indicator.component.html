@@ -1,6 +1,6 @@
 <div class="main-indicator">
   <div class="main-indicator__icon">
-    <img [src]="'assets/icons/widgets/OZSM/ozsm-main-indicators/' + item.icon +  '.svg'">
+    <img [src]="'assets/icons/widgets/OZSM/ozsm-main-indicators/' + item.icon +  '.svg'" />
   </div>
   <div class="main-indicator__info">
     <div class="main-indicator__title">
@@ -12,8 +12,9 @@
       </div>
     </div>
     <div class="main-indicator__level-empty">
-      <div class="level-warning" 
-        *ngIf="item.fact != item.plan; else full" 
+      <div
+        class="level-warning"
+        *ngIf="item.fact != item.plan; else full"
         [ngStyle]="{width: '100%'}"
         [style.background]="deviation>0? 'var(--ozsm-color-warning)' : 'transparent'"
       >
@@ -28,7 +29,7 @@
   <div class="main-indicator__value">
     <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
     <div class="text-white" *ngIf="item.fact != item.plan">
-        <span>{{ +item?.fact.toFixed(2) | spaceNumber}}</span>
+      <span>{{ +item?.fact.toFixed(2) | spaceNumber}}</span>
     </div>
   </div>
 </div>

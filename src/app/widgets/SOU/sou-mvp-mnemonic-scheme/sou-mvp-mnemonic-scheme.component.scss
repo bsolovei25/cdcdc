@@ -122,7 +122,11 @@
       height: 40px;
       width: 18px;
 
-      background: linear-gradient(90deg, var(--color-oil-popup-shadow) -0.04%, var(--sou-mvp-color-bg-select-custom-border) 99.96%);
+      background: linear-gradient(
+        90deg,
+        var(--color-oil-popup-shadow) -0.04%,
+        var(--sou-mvp-color-bg-select-custom-border) 99.96%
+      );
       opacity: 0.5;
       position: absolute;
     }
@@ -341,7 +345,6 @@
         line-height: 19px;
         color: var(--sou-mvp-color-text-info);
 
-
         white-space: nowrap;
         overflow: hidden;
 
@@ -389,7 +392,6 @@
     }
 
     .information {
-
       flex: 1;
       display: flex;
       align-items: baseline;
@@ -406,7 +408,7 @@
 
       &__divider {
         font-size: 12px !important;
-        line-height: 14px !important;;
+        line-height: 14px !important;
         color: var(--sou-mvp-color-text-diagram-sub) !important;
         margin: 0 5px;
       }

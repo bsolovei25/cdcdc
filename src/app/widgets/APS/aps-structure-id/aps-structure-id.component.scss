@@ -16,7 +16,8 @@ thead th {
   color: var(--color-cd-text-sub-2);
   z-index: 9999;
 }
-th,  td {
+th,
+td {
   text-align: center;
   min-width: 86px;
   &:first-child {
@@ -49,7 +50,6 @@ th,  td {
       color: var(--color-cd-text-sub-2);
       background-color: var(--color-bg-main);
 
-
       &:first-of-type {
         font-size: 12px;
         color: var(--color-cd-text-sub-2);
@@ -57,7 +57,6 @@ th,  td {
         left: 0;
         text-align: left;
         width: 60%;
-
       }
     }
   }
@@ -88,13 +87,12 @@ th,  td {
       border-right: 1px solid var(--color-aps-structure-border);
       border-left: 2px solid var(--color-aps-bg-icon);
 
-
       &.expanded-column {
         background-color: var(--color-aps-structure-item);
       }
 
       &__children {
-        border-left: 2px solid var(--color-aps-structure-border)!important;
+        border-left: 2px solid var(--color-aps-structure-border) !important;
 
         &--active {
           border-top: 1px solid var(--color-aps-active);
@@ -132,7 +130,6 @@ th,  td {
       }
 
       &:first-child {
-
       }
 
       &__row-title {
@@ -260,7 +257,6 @@ th,  td {
 
         .row-title {
           user-select: none;
-
 
           &__icon {
             &-arrow-top {

@@ -22,8 +22,6 @@
   background-color: var(--color-aps-bg);
   overflow-y: auto;
 
-
-
   .list {
     display: flex;
     flex-direction: column;
@@ -45,7 +43,7 @@
         }
 
         span.completed {
-          color: var(--color-aps-button-color)
+          color: var(--color-aps-button-color);
         }
       }
 

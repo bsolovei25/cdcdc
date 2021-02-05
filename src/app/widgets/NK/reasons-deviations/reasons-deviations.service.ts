@@ -21,18 +21,13 @@ export class ReasonsDeviationsService {
         }
     }
 
-    public async getChartData<T>(
-        transferIdParam: number,
-        startDateParam: Date,
-        endDateParam: Date
-    ): Promise<T> {
+    public async getChartData<T>(transferIdParam: number, startDateParam: Date, endDateParam: Date): Promise<T> {
         try {
             return await this.http
                 .get<T>(
-                    `${
-                        this.restUrl
-                    }/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${endDateParam ??
-                        new Date().toISOString()}`
+                    `${this.restUrl}/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${
+                        endDateParam ?? new Date().toISOString()
+                    }`
                 )
                 .toPromise();
         } catch (e) {

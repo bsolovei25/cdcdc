@@ -6,12 +6,7 @@
     <div class="energetics__round">
       <svg width="100%" height="100%" viewBox="-7 -2 55 55">
         <!-- termo dia -->
-        <circle
-          [attr.cx]="centerX"
-          [attr.cy]="centerY"
-          [attr.r]="termoRadius"
-          [attr.fill]="colorMain"
-        ></circle>
+        <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="termoRadius" [attr.fill]="colorMain"></circle>
         <circle
           [attr.cx]="centerX"
           [attr.cy]="centerY"
@@ -55,12 +50,7 @@
         ></circle>
 
         <!-- electro dia -->
-        <circle
-          [attr.cx]="centerX"
-          [attr.cy]="centerY"
-          [attr.r]="electroRadius"
-          [attr.fill]="colorMain"
-        ></circle>
+        <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="electroRadius" [attr.fill]="colorMain"></circle>
         <circle
           [attr.cx]="centerX"
           [attr.cy]="centerY"
@@ -104,12 +94,7 @@
         ></circle>
 
         <!-- fuel dia -->
-        <circle
-          [attr.cx]="centerX"
-          [attr.cy]="centerY"
-          [attr.r]="fuelRadius"
-          [attr.fill]="colorMain"
-        ></circle>
+        <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" [attr.fill]="colorMain"></circle>
         <circle
           [attr.cx]="centerX"
           [attr.cy]="centerY"
@@ -239,31 +224,19 @@
         ></circle>
 
         <!-- logo dia -->
-        <image
-          x="13"
-          y="10"
-          width="25"
-          height="25"
-          xlink:href="assets/icons/widgets/SMP/flask.svg"
-        />
+        <image x="13" y="10" width="25" height="25" xlink:href="assets/icons/widgets/SMP/flask.svg" />
         <text x="15" y="32" class="logo-text">Запас качества</text>
 
         <!-- labels dia -->
 
         <!-- termo -->
-        <text *ngIf="data?.termo !== 0" x="50%" y="3.6" class="svg__txt">
-          {{ data?.termo }}%
-        </text>
+        <text *ngIf="data?.termo !== 0" x="50%" y="3.6" class="svg__txt">{{ data?.termo }}%</text>
 
         <!-- electro -->
-        <text *ngIf="data?.electro !== 0" x="50%" y="6.6" class="svg__txt">
-          {{ data?.electro }}%
-        </text>
+        <text *ngIf="data?.electro !== 0" x="50%" y="6.6" class="svg__txt">{{ data?.electro }}%</text>
 
         <!-- fuel -->
-        <text *ngIf="data?.fuel !== 0" x="50%" y="9.6" class="svg__txt">
-          {{ data?.fuel }}%
-        </text>
+        <text *ngIf="data?.fuel !== 0" x="50%" y="9.6" class="svg__txt">{{ data?.fuel }}%</text>
 
         <!-- limits value -->
         <text

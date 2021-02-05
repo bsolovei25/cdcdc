@@ -10,18 +10,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 @NgModule({
-  declarations: [ TankInformationComponent, TankCardComponent,
-    TankFillingComponent, TankLineComponent ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    MatTooltipModule,
-    AngularSvgIconModule,
-    DashboardModule,
-  ]
+    declarations: [TankInformationComponent, TankCardComponent, TankFillingComponent, TankLineComponent],
+    imports: [CommonModule, SharedModule, MatTooltipModule, AngularSvgIconModule, DashboardModule],
 })
 export class TankInformationModule {
-  enterComponent = TankInformationComponent;
+    enterComponent = TankInformationComponent;
 }

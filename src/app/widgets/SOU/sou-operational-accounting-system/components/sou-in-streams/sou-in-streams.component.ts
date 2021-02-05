@@ -23,16 +23,12 @@ interface ISOUValue {
 @Component({
     selector: 'evj-sou-in-streams',
     templateUrl: './sou-in-streams.component.html',
-    styleUrls: ['./sou-in-streams.component.scss']
+    styleUrls: ['./sou-in-streams.component.scss'],
 })
 export class SouInStreamsComponent implements OnInit {
-
     @Input() flowIn: ISOUFlowIn[] = [];
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
-
+    ngOnInit(): void {}
 }

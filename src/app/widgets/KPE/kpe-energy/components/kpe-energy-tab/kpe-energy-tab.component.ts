@@ -12,17 +12,14 @@ export interface IKpeEnergyTab {
 @Component({
     selector: 'evj-kpe-energy-tab',
     templateUrl: './kpe-energy-tab.component.html',
-    styleUrls: ['./kpe-energy-tab.component.scss']
+    styleUrls: ['./kpe-energy-tab.component.scss'],
 })
 export class KpeEnergyTabComponent implements OnInit {
-
     @Input() data: IKpeEnergyTab = null;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     get deviationValue(): number {
         return this.data.deviation;

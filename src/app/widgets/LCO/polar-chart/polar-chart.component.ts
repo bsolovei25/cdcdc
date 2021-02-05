@@ -155,11 +155,7 @@ export class PolarChartComponent extends WidgetPlatform<unknown> implements OnIn
         let indexBorder = 0;
         let indexLine = 0;
 
-        this.canvas = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '10 0 130 120');
+        this.canvas = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '10 0 130 120');
 
         let imageFrame = this.canvas
             .append('image')
@@ -571,12 +567,7 @@ export class PolarChartComponent extends WidgetPlatform<unknown> implements OnIn
         for (let item of data) {
             if (item.value > 100) {
                 index = item.line - 1;
-                this.changePointsTop(
-                    this.longLine[index],
-                    this.shortLine[index],
-                    this.valueLine[index],
-                    index
-                );
+                this.changePointsTop(this.longLine[index], this.shortLine[index], this.valueLine[index], index);
             } else if (item.value < 100) {
                 index = item.line - 1;
                 this.changePointsBottom(this.longLine[index], this.valueLine[index], index);
@@ -588,9 +579,7 @@ export class PolarChartComponent extends WidgetPlatform<unknown> implements OnIn
         for (let itemTop of pointTop) {
             for (let itemBottom of pointBottom) {
                 if (itemTop.line === itemBottom.line) {
-                    this.longLine.push(
-                        Math.sqrt((itemTop.x - itemBottom.x) ** 2 + (itemTop.y - itemBottom.y) ** 2)
-                    );
+                    this.longLine.push(Math.sqrt((itemTop.x - itemBottom.x) ** 2 + (itemTop.y - itemBottom.y) ** 2));
                 }
             }
         }
@@ -602,9 +591,7 @@ export class PolarChartComponent extends WidgetPlatform<unknown> implements OnIn
                 if (itemPoint.line === itemBottom.line) {
                     let line = itemPoint.line;
                     this.shortLine.push(
-                        Math.sqrt(
-                            (itemPoint.x - itemBottom.x) ** 2 + (itemPoint.y - itemBottom.y) ** 2
-                        )
+                        Math.sqrt((itemPoint.x - itemBottom.x) ** 2 + (itemPoint.y - itemBottom.y) ** 2)
                     );
                 }
             }

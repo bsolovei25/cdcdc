@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-    HostListener
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
@@ -17,7 +9,6 @@ import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/
     styleUrls: ['./ozsm-monitoring-main.component.scss'],
 })
 export class OzsmMonitoringMainComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public circleDiagramData: IOzsmCircleDiagramFull = {
         fact: 80,
         plan: 100,
@@ -51,20 +42,15 @@ export class OzsmMonitoringMainComponent extends WidgetPlatform<unknown> impleme
         this.resize();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
     private resize(): void {
-        const scaleY =
-            (this.graphContainer?.nativeElement?.offsetHeight ?? this.staticHeight)
-            / this.staticHeight;
-        const scaleX =
-            (this.graphContainer?.nativeElement?.offsetWidth ?? this.staticWidth)
-            / this.staticWidth;
+        const scaleY = (this.graphContainer?.nativeElement?.offsetHeight ?? this.staticHeight) / this.staticHeight;
+        const scaleX = (this.graphContainer?.nativeElement?.offsetWidth ?? this.staticWidth) / this.staticWidth;
         const scale: number = scaleX < scaleY ? scaleX : scaleY;
         this.styleTransform = `transform: translate(-50%, -50%) scale(${scale})`;
     }

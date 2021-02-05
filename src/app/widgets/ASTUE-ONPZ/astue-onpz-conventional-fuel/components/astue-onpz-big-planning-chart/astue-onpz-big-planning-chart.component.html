@@ -1,9 +1,5 @@
 <div class="container">
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="card__header header">
       <div
         class="header__tag"
@@ -44,7 +40,12 @@
         ></evj-planning-chart>
       </div>
       <div class="card__scroll">
-        <evj-smart-scroll  [limits]="scrollLimits" [data]="scrollData" [(sbThumbLeft)]="sbLeft" [(sbThumbWidth)]="sbWidth" ></evj-smart-scroll>
+        <evj-smart-scroll
+          [limits]="scrollLimits"
+          [data]="scrollData"
+          [(sbThumbLeft)]="sbLeft"
+          [(sbThumbWidth)]="sbWidth"
+        ></evj-smart-scroll>
       </div>
     </div>
   </div>

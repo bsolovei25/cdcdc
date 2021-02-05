@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    OnChanges,
-    ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import { IProductGroups } from '../../../../../dashboard/models/SMP/product-groups.model';
@@ -18,11 +10,11 @@ import { IProductGroups } from '../../../../../dashboard/models/SMP/product-grou
     styleUrls: ['./product-groups-left.component.scss'],
 })
 export class ProductGroupsLeftComponent implements OnInit, OnChanges {
-  @Input() set dataProductGroups(data: IProductGroups) {
-    // (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
-    // (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
-    this.data = data;
-}
+    @Input() set dataProductGroups(data: IProductGroups) {
+        // (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
+        // (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
+        this.data = data;
+    }
     planTankLevel: number = 24;
     factTankLevel: number = 90;
     data: IProductGroups;
@@ -32,18 +24,14 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
     public readonly RADIUS: number = 29;
     public config: any = {
         daysCount: 32 - new Date(this.date.getFullYear(), this.date.getMonth(), 32).getDate(),
-        interval: Math.PI / 120
+        interval: Math.PI / 120,
     };
 
     @Input() public imageType: string;
 
     percent: number;
 
-    status: string[] = [
-        'normal',
-        'warning',
-        'danger'
-    ];
+    status: string[] = ['normal', 'warning', 'danger'];
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
@@ -62,14 +50,8 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
     private d3Circle(data: IProductGroups, el): void {
         const performance = data.passPlanPercent;
-        const imageActive =
-            'assets/icons/widgets/SMP/product-group-planning/icons_circle/' +
-            data.typeImage +
-            '_a.svg';
-        const image =
-            'assets/icons/widgets/SMP/product-group-planning/icons_circle/' +
-            data.typeImage +
-            '.svg';
+        const imageActive = 'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + data.typeImage + '_a.svg';
+        const image = 'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + data.typeImage + '.svg';
 
         const planPercent = 100;
 
@@ -104,10 +86,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const background = this.svg
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/back-left-pie.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/left-side/back-left-pie.svg')
             .attr('height', '75px')
             .attr('width', '100%')
             .attr('x', '27')
@@ -115,10 +94,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const group = this.svg.append('g').attr('transform', 'translate(171 ,48)');
 
-        const arc = d3
-            .arc()
-            .innerRadius(31)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(31).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -127,12 +103,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)
@@ -167,7 +138,10 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const point = this.svg
             .append('image')
-            .attr('xlink:href', `assets/icons/widgets/SMP/product-group-planning/left-side/${this.status[data.pointStatus]}-point.svg`)
+            .attr(
+                'xlink:href',
+                `assets/icons/widgets/SMP/product-group-planning/left-side/${this.status[data.pointStatus]}-point.svg`
+            )
             .attr('height', '15px')
             .attr('width', () => {
                 if (data.pointStatus === 0) {
@@ -214,18 +188,23 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         const pi = Math.PI;
 
         for (let i = 0; i < this.config.daysCount; i++) {
-            const arcDay = d3.arc()
+            const arcDay = d3
+                .arc()
                 .innerRadius(33)
                 .outerRadius(35)
-                .startAngle(i * (2 * pi - this.config.daysCount * this.config.interval) / this.config.daysCount + i * this.config.interval)
-                .endAngle((i + 1) * (2 * pi - this.config.daysCount * this.config.interval) / this.config.daysCount + i * this.config.interval)
+                .startAngle(
+                    (i * (2 * pi - this.config.daysCount * this.config.interval)) / this.config.daysCount +
+                        i * this.config.interval
+                )
+                .endAngle(
+                    ((i + 1) * (2 * pi - this.config.daysCount * this.config.interval)) / this.config.daysCount +
+                        i * this.config.interval
+                );
 
-            const dayStatus = this.status[this.data.daysGroup.find(item => item.day === i + 1)?.critical] ?? 'unknown';
+            const dayStatus =
+                this.status[this.data.daysGroup.find((item) => item.day === i + 1)?.critical] ?? 'unknown';
 
-            group
-                .append('path')
-                .attr('d', arcDay)
-                .attr('fill', `var(--color-smp-days-${dayStatus})`);
+            group.append('path').attr('d', arcDay).attr('fill', `var(--color-smp-days-${dayStatus})`);
         }
     }
 

@@ -14,16 +14,12 @@ export interface ISouBalanceCard {
 @Component({
     selector: 'evj-sou-balance-card',
     templateUrl: './sou-balance-card.component.html',
-    styleUrls: ['./sou-balance-card.component.scss']
+    styleUrls: ['./sou-balance-card.component.scss'],
 })
 export class SouBalanceCardComponent implements OnInit {
-
     @Input() data: ISouBalanceCard = null;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-
-    }
+    ngOnInit(): void {}
 }

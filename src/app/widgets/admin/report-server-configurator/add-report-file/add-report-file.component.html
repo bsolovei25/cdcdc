@@ -30,10 +30,7 @@
                 <input type="text" [(ngModel)]="newName" placeholder="Введите имя файла..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onEditName(item)">
-                <svg-icon
-                  src="assets/icons/widgets/reports/accept.svg"
-                  class="add_button_icon"
-                ></svg-icon>
+                <svg-icon src="assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
               </div>
             </div>
           </div>
@@ -61,16 +58,8 @@
               src="assets/icons/widgets/references/search_blue.svg"
             ></svg-icon>
           </div>
-          <div
-            class="bottom-reference-left__input"
-            [class.bottom-reference-left__input-active]="isRepInput"
-          >
-            <input
-              type="text"
-              (focus)="isRepInput = true"
-              (blur)="isRepInput = false"
-              (keyup)="searchReport($event)"
-            />
+          <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
+            <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" (keyup)="searchReport($event)" />
           </div>
         </div>
       </div>
@@ -79,9 +68,7 @@
   <div class="reference-right">
     <div class="title-reference">
       <div class="title-reference__title-name">
-        <div class="title-reference__title-name-fio">
-          Шаблоны
-        </div>
+        <div class="title-reference__title-name-fio">Шаблоны</div>
       </div>
     </div>
     <div class="references-container-scroll-block">
@@ -106,5 +93,5 @@
   </div>
 </div>
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
-  <evj-upload-drop-zone [extension]="extension" (file)="uploadFile($event)" ></evj-upload-drop-zone>
+  <evj-upload-drop-zone [extension]="extension" (file)="uploadFile($event)"></evj-upload-drop-zone>
 </div>

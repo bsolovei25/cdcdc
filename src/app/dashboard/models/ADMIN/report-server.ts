@@ -13,7 +13,6 @@ export interface IFileDetail {
     length: number;
 }
 
-
 export interface IReportTemplate {
     id: number;
     createdAt: Date;
@@ -24,9 +23,7 @@ export interface IReportTemplate {
     fileTemplate?: IReportFile;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
-    periodType?: 'year' | 'month'
-    | 'day' | 'timePeriod' |
-    'datePeriod' | 'exactTime' | 'none';
+    periodType?: 'year' | 'month' | 'day' | 'timePeriod' | 'datePeriod' | 'exactTime' | 'none';
     report?: any;
     isDeleted: boolean;
     displayName: string;

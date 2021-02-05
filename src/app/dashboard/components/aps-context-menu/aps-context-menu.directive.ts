@@ -2,22 +2,21 @@ import {
     ComponentFactoryResolver,
     Directive,
     EventEmitter,
-    HostListener, Input,
+    HostListener,
+    Input,
     OnInit,
     Output,
     Renderer2,
-    ViewContainerRef
+    ViewContainerRef,
 } from '@angular/core';
 import { ApsContextMenuComponent } from './aps-context-menu.component';
 import { Subject } from 'rxjs';
 import { INavItem } from '../aps-dropdown-menu/aps-dropdown-menu.component';
 
 @Directive({
-    selector: '[evjContextMenu]'
+    selector: '[evjContextMenu]',
 })
-
 export class ApsContextMenuDirective implements OnInit {
-
     public eventSubject: Subject<any> = new Subject<any>();
 
     @Input()
@@ -53,8 +52,8 @@ export class ApsContextMenuDirective implements OnInit {
                         {
                             name: 'Корректировка графика поставки КГС',
                             value: 0,
-                        }
-                    ]
+                        },
+                    ],
                 },
                 {
                     name: 'Матрица ролей',
@@ -63,8 +62,8 @@ export class ApsContextMenuDirective implements OnInit {
                 {
                     name: 'Согласование графика',
                     value: 0,
-                }
-            ]
+                },
+            ],
         },
         {
             name: 'Данные СИ',
@@ -82,7 +81,7 @@ export class ApsContextMenuDirective implements OnInit {
                             name: 'КСУ НСИ',
                             value: 0,
                         },
-                    ]
+                    ],
                 },
                 {
                     name: 'Мастер данные',
@@ -103,8 +102,8 @@ export class ApsContextMenuDirective implements OnInit {
                         {
                             name: 'АС КУБ',
                             value: 0,
-                        }
-                    ]
+                        },
+                    ],
                 },
                 {
                     name: 'Плановые данные',
@@ -114,7 +113,7 @@ export class ApsContextMenuDirective implements OnInit {
                             name: 'PIMS',
                             value: 0,
                         },
-                    ]
+                    ],
                 },
                 {
                     name: 'Результаты АСКПП',
@@ -128,9 +127,9 @@ export class ApsContextMenuDirective implements OnInit {
                             name: 'АС КУБ',
                             value: 0,
                         },
-                    ]
+                    ],
                 },
-            ]
+            ],
         },
         {
             name: 'Ручной ввод',
@@ -144,7 +143,7 @@ export class ApsContextMenuDirective implements OnInit {
                             name: 'АСКПП',
                             value: 0,
                         },
-                    ]
+                    ],
                 },
                 {
                     name: 'Плановые данные',
@@ -154,9 +153,9 @@ export class ApsContextMenuDirective implements OnInit {
                             name: 'АСКПП',
                             value: 0,
                         },
-                    ]
+                    ],
                 },
-            ]
+            ],
         },
         {
             name: 'Алгоритмы',
@@ -170,8 +169,8 @@ export class ApsContextMenuDirective implements OnInit {
                     name: 'Ручной ввод',
                     value: 0,
                 },
-            ]
-        }
+            ],
+        },
     ];
 
     @Input()
@@ -189,8 +188,7 @@ export class ApsContextMenuDirective implements OnInit {
         private cfResolver: ComponentFactoryResolver,
         public vcRef: ViewContainerRef,
         private renderer: Renderer2
-    ) {
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.appendComponent();

@@ -65,10 +65,7 @@ export class TruncatedDiagramCounterItemComponent implements OnInit {
             this.RADIUS = 46;
         }
 
-        const arc = d3
-            .arc()
-            .innerRadius(42)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(42).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -77,12 +74,7 @@ export class TruncatedDiagramCounterItemComponent implements OnInit {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

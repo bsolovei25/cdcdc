@@ -7,11 +7,11 @@ import {
     ElementRef,
     Injector,
     Inject,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize
+    ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -37,9 +37,10 @@ export interface IMatBalanceChartCard {
 @Component({
     selector: 'evj-cd-mat-balance-chart-card',
     templateUrl: './cd-mat-balance-chart-card.component.html',
-    styleUrls: ['./cd-mat-balance-chart-card.component.scss']
+    styleUrls: ['./cd-mat-balance-chart-card.component.scss'],
 })
-export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceChartCard>
+export class CdMatBalanceChartCardComponent
+    extends ChannelPlatform<IMatBalanceChartCard>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('chart')
     public chartElement: ElementRef;
@@ -73,7 +74,7 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceC
     public ngAfterViewInit(): void {
         this.size = {
             width: this.chartElement.nativeElement.offsetWidth,
-            height: this.chartElement.nativeElement.offsetHeight
+            height: this.chartElement.nativeElement.offsetHeight,
         };
         this.cdRef.detectChanges();
     }
@@ -91,14 +92,14 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceC
         const plan: { value: number; timestamp: Date }[] = data.modelValueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date)
+                timestamp: new Date(item.date),
             };
         });
 
         const fact: { value: number; timestamp: Date }[] = data.valueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date)
+                timestamp: new Date(item.date),
             };
         });
 
@@ -110,7 +111,7 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceC
             highBound: [],
             lowBound: [],
             fact: this.transformData(fact),
-            plan: this.transformData(plan)
+            plan: this.transformData(plan),
         };
 
         this.data = data;
@@ -127,15 +128,14 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceC
                 .filter((res) => res.timestamp.getTime() === el.timestamp.getTime())
                 .map((res) => res.value);
             const resultValue =
-                filterValues.map((res) => res).reduce((prev, next) => prev + next) /
-                filterValues.length;
+                filterValues.map((res) => res).reduce((prev, next) => prev + next) / filterValues.length;
             normArray.push({ timestamp: el.timestamp, value: resultValue });
         }
 
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
             };
         });
         return resultArray;
@@ -160,11 +160,11 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceC
 
     downChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.widgetId);
+        const idx = widgets.findIndex((value) => value === this.data.widgetId);
         if (idx < widgets.length - 1) {
             [widgets[idx + 1], widgets[idx]] = [widgets[idx], widgets[idx + 1]];
         }
-        this.cdMatBalanceService.charts$.next(widgets.map(item => item));
+        this.cdMatBalanceService.charts$.next(widgets.map((item) => item));
     }
 
     deleteChart(): void {

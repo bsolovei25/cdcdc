@@ -5,7 +5,7 @@ import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/C
 @Component({
     selector: 'evj-cd-mat-balance-right',
     templateUrl: './cd-mat-balance-right.component.html',
-    styleUrls: ['./cd-mat-balance-right.component.scss']
+    styleUrls: ['./cd-mat-balance-right.component.scss'],
 })
 export class CdMatBalanceRightComponent implements OnInit {
     @Input() dataLocal: IStreams[] = [];
@@ -21,27 +21,20 @@ export class CdMatBalanceRightComponent implements OnInit {
         this.modal = value;
     }
 
-    @Output() modalDeviation: EventEmitter<IModalDeviation> = new EventEmitter<IModalDeviation>(
-        null
-    );
+    @Output() modalDeviation: EventEmitter<IModalDeviation> = new EventEmitter<IModalDeviation>(null);
 
     modal: IModalDeviation;
     percentLoad: number = 0;
     iconArrow: boolean;
 
-    constructor(private cdMatBalanceService: CdMatBalanceService) {
-    }
+    constructor(private cdMatBalanceService: CdMatBalanceService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     clickItemDeviation(event: MouseEvent, item: IStreams, idx: number): void {
         const parentPos = document.getElementById('parentPos')?.getBoundingClientRect();
         const childPos = document.getElementById(`el-${idx}`)?.getBoundingClientRect();
-        const selectChart: string[] = [
-            ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.subChannelId
-        ];
+        const selectChart: string[] = [...this.cdMatBalanceService.charts$?.getValue(), item?.subChannelId];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
         if (item.deviation !== 0) {
@@ -52,19 +45,16 @@ export class CdMatBalanceRightComponent implements OnInit {
             top: childPos?.top - parentPos?.top - 93,
             name: item.name,
             engUnits: item.engUnits,
-            valueDeviation: (item.deviation < 1 && item.deviation > -1) ?
-                +item.deviation.toFixed(2) : +item.deviation.toFixed(),
+            valueDeviation:
+                item.deviation < 1 && item.deviation > -1 ? +item.deviation.toFixed(2) : +item.deviation.toFixed(),
             valueModel: item.modelValue,
-            valueFact: item.value
+            valueFact: item.value,
         };
         this.modalDeviation.emit(this.modal);
     }
 
     clickItem(item: IStreams): void {
-        const selectChart: string[] = [
-            ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.subChannelId
-        ];
+        const selectChart: string[] = [...this.cdMatBalanceService.charts$?.getValue(), item?.subChannelId];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
     }

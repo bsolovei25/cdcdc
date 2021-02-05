@@ -54,7 +54,8 @@ import { StringDecoder } from 'string_decoder';
         ]),
     ],
 })
-export class EvjManualInputComponent extends WidgetPlatform<unknown>
+export class EvjManualInputComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
@@ -222,10 +223,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    async loadSaveData(data: {
-        machines: IMachine_MI[];
-        isUserHasWriteClaims: boolean;
-    }): Promise<void> {
+    async loadSaveData(data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean }): Promise<void> {
         this.isUserHasWriteClaims = data.isUserHasWriteClaims;
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
@@ -239,16 +237,15 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
                 if (!this.allSettings) {
                     this.chooseSetting = itemDate;
                     this.allSettings = false;
-                }
-                else {
+                } else {
                     this.chooseSetting = {
-                        name: 'all'
+                        name: 'all',
                     };
                     itemDate.active = false;
                 }
-            }else {
+            } else {
                 this.chooseSetting = {
-                    name: 'all'
+                    name: 'all',
                 };
             }
         }

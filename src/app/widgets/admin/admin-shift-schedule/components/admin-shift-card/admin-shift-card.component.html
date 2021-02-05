@@ -1,24 +1,10 @@
 <div class="card">
-  <div *ngIf="titleBlock" class="card__title">
-    {{ titleBlock }}
-  </div>
+  <div *ngIf="titleBlock" class="card__title">{{ titleBlock }}</div>
 
   <div class="admin-btns" *ngIf="buttonLeft">
     <div class="shadow"></div>
-    <div
-      class="admin-btns__item"
-      [class.active]="isLeftActive"
-      (click)="onBtnClick(true)"
-    >
-      {{buttonLeft}}
-    </div>
-    <div
-      class="admin-btns__item"
-      [class.active]="!isLeftActive"
-      (click)="onBtnClick(false)"
-    >
-      {{buttonRight}}
-    </div>
+    <div class="admin-btns__item" [class.active]="isLeftActive" (click)="onBtnClick(true)">{{buttonLeft}}</div>
+    <div class="admin-btns__item" [class.active]="!isLeftActive" (click)="onBtnClick(false)">{{buttonRight}}</div>
   </div>
   <div class="card__content">
     <ng-content></ng-content>

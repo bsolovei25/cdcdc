@@ -1,21 +1,14 @@
-<div style="height: 100%; padding-left: 5px;">
+<div style="height: 100%; padding-left: 5px">
   <div class="title">
     <div class="title__name">График изменения массы в резервуаре</div>
     <div class="title__button-close" (click)="close()">
-      <svg-icon
-        src="assets/icons/widgets/oil-control-all/oil-operations/close-line.svg"
-        class="add_button_icon"
-      >
+      <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/close-line.svg" class="add_button_icon">
       </svg-icon>
     </div>
   </div>
   <div class="content">
     <div class="chart" *ngIf="data?.length && points?.length">
-      <evj-line-chart-shared
-      [data]="data"
-      [points]="points"
-      chartType='oil-operations'
-    ></evj-line-chart-shared>
+      <evj-line-chart-shared [data]="data" [points]="points" chartType="oil-operations"></evj-line-chart-shared>
     </div>
     <!-- TODO smart scroll пока не поддерживаем -->
     <!--<div class="chart-scroll">

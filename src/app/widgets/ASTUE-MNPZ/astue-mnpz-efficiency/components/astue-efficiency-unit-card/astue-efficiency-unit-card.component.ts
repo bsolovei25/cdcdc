@@ -1,9 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    IAsEfUnitNew,
-    IAsEfFlow,
-} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { IAsEfUnitNew, IAsEfFlow } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { log } from 'util';
 
@@ -47,9 +44,7 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
             const len = this.AsEfService.isUnitSelected(this.unit)?.length;
             if (len) {
                 const lastFlow = this.AsEfService.isUnitSelected(this.unit)[length - 1];
-                this.AsEfService.currentFlow = this.unit.flows.find(
-                    (item) => item.name === lastFlow
-                );
+                this.AsEfService.currentFlow = this.unit.flows.find((item) => item.name === lastFlow);
             } else {
                 this.AsEfService.currentFlow = null;
             }

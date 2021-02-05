@@ -3,15 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ChainMapComponent } from './chain-map.component';
 import { SharedModule } from '../../../@shared/shared.module';
 
-
-
 @NgModule({
-  declarations: [ChainMapComponent],
-    imports: [
-        CommonModule,
-        SharedModule
-    ]
+    declarations: [ChainMapComponent],
+    imports: [CommonModule, SharedModule],
 })
 export class ChainMapModule {
-    enterComponent = ChainMapComponent
+    enterComponent = ChainMapComponent;
 }

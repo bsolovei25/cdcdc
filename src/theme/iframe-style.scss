@@ -1,6 +1,10 @@
 @import url(src/theme/fonts.css);
 
-html, body, p, code:before, table {
+html,
+body,
+p,
+code:before,
+table {
   font-family: "Tahoma", sans-serif;
 }
 
@@ -64,7 +68,12 @@ div.rec-new-manager-shell div.record-explorer div.rm-families-header {
   background: var(--color-bg-main-dark);
 }
 
-div.rec-new-manager-shell div.record-explorer div.rm-related-families ul.rm-related-families-list .rm-nav-list .list-data-block {
+div.rec-new-manager-shell
+  div.record-explorer
+  div.rm-related-families
+  ul.rm-related-families-list
+  .rm-nav-list
+  .list-data-block {
   color: white;
 }
 
@@ -76,15 +85,20 @@ div.rec-new-manager-shell div.record-explorer .rm-nav-list-group.entity-ids {
   color: white;
 }
 
-div.rec-new-manager-shell div.record-explorer .rm-nav-list-group.entity-ids>li {
+div.rec-new-manager-shell div.record-explorer .rm-nav-list-group.entity-ids > li {
   background: var(--color-bg-main-dark);
 }
 
-div.rec-new-manager-shell div.record-explorer .rm-nav-list-group.entity-ids>li.active {
+div.rec-new-manager-shell div.record-explorer .rm-nav-list-group.entity-ids > li.active {
   background: var(--color-bg-main-dark);
 }
 
-div.rec-new-manager-shell div.record-explorer div.rm-related-families ul.rm-related-families-list .rm-nav-list .list-data-block:hover {
+div.rec-new-manager-shell
+  div.record-explorer
+  div.rm-related-families
+  ul.rm-related-families-list
+  .rm-nav-list
+  .list-data-block:hover {
   background: var(--color-bg-main) !important;
 }
 
@@ -93,13 +107,14 @@ div.rec-new-manager-shell div.record-explorer h1.title {
   color: white;
 }
 
-.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li.active>a,
-.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li>a {
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li.active > a,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li > a {
   color: var(--color-text-sub-heading);
   max-width: 200px;
 }
 
-mi-site-selector div.readonly label, output {
+mi-site-selector div.readonly label,
+output {
   color: white;
 }
 
@@ -170,7 +185,18 @@ div.rec-new-manager-shell div.rm-datasheet-container {
   width: 100% !important;
 }
 
-.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-1, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-2, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-2-5, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-3, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-4, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-5, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-6, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-7, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-7-5, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-8, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-9, .datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-10 {
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-1,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-2,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-2-5,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-3,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-4,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-5,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-6,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-7,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-7-5,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-8,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-9,
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .block.span-10 {
   padding: 0 !important;
 }
 
@@ -191,14 +217,12 @@ span {
   background: var(--color-bg-card) !important;
 }
 
-
-
-
 .overview {
   background: var(--color-bg-main);
 }
 
-mi-dashboard div.dashboard-content mi-widget, mi-dashboard-editor div.dashboard-content mi-widget {
+mi-dashboard div.dashboard-content mi-widget,
+mi-dashboard-editor div.dashboard-content mi-widget {
   border: none !important;
   background: var(--color-bg-card) !important;
   padding: 15px;
@@ -243,15 +267,11 @@ mi-page-filter .page-filter-root header {
   border-left: none;
 }
 
-a{
+a {
   color: var(--color-text-sub);
 }
 
-
-
-
-
-#shell #shell-screen section.content-wrapper section.content>div.region {
+#shell #shell-screen section.content-wrapper section.content > div.region {
   background-color: var(--color-bg-main);
 }
 
@@ -299,7 +319,7 @@ a{
   color: var(--color-text-sub-heading);
 }
 
-.dx-gridbase-container>.dx-datagrid-rowsview {
+.dx-gridbase-container > .dx-datagrid-rowsview {
   color: var(--color-text-sub);
 }
 
@@ -307,11 +327,11 @@ a{
   border-collapse: collapse;
 }
 
-.dx-datagrid .dx-datagrid-headers .dx-column-lines>:first-child {
+.dx-datagrid .dx-datagrid-headers .dx-column-lines > :first-child {
   border: none !important;
 }
 
-.dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+.dx-datagrid-headers .dx-datagrid-table .dx-row > td {
   border: none;
 }
 
@@ -319,7 +339,7 @@ a{
   border: none;
 }
 
-.dx-datagrid .dx-column-lines>td {
+.dx-datagrid .dx-column-lines > td {
   border: none;
   border-left: solid 1px var(--color-bg-sub);
 }
@@ -337,7 +357,8 @@ mi-resultgrid .rg-header .totalCount {
   padding: 0;
 }
 
-mi-page-filter, .mi-page-filter {
+mi-page-filter,
+.mi-page-filter {
   height: calc(100% - 10px);
 }
 

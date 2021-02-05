@@ -1,22 +1,22 @@
 .save-block {
-    cursor: pointer;
-    position: relative;
-    height: 100%;
-    display: flex;
-    width: 120px;
-    align-items: center;
+  cursor: pointer;
+  position: relative;
+  height: 100%;
+  display: flex;
+  width: 120px;
+  align-items: center;
 
-    &__button-save {
-        width: calc(100% - 20px);
-        height: 25px;
-        border: 1px solid var(--color-text-main);
-        border-radius: 25px;
-        text-align: center;
-        line-height: 25px;
+  &__button-save {
+    width: calc(100% - 20px);
+    height: 25px;
+    border: 1px solid var(--color-text-main);
+    border-radius: 25px;
+    text-align: center;
+    line-height: 25px;
 
-        &:hover{
-            border: 1px solid var(--color-active);
-            color: var(--color-active);
-        }
+    &:hover {
+      border: 1px solid var(--color-active);
+      color: var(--color-active);
     }
+  }
 }

@@ -26,12 +26,9 @@
           <div class="{{ewService.event.priority.name}}">
             <mat-form-field appearance="none">
               <mat-label>Приоритет</mat-label>
-              <mat-select
-                [(ngModel)]="ewService.event.priority"
-                [compareWith]="compareFn"
-              >
+              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
                 <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                >{{ ewService.priorities[p.name] }}
+                  >{{ ewService.priorities[p.name] }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -41,11 +38,7 @@
     </div>
 
     <div class="workspace__select-container-right">
-      <evj-events-workspace-select
-        [label]="'Ознакомление'"
-        [dataType]="'event-shift'"
-      >
-      </evj-events-workspace-select>
+      <evj-events-workspace-select [label]="'Ознакомление'" [dataType]="'event-shift'"> </evj-events-workspace-select>
     </div>
   </div>
 
@@ -59,10 +52,7 @@
           ></evj-events-workspace-select>
         </div>
         <div class="workspace__select-container-right">
-          <evj-events-workspace-select
-            [label]="'Статус'"
-            [dataType]="'status'"
-          ></evj-events-workspace-select>
+          <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
         </div>
       </div>
 
@@ -153,10 +143,7 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <evj-events-workspace-datetimepicker
-            [label]="'Начало события'"
-            [date]="ewService.event.eventDateTime"
-          >
+          <evj-events-workspace-datetimepicker [label]="'Начало события'" [date]="ewService.event.eventDateTime">
           </evj-events-workspace-datetimepicker>
         </div>
         <div class="workspace__select-container-right">
@@ -167,9 +154,7 @@
         </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select>
-
-        </evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select> </evj-events-workspace-responsible-select>
       </div>
       <div class="vent-description">
         <div class="title">
@@ -258,7 +243,6 @@
         </div>
         <evj-events-correct></evj-events-correct>
       </div>
-
     </div>
   </div>
 </div>

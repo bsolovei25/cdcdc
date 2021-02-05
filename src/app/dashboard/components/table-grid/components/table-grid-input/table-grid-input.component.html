@@ -1,14 +1,25 @@
 <div class="input-block">
-    <div class="input-block__button-search">
-        <svg-icon *ngIf="!isInput" class="button_filter_icon"
-            src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-        <svg-icon *ngIf="isInput" class="button_filter_icon"
-            src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+  <div class="input-block__button-search">
+    <svg-icon
+      *ngIf="!isInput"
+      class="button_filter_icon"
+      src="assets/icons/widgets/references/search_white.svg"
+    ></svg-icon>
+    <svg-icon
+      *ngIf="isInput"
+      class="button_filter_icon"
+      src="assets/icons/widgets/references/search_blue.svg"
+    ></svg-icon>
+  </div>
+  <div class="input-block__input" [class.input-block__input-active]="isInput">
+    <div class="input-back">
+      <input
+        type="text"
+        (focus)="isInput = true"
+        (blur)="isInput = false"
+        placeholder="Поиск..."
+        (keyup)="searchRecord($event)"
+      />
     </div>
-    <div class="input-block__input" [class.input-block__input-active]="isInput">
-        <div class="input-back">
-            <input type="text" (focus)="isInput = true" (blur)="isInput = false" placeholder="Поиск..."
-            (keyup)="searchRecord($event)" />
-        </div>
-    </div>
+  </div>
 </div>

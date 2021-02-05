@@ -1,58 +1,57 @@
 <div class="coding-menu">
-    <div class="coding-menu__file">
-        <div class="title">Исходный файл</div>
-        <div class="file-block">
-            <div class="block-value">
-                <div class="file-block__title">Название</div>
-                <div class="file-block__name">{{ document?.name || 'Выберите файл' }}</div>
-            </div>
-        </div>
+  <div class="coding-menu__file">
+    <div class="title">Исходный файл</div>
+    <div class="file-block">
+      <div class="block-value">
+        <div class="file-block__title">Название</div>
+        <div class="file-block__name">{{ document?.name || 'Выберите файл' }}</div>
+      </div>
     </div>
-    <div class="coding-menu__new-file">
-        <div class="title m-title">Формирование нового имени файла</div>
-        <div class="new-file-block">
-            <div class="new-file-block__pasport">
-                <div class="left-side">
-                    <div class="title-info">Паспорт</div>
-                    <div class="value-info">
-                      <input matInput [formControl]="passportId" required>
-                    </div>
-                </div>
-            </div>
-            <div class="new-file-block__product">
-                <div class="block-value">
-                    <div class="title-info">Продукт</div>
-                    <div class="value-info" [matTooltip]="product?.name || 'Не выбран'">{{ product?.name || 'Не выбран' }}</div>
-                </div>
-            </div>
-            <div class="new-file-block__tank">
-                <div class="block-value">
-                    <div class="title-info">Резервуар</div>
-                    <div class="value-info" [matTooltip]="tank?.name || 'Не выбран'">{{ tank?.name || 'Не выбран' }}</div>
-                </div>
-            </div>
-            <div class="new-file-block__data">
-                <mat-form-field>
-                    <mat-label>Дата</mat-label>
-                    <input matInput [matDatepicker]="picker" [formControl]="passportDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker">
-                        <mat-icon matDatepickerToggleIcon>
-                            <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                            </svg-icon>
-                        </mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
+  </div>
+  <div class="coding-menu__new-file">
+    <div class="title m-title">Формирование нового имени файла</div>
+    <div class="new-file-block">
+      <div class="new-file-block__pasport">
+        <div class="left-side">
+          <div class="title-info">Паспорт</div>
+          <div class="value-info">
+            <input matInput [formControl]="passportId" required />
+          </div>
         </div>
-    </div>
-    <div class="coding-menu__save-button">
-        <div class="title"></div>
-        <div class="save">
-            <div class="save-block" (click)="saveFile()">
-                <div class="save-block__name">Сохранить в БДДК</div>
-            </div>
+      </div>
+      <div class="new-file-block__product">
+        <div class="block-value">
+          <div class="title-info">Продукт</div>
+          <div class="value-info" [matTooltip]="product?.name || 'Не выбран'">{{ product?.name || 'Не выбран' }}</div>
         </div>
+      </div>
+      <div class="new-file-block__tank">
+        <div class="block-value">
+          <div class="title-info">Резервуар</div>
+          <div class="value-info" [matTooltip]="tank?.name || 'Не выбран'">{{ tank?.name || 'Не выбран' }}</div>
+        </div>
+      </div>
+      <div class="new-file-block__data">
+        <mat-form-field>
+          <mat-label>Дата</mat-label>
+          <input matInput [matDatepicker]="picker" [formControl]="passportDate" />
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>
+              <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
+  </div>
+  <div class="coding-menu__save-button">
+    <div class="title"></div>
+    <div class="save">
+      <div class="save-block" (click)="saveFile()">
+        <div class="save-block__name">Сохранить в БДДК</div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,17 +1,5 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    AfterViewInit,
-    ChangeDetectorRef,
-    Output,
-    EventEmitter,
-} from '@angular/core';
-import {
-    IWorkspace,
-    IGlobalClaim,
-    ScreenClaimsEnum,
-} from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { IWorkspace, IGlobalClaim, ScreenClaimsEnum } from '../../../../../../dashboard/models/ADMIN/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
@@ -51,16 +39,12 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
         }
         this.allScreenClaims = this.adminService.screenSpecialClaims;
 
-        this.allScreenClaims.sort(
-            (a, b) => ScreenClaimsEnum[a.claimType] - ScreenClaimsEnum[b.claimType]
-        );
+        this.allScreenClaims.sort((a, b) => ScreenClaimsEnum[a.claimType] - ScreenClaimsEnum[b.claimType]);
     }
 
     public ngAfterViewInit(): void {
         if (this.isActive) {
-            this.currentWorkspace = this.workerScreens.find(
-                (item) => item.id === this.workspace.id
-            );
+            this.currentWorkspace = this.workerScreens.find((item) => item.id === this.workspace.id);
             if (this.currentWorkspace) {
                 const claimsArray: string[] = [];
                 this.currentWorkspace.claims.sort(
@@ -104,9 +88,7 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
     private deleteAllWorkspaceClaims(): void {
         while (true) {
-            const index = this.workerSpecialClaims.findIndex(
-                (claim) => claim.value === this.workspace.id.toString()
-            );
+            const index = this.workerSpecialClaims.findIndex((claim) => claim.value === this.workspace.id.toString());
             if (index !== -1) {
                 this.workerSpecialClaims.splice(index, 1);
             } else {

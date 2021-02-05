@@ -1,15 +1,7 @@
-import {
-    Component,
-    EventEmitter,
-    Injector,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output
-} from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize
+    ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -22,7 +14,7 @@ import { CdMatBalanceChartCardComponent } from '../cd-mat-balance-chart-card/cd-
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
-    styleUrls: ['./cd-mat-balance-chart.component.scss']
+    styleUrls: ['./cd-mat-balance-chart.component.scss'],
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly chartComponent: typeof CdMatBalanceChartCardComponent = CdMatBalanceChartCardComponent;
@@ -69,12 +61,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly selectValues: { value: number; title: string }[] = [
         {
             value: 8,
-            title: '8 часов'
+            title: '8 часов',
         },
         {
             value: 24,
-            title: '24 часа'
-        }
+            title: '24 часа',
+        },
     ];
 
     public isMenuOpen: boolean = false;
@@ -84,8 +76,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
         public injector: Injector
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -97,19 +88,18 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
                     this.toggleAreaValue = true;
                 }
             }),
-            combineLatest([
-                this.cdMatBalanceService.hc$,
-                this.cdMatBalanceService.currentHour$
-            ]).subscribe(([hc, currentHour]) => {
-                const begin: number = currentHour - (hc - 1);
-                const end: number = currentHour + 2;
-                this.hoursLine = [];
-                this.currentDate = new Date();
-                for (let i = begin; i < end; i++) {
-                    const insert = i > 0 ? i : 24 + i;
-                    this.hoursLine.push(insert);
+            combineLatest([this.cdMatBalanceService.hc$, this.cdMatBalanceService.currentHour$]).subscribe(
+                ([hc, currentHour]) => {
+                    const begin: number = currentHour - (hc - 1);
+                    const end: number = currentHour + 2;
+                    this.hoursLine = [];
+                    this.currentDate = new Date();
+                    for (let i = begin; i < end; i++) {
+                        const insert = i > 0 ? i : 24 + i;
+                        this.hoursLine.push(insert);
+                    }
                 }
-            })
+            )
         );
     }
 
@@ -121,9 +111,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: idWidget },
-                { provide: 'channelId', useValue: channelId }
+                { provide: 'channelId', useValue: channelId },
             ],
-            parent: this.injector
+            parent: this.injector,
         });
     };
 
@@ -145,19 +135,18 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
             if (i === 50) {
                 testData.push({
                     value: 0,
-                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
+                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
                 });
             }
             testData.push({
                 value: i,
-                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
+                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
             });
         }
         testData.forEach((el) => (el.timestamp = this.dateHourRound(el.timestamp)));
         testData = testData.filter(
             (el) =>
-                el.timestamp.getTime() >= startDatetime.getTime() &&
-                el.timestamp.getTime() <= currentDatetime.getTime()
+                el.timestamp.getTime() >= startDatetime.getTime() && el.timestamp.getTime() <= currentDatetime.getTime()
         );
 
         const normArray: { value: number; timestamp: Date }[] = [];
@@ -169,15 +158,14 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
                 .filter((res) => res.timestamp.getTime() === el.timestamp.getTime())
                 .map((res) => res.value);
             const resultValue =
-                filterValues.map((res) => res).reduce((prev, next) => prev + next) /
-                filterValues.length;
+                filterValues.map((res) => res).reduce((prev, next) => prev + next) / filterValues.length;
             normArray.push({ timestamp: el.timestamp, value: resultValue });
         }
 
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
             };
         });
     }
@@ -239,7 +227,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y)
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
                 };
             }
             dataArray[idx] = el;

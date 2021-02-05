@@ -16,6 +16,6 @@ export class ApsDropdownMenuComponent {
     @Input('items')
     public items: INavItem[];
 
-    @ViewChild('dropdownMenu', {static: true})
+    @ViewChild('dropdownMenu', { static: true })
     public dropdownMenu: any;
 }

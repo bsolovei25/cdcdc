@@ -33,12 +33,9 @@
           <div class="{{ewService.event.priority.name}}">
             <mat-form-field appearance="none">
               <mat-label>Приоритет</mat-label>
-              <mat-select
-                [(ngModel)]="ewService.event.priority"
-                [compareWith]="compareFn"
-              >
+              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
                 <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                >{{ ewService.priorities[p.name] }}
+                  >{{ ewService.priorities[p.name] }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -48,11 +45,7 @@
     </div>
 
     <div class="select-container-right">
-      <evj-events-workspace-select
-        [label]="'Событие'"
-        [dataType]="'event'"
-      >
-      </evj-events-workspace-select>
+      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"> </evj-events-workspace-select>
     </div>
   </div>
 
@@ -62,19 +55,14 @@
         <div class="place-date">
           <div class="select-container">
             <ng-container *ngIf="ewService.event.category.code !== '2' else subcategories">
-            <div class="title">
-              <span>Тип оборудования</span>
-            </div>
+              <div class="title">
+                <span>Тип оборудования</span>
+              </div>
               <div class="mat-form-category">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
-                    <mat-select
-                      [(ngModel)]="ewService.event.equipmentCategory"
-                      [compareWith]="compareFn"
-                    >
-                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                      >{{ p.name }}
-                      </mat-option>
+                    <mat-select [(ngModel)]="ewService.event.equipmentCategory" [compareWith]="compareFn">
+                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -83,10 +71,7 @@
           </div>
 
           <div class="select-container">
-            <evj-events-workspace-select
-              [label]="'Статус'"
-              [dataType]="'status'"
-            ></evj-events-workspace-select>
+            <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
           </div>
         </div>
         <div class="place-date">
@@ -102,13 +87,13 @@
             </div>
             <div class="number-position">
               <div class="text">
-              <textarea
-                required
-                placeholder="Введите значение"
-                minlength="3"
-                [(ngModel)]="ewService.event.positionNumber"
-              >
-              </textarea>
+                <textarea
+                  required
+                  placeholder="Введите значение"
+                  minlength="3"
+                  [(ngModel)]="ewService.event.positionNumber"
+                >
+                </textarea>
               </div>
             </div>
           </div>
@@ -158,19 +143,14 @@
         <div class="place-date">
           <div class="select-container">
             <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
-            <div class="title">
-              <span>Тип оборудования</span>
-            </div>
+              <div class="title">
+                <span>Тип оборудования</span>
+              </div>
               <div class="mat-form-category">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
-                    <mat-select
-                      [(ngModel)]="ewService.event.equipmentCategory"
-                      [compareWith]="compareFn"
-                    >
-                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                      >{{ p.name }}
-                      </mat-option>
+                    <mat-select [(ngModel)]="ewService.event.equipmentCategory" [compareWith]="compareFn">
+                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -179,10 +159,7 @@
           </div>
 
           <div class="select-container">
-            <evj-events-workspace-select
-              [label]="'Статус'"
-              [dataType]="'status'"
-            ></evj-events-workspace-select>
+            <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
           </div>
         </div>
 
@@ -235,15 +212,12 @@
             </div>
             <div class="creator__field">
               <div class="block">
-              <span>
-                {{ this.ewService.event.fixedBy?.displayName ?
-                this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
-                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
-              </span>
+                <span>
+                  {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName ===
+                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+                </span>
                 <ng-container *ngIf="this.ewService.event.fixedBy?.positionDescription">
-                  <span class="block__position">
-                    {{this.ewService.event.fixedBy?.positionDescription}}
-                  </span>
+                  <span class="block__position"> {{this.ewService.event.fixedBy?.positionDescription}} </span>
                 </ng-container>
               </div>
             </div>
@@ -251,10 +225,7 @@
         </div>
 
         <div class="select-container-right">
-          <evj-events-workspace-datetimepicker
-            [label]="'Начало события'"
-            [date]="ewService.event.eventDateTime"
-          >
+          <evj-events-workspace-datetimepicker [label]="'Начало события'" [date]="ewService.event.eventDateTime">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
@@ -267,17 +238,12 @@
           <evj-events-place></evj-events-place>
         </div>
         <div class="select-container-right">
-          <evj-events-workspace-datetimepicker
-            [label]="'Срок исполнения'"
-            [date]="ewService.event.deadline"
-          >
+          <evj-events-workspace-datetimepicker [label]="'Срок исполнения'" [date]="ewService.event.deadline">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select>
-
-        </evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select> </evj-events-workspace-responsible-select>
       </div>
       <div class="events-correct">
         <div class="title">
@@ -293,7 +259,5 @@
   <div class="title">
     <span>Подкатегория</span>
   </div>
-  <evj-events-workspace-select
-    [dataType]="'subCategoriesFilter'"
-  ></evj-events-workspace-select>
+  <evj-events-workspace-select [dataType]="'subCategoriesFilter'"></evj-events-workspace-select>
 </ng-template>

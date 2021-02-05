@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    AfterViewInit,
-    ViewChild,
-    ElementRef,
-    Input
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICircleData } from 'src/app/dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
@@ -15,7 +7,7 @@ import { planData } from '../../ozsm-circle-planning-diagram/ozsm-circle-plannin
 @Component({
     selector: 'evj-ozsm-circle-planning-diagram-plan',
     templateUrl: './ozsm-circle-planning-diagram-plan.component.html',
-    styleUrls: ['./ozsm-circle-planning-diagram-plan.component.scss']
+    styleUrls: ['./ozsm-circle-planning-diagram-plan.component.scss'],
 })
 export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
@@ -24,13 +16,12 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
     public activeData: ICircleData;
     private svgBody: any;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.activeData = this.plan;
     }
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
     ngAfterViewInit(): void {
         this.drawWidget();
     }
@@ -42,10 +33,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
     }
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
-        this.svgBody
-            .attr('width', 168)
-            .attr('height', 168)
-            .attr('viewBox', '0 0 200 200');
+        this.svgBody.attr('width', 168).attr('height', 168).attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -58,20 +46,14 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .attr('stroke-width', 1);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg')
             .attr('x', 12)
             .attr('y', 0)
             .attr('width', 188)
             .attr('height', 55);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg')
             .attr('x', 12)
             .attr('y', -200)
             .attr('width', 188)
@@ -79,10 +61,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .style('transform', 'scaleY(-1)');
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/stroke-line.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/stroke-line.svg')
             .attr('x', 65)
             .attr('y', -105)
             .attr('width', 70)
@@ -118,7 +97,6 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
         const pie = this.definePie(startAngle, endAngle); // функция для внешней дуги
         const endAngleFn = (d) => (scale(d) * Math.PI) / 180 - (1.5 * Math.PI) / 2;
         const lastPie = this.definePie(startAngle, endAngleFn); // функция дуги, которая следует за ползунком
-
 
         this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
         this.drawArc(pie([1]), 'deviation-arc', innerArc, svg); // отрисовка подвижной дуги
@@ -172,20 +150,8 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .attr('x', 0)
             .attr('y', 1.2)
             .text(this.activeData.deviation);
-        block
-            .append('text')
-            .attr('class', 'units')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 4)
-            .text('0');
-        block
-            .append('text')
-            .attr('class', 'th')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', -4)
-            .text('ТН');
+        block.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 4).text('0');
+        block.append('text').attr('class', 'th').attr('text-anchor', 'middle').attr('x', 0).attr('y', -4).text('ТН');
 
         block
             .append('text')
@@ -203,46 +169,19 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .text('План');
     }
 
-    private defineArc(
-        innerRad: number,
-        outerRad: number,
-        padAngle: number = 0,
-        cornerRadius: number = 0
-    ): any {
-        return d3
-            .arc()
-            .innerRadius(innerRad)
-            .outerRadius(outerRad)
-            .cornerRadius(cornerRadius)
-            .padAngle(padAngle);
+    private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
+        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3
-            .pie()
-            .startAngle(startAngle)
-            .endAngle(endAngle)
-            .value(val);
+        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block
-            .selectAll('.arc')
-            .data(dataFn)
-            .enter()
-            .append('path')
-            .attr('class', cls)
-            .attr('d', arcFn);
+        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
     }
 
-    private drawNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
+    private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {
         block
             .selectAll(`.needle`)
             .data(data)

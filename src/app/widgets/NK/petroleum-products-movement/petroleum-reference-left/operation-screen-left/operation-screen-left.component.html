@@ -13,11 +13,7 @@
     </div>
   </div>
   <div *ngFor="let item of tanks" [@Branch]="(isShowTank) ? 'expanded' : 'collapsed'">
-    <div
-      class="click_button"
-      [class.click_button__active]="item.isActive"
-      (click)="objectClick(item.objectName)"
-    >
+    <div class="click_button" [class.click_button__active]="item.isActive" (click)="objectClick(item.objectName)">
       <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon
@@ -40,11 +36,7 @@
     </div>
   </div>
   <div *ngFor="let item of units" [@Branch]="(isShowFacilities) ? 'expanded' : 'collapsed'">
-    <div
-      class="click_button"
-      [class.click_button__active]="item.isActive"
-      (click)="objectClick(item.objectName)"
-    >
+    <div class="click_button" [class.click_button__active]="item.isActive" (click)="objectClick(item.objectName)">
       <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon

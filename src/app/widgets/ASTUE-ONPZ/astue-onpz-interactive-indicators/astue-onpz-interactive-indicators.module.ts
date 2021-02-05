@@ -8,13 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [AstueOnpzInteractiveIndicatorsComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-    ],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatFormFieldModule, MatSelectModule],
 })
 export class AstueOnpzInteractiveIndicatorsModule {
     enterComponent = AstueOnpzInteractiveIndicatorsComponent;

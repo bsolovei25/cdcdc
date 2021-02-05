@@ -4,7 +4,6 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DATASOURCE } from './mock';
 
-
 export interface IAPSGanttChart {
     id?: number;
     productName: string;
@@ -45,8 +44,13 @@ interface IGanttTankOperations {
     endOperationDate: Date;
 }
 
-type TypeOperation = 'timeLowerOrIncrease'
-    | 'fixedSelection' | 'minOrMaxLoad' | 'fixedLoad' | 'engagementRate' | 'fixedQualityScore';
+type TypeOperation =
+    | 'timeLowerOrIncrease'
+    | 'fixedSelection'
+    | 'minOrMaxLoad'
+    | 'fixedLoad'
+    | 'engagementRate'
+    | 'fixedQualityScore';
 
 export interface IAPSGanttTank {
     id: number;
@@ -62,18 +66,17 @@ export interface IAPSGanttTank {
 @Component({
     selector: 'evj-aps-gantt-chart',
     templateUrl: './aps-gantt-chart.component.html',
-    styleUrls: ['./aps-gantt-chart.component.scss']
+    styleUrls: ['./aps-gantt-chart.component.scss'],
 })
 export class ApsGanttChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     dataSource: IAPSGanttTank[] = DATASOURCE;
 
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'productName', date: new Date() },
         { name: '1.02', date: new Date() },
         { name: '2.02', date: new Date() },
-        { name: '3.02', date: new Date() }];
-
+        { name: '3.02', date: new Date() },
+    ];
 
     expandedElement: SelectionModel<number> = new SelectionModel(true);
     selectedRow: SelectionModel<string> = new SelectionModel(true);
@@ -101,12 +104,7 @@ export class ApsGanttChartComponent extends WidgetPlatform<unknown> implements O
         // this.data = ref.chartItems;
     }
 
-    onClickTr(
-        event: MouseEvent,
-        element?: IAPSGanttChart,
-        line?: string,
-        div?: IUIELements
-    ): void {
+    onClickTr(event: MouseEvent, element?: IAPSGanttChart, line?: string, div?: IUIELements): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.id)) {
             this.expandedElement.deselect(element.id);
@@ -123,6 +121,4 @@ export class ApsGanttChartComponent extends WidgetPlatform<unknown> implements O
             this.selectedRowProduct = null;
         }
     }
-
-
 }

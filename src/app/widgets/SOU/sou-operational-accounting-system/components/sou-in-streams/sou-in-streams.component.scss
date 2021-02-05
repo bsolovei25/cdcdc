@@ -10,7 +10,6 @@
     &__header {
       .header {
         &__row {
-
         }
 
         &__column {
@@ -24,7 +23,6 @@
 
           &__trust-value {
             max-width: 50px;
-
           }
 
           &:first-of-type {
@@ -65,7 +63,6 @@
           .column {
             display: flex;
             flex-direction: column;
-
 
             &__block {
               display: flex;
@@ -180,4 +177,3 @@
     }
   }
 }
-

@@ -1,34 +1,35 @@
-<div 
-    class="volume"
-    [style.color]="isRepair? 'var(--nk-color-font-title-sub)' : 'var(--nk-color-white)'"
->
-    <div class="volume__info">
-        <span>Номинальный объем</span>
-        <div class="value-info">
-            <span> {{+nominal | spaceNumber:3}} </span> 
-            <span class = "units">т.</span>
-        </div>
+<div class="volume" [style.color]="isRepair? 'var(--nk-color-font-title-sub)' : 'var(--nk-color-white)'">
+  <div class="volume__info">
+    <span>Номинальный объем</span>
+    <div class="value-info">
+      <span> {{+nominal | spaceNumber:3}} </span>
+      <span class="units">т.</span>
     </div>
+  </div>
 
-    <div class="free-space">
-        <div class="free-space__diagram">
-            <div class="indicator " *ngFor = "let item of volumeCustomization; let i = index">
-                <div *ngIf="!isRepair" class="indicator__inner"  [ngClass]="{indicator__inner_active : i + 1 <= activeIndicatorCount}" ></div>
-            </div>
-        </div>
-        <div class="free-space__info">
-            <span>Ресурс к отгрузке</span>
-            <div class="value-info">
-                <span> {{+current | spaceNumber:3}} </span> 
-                <span class = "units">т.</span>
-            </div>
-        </div>
-        <div class="free-space__info">
-            <span>Свободное место</span>
-            <div class="value-info">
-                <span> {{+freeSpace | spaceNumber:3}} </span> 
-                <span class = "units">т.</span>
-            </div>
-        </div>
+  <div class="free-space">
+    <div class="free-space__diagram">
+      <div class="indicator" *ngFor="let item of volumeCustomization; let i = index">
+        <div
+          *ngIf="!isRepair"
+          class="indicator__inner"
+          [ngClass]="{indicator__inner_active : i + 1 <= activeIndicatorCount}"
+        ></div>
+      </div>
     </div>
+    <div class="free-space__info">
+      <span>Ресурс к отгрузке</span>
+      <div class="value-info">
+        <span> {{+current | spaceNumber:3}} </span>
+        <span class="units">т.</span>
+      </div>
+    </div>
+    <div class="free-space__info">
+      <span>Свободное место</span>
+      <div class="value-info">
+        <span> {{+freeSpace | spaceNumber:3}} </span>
+        <span class="units">т.</span>
+      </div>
+    </div>
+  </div>
 </div>

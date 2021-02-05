@@ -5,10 +5,9 @@ import { IOilTransfer } from '../../../../../dashboard/models/oil-operations';
 @Component({
     selector: 'evj-reasons-deviations-tank-level',
     templateUrl: './reasons-deviations-tank-level.component.html',
-    styleUrls: ['./reasons-deviations-tank-level.component.scss']
+    styleUrls: ['./reasons-deviations-tank-level.component.scss'],
 })
 export class ReasonsDeviationsTankLevelComponent implements OnInit {
-
     @Input()
     public data: IOilReasonsDeviations | null = null;
 
@@ -17,15 +16,15 @@ export class ReasonsDeviationsTankLevelComponent implements OnInit {
 
     public textLevel: number;
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public getPercent(): number {
-        return (this.data?.shipmentsMassPercent > 70) ? this.textLevel = 50 :
-            (this.data?.shipmentsMassPercent < 20) ? this.textLevel = 20 :
-                this.textLevel = this.data?.shipmentsMassPercent - 5;
+        return this.data?.shipmentsMassPercent > 70
+            ? (this.textLevel = 50)
+            : this.data?.shipmentsMassPercent < 20
+            ? (this.textLevel = 20)
+            : (this.textLevel = this.data?.shipmentsMassPercent - 5);
     }
 }

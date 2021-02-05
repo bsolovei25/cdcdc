@@ -9,7 +9,6 @@ import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/
     styleUrls: ['./ozsm-diagrams-widget.component.scss'],
 })
 export class OzsmDiagramsWidgetComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public circleDiagramData: IOzsmCircleDiagramFull = {
         fact: 80,
         plan: 100,
@@ -30,8 +29,7 @@ export class OzsmDiagramsWidgetComponent extends WidgetPlatform<unknown> impleme
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();

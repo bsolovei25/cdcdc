@@ -7,17 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
     declarations: [ApsScenarioSelectionComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatSelectModule,
-        MatRippleModule,
-        FormsModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSelectModule, MatRippleModule, FormsModule],
 })
 export class ApsScenarioSelectionModule {
     enterComponent = ApsScenarioSelectionComponent;

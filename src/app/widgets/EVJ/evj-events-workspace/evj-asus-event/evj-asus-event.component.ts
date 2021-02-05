@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
@@ -7,7 +7,7 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
 @Component({
     selector: 'evj-asus-event',
     templateUrl: './evj-asus-event.component.html',
-    styleUrls: ['./evj-asus-event.component.scss']
+    styleUrls: ['./evj-asus-event.component.scss'],
 })
 export class EvjAsusEventComponent implements OnInit {
     @Input()
@@ -53,9 +53,7 @@ export class EvjAsusEventComponent implements OnInit {
         if (this.ewService.isCreateNewEvent) {
             this.ewService.asusUnits$.subscribe((units) => {
                 const asusEvent = this.ewService.event.asusEvent;
-                asusEvent.tmPlace = units?.find((u) =>
-                    u.name.toLowerCase().includes('гфу-2')
-                )?.codeSap;
+                asusEvent.tmPlace = units?.find((u) => u.name.toLowerCase().includes('гфу-2'))?.codeSap;
                 this.ewService.event = { ...this.ewService.event, asusEvent };
                 this.setUnit(asusEvent.tmPlace);
             });
@@ -70,10 +68,7 @@ export class EvjAsusEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
@@ -88,10 +83,7 @@ export class EvjAsusEventComponent implements OnInit {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(
-                event,
-                saveMethod
-            );
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event, saveMethod);
             // this.ewService.event.asusEvent.equipment = null;
             // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
@@ -111,10 +103,7 @@ export class EvjAsusEventComponent implements OnInit {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(
-                event,
-                saveMethod
-            );
+            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event, saveMethod);
             // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
@@ -130,10 +119,7 @@ export class EvjAsusEventComponent implements OnInit {
     public isAvailableOption(type: string): boolean {
         switch (type) {
             case 'eoService':
-                return !!(
-                    this.ewService.event.asusEvent.tmPlace &&
-                    this.ewService.event.asusEvent.equipment
-                );
+                return !!(this.ewService.event.asusEvent.tmPlace && this.ewService.event.asusEvent.equipment);
             case 'equipment':
                 return !!this.ewService.event.asusEvent.tmPlace;
         }
@@ -148,10 +134,7 @@ export class EvjAsusEventComponent implements OnInit {
                 this.snackBarService.openSnackBar('Заполните поле Установка!', 'snackbar-red');
                 break;
             case 'eoService':
-                this.snackBarService.openSnackBar(
-                    'Заполните поля Установка и Оборудование!',
-                    'snackbar-red'
-                );
+                this.snackBarService.openSnackBar('Заполните поля Установка и Оборудование!', 'snackbar-red');
                 break;
         }
     }

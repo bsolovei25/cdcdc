@@ -33,10 +33,9 @@ export interface IColumnsToDisplay {
     selector: 'evj-aps-recipe-diagram',
     templateUrl: './aps-recipe-diagram.component.html',
     styleUrls: ['./aps-recipe-diagram.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     dataSource: IAPSRecipeDiagram[] = DATASOURCE;
 
     columnsToDisplay: IColumnsToDisplay[] = [
@@ -70,7 +69,8 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implement
         { name: '27.02', date: new Date('2020-02-27T03:24:00') },
         { name: 'План PIMS', date: new Date('2020-02-01T03:24:00') },
         { name: 'Расчет', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Дельта', date: new Date('2020-02-01T03:24:00') }];
+        { name: 'Дельта', date: new Date('2020-02-01T03:24:00') },
+    ];
 
     isSelectedQuality: boolean = false;
     selectedRowProduct: number;
@@ -99,10 +99,7 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implement
         // this.data = ref.chartItems;
     }
 
-    onClickTr(
-        event: MouseEvent,
-        element: IAPSRecipeDiagram
-    ): void {
+    onClickTr(event: MouseEvent, element: IAPSRecipeDiagram): void {
         event.stopPropagation();
         if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
             this.selectedRowProduct = element.id;
@@ -120,18 +117,22 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implement
         }
     }
 
-    searchValue(element: IAPSRecipeDiagramValue[], column: IColumnsToDisplay):
-        { value: number, percentValue: number }[] {
-        const el = element.find(value => this.sameDay(value.date, column.date));
-        return el?.value ? [{
-            value: el?.value, percentValue: el?.percent
-        }] : null;
+    searchValue(
+        element: IAPSRecipeDiagramValue[],
+        column: IColumnsToDisplay
+    ): { value: number; percentValue: number }[] {
+        const el = element.find((value) => this.sameDay(value.date, column.date));
+        return el?.value
+            ? [
+                  {
+                      value: el?.value,
+                      percentValue: el?.percent,
+                  },
+              ]
+            : null;
     }
 
     sameDay(a: Date, d: Date): boolean {
-        return a.getFullYear() === d.getFullYear()
-            && a.getDate() === d.getDate()
-            && a.getMonth() === d.getMonth();
+        return a.getFullYear() === d.getFullYear() && a.getDate() === d.getDate() && a.getMonth() === d.getMonth();
     }
-
 }

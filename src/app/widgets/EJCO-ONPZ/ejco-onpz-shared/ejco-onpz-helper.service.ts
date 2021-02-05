@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class EjcoOnpzHelperService {
-
-    constructor() { }
+    constructor() {}
 
     public compareArrayOfObjects<T>(a: T[], b: T[]): boolean {
         for (const item in a) {
@@ -25,10 +24,7 @@ export class EjcoOnpzHelperService {
         return true;
     }
 
-    public sortArray<T>(
-        arr: T[],
-        n: number
-    ): T[][] {
+    public sortArray<T>(arr: T[], n: number): T[][] {
         let i = 0;
         let j = 0;
         const result = [];

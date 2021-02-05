@@ -1,6 +1,6 @@
 <div
   *ngIf="widgetId"
-  class="onShift__person  gridster-item-content"
+  class="onShift__person gridster-item-content"
   (click)="addToShift(person.employee.id)"
   [class.disable-person]="!isPresent && onShift"
   [ngClass]="(onShift)?'isOnShift':'allPeople'"
@@ -9,20 +9,14 @@
   (mouseout)="onMouseOut()"
 >
   <div class="person__avatar">
-    <img class="person__img" [src]="photoPathUser">
-    <svg-icon
-      class="person__frame"
-      src="assets/icons/change-shift-avatar-frame.svg"
-    >
-    </svg-icon>
+    <img class="person__img" [src]="photoPathUser" />
+    <svg-icon class="person__frame" src="assets/icons/change-shift-avatar-frame.svg"> </svg-icon>
   </div>
   <div class="person__info" *ngIf="person">
     <div class="person__name" *ngIf="isPersonExist()">
       {{person.employee.lastName}} {{ person.employee.firstName.charAt(0).toUpperCase() }}.
     </div>
-    <div class="person__position" *ngIf="person.employee">
-      {{ this.getDisplayPosition(person.position) }}
-    </div>
+    <div class="person__position" *ngIf="person.employee">{{ this.getDisplayPosition(person.position) }}</div>
     <div class="person__place">{{ person.employee.positionDescription }}</div>
     <div class="person__status" *ngIf="onShift">
       <div
@@ -42,17 +36,12 @@
         [class.status__icon__absent]="(person.status === 'absent')"
         [class.status__icon__missing]="(person.status === 'missing')"
         [class.status__icon__init]="(person.status === 'initialization')"
-      >
-      </div>
+      ></div>
     </div>
   </div>
   <div *ngIf="onShift">
     <div class="dropdown disable" *ngIf="!isMain" #dropdown>
-      <div
-        class="dropdown__item"
-        *ngFor="let dropdownEl of this.dropdownMenu"
-        (click)="menuCheck($event, person)"
-      >
+      <div class="dropdown__item" *ngFor="let dropdownEl of this.dropdownMenu" (click)="menuCheck($event, person)">
         {{ dropdownEl }}
       </div>
     </div>

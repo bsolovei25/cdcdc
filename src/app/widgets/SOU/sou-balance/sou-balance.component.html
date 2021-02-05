@@ -5,16 +5,14 @@
     type="astue"
     icon="balance"
   ></evj-contemporary-widget-header>
-  <div class="menu"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="menu" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <span
       *ngFor="let menu of menuData; let i = index"
       class="menu__item"
       [ngClass]="{'active': chosenItem === i}"
       (click)="changeSetting(i)"
-    >{{menu}}</span>
+      >{{menu}}</span
+    >
   </div>
 
   <div class="titles">
@@ -26,14 +24,7 @@
     </div>
     <div class="shadow"></div>
   </div>
-  <div class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <evj-sou-balance-group
-      *ngFor="let item of data"
-      [menu]=chosenItem
-      [data]="item"
-    ></evj-sou-balance-group>
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-sou-balance-group *ngFor="let item of data" [menu]="chosenItem" [data]="item"></evj-sou-balance-group>
   </div>
 </div>

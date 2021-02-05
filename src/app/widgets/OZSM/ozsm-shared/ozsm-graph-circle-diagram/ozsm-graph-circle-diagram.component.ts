@@ -35,10 +35,7 @@ export class OzsmGraphCircleDiagramComponent implements OnChanges {
     }
 
     private appendCircle(r: number, className: string): void {
-        this.g
-            .append('circle')
-            .attr('r', r)
-            .attr('class', className);
+        this.g.append('circle').attr('r', r).attr('class', className);
     }
 
     private drawSvg(): void {
@@ -55,10 +52,7 @@ export class OzsmGraphCircleDiagramComponent implements OnChanges {
             .startAngle(-Math.PI)
             .endAngle(Math.PI);
 
-        this.g
-            .append('path')
-            .attr('d', arc)
-            .attr('class', 'bg-arc-default');
+        this.g.append('path').attr('d', arc).attr('class', 'bg-arc-default');
 
         const arcValue = d3
             .arc()
@@ -68,9 +62,6 @@ export class OzsmGraphCircleDiagramComponent implements OnChanges {
             .startAngle(0)
             .endAngle(k * Math.PI);
 
-        this.g
-            .append('path')
-            .attr('d', arcValue)
-            .attr('class', 'arc-value-default');
+        this.g.append('path').attr('d', arcValue).attr('class', 'arc-value-default');
     }
 }

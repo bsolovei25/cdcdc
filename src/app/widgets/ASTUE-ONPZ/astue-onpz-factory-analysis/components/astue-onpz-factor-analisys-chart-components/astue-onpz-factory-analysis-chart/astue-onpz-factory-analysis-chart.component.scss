@@ -1,9 +1,9 @@
 $color-bg-border: rgba(92, 101, 133, 0.25);
-$color-text-label: #D7E2F2;
-$color-text-value: #8A98B3;
-$color-diagram-bg: #0B1325;
-$color-diagram-active: #0089FF;
-$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-text-label: #d7e2f2;
+$color-text-value: #8a98b3;
+$color-diagram-bg: #0b1325;
+$color-diagram-active: #0089ff;
+$color-diagram-sub: rgba(92, 101, 133, 0.2);
 $color-header-bg: rgba(92, 101, 133, 0.1);
 
 :host {
@@ -20,7 +20,6 @@ svg {
 }
 
 ::ng-deep {
-
   .astue-onpz-factory-analysis-chart-svg {
     .circle {
       fill: var(--color-bg-main);
@@ -62,7 +61,7 @@ svg {
     }
 
     .graph-area {
-      fill: rgba(96, 101, 128, .1);
+      fill: rgba(96, 101, 128, 0.1);
     }
 
     .circle {
@@ -70,7 +69,6 @@ svg {
     }
 
     .axis {
-
       .month-text {
         fill: white;
       }
@@ -84,12 +82,12 @@ svg {
     .grid {
       color: var(--color-astue-onpz-widget-border) !important;
       stroke-width: 1;
-      opacity: .5;
+      opacity: 0.5;
       fill: none;
 
       &__background {
         fill: #121510;
-        opacity: .25;
+        opacity: 0.25;
       }
 
       path {

@@ -1,10 +1,10 @@
 <div class="main">
-    <div #chart class="container">
-        <img class="main__icon" src="assets/icons/widgets/OZSM/ozsm-circle-diagram-icon/{{innerIcon}}.svg" alt=""/>
-    </div>
-    <div *ngIf="!!data" class="information">
-        <span class="information__main">{{data.name}}</span>
-        <span class="information__sub">{{data.plan  | number:'0.0-0'}}</span>
-        <span>{{ data.value | number:'0.0-0'}}</span>
-    </div>
+  <div #chart class="container">
+    <img class="main__icon" src="assets/icons/widgets/OZSM/ozsm-circle-diagram-icon/{{innerIcon}}.svg" alt="" />
+  </div>
+  <div *ngIf="!!data" class="information">
+    <span class="information__main">{{data.name}}</span>
+    <span class="information__sub">{{data.plan | number:'0.0-0'}}</span>
+    <span>{{ data.value | number:'0.0-0'}}</span>
+  </div>
 </div>

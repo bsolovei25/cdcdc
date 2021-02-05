@@ -5,47 +5,43 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
-
 @Component({
-  selector: 'evj-implementation-plan',
-  templateUrl: './implementation-plan.component.html',
-  styleUrls: ['./implementation-plan.component.scss']
+    selector: 'evj-implementation-plan',
+    templateUrl: './implementation-plan.component.html',
+    styleUrls: ['./implementation-plan.component.scss'],
 })
 export class ImplementationPlanComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+    public data: IImplementationPlan[] = [];
 
-  public data: IImplementationPlan[] = [];
+    constructor(
+        protected widgetService: WidgetService,
+        private http: HttpClient,
+        private smpService: SmpService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
+    }
 
-  constructor(
-    protected widgetService: WidgetService,
-    private http: HttpClient,
-    private smpService: SmpService,
-    @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string,
-    @Inject('uniqId') public uniqId: string
-  ) {
-    super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
-  }
+    private async getData(): Promise<void> {
+        this.data = (await this.smpService.getAllCrude())?.data;
+    }
 
-  private async getData(): Promise<void> {
-    this.data = (await this.smpService.getAllCrude())?.data;
-  }
+    public ngOnInit(): void {
+        super.widgetInit();
+        this.getData();
 
-  public ngOnInit(): void {
-    super.widgetInit();
-    this.getData();
+        // this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
+        //   .subscribe((data: IAllCrude) => {
+        //     this.data = data.data;
+        // });
+    }
 
-    // this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
-    //   .subscribe((data: IAllCrude) => {
-    //     this.data = data.data;
-    // });
-  }
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
 
-  public ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
-
-  protected dataHandler(ref: any): void {
-  }
-
+    protected dataHandler(ref: any): void {}
 }

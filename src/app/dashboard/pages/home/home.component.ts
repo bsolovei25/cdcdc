@@ -10,7 +10,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 @Component({
     selector: 'evj-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
     fullscreen: boolean = false;

@@ -56,8 +56,6 @@
 
           &__trust-level {
             text-align: end;
-
-
           }
 
           .column {
@@ -120,7 +118,6 @@
                     }
                   }
                 }
-
               }
             }
 
@@ -140,7 +137,6 @@
             }
 
             &__trust-level {
-
               border-top-right-radius: 3px;
               border-bottom-right-radius: 3px;
               background-color: var(--color-gray80);
@@ -188,9 +184,7 @@
                 &--no-active {
                   background-color: var(--color-sou-bg-sup);
                 }
-
               }
-
 
               &__slide {
                 margin-left: 10px;
@@ -252,7 +246,6 @@
     padding: 0 15px;
 
     &__items {
-
     }
 
     &__list {
@@ -306,4 +299,3 @@
     }
   }
 }
-

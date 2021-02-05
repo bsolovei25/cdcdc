@@ -22,46 +22,46 @@
     .diagram {
       display: flex;
       flex-direction: column;
-  
+
       &__header {
         height: 40px;
         padding: 0 15px;
-  
+
         display: flex;
         align-items: center;
-  
+
         font-size: 14px;
         line-height: 17px;
         color: var(--color-kpe-pasportize-text);
-  
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-  
+
         span {
           color: var(--color-kpe-text-main);
         }
       }
-  
+
       &__container {
         height: 180px;
         padding: 30px 15px;
-  
+
         display: flex;
         align-items: center;
-  
+
         position: relative;
-  
+
         .diagram-circle {
           ::ng-deep {
             svg {
-                .diagram-inner {
-                  fill: var(--color-kpe-gaude-active);
-                }
-          
-                .diagram-value {
-                  fill: var(--color-kpe-white);
-                }
+              .diagram-inner {
+                fill: var(--color-kpe-gaude-active);
+              }
+
+              .diagram-value {
+                fill: var(--color-kpe-white);
+              }
             }
           }
         }
@@ -100,46 +100,45 @@
             color: var(--color-kpe-pasportize-text);
           }
         }
-  
+
         .diagram-inner-text {
           height: 120px;
           width: 120px;
-  
+
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-  
+
           position: absolute;
           left: 15px;
-  
+
           .percent {
             font-size: 36px;
             line-height: 43px;
           }
-  
+
           .unit {
             font-size: 14px;
             line-height: 17px;
             color: var(--color-kpe-pasportize-text);
           }
         }
-  
       }
-  
+
       &__footer {
         height: 40px;
         padding: 0 15px;
-  
+
         display: flex;
         align-items: center;
-  
+
         border-top: 1px solid var(--color-kpe-bg-sub);
-  
+
         font-size: 14px;
         line-height: 17px;
         color: var(--color-kpe-white);
-  
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -158,12 +157,12 @@
 
       overflow-y: auto;
       overflow-x: hidden;
-      
+
       .product-list {
         padding: 0 5px;
         padding-bottom: 20px;
         gap: 10px;
-  
+
         display: flex;
         flex-direction: column;
         align-items: center;

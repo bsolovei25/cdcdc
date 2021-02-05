@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'evj-circle-input',
-  templateUrl: './circle-input.component.html',
-  styleUrls: ['./circle-input.component.scss']
+    selector: 'evj-circle-input',
+    templateUrl: './circle-input.component.html',
+    styleUrls: ['./circle-input.component.scss'],
 })
 export class CircleInputComponent {
     // region: two way binding area
@@ -20,5 +20,5 @@ export class CircleInputComponent {
     @Input() placeholder: string = 'Поиск...';
     // end region: two way binding area
     public isInput: boolean = false;
-    @Input() adminShift:boolean =  false;
+    @Input() adminShift: boolean = false;
 }

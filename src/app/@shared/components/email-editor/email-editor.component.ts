@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
     selector: 'evj-email-editor',
     templateUrl: './email-editor.component.html',
-    styleUrls: ['./email-editor.component.scss']
+    styleUrls: ['./email-editor.component.scss'],
 })
 export class EmailEditorComponent {
     // region: two way binding area
@@ -39,8 +39,9 @@ export class EmailEditorComponent {
             { name: 'colors', groups: ['colors'] },
             { name: 'tools', groups: ['tools'] },
             { name: 'others', groups: ['others'] },
-            { name: 'about', groups: ['about'] }
+            { name: 'about', groups: ['about'] },
         ],
-        removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
+        removeButtons:
+            'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About',
     };
 }

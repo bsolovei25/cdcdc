@@ -42,8 +42,7 @@ interface ISouSectionUI {
         ]),
     ],
 })
-export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     flowInAb: ISOUFlowIn[];
     flowInVb: ISOUFlowIn[];
 
@@ -155,20 +154,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.flag = true;
         ref?.section?.forEach((item, i) => {
             if (item.name !== 'Изомалк-2') {
-                this.sectionsData = [
-                    ...this.sectionsData,
-                    ...item.flowIn,
-                    ...item.flowOut,
-                    ...item.objects,
-                ];
+                this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
             } else {
                 if (this.sectionsDataIzo && item?.flowIn && item?.flowOut && item?.objects) {
-                    this.sectionsDataIzo = [
-                        ...this.sectionsDataIzo,
-                        ...item.flowIn,
-                        ...item.flowOut,
-                        ...item.objects,
-                    ];
+                    this.sectionsDataIzo = [...this.sectionsDataIzo, ...item.flowIn, ...item.flowOut, ...item.objects];
                 }
             }
 
@@ -177,18 +166,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     this.sectionsDataPark = [];
                     this.flag = false;
                 }
-                this.sectionsDataPark = [
-                    ...this.sectionsDataPark,
-                    ...item?.flowIn,
-                    ...item?.flowOut,
-                    ...item?.objects,
-                ];
+                this.sectionsDataPark = [...this.sectionsDataPark, ...item?.flowIn, ...item?.flowOut, ...item?.objects];
             }
 
             this.sections.forEach((section) => {
-                const sec = section.find(
-                    (sectionItem) => item.name.indexOf(sectionItem.title) !== -1
-                );
+                const sec = section.find((sectionItem) => item.name.indexOf(sectionItem.title) !== -1);
 
                 if (!!sec) {
                     sec.value = item.countFlowExceedingConfInterval;

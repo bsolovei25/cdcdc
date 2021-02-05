@@ -11,7 +11,7 @@ export interface IDocumentCodingFilterSection {
 @Component({
     selector: 'evj-document-coding-filter',
     templateUrl: './document-coding-filter.component.html',
-    styleUrls: ['./document-coding-filter.component.scss']
+    styleUrls: ['./document-coding-filter.component.scss'],
 })
 export class DocumentCodingFilterComponent implements OnInit, OnChanges, AfterViewInit {
     public filterTitle: string;
@@ -23,26 +23,22 @@ export class DocumentCodingFilterComponent implements OnInit, OnChanges, AfterVi
     @ViewChild(CdkVirtualScrollViewport)
     public viewPort: CdkVirtualScrollViewport;
 
-    constructor(
-        private popoverRef: PopoverRef,
-    ) {
+    constructor(private popoverRef: PopoverRef) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.close();
         });
         if (this.popoverRef.data) {
             this.filterTitle = this.popoverRef.data.title;
             this.filterData = this.popoverRef.data.data;
-            this.popoverRef.data.activeFilters?.forEach(filter => {
+            this.popoverRef.data.activeFilters?.forEach((filter) => {
                 this.activeItems.set(filter.id, filter);
             });
         }
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
-    ngOnChanges(): void {
-    }
+    ngOnChanges(): void {}
 
     public ngAfterViewInit(): void {
         this.scrollToActive();
@@ -51,9 +47,9 @@ export class DocumentCodingFilterComponent implements OnInit, OnChanges, AfterVi
     @AsyncRender
     private scrollToActive(): void {
         if (this.activeItems.size > 0) {
-            const selectedIndex = this.filterData.findIndex(elem => this.activeItems.has(elem.id));
+            const selectedIndex = this.filterData.findIndex((elem) => this.activeItems.has(elem.id));
             if (selectedIndex > -1) {
-                this.viewPort.scrollToIndex(selectedIndex, 'auto' );
+                this.viewPort.scrollToIndex(selectedIndex, 'auto');
             }
         }
     }

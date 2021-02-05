@@ -1,24 +1,24 @@
-<div
-  class="line-diagram"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="line-diagram" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="line-diagram__body">
     <div class="line-diagram__body__line-up">
       <div class="percent__left">{{ fact }}</div>
-      <div class="percent__right">
-        <span class="percent__right__warning">∆ {{ deviation }}</span> / {{ plan }}
-      </div>
+      <div class="percent__right"><span class="percent__right__warning">∆ {{ deviation }}</span> / {{ plan }}</div>
     </div>
     <div class="line-diagram__body__line">
-      <svg-icon src="assets/icons/widgets/KPE/kpe-line-diagram/circle.svg"
-                class="line__circle"
-                [style.left.%]="percentFact - 3"
-                [svgStyle]="{ 'width.px':14, 'height.px':14}">
+      <svg-icon
+        src="assets/icons/widgets/KPE/kpe-line-diagram/circle.svg"
+        class="line__circle"
+        [style.left.%]="percentFact - 3"
+        [svgStyle]="{ 'width.px':14, 'height.px':14}"
+      >
       </svg-icon>
       <div class="line__accept" [style.width.%]="percentFact"></div>
-      <div class="line__warning" [class.line__warning--line]="percentDeviation > 0" [style.left.%]="percentFact"
-           [style.width.%]="percentPlan"></div>
+      <div
+        class="line__warning"
+        [class.line__warning--line]="percentDeviation > 0"
+        [style.left.%]="percentFact"
+        [style.width.%]="percentPlan"
+      ></div>
     </div>
   </div>
 </div>

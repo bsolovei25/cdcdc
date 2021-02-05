@@ -7,23 +7,9 @@ import { EjcoOnpzHelperService } from './ejco-onpz-helper.service';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-    declarations: [
-        EjcoOnpzFrameTopComponent,
-        EjcoOnpzFrameBottomComponent,
-        EjcoGaugeChartComponent,
-    ],
-    exports: [
-        EjcoOnpzFrameTopComponent,
-        EjcoOnpzFrameBottomComponent,
-        EjcoGaugeChartComponent,
-    ],
-    imports: [
-        CommonModule,
-        SharedModule,
-    ],
-    providers: [
-        EjcoOnpzHelperService,
-    ]
+    declarations: [EjcoOnpzFrameTopComponent, EjcoOnpzFrameBottomComponent, EjcoGaugeChartComponent],
+    exports: [EjcoOnpzFrameTopComponent, EjcoOnpzFrameBottomComponent, EjcoGaugeChartComponent],
+    imports: [CommonModule, SharedModule],
+    providers: [EjcoOnpzHelperService],
 })
-export class EjcoOnpzSharedModule {
-}
+export class EjcoOnpzSharedModule {}

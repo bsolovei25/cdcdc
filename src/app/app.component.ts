@@ -13,12 +13,7 @@ registerLocaleData(ru);
     animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit {
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private themeService: ThemeConfiguratorService,
-    ) {
-    }
+    constructor(@Inject(DOCUMENT) private document: Document, private themeService: ThemeConfiguratorService) {}
 
     ngOnInit(): void {
         this.themeService.setThemeConfiguratorRoot(this.document);

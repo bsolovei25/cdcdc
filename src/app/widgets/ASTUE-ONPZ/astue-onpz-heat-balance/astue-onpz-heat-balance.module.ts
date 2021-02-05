@@ -7,17 +7,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 @NgModule({
     declarations: [AstueOnpzHeatBalanceComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatCheckboxModule,
-        FormsModule,
-        MatTooltipModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatCheckboxModule, FormsModule, MatTooltipModule],
 })
 export class AstueOnpzHeatBalanceModule {
     enterComponent = AstueOnpzHeatBalanceComponent;

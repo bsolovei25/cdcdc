@@ -3,25 +3,26 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ISOUOperationalAccountingSystem,
-    ISOUSection
+    ISOUSection,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-operational-accounting-system',
     templateUrl: './sou-operational-accounting-system.component.html',
-    styleUrls: ['./sou-operational-accounting-system.component.scss']
+    styleUrls: ['./sou-operational-accounting-system.component.scss'],
 })
 export class SouOperationalAccountingSystemComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     popupElementsStates: Map<string, boolean> = new Map<string, boolean>();
 
     isSection: ISOUSection;
     data: ISOUOperationalAccountingSystem;
 
-    constructor(protected widgetService: WidgetService,
-                @Inject('isMock') public isMock: boolean,
-                @Inject('widgetId') public id: string,
-                @Inject('uniqId') public uniqId: string) {
+    constructor(
+        protected widgetService: WidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
         super(widgetService, isMock, id, uniqId);
     }
 
@@ -41,7 +42,7 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform<unkn
         if (ref) {
             this.data = ref;
             this.data?.flowIn?.sort((a, b) => a?.order - b?.order);
-            this.data?.section?.forEach(value => {
+            this.data?.section?.forEach((value) => {
                 value?.flowOut?.sort((a, b) => a?.order - b?.order);
             });
             this.data?.lightProducts?.sort((a, b) => a?.order - b?.order);
@@ -51,22 +52,20 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform<unkn
                 this.isSection = this.data?.section[0];
                 this.data.section[0].isEnable = true;
             } else {
-                this.data?.section.forEach(value => {
+                this.data?.section.forEach((value) => {
                     if (value.name === this.isSection.name) {
                         this.isSection = value;
                         value.isEnable = true;
                     }
                 });
             }
-
         }
     }
 
     changeSection(section: ISOUSection): void {
         this.isSection = section;
-        this.data.section.map(value => {
+        this.data.section.map((value) => {
             value.isEnable = value.name === section.name;
         });
     }
-
 }

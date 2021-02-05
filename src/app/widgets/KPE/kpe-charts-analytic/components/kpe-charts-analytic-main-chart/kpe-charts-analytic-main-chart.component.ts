@@ -1,12 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    HostListener,
-    Input,
-    OnChanges,
-    SimpleChanges,
-    ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import * as d3Selection from 'd3-selection';
 import { AsyncRender } from '@shared/functions/async-render.function';
@@ -132,13 +124,11 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             if (coordinate.x <= interval.max && coordinate.x >= interval.min) {
                 result.push({ x: coordinate.x, y: coordinate.y });
             } else if (coordinate.x > interval.max && dataset[index - 1].x <= interval.max) {
-                const k =
-                    (coordinate.y - dataset[index - 1].y) / (+coordinate.x - +dataset[index - 1].x);
+                const k = (coordinate.y - dataset[index - 1].y) / (+coordinate.x - +dataset[index - 1].x);
                 const b = coordinate.y - k * +coordinate.x;
                 result.push({ x: interval.max, y: k * +interval.max + b });
             } else if (coordinate.x < interval.min && dataset[index + 1].x >= interval.min) {
-                const k =
-                    (coordinate.y - dataset[index + 1].y) / (+coordinate.x - +dataset[index + 1].x);
+                const k = (coordinate.y - dataset[index + 1].y) / (+coordinate.x - +dataset[index + 1].x);
                 const b = coordinate.y - k * +coordinate.x;
                 result = [{ x: interval.min, y: k * +interval.min + b }, ...result];
             }
@@ -167,9 +157,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                 result.push(searchResult);
             } else {
                 const index = dataset1.findIndex((date) => +date.x > +item);
-                const k =
-                    (dataset1[index].y - dataset1[index - 1].y) /
-                    (+dataset1[index].x - +dataset1[index - 1].x);
+                const k = (dataset1[index].y - dataset1[index - 1].y) / (+dataset1[index].x - +dataset1[index - 1].x);
                 const b = dataset1[index].y - k * +dataset1[index].x;
                 result.push({ x: item, y: k * +item + b });
             }
@@ -202,12 +190,9 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         });
 
         [this.sizeY.min, this.sizeY.max] = d3.extent(
-            [
-                ...this.lowerBorderDataset,
-                ...this.higherBorderDataset,
-                ...this.planDataset,
-                ...this.factDataset,
-            ].map((item) => item.y)
+            [...this.lowerBorderDataset, ...this.higherBorderDataset, ...this.planDataset, ...this.factDataset].map(
+                (item) => item.y
+            )
         );
         this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
         this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
@@ -260,13 +245,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`) // 5 - дополнительный отступ
             .attr('class', 'x-axis')
-            .call(
-                d3
-                    .axisBottom(this.scales.x)
-                    .tickSize(0)
-                    .ticks(8)
-                    .tickFormat(dateFormatLocale())
-            )
+            .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(8).tickFormat(dateFormatLocale()))
             .call((g) => g.select('.domain').remove());
 
         // y
@@ -274,12 +253,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(5)
-            )
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(5))
             .call((g) => g.select('.domain').remove());
     }
 
@@ -348,20 +322,13 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                     .attr('class', className)
                     .attr('d', line);
             } else {
-                this.svg
-                    .append('path')
-                    .datum(dataset)
-                    .attr('class', className)
-                    .attr('d', line);
+                this.svg.append('path').datum(dataset).attr('class', className).attr('d', line);
             }
         }
     }
 
     private drawBorder(dataset: { x: Date; y: number }[], className: string): void {
-        const graphMaxY: number = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         const areaBottom = d3
             .area()
@@ -377,8 +344,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .y1(this.padding.top)
             .curve(d3.curveLinear);
 
-        const areaFn =
-            className === 'lowerBorder' || className === 'lowerColorize' ? areaBottom : areaTop;
+        const areaFn = className === 'lowerBorder' || className === 'lowerColorize' ? areaBottom : areaTop;
         if (dataset.length > 0) {
             if (className.indexOf('Colorize') === -1) {
                 const dayBorderIndex = dataset.findIndex((item) => +item.x > +this.day);
@@ -388,10 +354,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                         (+dataset[dayBorderIndex].x - +dataset[dayBorderIndex - 1].x);
                     this.dayFactBorder = {
                         x: this.day,
-                        y:
-                            k * +this.day +
-                            dataset[dayBorderIndex].y -
-                            k * +dataset[dayBorderIndex].x,
+                        y: k * +this.day + dataset[dayBorderIndex].y - k * +dataset[dayBorderIndex].x,
                     };
                 } else {
                     this.dayFactBorder = {
@@ -402,13 +365,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                 this.svg
                     .append('path')
                     .attr('class', className + '-area')
-                    .attr(
-                        'd',
-                        areaFn([
-                            ...dataset.filter((item) => +item.x <= +this.day),
-                            this.dayFactBorder,
-                        ])
-                    );
+                    .attr('d', areaFn([...dataset.filter((item) => +item.x <= +this.day), this.dayFactBorder]));
             } else {
                 this.svg
                     .append('path')
@@ -438,12 +395,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         if (border.length > 0 && this.factDataset.length > 0) {
             const intervalColorize: { min: Date | null; max: Date | null } = {
                 min: new Date(Math.max(+border[0].x, +this.factDataset[0].x)),
-                max: new Date(
-                    Math.min(
-                        +border[border.length - 1].x,
-                        +this.factDataset[this.factDataset.length - 1].x
-                    )
-                ),
+                max: new Date(Math.min(+border[border.length - 1].x, +this.factDataset[this.factDataset.length - 1].x)),
             };
             border = this.dataInInteval(border, intervalColorize);
             fact = this.dataInInteval(this.factDataset, intervalColorize);
@@ -456,8 +408,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                         return;
                     }
                     // Уравнение участка нижней границы
-                    const k1 =
-                        (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
+                    const k1 = (+border[i].y - +border[i - 1].y) / (+border[i].x - +border[i - 1].x);
                     const b1 = -k1 * +border[i - 1].x + +border[i - 1].y;
                     // Уравнение участка фактической кривой
                     const k2 = (item.y - fact[i - 1].y) / (+item.x - +fact[i - 1].x);
@@ -527,10 +478,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                     (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
                 this.dayFact = {
                     x: this.day,
-                    y:
-                        k * +this.day +
-                        this.factDataset[dayFactIndex].y -
-                        k * +this.factDataset[dayFactIndex].x,
+                    y: k * +this.day + this.factDataset[dayFactIndex].y - k * +this.factDataset[dayFactIndex].x,
                 };
             } else {
                 this.dayFact = {
@@ -544,10 +492,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3');
             this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4');
 
-            const graphMaxY: number = +d3Selection
-                .select(this.chart.nativeElement)
-                .style('height')
-                .slice(0, -2);
+            const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
             this.svg
                 .append('text')

@@ -1,20 +1,21 @@
 <div class="responsible">
   <div *ngIf="!unit" class="choosenUser">
     <div class="name_user">
-      <div class="name_user_responsible">
-        Место
-      </div>
+      <div class="name_user_responsible">Место</div>
     </div>
   </div>
   <evj-ui-block status="normal" (click)="clearFilter()">
     <mat-form-field>
       <mat-label>Место</mat-label>
-      <mat-select panelClass="mat-select-custom" [disabled]="disabled || !ewService.isCreateNewEvent" [(ngModel)]="unit" disableOptionCentering>
+      <mat-select
+        panelClass="mat-select-custom"
+        [disabled]="disabled || !ewService.isCreateNewEvent"
+        [(ngModel)]="unit"
+        disableOptionCentering
+      >
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let u of units">
-          <mat-option [value]="u?.id" (click)="chooseUnit(u)">
-            {{ u?.name || "-" }}
-          </mat-option>
+          <mat-option [value]="u?.id" (click)="chooseUnit(u)"> {{ u?.name || "-" }} </mat-option>
         </ng-container>
       </mat-select>
     </mat-form-field>

@@ -1,32 +1,22 @@
 <div class="header-workspace">
-  <div
-    class="header-workspace__button"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <div class="header-workspace__container"
-         matRipple [matRippleColor]="'white'"
-         (click)="createEvent(true)"
-    >
+  <div class="header-workspace__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="header-workspace__container" matRipple [matRippleColor]="'white'" (click)="createEvent(true)">
       <div class="button-name">Новое событие</div>
     </div>
 
-    <div class="header-workspace__container"
-         (click)="onClickEjs()"
-         matRipple [matRippleColor]="'white'"
-    >
+    <div class="header-workspace__container" (click)="onClickEjs()" matRipple [matRippleColor]="'white'">
       <div class="button-name">Перейти к карточке ЭЖС</div>
     </div>
     <div
       class="header-workspace__container active-button"
-      matRipple [matRippleColor]="'white'"
-      (click)="createEvent(false)">
+      matRipple
+      [matRippleColor]="'white'"
+      (click)="createEvent(false)"
+    >
       <div class="button-name">Сохранить</div>
     </div>
   </div>
-
 </div>
-
 
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__header">
@@ -69,9 +59,7 @@
           <div class="title">
             <span>Номер журнала</span>
           </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsFailCodeChr }}
-          </div>
+          <div class="creator__field">{{ ewService.event?.ejsData?.ejsFailCodeChr }}</div>
         </div>
       </div>
       <div class="workspace__select-container">
@@ -79,9 +67,7 @@
           <div class="title">
             <span>Метод обнаружения</span>
           </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsDeteMethChr }}
-          </div>
+          <div class="creator__field">{{ ewService.event?.ejsData?.ejsDeteMethChr }}</div>
         </div>
       </div>
     </div>
@@ -90,9 +76,7 @@
         <div class="title">
           <span>Влияние на производительность</span>
         </div>
-        <div class="creator__field-big">
-          {{ ewService.event?.ejsData?.ejsStopReduce }}
-        </div>
+        <div class="creator__field-big">{{ ewService.event?.ejsData?.ejsStopReduce }}</div>
       </div>
     </div>
   </div>
@@ -102,9 +86,7 @@
         <div class="title">
           <span>ID оборудования</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsEquiIdChr }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsEquiIdChr }}</div>
       </div>
     </div>
     <div class="workspace__select-container">
@@ -113,7 +95,7 @@
           <span>Оборудование</span>
         </div>
         <div class="creator__field">
-          <span>{{ ewService.event?.ejsData?.ejsEquiChr  }}</span>
+          <span>{{ ewService.event?.ejsData?.ejsEquiChr }}</span>
         </div>
       </div>
     </div>
@@ -122,9 +104,7 @@
         <div class="title">
           <span>Вид технического объекта, тип ЕО</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsEquiChrEO }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsEquiChrEO }}</div>
       </div>
     </div>
   </div>
@@ -135,9 +115,7 @@
         <div class="title">
           <span>Техническое место</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsFuncLocaChr }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsFuncLocaChr }}</div>
       </div>
     </div>
     <div class="workspace__select-container">
@@ -145,9 +123,7 @@
         <div class="title">
           <span>Описание технического места</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}</div>
       </div>
     </div>
     <div class="workspace__select-container">
@@ -155,9 +131,7 @@
         <div class="title">
           <span>Вид технического объекта, тип ТМ</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsStopReduceTM }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsStopReduceTM }}</div>
       </div>
     </div>
   </div>
@@ -167,9 +141,7 @@
         <div class="title">
           <span>Комментарий оператора/инициатора</span>
         </div>
-        <div class="creator__field-biggest">
-          {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
-        </div>
+        <div class="creator__field-biggest">{{ ewService.event?.ejsData?.ejsOperInitCommTx }}</div>
       </div>
     </div>
   </div>
@@ -178,26 +150,24 @@
       <div class="creator">
         <div class="title">
           <span>Обращение в ЭНЕРГОСЕРВИС</span>
-          <mat-checkbox class="creator_checkbox" color="primary"
-                        [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
+          <mat-checkbox class="creator_checkbox" color="primary" [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
           </mat-checkbox>
         </div>
-        <div class="creator__field-biggest">
-          {{ ewService.event?.ejsData?.ejsEnerNotiCommTx }}
-        </div>
+        <div class="creator__field-biggest">{{ ewService.event?.ejsData?.ejsEnerNotiCommTx }}</div>
       </div>
     </div>
     <div class="workspace__select-container-biggest-double">
       <div class="creator">
         <div class="title">
           <span>Обращение в Автоматика-сервис</span>
-          <mat-checkbox class="creator_checkbox" color="primary"
-                        [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
+          <mat-checkbox
+            class="creator_checkbox"
+            color="primary"
+            [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg"
+          >
           </mat-checkbox>
         </div>
-        <div class="creator__field-biggest">
-          {{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}
-        </div>
+        <div class="creator__field-biggest">{{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}</div>
       </div>
     </div>
   </div>
@@ -207,9 +177,7 @@
         <div class="title">
           <span>ФИО оператора</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsNameOfOperChr }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsNameOfOperChr }}</div>
       </div>
     </div>
     <div class="workspace__select-container">
@@ -217,9 +185,7 @@
         <div class="title">
           <span>Дата создания события</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsDateOfCreaDt | date:"dd.MM.yyyy | HH:mm"  }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsDateOfCreaDt | date:"dd.MM.yyyy | HH:mm" }}</div>
       </div>
     </div>
     <div class="workspace__select-container">
@@ -227,11 +193,8 @@
         <div class="title">
           <span>Дата изменения события</span>
         </div>
-        <div class="creator__field">
-          {{ ewService.event?.ejsData?.ejsDateOfUpdaDt | date:"dd.MM.yyyy | HH:mm"  }}
-        </div>
+        <div class="creator__field">{{ ewService.event?.ejsData?.ejsDateOfUpdaDt | date:"dd.MM.yyyy | HH:mm" }}</div>
       </div>
     </div>
   </div>
 </div>
-

@@ -4,7 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IAPSRecipeDiagram,
     IAPSRecipeDiagramValue,
-    IColumnsToDisplay
+    IColumnsToDisplay,
 } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
@@ -13,7 +13,7 @@ import { IParams } from '../cd-mat-balance/cd-mat-balance.component';
 @Component({
     selector: 'evj-cd-reactor-parameters',
     templateUrl: './cd-reactor-parameters.component.html',
-    styleUrls: ['./cd-reactor-parameters.component.scss']
+    styleUrls: ['./cd-reactor-parameters.component.scss'],
 })
 export class CdReactorParametersComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
@@ -21,7 +21,7 @@ export class CdReactorParametersComponent extends WidgetPlatform<unknown> implem
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Параметры', date: new Date() },
         { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Модель', date: new Date('2020-02-02T03:24:00') }
+        { name: 'Модель', date: new Date('2020-02-02T03:24:00') },
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
@@ -53,9 +53,9 @@ export class CdReactorParametersComponent extends WidgetPlatform<unknown> implem
                 {
                     unit: {
                         name: 'last-row',
-                        description: 'last-row'
-                    }
-                }
+                        description: 'last-row',
+                    },
+                },
             ];
         }
     }
@@ -97,10 +97,6 @@ export class CdReactorParametersComponent extends WidgetPlatform<unknown> implem
     }
 
     sameDay(a: Date, d: Date): boolean {
-        return (
-            a.getFullYear() === d.getFullYear() &&
-            a.getDate() === d.getDate() &&
-            a.getMonth() === d.getMonth()
-        );
+        return a.getFullYear() === d.getFullYear() && a.getDate() === d.getDate() && a.getMonth() === d.getMonth();
     }
 }

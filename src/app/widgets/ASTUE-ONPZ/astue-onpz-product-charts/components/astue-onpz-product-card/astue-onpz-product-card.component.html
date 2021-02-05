@@ -25,17 +25,11 @@
       </ng-container>
     </div>
     <div class="card__chart">
-      <evj-limits-chart
-        [data]="data.graphs"
-        *ngIf="!isDeviationChart else deviation"
-      ></evj-limits-chart>
+      <evj-limits-chart [data]="data.graphs" *ngIf="!isDeviationChart else deviation"></evj-limits-chart>
     </div>
   </div>
 </div>
 
 <ng-template #deviation>
-  <evj-deviation-limits-chart
-    [data]="data.graphs"
-    [isLowerEconomy]="data.isEconomy"
-  ></evj-deviation-limits-chart>
+  <evj-deviation-limits-chart [data]="data.graphs" [isLowerEconomy]="data.isEconomy"></evj-deviation-limits-chart>
 </ng-template>

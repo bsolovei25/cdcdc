@@ -1,8 +1,13 @@
 import {
     ChangeDetectorRef,
-    Component, EventEmitter,
-    Input, OnChanges, OnDestroy,
-    OnInit, Output, SimpleChanges
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
 } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -135,10 +140,7 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

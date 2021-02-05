@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-events-reasons-single',
-  templateUrl: './evj-events-reasons-single.component.html',
-  styleUrls: ['./evj-events-reasons-single.component.scss']
+    selector: 'evj-events-reasons-single',
+    templateUrl: './evj-events-reasons-single.component.html',
+    styleUrls: ['./evj-events-reasons-single.component.scss'],
 })
 export class EvjEventsReasonsSingleComponent implements OnInit {
     @Input() public title: string = '';

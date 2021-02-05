@@ -16,8 +16,7 @@ import { map } from 'rxjs/operators';
     templateUrl: './astue-onpz-table-indicators.component.html',
     styleUrls: ['./astue-onpz-table-indicators.component.scss'],
 })
-export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IAstueOnpzTableIndicatorsItem[] = [];
     public columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Параметры', date: null },
@@ -77,8 +76,6 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
     }
 
     public selectedProduct$(element: IAstueOnpzTableIndicatorsItemChild): Observable<boolean> {
-        return this.mnemonicFurnaceService.selectedItem$
-            .asObservable()
-            .pipe(map((x) => x === element?.id));
+        return this.mnemonicFurnaceService.selectedItem$.asObservable().pipe(map((x) => x === element?.id));
     }
 }

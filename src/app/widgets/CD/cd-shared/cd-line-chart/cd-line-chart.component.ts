@@ -126,9 +126,7 @@ export class CdLineChartComponent implements OnChanges {
         this.highDataset = this.data?.highBound ? this.data.highBound : [];
         this.plan = this.data && this.data.planValue ? this.data.planValue : 0;
 
-        const [minY, maxY] = d3.extent(
-            [...this.factDataset, ...this.planDataset].map((el) => el.y)
-        );
+        const [minY, maxY] = d3.extent([...this.factDataset, ...this.planDataset].map((el) => el.y));
         this.sizeY.min = minY - (maxY - minY) * 0.1;
         this.sizeY.max = maxY + (maxY - minY) * 0.1;
     }
@@ -165,23 +163,14 @@ export class CdLineChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${-10}, 0)`)
             .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(3)
-                    .tickFormat(d3.format('.1f'))
-            ) // форматирование до 1 знака после запятой
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(3).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
             .call((g) => g.select('.domain').remove());
     }
 
     private drawGrid(): void {
         this.g
             .append('g')
-            .attr(
-                'transform',
-                `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`
-            )
+            .attr('transform', `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`)
             .call(
                 d3
                     .axisBottom(this.scales.x)
@@ -234,22 +223,14 @@ export class CdLineChartComponent implements OnChanges {
             .x((d) => this.scales.x(d.x))
             .y((d) => this.scales.y(d.y));
 
-        this.g
-            .append('path')
-            .datum(dataset)
-            .attr('class', lineClass)
-            .attr('d', line);
+        this.g.append('path').datum(dataset).attr('class', lineClass).attr('d', line);
 
         dataset.forEach((data, idx) => {
             if (idx === 0) {
                 return;
             }
             const circleClass =
-                type === 'fact'
-                    ? data.y < this.planDataset[data.x - 1].y
-                        ? 'deviation'
-                        : 'fact'
-                    : 'plan';
+                type === 'fact' ? (data.y < this.planDataset[data.x - 1].y ? 'deviation' : 'fact') : 'plan';
             this.appendCurveDataCircle(3, data.x, data.y, `circle circle_${circleClass}`);
         });
     }

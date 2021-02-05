@@ -78,11 +78,9 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
             return;
         }
         this.subscriptions.push(
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.widgetId, this.widgetType)
-                .subscribe((ref: any) => {
-                    this.dataHandler(ref);
-                })
+            this.widgetService.getWidgetLiveDataFromWS(this.widgetId, this.widgetType).subscribe((ref: any) => {
+                this.dataHandler(ref);
+            })
         );
     }
 

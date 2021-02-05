@@ -1,29 +1,26 @@
 <evj-contemporary-widget-header [uniqId]="uniqId" type="astue">
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div>{{ widgetTitle }}</div>
   </div>
 </evj-contemporary-widget-header>
 
-<div
-  class="wrapper"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
-
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <ng-container *ngFor="let indicator of indicators">
-    <div class="block" (click)="setIndicator(indicator)" [ngClass]="activeIndicator === indicator ? 'block--active' : ''">
+    <div
+      class="block"
+      (click)="setIndicator(indicator)"
+      [ngClass]="activeIndicator === indicator ? 'block--active' : ''"
+    >
       <div class="block__title">
         <span>{{ indicator.caption }}</span>
       </div>
-      <div class="block__value" *ngIf="indicator.caption !== 'Значение в процентах' && (indicator.value || indicator.value === 0); else emptyValue">
+      <div
+        class="block__value"
+        *ngIf="indicator.caption !== 'Значение в процентах' && (indicator.value || indicator.value === 0); else emptyValue"
+      >
         <span>{{ indicator.value | spaceNumber }}</span>
       </div>
       <ng-template #emptyValue><div class="empty-value"></div></ng-template>
     </div>
   </ng-container>
-
 </div>

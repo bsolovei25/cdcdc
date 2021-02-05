@@ -59,7 +59,7 @@ import { EventsWorkspaceModule } from '../events-workspace/events-workspace.modu
         MatRippleModule,
         EventsWorkspaceModule,
     ],
-    providers: []
+    providers: [],
 })
 export class EvjEventsModule {
     enterComponent = EvjEventsComponent;

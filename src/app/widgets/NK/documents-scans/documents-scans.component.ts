@@ -12,7 +12,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
 import { IDocumentsScan } from 'src/app/dashboard/models/oil-document.model';
 
-
 @Component({
     selector: 'evj-documents-scans',
     templateUrl: './documents-scans.component.html',
@@ -20,7 +19,6 @@ import { IDocumentsScan } from 'src/app/dashboard/models/oil-document.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentsScansComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public data: IDocumentsScan[] = [];
 
     // public activeRow: Map<number | string, boolean> = new Map<number | string, boolean>();
@@ -79,7 +77,7 @@ export class DocumentsScansComponent extends WidgetPlatform<unknown> implements 
     }
 
     private getPassportInfo(id: string): IDocumentsScan | null {
-        const info = this.data.find(scan => scan.id === 0 ? scan.externalId === id : scan.id.toString() === id);
+        const info = this.data.find((scan) => (scan.id === 0 ? scan.externalId === id : scan.id.toString() === id));
         return info ? info : null;
     }
 

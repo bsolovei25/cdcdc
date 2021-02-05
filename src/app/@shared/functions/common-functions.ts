@@ -33,19 +33,9 @@ export function fillDataShape<T>(
                     if (rightSideObjRef.constructor === Object) {
                         // object field, so we fill datashape for that field
                         if (!leftSideObjRef || leftSideObjRef === null) {
-                            return fillDataShape<any>(
-                                rightSideObjRef,
-                                rightSideObjRef,
-                                [],
-                                removeUndefinedFields
-                            );
+                            return fillDataShape<any>(rightSideObjRef, rightSideObjRef, [], removeUndefinedFields);
                         } else {
-                            return fillDataShape<any>(
-                                leftSideObjRef,
-                                rightSideObjRef,
-                                [],
-                                removeUndefinedFields
-                            );
+                            return fillDataShape<any>(leftSideObjRef, rightSideObjRef, [], removeUndefinedFields);
                         }
                     } else {
                         // for any other types, just copy as is
@@ -66,10 +56,7 @@ export function fillDataShape<T>(
         }
         if (srcDataObject.hasOwnProperty(fieldName)) {
             // check that field walue is object or not
-            result[fieldName] = smartCopyField(
-                result[fieldName],
-                (srcDataObject as any)[fieldName]
-            );
+            result[fieldName] = smartCopyField(result[fieldName], (srcDataObject as any)[fieldName]);
         } else {
             const descriptor: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(
                 srcDataObject.constructor.prototype,

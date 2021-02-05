@@ -9,7 +9,6 @@ import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
     styleUrls: ['./upload-drop.component.scss'],
 })
 export class UploadDropComponent implements OnInit, OnDestroy {
-
     date: Date = new Date();
 
     public fileLoad: boolean = false;
@@ -22,17 +21,13 @@ export class UploadDropComponent implements OnInit, OnDestroy {
         public dialogRef: MatDialogRef<File>,
         public snackBar: SnackBarService,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) {
-    }
+    ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
 
     uploadFile(file: File): void {
         this.dialogRef.close(file);
     }
-
 }

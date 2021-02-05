@@ -82,10 +82,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
-    constructor(
-        private adminService: AdminPanelService,
-        private materialController: SnackBarService
-    ) {}
+    constructor(private adminService: AdminPanelService, private materialController: SnackBarService) {}
 
     public ngOnInit(): void {
         if (this.isCreateNewUser) {
@@ -165,9 +162,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public checkForActiveClaim(claimType: string): boolean {
-        const claim: IGlobalClaim = this.workerGeneralClaims.find(
-            (item) => item.claimType === claimType
-        );
+        const claim: IGlobalClaim = this.workerGeneralClaims.find((item) => item.claimType === claimType);
         return !!claim;
     }
 
@@ -186,26 +181,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public getClaimTitleByValue(claim: IGlobalClaim): string {
         switch (claim.claimValueType) {
             case 'widget':
-                return (
-                    this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ??
-                    ''
-                );
+                return this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ?? '';
             case 'unit':
                 return this.adminService.units.find((item) => item.id === +claim.value)?.name ?? '';
             case 'notificationCategory':
-                return (
-                    this.adminService.eventsCategories.find((item) => item.name === claim.value)
-                        ?.description ?? ''
-                );
+                return this.adminService.eventsCategories.find((item) => item.name === claim.value)?.description ?? '';
             default:
                 return '';
         }
     }
 
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
-        const isWorkerHasClaim: boolean = !!this.workerSpecialClaims.find(
-            (item) => item.claimType === claim.claimType
-        );
+        const isWorkerHasClaim: boolean = !!this.workerSpecialClaims.find((item) => item.claimType === claim.claimType);
         const isClaimNotForScreen: boolean = !claim.claimType.includes('screen');
         return isWorkerHasClaim && isClaimNotForScreen;
     }
@@ -232,9 +219,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectGeneralClaim(claim: IGlobalClaim): void {
-        const index: number = this.workerGeneralClaims.findIndex(
-            (item) => item.claimType === claim.claimType
-        );
+        const index: number = this.workerGeneralClaims.findIndex((item) => item.claimType === claim.claimType);
         if (index === -1) {
             this.workerGeneralClaims.push(claim);
         } else {
@@ -327,18 +312,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         if (snackbarMessage) {
-            this.materialController.openSnackBar(
-                `Обязательные поля: ${snackbarMessage}`,
-                'snackbar-red'
-            );
+            this.materialController.openSnackBar(`Обязательные поля: ${snackbarMessage}`, 'snackbar-red');
         }
 
-        return (
-            !!this.worker.firstName &&
-            !!this.worker.lastName &&
-            !!this.worker.login &&
-            !!this.worker.email
-        );
+        return !!this.worker.firstName && !!this.worker.lastName && !!this.worker.login && !!this.worker.email;
     }
 
     public onReturn(): void {
@@ -355,9 +332,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
                 if (this.workerPhoto) {
-                    this.worker.photoId = await this.adminService.pushWorkerPhoto(
-                        base64ToFile(this.workerPhoto)
-                    );
+                    this.worker.photoId = await this.adminService.pushWorkerPhoto(base64ToFile(this.workerPhoto));
                 }
 
                 if (this.isImportNewWorker && !this.worker.id) {

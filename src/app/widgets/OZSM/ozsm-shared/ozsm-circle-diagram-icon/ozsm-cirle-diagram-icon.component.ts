@@ -26,23 +26,11 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
     @AsyncRender
     draw(percent: number): void {
         const diagramValue = 3.6 * percent;
-        const svg = d3
-            .select(this.chart.nativeElement)
-            .append('svg')
-            .attr('width', 66)
-            .attr('height', 66);
+        const svg = d3.select(this.chart.nativeElement).append('svg').attr('width', 66).attr('height', 66);
 
-        svg.append('circle')
-            .attr('cx', 33)
-            .attr('cy', 33)
-            .attr('r', 32)
-            .attr('class', 'big-circle');
+        svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 32).attr('class', 'big-circle');
 
-        svg.append('circle')
-            .attr('cx', 33)
-            .attr('cy', 33)
-            .attr('r', 26)
-            .attr('class', 'small-circle');
+        svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 26).attr('class', 'small-circle');
 
         // Круговая шкала
         for (let i = 0; i <= 360; i += 5) {

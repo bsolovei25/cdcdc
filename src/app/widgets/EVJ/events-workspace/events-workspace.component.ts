@@ -12,10 +12,7 @@ import {
     IStatus,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import {
-    MomentDateAdapter,
-    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -118,10 +115,7 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
-        if (
-            isEdit &&
-            this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)
-        ) {
+        if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
             if (this.ewService.isCreateNewEvent) {
                 this.ewService.refreshEvent();
             } else {

@@ -9,7 +9,6 @@ import { FormControl, Validators } from '@angular/forms';
     styleUrls: ['./upload-form.component.scss'],
 })
 export class UploadFormComponent implements OnInit, OnDestroy {
-
     date: Date = new Date();
     dateEnd: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 5));
 
@@ -19,11 +18,11 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         file: FormData;
         comment: string;
     } = {
-            startDate: this.date,
-            endDate: this.dateEnd,
-            file: new FormData(),
-            comment: '',
-        };
+        startDate: this.date,
+        endDate: this.dateEnd,
+        file: new FormData(),
+        comment: '',
+    };
     comment: FormControl = new FormControl('', Validators.required);
 
     file: boolean = false;
@@ -32,8 +31,7 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public dialogRef: MatDialogRef<any>,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         if (this.data?.startDate && this.data?.endDate) {
@@ -45,8 +43,7 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -66,14 +63,13 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     }
 
     openDialog(): void {
-        const dialogRef = this.dialog
-            .open(UploadDropComponent, {
-                data: {
-                    title: 'Выбор',
-                },
-                autoFocus: true,
-            });
-        dialogRef.afterClosed().subscribe(result => {
+        const dialogRef = this.dialog.open(UploadDropComponent, {
+            data: {
+                title: 'Выбор',
+            },
+            autoFocus: true,
+        });
+        dialogRef.afterClosed().subscribe((result) => {
             if (result) {
                 this.body.file = result;
                 this.file = true;
@@ -90,5 +86,4 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         this.body.file = event;
         this.file = true;
     }
-
 }

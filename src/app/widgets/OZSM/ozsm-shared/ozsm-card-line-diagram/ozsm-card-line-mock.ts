@@ -6,5 +6,5 @@ export const mockData = {
     title: 'Отгрузка Авто',
     maxValue: 39227,
     currentValue: 23456,
-    type: 'icon'
+    type: 'icon',
 } as ICardLineDiagramModel;

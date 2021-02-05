@@ -35,9 +35,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
 
     public newName: string;
 
-    public data: IReferenceTypes[] = [
-
-    ];
+    public data: IReferenceTypes[] = [];
 
     public columnData: any = [];
 
@@ -84,18 +82,17 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
 
         if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
-                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+                rightScroll.style.cssText = 'margin-left: 5px; width: calc(100% - 45px);';
             } else {
-                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
-
+                rightScroll.style.cssText = 'margin-left: 10px; width: calc(100% - 50px);';
             }
         }
 
         if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: 0px; width: calc(100% - 5px);';
             } else {
-                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: -5px; width: calc(100% - 5px);';
             }
         }
     }
@@ -112,9 +109,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.getReference()
-        );
+        this.subscriptions.push(this.getReference());
     }
 
     protected dataHandler(ref: any): void {
@@ -174,7 +169,6 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
             this.isAddBlockRecord = true;
             this.isLongBlock = false;
         }
-
     }
 
     onPushRecord() {
@@ -185,12 +179,11 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
         for (let i of this.data[this.indexColumn].columns) {
             if (i.name !== 'Id' && i.name !== 'Name') {
                 let test;
-                this.columnObject.find(e => {
+                this.columnObject.find((e) => {
                     if (e.idColumn === i.id) {
                         test = e.value;
                     }
-                }
-                );
+                });
 
                 if (test === undefined) {
                     obj = {
@@ -198,35 +191,34 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
                         valueString: null,
                         valueDateTime: null,
                         valueNumber: null,
-                        valueInt: null
-                    }
+                        valueInt: null,
+                    };
                 } else {
                     if (i.columnTypeId === 'typeDateTime') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
                             valueDateTime: test,
-                            valueInt: null
-                        }
+                            valueInt: null,
+                        };
                     } else if (i.columnTypeId === 'typeString') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
                             valueDateTime: null,
-                            valueInt: null
-                        }
+                            valueInt: null,
+                        };
                     } else if (i.columnTypeId === 'typeInt') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
                             valueDateTime: null,
                             valueInt: +test,
-                        }
+                        };
                     }
                 }
                 columnsObj.push(obj);
             }
-
         }
         let object: any = {
             name: this.newName,
@@ -237,38 +229,32 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
         this.columnObject = [];
         this.newName = null;
 
-        this.referencesService.pushReferenceData(object).subscribe(ans => {
+        this.referencesService.pushReferenceData(object).subscribe((ans) => {
             this.dataTable.data.push(object);
         });
-
     }
 
     onChangeValue(event, id) {
         const obj = {
             idColumn: id,
             value: event.target.value,
-        }
+        };
         this.columnObject.push(obj);
     }
 
     deleteRecord(item): void {
-        this.referencesService.removeDataRecord(item.id).subscribe(ans => {
+        this.referencesService.removeDataRecord(item.id).subscribe((ans) => {
             const indexDelete = this.dataTable.data.indexOf(item);
             this.dataTable.data.splice(indexDelete, 1);
         });
-
     }
 
     searchReference(event: any) {
-        if (event.key === "Backspace") {
+        if (event.key === 'Backspace') {
             this.data = this.datas;
         }
         const record = event.currentTarget.value.toLowerCase();
-        const filterData = this.data.filter(
-            (e) =>
-                e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-
-        );
+        const filterData = this.data.filter((e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1);
         this.data = filterData;
         if (!event.currentTarget.value) {
             this.data = this.datas;
@@ -285,7 +271,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
             const record = event.currentTarget.value.toLowerCase();
 
             this.dataTable.data = this.dataTable.data.filter((e) => {
-                return e.columnsData = e.columnsData.find((el) => {
+                return (e.columnsData = e.columnsData.find((el) => {
                     if (el.referenceColumnId === this.checkTitle) {
                         if (el.valueString) {
                             return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
@@ -295,7 +281,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
                             return el.valueDateTime.toLowerCase().indexOf(record.toLowerCase()) > -1;
                         }
                     }
-                });
+                }));
             });
             if (!event.currentTarget.value) {
                 this.getTable(this.idReferenceClick);
@@ -326,7 +312,6 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
             };
             item.columnsData.push(obj);
         }
-
     }
 
     onEditRecord(i, item) {
@@ -336,7 +321,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
                 el.edit = false;
             }
         });
-        this.referencesService.putEditData(item).subscribe(ans => {
+        this.referencesService.putEditData(item).subscribe((ans) => {
             // this.isLongBlock = true;
             this.getTable(item.referenceTypeId);
             this.newName = null;
@@ -348,7 +333,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
             const obj = {
                 idColumn: id,
                 value: event,
-            }
+            };
             this.columnObject.push(obj);
         }
     }

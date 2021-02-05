@@ -39,8 +39,7 @@ export class AlertPasswordComponent implements OnInit {
                     this.oldPasswordOptions.icon.secState,
                     this.oldPasswordOptions.icon.src,
                 ];
-                this.oldPasswordOptions.type =
-                    this.oldPasswordOptions.type === 'text' ? 'password' : 'text';
+                this.oldPasswordOptions.type = this.oldPasswordOptions.type === 'text' ? 'password' : 'text';
             },
             secState: 'assets/icons/login/visibility.svg',
         },
@@ -60,8 +59,7 @@ export class AlertPasswordComponent implements OnInit {
                     this.passwordOptions.icon.secState,
                     this.passwordOptions.icon.src,
                 ];
-                this.passwordOptions.type =
-                    this.passwordOptions.type === 'text' ? 'password' : 'text';
+                this.passwordOptions.type = this.passwordOptions.type === 'text' ? 'password' : 'text';
             },
             secState: 'assets/icons/login/visibility.svg',
         },
@@ -81,8 +79,7 @@ export class AlertPasswordComponent implements OnInit {
                     this.confirmOptions.icon.secState,
                     this.confirmOptions.icon.src,
                 ];
-                this.confirmOptions.type =
-                    this.confirmOptions.type === 'text' ? 'password' : 'text';
+                this.confirmOptions.type = this.confirmOptions.type === 'text' ? 'password' : 'text';
             },
             secState: 'assets/icons/login/visibility.svg',
         },
@@ -91,11 +88,7 @@ export class AlertPasswordComponent implements OnInit {
 
     public formGroup: FormGroup;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private snackBar: SnackBarService,
-        private authService: AuthService
-    ) {
+    constructor(private formBuilder: FormBuilder, private snackBar: SnackBarService, private authService: AuthService) {
         const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-яA-ZА-Я])';
         const regExp = `[0-9a-zA-Zа-яА-Я?!._*#$@-]{${this.minLength},${this.maxLength}}`;
 
@@ -126,19 +119,11 @@ export class AlertPasswordComponent implements OnInit {
     public setPasswordStyle(controlName: string): string {
         const ctrl: AbstractControl = this.formGroup.controls[controlName];
 
-        if (
-            controlName === 'confirmPassword' &&
-            this.formGroup.controls.password.invalid &&
-            ctrl.touched
-        ) {
+        if (controlName === 'confirmPassword' && this.formGroup.controls.password.invalid && ctrl.touched) {
             return 'input__block_invalid';
         }
 
-        return ctrl.invalid && ctrl.touched
-            ? 'input__block_invalid'
-            : ctrl.dirty
-            ? 'input__block_dirty'
-            : '';
+        return ctrl.invalid && ctrl.touched ? 'input__block_invalid' : ctrl.dirty ? 'input__block_dirty' : '';
     }
 
     public checkPasswords(group: FormGroup): { notSame: true } {

@@ -1,5 +1,4 @@
-<evj-panel (swap)="onSwap($event)" (grid)="onGrid($event)" (ngModelChange)="changedOptions()">
-</evj-panel>
+<evj-panel (swap)="onSwap($event)" (grid)="onGrid($event)" (ngModelChange)="changedOptions()"> </evj-panel>
 
 <gridster id="gridSize" [options]="options" (window:resize)="onResize()">
   <ng-container *ngIf="widgetService.dashboard?.length > 0">
@@ -8,7 +7,7 @@
       *ngFor="let item of widgetService.dashboard; let i = index"
       (dragstart)="dragStart($event, item)"
       (dragstop)="dragStop($event, item)"
-      style="height: 1600px; overflow: visible !important;"
+      style="height: 1600px; overflow: visible !important"
     >
       <div class="item-container" [class.item-container_visible]="isSmpHeader(item.widgetType)">
         <ng-container

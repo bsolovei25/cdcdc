@@ -2,7 +2,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ThemeConfiguratorService {
     public theme: number = 0;
@@ -25,7 +25,6 @@ export class ThemeConfiguratorService {
 }
 
 export class ThemeConfigurator {
-
     private isDarkTheme$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isDarkThemeObservable: Observable<boolean> = this.isDarkTheme$.asObservable();
 

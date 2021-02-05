@@ -5,13 +5,9 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
-  declarations: [KpeTotalReserveComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule
-  ]
+    declarations: [KpeTotalReserveComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class KpeTotalReserveModule {
-  enterComponent = KpeTotalReserveComponent;
+    enterComponent = KpeTotalReserveComponent;
 }

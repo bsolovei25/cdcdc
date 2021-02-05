@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ElementRef,
-    SimpleChanges,
-    OnChanges
-} from '@angular/core';
+import { Component, OnInit, Input, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { newArray } from '@angular/compiler/src/util';
 
@@ -36,7 +29,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         deviation: 0,
         percentage: 100,
         amount: 500,
-        title: '№5'
+        title: '№5',
     };
 
     private readonly diagramCounter: number = 160;
@@ -47,11 +40,10 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     public percent: number;
 
     private diagramOptions: IDiagrammOptions = {
-        diameter: 30
+        diameter: 30,
     };
 
-    constructor(private hostElement: ElementRef) {
-    }
+    constructor(private hostElement: ElementRef) {}
 
     public ngOnInit(): void {
         this.initSvg();
@@ -73,13 +65,13 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         }
 
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.g = this.svg.append('g')
-            .attr('transform', 'translate(40,40)');
+        this.g = this.svg.append('g').attr('transform', 'translate(40,40)');
         this.appendMask();
     }
 
     private placeText(): void {
-        this.g.append('text')
+        this.g
+            .append('text')
             .attr('class', 'ozsm-title-text')
             .text(this.data.title)
             .attr('y', 0)
@@ -87,28 +79,22 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     }
 
     private appendCircle(r: number, className: string): void {
-        this.g
-            .append('circle')
-            .attr('r', r)
-            .attr('class', className);
+        this.g.append('circle').attr('r', r).attr('class', className);
     }
 
     private appendMask(): void {
         const defs = this.svg.append('defs');
 
-        const pattern = defs.append('pattern')
+        const pattern = defs
+            .append('pattern')
             .attr('id', 'pattern-dash')
             .attr('width', 2)
             .attr('height', 2)
             .attr('patternUnits', 'userSpaceOnUse');
 
-        pattern.append('rect')
-            .attr('width', 1)
-            .attr('height', 2)
-            .attr('fill', 'white');
+        pattern.append('rect').attr('width', 1).attr('height', 2).attr('fill', 'white');
 
-        const mask = defs.append('mask')
-            .attr('id', 'mask-dash');
+        const mask = defs.append('mask').attr('id', 'mask-dash');
 
         mask.append('rect')
             .attr('x', -30)
@@ -124,7 +110,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
 
         this.appendCircle(this.diagramOptions.diameter, 'bg-diagram-card');
 
-        const arc = d3.arc()
+        const arc = d3
+            .arc()
             .innerRadius(this.diagramOptions.diameter - 5)
             .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
             .startAngle(-Math.PI)
@@ -136,7 +123,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
             .attr('class', this.data.percentage === 100 ? 'bg-arc-default' : 'bg-arc-deviation')
             .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
 
-        const arcValue = d3.arc()
+        const arcValue = d3
+            .arc()
             .innerRadius(this.diagramOptions.diameter - 5)
             .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
             .cornerRadius(1)
@@ -150,7 +138,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
             .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
 
         if (this.data.percentage > 100) {
-            const arcDeviation = d3.arc()
+            const arcDeviation = d3
+                .arc()
                 .innerRadius(this.diagramOptions.diameter - 5)
                 .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
                 .cornerRadius(1)
@@ -164,40 +153,38 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
                 .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
         }
 
-        const outerArc = d3.arc()
+        const outerArc = d3
+            .arc()
             .innerRadius(this.diagramOptions.diameter)
             .outerRadius(this.diagramOptions.diameter + 0.7)
             .startAngle(-3.95)
             .endAngle(0.8);
 
-        this.g
-            .append('path')
-            .attr('d', outerArc)
-            .attr('class', 'ozms-outer-arc');
+        this.g.append('path').attr('d', outerArc).attr('class', 'ozms-outer-arc');
     }
 
     private drawOutterSvg(): void {
-        const mainValue = this.data.fact > this.data.plan
-            ? this.data.plan / this.data.fact * 100
-            : this.data.fact / this.data.plan * 100;
+        const mainValue =
+            this.data.fact > this.data.plan
+                ? (this.data.plan / this.data.fact) * 100
+                : (this.data.fact / this.data.plan) * 100;
 
         const tickMain = this.getTick(mainValue);
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie()
-                .startAngle(startAngel)
-                .endAngle(endAngel)
-                .value(1);
+            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
         }
 
-        const mainPie = createPie(-Math.PI, 2 * Math.PI * mainValue / this.diagramCounter - Math.PI);
-        const subPie = createPie(2 * Math.PI * mainValue / this.diagramCounter - Math.PI, Math.PI / 5);
+        const mainPie = createPie(-Math.PI, (2 * Math.PI * mainValue) / this.diagramCounter - Math.PI);
+        const subPie = createPie((2 * Math.PI * mainValue) / this.diagramCounter - Math.PI, Math.PI / 5);
 
-        const arcSegBg = d3.arc()
+        const arcSegBg = d3
+            .arc()
             .outerRadius(this.diagramOptions.diameter + 9)
             .innerRadius(this.diagramOptions.diameter + 2);
 
-        const arcSegValue = d3.arc()
+        const arcSegValue = d3
+            .arc()
             .outerRadius(this.diagramOptions.diameter + 8)
             .innerRadius(this.diagramOptions.diameter + 3)
             .padAngle(0.025);
@@ -206,11 +193,12 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.drawDiagram('outer-arc-value', () => mainPie(newArray(tickMain)), arcSegValue);
 
         this.addSerif(Math.PI / 2, 'ozsm-serif-default');
-        this.addSerif(2 * Math.PI * mainValue / this.diagramCounter + Math.PI / 2, 'ozsm-serif-active');
+        this.addSerif((2 * Math.PI * mainValue) / this.diagramCounter + Math.PI / 2, 'ozsm-serif-active');
     }
 
     private addSerif(angle: number, className: string): void {
-        this.g.append('g')
+        this.g
+            .append('g')
             .attr('class', className)
             .selectAll('.needle')
             .data([null])
@@ -224,12 +212,6 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     }
 
     private drawDiagram(className: string, pie: any, arc: any): void {
-        this.g.append('g')
-            .attr('class', className)
-            .selectAll('path')
-            .data(pie())
-            .enter()
-            .append('path')
-            .attr('d', arc);
+        this.g.append('g').attr('class', className).selectAll('path').data(pie()).enter().append('path').attr('d', arc);
     }
 }

@@ -1,22 +1,18 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
-import {
-    IPerfProgCircle,
-} from '../../../../../dashboard/models/SMP/performance-progress-indicators.model';
+import { IPerfProgCircle } from '../../../../../dashboard/models/SMP/performance-progress-indicators.model';
 enum CriticalType {
     Active,
     Warning,
-    Danger
+    Danger,
 }
 @Component({
     selector: 'evj-performance-progress-circle',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './performance-progress-circle.component.html',
-    styleUrls: ['./performance-progress-circle.component.scss']
+    styleUrls: ['./performance-progress-circle.component.scss'],
 })
-
-
 export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     @ViewChild('circle', { static: true }) circle: ElementRef;
     @Input() data: IPerfProgCircle;
@@ -39,7 +35,6 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     public scale;
     public range;
     public ticks;
-
 
     /// CONFIG GAUGE(!!!)
     public config = {
@@ -65,7 +60,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
         labelFormat: d3.format('d'),
         labelInset: 10,
 
-        arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue'))
+        arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
     };
 
     public pointId;
@@ -73,11 +68,9 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     public svgCircle: any;
 
-    constructor(private spacePipe: SpaceNumber) {
-    }
+    constructor(private spacePipe: SpaceNumber) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngOnChanges(): void {
         this.indicator = this.indicatorGauge(this.data.gaugePercent);
@@ -105,17 +98,10 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
         }
 
-        this.svgCircle = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '0 0 100 100');
+        this.svgCircle = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 0 100 100');
 
         const group = this.svgCircle.append('g').attr('transform', 'translate(50 ,52)');
-        const arc = d3
-            .arc()
-            .innerRadius(35)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(35).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -124,12 +110,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)
@@ -140,7 +121,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             .attr('text-anchor', 'middle')
             .attr('font-size', '10px')
             .attr('fill', 'var(--color-text-main)')
-            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('y', '57')
             .attr('x', '50')
             .text(pipeValue);
@@ -149,7 +130,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '8px')
-            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('y', '46')
             .attr('x', '50')
             .attr('fill', 'var(--color-text-main')
@@ -162,7 +143,6 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             .attr('width', '13px')
             .attr('x', '43')
             .attr('y', '63');
-
 
         const scaleTop = this.svgCircle
             .append('image')
@@ -179,7 +159,6 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             .attr('width', '3px')
             .attr('height', '11px')
             .attr('fill', 'var(--color-smp-text-sub)');
-
 
         const scaleBottom = this.svgCircle
             .append('image')
@@ -199,14 +178,17 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     draw(data, el, gaugemap, indicator): void {
         this.config.majorTicks = this.data.days.length;
-        this.gauge({
-            size: 295,
-            clipWidth: 300,
-            clipHeight: 300,
-            ringWidth: 60,
-            maxValue: 25,
-            transitionMs: 4000
-        }, gaugemap);
+        this.gauge(
+            {
+                size: 295,
+                clipWidth: 300,
+                clipHeight: 300,
+                ringWidth: 60,
+                maxValue: 25,
+                transitionMs: 4000,
+            },
+            gaugemap
+        );
         this.render(el, indicator, data);
     }
 
@@ -236,38 +218,30 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     }
 
     render(container, newValue, data): void {
-        this.svg = d3
-            .select(container)
-            .append('svg:svg')
-            .attr('class', 'gauge')
-            .attr('viewBox', '0 0 290 290');
+        this.svg = d3.select(container).append('svg:svg').attr('class', 'gauge').attr('viewBox', '0 0 290 290');
 
         const centerTx = this.centerTranslation(this.r + 2);
 
-        const arcs = this.svg
-            .append('g')
-            .attr('class', 'arc')
-            .attr('id', 'test')
-            .attr('transform', centerTx);
+        const arcs = this.svg.append('g').attr('class', 'arc').attr('id', 'test').attr('transform', centerTx);
 
         const reverseData = [].concat(data.days).reverse();
-        const pointPie = reverseData.find(e => e.state !== 'disable').day;
+        const pointPie = reverseData.find((e) => e.state !== 'disable').day;
 
-
-        this.pointId = arcs.selectAll('path')
+        this.pointId = arcs
+            .selectAll('path')
             .data(this.tickData)
             .enter()
             .append('path')
             .attr('stroke', 'var(--color-bg-main)')
             .attr('stroke-width', '4px')
             .attr('id', (d, i) => {
-                if (i === (pointPie - 1)) {
+                if (i === pointPie - 1) {
                     this.piePointNumber = i;
                     return 'point';
                 }
             })
             .attr('fill', (d, i) => {
-                const status = this.data?.days.find(e => e.day - 1 === i)?.state;
+                const status = this.data?.days.find((e) => e.day - 1 === i)?.state;
                 if (status === this.criticalType.Active.toString()) {
                     return 'var(--color-active)';
                 } else if (status === this.criticalType.Warning.toString()) {
@@ -280,7 +254,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             })
             .attr('d', this.arc);
 
-        const pointid = this.pointId?.nodes()?.find(el => el?.id === 'point');
+        const pointid = this.pointId?.nodes()?.find((el) => el?.id === 'point');
         let pointidLength: number;
         let coordsPoint;
         if (pointid) {
@@ -340,10 +314,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
 
         // a linear scale this.gaugemap maps domain values to a percent from 0..1
-        this.scale = d3
-            .scaleLinear()
-            .range([0, 1])
-            .domain([this.config.minValue, this.config.maxValue]);
+        this.scale = d3.scaleLinear().range([0, 1]).domain([this.config.minValue, this.config.maxValue]);
 
         this.ticks = this.scale.ticks(this.config.majorTicks);
         this.tickData = d3.range(this.config.majorTicks).map(() => {
@@ -363,6 +334,4 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
                 return this.deg2rad(this.config.minAngle + ratio * this.range);
             });
     }
-
-
 }

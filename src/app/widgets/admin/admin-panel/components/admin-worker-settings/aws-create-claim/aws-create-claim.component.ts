@@ -16,9 +16,7 @@ interface ICreateClaim extends IWidget {
     styleUrls: ['./aws-create-claim.component.scss'],
 })
 export class AwsCreateClaimComponent implements OnInit {
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
-        IGlobalClaim[]
-    >();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<IGlobalClaim[]>();
     @Input() workerSpecialClaims: IGlobalClaim[] = [];
 
     // TODO new
@@ -43,9 +41,7 @@ export class AwsCreateClaimComponent implements OnInit {
         this.allUnits = this.adminService.units;
         this.allEventsCategories = this.adminService.eventsCategories;
 
-        this.allSpecialClaims = this.adminService.specialClaims.filter(
-            (x) => x.claimValueType !== 'screen'
-        );
+        this.allSpecialClaims = this.adminService.specialClaims.filter((x) => x.claimValueType !== 'screen');
         this.selectedSpecialClaims = [...this.workerSpecialClaims];
     }
 
@@ -133,9 +129,7 @@ export class AwsCreateClaimComponent implements OnInit {
             default:
                 return false;
         }
-        return !!this.selectedSpecialClaims.find(
-            (x) => x.value === value && x.claimType === claim.claimType
-        );
+        return !!this.selectedSpecialClaims.find((x) => x.value === value && x.claimType === claim.claimType);
     }
 
     // Отменить

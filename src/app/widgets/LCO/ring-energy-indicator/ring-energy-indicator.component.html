@@ -1,4 +1,4 @@
-<div style="height: 100%; width: 100%;">
+<div style="height: 100%; width: 100%">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -7,17 +7,13 @@
     [id]="widgetId"
     [uniqId]="widgetUniqId"
   ></evj-widget-header>
-  <div style="height: 100%; width: 100%;">
+  <div style="height: 100%; width: 100%">
     <evj-frame-top></evj-frame-top>
 
     <ng-container>
-      <div
-        class="content_block"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+      <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div class="blocks">
-          <div style="display:flex; height: 100%;">
+          <div style="display: flex; height: 100%">
             <div class="cb">
               <div #circleFactory class="item-b"></div>
             </div>

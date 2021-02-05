@@ -3,15 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MapEcologyComponent } from './map-ecology.component';
 import { SharedModule } from '@shared/shared.module';
 
-
-
 @NgModule({
-  declarations: [ MapEcologyComponent ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ]
+    declarations: [MapEcologyComponent],
+    imports: [CommonModule, SharedModule],
 })
 export class MapEcologyModule {
-  enterComponent = MapEcologyComponent;
+    enterComponent = MapEcologyComponent;
 }

@@ -1,66 +1,64 @@
 <div class="container-operation-tank-filter">
-  <div style="height: 100%;">
+  <div style="height: 100%">
     <div class="title">
       <div class="title__button-close" (click)="close()">
-        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-        </svg-icon>
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
       </div>
       <div class="title__name">Ёмкости используемые в качестве отгрузки</div>
     </div>
     <div class="title-content">
-      <div class="title-content__name">
-        Номер
-      </div>
-      <div class="title-content__name">
-        Р-р/Ёмкость
-      </div>
-      <div class="title-content__name">
-        В работе
-      </div>
-      <div class="title-content__name">
-        Лимит (ч)
-      </div>
+      <div class="title-content__name">Номер</div>
+      <div class="title-content__name">Р-р/Ёмкость</div>
+      <div class="title-content__name">В работе</div>
+      <div class="title-content__name">Лимит (ч)</div>
     </div>
     <div class="content">
       <ng-container *ngFor="let item of data">
         <div class="item" (click)="productOpen(item.id)" [class.active]="isProductOpen(item)">
           <div class="item__title-button">
-            <svg-icon *ngIf="isProductOpen(item)"
-                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
-                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+            <svg-icon
+              *ngIf="isProductOpen(item)"
+              src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+              [svgStyle]="{ 'width.px':14, 'height.px':10 }"
+            ></svg-icon>
 
-            <svg-icon *ngIf="!isProductOpen(item)"
-                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
-                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+            <svg-icon
+              *ngIf="!isProductOpen(item)"
+              src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+              [svgStyle]="{ 'width.px':14, 'height.px':10 }"
+            ></svg-icon>
           </div>
-          <div class="item__name"> {{ item.name }}</div>
+          <div class="item__name">{{ item.name }}</div>
         </div>
         <ng-container *ngIf="isProductOpen(item)">
           <cdk-virtual-scroll-viewport
-            [itemSize]="ROW_HEIGHT_PX" class="item__shadow-block"
-            [style.height.px]="item.quantity * ROW_HEIGHT_PX">
+            [itemSize]="ROW_HEIGHT_PX"
+            class="item__shadow-block"
+            [style.height.px]="item.quantity * ROW_HEIGHT_PX"
+          >
             <ng-container *cdkVirtualFor="let i of item.data">
-              <div class="item__i" [class.active-block]='activeItemId === i?.id' (click)="active(i)">
-                <div class="name-param">
-                  {{ i?.shortName }}
-                </div>
-                <div class="capacity-param">
-                  {{ i?.name }}
-                </div>
+              <div class="item__i" [class.active-block]="activeItemId === i?.id" (click)="active(i)">
+                <div class="name-param">{{ i?.shortName }}</div>
+                <div class="capacity-param">{{ i?.name }}</div>
                 <div class="check-param">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                           (click)="changeSwap(i)" [checked]="i?.enabled"/>
+                    <input
+                      type="checkbox"
+                      id="checkBoxValue"
+                      class="mycheckbox__default"
+                      (click)="changeSwap(i)"
+                      [checked]="i?.enabled"
+                    />
                     <div class="mycheckbox__new" [class.mycheckbox__checked]="i?.enabled"></div>
                   </label>
                 </div>
                 <div class="limit-param">
-                  <div class="limit-param__value">
-                    {{ i?.limitHours }}
-                  </div>
+                  <div class="limit-param__value">{{ i?.limitHours }}</div>
                   <div class="limit-param__icon" (click)="update(i)">
-                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/update.svg"
-                              [svgStyle]="{ 'width.px':30, 'height.px':30 }">
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/oil-operations/update.svg"
+                      [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+                    >
                     </svg-icon>
                   </div>
                 </div>

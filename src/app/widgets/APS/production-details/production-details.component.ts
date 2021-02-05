@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    IApsProgressBarSettings
-} from '@shared/components/aps-progress-bar/aps-progress-bar.component';
+import { IApsProgressBarSettings } from '@shared/components/aps-progress-bar/aps-progress-bar.component';
 
 export interface IProductionDetails {
     name: string;
@@ -18,7 +16,6 @@ export interface IProductionDetails {
     styleUrls: ['./production-details.component.scss'],
 })
 export class ProductionDetailsComponent extends WidgetPlatform<unknown> implements OnInit {
-
     public details: IProductionDetails[] = [
         {
             name: 'Алкилат 25/12',
@@ -91,7 +88,6 @@ export class ProductionDetailsComponent extends WidgetPlatform<unknown> implemen
         },
     ];
 
-
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -114,7 +110,9 @@ export class ProductionDetailsComponent extends WidgetPlatform<unknown> implemen
     private countProgressBarValue(details: IProductionDetails): IProductionDetails {
         const newProgressBar = details.progressBar ? details.progressBar : {};
         if (details.valueNegative) {
-            newProgressBar.value = Math.round((1 - Math.abs(details.valueNegative) * 100 / details.valuePositive) * 100);
+            newProgressBar.value = Math.round(
+                (1 - (Math.abs(details.valueNegative) * 100) / details.valuePositive) * 100
+            );
         } else {
             newProgressBar.value = 100;
         }
@@ -122,8 +120,7 @@ export class ProductionDetailsComponent extends WidgetPlatform<unknown> implemen
         return details;
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public onClick(): void {
         console.log('click');

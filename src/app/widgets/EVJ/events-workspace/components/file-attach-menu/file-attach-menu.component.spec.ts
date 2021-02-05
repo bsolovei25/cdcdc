@@ -8,9 +8,8 @@ describe('FileAttachMenuComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [FileAttachMenuComponent]
-        })
-            .compileComponents();
+            declarations: [FileAttachMenuComponent],
+        }).compileComponents();
     }));
 
     beforeEach(() => {

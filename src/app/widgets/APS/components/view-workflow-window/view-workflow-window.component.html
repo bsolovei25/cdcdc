@@ -13,11 +13,7 @@
         </div>
       </div>
       <div class="window-container__body">
-        <evj-aps-input
-          class="window-container__body__input"
-          *ngFor="let i of info.inputs"
-          [data]="i"
-        ></evj-aps-input>
+        <evj-aps-input class="window-container__body__input" *ngFor="let i of info.inputs" [data]="i"></evj-aps-input>
         <div class="window-container__body__input">
           <div class="window-container__body__input__btn">
             <div (click)="cancel()">Отмена</div>

@@ -1,12 +1,4 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    Output,
-    EventEmitter,
-    OnDestroy,
-    OnChanges,
-} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy, OnChanges } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
@@ -99,9 +91,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
         dependentParameters?.forEach((param) => {
             this.formArray = this.form.get('dependentParameters') as FormArray;
-            this.formArray.push(
-                this.createFormGroup(param?.dependentParameterId, param?.numericValue)
-            );
+            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue));
         });
     }
 
@@ -122,9 +112,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     // Список с Зависимыми параметтрами
     private async getExtraParameters(id: number): Promise<void> {
-        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(
-            id
-        );
+        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(id);
         this.kpeWorkspaceService.showSelectParameters$.next(dependentParametersData);
     }
 
@@ -139,9 +127,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     private async getParametersByNotification(): Promise<void> {
-        const data = await this.kpeWorkspaceService.getKpeNotificationParameters(
-            this.ewService.event
-        );
+        const data = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
         if (!data) {
             return;
         }
@@ -157,13 +143,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
             this.ewService.event.kpeAdditionalParameter = null;
 
-            const popupWindow: IExtraOptionsWindow  = {
+            const popupWindow: IExtraOptionsWindow = {
                 isShow: false,
                 type: 'reset',
             };
             this.ewService.extraOptionsWindow$.next(popupWindow);
         } catch {
-            const popupWindow: IExtraOptionsWindow  = {
+            const popupWindow: IExtraOptionsWindow = {
                 isShow: false,
                 type: 'save',
             };
@@ -173,7 +159,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     // Закрыть всплывающее окно с Дополнительными параметры
     public cancel(): void {
-        const popupWindow: IExtraOptionsWindow  = {
+        const popupWindow: IExtraOptionsWindow = {
             isShow: false,
             type: 'cancel',
         };
@@ -196,17 +182,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     // POST Сохранить данные
     public async accept(): Promise<void> {
-        const dependentParameters: IKpeAllDependentParameters[] = this.form.value.dependentParameters.map(
-            (value) => {
-                const id = value.dependentParameterId?.id
-                    ? value.dependentParameterId?.id
-                    : value.dependentParameterId;
-                return {
-                    numericValue: value.numericValue,
-                    dependentParameterId: id,
-                };
-            }
-        );
+        const dependentParameters: IKpeAllDependentParameters[] = this.form.value.dependentParameters.map((value) => {
+            const id = value.dependentParameterId?.id ? value.dependentParameterId?.id : value.dependentParameterId;
+            return {
+                numericValue: value.numericValue,
+                dependentParameterId: id,
+            };
+        });
         this.notificationParametersData = {
             selectedParameter: this.form.value.parameters,
             dependentParameters,
@@ -240,7 +222,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(alertWindow);
-        const popupWindow: IExtraOptionsWindow  = {
+        const popupWindow: IExtraOptionsWindow = {
             isShow: false,
             type: 'reset',
         };

@@ -17,14 +17,13 @@ declare var d3: any;
 @Component({
     selector: 'evj-oil-control',
     templateUrl: './oil-control.component.html',
-    styleUrls: ['./oil-control.component.scss']
+    styleUrls: ['./oil-control.component.scss'],
 })
 export class OilControlComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
     @ViewChild('line') line: ElementRef;
-
 
     public isVertical: boolean = false;
 
@@ -35,53 +34,53 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     readonly storageXY: IOilControlCoords[] = [
         {
             x: 400,
-            y: 220
+            y: 220,
         },
         {
             x: 450,
-            y: 300
+            y: 300,
         },
         {
             point: 3,
             x: 510,
-            y: 420
+            y: 420,
         },
         {
             x: 450,
-            y: 620
+            y: 620,
         },
         {
             x: 400,
-            y: 690
-        }
+            y: 690,
+        },
     ];
 
     readonly productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
-            y: 220
+            y: 220,
         },
         {
             point: 2,
             x: 260,
-            y: 300
+            y: 300,
         },
         {
             point: 3,
             x: 320,
-            y: 420
+            y: 420,
         },
         {
             point: 4,
             x: 260,
-            y: 620
+            y: 620,
         },
         {
             point: 5,
             x: 200,
-            y: 700
-        }
+            y: 700,
+        },
     ];
 
     public clickPaginator: boolean = false;
@@ -150,7 +149,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     tankersName = {
         shipAvto: 'Авто',
         shipTrain: 'Поезд',
-        shipTube: 'Труба'
+        shipTube: 'Труба',
     };
 
     constructor(
@@ -158,7 +157,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -187,10 +186,8 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     protected dataHandler(ref: any): void {
         this.drawOilControlSocket(ref);
         if (!this.toggleIntervalTimer) {
-            const updateTimeInSec =
-                (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
-            this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+            const updateTimeInSec = (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
+            this.toggleIntervalTimer = setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
         }
     }
 
@@ -211,7 +208,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     drawOilControlSocket(ref): void {
         this.checkSocket = true;
         this.data = ref.products;
-        this.tempData = ref.products.map(p => fillDataShape(p));
+        this.tempData = ref.products.map((p) => fillDataShape(p));
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
@@ -313,11 +310,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                     .append('image')
                     .attr(
                         'xlink:href',
-                        item.nameTanker === 'shipTrain'
-                            ? cis
-                            : item.nameTanker === 'shipTube'
-                            ? tube
-                            : tug
+                        item.nameTanker === 'shipTrain' ? cis : item.nameTanker === 'shipTube' ? tube : tug
                     )
                     .attr('height', '50px')
                     .attr('width', '60px')
@@ -327,7 +320,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
                 const planText1 = this.tankersPicture
                     .append('text')
-                    .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('font-size', '10px')
                     .attr('x', x3 + y)
                     .attr('class', 'textProduct')
@@ -438,17 +431,9 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             // this.savePositionStorage = this.saveCurrentPage;
         } else if (this.countClickChange === 0) {
             // this.savePositionStorage = this.saveCurrentPage;
-        } else if (
-            this.countClickChange !== 0 &&
-            this.checkSocket &&
-            this.countClickChangeStorage === 0
-        ) {
+        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage === 0) {
             this.savePositionStorage = this.activeStorage.nameStorage;
-        } else if (
-            this.countClickChange !== 0 &&
-            this.checkSocket &&
-            this.countClickChangeStorage !== 0
-        ) {
+        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage !== 0) {
             // this.savePositionStorage = this.saveCurrentPage;
         }
 
@@ -472,7 +457,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
             let operations = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '390')
@@ -483,18 +468,18 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
             let operationsValues = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '430')
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct).operations);
 
             let critical = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '480')
@@ -505,14 +490,14 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
             let ctiticalValuues = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '520')
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(this.tempData.find(x => x.name === this.savePositionProduct).criticalOperations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct).criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -529,7 +514,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         } else {
             let middleText3 = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '420')
@@ -540,14 +525,14 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
             let middleText4 = svgMenu
                 .append('text')
-                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '500')
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct).operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');
@@ -583,10 +568,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                         if (textProduct.criticalValue) {
                             const valueBadText = svgMenu
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y - 20)
@@ -597,10 +579,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
                             const middleText2 = svgMenu
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '32px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + 40)
@@ -611,10 +590,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
                             const middleText3 = svgMenu
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + 100)
@@ -632,12 +608,9 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                                     return [`${name.slice(0, maxStrLen - 3)}...`];
                                 }
                                 const str =
-                                    name.length > maxStrLen * 2 - 3
-                                        ? `${name.slice(0, maxStrLen * 2).trim()}`
-                                        : name;
+                                    name.length > maxStrLen * 2 - 3 ? `${name.slice(0, maxStrLen * 2).trim()}` : name;
                                 const splitSpaceIndex = str.split('').reduce((acc, item, index) => {
-                                    return item === ' ' &&
-                                    Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
+                                    return item === ' ' && Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
                                         ? index
                                         : acc;
                                 }, 0);
@@ -654,10 +627,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                             const textPadding = nameRows.length > 1 ? -10 : 0;
                             svgMenu
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + textPadding)
@@ -669,10 +639,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                             if (nameRows.length > 1) {
                                 svgMenu
                                     .append('text')
-                                    .attr(
-                                        'font-family',
-                                        '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                    )
+                                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                     .attr('font-size', '25px')
                                     .attr('x', pie.x)
                                     .attr('y', pie.y + 30 + textPadding)
@@ -684,10 +651,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
                             const middleText2 = svgMenu
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '40px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + 80)
@@ -699,14 +663,12 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                         }
                     } else {
                         function nameSlicer(name: string, maxStrLen: number): string {
-                            return name.length > maxStrLen
-                                ? `${name.slice(0, maxStrLen - 3).trim()}...`
-                                : name;
+                            return name.length > maxStrLen ? `${name.slice(0, maxStrLen - 3).trim()}...` : name;
                         }
 
                         const valueGoodText = svgMenu
                             .append('text')
-                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
@@ -732,15 +694,13 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         for (const pie of newStorageXY) {
             let indexStorage = this.indexStorage;
             for (const textStorage of dataStorage) {
-                const test = d3.select(
-                    el?.firstElementChild.getElementById((indexStorage + 1).toString())
-                );
+                const test = d3.select(el?.firstElementChild.getElementById((indexStorage + 1).toString()));
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
                         const valueStorage = Math.round(textStorage.valueStorage);
                         const valueBadText = test
                             .append('text')
-                            .attr('font-family', '\'Segoe UI\',Tahoma,Geneva,Verdana,sans-serif;')
+                            .attr('font-family', "'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;")
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
@@ -751,7 +711,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
                         const middleText2 = test
                             .append('text')
-                            .attr('font-family', '\'Segoe UI\',Tahoma,Geneva,Verdana,sans-serif;')
+                            .attr('font-family', "'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;")
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y + 80)
@@ -769,10 +729,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                         if (textStorage.status === 'critical') {
                             const valueGoodText = test
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y)
@@ -786,10 +743,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                         } else {
                             const valueGoodText = test
                                 .append('text')
-                                .attr(
-                                    'font-family',
-                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
-                                )
+                                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y)
@@ -824,11 +778,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             this.changeMassiv(index, this.newArrayProduct);
         }
 
-        const newProduct: number = this.findAndFilterProduct(
-            this.newArrayProduct,
-            index,
-            this.indexTestStorage
-        );
+        const newProduct: number = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
 
         this.drawOnCircle(
             this.oilCircle?.nativeElement,
@@ -927,7 +877,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     public changeMassiv(el: string, data): void {
         let move: 'next' | 'prev';
         let newIndexProduct = 0;
-        const indexProduct = 1 + data.findIndex(x => x.name === el);
+        const indexProduct = 1 + data.findIndex((x) => x.name === el);
         if (indexProduct === 0) {
             return;
         }
@@ -956,7 +906,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         let move: 'next' | 'prev';
         let lengthData = data.length;
         let newIndexProduct = 0;
-        const indexProduct = 1 + data.findIndex(x => x.nameStorage === el);
+        const indexProduct = 1 + data.findIndex((x) => x.nameStorage === el);
         if (indexProduct === 0) {
             return;
         }
@@ -1110,7 +1060,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     private nextProduct(): void {
-        let curIdx = this.tempData.findIndex(x => x.name === this.savePositionProduct);
+        let curIdx = this.tempData.findIndex((x) => x.name === this.savePositionProduct);
         console.log(`product: ${curIdx}`);
         let product = this.tempData[++curIdx]?.name;
         if (!product) {
@@ -1126,11 +1076,11 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
     private nextStorage(): boolean {
         console.log(this.tempData);
-        const currentProduct = this.tempData.find(x => x.name === this.savePositionProduct);
+        const currentProduct = this.tempData.find((x) => x.name === this.savePositionProduct);
         if (!currentProduct) {
             return false;
         }
-        let curIdx = currentProduct.storages.findIndex(x => x.nameStorage === this.savePositionStorage);
+        let curIdx = currentProduct.storages.findIndex((x) => x.nameStorage === this.savePositionStorage);
         console.log(`storage: ${curIdx}`);
         const storage = currentProduct.storages[++curIdx]?.nameStorage;
         if (!storage) {

@@ -1,50 +1,50 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    background: var(--nk-color-bg-main);
+  background: var(--nk-color-bg-main);
 }
 
-.container-body{
-    height: 100%;
-    width: 100%;
+.container-body {
+  height: 100%;
+  width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .cardList {
-    height: 100%;
-    padding: 15px 10px;
-    padding-bottom: 55px;
+  height: 100%;
+  padding: 15px 10px;
+  padding-bottom: 55px;
 
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-content: space-between;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: space-between;
 
-    overflow: scroll;
+  overflow: scroll;
 
-    .scroll-bar::-webkit-scrollbar {
-        width: 5px;
-    }
-      
-    .scroll-bar::-webkit-scrollbar-thumb {
-        background: var(--nk-color-scroll-thumb);
-        border-radius: 5px;
-    }
-      
-    .scroll-bar::-webkit-scrollbar-track {
-        background: var(--nk-color-bg-main);
-        border-radius: 5px;
-    }
+  .scroll-bar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scroll-bar::-webkit-scrollbar-thumb {
+    background: var(--nk-color-scroll-thumb);
+    border-radius: 5px;
+  }
+
+  .scroll-bar::-webkit-scrollbar-track {
+    background: var(--nk-color-bg-main);
+    border-radius: 5px;
+  }
 }

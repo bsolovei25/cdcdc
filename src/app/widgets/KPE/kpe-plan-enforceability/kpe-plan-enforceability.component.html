@@ -5,63 +5,39 @@
     type="astue"
     icon="sliders"
   ></evj-contemporary-widget-header>
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="diagram-item">
-      <div
-        class="gauge"
-        #gauge
-        [style]="chartWidth(gauge)"
-      >
+      <div class="gauge" #gauge [style]="chartWidth(gauge)">
         <evj-kpe-gauge-chart
           [fact]="70"
           [plan]="100"
-          noDeviation=true
-          background=dark
+          noDeviation="true"
+          background="dark"
           [style.width.%]="100"
         ></evj-kpe-gauge-chart>
       </div>
       <div class="graph">
-        <div class="graph__title">
-          План паспортизации относительно нормативного графика
-        </div>
-        <div
-          class="graph__chart"
-        >
-          <evj-kpe-equalizer-chart
-            [data]="graphData"
-            #equalizer
-          ></evj-kpe-equalizer-chart>
+        <div class="graph__title">План паспортизации относительно нормативного графика</div>
+        <div class="graph__chart">
+          <evj-kpe-equalizer-chart [data]="graphData" #equalizer></evj-kpe-equalizer-chart>
         </div>
       </div>
     </div>
 
     <div class="diagram-item">
-      <div
-        class="gauge"
-        [style]="chartWidth(gauge)"
-      >
+      <div class="gauge" [style]="chartWidth(gauge)">
         <evj-kpe-gauge-chart
           [fact]="80"
           [plan]="120"
-          noDeviation=true
-          background=dark
+          noDeviation="true"
+          background="dark"
           [style.width.%]="100"
         ></evj-kpe-gauge-chart>
       </div>
       <div class="graph">
-        <div class="graph__title">
-          План приготовления
-        </div>
-        <div
-          class="graph__chart"
-        >
-          <evj-kpe-equalizer-chart
-            [data]="graphData"
-          ></evj-kpe-equalizer-chart>
+        <div class="graph__title">План приготовления</div>
+        <div class="graph__chart">
+          <evj-kpe-equalizer-chart [data]="graphData"></evj-kpe-equalizer-chart>
         </div>
       </div>
     </div>

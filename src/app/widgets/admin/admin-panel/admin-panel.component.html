@@ -1,31 +1,17 @@
 <div class="container pointer-event">
-  <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]=""
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [units]="units" [code]="" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="!isWorkerSettingsShowed && !isGroupsShowed">
-    <div
-      class="admin-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="admin-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
       <div class="admin" *ngIf="!isDataLoading">
         <div class="admin__header">
           <div class="header__search">
             <div class="search">
-              <evj-input
-                class="insert-component"
-                [options]="inputOptions"
-                [(ngModel)]="searchedWorker"
-              ></evj-input>
+              <evj-input class="insert-component" [options]="inputOptions" [(ngModel)]="searchedWorker"></evj-input>
             </div>
           </div>
           <div class="header__title">
@@ -55,9 +41,7 @@
               >
                 <div class="dropdown__item" (click)="createNewWorker()">Создать нового</div>
                 <div class="dropdown__item" (click)="isPopupShowed=true">Импортировать</div>
-                <div class="dropdown__item" (click)="updateUsers()">
-                  Обновить LDAP импорт
-                </div>
+                <div class="dropdown__item" (click)="updateUsers()">Обновить LDAP импорт</div>
               </div>
             </div>
 
@@ -72,10 +56,7 @@
           </div>
         </div>
         <div class="admin__employee">
-          <evj-admin-employee
-            [searchedWorker]="searchedWorker"
-            [workers]="workers"
-          ></evj-admin-employee>
+          <evj-admin-employee [searchedWorker]="searchedWorker" [workers]="workers"></evj-admin-employee>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>
@@ -100,10 +81,7 @@
   </ng-container>
 
   <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
-    <evj-admin-ad-import
-      *ngIf="isPopupShowed"
-      (closeLdap)="onCloseLdapList($event)"
-    ></evj-admin-ad-import>
+    <evj-admin-ad-import *ngIf="isPopupShowed" (closeLdap)="onCloseLdapList($event)"></evj-admin-ad-import>
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

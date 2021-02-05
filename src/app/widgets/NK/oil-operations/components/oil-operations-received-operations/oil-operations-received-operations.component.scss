@@ -1,120 +1,120 @@
 .container-oil-received {
-    height: calc(100% - 20px);
-    padding: 10px;
-    padding-right: 0;
-    padding-bottom: 1px;
+  height: calc(100% - 20px);
+  padding: 10px;
+  padding-right: 0;
+  padding-bottom: 1px;
 
-    &__title {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        background-color: var(--color-oil-border);
-        color: var(--color-text-main);
-        height: 40px;
-        line-height: 40px;
+  &__title {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: var(--color-oil-border);
+    color: var(--color-text-main);
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 13px;
+
+    .title-name {
+    }
+  }
+
+  &__content {
+    height: calc(100% - 35px);
+    background-color: var(--color-oil-table-2);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin-top: 4px;
+    overflow: auto;
+    font-size: 14px;
+
+    .block {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: 40px;
+
+      &:hover {
+        background-color: var(--color-bg-active);
+
+        .block__info {
+          color: var(--color-text-main);
+        }
+      }
+
+      &__icon {
+        margin-top: 5px;
+        width: 20%;
+        margin-left: 20px;
         text-align: center;
-        font-size: 13px;
+      }
 
-        .title-name {
-        }
+      &__info {
+        color: var(--color-text-sub);
+        width: 80%;
+      }
     }
-
-    &__content {
-        height: calc(100% - 35px);
-        background-color: var(--color-oil-table-2);
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        margin-top: 4px;
-        overflow: auto;
-        font-size: 14px;
-
-        .block {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            height: 40px;
-
-            &:hover {
-                background-color: var(--color-bg-active);
-
-                .block__info {
-                    color: var(--color-text-main);
-                }
-            }
-
-            &__icon {
-                margin-top: 5px;
-                width: 20%;
-                margin-left: 20px;
-                text-align: center;
-            }
-
-            &__info {
-                color: var(--color-text-sub);
-                width: 80%;
-            }
-        }
-    }
+  }
 }
 
 .active {
-    border-right: 2px solid var(--color-active);
+  border-right: 2px solid var(--color-active);
 
-    .block__info {
-        color: var(--color-text-main);
+  .block__info {
+    color: var(--color-text-main);
+  }
+
+  border-right: 1px solid var(--color-active);
+
+  ::ng-deep {
+    .feed7c60-5048-4baf-8320-77633154ed95 {
+      stroke: var(--color-text-main);
     }
 
-    border-right: 1px solid var(--color-active);
-
-    ::ng-deep {
-        .feed7c60-5048-4baf-8320-77633154ed95 {
-            stroke: var(--color-text-main);
-        }
-
-        .bd72f421-3865-4ed1-90af-79c931fcce10 {
-            fill: var(--color-active);
-        }
-
-        .ac551359-3501-4908-8c1e-cedbecaaf3c0 {
-            fill: var(--color-active);
-        }
-
-        .ffe3af6c-eab6-467a-8278-3959a7f0b23d {
-            fill: var(--color-active);
-        }
+    .bd72f421-3865-4ed1-90af-79c931fcce10 {
+      fill: var(--color-active);
     }
+
+    .ac551359-3501-4908-8c1e-cedbecaaf3c0 {
+      fill: var(--color-active);
+    }
+
+    .ffe3af6c-eab6-467a-8278-3959a7f0b23d {
+      fill: var(--color-active);
+    }
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    margin-left: 50px;
-    margin-right: 50px;
+  width: 4px;
+  height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    border-radius: 25px;
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 ::-webkit-resizer {
-    background-color: var(--color-border-active);
+  background-color: var(--color-border-active);
 }

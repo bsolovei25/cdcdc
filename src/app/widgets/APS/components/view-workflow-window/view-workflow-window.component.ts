@@ -16,16 +16,14 @@ export interface IViewWorkflowWindow {
 @Component({
     selector: 'evj-view-workflow-window',
     templateUrl: './view-workflow-window.component.html',
-    styleUrls: ['./view-workflow-window.component.scss']
+    styleUrls: ['./view-workflow-window.component.scss'],
 })
 export class ViewWorkflowWindowComponent implements OnInit {
-
     @Input() public info: IViewWorkflowWindow;
 
-    constructor() { }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public accept(): void {
         try {
@@ -46,6 +44,4 @@ export class ViewWorkflowWindowComponent implements OnInit {
             this.info.closeFunction();
         }
     }
-
-
 }

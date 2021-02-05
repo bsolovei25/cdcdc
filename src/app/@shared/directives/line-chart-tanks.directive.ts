@@ -84,9 +84,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
             const iconHeight: number = 24;
             const iconWidth: number = 24;
             const iconUrl: string =
-                point.additional?.card?.direction === 'Источник'
-                    ? this.arrowDownUrl
-                    : this.arrowUpUrl;
+                point.additional?.card?.direction === 'Источник' ? this.arrowDownUrl : this.arrowUpUrl;
 
             pointG
                 .append('image')
@@ -131,19 +129,12 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     offset *= -1;
                 }
 
-                if (
-                    this.graphMaxY &&
-                    cardHeight + cardPosY > this.graphMaxY - this.padding.bottom
-                ) {
-                    cardPosY =
-                        cardPosY + (this.graphMaxY - (cardHeight + cardPosY + this.padding.bottom));
+                if (this.graphMaxY && cardHeight + cardPosY > this.graphMaxY - this.padding.bottom) {
+                    cardPosY = cardPosY + (this.graphMaxY - (cardHeight + cardPosY + this.padding.bottom));
                     cardPosX += offset;
                 }
 
-                const cardG = pointG
-                    .append('g')
-                    .attr('class', 'point-card')
-                    .style('display', 'none');
+                const cardG = pointG.append('g').attr('class', 'point-card').style('display', 'none');
 
                 cardG
                     .append('rect')
@@ -159,9 +150,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 const tankPosX: number = cardPosX + (cardWidth - tankWidth) / 2;
                 const tankPosY: number = cardPosY + (cardHeight - tankHeight) / 2;
                 const tankUrl: string =
-                    point.additional.card.objectType === 'tank'
-                        ? this.tankImageUrl
-                        : this.unitImageUrl;
+                    point.additional.card.objectType === 'tank' ? this.tankImageUrl : this.unitImageUrl;
 
                 const textPosX: number = cardPosX + cardWidth / 2;
                 const textSize: number = 12;

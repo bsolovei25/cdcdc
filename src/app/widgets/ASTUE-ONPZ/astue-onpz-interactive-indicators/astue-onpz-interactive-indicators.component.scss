@@ -126,13 +126,12 @@
         }
 
         &__disable {
-          transition: .3s;
-          background-color: rgba(39, 42, 56, .5);
-
+          transition: 0.3s;
+          background-color: rgba(39, 42, 56, 0.5);
 
           .item {
             &__icon {
-              background-color: rgba(48, 53, 73, .5) !important;
+              background-color: rgba(48, 53, 73, 0.5) !important;
 
               &::ng-deep {
                 fill: var(--color-text-sub) !important;
@@ -176,7 +175,11 @@
           mat-form-field {
           }
 
-          .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+          .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+          .mat-form-field-appearance-legacy.mat-form-field-can-float
+            .mat-input-server:focus
+            + .mat-form-field-label-wrapper
+            .mat-form-field-label {
             display: none;
           }
 
@@ -257,7 +260,7 @@
         height: 44px;
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
-        background-color: var(--color-astue-onpz-widget-border);;
+        background-color: var(--color-astue-onpz-widget-border);
         font-size: 14px;
 
         &__icon {
@@ -293,7 +296,6 @@
   }
 }
 
-
 .background {
   &-white {
     background-color: white !important;
@@ -303,5 +305,3 @@
     background-color: var(--color-btn-rounded-border) !important;
   }
 }
-
-

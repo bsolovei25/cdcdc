@@ -172,14 +172,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
         // this.elementEdit(true, mode, element, data);
         if (element?.children) {
-            this.addClassAndTextToElement(
-                element,
-                this.fullElement?.get(data?.code)?.elementFull,
-                mode,
-                '',
-                0,
-                0
-            );
+            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, '', 0, 0);
         }
     }
 
@@ -301,10 +294,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         // Percent
         if (elementFull?.metaFile) {
             if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(
-                    elementFull.textPercent,
-                    `${String(elementFull?.metaFile?.valueMomentPercent)}%`
-                );
+                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.valueMomentPercent)}%`);
                 elementFull?.textPercent?.classList.remove(
                     'standard-text',
                     'deviation-text',
@@ -341,10 +331,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 }
             }
             if ('value' in elementFull?.metaFile) {
-                this.addTextToTspan(
-                    elementFull?.textValue,
-                    `${String(elementFull?.metaFile?.value)} т`
-                );
+                this.addTextToTspan(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
                 const element4 = this.dataAttribute.get(elementFull.metaFile.code);
                 if (element4.id.includes('-4_')) {
                     elementFull?.textValue.classList.add(`text-anchor`);
@@ -352,12 +339,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             }
         } else {
             this.addTextToTspan(elementFull?.textValue, `${String(value)} тн`);
-            elementFull?.textValue?.classList.remove(
-                'standard-text',
-                'deviation-text',
-                'disabled-text',
-                'reset-text'
-            );
+            elementFull?.textValue?.classList.remove('standard-text', 'deviation-text', 'disabled-text', 'reset-text');
             elementFull?.textValue?.classList.add(`${mode}-text`);
             const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
             if (element4?.id.includes('-4_')) {
@@ -604,11 +586,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         const arrow: Element[] = [];
         Array.from(elements).forEach((element) => {
             const name = element.getAttribute('id');
-            if (
-                name?.includes('arrow') &&
-                !name?.includes('arrow_double') &&
-                !name?.includes('arrow_right_simple')
-            ) {
+            if (name?.includes('arrow') && !name?.includes('arrow_double') && !name?.includes('arrow_right_simple')) {
                 arrow.push(element);
                 if (element?.children.length) {
                     arrow.push(...this.searchArrow(element?.children));

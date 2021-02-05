@@ -22,23 +22,14 @@ export class PieDiagramComponent implements OnInit {
 
     private colors: string[] = [];
 
-    private baseColors: string[] = [
-        'rgb(78, 63, 42)',
-        'rgb(43, 72, 68)',
-        'rgb(79, 33, 44)',
-    ];
+    private baseColors: string[] = ['rgb(78, 63, 42)', 'rgb(43, 72, 68)', 'rgb(79, 33, 44)'];
 
-    private highlightColors: string[] = [
-        'rgb(244,163,33)',
-        'rgb(0, 172, 157)',
-        'rgb(253, 72, 80)',
-    ];
+    private highlightColors: string[] = ['rgb(244,163,33)', 'rgb(0, 172, 157)', 'rgb(253, 72, 80)'];
 
     private svg: any;
     private g: any;
 
-    constructor(private hostElement: ElementRef) {
-    }
+    constructor(private hostElement: ElementRef) {}
 
     ngOnInit(): void {
         this.initSvg();
@@ -58,14 +49,12 @@ export class PieDiagramComponent implements OnInit {
 
     private initSvg(): void {
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.g = this.svg.append('g')
-            .attr('transform', 'translate(50,50)')
-            .attr('z-index', '50')
-            ;
+        this.g = this.svg.append('g').attr('transform', 'translate(50,50)').attr('z-index', '50');
     }
 
     private placeText(): void {
-        this.g.append('text')
+        this.g
+            .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '14px')
             .attr('font-weight', 'bold')
@@ -73,7 +62,8 @@ export class PieDiagramComponent implements OnInit {
             .attr('dominant-baseline', 'middle')
             .text(this.data.value);
 
-        this.g.append('text')
+        this.g
+            .append('text')
             .attr('font-size', '12px')
             .attr('y', '40')
             .attr('z-index', '100')
@@ -84,19 +74,16 @@ export class PieDiagramComponent implements OnInit {
     }
 
     private drawSvg(): void {
-        const angleGen = d3.pie()
+        const angleGen = d3
+            .pie()
             .startAngle(-0.75 * Math.PI)
             .endAngle(0.75 * Math.PI)
-            .padAngle(.05)
+            .padAngle(0.05)
             .value((d) => d.size);
 
-        const data = angleGen(
-            [{ size: 1 }, { size: 1 }, { size: 1 }]
-        );
+        const data = angleGen([{ size: 1 }, { size: 1 }, { size: 1 }]);
 
-        const arcGen = d3.arc()
-            .innerRadius(42)
-            .outerRadius(50);
+        const arcGen = d3.arc().innerRadius(42).outerRadius(50);
 
         const colors = d3.scaleOrdinal(this.colors);
 

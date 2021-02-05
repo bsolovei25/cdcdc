@@ -131,7 +131,6 @@
     }
 
     &__buttons-block {
-
       .block-button {
         flex: 1 1 182px;
 
@@ -139,11 +138,9 @@
           margin-right: 0;
         }
       }
-
     }
 
     &__dropdown-block {
-
       .dropdown {
         border: 1px solid var(--color-aps-button-bg);
         border-radius: 3px;

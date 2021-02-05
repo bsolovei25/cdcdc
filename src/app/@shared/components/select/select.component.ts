@@ -1,10 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface ISelectValue {
     value: string | number;
@@ -17,7 +11,6 @@ export interface ISelectValue {
     styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements OnInit {
-
     @Input()
     public items: ISelectValue[] | null;
 
@@ -25,17 +18,15 @@ export class SelectComponent implements OnInit {
     public label: string = 'Выпадающий список';
 
     @Output()
-    public onValueChange: EventEmitter<string | number | ISelectValue>
-        = new EventEmitter<string | number | ISelectValue>();
+    public onValueChange: EventEmitter<string | number | ISelectValue> = new EventEmitter<
+        string | number | ISelectValue
+    >();
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public onClick(): void {
-    }
+    public onClick(): void {}
 
     public onSelect(value: keyof ISelectValue): void {
         this.onValueChange.emit(value);

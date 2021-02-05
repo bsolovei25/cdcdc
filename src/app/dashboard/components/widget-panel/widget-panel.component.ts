@@ -5,7 +5,11 @@ import {
     EventEmitter,
     Injector,
     Input,
-    ChangeDetectorRef, AfterViewInit, AfterContentChecked, OnDestroy, Type
+    ChangeDetectorRef,
+    AfterViewInit,
+    AfterContentChecked,
+    OnDestroy,
+    Type,
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -23,13 +27,13 @@ import { trigger, transition, animate, style } from '@angular/animations';
         trigger('items', [
             transition('void => *', [
                 style({ opacity: 0 }),
-                animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', style({ opacity: 1 }))
-            ])
-        ])
-    ]
+                animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', style({ opacity: 1 })),
+            ]),
+        ]),
+    ],
 })
 export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDestroy {
-    public readonly WIDGETS: {[key: string]: Type<unknown>} = WIDGETS;
+    public readonly WIDGETS: { [key: string]: Type<unknown> } = WIDGETS;
     public gridWidget: boolean = true;
     public fixWidget: boolean = true;
 
@@ -62,8 +66,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
         public userSettings: UserSettingsService,
         private claimService: ClaimService,
         private chDet: ChangeDetectorRef
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -148,9 +151,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
             if (this.filters.length > 0) {
                 let widgets = this.widgets$
                     .getValue()
-                    .filter((value) =>
-                        value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase())
-                    );
+                    .filter((value) => value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase()));
                 widgets = widgets.filter((value) => {
                     return this.filters.find((val) => value.categories.includes(val));
                 });
@@ -159,9 +160,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
                 this.filterWidgets$.next(
                     this.widgets$
                         .getValue()
-                        .filter((value) =>
-                            value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase())
-                        )
+                        .filter((value) => value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase()))
                 );
             }
         }
@@ -175,9 +174,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
                     return this.filters.find((val) => value.categories.includes(val));
                 });
                 this.filterWidgets$.next(
-                    widgets.filter((value) =>
-                        value.title.toLowerCase().includes(this.search.trim().toLowerCase())
-                    )
+                    widgets.filter((value) => value.title.toLowerCase().includes(this.search.trim().toLowerCase()))
                 );
             } else {
                 this.filterWidgets$.next(
@@ -201,9 +198,9 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
                 { provide: 'widgetId', useValue: idWidget },
                 { provide: 'uniqId', useValue: null }, // uniqId is null when isMock
                 { provide: 'isMock', useValue: true },
-                { provide: 'resizeWidget', useValue: null }
+                { provide: 'resizeWidget', useValue: null },
             ],
-            parent: this.injector
+            parent: this.injector,
         });
-    }
+    };
 }

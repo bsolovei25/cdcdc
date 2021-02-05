@@ -37,16 +37,16 @@
     .connection-circle {
       height: 8px;
       width: 8px;
-  
+
       display: flex;
       justify-content: center;
       align-items: center;
-  
+
       border-radius: 50%;
-  
+
       background: var(--sou-mvp-color-bg-main);
       border: 1px solid var(--sou-mvp-color-border);
-  
+
       position: absolute;
       left: -4px;
       z-index: 1;
@@ -69,7 +69,6 @@
     border-top: 1px solid var(--sou-mvp-color-border);
   }
 }
-
 
 .disable {
   .title {

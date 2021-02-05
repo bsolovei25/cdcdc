@@ -12,7 +12,7 @@
   width: 100%;
   height: calc(100% - 10px);
   display: flex;
- // overflow: auto;
+  // overflow: auto;
 }
 
 ::-webkit-scrollbar {
@@ -42,7 +42,7 @@
 }
 
 :hover::-webkit-scrollbar-track-piece {
-//  border: solid 1px var(--color-border-active);
+  //  border: solid 1px var(--color-border-active);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -55,7 +55,7 @@
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-//  border: solid 1px var(--color-border-main);
+  //  border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
 

@@ -14,9 +14,9 @@ export interface IDocumentViewer {
 }
 
 @Component({
-  selector: 'evj-document-viewer',
-  templateUrl: './document-viewer.component.html',
-  styleUrls: ['./document-viewer.component.scss']
+    selector: 'evj-document-viewer',
+    templateUrl: './document-viewer.component.html',
+    styleUrls: ['./document-viewer.component.scss'],
 })
 export class DocumentViewerComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild(PdfViewerComponent) pdfViewport: PdfViewerComponent;
@@ -115,8 +115,7 @@ export class DocumentViewerComponent extends WidgetPlatform<unknown> implements 
         this.pdfViewport?.onPageResize();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     openFullScreen(): void {
         const documentParams: IDocumentViewer = {
@@ -124,10 +123,9 @@ export class DocumentViewerComponent extends WidgetPlatform<unknown> implements 
             page: this.page,
             search: this.search,
         };
-        const dialogRef = this.dialog
-            .open(DocumentViewerFullscreenComponent, {
-                data: documentParams,
-                autoFocus: true,
-            });
+        const dialogRef = this.dialog.open(DocumentViewerFullscreenComponent, {
+            data: documentParams,
+            autoFocus: true,
+        });
     }
 }

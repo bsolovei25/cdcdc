@@ -17,11 +17,7 @@ import {
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-import {
-    ClaimService,
-    EnumClaimGlobal,
-    EnumClaimWidgets,
-} from '../../../dashboard/services/claim.service';
+import { ClaimService, EnumClaimGlobal, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
@@ -36,8 +32,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './evj-events.component.html',
     styleUrls: ['./evj-events.component.scss'],
 })
-export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
-    implements OnInit, OnDestroy {
+export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: any;
@@ -63,9 +58,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -257,9 +250,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<
-        IEventsWidgetNotificationPreview
-    > = new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<IEventsWidgetNotificationPreview>(
+        null
+    );
 
     public isPreviewOpened: boolean = false;
 
@@ -269,9 +262,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     private requestSubscription: { [key: number]: Subscription } = {};
 
     get isClaimDelete(): boolean {
-        return this.claimService.claimGlobal$?.value?.some(
-            (x) => x === EnumClaimGlobal.EventsDelete
-        );
+        return this.claimService.claimGlobal$?.value?.some((x) => x === EnumClaimGlobal.EventsDelete);
     }
 
     constructor(
@@ -421,7 +412,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     }
 
     public toggle(): void {
-        this.viewport.setRenderedRange({start: 0, end: this.viewport.getRenderedRange().end - 1});
+        this.viewport.setRenderedRange({ start: 0, end: this.viewport.getRenderedRange().end - 1 });
         this.viewport.checkViewportSize();
     }
 
@@ -457,11 +448,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     }
 
     private setViewTypeSettings(viewType: 'cards' | 'list'): void {
-        if (
-            !viewType ||
-            (viewType === 'cards' && !this.isList) ||
-            (viewType === 'list' && this.isList)
-        ) {
+        if (!viewType || (viewType === 'cards' && !this.isList) || (viewType === 'list' && this.isList)) {
             return;
         }
         if (viewType === 'cards') {
@@ -499,13 +486,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     private countNotificationsDivCapacity(): void {
         const width = !!this.attributes?.IsVideoWall ? 763 : 383;
-        const notificationsDivCapacity = Math.trunc(
-            this.notificationsDiv?.nativeElement?.clientWidth / width
-        );
-        this.notificationsGrouped = this.sortArray(
-            this.notifications,
-            this.isList ? notificationsDivCapacity : 1
-        );
+        const notificationsDivCapacity = Math.trunc(this.notificationsDiv?.nativeElement?.clientWidth / width);
+        this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
     }
 
     private onResize(): void {
@@ -549,8 +531,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 sortIndex: n.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0,
             };
         });
-        const eventSortIndex: number =
-            notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
+        const eventSortIndex: number = notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
         const idx = this.notifications.findIndex((n) => eventSortIndex >= n.sortIndex);
         if (this.notifications.length > 0 && idx === -1) {
             return;
@@ -659,10 +640,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     public deleteClick(id: number): void {
         if (!this.isClaimDelete) {
-            this.snackBarService.openSnackBar(
-                `У вас недостаточно прав для удаления событий`,
-                'snackbar-red'
-            );
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
             return;
         }
         const info: IAlertWindowModel = {
@@ -699,9 +677,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         window.open(url);
     }
 
-    public scrollHandler(event: {
-        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
-    }): void {
+    public scrollHandler(event: { target: { offsetHeight: number; scrollTop: number; scrollHeight: number } }): void {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
@@ -715,10 +691,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         return this.selectedId === id || this.eventOverlayId === id;
     }
 
-    public sortArray(
-        arr: IEventsWidgetNotificationPreview[],
-        n: number
-    ): IEventsWidgetNotificationPreview[][] {
+    public sortArray(arr: IEventsWidgetNotificationPreview[], n: number): IEventsWidgetNotificationPreview[][] {
         let i = 0;
         let j = 0;
         const result = [];
@@ -749,23 +722,21 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             return;
         }
         this.requestSubscription[subKey]?.unsubscribe();
-        this.requestSubscription[subKey] = this.eventService
-            .getBatchDataObserver(lastId, options)
-            .subscribe(
-                (ans) => {
-                    console.log(subKey);
-                    this.appendNotifications(ans);
-                    this.isAllowScrollLoading = true;
-                    if (ans?.length > 0) {
-                        this.viewport?.checkViewportSize();
-                    }
-                },
-                (err) => {},
-                () => {
-                    this.isAllowScrollLoading = true;
-                    this.requestSubscription[subKey] = null;
+        this.requestSubscription[subKey] = this.eventService.getBatchDataObserver(lastId, options).subscribe(
+            (ans) => {
+                console.log(subKey);
+                this.appendNotifications(ans);
+                this.isAllowScrollLoading = true;
+                if (ans?.length > 0) {
+                    this.viewport?.checkViewportSize();
                 }
-            );
+            },
+            (err) => {},
+            () => {
+                this.isAllowScrollLoading = true;
+                this.requestSubscription[subKey] = null;
+            }
+        );
     }
 
     private async getStats(): Promise<void> {
@@ -801,27 +772,17 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 this.filters.forEach((f) => {
                     switch (f.code) {
                         case 'all':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3001
-                            ).count;
-                            f.notificationsCount += stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3002
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3001).count;
+                            f.notificationsCount += stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'closed':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3003
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3003).count;
                             break;
                         case 'inWork':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3002
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'isNotAcknowledged':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === -100
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === -100).count;
                             break;
                     }
                 });

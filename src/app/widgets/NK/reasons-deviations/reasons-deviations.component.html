@@ -1,6 +1,13 @@
 <div class="container">
-  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-                     [widgetType]="widgetType" [icon]="widgetIcon">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [widgetType]="widgetType"
+    [icon]="widgetIcon"
+  >
   </evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
@@ -14,8 +21,10 @@
         <evj-reasons-deviations-info-content [data]="data"></evj-reasons-deviations-info-content>
       </div>
       <div class="content__tank">
-        <evj-reasons-deviations-info-tank [data]="data"
-                                          [transfer]="selectedTransfer"></evj-reasons-deviations-info-tank>
+        <evj-reasons-deviations-info-tank
+          [data]="data"
+          [transfer]="selectedTransfer"
+        ></evj-reasons-deviations-info-tank>
       </div>
     </div>
   </div>

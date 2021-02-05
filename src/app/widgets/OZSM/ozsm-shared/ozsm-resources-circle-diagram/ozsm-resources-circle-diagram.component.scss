@@ -1,111 +1,110 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .container {
-    height: 100%;
-    padding: 0 30px;
+  height: 100%;
+  padding: 0 30px;
 
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
 }
 
 .diagram-list {
-    height: 100%;
-    padding-top: 20px;
+  height: 100%;
+  padding-top: 20px;
 
-    border-top: 1px solid var(--ozsm-color-marker-diagram);
+  border-top: 1px solid var(--ozsm-color-marker-diagram);
 
-    position: relative;
+  position: relative;
 }
 
 .custom-border {
-    width: 100%;
-    z-index: 1;
-    position: absolute;
-    top: 0;
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  top: 0;
 }
 
-
 .diagram-list__items {
-    height: 100%;
-    padding-bottom: 10px;
+  height: 100%;
+  padding-bottom: 10px;
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    overflow-x: auto;
+  overflow-x: auto;
 
-    &::-webkit-scrollbar{
-        height: 5px;
-    }
-    &::-webkit-scrollbar-thumb{
-        background: var(--ozsm-resources-circle-diagram-color-border-main);
-        border-radius: 2px;
-    }
-    &::-webkit-scrollbar-track {
-        background: var(--ozsm-resources-circle-diagram-color-bg-main);
-        border-radius: 2px;
-    }
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--ozsm-resources-circle-diagram-color-border-main);
+    border-radius: 2px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--ozsm-resources-circle-diagram-color-bg-main);
+    border-radius: 2px;
+  }
 }
 
 .custom-border-left {
-    height: 20px;
-    width: 20px;
+  height: 20px;
+  width: 20px;
 
-    border-top: 1.2px solid var(--ozsm-color-marker-diagram);
-    border-right: 1.2px solid var(--ozsm-color-marker-diagram);
+  border-top: 1.2px solid var(--ozsm-color-marker-diagram);
+  border-right: 1.2px solid var(--ozsm-color-marker-diagram);
 
-    transform: skew(45deg, 0);
+  transform: skew(45deg, 0);
 
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 
-    position: absolute;
-    right: -10px;
-    top: -1px;
+  position: absolute;
+  right: -10px;
+  top: -1px;
 
-    z-index: 9000;
+  z-index: 9000;
 
-    .custom-border__inner-circle {
-        height: 7px;
-        width: 7px;
+  .custom-border__inner-circle {
+    height: 7px;
+    width: 7px;
 
-        border: 1px solid var(--ozsm-color-marker-diagram);
-        border-radius: 50%;
+    border: 1px solid var(--ozsm-color-marker-diagram);
+    border-radius: 50%;
 
-        transform: skew(-45deg, 0) translate(8px, 6px);
-    }
+    transform: skew(-45deg, 0) translate(8px, 6px);
+  }
 }
 
-.custom-border-right{
-    height: 20px;
-    width: 20px;
+.custom-border-right {
+  height: 20px;
+  width: 20px;
 
-    border-top: 1.2px solid var(--ozsm-color-marker-diagram);
-    border-left: 1.2px solid var(--ozsm-color-marker-diagram);
+  border-top: 1.2px solid var(--ozsm-color-marker-diagram);
+  border-left: 1.2px solid var(--ozsm-color-marker-diagram);
 
-    transform: skew(-45deg, 0);
+  transform: skew(-45deg, 0);
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 
-    position: absolute;
-    left: -10px;
-    top: -1px;
+  position: absolute;
+  left: -10px;
+  top: -1px;
 
-    z-index: 9000;
+  z-index: 9000;
 
-    .custom-border__inner-circle {
-        height: 7px;
-        width: 7px;
+  .custom-border__inner-circle {
+    height: 7px;
+    width: 7px;
 
-        border: 1px solid var(--ozsm-color-marker-diagram);
-        border-radius: 50%;
+    border: 1px solid var(--ozsm-color-marker-diagram);
+    border-radius: 50%;
 
-        transform: skew(45deg, 0) translate(-8px, 6px);
-    }
+    transform: skew(45deg, 0) translate(-8px, 6px);
+  }
 }

@@ -1,15 +1,7 @@
 <div class="card" *ngIf="group" [ngClass]="{'card_active':isCardActive}">
   <div class="card__name text">{{group.name}}</div>
   <div class="buttons" *ngIf="isCardActive">
-    <img
-      class="button"
-      src="assets/icons/widgets/admin/admin-groups/delete-icon.svg"
-      (click)="onDeleteGroup()"
-    />
-    <img
-      class="button"
-      src="assets/icons/widgets/admin/admin-groups/edit-icon.svg"
-      (click)="onEditGroup()"
-    />
+    <img class="button" src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" (click)="onDeleteGroup()" />
+    <img class="button" src="assets/icons/widgets/admin/admin-groups/edit-icon.svg" (click)="onEditGroup()" />
   </div>
 </div>

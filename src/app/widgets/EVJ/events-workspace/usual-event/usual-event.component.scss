@@ -383,18 +383,18 @@ $border-size: 4px;
       border-image-slice: 1;
       background: rgb(235, 87, 87);
       background-image: linear-gradient(
-          to right,
-          #eb5757 0%,
-          #e55555 0%,
-          #bc4a4d 4%,
-          #974145 9%,
-          #76383e 14%,
-          #5b3139 19%,
-          #452b34 25%,
-          #342731 32%,
-          #28242e 41%,
-          #21222d 53%,
-          #20222d 86%
+        to right,
+        #eb5757 0%,
+        #e55555 0%,
+        #bc4a4d 4%,
+        #974145 9%,
+        #76383e 14%,
+        #5b3139 19%,
+        #452b34 25%,
+        #342731 32%,
+        #28242e 41%,
+        #21222d 53%,
+        #20222d 86%
       );
     }
 
@@ -404,17 +404,17 @@ $border-size: 4px;
       border-image: linear-gradient(90deg, transparent 0%, var(--color-standard) 100%);
       border-image-slice: 1;
       background-image: linear-gradient(
-          to right,
-          #6fcf97 0%,
-          #66bd8c 2%,
-          #569875 6%,
-          #477862 11%,
-          #3b5d51 17%,
-          #314743 23%,
-          #293639 30%,
-          #232a32 39%,
-          #20232e 52%,
-          #20222d 86%
+        to right,
+        #6fcf97 0%,
+        #66bd8c 2%,
+        #569875 6%,
+        #477862 11%,
+        #3b5d51 17%,
+        #314743 23%,
+        #293639 30%,
+        #232a32 39%,
+        #20232e 52%,
+        #20222d 86%
       );
     }
 
@@ -424,18 +424,18 @@ $border-size: 4px;
       border-image: linear-gradient(90deg, transparent 0%, var(--color-warning) 100%);
       border-image-slice: 1;
       background-image: linear-gradient(
-          to right,
-          #f4a321 0%,
-          #e59a21 1%,
-          #bc8124 5%,
-          #966a26 9%,
-          #765628 14%,
-          #5b4629 19%,
-          #45382a 25%,
-          #342e2b 32%,
-          #28272c 41%,
-          #21232c 53%,
-          #20222d 86%
+        to right,
+        #f4a321 0%,
+        #e59a21 1%,
+        #bc8124 5%,
+        #966a26 9%,
+        #765628 14%,
+        #5b4629 19%,
+        #45382a 25%,
+        #342e2b 32%,
+        #28272c 41%,
+        #21232c 53%,
+        #20222d 86%
       );
     }
 
@@ -1873,16 +1873,16 @@ textarea {
 
 .activeFact {
   background-image: linear-gradient(
-      to left,
-      rgba(107, 166, 241, 0.7) 2%,
-      rgba(107, 166, 241, 0.63) 6%,
-      rgba(107, 166, 241, 0.46) 16%,
-      rgba(107, 166, 241, 0.32) 26%,
-      rgba(107, 166, 241, 0.2) 38%,
-      rgba(107, 166, 241, 0.11) 50%,
-      rgba(107, 166, 241, 0.05) 63%,
-      rgba(107, 166, 241, 0.01) 79%,
-      rgba(107, 166, 241, 0) 102%
+    to left,
+    rgba(107, 166, 241, 0.7) 2%,
+    rgba(107, 166, 241, 0.63) 6%,
+    rgba(107, 166, 241, 0.46) 16%,
+    rgba(107, 166, 241, 0.32) 26%,
+    rgba(107, 166, 241, 0.2) 38%,
+    rgba(107, 166, 241, 0.11) 50%,
+    rgba(107, 166, 241, 0.05) 63%,
+    rgba(107, 166, 241, 0.01) 79%,
+    rgba(107, 166, 241, 0) 102%
   ) !important;
 
   color: white;

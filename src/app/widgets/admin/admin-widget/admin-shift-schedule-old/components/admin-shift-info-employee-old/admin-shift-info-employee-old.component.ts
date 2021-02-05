@@ -1,18 +1,10 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    ChangeDetectionStrategy,
-    Output,
-    EventEmitter,
-} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-
 
 @Component({
     selector: 'evj-admin-shift-info-employee-old',
@@ -38,7 +30,7 @@ export class AdminShiftInfoEmployeeOldComponent implements OnInit {
         private avatarConfiguratorService: AvatarConfiguratorService,
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.loadItem();
@@ -47,7 +39,7 @@ export class AdminShiftInfoEmployeeOldComponent implements OnInit {
     private async loadItem(): Promise<void> {
         try {
             this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data?.photoId);
-        } catch (error) { }
+        } catch (error) {}
     }
 
     delete(): void {
@@ -96,16 +88,14 @@ export class AdminShiftInfoEmployeeOldComponent implements OnInit {
     async postUserResponsible(): Promise<void> {
         try {
             await this.adminShiftScheduleService.postUserResponsible(this.data.id);
-            this.snackBar.openSnackBar(
-                `${this.data.firstName} ${this.data.lastName} главный в бригаде`
-            );
+            this.snackBar.openSnackBar(`${this.data.firstName} ${this.data.lastName} главный в бригаде`);
             this.adminShiftScheduleService.updateBrigades$.next(true);
         } catch (error) {
             console.error(error);
         }
     }
 
-    changeStatus(): void { }
+    changeStatus(): void {}
 
     onChooseStatus(status: IAbsent): void {
         this.adminShiftScheduleService.postAbsent$.next({

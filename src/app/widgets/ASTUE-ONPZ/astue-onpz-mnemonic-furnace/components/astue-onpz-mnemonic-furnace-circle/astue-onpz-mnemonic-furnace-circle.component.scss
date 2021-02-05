@@ -10,7 +10,7 @@
   background: var(--color-astue-onpz-mnemonic-furnace-item-bg);
   cursor: pointer;
   user-select: none;
-  transition: .2s;
+  transition: 0.2s;
 
   & > * {
     margin: 0 auto;
@@ -30,20 +30,19 @@
   }
 
   &__norm {
-
     &__selected {
       background: rgba(var(--color-astue-onpz-mnemonic-furnace-active-rgb), 0.2);
       border-color: var(--color-astue-onpz-mnemonic-furnace-active);
-      transition: .2s;
+      transition: 0.2s;
 
       .value {
         color: var(--color-astue-onpz-mnemonic-furnace-main-text);
-        transition: .2s;
+        transition: 0.2s;
       }
 
       .unit {
         color: var(--color-astue-onpz-mnemonic-furnace-main-text);
-        transition: .2s;
+        transition: 0.2s;
       }
     }
   }
@@ -51,29 +50,29 @@
   &__deviation {
     background: var(--color-astue-onpz-mnemonic-furnace-item-bg);
     border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
-    transition: .3s;
+    transition: 0.3s;
 
     .value {
       color: var(--color-astue-onpz-mnemonic-furnace-warning);
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .unit {
       color: var(--color-astue-onpz-mnemonic-furnace-warning);
-      transition: .2s;
+      transition: 0.2s;
     }
 
     &__selected {
-      background: rgba(var(--color-astue-onpz-mnemonic-furnace-warning-rgb), .2);
+      background: rgba(var(--color-astue-onpz-mnemonic-furnace-warning-rgb), 0.2);
 
       .value {
         color: var(--color-astue-onpz-mnemonic-furnace-main-text);
-        transition: .2s;
+        transition: 0.2s;
       }
 
       .unit {
         color: var(--color-astue-onpz-mnemonic-furnace-main-text);
-        transition: .2s;
+        transition: 0.2s;
       }
     }
   }

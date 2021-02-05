@@ -33,9 +33,10 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
     });
 
     private entryStates$: Observable<IKpeChartsAnalyticEntryStates> = this.entryStates.valueChanges;
-    private sharedStates$: Observable<
-        IKpeChartsAnalyticSharedStates
-    > = this.sharedStates.valueChanges.pipe(distinctUntilChanged(), debounceTime(100));
+    private sharedStates$: Observable<IKpeChartsAnalyticSharedStates> = this.sharedStates.valueChanges.pipe(
+        distinctUntilChanged(),
+        debounceTime(100)
+    );
 
     constructor(
         private chartsAnalyticService: KpeChartsAnalyticService,
@@ -53,10 +54,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
             combineLatest([this.entryStates$, this.sharedStates$])
                 .pipe(map((x) => ({ ...x[0], ...x[1] })))
                 .subscribe((x) => console.log('form', x)),
-            combineLatest([
-                this.sharedStates$,
-                this.entryStates.get('isSync').valueChanges,
-            ]).subscribe((x) => {
+            combineLatest([this.sharedStates$, this.entryStates.get('isSync').valueChanges]).subscribe((x) => {
                 if (!x[1]) {
                     return;
                 }

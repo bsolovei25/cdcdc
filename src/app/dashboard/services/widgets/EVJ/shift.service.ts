@@ -5,7 +5,7 @@ import {
     IVerifyWindow,
     ShiftPass,
     VerifyWindowActions,
-    VerifyWindowType
+    VerifyWindowType,
 } from '../../../models/EVJ/shift.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
@@ -16,7 +16,7 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { SnackBarService } from '../../snack-bar.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ShiftService {
     public shiftPass$: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
@@ -31,10 +31,7 @@ export class ShiftService {
     private restUrl: string;
     private readonly shiftFreeStatus: string;
 
-    constructor(
-        private http: HttpClient,
-        configService: AppConfigService
-    ) {
+    constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
         this.shiftFreeStatus = configService.shiftFree;
     }
@@ -48,9 +45,7 @@ export class ShiftService {
     }
 
     public async getUnitId(widgetId: string): Promise<number> {
-        return this.http
-            .get<number>(`${this.restUrl}/api/shift/widget/unitId/${widgetId}`)
-            .toPromise();
+        return this.http.get<number>(`${this.restUrl}/api/shift/widget/unitId/${widgetId}`).toPromise();
     }
 
     private async getShiftPassAsync(unitId: number): Promise<any> {
@@ -61,82 +56,54 @@ export class ShiftService {
         switch (this.shiftFreeStatus) {
             case 'all':
                 console.log('all');
-                return this.http
-                    .get(`${this.restUrl}/api/shift/users/free-users/${idShift}`)
-                    .toPromise();
+                return this.http.get(`${this.restUrl}/api/shift/users/free-users/${idShift}`).toPromise();
             default:
                 console.log('not all');
-                return this.http
-                    .get(`${this.restUrl}/api/shift/users/free-brigade/${idShift}`)
-                    .toPromise();
+                return this.http.get(`${this.restUrl}/api/shift/users/free-brigade/${idShift}`).toPromise();
         }
     }
 
     private async changePositionAsync(id, idShift): Promise<any> {
         return this.http
-            .post(
-                this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/employee/' +
-                id.toString() +
-                '/setresponsible',
-                null
-            )
+            .post(this.restUrl + '/api/shift/' + idShift + '/employee/' + id.toString() + '/setresponsible', null)
             .toPromise();
     }
 
-    private async changeStatusAsync(
-        status,
-        id,
-        idShift,
-        widgetId: string,
-        comment: string
-    ): Promise<any> {
+    private async changeStatusAsync(status, id, idShift, widgetId: string, comment: string): Promise<any> {
         const body = {
-            comment
+            comment,
         };
         return this.http
             .post(
                 this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/Employee/' +
-                id +
-                '/WidgetId/' +
-                widgetId +
-                '/ChangeStatus/' +
-                status,
+                    '/api/shift/' +
+                    idShift +
+                    '/Employee/' +
+                    id +
+                    '/WidgetId/' +
+                    widgetId +
+                    '/ChangeStatus/' +
+                    status,
                 body
             )
             .toPromise();
     }
 
     private async addMemberAsync(id, idShift): Promise<any> {
-        return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null)
-            .toPromise();
+        return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null).toPromise();
     }
 
     private async delMemberAsync(id, idShift): Promise<any> {
-        return this.http
-            .delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id)
-            .toPromise();
+        return this.http.delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id).toPromise();
     }
 
     private async applyShiftAsync(idShift: number, type: string, widgetId: string): Promise<any> {
-        return this.http
-            .post(`${this.restUrl}/api/shift/${idShift}/widgetid/${widgetId}/${type}`, null)
-            .toPromise();
+        return this.http.post(`${this.restUrl}/api/shift/${idShift}/widgetid/${widgetId}/${type}`, null).toPromise();
     }
 
-    private async cancelShiftAsync(
-        idShift: number,
-        comment: string,
-        widgetId: string
-    ): Promise<any> {
+    private async cancelShiftAsync(idShift: number, comment: string, widgetId: string): Promise<any> {
         const body = {
-            comment
+            comment,
         };
         return this.http
             .post(`${this.restUrl}/api/shift/${idShift}/widgetid/${widgetId}/accept-revert`, body)
@@ -146,25 +113,17 @@ export class ShiftService {
     private async passingComment(idShift: number, idUser: number, comment: string): Promise<any> {
         const body = {
             userId: idUser,
-            comment
+            comment,
         };
-        return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body)
-            .toPromise();
+        return this.http.post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body).toPromise();
     }
 
-    private async acceptingComment(
-        idShift: number,
-        idUser: number,
-        comment: string
-    ): Promise<any> {
+    private async acceptingComment(idShift: number, idUser: number, comment: string): Promise<any> {
         const body = {
             userId: idUser,
-            comment
+            comment,
         };
-        return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body)
-            .toPromise();
+        return this.http.post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body).toPromise();
     }
 
     public async getShiftInfo(unitId: number): Promise<void> {
@@ -178,12 +137,7 @@ export class ShiftService {
         return await this.getFreeMembersAsync(id);
     }
 
-    public async applyShift(
-        idShift: number,
-        type: string,
-        widgetId: string,
-        unitId: number
-    ): Promise<void> {
+    public async applyShift(idShift: number, type: string, widgetId: string, unitId: number): Promise<void> {
         const obj = await this.applyShiftAsync(idShift, type, widgetId);
         console.log(obj);
         this.getShiftInfo(unitId);
@@ -192,12 +146,7 @@ export class ShiftService {
         }
     }
 
-    public async cancelShift(
-        idShift: number,
-        comment: string,
-        widgetId: string,
-        unitId: number
-    ): Promise<void> {
+    public async cancelShift(idShift: number, comment: string, widgetId: string, unitId: number): Promise<void> {
         const obj = await this.cancelShiftAsync(idShift, comment, widgetId);
         this.getShiftInfo(unitId);
         if (obj.actionType === 'confirmed') {
@@ -236,15 +185,11 @@ export class ShiftService {
     }
 
     public async cancelUsbAction(verifyId: number): Promise<any> {
-        return this.http
-            .delete(`${this.restUrl}/api/shift/confirm-shift/delete/${verifyId}`)
-            .toPromise();
+        return this.http.delete(`${this.restUrl}/api/shift/confirm-shift/delete/${verifyId}`).toPromise();
     }
 
     public async cancelCardAction(verifyId: number): Promise<any> {
-        return this.http
-            .delete(`${this.restUrl}/api/shift/confirm-member/delete/${verifyId}`)
-            .toPromise();
+        return this.http.delete(`${this.restUrl}/api/shift/confirm-member/delete/${verifyId}`).toPromise();
     }
 
     public async sendComment(idUser: number, idShift: number, comment: string, type: string) {
@@ -300,7 +245,7 @@ export class ShiftService {
             message,
             verifyId,
             user,
-            result
+            result,
         };
         this.verifyWindowSubject.next(obj);
     }

@@ -10,7 +10,6 @@ declare var d3: any;
     styleUrls: ['./map-ecology.component.scss'],
 })
 export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public startY: number = 55.6611;
     public startX: number = 37.7726;
 
@@ -72,7 +71,7 @@ export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnIn
         try {
             let getSvg = document.getElementById('svg1');
             getSvg.remove();
-        } catch (error) { }
+        } catch (error) {}
     }
 
     public drawMap(el, data): void {
@@ -113,29 +112,16 @@ export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnIn
                     .attr('class', item.name)
                     .on('click', () => {
                         if (item.isCritical) {
-                            svg.selectAll('#notcritical').attr(
-                                'xlink:href',
-                                'assets/pic/point.svg'
-                            );
+                            svg.selectAll('#notcritical').attr('xlink:href', 'assets/pic/point.svg');
                             svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
-                            svg.select('.' + item.name).attr(
-                                'xlink:href',
-                                'assets/pic/point2.svg'
-                            );
+                            svg.select('.' + item.name).attr('xlink:href', 'assets/pic/point2.svg');
                             return (this.namePoint = item.name);
                         } else {
-                            svg.selectAll('#notcritical').attr(
-                                'xlink:href',
-                                'assets/pic/point.svg'
-                            );
+                            svg.selectAll('#notcritical').attr('xlink:href', 'assets/pic/point.svg');
                             svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
-                            svg.select('.' + item.name).attr(
-                                'xlink:href',
-                                'assets/pic/point2.svg'
-                            );
+                            svg.select('.' + item.name).attr('xlink:href', 'assets/pic/point2.svg');
                             return (this.namePoint = item.name);
                         }
-
                     });
             } else {
                 svg.append('image')
@@ -160,26 +146,14 @@ export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnIn
                     .attr('class', item.name)
                     .on('click', () => {
                         if (item.isCritical) {
-                            svg.selectAll('#notcritical').attr(
-                                'xlink:href',
-                                'assets/pic/point.svg'
-                            );
+                            svg.selectAll('#notcritical').attr('xlink:href', 'assets/pic/point.svg');
                             svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
-                            svg.select('.' + item.name).attr(
-                                'xlink:href',
-                                'assets/pic/point2.svg'
-                            );
+                            svg.select('.' + item.name).attr('xlink:href', 'assets/pic/point2.svg');
                             return (this.namePoint = item.name);
                         } else {
-                            svg.selectAll('#notcritical').attr(
-                                'xlink:href',
-                                'assets/pic/point.svg'
-                            );
+                            svg.selectAll('#notcritical').attr('xlink:href', 'assets/pic/point.svg');
                             svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
-                            svg.select('.' + item.name).attr(
-                                'xlink:href',
-                                'assets/pic/point2.svg'
-                            );
+                            svg.select('.' + item.name).attr('xlink:href', 'assets/pic/point2.svg');
                             return (this.namePoint = item.name);
                         }
                     });
@@ -212,7 +186,7 @@ export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnIn
                     this.drawMap(this.myCircle.nativeElement, this.datas);
                 }
             }
-        } catch (error) { }
+        } catch (error) {}
     }
 
     public backPoint(name): void {
@@ -226,6 +200,6 @@ export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnIn
                     this.drawMap(this.myCircle.nativeElement, this.datas);
                 }
             }
-        } catch (error) { }
+        } catch (error) {}
     }
 }

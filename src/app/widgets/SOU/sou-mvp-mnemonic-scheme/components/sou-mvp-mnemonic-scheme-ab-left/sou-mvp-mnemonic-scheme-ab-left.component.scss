@@ -16,28 +16,26 @@
     &:nth-child(2) {
       margin: 80px 0;
     }
-  
+
     .arrow-btn {
       margin-top: -3px;
       position: absolute;
       left: -8px;
       z-index: 1;
-
-      ;
     }
-  
+
     .title {
       height: 25px;
       width: 60px;
-  
+
       padding-left: 14px;
-  
+
       font-size: 12px;
       line-height: 14px;
-  
+
       display: flex;
       align-items: center;
-  
+
       background: var(--sou-mvp-color-bg-title);
       border: 1px solid var(--sou-mvp-color-border);
       border-radius: 2px;

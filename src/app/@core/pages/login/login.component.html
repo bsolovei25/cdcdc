@@ -24,19 +24,11 @@
   <div class="login__submit">
     <div class="submit__frame submit__frame-left"></div>
     <div class="submit__frame submit__frame-right"></div>
-    <button
-      type="submit gridster-item-content"
-      name="Login"
-      value="Войти"
-      class="login-submit"
-      (click)="onSubmit()"
-    >
+    <button type="submit gridster-item-content" name="Login" value="Войти" class="login-submit" (click)="onSubmit()">
       <mat-spinner
         *ngIf="isLoadingData"
         diameter="20"
-        style="position: relative;
-            margin-left: -10px;
-            left: 50%;"
+        style="position: relative; margin-left: -10px; left: 50%"
       ></mat-spinner>
       <span *ngIf="!isLoadingData">Войти</span>
     </button>

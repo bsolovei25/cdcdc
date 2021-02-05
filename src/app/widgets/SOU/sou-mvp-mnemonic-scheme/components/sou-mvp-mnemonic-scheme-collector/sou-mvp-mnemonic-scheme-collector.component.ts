@@ -12,15 +12,9 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
     styleUrls: ['./sou-mvp-mnemonic-scheme-collector.component.scss'],
 })
 export class SouMvpMnemonicSchemeCollectorComponent implements OnInit, OnChanges {
-    @Input() set data(data: {
-        sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
-        code: number;
-    }) {
+    @Input() set data(data: { sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[]; code: number }) {
         if (data.sections) {
-            this.flowData = this.mvpService.getElementByCode(
-                data.sections,
-                data.code
-            ) as ISOUObjects;
+            this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUObjects;
         }
     }
     @Input() inCount: number = 1;

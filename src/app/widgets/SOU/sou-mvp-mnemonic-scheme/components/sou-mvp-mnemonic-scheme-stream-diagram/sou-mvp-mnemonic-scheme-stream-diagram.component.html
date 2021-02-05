@@ -1,4 +1,5 @@
-<div class="container"
+<div
+  class="container"
   [ngClass]="{
     off: !flowData?.isEnable,
     warning: flowData?.isExceedingConfInterval && !!flowData?.isEnable,
@@ -21,10 +22,8 @@
       <ng-template ngSwitchCase="1">{{flowData?.valueByHour}}</ng-template>
       <ng-template ngSwitchCase="2">{{flowData?.valueTank}}</ng-template>
       <ng-template ngSwitchDefault>{{flowData?.valueMoment}}</ng-template>
-    </span> тн
+    </span>
+    тн
   </div>
-  <div
-    class="connection-circle"
-    *ngIf="!noPoint"
-  ></div>
+  <div class="connection-circle" *ngIf="!noPoint"></div>
 </div>
