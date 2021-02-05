@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "fix-prettier": "prettier 'src/**/*.{ts,html,scss}' --write",
+    "fix-prettier": "prettier src/**/*.{ts,html,scss} --write",
     "prettier": "prettier --check src/**/*.{ts,html,scss}",
     "prettier:fix:json": "prettier --write *.json",
     "postinstall": "ngcc"
