@@ -144,11 +144,16 @@
     }
   }
 }
-::ng-deep .mat-select-filter-inner {
-  width: calc(100% + 20px) !important;
-}
-::ng-deep .mat-select-filter-no-entries-found {
-  background: var(--color-bg-main) !important;
+
+::ng-deep {
+  .evj-event-filters-background {
+    background: var(--color-bg-main) !important;
+    min-width: calc(100% + 32px) !important;
+  }
+
+  .mat-select-filter-no-entries-found {
+    background: var(--color-bg-main) !important;
+  }
 }
 
 
