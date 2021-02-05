@@ -146,7 +146,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
-        ref = DATASOURCE;
         this.mainData = ref;
         if (this.manufacture.length === 0) {
             this.manufacture = ref.referenceBook.manufacture;
