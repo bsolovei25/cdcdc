@@ -44,7 +44,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
-        this.countNotificationsDivCapacity();
+        this.onResize();
     }
 
     idAllSubCategory: number = 0;
@@ -364,7 +364,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     protected dataHandler(ref: {
         notification: IEventsWidgetNotificationPreview;
-        action: string;
+        action: 'add' | 'edit' | 'delete';
     }): void {
         if (
             this.placeNames.length !== 0 &&
@@ -378,6 +378,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             this.categories.some((x) => x.isActive && x.id === ref.notification.category.id) ||
             !this.categories.filter((x) => x.isActive).length;
         let filtersIds: number[] = [];
+        // Событие
+        // 3001 - new - Новое
+        // 3002 - inWork - В работе
+        // 3003 - closed - Завершено
+        // 3004 - wasted - Отработано
         switch (this.filters.find((x) => x.isActive).code) {
             case 'all':
                 filtersIds = [3001, 3002];
@@ -396,6 +401,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             filtersIds.some((x) => x === ref.notification.status.id) ||
             (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
+            if (ref.action === 'edit') {
+                this.deleteWsElement(ref.notification);
+                this.getStats();
+            }
             return;
         }
         switch (ref.action) {
@@ -497,6 +506,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             this.notifications,
             this.isList ? notificationsDivCapacity : 1
         );
+    }
+
+    private onResize(): void {
+        this.viewport.checkViewportSize();
+        this.countNotificationsDivCapacity();
     }
 
     private getCurrentOptions(): IEventsWidgetOptions {
