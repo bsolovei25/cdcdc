@@ -4,7 +4,7 @@
   </span>
   <ng-container *ngIf="isDropdownShowing">
     <div class="group-selector__dropdown dropdown" #group>
-      <ng-container *ngFor="let group of groups">
+      <ng-container *ngFor="let group of groups | filterGroups ">
         <div class="dropdown__row">
           <evj-group-selector-row
             [isClaimsAvailable]="getClaims(group?.id)"

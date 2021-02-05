@@ -78,6 +78,7 @@ import { GroupSelectorGroupItemComponent } from './components/header-components/
 import { OverlayModule } from "@angular/cdk/overlay";
 import { GroupSelectorOverlayComponent } from './components/header-components/group-selector/group-selector-overlay/group-selector-overlay.component';
 import { GroupSelectorModalComponent } from './components/header-components/group-selector/group-selector-modal/group-selector-modal.component';
+import { FilterGroupsPipe } from './components/header-components/group-selector/filter-groups.pipe';
 
 @NgModule({
     declarations: [
@@ -123,6 +124,7 @@ import { GroupSelectorModalComponent } from './components/header-components/grou
         GroupSelectorGroupItemComponent,
         GroupSelectorOverlayComponent,
         GroupSelectorModalComponent,
+        FilterGroupsPipe,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [

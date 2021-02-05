@@ -14,11 +14,9 @@ import { UserSettingsService } from '../../../../services/user-settings.service'
 import { SnackBarService } from '../../../../services/snack-bar.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CdkConnectedOverlay, ConnectedPosition } from "@angular/cdk/overlay";
-import { mapTo } from 'rxjs/operators';
-import { GroupSelectorDialogComponent } from "../group-selector-dialog/group-selector-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
-import { GroupSelectorModalComponent } from "../group-selector-modal/group-selector-modal.component";
+import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSelectorModalComponent } from '../group-selector-modal/group-selector-modal.component';
 
 @Component({
     selector: 'evj-group-selector-group-item',
@@ -60,7 +58,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             originX: 'center',
             originY: 'bottom',
             overlayX: 'center',
-            overlayY: 'top'
+            overlayY: 'top',
         },
     ];
 
@@ -79,6 +77,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService,
         private router: Router,
+        private route: ActivatedRoute,
         public dialog: MatDialog
     ) {}
 
@@ -120,6 +119,9 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         try {
             group = await this.userSettingsService.updateGroup(group);
             this.snackBar.openSnackBar('Статус группы изменен');
+            // if (+this.selector.selected[0].id === +group.id) {
+            //     this.selectFirstGroup();
+            // }
         } catch (e) {
             this.snackBar.openSnackBar('Ошибка смены статуса', 'snackbar-red');
             this.switchStatus = !this.switchStatus;
@@ -132,14 +134,14 @@ export class GroupSelectorGroupItemComponent implements OnInit {
                     this.switchEnable(val);
                 });
         }
+        // console.log(this.selector.selected[0].id);
     }
 
     public openModal(): void {
         if (this.groupData.id === 0) {
             this.changed.emit(false);
             return;
-        }
-        else {
+        } else {
             this.dialog.open(GroupSelectorModalComponent, { data: this.groupData.id });
         }
     }
@@ -166,6 +168,32 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             queryParamsHandling: 'merge',
         });
         this.userSettingsService.getScreens(group.id);
+    }
+
+    public selectFirstGroup(): void {
+        const groups = this.userSettingsService.groupsList$.getValue();
+        const fn = (id: string) => {
+            if (!id) {
+                return;
+            }
+            const group = groups.find((item) => item.id === +id);
+            if (group) {
+                this.onSelect(group);
+            }
+        };
+
+        const groupIdFromRoute: string = this.route.snapshot.queryParamMap.get('userScreenGroupId');
+        if (!!groupIdFromRoute) {
+            fn(groupIdFromRoute);
+        } else {
+            const groupIdFromSS: string = sessionStorage.getItem('userScreenGroupId');
+            const groupIdFromLS: string = localStorage.getItem('userScreenGroupId');
+            !!groupIdFromSS ? fn(groupIdFromSS) : fn(groupIdFromLS);
+        }
+
+        if (!this.selector.selected.length && groups?.length > 0) {
+            this.onSelect(groups[0]);
+        }
     }
 
     public editLogo(): void {
