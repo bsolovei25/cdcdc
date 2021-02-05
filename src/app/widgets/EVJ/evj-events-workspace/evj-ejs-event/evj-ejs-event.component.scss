@@ -389,7 +389,7 @@ $border-color: rgba(63, 169, 245, 0.05);
   justify-content: flex-end;
 
   &__field {
-    height: 36px;
+    flex-grow: 1;
     width: inherit;
     padding-left: 10px;
     color: white;
@@ -397,10 +397,7 @@ $border-color: rgba(63, 169, 245, 0.05);
     border: 1px solid var(--color-astue-mat-select-border);
     border-radius: 2px;
     overflow: auto;
-
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
   }
   &__field-big {
     height: 97px;
