@@ -9,9 +9,31 @@
     <div class="content">
       <div class="add-icon">
         <svg-icon src="assets/icons/control-group-icons/plus.svg"></svg-icon>
-        <input type="file" formControlName="icon"  (change)="getFile($event.target.files)" writeFile="true" accept="svg/image/jpeg,image/png,image/gif">
+        <input
+          type="file"
+          formControlName="icon"
+          (change)="getFile($event.target.files)"
+          writeFile="true"
+          accept="svg/image/jpeg,image/png,image/gif"
+        />
       </div>
-      <div class="icons" *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]"></div>
+      <div
+        class="icons"
+        [ngClass]="{
+          'icons__current': i === 5,
+          'icons__choose': i !== 5
+        }"
+        *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; let i = index"
+      >
+        <div class="btns-list">
+          <div class="btn btn__accept" (click)="acceptEdit()">
+            <svg-icon src="assets/icons/control-group-icons/accept.svg" *ngIf="!editName"></svg-icon>
+          </div>
+          <div class="btn btn__delete" (click)="onDelete()">
+            <svg-icon src="assets/icons/control-group-icons/delete.svg"></svg-icon>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>

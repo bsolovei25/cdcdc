@@ -21,19 +21,19 @@ input {
     align-items: center;
     justify-content: center;
 
-    background: #303549;
+    background: var(--color-group-control-icon-upload-bg);
     border-radius: 2px 0px 0px 2px;
 
     cursor: pointer;
 
     svg-icon {
-      color: #606580;
+      color: var(--color-group-control-bg-icons);
     }
 
     &-active, &:hover {
-      background: #0089FF;
+      background: var(--color-group-control-bg-active);
       svg-icon {
-        color: #ffffff;
+        color: var(--color-group-control-bg-icons-active);
       }
     }
   }
@@ -48,7 +48,7 @@ input {
     align-items: center;
     justify-content: space-between;
 
-    background: #272A38;
+    background: var(--color-group-control-item-bg);
 
     .btns-list {
       margin-right: 16px;
@@ -59,6 +59,16 @@ input {
         cursor: pointer;
         height: 28px;
         width: 28px;
+
+        background: var(--color-group-control-icon-upload-bg);
+
+        &__edit, &__delete {
+          color: var(--color-group-control-bg-icons);
+        }
+
+        &__accept {
+          background: none;
+        }
       }
     }
 
@@ -67,7 +77,7 @@ input {
 
       font-size: 14px;
       line-height: 16px;
-      color: #D7E2F2;
+      color: var(--color-group-control-text);
 
       overflow: hidden;
       text-overflow: ellipsis;
@@ -79,10 +89,10 @@ input {
 .switch-btn {
   display: inline-block;
   width: 36px;
-  height: 18px;
+  height: 21px;
 
-  background: #12151E;
-  border: 1px solid #4B5169;
+  background: var(--color-group-control-bg-switch);
+  border: 1px solid var(--color-group-control-border-switch);
   border-radius: 14px;
 
   cursor: pointer;
@@ -109,20 +119,23 @@ input {
   width: 12px;
 
   border-radius: 50%;
-  background: #fff;
+  border: 1px solid var(--color-group-control-border-switch-circle);
+  background: var(--color-group-control-bg-switch-circle);
 
   position: absolute;
   top: 2px;
-  left: 2px;
+  left: 3px;
 
   z-index: 0;
   transition-duration: 300ms; /* анимация */
 }
 .switch-on {
-  background: #0089FF;
+  background: var(--color-group-control-bg-switch-active);
+  border-color: var(--color-group-control-border-switch-active);
 }
 .switch-on::after {
-  left: 19px;
+  border: 1px solid var(--color-group-control-border-switch-circle-active);
+  left: 18px;
 }
 
 .disabled {

@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.themeService.setThemeConfiguratorRoot(this.document);
-        this.themeService.theme = 5;
     }
 
     prepareRoute(outlet: RouterOutlet): boolean {

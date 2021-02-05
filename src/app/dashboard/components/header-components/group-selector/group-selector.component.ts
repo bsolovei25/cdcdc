@@ -145,7 +145,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
         return groups;
     }
 
-    private openDialog(): void {
+    public openDialog(): void {
         this.dialog.open(GroupSelectorDialogComponent, { data: this.groups });
     }
 }

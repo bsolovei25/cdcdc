@@ -17,13 +17,7 @@ export class GroupSelectorOverlayComponent implements OnInit {
     @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
     constructor(private userSettingsService: UserSettingsService) {}
 
-    ngOnInit(): void {
-        // this.userSettingsService.getIcons();
-        // this.iconForm$.subscribe(item => {
-        //     console.log(item);
-        //     return item;
-        // });
-    }
+    ngOnInit(): void {}
 
     public getFile(event: FileList): void {
         const file: File = event?.[0];

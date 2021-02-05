@@ -77,12 +77,10 @@ export class UserSettingsService {
 
     public async addIcons(icon: File): Promise<any[]> {
         try {
+            const body: FormData = new FormData();
+            body.append('newIcon', icon, icon.name);
             const icons = await this.http
-                .post<any>(`${this.restUrl}/api/ref-book/IconGroup`, icon, {
-                    headers: {
-                        'Content-Type' : 'multipart/form-data'
-                    }
-                })
+                .post<any>(`${this.restUrl}/api/ref-book/IconGroup`, body)
                 .toPromise();
             this.iconsList$.next(icons);
             return [];
@@ -231,8 +229,8 @@ export class UserSettingsService {
                     `${this.restUrl}/api/user-management/screen-group/${groupId}`
                 )
                 .toPromise();
-            const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
-            this.groupsList$.next(groups);
+            // const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
+            // this.groupsList$.next(groups);
             return true;
         } catch (e) {
             console.error(e);

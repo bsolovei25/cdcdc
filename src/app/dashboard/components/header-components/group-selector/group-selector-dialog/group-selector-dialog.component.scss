@@ -7,7 +7,7 @@
   height: 620px;
   width: 490px;
 
-  background: #1C1F2B;
+  background: var(--color-group-control-bg-main);
   border-radius: 2px;
 
   .header{
@@ -16,12 +16,16 @@
     display: flex;
     align-items: center;
 
-    border-bottom: 1px solid #272A38;
+    border-bottom: 1px solid var(--color-group-control-border-main);
 
     font-size: 14px;
     line-height: 17px;
 
-    color: #D7E2F2;
+    color: var(--color-group-control-text);
+
+    svg-icon {
+      color: var(--color-group-control-bg-icons);
+    }
 
     &__title {
       padding-left: 12px;
@@ -42,7 +46,7 @@
     padding-right: 12px;
 
     overflow-y: auto;
-    overflowx: hidden;
+    overflow-x: hidden;
 
     .project-list {
       display: flex;
@@ -57,12 +61,12 @@
     display: flex;
     align-items: center;
 
-    border-top: 2px solid #272A38;
+    border-top: 2px solid var(--color-group-control-border-main);
 
     font-size: 14px;
     line-height: 17px;
 
-    color: #D7E2F2;
+    color: var(--color-group-control-text);
 
     .save-cancel {
       display: flex;
@@ -79,7 +83,7 @@
       align-items: center;
       flex: 1;
 
-      background: #303549;
+      background: var(--color-group-control-icon-upload-bg);
       opacity: 0.5;
       border-radius: 2px;
 
@@ -90,13 +94,15 @@
 
       &:hover {
         opacity: 1;
-        background: #0089FF;
+        background: var(--color-group-control-bg-active);
+        color: var(--color-group-control-bg-icons-active);
       }
     }
 
     .save {
       opacity: 1;
-      background: #0089FF;
+      background: var(--color-group-control-bg-active);
+      color: var(--color-group-control-bg-icons-active);
     }
 
     .add-project {

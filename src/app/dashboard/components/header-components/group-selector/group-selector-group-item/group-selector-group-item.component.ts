@@ -16,6 +16,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CdkConnectedOverlay, ConnectedPosition } from "@angular/cdk/overlay";
 import { mapTo } from 'rxjs/operators';
+import { GroupSelectorDialogComponent } from "../group-selector-dialog/group-selector-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { GroupSelectorModalComponent } from "../group-selector-modal/group-selector-modal.component";
 
 @Component({
     selector: 'evj-group-selector-group-item',
@@ -49,7 +52,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     public editName: boolean = true;
     public switchStatus: boolean;
     public isEditLogo: boolean;
-    public isEditLogo$: Observable<boolean> = new Observable<boolean>();
+    private isEditLogo$: Observable<boolean> = new Observable<boolean>();
     public groupData: IGroupScreens;
     public switchSubscribe: Subscription;
     public positions: ConnectedPosition[] = [
@@ -70,14 +73,13 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         isEnabled: new FormControl(),
         icon: new FormControl(),
     });
-    private projectForm$: Observable<IGroupScreens> = this.projectForm.valueChanges;
     public selector: SelectionModel<IGroupScreens> = new SelectionModel<IGroupScreens>();
 
     constructor(
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService,
         private router: Router,
-        private route: ActivatedRoute
+        public dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -132,17 +134,13 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         }
     }
 
-    public async onDelete(): Promise<void> {
+    public openModal(): void {
         if (this.groupData.id === 0) {
             this.changed.emit(false);
             return;
         }
-        if (!(await this.userSettingsService.deleteGroup(this.groupData.id))) {
-            return;
-        }
-        this.snackBar.openSnackBar('Группа удалена');
-        if (+this.selector.selected[0].id === +this.groupData.id) {
-            this.selectFirstGroup();
+        else {
+            this.dialog.open(GroupSelectorModalComponent, { data: this.groupData.id });
         }
     }
 
@@ -170,33 +168,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         this.userSettingsService.getScreens(group.id);
     }
 
-    private selectFirstGroup(): void {
-        const groups = this.userSettingsService.groupsList$.getValue();
-        const fn = (id: string) => {
-            if (!id) {
-                return;
-            }
-            const group = groups.find((item) => item.id === +id);
-            if (group) {
-                this.onSelect(group);
-            }
-        };
-
-        const groupIdFromRoute: string = this.route.snapshot.queryParamMap.get('userScreenGroupId');
-        if (!!groupIdFromRoute) {
-            fn(groupIdFromRoute);
-        } else {
-            const groupIdFromSS: string = sessionStorage.getItem('userScreenGroupId');
-            const groupIdFromLS: string = localStorage.getItem('userScreenGroupId');
-            !!groupIdFromSS ? fn(groupIdFromSS) : fn(groupIdFromLS);
-        }
-
-        if (!this.selector.selected.length && groups?.length > 0) {
-            this.onSelect(groups[0]);
-        }
-    }
-
-    private editLogo(): void {
+    public editLogo(): void {
         this.isEditLogo = true;
     }
 

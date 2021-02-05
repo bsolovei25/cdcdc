@@ -137,6 +137,11 @@
     margin: 2px 0px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    svg-icon {
+      color: var(--color-event-card-font-sub);
+    }
 
     &::before {
       content: "";
@@ -152,6 +157,10 @@
 
     &:hover {
       cursor: pointer;
+
+      svg-icon {
+        color: var(--color-new-header-active);
+      }
 
       &::before {
         opacity: 0.4;

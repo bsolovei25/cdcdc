@@ -39,6 +39,13 @@
 
   --color-bg-btn: #232735;
 
+  // Стандартный скролл (Events-workspace)
+  --color-scroll-thumb: rgba(91, 96, 125, 0.2);
+  --color-scroll-track: #999;
+  --color-scroll-track-piece: rgb(27, 30, 39);
+  --color-scroll-corner: #12151E;
+
+
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
 
@@ -118,6 +125,25 @@
 
   // UI
   --table-border-radius: 15px;
+
+  // Управление группами
+  --color-group-control-bg-main: #1C1F2B;
+  --color-group-control-border-main: #272A38;
+  --color-group-control-bg-active: #0089FF;
+  --color-group-control-bg-active-light: rgba(0, 137, 255, 0.1);
+  --color-group-control-bg-icons: #606580;
+  --color-group-control-bg-icons-active: #ffffff;
+  --color-group-control-text: #D7E2F2;
+  --color-group-control-bg-switch: #12151E;
+  --color-group-control-bg-switch-circle: #ffffff;
+  --color-group-control-border-switch-circle: #ffffff;
+  --color-group-control-border-switch-circle-active: #ffffff;
+  --color-group-control-border-switch: #4B5169;
+  --color-group-control-bg-switch-active: #0089FF;
+  --color-group-control-border-switch-active: #0F62FE;
+  --color-group-control-item-bg: #272A38;
+  --color-group-control-icon-upload-bg: #303549;
+  --color-group-control-bg-shadow: rgba(0, 0, 0, 0.5);
 
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);

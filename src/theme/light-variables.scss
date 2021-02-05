@@ -39,6 +39,12 @@
 
   --color-bg-btn: #232735;
 
+  // Стандартный скролл (Events-workspace)
+  --color-scroll-thumb: #D7E2F2;
+  --color-scroll-track: #ffffff;
+  --color-scroll-track-piece: #ffffff;
+  --color-scroll-corner: #12151E;
+
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
 
@@ -118,6 +124,25 @@
 
   // UI
   --table-border-radius: 15px;
+
+  // Управление группами
+  --color-group-control-bg-main: #ffffff;
+  --color-group-control-border-main: #D7E2F2;
+  --color-group-control-bg-active: #0089FF;
+  --color-group-control-bg-active-light: rgba(0, 137, 255, 0.1);
+  --color-group-control-bg-icons: #8C99B2;
+  --color-group-control-bg-icons-active: #ffffff;
+  --color-group-control-text: #303549;
+  --color-group-control-bg-switch: #EBF1F9;
+  --color-group-control-bg-switch-circle: #EBF1F9;
+  --color-group-control-border-switch-circle: #D7E2F2;
+  --color-group-control-border-switch-circle-active: #0089FF;
+  --color-group-control-border-switch: #D7E2F2;
+  --color-group-control-bg-switch-active: #EBF1F9;
+  --color-group-control-border-switch-active: #D7E2F2;
+  --color-group-control-item-bg: #EBF1F9;
+  --color-group-control-icon-upload-bg: #D7E2F2;
+  --color-group-control-bg-shadow: rgba(0, 0, 0, 0.2);
 
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);
@@ -406,7 +431,7 @@
 
   // sou main indictors
   --color-sou-bg-indicators-opacity: rgba(39, 42, 56, 0.5);
-  
+
 
   // sou-balance
   --sou-balance-setting-border: #303549;
