@@ -60,7 +60,7 @@
           {{ cardData?.description || '-' }}
         </span>
         <span class="notification__body__info-facts">
-          {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
+          {{ cardData?.facts[0]?.comment || cardData?.shiftPassEstablishedFacts || '-' }}
         </span>
       </div>
       <div
