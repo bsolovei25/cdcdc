@@ -6,6 +6,7 @@ import {
     EventEmitter,
     OnChanges,
     ViewChild,
+    Inject,
 } from '@angular/core';
 import * as moment from 'moment';
 import { ThemePalette } from '@angular/material/core';
@@ -14,6 +15,18 @@ import {
     NGX_MAT_DATE_FORMATS,
     NgxMatDateFormats,
 } from '@angular-material-components/datetime-picker';
+
+export const CUSTOM_DATETIME_FORMATS: NgxMatDateFormats = {
+    parse: {
+        dateInput: 'L | LTS',
+    },
+    display: {
+        dateInput: 'L | LTS',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     parse: {
@@ -34,6 +47,7 @@ export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
 export class TimeDataPickerComponent implements OnInit, OnChanges {
+    @Inject('isDateTime') isDateTime: boolean = false;
     @Input() data: any;
     @Input() public disabled: boolean = false;
     @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
@@ -44,7 +58,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     @ViewChild('picker') picker: any;
 
     public showSpinners: boolean = true;
-    public showSeconds: boolean = true;
+    public showSeconds: boolean = false;
     public touchUi: boolean = false;
     public enableMeridian: boolean = false;
     public stepHour: number = 1;
@@ -56,7 +70,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     public stepMinutes: number[] = [1, 5, 10, 15, 20, 25];
     public stepSeconds: number[] = [1, 5, 10, 15, 20, 25];
 
-    public dateControl: FormControl = new FormControl({value: new Date(), disabled: false});
+    public dateControl: FormControl = new FormControl({ value: new Date(), disabled: false });
 
     constructor() {}
 
@@ -64,7 +78,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
 
     public ngOnChanges(): void {
         this.inputDate = new Date(this.data);
-        this.dateControl = new FormControl({value: this.inputDate, disabled: false});
+        this.dateControl = new FormControl({ value: this.inputDate, disabled: false });
     }
 
     public buttonConfirm(date: any): void {

@@ -5,13 +5,14 @@ import {
     PositionStrategy,
     OverlayConfig,
 } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { PopoverRef, PopoverContent } from './popover-overlay.ref';
 import { PopoverOverlayComponent } from './popover-overlay.component';
 
 export type PopoverParams<T> = {
     width?: string | number;
     height?: string | number;
+    position?: 'start' | 'end' | 'center';
     origin: HTMLElement;
     content: PopoverContent;
     data?: T;
@@ -28,54 +29,47 @@ export class PopoverOverlayService {
     ) {
     }
 
-    public open<T>({origin, content, data, width, height}: PopoverParams<T>): PopoverRef<T> {
-        const overlayRef = this.overlay.create(this.getOverlayConfig({origin, width, height}));
+    public open<T>({origin, content, data, width, height, position}: PopoverParams<T>): PopoverRef<T> {
+        const overlayRef = this.overlay.create(this.getOverlayConfig({origin, width, height, position}));
         const popoverRef = new PopoverRef<T>(overlayRef, content, data);
 
-        const injector = this.createInjector(popoverRef, this.injector);
+        const injector = Injector.create({providers: [{ provide: PopoverRef, useValue: popoverRef }], parent: this.injector, name: ''});
         overlayRef.attach(new ComponentPortal(PopoverOverlayComponent, null, injector));
 
         return popoverRef;
     }
 
-    public createInjector(popoverRef: PopoverRef, injector: Injector): PortalInjector {
-        const tokens = new WeakMap([[PopoverRef, popoverRef]]);
-        return new PortalInjector(injector, tokens);
-    }
-
-    private getOverlayConfig({origin, width, height}): OverlayConfig {
+    private getOverlayConfig({origin, width, height, position}: {origin: HTMLElement, width: string | number, height: string | number; position?: 'start' | 'end' | 'center'}): OverlayConfig {
         return new OverlayConfig({
             hasBackdrop: true,
             width,
             height,
             backdropClass: 'popover-backdrop',
-            positionStrategy: this.getOverlayPosition(origin),
+            positionStrategy: this.getOverlayPosition(origin, position),
             scrollStrategy: this.overlay.scrollStrategies.reposition()
         });
     }
 
-    private getOverlayPosition(origin: HTMLElement): PositionStrategy {
-        const positionStrategy = this.overlay.position()
+    private getOverlayPosition(origin: HTMLElement, position: 'start' | 'end' | 'center'): PositionStrategy {
+        return this.overlay.position()
             .flexibleConnectedTo(origin)
-            .withPositions(this.getPositions())
+            .withPositions(this.getPositions(position))
             .withFlexibleDimensions(false)
             .withPush(false);
-
-        return positionStrategy;
     }
 
-    private getPositions(): ConnectionPositionPair[] {
+    private getPositions(position: 'start' | 'end' | 'center' = 'center'): ConnectionPositionPair[] {
         return [
             {
                 originX: 'center',
                 originY: 'top',
-                overlayX: 'center',
+                overlayX: position,
                 overlayY: 'bottom'
             },
             {
                 originX: 'center',
                 originY: 'bottom',
-                overlayX: 'center',
+                overlayX: position,
                 overlayY: 'top',
             },
         ];

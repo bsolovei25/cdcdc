@@ -1,13 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 
 @Component({
     selector: 'evj-ejs-event',
     templateUrl: './evj-ejs-event.component.html',
-    styleUrls: ['./evj-ejs-event.component.scss']
+    styleUrls: ['./evj-ejs-event.component.scss'],
 })
 export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
+    private readonly urlOrigin: string = 'http://10.80.128.41/meridium';
 
     @Input()
     public noOverflow: boolean = false;
@@ -17,12 +27,11 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
     @Input() blockWorkspaceButton: boolean;
     @Input() isEventOpen: boolean;
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {
         if (this.ewService.isCreateNewEvent) {
-            this.onClickEjs();
+            window.open(this.urlOrigin);
             this.ewService.goBackEvent();
         }
     }
@@ -30,8 +39,7 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
         this.createIcon = this.isEventOpen;
     }
 
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
 
     public onChangeEventDescription(description: string, el?: string): void {
         if (el) {
@@ -55,7 +63,7 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     onClickEjs(): void {
-        window.open('http://10.80.128.41/meridium');
+        window.open(`${this.ewService.event.ejsData.urlOriginalSystem}`);
     }
     public createEvent(event: boolean): void {
         this.createIcon = false;

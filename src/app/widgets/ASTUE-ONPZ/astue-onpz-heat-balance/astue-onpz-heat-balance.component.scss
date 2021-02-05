@@ -24,6 +24,48 @@ th,  td {
   }
 }
 
+.header-container {
+  display: flex;
+  flex-grow: 1;
+
+  .header-chips {
+    $height: 25px;
+    position: relative;
+    display: flex;
+    height: $height;
+    margin-left: auto;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: solid 1px #4B5169;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    .chip {
+      height: 100%;
+      margin: auto 0;
+      padding: 0 12px;
+      line-height: 23px;
+      font-size: 14px;
+      border: solid 1px transparent;
+      border-radius: 2px;
+      box-sizing: border-box;
+      z-index: 1;
+      cursor: pointer;
+
+      &__active {
+        color: #D7E2F2;
+        background: rgba(#0089FF, .2);
+        border-color: #0089FF;
+      }
+    }
+  }
+}
+
 .table {
   width: 100%;
   font-family: Tahoma;

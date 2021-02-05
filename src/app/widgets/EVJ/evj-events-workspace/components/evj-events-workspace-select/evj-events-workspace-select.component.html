@@ -25,7 +25,7 @@
         [compareWith]="compareFn"
       >
         <mat-option
-          *ngFor="let item of ewService.status; i as index"
+          *ngFor="let item of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent); i as index"
           [value]="item">
           {{ ewService.statuses[item.name] }}
         </mat-option>
@@ -136,6 +136,7 @@
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.asusEvent.eoService"
+        [disabled]="!ewService.event.isUserCanEditAcknowledged"
       >
         <mat-option
           *ngFor="let eoService of ewService.asusEOServices"
@@ -165,6 +166,7 @@
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.isAcknowledged"
+        [disabled]="!ewService.event.isUserCanEditAcknowledged"
       >
         <mat-option [value]="true">
           {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}}

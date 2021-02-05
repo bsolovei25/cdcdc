@@ -4,6 +4,14 @@
   icon="parameter"
   type="astue"
 >
+  <div class="header-container">
+    <div class="header-chips"
+         (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
+      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'oven'" (click)="changeDataType('oven')"> Печи </div>
+      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'section'" (click)="changeDataType('section')"> Секции </div>
+    </div>
+  </div>
 </evj-contemporary-widget-header>
 <div class="container">
   <div
@@ -22,7 +30,7 @@
       </tr>
       </thead>
       <tbody class="table__body">
-      <ng-container *ngFor="let element of data">
+      <ng-container *ngFor="let element of dataFilter(this.selectedType$ | async) | async">
         <tr
           class="table__body__row"
         >

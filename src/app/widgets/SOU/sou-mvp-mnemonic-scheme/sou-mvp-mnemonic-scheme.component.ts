@@ -146,9 +146,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             }
         }
 
-        if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
-            this.flowInAb = ref.section[0].flowIn;
-            this.flowInVb = ref.section[1].flowIn;
+        if (ref?.section?.[0]?.name === 'АВТ-10-АБ' || ref?.section?.[0]?.name === 'АВТ-10-ВБ') {
+            this.flowInAb = ref?.section[0]?.flowIn;
+            this.flowInVb = ref?.section[1]?.flowIn;
         }
         this.sectionsData = [];
         this.sectionsDataIzo = [];
@@ -219,6 +219,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             };
         }
         this.setWsOptions(a);
+        this.mvpService.selectedOptions$.next({
+            manufacture: a.manufacture,
+            unit: a.name,
+        });
     }
 
     stateController(): { save; load } {
@@ -246,10 +250,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.selectedManufacture = res.manufacture;
     }
 
-    findSection(
-        selected: number
-    ): ISouSectionUI[] {
+    findSection(selected: number): ISouSectionUI[] {
         let array: ISouSectionUI[];
+
         this.sections.forEach((value) => {
             value.find((el) => {
                 if (el.manufacture === this.manufacture[selected]) {

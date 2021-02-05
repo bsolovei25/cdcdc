@@ -5,27 +5,28 @@
     (touchstart)="$event.stopPropagation()"
   >
     <button class="header-workspace__container hover-effect"
-         matRipple [matRippleColor]="'white'"
-         (click)="createEvent(true)"
+            matRipple [matRippleColor]="'white'"
+            (click)="createEvent(true)"
     >
       <div class="button-name">Новое событие</div>
     </button>
     <button class="header-workspace__container hover-effect"
-         (click)="isEscalatePopupOpen=true"
-         matRipple [matRippleColor]="'white'"
+            (click)="isEscalatePopupOpen=true"
+            matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Эскалировать</div>
     </button>
-    <button class="header-workspace__container hover-effect"
-         (click)="onClickUrl()"
-         matRipple [matRippleColor]="'white'"
+    <button class="header-workspace__container"
+            (click)="onClickUrl()"
+            [disabled]="isDisabledUrlButton()"
+            matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Карточка отклонения</div>
     </button>
     <button class="header-workspace__container"
-         (click)="openClosePopup()"
-         matRipple [matRippleColor]="'white'"
-         [disabled]="true"
+            (click)="openClosePopup()"
+            matRipple [matRippleColor]="'white'"
+            [disabled]="true"
     >
       <div class="button-name">Закрыть отклонение</div>
     </button>
@@ -161,7 +162,7 @@
               <span>Дата начала</span>
             </div>
             <div class="creator__field">
-              {{this.ewService.event?.eventDateTime?(this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
+              {{this.ewService.event?.eventDateTime ? (this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm") : '-'}}
             </div>
           </div>
         </div>
@@ -169,10 +170,10 @@
         <div class="workspace__select-container-right">
           <div class="creator">
             <div class="creator__title">
-              <span>Дата окончания</span>
+              <span>Дата закрытия</span>
             </div>
             <div class="creator__field">
-              {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
+              {{this.ewService.event?.eventEndDateTime ? (this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm") : '-'}}
             </div>
           </div>
         </div>
@@ -240,7 +241,7 @@
   <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
     <evj-events-list-window
       *ngIf="isReasonsPopupOpen"
-      title="Выберите нужные причины"
+      title="Выберите нужную причину"
       [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="setReason($event)"
     ></evj-events-list-window>

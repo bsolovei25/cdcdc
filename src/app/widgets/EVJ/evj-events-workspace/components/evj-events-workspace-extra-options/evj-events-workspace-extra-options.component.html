@@ -8,8 +8,8 @@
         <div class="title">
           <span>Дополнительные параметры</span>
         </div>
-        <div class="close">
-          <div class="close__button" matRipple matRippleColor="white" (click)="cancel()">
+        <div class="close" (click)="cancel()">
+          <div class="close__button" matRipple matRippleColor="white">
             <svg-icon
               [svgStyle]="{'height.px':'21', 'width.px': '21'}"
               [src]="'assets/icons/widgets/alert-window/close.svg'"
@@ -18,100 +18,106 @@
           </div>
         </div>
       </div>
-      <div class="container__body">
-        <div class="kpe-parameters">
-          <div class="title">
-            <span>Установленные факты</span>
-          </div>
-          <div class="container__body__parameters">
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select>
-                    <mat-option
-                      *ngFor="let p of facts"
-                      [value]="p"
-                    >
-                      {{p.name}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+      <form [formGroup]="form">
+        <div class="container__body">
+          <div class="kpe-parameters">
+            <div class="title">
+              <span>Установленные факты</span>
             </div>
-            <div class="value">
-
-            </div>
-          </div>
-        </div>
-        <div class="extra-options">
-          <div class="title">
-            <span>Зависимые параметры</span>
-          </div>
-          <div class="container__body__parameters">
-            <div class="dropdown">
-              <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                               (click)="addParameters()"
-                               textButton="Добавить зависимые параметры"
-                               [isChangingState]="false"
-                               [disabled]="disableAdd"
-                               [type]="'primary'">
-                >
-              </evj-rect-button>
-            </div>
-            <div class="value">
-              <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                               (click)="removeParameters()"
-                               textButton="Удалить параметр"
-                               [isChangingState]="false"
-                               [type]="'primary'">
-              </evj-rect-button>
-            </div>
-          </div>
-          <ng-container *ngFor="let item of data">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
-                    <mat-select>
-                      <mat-option
-                        *ngFor="let p of parameters"
-                        [value]="p"
-                      >
-                        {{p.name}}
-                      </mat-option>
+                    <mat-select
+                      (selectionChange)="getParameterId($event)"
+                      formControlName="parameters"
+                      [compareWith]="compareFn"
+                    >
+                      <ng-container *ngFor="let p of allParameters">
+                        <mat-option [value]="p"
+                        >
+                          {{p?.name}}
+                        </mat-option>
+                      </ng-container>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
               <div class="value">
-                <div class="value__text">
 
-                </div>
               </div>
             </div>
-          </ng-container>
-          <div class="save-buttons">
+          </div>
+          <div class="extra-options">
+            <div class="title">
+              <span>Зависимые параметры</span>
+            </div>
             <div class="container__body__parameters">
               <div class="dropdown">
                 <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                 textButton="Cбросить"
+                                 (click)="addParameters()"
+                                 textButton="Добавить зависимые параметры"
                                  [isChangingState]="false"
-                                 (click)="discard(true)"
+                                 [disabled]="disableAdd"
                                  [type]="'primary'">
+                  >
                 </evj-rect-button>
               </div>
               <div class="value">
                 <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                 textButton="Cохранить"
-                                 (click)="cancel()"
+                                 (click)="removeParameters()"
+                                 textButton="Удалить параметр"
                                  [isChangingState]="false"
                                  [type]="'primary'">
                 </evj-rect-button>
               </div>
             </div>
+            <div formArrayName="dependentParameters"
+                 *ngFor="let d of dependParameters.controls; let idx = index"
+            >
+              <ng-container [formGroupName]="idx">
+                <div class="container__body__parameters">
+                  <div class="dropdown">
+                    <div class="event-mat-select">
+                      <mat-form-field class="example-full-width">
+                        <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
+                          <mat-option *ngFor="let p of dependentParameters"
+                                      [value]="p">{{p?.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="value">
+                    <div class="value__text">
+                      <input type="number" formControlName="numericValue">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="save-buttons">
+              <div class="container__body__parameters">
+                <div class="dropdown">
+                  <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                                   textButton="Cбросить"
+                                   [isChangingState]="false"
+                                   (click)="discard()"
+                                   [type]="'primary'">
+                  </evj-rect-button>
+                </div>
+                <div class="value">
+                  <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                                   textButton="Cохранить"
+                                   (click)="accept()"
+                                   [isChangingState]="false"
+                                   [type]="'primary'">
+                  </evj-rect-button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </ng-container>

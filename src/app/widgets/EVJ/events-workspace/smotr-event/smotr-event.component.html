@@ -42,7 +42,7 @@
               [compareWith]="compareFn"
               [disabled]="true"
             >
-              <mat-option *ngFor="let p of ewService.status" [value]="p"
+              <mat-option *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
                 >{{ ewService.statuses[p.name] }}
               </mat-option>
             </mat-select>
@@ -51,9 +51,9 @@
       </div>
       <div class="row__cell cell cell_right">
         <evj-events-workspace-button
-          [disabled]="isDisabledCloseButton()"
+          [disabled]="true"
           status="close"
-          (click)="openClosePopup()"
+          (click)="openClosePopup(true)"
         ></evj-events-workspace-button>
       </div>
     </div>
@@ -139,7 +139,7 @@
           </div>
         </div>
         <div class="information__label label">
-          <div class="label__title">Дата окончания</div>
+          <div class="label__title">Дата закрытия</div>
           <div class="label__text">
             {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
           </div>
@@ -214,7 +214,7 @@
   <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
     <evj-events-list-window
       *ngIf="isReasonsPopupOpen"
-      title="Выберите нужные причины"
+      title="Выберите нужную причину"
       [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="setReason($event)"
     ></evj-events-list-window>

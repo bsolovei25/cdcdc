@@ -3,11 +3,13 @@ import { IGlobalClaim } from '../ADMIN/admin-panel';
 import { IMessage } from '@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule';
+import { IKpeAllDependentParameters, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
     SortType: SortTypeEvents;
+    UnitId?: number;
 }
 
 export interface IEventsWidgetNotificationPreview {
@@ -70,6 +72,7 @@ export interface IEventsWidgetNotification {
     deadline?: Date;
     graphValues?: LineChartData;
     isAcknowledged: boolean;
+    isUserCanEditAcknowledged?: boolean;
     source?: any;
     unit?: IUnitEvents;
     unitName?: string;
@@ -82,6 +85,7 @@ export interface IEventsWidgetNotification {
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
+    kpeAdditionalParameter?: IKpeAdditionalParameter;
 }
 
 export interface IEventsEjs {
@@ -292,6 +296,7 @@ export interface ICategory {
     name: EventsWidgetCategoryCode;
     code: string;
     description?: string;
+    isActive?: boolean;
 }
 
 export interface IStatus {
@@ -426,7 +431,7 @@ export interface IEventsWidgetOptions {
     sortType?: SortTypeEvents;
     categoriesType?: EventsWidgetOptionsCategoryType;
     priority?: IPriority;
-    units?: IUnits;
+    units?: IUnits[];
     subCategory?: number[];
 }
 
@@ -455,8 +460,18 @@ export interface ISearchRetrievalWindow {
     acceptFunction?: () => void;
     closeFunction?: () => void;
 }
+
 export interface IExtraOptionsWindow {
+    type?: 'reset' | 'save' | 'cancel';
+    data?: IKpeAdditionalParameter;
     isShow: boolean;
     acceptFunction?: () => void;
     closeFunction?: () => void;
+}
+
+export interface IKpeAdditionalParameter {
+    createdAt: Date;
+    createdBy: number;
+    dependentParameters: IKpeAllDependentParameters[];
+    selectedParameter: IKpeWorkspaceParameter;
 }

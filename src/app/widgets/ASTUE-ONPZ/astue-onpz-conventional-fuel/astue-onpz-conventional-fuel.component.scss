@@ -124,6 +124,17 @@
       margin-right: 22px;
     }
 
+    &__predict {
+      border-color: #FFFFFF;
+      margin-right: 22px;
+      border-left-style: dashed;
+    }
+
+    &__model {
+      border-color: #5B607D;
+      margin-right: 22px;
+    }
+
     &__tag {
       margin-left: 9px;
     }

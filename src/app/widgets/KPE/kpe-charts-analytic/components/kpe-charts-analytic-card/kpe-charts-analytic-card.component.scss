@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  flex-flow: column;
+  gap: 4px;
+  height: 100%;
+  width: 100%;
+  padding: 6.7px 11px;
+  background: rgba(#272A38, .2);
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 10px;
+    color: #8C99B2
+  }
+
+  .value {
+    font-size: 14px;
+
+    &__fact {
+    }
+
+    &__plan {
+      color: #0089FF;
+    }
+
+    &__deviation {
+      color: #8C99B2;
+    }
+
+    &__interval {
+      color: #606580;
+    }
+  }
+}

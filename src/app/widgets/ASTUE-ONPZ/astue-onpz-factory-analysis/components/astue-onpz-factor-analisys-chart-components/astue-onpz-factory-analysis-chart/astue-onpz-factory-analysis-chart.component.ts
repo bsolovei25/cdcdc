@@ -84,7 +84,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
     private svg: d3;
 
-    private readonly DELTA: number = 0.05;
+    private readonly DELTA: number = 0.07;
 
     private eventListenerFn: () => void = null;
 
@@ -154,16 +154,29 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             });
         }
 
-        if (
-            this.factDataset.length &&
-            this.planDataset.length &&
-            this.lowDataset.length &&
-            this.highDataset.length
-        ) {
-            [this.sizeY.min, this.sizeY.max] = d3.extent([...this.factDataset, ...this.planDataset, ...this.lowDataset, ...this.highDataset].map(item => item.y));
-            this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
-            this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
+        const dataArray = [].concat.apply([], [
+            this.factDataset,
+            this.planDataset,
+            this.lowDataset,
+            this.highDataset,
+        ].filter(item => item.length));
+
+        [this.sizeY.min, this.sizeY.max] = d3.extent(dataArray.map(item => item.y));
+        this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
+        this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
+
+        // округляем в зависимости от разрядности числа для отображения всех значений на оси y
+        function getRoundStep(value: number): number {
+            let digitCapacity = Math.ceil(Math.log(value + 1) / Math.LN10);
+            let counter = 1;
+            while (digitCapacity > 1) {
+                counter = counter * 10;
+                digitCapacity--;
+            }
+            return counter;
         }
+        this.sizeY.max = Math.ceil(this.sizeY.max / getRoundStep(this.sizeY.max)) * getRoundStep(this.sizeY.max);
+        this.sizeY.min = this.sizeY.min < 0 ? 0 : this.sizeY.min;
     }
 
     private configChartArea(): void {
@@ -498,6 +511,9 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     private yValueForX(x: number, path: any): number {
         const node = path.node();
         const pathLength = node.getTotalLength();
+
+        if (pathLength <= 0) { return; } // валидация path на пустоту
+
         let start = 0;
         let end = pathLength;
         let target = (start + end) / 2;
