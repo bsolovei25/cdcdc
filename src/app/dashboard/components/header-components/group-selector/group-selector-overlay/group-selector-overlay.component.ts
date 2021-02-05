@@ -27,4 +27,12 @@ export class GroupSelectorOverlayComponent implements OnInit {
     public closeOverlay(): void {
         this.changed.emit(false);
     }
+
+    public acceptEdit(): void {
+
+    }
+
+    public onDelete(): void {
+
+    }
 }
