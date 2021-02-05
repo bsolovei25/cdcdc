@@ -9,6 +9,7 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { DATASOURCE } from './mock';
 
 interface ISouSectionUI {
     manufacture: string;
@@ -71,6 +72,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         return this.mvpService.selectedManufactures$.getValue()?.index;
     }
 
+    get selectedSection(): string {
+        return this.findSection(this.selectedManufacture)?.[this.chosenSection]?.title;
+    }
+
     sections: ISouSectionUI[][] = [
         [
             {
@@ -81,6 +86,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             {
                 manufacture: 'Производство №1',
                 title: 'ВБ',
+                value: 0,
+            },
+            {
+                manufacture: 'Производство №1',
+                title: 'ЭЛОУ',
                 value: 0,
             },
         ],
@@ -136,6 +146,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
+        ref = DATASOURCE;
         this.mainData = ref;
         if (this.manufacture.length === 0) {
             this.manufacture = ref.referenceBook.manufacture;
@@ -171,8 +182,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ];
                 }
             }
-
-            if (this.manufacture[this.selectedManufacture] === 'Товарное производство') {
+            if (
+                this.manufacture[this.selectedManufacture] === 'Товарное производство' ||
+                this.selectedSection === 'ЭЛОУ'
+            ) {
+                console.log('зашед');
                 if (this.flag) {
                     this.sectionsDataPark = [];
                     this.flag = false;
