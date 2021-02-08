@@ -96,15 +96,15 @@ export function fillDataArrayChart(
     if (!points?.length) {
         return points;
     }
-    points.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
+    // points.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
     // заполнение пропусков в массиве
     const arr = points;
     for (let idx = 0; idx < arr.length; idx++) {
         const el = arr[idx];
-        if (!!idx) {
+        if (idx > 0) {
             const lastEl = arr[idx - 1];
             let a = (el.timeStamp.getTime() - lastEl.timeStamp.getTime()) / (1000 * 60 * 60);
-            if (a !== 1) {
+            if (a > 1) {
                 const array: IChartMini[] = [];
                 const step = (el.value - lastEl.value) / a;
                 const timestamp = lastEl.timeStamp;
