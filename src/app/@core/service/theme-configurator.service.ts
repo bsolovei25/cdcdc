@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ThemeConfiguratorService {
     private readonly renderer: Renderer2;
     private themeConfigurator: ThemeConfigurator;
+    public isDarkTheme: Observable<boolean>;
 
     constructor(private rendererFactory: RendererFactory2) {
         this.renderer = rendererFactory.createRenderer(null, null);
@@ -14,11 +15,8 @@ export class ThemeConfiguratorService {
 
     public setThemeConfiguratorRoot(document: Document): void {
         this.themeConfigurator = new ThemeConfigurator(document, this.renderer);
+        this.isDarkTheme = this.themeConfigurator.isDarkThemeObservable;
         console.log(this.themeConfigurator);
-    }
-
-    public get isDarkTheme(): boolean {
-        return this.themeConfigurator.theme;
     }
 
     public changeTheme(): void {

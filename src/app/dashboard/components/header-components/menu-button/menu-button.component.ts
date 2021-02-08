@@ -21,6 +21,7 @@ interface IMenuItem {
 export class MenuButtonComponent implements OnInit, OnDestroy {
     public data: IUser;
     public isDropdownShowing: boolean = false;
+    public isDarkTheme: boolean;
 
     public menuItems: IMenuItem[] = [];
 
@@ -36,6 +37,10 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.setMenuItems();
         this.loadData();
+        this.themeService.isDarkTheme.subscribe(value => {
+            this.isDarkTheme = value;
+            this.setMenuItems();
+        });
     }
 
     public ngOnDestroy(): void {
@@ -65,7 +70,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
             {
                 name: 'Изменение темы',
                 action: this.themeService.changeTheme.bind(this.themeService),
-                icon: this.themeService.isDarkTheme ? 'lightTheme' : 'darkTheme'
+                icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme'
             },
             {
                 name: 'Выйти',

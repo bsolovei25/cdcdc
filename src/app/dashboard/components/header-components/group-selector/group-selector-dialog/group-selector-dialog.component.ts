@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserSettingsService } from "../../../../services/user-settings.service";
 
 @Component({
     selector: 'evj-group-selector-dialog',
@@ -11,11 +12,16 @@ export class GroupSelectorDialogComponent implements OnInit {
     public isCreateNewGroup: boolean = false;
     public saveNewGroup: boolean = false;
     public newGroup: IGroupScreens;
+    public groups: IGroupScreens[] = [];
     constructor(
-        @Inject(MAT_DIALOG_DATA) public groups: IGroupScreens[] = [],
-        public dialogRef: MatDialogRef<GroupSelectorDialogComponent>
+        public dialogRef: MatDialogRef<GroupSelectorDialogComponent>,
+        public userSettingsService: UserSettingsService
     ) {}
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.userSettingsService.groupsList$.subscribe((item) => {
+            this.groups = item;
+        });
+    }
 
     public onChanged(value: boolean): void {
         this.isCreateNewGroup = value;
@@ -30,6 +36,7 @@ export class GroupSelectorDialogComponent implements OnInit {
             id: 0,
             name: '',
             isEnabled: true,
+            iconId: null
         };
         this.isCreateNewGroup = true;
     }

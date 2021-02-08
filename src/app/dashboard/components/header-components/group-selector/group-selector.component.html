@@ -1,7 +1,12 @@
 <div class="group-selector" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-  <span class="group-selector__name">
-    {{selector.selected[0]?.name}}
-  </span>
+  <div class="group-selector__name">
+    <div class="logo">
+      <svg-icon
+        [src]="!!this.userSettingsService.groupIconSrc ? this.userSettingsService.groupIconSrc : 'assets/icons/control-group-icons/1.svg'"
+      ></svg-icon>
+    </div>
+    <span>{{userSettingsService.groupName}}</span>
+  </div>
   <ng-container *ngIf="isDropdownShowing">
     <div class="group-selector__dropdown dropdown" #group>
       <ng-container *ngFor="let group of groups | filterGroups ">
@@ -10,8 +15,6 @@
             [isClaimsAvailable]="getClaims(group?.id)"
             [group]="group"
             (selectGroup)="onSelect(group)"
-            (editGroup)="onEdit(group, $event)"
-            (deleteGroup)="onDelete(group)"
           ></evj-group-selector-row>
         </div>
       </ng-container>
@@ -19,10 +22,12 @@
     <div class="dropdown__row create">
       <button
         class="control__bnt"
-        [class.control__bnt_active]=true
+        [class.control__bnt_active]="true"
         mat-raised-button
         (click)="openDialog()"
-      >Управление проектами</button>
+      >
+        Управление проектами
+      </button>
     </div>
   </ng-container>
   <svg-icon class="group-selector__collapse" src="assets/icons/collapse.svg"></svg-icon>

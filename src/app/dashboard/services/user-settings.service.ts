@@ -12,7 +12,10 @@ import { GridsterItem } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
-import { IGroupScreens } from '../components/header-components/group-selector/group-selector.component';
+import {
+    IGroupScreens,
+    IGroupScreensIcon,
+} from '../components/header-components/group-selector/group-selector.component';
 import { Title } from '@angular/platform-browser';
 
 @Injectable({
@@ -20,7 +23,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserSettingsService {
     private screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
-    public iconsList$: BehaviorSubject<IGroupScreens[]> = new BehaviorSubject(null);
+    public iconsList$: BehaviorSubject<IGroupScreensIcon[]> = new BehaviorSubject(null);
     public groupsList$: BehaviorSubject<IGroupScreens[]> = new BehaviorSubject(null);
     public screensShared: Observable<IScreenSettings[]> = this.screens$
         .asObservable()
@@ -29,6 +32,8 @@ export class UserSettingsService {
     // Параметры активной группы
     public groupId: number;
     public groupName: string;
+    public groupIconSrc: string;
+    public groupIconId: number;
 
     private restUrl: string;
     public screenId: number;
@@ -62,10 +67,10 @@ export class UserSettingsService {
         });
     }
 
-    public async getIcons(): Promise<any[]> {
+    public async getIcons(): Promise<IGroupScreensIcon[]> {
         try {
             const icons = await this.http
-                .get<any>(`${this.restUrl}/api/ref-book/IconGroup`)
+                .get<IGroupScreensIcon[]>(`${this.restUrl}/api/ref-book/IconGroup`)
                 .toPromise();
             this.iconsList$.next(icons);
             return [];
@@ -75,18 +80,36 @@ export class UserSettingsService {
         }
     }
 
-    public async addIcons(icon: File): Promise<any[]> {
+    public async addIcons(icon: File): Promise<boolean> {
         try {
             const body: FormData = new FormData();
             body.append('newIcon', icon, icon.name);
-            const icons = await this.http
-                .post<any>(`${this.restUrl}/api/ref-book/IconGroup`, body)
+            const newIcon = await this.http
+                .post<IGroupScreensIcon>(`${this.restUrl}/api/ref-book/IconGroup`, body)
                 .toPromise();
+            const icons = this.iconsList$.getValue();
+            icons.push(newIcon);
             this.iconsList$.next(icons);
-            return [];
+            return true;
         } catch (e) {
             console.error(e);
-            return [];
+            return false;
+        }
+    }
+
+    public async deleteIcon(iconId: number): Promise<boolean> {
+        try {
+            await this.http
+                .delete<IGroupScreensIcon>(
+                    `${this.restUrl}/api/ref-book/IconGroup/{id}${iconId}`
+                )
+                .toPromise();
+            const icons = this.iconsList$.getValue().filter((item) => item.id !== iconId);
+            this.iconsList$.next(icons);
+            return true;
+        } catch (e) {
+            console.error(e);
+            return false;
         }
     }
 
@@ -229,8 +252,8 @@ export class UserSettingsService {
                     `${this.restUrl}/api/user-management/screen-group/${groupId}`
                 )
                 .toPromise();
-            // const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
-            // this.groupsList$.next(groups);
+            const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
+            this.groupsList$.next(groups);
             return true;
         } catch (e) {
             console.error(e);

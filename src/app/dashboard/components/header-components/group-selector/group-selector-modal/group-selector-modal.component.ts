@@ -30,39 +30,16 @@ export class GroupSelectorModalComponent implements OnInit {
             return;
         }
         this.snackBar.openSnackBar('Группа удалена');
-        if (+this.selector.selected[0].id === +this.groupId) {
-            this.selectFirstGroup();
-        }
-    }
-
-    public selectFirstGroup(): void {
-        const groups = this.userSettingsService.groupsList$.getValue();
-        const fn = (id: string) => {
-            if (!id) {
-                return;
-            }
-            const group = groups.find((item) => item.id === +id);
-            if (group) {
-                this.onSelect(group);
-            }
-        };
-
-        const groupIdFromRoute: string = this.route.snapshot.queryParamMap.get('userScreenGroupId');
-        if (!!groupIdFromRoute) {
-            fn(groupIdFromRoute);
-        } else {
-            const groupIdFromSS: string = sessionStorage.getItem('userScreenGroupId');
-            const groupIdFromLS: string = localStorage.getItem('userScreenGroupId');
-            !!groupIdFromSS ? fn(groupIdFromSS) : fn(groupIdFromLS);
-        }
-
-        if (!this.selector.selected.length && groups?.length > 0) {
-            this.onSelect(groups[0]);
+        if (this.userSettingsService.groupId === this.groupId) {
+            const selectableGroup = this.userSettingsService.groupsList$.getValue().find(item => item.isEnabled);
+            this.onSelect(selectableGroup);
         }
     }
 
     public onSelect(group: IGroupScreens): void {
-        this.selector.select(group);
+        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon.id === group.iconId);
+        this.userSettingsService.groupIconSrc = currentIcon?.src ?? undefined;
+        this.userSettingsService.groupIconId = currentIcon?.id ?? undefined;
         this.userSettingsService.groupId = group.id ?? undefined;
         this.userSettingsService.groupName = group.id ? group.name : undefined;
         this.router.navigate([], {

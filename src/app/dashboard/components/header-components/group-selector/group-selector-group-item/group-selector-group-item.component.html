@@ -1,7 +1,9 @@
 <form [formGroup]="projectForm" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
   <div class="container" [class.disabled]="!switchStatus">
     <div class="logo" (click)="editLogo()" [class.logo-active]="isEditLogo">
-      <svg-icon src="assets/icons/control-group-icons/upload.svg"></svg-icon>
+      <svg-icon
+        [src]="iconSrc"
+      ></svg-icon>
     </div>
     <div class="content">
       <input
@@ -43,6 +45,9 @@
   [cdkConnectedOverlayOpen]="isEditLogo"
 >
   <evj-group-selector-overlay
+    [iconList]="icons"
+    [currentIconId]="this.groupData.iconId"
     (changed)="onChanged($event)"
+    (changeIcon)="onChangeIcon($event)"
   ></evj-group-selector-overlay>
 </ng-template>
