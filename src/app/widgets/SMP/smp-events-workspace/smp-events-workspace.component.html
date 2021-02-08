@@ -1,10 +1,5 @@
 <div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
   </evj-widget-header-smp>
   <div class="frame-top"></div>
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
@@ -51,9 +46,7 @@
 
           <div class="data-wrapper-row__card state-card">
             <div class="data-wrapper-row__card--label">Статус</div>
-            <div class="data-wrapper-row__card--value state">
-              {{ data.state || 'Нет данных' }}
-            </div>
+            <div class="data-wrapper-row__card--value state">{{ data.state || 'Нет данных' }}</div>
           </div>
         </div>
 
@@ -63,11 +56,7 @@
           </div>
         </div>
         <br />
-        <evj-events-chat
-          [messages]="data.reasons"
-          title="Причины"
-          placeholder="Напишите свой комментарий..."
-        >
+        <evj-events-chat [messages]="data.reasons" title="Причины" placeholder="Напишите свой комментарий...">
         </evj-events-chat>
         <br />
         <br />

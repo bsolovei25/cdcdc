@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
@@ -32,9 +26,9 @@ export interface IAstueOnpzIndicator {
     templateUrl: './astue-onpz-consumption-indicators.component.html',
     styleUrls: ['./astue-onpz-consumption-indicators.component.scss'],
 })
-export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform<unknown>
+export class AstueOnpzConsumptionIndicatorsComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
-
     public type: AstueOnpzConsumptionIndicatorsWidgetType | null = null;
 
     public activeIndicator: IAstueOnpzIndicator | null;
@@ -51,8 +45,7 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform<unkn
         super(widgetService, isMock, id, uniqId);
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         super.widgetInit();
@@ -71,23 +64,22 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform<unkn
         const options = this.astueOnpzService.monitoringOptions$.getValue();
         if (this.indicators && options.type === this.type) {
             this.activeIndicator =
-                this.indicators.find(indicatorFromList =>
-                    indicatorFromList.type === options.indicatorType) ?? null;
+                this.indicators.find((indicatorFromList) => indicatorFromList.type === options.indicatorType) ?? null;
         }
     }
 
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
+            this.astueOnpzService.sharedMonitoringOptions.subscribe((options) => {
                 this.activeIndicator = null;
                 if (this.indicators && options.type === this.type) {
                     this.activeIndicator =
-                        this.indicators.find(indicatorFromList =>
-                            indicatorFromList.type === options.indicatorType) ?? null;
+                        this.indicators.find((indicatorFromList) => indicatorFromList.type === options.indicatorType) ??
+                        null;
                 }
                 this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
-            }),
+            })
         );
     }
 

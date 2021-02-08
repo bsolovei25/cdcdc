@@ -1,17 +1,7 @@
 <div class="card">
   <svg width="100%" height="100%" viewBox="0 0 150 85" preserveAspectRatio="none">
-    <image
-      x="0"
-      y="-15"
-      width="150"
-      height="120"
-      xlink:href="assets/icons/widgets/admin/workspace-card.svg"
-    />
-    <text x="75" y="40" text-anchor="middle" class="text">
-      {{workspace.screenName}}
-    </text>
-    <text x="75" y="55" text-anchor="middle" class="text text-claim" *ngIf="workspace.claims[0]">
-      {{getClaim()}}
-    </text>
+    <image x="0" y="-15" width="150" height="120" xlink:href="assets/icons/widgets/admin/workspace-card.svg" />
+    <text x="75" y="40" text-anchor="middle" class="text">{{workspace.screenName}}</text>
+    <text x="75" y="55" text-anchor="middle" class="text text-claim" *ngIf="workspace.claims[0]">{{getClaim()}}</text>
   </svg>
 </div>

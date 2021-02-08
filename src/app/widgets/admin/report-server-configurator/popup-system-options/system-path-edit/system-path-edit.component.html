@@ -1,63 +1,66 @@
 <div class="container">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">Редактирование путей каталогов публикации</div>
-        </div>
-        <div class="content">
-            <ng-container *ngFor="let item of data">
-                <div class="item-content" (click)="onClickItem(item)" [class.active]="item.id === itemChooseId">
-                    <div class="item-content__title-button" (click)="itemOpen(item)">
-                        <svg-icon *ngIf="item.open" src="assets/icons/widgets/reports/arrow-up.svg"
-                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-
-                        <svg-icon *ngIf="!item.open" src="assets/icons/widgets/reports/arrow-bottom.svg"
-                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-                    </div>
-                    <div class="item-content__name">{{item.name}}</div>
-                    <!--DELETE ITEM-->
-                    <div *ngIf="item.id === itemChooseId" class="item-content__button-remove"
-                        (click)="deleteItem(item)">
-                    </div>
-                    <!--BLOCK ITEM-->
-                    <div *ngIf="item.id === itemChooseId" class="item-content__button-block">
-                        <svg-icon src="assets/icons/widgets/reports/block.svg" (click)="blockItem(item)" [svgStyle]="{ 'height.px': 35,
-                        'width.px': 35,
-                        'margin-left.px': -5}">
-                        </svg-icon>
-                    </div>
-                </div>
-                <div *ngIf="item.open" class="item-content__shadow-block">
-                    <ng-container *ngFor="let i of item.catalog">
-                        <div class="item-content__info">
-                            {{ i.mail }}
-                        </div>
-                    </ng-container>
-                </div>
-            </ng-container>
-        </div>
-        <div class="bottom">
-            <div class="bottom__block-edit">
-                <div class="bottom__block-add">
-                    <div class="bottom__button-add" (click)="openUserBlock()">
-                        <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon">
-                        </svg-icon>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom__block">
-                <div class="bottom__save-block" (click)="save()">
-                    <div class="bottom__button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>
+  <div style="height: 100%">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
+      </div>
+      <div class="title__name">Редактирование путей каталогов публикации</div>
     </div>
+    <div class="content">
+      <ng-container *ngFor="let item of data">
+        <div class="item-content" (click)="onClickItem(item)" [class.active]="item.id === itemChooseId">
+          <div class="item-content__title-button" (click)="itemOpen(item)">
+            <svg-icon
+              *ngIf="item.open"
+              src="assets/icons/widgets/reports/arrow-up.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
+
+            <svg-icon
+              *ngIf="!item.open"
+              src="assets/icons/widgets/reports/arrow-bottom.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
+          </div>
+          <div class="item-content__name">{{item.name}}</div>
+          <!--DELETE ITEM-->
+          <div *ngIf="item.id === itemChooseId" class="item-content__button-remove" (click)="deleteItem(item)"></div>
+          <!--BLOCK ITEM-->
+          <div *ngIf="item.id === itemChooseId" class="item-content__button-block">
+            <svg-icon
+              src="assets/icons/widgets/reports/block.svg"
+              (click)="blockItem(item)"
+              [svgStyle]="{ 'height.px': 35,
+                        'width.px': 35,
+                        'margin-left.px': -5}"
+            >
+            </svg-icon>
+          </div>
+        </div>
+        <div *ngIf="item.open" class="item-content__shadow-block">
+          <ng-container *ngFor="let i of item.catalog">
+            <div class="item-content__info">{{ i.mail }}</div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div class="bottom">
+      <div class="bottom__block-edit">
+        <div class="bottom__block-add">
+          <div class="bottom__button-add" (click)="openUserBlock()">
+            <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon"> </svg-icon>
+          </div>
+        </div>
+      </div>
+      <div class="bottom__block">
+        <div class="bottom__save-block" (click)="save()">
+          <div class="bottom__button-save">Сохранить</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
 <ng-container *ngIf="userBlock">
-    <evj-system-path-user [data]="dataSend" (close)="closeUserBlock($event)"></evj-system-path-user>
+  <evj-system-path-user [data]="dataSend" (close)="closeUserBlock($event)"></evj-system-path-user>
 </ng-container>

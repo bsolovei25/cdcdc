@@ -37,16 +37,9 @@ import { SouSchemaComponent } from './components/sou-schema/sou-schema.component
         SouMvpMnemonicSchemeSectionIzomalkComponent,
         SouMvpMnemonicSchemeSimpleInputComponent,
         SouMvpMnemonicSchemeSimpleOutputComponent,
-        SouSchemaComponent
+        SouSchemaComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatRippleModule,
-        MatSelectModule,
-        FormsModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule, MatSelectModule, FormsModule],
 })
 export class SouMvpMnemonicSchemeModule {
     enterComponent = SouMvpMnemonicSchemeComponent;

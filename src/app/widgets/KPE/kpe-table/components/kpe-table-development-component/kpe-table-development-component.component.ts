@@ -4,9 +4,9 @@ import { table, tableHeader } from '../kpe-table-mock';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'evj-kpe-table-development-component',
-  templateUrl: './kpe-table-development-component.component.html',
-  styleUrls: ['./kpe-table-development-component.component.scss']
+    selector: 'evj-kpe-table-development-component',
+    templateUrl: './kpe-table-development-component.component.html',
+    styleUrls: ['./kpe-table-development-component.component.scss'],
 })
 export class KpeTableDevelopmentComponentComponent implements OnInit {
     data: IKpeTable[] = table;
@@ -16,10 +16,9 @@ export class KpeTableDevelopmentComponentComponent implements OnInit {
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
     notCriticalCount(element: IKpeTable): number {
         let i = 0;

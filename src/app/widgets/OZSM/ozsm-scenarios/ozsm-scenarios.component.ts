@@ -3,10 +3,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.service';
 import { BehaviorSubject } from 'rxjs';
-import {
-    IOzsmScenario,
-    OzsmScenarioAgreementStatus,
-} from '../../../dashboard/models/OZSM/ozsm-scenarios.model';
+import { IOzsmScenario, OzsmScenarioAgreementStatus } from '../../../dashboard/models/OZSM/ozsm-scenarios.model';
 
 @Component({
     selector: 'evj-ozsm-scenarios',
@@ -15,9 +12,7 @@ import {
 })
 export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public scenarios$: BehaviorSubject<IOzsmScenario[]> = new BehaviorSubject<IOzsmScenario[]>([]);
-    public currentScenario$: BehaviorSubject<IOzsmScenario> = new BehaviorSubject<IOzsmScenario>(
-        null
-    );
+    public currentScenario$: BehaviorSubject<IOzsmScenario> = new BehaviorSubject<IOzsmScenario>(null);
 
     public tempLevel: number = 3;
 
@@ -40,9 +35,7 @@ export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements O
             }
             this.currentScenario$.next(res[0]);
         });
-        this.currentScenario$.subscribe((res) =>
-            this.ozsmService.scenarioId$.next(res?.scenarioId)
-        );
+        this.currentScenario$.subscribe((res) => this.ozsmService.scenarioId$.next(res?.scenarioId));
     }
 
     public ngOnDestroy(): void {

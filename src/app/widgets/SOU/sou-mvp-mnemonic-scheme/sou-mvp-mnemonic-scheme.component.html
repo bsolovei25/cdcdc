@@ -125,7 +125,8 @@
              (mousedown)="$event.stopPropagation()"
              (touchstart)="$event.stopPropagation()"
         >
-          <div class="main-collector" *ngIf="chosenUnit === 'АВТ-10' || chosenUnit === 'Изомалк-2'">
+          <div class="main-collector"
+               *ngIf="chosenUnit === 'АВТ-10' && this.selectedSection !== 'ЭЛОУ' || chosenUnit === 'Изомалк-2'">
             <div class="main-collector-title">
               <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br></span>
               <span *ngIf="chosenSection !== 0"> {{ findSection(selectedManufacture)[chosenSection]?.title }}</span>
@@ -149,10 +150,11 @@
             [sections]="sectionsDataIzo"
           ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
-          <evj-sou-schema *ngIf="manufacture[selectedManufacture] === 'Товарное производство'"
-                          [sectionsDataPark]="sectionsDataPark"
-                          [chosenSetting]="chosenSetting"
-                          [chosenInstall]="chosenUnit">
+          <evj-sou-schema
+            *ngIf="manufacture[selectedManufacture] === 'Товарное производство' || this.selectedSection === 'ЭЛОУ'"
+            [sectionsDataPark]="sectionsDataPark"
+            [chosenSetting]="chosenSetting"
+            [chosenInstall]="chosenUnit">
           </evj-sou-schema>
         </div>
       </div>

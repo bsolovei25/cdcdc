@@ -32,9 +32,7 @@
   </div>
   <div class="container-employees__content" [@Branch]="(isOpen) ? 'expanded' : 'collapsed'">
     <div class="employees">
-      <div class="employees__title">
-        Главный в бригаде
-      </div>
+      <div class="employees__title">Главный в бригаде</div>
       <div class="list-employee">
         <ng-container *ngFor="let item of data?.users">
           <ng-container *ngIf="item.position === 'responsible'">
@@ -43,9 +41,7 @@
           </ng-container>
         </ng-container>
       </div>
-      <div class="employees__title">
-        Основной состав бригады
-      </div>
+      <div class="employees__title">Основной состав бригады</div>
       <div
         cdkDropList
         #doneList="cdkDropList"

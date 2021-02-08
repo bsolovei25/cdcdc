@@ -20,8 +20,7 @@ export interface IEjcoOnpzUnitKpe {
     templateUrl: './ejco-onpz-unit-kpe.component.html',
     styleUrls: ['./ejco-onpz-unit-kpe.component.scss'],
 })
-export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown>
-    implements OnDestroy, AfterViewInit {
+export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
     public data: IEjcoOnpzUnitKpe = { chartData: null, chartCards: null };
 
     public widgetIcon: string = 'ejco';
@@ -49,12 +48,7 @@ export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: IEjcoOnpzUnitKpe): void {
-        if (
-            this.ejcoOnpzHelperService.compareArrayOfObjects<IChart>(
-                this.data.chartCards,
-                ref.chartCards
-            )
-        ) {
+        if (this.ejcoOnpzHelperService.compareArrayOfObjects<IChart>(this.data.chartCards, ref.chartCards)) {
             this.data.chartCards = ref.chartCards;
         }
         this.data.chartData = ref.chartData;

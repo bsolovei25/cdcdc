@@ -1,9 +1,5 @@
 <evj-contemporary-widget-header [uniqId]="uniqId" icon="map">
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
   </div>
 </evj-contemporary-widget-header>
@@ -14,7 +10,8 @@
       <div class="tab__icon">
         <svg-icon
           src="assets/icons/widgets/APS/scenarios/tab-scenario-settings.svg"
-          [svgStyle]="{ 'width.px':11, 'height.px':15 }">
+          [svgStyle]="{ 'width.px':11, 'height.px':15 }"
+        >
         </svg-icon>
       </div>
       <div class="tab__title">Настройка сценария</div>
@@ -23,7 +20,8 @@
       <div class="tab__icon">
         <svg-icon
           src="assets/icons/widgets/APS/scenarios/tab-analysis-journal.svg"
-          [svgStyle]="{ 'width.px':17, 'height.px':15 }">
+          [svgStyle]="{ 'width.px':17, 'height.px':15 }"
+        >
         </svg-icon>
       </div>
       <div class="tab__title">Журнал анализа</div>
@@ -31,12 +29,7 @@
   </div>
 </ng-template>
 
-<div
-  class="wrapper"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
-  evjContextMenu
->
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" evjContextMenu>
   <div class="primary-content">
     <div class="primary-content__dashed">
       <div class="circle-container">
@@ -58,25 +51,21 @@
 
     <div class="primary-content__dropdown-block">
       <div class="dropdown">
-        <div class="dropdown__marker">
-        </div>
+        <div class="dropdown__marker"></div>
         <mat-select class="dropdown__select">
           <ng-container *ngFor="let scenario of scenarios">
-            <mat-option [value]="scenario">
-              {{ scenario }}
-            </mat-option>
+            <mat-option [value]="scenario"> {{ scenario }} </mat-option>
           </ng-container>
         </mat-select>
       </div>
       <button class="button button-icon">
         <svg-icon
           src="assets/icons/widgets/APS/scenarios/add-scenario.svg"
-          [svgStyle]="{ 'width.px':12, 'height.px':16 }">
+          [svgStyle]="{ 'width.px':12, 'height.px':16 }"
+        >
         </svg-icon>
       </button>
     </div>
-
-
 
     <div class="primary-content__divider"></div>
 
@@ -92,7 +81,8 @@
       <div icon>
         <svg-icon
           src="assets/icons/widgets/APS/scenarios/icon-speed.svg"
-          [svgStyle]="{ 'width.px':16, 'height.px':10 }">
+          [svgStyle]="{ 'width.px':16, 'height.px':10 }"
+        >
         </svg-icon>
       </div>
       <div content class="content">
@@ -103,12 +93,10 @@
       </div>
       <div value>{{ barChartSettings1.value }}</div>
     </evj-aps-notched-container>
-    <br>
+    <br />
     <evj-aps-notched-container>
       <div icon>
-        <svg-icon
-          src="assets/icons/widgets/APS/scenarios/warning.svg"
-          [svgStyle]="{ 'width.px':16, 'height.px':16 }">
+        <svg-icon src="assets/icons/widgets/APS/scenarios/warning.svg" [svgStyle]="{ 'width.px':16, 'height.px':16 }">
         </svg-icon>
       </div>
       <div content class="content">

@@ -1,11 +1,24 @@
 <div class="content">
   <mat-form-field>
-    <input matInput [ngxMatDatetimePicker]="picker" [value]="inputDate" [formControl]="dateControl"
-       [disabled]="disabled" (ngModelChange)="buttonConfirm($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker">
-    </mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
-      [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color" >
+    <input
+      matInput
+      [ngxMatDatetimePicker]="picker"
+      [value]="inputDate"
+      [formControl]="dateControl"
+      [disabled]="disabled"
+      (ngModelChange)="buttonConfirm($event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker
+      #picker
+      [showSpinners]="showSpinners"
+      [showSeconds]="showSeconds"
+      [stepHour]="stepHour"
+      [stepMinute]="stepMinute"
+      [stepSecond]="stepSecond"
+      [touchUi]="touchUi"
+      [color]="color"
+    >
     </ngx-mat-datetime-picker>
   </mat-form-field>
 </div>

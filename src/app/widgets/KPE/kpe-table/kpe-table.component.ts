@@ -28,15 +28,14 @@ export interface IKpeTableBody {
     isDeviation?: number;
 }
 @Component({
-  selector: 'evj-kpe-table',
-  templateUrl: './kpe-table.component.html',
-  styleUrls: ['./kpe-table.component.scss']
+    selector: 'evj-kpe-table',
+    templateUrl: './kpe-table.component.html',
+    styleUrls: ['./kpe-table.component.scss'],
 })
 export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public pageType$: BehaviorSubject<'development' | 'loading'> = new BehaviorSubject<'development' | 'loading'>(
         'development'
     );
-
 
     constructor(
         public widgetService: WidgetService,
@@ -51,14 +50,11 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-
-    }
+    protected dataHandler(ref: any): void {}
     public changePage(type: 'development' | 'loading'): void {
         if (this.pageType$.getValue() === type) {
             return;
         }
         this.pageType$.next(type);
     }
-
 }

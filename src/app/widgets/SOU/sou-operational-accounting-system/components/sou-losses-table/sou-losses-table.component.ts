@@ -6,17 +6,16 @@ export interface ISouLossesTable {
         title: string;
         value: number;
         percentageValue: number;
-        isButton?: boolean, // not for back
+        isButton?: boolean; // not for back
     }[];
 }
 
 @Component({
     selector: 'evj-sou-losses-table',
     templateUrl: './sou-losses-table.component.html',
-    styleUrls: ['./sou-losses-table.component.scss']
+    styleUrls: ['./sou-losses-table.component.scss'],
 })
 export class SouLossesTableComponent implements OnInit, OnChanges {
-
     @Input() set losses(data: ISOULosses) {
         if (data) {
             this.data = data;
@@ -26,8 +25,7 @@ export class SouLossesTableComponent implements OnInit, OnChanges {
 
     @Output() openTable: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit(): void {
         this.dataHandler();
@@ -39,15 +37,13 @@ export class SouLossesTableComponent implements OnInit, OnChanges {
 
     private dataHandler(): void {
         this.data?.lossesType.map((row) => {
-                if (row?.name === 'Идентефицированные потери') {
-                    row.isButton = true;
-                }
+            if (row?.name === 'Идентефицированные потери') {
+                row.isButton = true;
             }
-        );
+        });
     }
 
     public buttonClick(): void {
         this.openTable.emit();
     }
-
 }

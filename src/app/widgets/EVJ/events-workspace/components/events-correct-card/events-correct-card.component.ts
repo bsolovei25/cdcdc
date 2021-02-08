@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import {
-    IRetrievalEventDto,
-    EventsWidgetNotificationStatus,
-} from '../../../../../dashboard/models/EVJ/events-widget';
+import { IRetrievalEventDto, EventsWidgetNotificationStatus } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
@@ -48,12 +45,10 @@ export class EventsCorrectCardComponent implements OnInit {
         }
         const tempInfo: IAlertWindowModel = {
             isShow: true,
-            questionText:
-                'Вы уверены, что хотите удалить связь между событиями? Связанное событие не будет удалено.',
+            questionText: 'Вы уверены, что хотите удалить связь между событиями? Связанное событие не будет удалено.',
             acceptText: 'Да, удалить связь',
             cancelText: 'Отмена',
-            acceptFunction: () =>
-                this.ewService.deleteRetrievalLink(this.event.innerNotificationId),
+            acceptFunction: () => this.ewService.deleteRetrievalLink(this.event.innerNotificationId),
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(tempInfo);

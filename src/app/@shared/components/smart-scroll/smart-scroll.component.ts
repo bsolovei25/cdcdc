@@ -19,7 +19,6 @@ import { IDatesInterval } from '../../../dashboard/services/widget.service';
     styleUrls: ['./smart-scroll.component.scss'],
 })
 export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy {
-
     @Input() private sbThumbWidth: number = 40; // ширина бегунка в процентах
     @Input() private sbThumbLeft: number = 40; // положение левой части скролла в процентах
     @Input() public data: IChartMini[] = [
@@ -113,57 +112,38 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
 
         eventListeners.push(
             // движение скролла
-            this.renderer.listen(
-                this.sbThumbBody.nativeElement,
-                'mousedown',
-                (event: MouseEvent) => {
-                    this.beginCoordThumb = event.clientX;
-                    if (this.sbThumb.nativeElement.style.left) {
-                        this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(
-                            0,
-                            -1
-                        );
-                    }
-                    listeningMouseMove = this.renderer.listen(
-                        document,
-                        'mousemove',
-                        this.onMouseMove.bind(this)
-                    );
+            this.renderer.listen(this.sbThumbBody.nativeElement, 'mousedown', (event: MouseEvent) => {
+                this.beginCoordThumb = event.clientX;
+                if (this.sbThumb.nativeElement.style.left) {
+                    this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
                 }
-            ),
+                listeningMouseMove = this.renderer.listen(document, 'mousemove', this.onMouseMove.bind(this));
+            }),
 
             // ресайз скролла слева
-            this.renderer.listen(
-                this.resizerLeft.nativeElement,
-                'mousedown',
-                (event: MouseEvent) => {
-                    this.beginCoordThumb = event.clientX;
-                    this.changePositionSides(true);
-                    listeningMouseMoveResizerLeft = this.renderer.listen(
-                        document,
-                        'mousemove',
-                        (mouseEvent: MouseEvent) => {
-                            this.onResizeThumb(mouseEvent, 'left');
-                        }
-                    );
-                }
-            ),
+            this.renderer.listen(this.resizerLeft.nativeElement, 'mousedown', (event: MouseEvent) => {
+                this.beginCoordThumb = event.clientX;
+                this.changePositionSides(true);
+                listeningMouseMoveResizerLeft = this.renderer.listen(
+                    document,
+                    'mousemove',
+                    (mouseEvent: MouseEvent) => {
+                        this.onResizeThumb(mouseEvent, 'left');
+                    }
+                );
+            }),
 
             // ресайз скролла справа
-            this.renderer.listen(
-                this.resizerRight.nativeElement,
-                'mousedown',
-                (event: MouseEvent) => {
-                    this.beginCoordThumb = event.clientX;
-                    listeningMouseMoveResizerRight = this.renderer.listen(
-                        document,
-                        'mousemove',
-                        (mouseEvent: MouseEvent) => {
-                            this.onResizeThumb(mouseEvent, 'right');
-                        }
-                    );
-                }
-            ),
+            this.renderer.listen(this.resizerRight.nativeElement, 'mousedown', (event: MouseEvent) => {
+                this.beginCoordThumb = event.clientX;
+                listeningMouseMoveResizerRight = this.renderer.listen(
+                    document,
+                    'mousemove',
+                    (mouseEvent: MouseEvent) => {
+                        this.onResizeThumb(mouseEvent, 'right');
+                    }
+                );
+            }),
 
             // поднятие клавиши и отписка от событий
             this.renderer.listen(document, 'mouseup', () => {

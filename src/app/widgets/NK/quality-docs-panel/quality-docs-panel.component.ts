@@ -6,7 +6,8 @@ import {
     OnDestroy,
     ViewChild,
     SimpleChanges,
-    OnChanges, ElementRef
+    OnChanges,
+    ElementRef,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
@@ -15,15 +16,18 @@ import { IOilFilter } from '../../../dashboard/models/oil-operations';
 import { OilOperationsService } from '../../../dashboard/services/widgets/oil-operations.service';
 import {
     DocumentsScansService,
-    IOilControlPassportOpts
+    IOilControlPassportOpts,
 } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DocumentCodingFilterComponent } from '../document-coding/components/document-coding-filter/document-coding-filter.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { FormControl } from '@angular/forms';
-import { ArrayProperties} from '@shared/models/common.model';
+import { ArrayProperties } from '@shared/models/common.model';
 
-export type IDocumentOilQualityPanelFilterType = 'products-document-panel' | 'groups-document-panel' | 'tanks-document-panel';
+export type IDocumentOilQualityPanelFilterType =
+    | 'products-document-panel'
+    | 'groups-document-panel'
+    | 'tanks-document-panel';
 
 export interface IQualityDocsRecord {
     id: number;
@@ -38,7 +42,7 @@ export interface IQualityDocsRecord {
         group: {
             id: number;
             name: string;
-        }
+        };
     };
     product: {
         id: number;
@@ -49,7 +53,7 @@ export interface IQualityDocsRecord {
         group: {
             id: number;
             name: string;
-        }
+        };
     };
     customId: number;
     date: Date;
@@ -65,10 +69,9 @@ export interface IQualityDocsRecord {
 @Component({
     selector: 'evj-quality-docs-panel',
     templateUrl: './quality-docs-panel.component.html',
-    styleUrls: ['./quality-docs-panel.component.scss']
+    styleUrls: ['./quality-docs-panel.component.scss'],
 })
 export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, OnChanges {
-
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('table') public table: ElementRef;
@@ -88,7 +91,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
             name: 'Резервуары',
             type: 'tanks-document-panel',
             data: [],
-        }
+        },
     ];
 
     public filterByProductValue: any;
@@ -114,7 +117,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         public oilDocumentService: DocumentsScansService,
-        private popoverOverlayService: PopoverOverlayService,
+        private popoverOverlayService: PopoverOverlayService
     ) {
         super(widgetService, isMock, id, uniqId);
         this.isRealtimeData = false;
@@ -132,14 +135,11 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.viewportCheck();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this))
-        );
+        this.subscriptions.push(this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this)));
     }
 
     public ngOnDestroy(): void {
@@ -178,9 +178,13 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         const tanks = this.getActiveFilterArrayByType('tanks-document-panel');
 
         function addFilters(arr: IOilFilter[], key: keyof ArrayProperties<IOilControlPassportOpts, number>): void {
-            if (!arr.length) { return; }
+            if (!arr.length) {
+                return;
+            }
             options[key] = [];
-            arr.forEach(item => { options[key].push(item.id); });
+            arr.forEach((item) => {
+                options[key].push(item.id);
+            });
         }
 
         addFilters(products, 'ProductIds');
@@ -224,11 +228,10 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.getData();
     }
 
-    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
-        if (
-            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
-            && this.data.length
-        ) {
+    public async scrollHandler(event: {
+        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
+    }): Promise<void> {
+        if (event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight && this.data.length) {
             await this.appendPassports(this.data[this.data.length - 1].id);
         }
     }
@@ -242,7 +245,10 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.openPopover(element, filter);
     }
 
-    private openPopover(origin: HTMLElement, filter: ITableGridFilter<IOilFilter, IDocumentOilQualityPanelFilterType>): void {
+    private openPopover(
+        origin: HTMLElement,
+        filter: ITableGridFilter<IOilFilter, IDocumentOilQualityPanelFilterType>
+    ): void {
         const popoverRef = this.popoverOverlayService.open({
             content: DocumentCodingFilterComponent,
             origin,
@@ -255,7 +261,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         });
         this.isPopoverOpened.set(filter.type, true);
 
-        popoverRef.afterClosed$.subscribe(res => {
+        popoverRef.afterClosed$.subscribe((res) => {
             console.log(res);
             this.isPopoverOpened.set(res?.data?.type, false);
             if (res && res.data && res.type === 'close') {
@@ -289,15 +295,17 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
                 break;
         }
         const values = await this.oilOperationService.getFilterList<IOilFilter[]>(filterParam);
-        const filterToReplace = this.filters.find(availableFilter => availableFilter.type === filter);
-        if (filterToReplace) { filterToReplace.data = values; }
+        const filterToReplace = this.filters.find((availableFilter) => availableFilter.type === filter);
+        if (filterToReplace) {
+            filterToReplace.data = values;
+        }
     }
 
     private async onDatesChange(dates: IDatesInterval): Promise<void> {
         if (!dates) {
             dates = {
                 fromDateTime: new Date(),
-                toDateTime: new Date()
+                toDateTime: new Date(),
             };
             dates.toDateTime.setHours(23, 59, 59);
             dates.fromDateTime.setHours(0, 0, 0);
@@ -308,7 +316,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         dataLoadQueue.push(
             this.getList().then((ref) => {
                 this.data = ref;
-            }),
+            })
         );
         await Promise.all(dataLoadQueue);
     }

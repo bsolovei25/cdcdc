@@ -4,14 +4,10 @@
       <span>{{data.title}}</span>
     </div>
     <div class="top__units">
-      <div class="unit top__units__block"
-           [class.top__units_active]="data.unit"
-      >
+      <div class="unit top__units__block" [class.top__units_active]="data.unit">
         <span>{{data.unit || 'ед.изм'}}</span>
       </div>
-      <div class="measure top__units__block"
-           [class.top__units_active]="!data.unit"
-      >
+      <div class="measure top__units__block" [class.top__units_active]="!data.unit">
         <span>%</span>
       </div>
     </div>

@@ -11,24 +11,16 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '@shared/components/input/input.component';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 
-
-
 @NgModule({
-  declarations: [
-    TankCalibrationTableComponent,
-    TankCalibrationTableFilesComponent,
-    TanksTableComponent,
-    UploadFormComponent,
-    UploadDropComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    DashboardModule,
-    ReactiveFormsModule
-    ]
+    declarations: [
+        TankCalibrationTableComponent,
+        TankCalibrationTableFilesComponent,
+        TanksTableComponent,
+        UploadFormComponent,
+        UploadDropComponent,
+    ],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, DashboardModule, ReactiveFormsModule],
 })
 export class TankCalibrationTableModule {
-  enterComponent = TankCalibrationTableComponent;
+    enterComponent = TankCalibrationTableComponent;
 }

@@ -5,30 +5,28 @@
       <div class="document-viewer_search-input">
         <evj-circle-input [(search)]="search" (searchChange)="searchInPdf($event)"></evj-circle-input>
       </div>
-      <div class="document-viewer_paging-container" *ngIf="totalPages">
-        {{page}}/{{totalPages}} стр.
-      </div>
+      <div class="document-viewer_paging-container" *ngIf="totalPages">{{page}}/{{totalPages}} стр.</div>
     </div>
     <div class="document-viewer_document">
       <div class="document-viewer_document__buttons-area">
         <div class="button" (click)="scaleDocument(true)"><span class="text-center">+</span></div>
         <div class="button" (click)="scaleDocument(false)"><span class="text-center">-</span></div>
         <div class="button button_fullscreen" (click)="closeFullscreen()">
-          <svg-icon src="assets/icons/minify-screen.svg" class="text-center" style="width:12px"></svg-icon>
+          <svg-icon src="assets/icons/minify-screen.svg" class="text-center" style="width: 12px"></svg-icon>
         </div>
       </div>
       <div class="document-viewer_document__sizing-area">
-        <pdf-viewer *ngIf="src"
-                    [zoom]="scalePercent"
-                    [src]="src"
-                    [original-size]="false"
-                    [show-all]="true"
-                    [stick-to-page]="true"
-                    [(page)]="page"
-                    (after-load-complete)="afterLoadComplete($event)"
+        <pdf-viewer
+          *ngIf="src"
+          [zoom]="scalePercent"
+          [src]="src"
+          [original-size]="false"
+          [show-all]="true"
+          [stick-to-page]="true"
+          [(page)]="page"
+          (after-load-complete)="afterLoadComplete($event)"
         ></pdf-viewer>
       </div>
     </div>
   </div>
 </div>
-

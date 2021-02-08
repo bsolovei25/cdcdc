@@ -1,13 +1,7 @@
 import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
 import { WIDGETS } from '../../../widgets/widget-map';
 import { WidgetModel } from '../../models/widget.model';
-import {
-    GridsterConfig,
-    GridType,
-    GridsterItem,
-    GridsterItemComponentInterface,
-    DisplayGrid,
-} from 'angular-gridster2';
+import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { EventEmitter } from '@angular/core';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
@@ -184,9 +178,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public onGrid(grid: any): void {
-        grid === true
-            ? (this.options.displayGrid = DisplayGrid.None)
-            : (this.options.displayGrid = DisplayGrid.Always);
+        grid === true ? (this.options.displayGrid = DisplayGrid.None) : (this.options.displayGrid = DisplayGrid.Always);
         this.changedOptions();
     }
 
@@ -202,11 +194,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         });
     };
 
-    public eventStart(
-        item: GridsterItem,
-        itemComponent: GridsterItemComponentInterface,
-        e: MouseEvent
-    ): void {
+    public eventStart(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent): void {
         if (!e) {
             return;
         }
@@ -214,11 +202,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: new DataTransfer() }));
     }
 
-    public resizeStop(
-        item: GridsterItem,
-        itemComponent: GridsterItemComponentInterface,
-        event: MouseEvent
-    ): void {
+    public resizeStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, event: MouseEvent): void {
         const widget: { item: GridsterItem; event: MouseEvent } = { item, event };
         this.resizeWidget.emit(widget);
     }
@@ -230,7 +214,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
-        setTimeout(() => this.isUserAction = false, 1000);
+        setTimeout(() => (this.isUserAction = false), 1000);
     }
 
     public dragStartHandler(e: DragEvent, i): void {

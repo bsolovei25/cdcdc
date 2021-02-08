@@ -21,133 +21,128 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { IDocumentCodingFilterType } from '../../../widgets/NK/document-coding/components/document-coding-table/document-coding-table.component';
 
 @Component({
-  selector: 'evj-table-grid',
-  templateUrl: './table-grid.component.html',
-  styleUrls: ['./table-grid.component.scss']
+    selector: 'evj-table-grid',
+    templateUrl: './table-grid.component.html',
+    styleUrls: ['./table-grid.component.scss'],
 })
 export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
-  @ViewChild('table') public table: ElementRef;
-  @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
-  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
-  @Input() data: IOilTransfer[];
-  @Input() scrollLeft: boolean; // side scroll for contant
-  @Input() search: boolean; // search-input in footer
-  @Input() filters: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>[]; // filter-buttons in footer
-  @Input() addButton: boolean; // add-button in footer
-  @Input() itemFixed: boolean = false; // Do active item
-  @Input() rowBgColorType: 'light' | 'dark' = 'light'; // Do active item
-  @Input() saveButton: boolean; // Save button in footer
-  @Input() templateFooter: TemplateRef<any>; // Template footer
-  @Input() deleteButton: boolean; // in progress...
-  @Input() activeFilter: boolean;
+    @ViewChild('table') public table: ElementRef;
+    @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+    @Input() data: IOilTransfer[];
+    @Input() scrollLeft: boolean; // side scroll for contant
+    @Input() search: boolean; // search-input in footer
+    @Input() filters: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>[]; // filter-buttons in footer
+    @Input() addButton: boolean; // add-button in footer
+    @Input() itemFixed: boolean = false; // Do active item
+    @Input() rowBgColorType: 'light' | 'dark' = 'light'; // Do active item
+    @Input() saveButton: boolean; // Save button in footer
+    @Input() templateFooter: TemplateRef<any>; // Template footer
+    @Input() deleteButton: boolean; // in progress...
+    @Input() activeFilter: boolean;
 
-  @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() clickFilter: EventEmitter<IOilFilter> = new EventEmitter<IOilFilter>();
-  @Output() item: EventEmitter<any> = new EventEmitter<any>();
-  @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); // in progress...
+    @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() clickFilter: EventEmitter<IOilFilter> = new EventEmitter<IOilFilter>();
+    @Output() item: EventEmitter<any> = new EventEmitter<any>();
+    @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); // in progress...
 
-  @Output()
-  public scrollReachedItemId: EventEmitter<number> = new EventEmitter<number>();
+    @Output()
+    public scrollReachedItemId: EventEmitter<number> = new EventEmitter<number>();
 
-  objectKeys = Object.keys;
+    objectKeys = Object.keys;
 
-  public activeItemId: number;
-  public dataSave: any;
+    public activeItemId: number;
+    public dataSave: any;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
+    ngOnInit(): void {}
 
-  }
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.viewportCheck();
+    }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-      this.viewportCheck();
-  }
+    public ngAfterViewInit(): void {
+        this.dataSave = this.data;
+        this.setStyleScroll();
+    }
 
-  public ngAfterViewInit(): void {
-    this.dataSave = this.data;
-    this.setStyleScroll();
-  }
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.viewportCheck();
+        this.setStyleScroll();
+    }
 
-  @HostListener('document:resize', ['$event'])
-  public OnResize(): void {
-    this.viewportCheck();
-    this.setStyleScroll();
-  }
-
-  private viewportCheck(): void {
-      if (this.data?.length > 0) {
-          this.viewport?.checkViewportSize();
-      }
-  }
-
-  setStyleScroll(): void {
-    const scroll = this.table.nativeElement;
-    if (scroll) {
-      if (scroll.scrollHeight !== scroll.clientHeight) {
-        if (this.scrollLeft) {
-          scroll.classList.remove('scrollLeftON');
-          scroll.classList.add('scrollLeftOFF');
-        } else {
-          scroll.classList.remove('scrollRightON');
-          scroll.classList.add('scrollRightOFF');
+    private viewportCheck(): void {
+        if (this.data?.length > 0) {
+            this.viewport?.checkViewportSize();
         }
-      } else {
-        if (this.scrollLeft) {
-          scroll.classList.remove('scrollLeftON');
-          scroll.classList.add('scrollLeftOFF');
-        } else {
-          scroll.classList.remove('scrollRightON');
-          scroll.classList.add('scrollRightOFF');
+    }
+
+    setStyleScroll(): void {
+        const scroll = this.table.nativeElement;
+        if (scroll) {
+            if (scroll.scrollHeight !== scroll.clientHeight) {
+                if (this.scrollLeft) {
+                    scroll.classList.remove('scrollLeftON');
+                    scroll.classList.add('scrollLeftOFF');
+                } else {
+                    scroll.classList.remove('scrollRightON');
+                    scroll.classList.add('scrollRightOFF');
+                }
+            } else {
+                if (this.scrollLeft) {
+                    scroll.classList.remove('scrollLeftON');
+                    scroll.classList.add('scrollLeftOFF');
+                } else {
+                    scroll.classList.remove('scrollRightON');
+                    scroll.classList.add('scrollRightOFF');
+                }
+            }
         }
-      }
     }
-  }
 
-  columnsByKey(item): string {
-    return item.key;
-  }
-
-  searchRecord(event: any): void {
-    if (event.key === 'Backspace') {
-      this.data = this.dataSave;
+    columnsByKey(item): string {
+        return item.key;
     }
-    const record = event.currentTarget.value.toLowerCase();
-    const filterData = this.data.filter(
-      (e) => {
-        for (const key of this.objectKeys(e)) {
-          if (e[key].toString().toLowerCase().indexOf(record.toLowerCase()) > -1) {
-            return true;
-          }
+
+    searchRecord(event: any): void {
+        if (event.key === 'Backspace') {
+            this.data = this.dataSave;
         }
-      }
-    );
-    this.data = filterData;
-    if (!event.currentTarget.value) {
-      this.data = this.dataSave;
+        const record = event.currentTarget.value.toLowerCase();
+        const filterData = this.data.filter((e) => {
+            for (const key of this.objectKeys(e)) {
+                if (e[key].toString().toLowerCase().indexOf(record.toLowerCase()) > -1) {
+                    return true;
+                }
+            }
+        });
+        this.data = filterData;
+        if (!event.currentTarget.value) {
+            this.data = this.dataSave;
+        }
     }
-  }
 
-  save(event: boolean): void {
-    this.clickSave.emit(event);
-  }
-
-  public filterSelect(event: any): void {
-    this.clickFilter.emit(event);
-  }
-
-  activeItem(item: any): void {
-    if (this.itemFixed) {
-      this.activeItemId = item.id;
-      this.item.emit(item);
+    save(event: boolean): void {
+        this.clickSave.emit(event);
     }
-  }
 
-    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
-        if (
-            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
-            && this.data.length
-        ) {
+    public filterSelect(event: any): void {
+        this.clickFilter.emit(event);
+    }
+
+    activeItem(item: any): void {
+        if (this.itemFixed) {
+            this.activeItemId = item.id;
+            this.item.emit(item);
+        }
+    }
+
+    public async scrollHandler(event: {
+        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
+    }): Promise<void> {
+        if (event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight && this.data.length) {
             await this.scrollReachedItemId.emit(this.data[this.data.length - 1].id);
         }
     }

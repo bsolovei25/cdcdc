@@ -95,10 +95,7 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
         super.dataConnect();
         this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
-        const serviceData = combineLatest([
-            this.adminService.allWorkers$,
-            this.adminService.activeWorker$,
-        ]);
+        const serviceData = combineLatest([this.adminService.allWorkers$, this.adminService.activeWorker$]);
         this.subscriptions.push(
             serviceData.subscribe(([workers, activeWorker]) => {
                 if (workers) {
@@ -113,23 +110,19 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
                 this.adminService.screenSpecialClaims = data.data;
             }),
-            this.adminService
-                .getAllUnits()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
+            this.adminService.getAllUnits().subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
-            this.adminService.getAllSpecialClaims().subscribe((claims) => this.adminService.specialClaims = claims.data ?? []),
+            this.adminService
+                .getAllSpecialClaims()
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data ?? [])),
             forkJoin([
                 this.adminService.getAllEventsCategories(),
                 this.adminService.getAllEventsSubcategories(),
-            ]).subscribe((claims) => this.adminService.eventsCategories = claims.flat()),
-            this.adminService
-                .getAllWidgets()
-                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
-            this.adminService
-                .getAllScreens()
-                .subscribe((data: IWorkspace[]) => (this.adminService.allScreens = data))
+            ]).subscribe((claims) => (this.adminService.eventsCategories = claims.flat())),
+            this.adminService.getAllWidgets().subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
+            this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => (this.adminService.allScreens = data))
         );
     }
 

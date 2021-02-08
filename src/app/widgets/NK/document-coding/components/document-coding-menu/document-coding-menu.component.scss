@@ -1,11 +1,10 @@
-@import 'src/mixins';
+@import "src/mixins";
 
 .coding-menu {
   height: 100%;
   display: flex;
   padding-left: 20px;
   padding-right: 10px;
-
 
   &__file {
     width: 35%;

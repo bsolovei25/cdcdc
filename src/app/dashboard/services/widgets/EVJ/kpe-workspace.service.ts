@@ -14,9 +14,7 @@ import { IEventsWidgetNotification } from '../../../models/EVJ/events-widget';
 })
 export class KpeWorkspaceService {
     private readonly restUrl: string;
-    selectParameter$: BehaviorSubject<IKpeWorkspaceParameter> = new BehaviorSubject<
-        IKpeWorkspaceParameter
-    >(null);
+    selectParameter$: BehaviorSubject<IKpeWorkspaceParameter> = new BehaviorSubject<IKpeWorkspaceParameter>(null);
     showSelectParameters$: BehaviorSubject<IKpeAllDependentParameters[]> = new BehaviorSubject<
         IKpeAllDependentParameters[]
     >(null);
@@ -34,17 +32,14 @@ export class KpeWorkspaceService {
     async getKpeAllDependentParameters(parameterId: number): Promise<IKpeAllDependentParameters[]> {
         return this.http
             .get<IKpeAllDependentParameters[]>(
-                this.restUrl +
-                    `/api/notification-kpe/parameters/${parameterId}/dependent-parameters`
+                this.restUrl + `/api/notification-kpe/parameters/${parameterId}/dependent-parameters`
             )
             .toPromise();
     }
 
     async getKpeNotificationParameters(body: IEventsWidgetNotification): Promise<IKpeNotification> {
         return await this.http
-            .get<IKpeNotification>(
-                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`
-            )
+            .get<IKpeNotification>(this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`)
             .toPromise();
     }
 
@@ -60,13 +55,9 @@ export class KpeWorkspaceService {
             .toPromise();
     }
 
-    async deleteKpeNotificationParameters(
-        body: IEventsWidgetNotification
-    ): Promise<IKpeNotification> {
+    async deleteKpeNotificationParameters(body: IEventsWidgetNotification): Promise<IKpeNotification> {
         return this.http
-            .delete<IKpeNotification>(
-                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/remove`
-            )
+            .delete<IKpeNotification>(this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/remove`)
             .toPromise();
     }
 }

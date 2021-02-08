@@ -16,7 +16,8 @@ thead th {
   color: var(--color-cd-text-sub-2);
   z-index: 1;
 }
-th,  td {
+th,
+td {
   text-align: center;
   min-width: 86px;
   &:first-child {
@@ -36,11 +37,11 @@ th,  td {
     margin-left: auto;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       height: 100%;
-      border: solid 1px #4B5169;
+      border: solid 1px #4b5169;
       border-radius: 2px;
       box-sizing: border-box;
     }
@@ -58,9 +59,9 @@ th,  td {
       cursor: pointer;
 
       &__active {
-        color: #D7E2F2;
-        background: rgba(#0089FF, .2);
-        border-color: #0089FF;
+        color: #d7e2f2;
+        background: rgba(#0089ff, 0.2);
+        border-color: #0089ff;
       }
     }
   }
@@ -91,7 +92,6 @@ th,  td {
       color: var(--color-cd-text-sub-2);
       background-color: var(--color-bg-main);
 
-
       &:first-of-type {
         font-size: 12px;
         color: var(--color-cd-text-sub-2);
@@ -99,7 +99,6 @@ th,  td {
         left: 0;
         text-align: left;
         width: 60%;
-
       }
     }
   }
@@ -136,7 +135,7 @@ th,  td {
       }
 
       &__children {
-        border-left: 2px solid var(--color-kpe-gaude-unactive)!important;
+        border-left: 2px solid var(--color-kpe-gaude-unactive) !important;
 
         &--active {
           border-top: 1px solid var(--color-aps-active);
@@ -302,7 +301,6 @@ th,  td {
 
         .row-title {
           user-select: none;
-
 
           &__icon {
             &-arrow-top {

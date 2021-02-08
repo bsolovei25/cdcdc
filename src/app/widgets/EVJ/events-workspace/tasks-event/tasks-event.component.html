@@ -27,9 +27,7 @@
           [compareWith]="compareFn"
           [disabled]="!ewService.isCreateNewEvent"
         >
-          <mat-option *ngFor="let p of ewService.priority" [value]="p"
-          >{{ ewService.priorities[p.name] }}
-          </mat-option>
+          <mat-option *ngFor="let p of ewService.priority" [value]="p">{{ ewService.priorities[p.name] }} </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
@@ -43,8 +41,10 @@
             [compareWith]="compareFn"
             [disabled]="true"
           >
-            <mat-option *ngFor="let p of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent)" [value]="p"
-            >{{ ewService.statuses[p.name] }}
+            <mat-option
+              *ngFor="let p of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent)"
+              [value]="p"
+              >{{ ewService.statuses[p.name] }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -61,9 +61,7 @@
             [disabled]="!ewService.isCreateNewEvent"
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
-            <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
-            >{{ p.description }}
-            </mat-option>
+            <mat-option *ngFor="let p of ewService.subCategory" [value]="p">{{ p.description }} </mat-option>
           </mat-select>
         </mat-form-field>
       </evj-ui-block>
@@ -111,8 +109,10 @@
   </div>
   <div class="workspace__right right">
     <!--          TODO: set disabled-->
-    <evj-events-responsible-select class="right__item"
-                                   [disabled]="!ewService.isCreateNewEvent"></evj-events-responsible-select>
+    <evj-events-responsible-select
+      class="right__item"
+      [disabled]="!ewService.isCreateNewEvent"
+    ></evj-events-responsible-select>
     <div class="right__item labels">
       <div class="labels__item label">
         <div class="label__name">Создано:</div>

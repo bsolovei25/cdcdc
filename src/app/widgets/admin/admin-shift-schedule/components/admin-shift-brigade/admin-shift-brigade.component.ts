@@ -39,14 +39,11 @@ export class AdminShiftBrigadeComponent {
 
     public isOpen: boolean = true;
 
-    public inputControl: FormControl = new FormControl({value: '', disabled: false});
+    public inputControl: FormControl = new FormControl({ value: '', disabled: false });
 
     @Input() color: string = '';
 
-    constructor(
-        private adminShiftScheduleService: AdminShiftScheduleService,
-        private snackBar: SnackBarService
-    ) { }
+    constructor(private adminShiftScheduleService: AdminShiftScheduleService, private snackBar: SnackBarService) {}
 
     public openList(): void {
         this.isOpen = !this.isOpen;
@@ -142,10 +139,7 @@ export class AdminShiftBrigadeComponent {
 
     async editBrigade(brigade: IBrigadeWithUsersDto, number: string): Promise<void> {
         try {
-            const brigadeAns = await this.adminShiftScheduleService.putBrigadeEdit(
-                brigade.brigadeId,
-                number
-            );
+            const brigadeAns = await this.adminShiftScheduleService.putBrigadeEdit(brigade.brigadeId, number);
             brigade.brigadeNumber = brigadeAns.number;
             this.snackBar.openSnackBar(`Бригада ${brigade.brigadeNumber} переименована`);
         } catch (error) {

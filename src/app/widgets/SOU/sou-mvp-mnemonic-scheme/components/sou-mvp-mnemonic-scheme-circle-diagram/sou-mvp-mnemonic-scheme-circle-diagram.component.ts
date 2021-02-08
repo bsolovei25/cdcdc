@@ -17,15 +17,9 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
     @ViewChild('chart') chart: ElementRef;
     @Input() noConnection: false;
-    @Input() set data(data: {
-        sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
-        code: number;
-    }) {
+    @Input() set data(data: { sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[]; code: number }) {
         if (data.sections) {
-            this.flowData = this.mvpService.getElementByCode(
-                data.sections,
-                data.code
-            ) as ISOUFlowOut;
+            this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
             this.drawSvg();
         }
     }
@@ -47,11 +41,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
             this.svg.remove();
         }
 
-        this.svg = d3
-            .select(this.chart.nativeElement)
-            .append('svg')
-            .attr('width', '40px')
-            .attr('height', '40px');
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '40px').attr('height', '40px');
 
         const arc = d3
             .arc()
@@ -59,9 +49,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
             .outerRadius(outerR)
             .startAngle(0)
             .endAngle(
-                typeof this.flowData?.tolerance === 'number'
-                    ? (2 * Math.PI * this.flowData?.tolerance) / 100
-                    : 0
+                typeof this.flowData?.tolerance === 'number' ? (2 * Math.PI * this.flowData?.tolerance) / 100 : 0
             );
 
         const arcBg = d3
@@ -73,13 +61,9 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
 
         const g: any = this.svg.append('g').style('transform', 'translate(20px, 20px)');
 
-        g.append('path')
-            .attr('d', arcBg)
-            .attr('class', 'diagram-inner');
+        g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
 
-        g.append('path')
-            .attr('d', arc)
-            .attr('class', 'diagram-value');
+        g.append('path').attr('d', arc).attr('class', 'diagram-value');
     }
 
     ngAfterViewInit(): void {}

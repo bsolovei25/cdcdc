@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./aps-notched-container.component.scss'],
 })
 export class ApsNotchedContainerComponent {
-    constructor() {
-    }
+    constructor() {}
 }

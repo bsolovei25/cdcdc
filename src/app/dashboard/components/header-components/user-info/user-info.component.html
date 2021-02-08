@@ -3,13 +3,9 @@
   <img class="user-info_avatar" [src]="photoPath" />
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
-      <span>
-        {{ data?.displayName ? data?.displayName : data.login }}
-      </span>
+      <span> {{ data?.displayName ? data?.displayName : data.login }} </span>
     </div>
-    <div *ngIf="data?.positionDescription" class="user-position">
-      {{ data.positionDescription }}
-    </div>
+    <div *ngIf="data?.positionDescription" class="user-position">{{ data.positionDescription }}</div>
     <div *ngIf="data?.brigade?.number" class="user-groupe">Бригада {{ data.brigade?.number }}</div>
   </div>
 </div>

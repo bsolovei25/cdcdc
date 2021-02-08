@@ -10,31 +10,17 @@
       >
         {{data.day}}
       </div>
-      <div *ngIf="data.isActive" class="calendar-column_time" id="widthBlock">
-        {{this.currentData | date:'HH:mm'}}
-      </div>
+      <div *ngIf="data.isActive" class="calendar-column_time" id="widthBlock">{{this.currentData | date:'HH:mm'}}</div>
     </div>
   </ng-container>
   <ng-container *ngIf="!this.dateFromSelector.status">
     <div class="line-block" id="lightBlock" #lightBlock>
-      <div
-        class="line-start"
-        [class.eline-not-finish]="!(activeStates.isLeftArrow && activeStates.isTimeline)"
-      >
-        <svg-icon
-          src="assets/icons/period-border.svg"
-          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-        ></svg-icon>
+      <div class="line-start" [class.eline-not-finish]="!(activeStates.isLeftArrow && activeStates.isTimeline)">
+        <svg-icon src="assets/icons/period-border.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
       </div>
       <div class="middle-line"></div>
-      <div
-        class="line-end"
-        [class.eline-not-finish]="!(activeStates.isRightArrow && activeStates.isTimeline)"
-      >
-        <svg-icon
-          src="assets/icons/period-border.svg"
-          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-        ></svg-icon>
+      <div class="line-end" [class.eline-not-finish]="!(activeStates.isRightArrow && activeStates.isTimeline)">
+        <svg-icon src="assets/icons/period-border.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
       </div>
     </div>
   </ng-container>

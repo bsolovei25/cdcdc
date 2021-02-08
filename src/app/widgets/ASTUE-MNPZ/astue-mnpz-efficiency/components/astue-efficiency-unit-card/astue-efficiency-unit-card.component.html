@@ -8,19 +8,9 @@
     />
     <img class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg" />
     {{unit.name}}
-    <div
-      class="header__button button"
-      [ngClass]="{'button_active':isSelected}"
-      (click)="onSelectUnit()"
-    >
-      <img
-        class="icon icon-unactive"
-        src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg"
-      />
-      <img
-        class="icon icon-active"
-        src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg"
-      />
+    <div class="header__button button" [ngClass]="{'button_active':isSelected}" (click)="onSelectUnit()">
+      <img class="icon icon-unactive" src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg" />
+      <img class="icon icon-active" src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg" />
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">

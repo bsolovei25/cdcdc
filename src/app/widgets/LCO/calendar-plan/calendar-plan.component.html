@@ -11,15 +11,11 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="cal-plan"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="cal-plan" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
       <div class="cards">
         <div class="card" *ngFor="let item of array" [ngClass]="{ 'card-active': !item.isBetter }">
-          <div class="card__border card__border-left "></div>
+          <div class="card__border card__border-left"></div>
           <div class="card__border card__border-right"></div>
           <div class="card__title">{{ item.name }}</div>
           <div class="card__change" [ngClass]="{ danger: !item.isBetter }">

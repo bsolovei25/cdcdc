@@ -1,39 +1,44 @@
 <div class="header-workspace">
-  <div
-    class="header-workspace__button"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <button class="header-workspace__container hover-effect"
-            matRipple [matRippleColor]="'white'"
-            (click)="createEvent(true)"
+  <div class="header-workspace__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <button
+      class="header-workspace__container hover-effect"
+      matRipple
+      [matRippleColor]="'white'"
+      (click)="createEvent(true)"
     >
       <div class="button-name">Новое событие</div>
     </button>
-    <button class="header-workspace__container hover-effect"
-            (click)="isEscalatePopupOpen=true"
-            matRipple [matRippleColor]="'white'"
+    <button
+      class="header-workspace__container hover-effect"
+      (click)="isEscalatePopupOpen=true"
+      matRipple
+      [matRippleColor]="'white'"
     >
       <div class="button-name">Эскалировать</div>
     </button>
-    <button class="header-workspace__container"
-            (click)="onClickUrl()"
-            [disabled]="isDisabledUrlButton()"
-            matRipple [matRippleColor]="'white'"
+    <button
+      class="header-workspace__container"
+      (click)="onClickUrl()"
+      [disabled]="isDisabledUrlButton()"
+      matRipple
+      [matRippleColor]="'white'"
     >
       <div class="button-name">Карточка отклонения</div>
     </button>
-    <button class="header-workspace__container"
-            (click)="openClosePopup()"
-            matRipple [matRippleColor]="'white'"
-            [disabled]="true"
+    <button
+      class="header-workspace__container"
+      (click)="openClosePopup()"
+      matRipple
+      [matRippleColor]="'white'"
+      [disabled]="true"
     >
       <div class="button-name">Закрыть отклонение</div>
     </button>
     <button
       class="header-workspace__container active-button"
       (click)="createEvent(false)"
-      matRipple [matRippleColor]="'white'"
+      matRipple
+      [matRippleColor]="'white'"
     >
       <div class="button-name">Сохранить</div>
     </button>
@@ -41,7 +46,6 @@
 </div>
 
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
-
   <div class="workspace__header">
     <div class="workspace__select-container-left">
       <div class="title">
@@ -90,11 +94,7 @@
     </div>
 
     <div class="workspace__select-container-right">
-      <evj-events-workspace-select
-        [label]="'Событие'"
-        [dataType]="'event'"
-      >
-      </evj-events-workspace-select>
+      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"> </evj-events-workspace-select>
     </div>
   </div>
 
@@ -102,10 +102,7 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <evj-events-workspace-select
-            [label]="'Статус'"
-            [dataType]="'status'"
-          ></evj-events-workspace-select>
+          <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
         </div>
 
         <div class="workspace__select-container-right">
@@ -162,7 +159,8 @@
               <span>Дата начала</span>
             </div>
             <div class="creator__field">
-              {{this.ewService.event?.eventDateTime ? (this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm") : '-'}}
+              {{this.ewService.event?.eventDateTime ? (this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm") :
+              '-'}}
             </div>
           </div>
         </div>
@@ -173,7 +171,8 @@
               <span>Дата закрытия</span>
             </div>
             <div class="creator__field">
-              {{this.ewService.event?.eventEndDateTime ? (this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm") : '-'}}
+              {{this.ewService.event?.eventEndDateTime ? (this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy |
+              HH:mm") : '-'}}
             </div>
           </div>
         </div>
@@ -185,9 +184,7 @@
             <div class="creator__title">
               <span>Производство</span>
             </div>
-            <div class="creator__field">
-              {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
-            </div>
+            <div class="creator__field">{{this.ewService.event?.branch ? this.ewService.event.branch : ''}}</div>
           </div>
         </div>
         <div class="workspace__select-container">
@@ -201,8 +198,7 @@
         <div class="creator__title">
           <span>Оборудование</span>
         </div>
-        <div class="creator__field">
-        </div>
+        <div class="creator__field"></div>
       </div>
       <div class="usual-text">
         <div class="title">
@@ -246,7 +242,6 @@
       (closeWindow)="setReason($event)"
     ></evj-events-list-window>
   </div>
-
 </div>
 
 <div
@@ -256,13 +251,7 @@
   *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
   (click)="overlayChartClose()"
 >
-  <div
-    class="overlay-chart__body"
-    (click)="$event.stopPropagation()"
-    *ngIf="ewService.event.graphValues"
-  >
-    <evj-line-chart-workspace
-      [dataChartAttribute]="ewService.event.graphValues"
-    ></evj-line-chart-workspace>
+  <div class="overlay-chart__body" (click)="$event.stopPropagation()" *ngIf="ewService.event.graphValues">
+    <evj-line-chart-workspace [dataChartAttribute]="ewService.event.graphValues"></evj-line-chart-workspace>
   </div>
 </div>

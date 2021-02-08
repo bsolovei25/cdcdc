@@ -10,8 +10,7 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './aps-scenario-selection.component.html',
     styleUrls: ['./aps-scenario-selection.component.scss'],
 })
-export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public scenarios: BehaviorSubject<IScenario[]> = new BehaviorSubject<IScenario[]>([]);
     public factorys: {
         name: string;

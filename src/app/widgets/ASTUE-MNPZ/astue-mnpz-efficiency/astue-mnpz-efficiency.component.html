@@ -13,11 +13,7 @@
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
 
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngIf="data.length">
       <ng-container *ngIf="isInitialDataShow">
         <div class="item item_s">

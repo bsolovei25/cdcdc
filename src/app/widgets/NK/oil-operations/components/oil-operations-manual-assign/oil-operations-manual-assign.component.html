@@ -1,17 +1,22 @@
 <div class="container-operation-manual">
-  <div style="height: 100%;">
+  <div style="height: 100%">
     <div class="header">
       <div class="header__button-close" (click)="close()">
-        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-        </svg-icon>
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
       </div>
       <span>Форма привязки операции №: <span>{{ selectedTransfer?.id || '000' }}</span></span>
-      <span>Резервуар №: <span>{{ selectedTransfer?.tank?.shortName  || '000' }}</span></span>
-      <span>Продукт: <span>{{ selectedTransfer?.product?.name  || '-' }}</span></span>
-      <span>Паспорт: <span>{{ selectedTransfer?.passport?.name  || '-' }}</span></span>
-      <span>Период: <span>{{ selectedTransfer?.startTime | date: 'dd.MM.yyyy HH:mm' }} - {{ selectedTransfer?.endTime | date: 'dd.MM.yyyy HH:mm' }}</span></span>
-      <span>Масса операции: <span>{{ selectedTransfer?.mass  || '0' }} т.</span></span>
-      <span>Отклонение: <span class="color-orange">{{ selectedTransfer?.deviation  || '0' }} т.</span></span>
+      <span>Резервуар №: <span>{{ selectedTransfer?.tank?.shortName || '000' }}</span></span>
+      <span>Продукт: <span>{{ selectedTransfer?.product?.name || '-' }}</span></span>
+      <span>Паспорт: <span>{{ selectedTransfer?.passport?.name || '-' }}</span></span>
+      <span
+        >Период:
+        <span
+          >{{ selectedTransfer?.startTime | date: 'dd.MM.yyyy HH:mm' }} - {{ selectedTransfer?.endTime | date:
+          'dd.MM.yyyy HH:mm' }}</span
+        ></span
+      >
+      <span>Масса операции: <span>{{ selectedTransfer?.mass || '0' }} т.</span></span>
+      <span>Отклонение: <span class="color-orange">{{ selectedTransfer?.deviation || '0' }} т.</span></span>
     </div>
     <div class="content">
       <div class="content__left">
@@ -19,7 +24,8 @@
           <svg-icon
             src="assets/icons/widgets/oil-control-all/oil-shipments/shipment-list-table.svg"
             class="table__icon"
-            [svgStyle]="{ 'width.px':40, 'height.px':20 }">
+            [svgStyle]="{ 'width.px':40, 'height.px':20 }"
+          >
           </svg-icon>
           <div class="table__name">Отгрузки</div>
           <div class="table__count">
@@ -43,9 +49,13 @@
                     <div class="direction__icon">
                       <svg-icon
                         src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-                        [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+                        [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }"
+                      >
                       </svg-icon>
-                      <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'" class="icon-cistern">
+                      <img
+                        [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'"
+                        class="icon-cistern"
+                      />
                     </div>
                     <div class="direction__name">{{ item.product?.name }}</div>
                   </div>
@@ -96,7 +106,7 @@
                 matRipple
                 matRippleColor="white"
                 (click)="handleTypeFilter(filter.type)"
-                style="width: 20px;"
+                style="width: 20px"
                 [matTooltip]="'Фильтр по направлению (' + getDirectionCount(filter.type) + ')'"
               >
                 <svg-icon
@@ -107,7 +117,7 @@
               </div>
             </ng-container>
             <div class="checkbox">
-              <label><input type="checkbox" [formControl]="typeFiltersCheckboxFormControl"></label>
+              <label><input type="checkbox" [formControl]="typeFiltersCheckboxFormControl" /></label>
             </div>
           </div>
           <div class="footer__section">
@@ -115,7 +125,7 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Продукт" [formControl]="productFormControl" (keyup)="keyupHandler()">
+                    <input matInput placeholder="Продукт" [formControl]="productFormControl" (keyup)="keyupHandler()" />
                   </label>
                 </mat-form-field>
               </div>
@@ -124,7 +134,12 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Паспорт" [formControl]="passportFormControl" (keyup)="keyupHandler()">
+                    <input
+                      matInput
+                      placeholder="Паспорт"
+                      [formControl]="passportFormControl"
+                      (keyup)="keyupHandler()"
+                    />
                   </label>
                 </mat-form-field>
               </div>
@@ -133,13 +148,13 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Резервуар" [formControl]="tankFormControl" (keyup)="keyupHandler()">
+                    <input matInput placeholder="Резервуар" [formControl]="tankFormControl" (keyup)="keyupHandler()" />
                   </label>
                 </mat-form-field>
               </div>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" [formControl]="fieldFiltersCheckboxFormControl"></label>
+              <label><input type="checkbox" [formControl]="fieldFiltersCheckboxFormControl" /></label>
             </div>
           </div>
           <div class="footer__section">
@@ -156,7 +171,8 @@
           <svg-icon
             src="assets/icons/widgets/oil-control-all/oil-shipments/shipment-to-assign-table.svg"
             class="table__icon"
-            [svgStyle]="{ 'width.px':40, 'height.px':20 }">
+            [svgStyle]="{ 'width.px':40, 'height.px':20 }"
+          >
           </svg-icon>
           <div class="table__name">Отгрузки, привязанные к текущей операции</div>
           <div class="table__count">
@@ -172,7 +188,8 @@
             <svg-icon
               src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
               class="table__icon"
-              [svgStyle]="{ 'width.px':11, 'height.px':13, 'margin-right.px': 6 }">
+              [svgStyle]="{ 'width.px':11, 'height.px':13, 'margin-right.px': 6 }"
+            >
             </svg-icon>
           </div>
         </div>
@@ -184,9 +201,13 @@
                   <div class="direction__icon">
                     <svg-icon
                       src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-                      [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+                      [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }"
+                    >
                     </svg-icon>
-                    <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'" class="icon-cistern">
+                    <img
+                      [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'"
+                      class="icon-cistern"
+                    />
                   </div>
                   <div class="direction__name">{{ item.passport.name }}</div>
                 </div>
@@ -200,7 +221,8 @@
                   (click)="handleRelation(item, 'remove-relation')"
                   src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
                   class="table__icon cursor-pointer"
-                  [svgStyle]="{ 'width.px':11, 'height.px':13 }">
+                  [svgStyle]="{ 'width.px':11, 'height.px':13 }"
+                >
                 </svg-icon>
               </div>
             </div>
@@ -209,28 +231,49 @@
         <div class="footer">
           <div class="footer__section">
             <div class="button">
-              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg"></svg-icon>
+              <svg-icon
+                class="icon-fill"
+                src="assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg"
+              ></svg-icon>
               <span class="color-white">{{ getStatisticsWeightByTransferType('work') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg"></svg-icon>
+              <svg-icon
+                class="icon-fill"
+                src="assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg"
+              ></svg-icon>
               <span class="color-white">{{ getStatisticsWeightByTransferType('railway') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon.svg"></svg-icon>
+              <svg-icon
+                class="icon-fill"
+                src="assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon.svg"
+              ></svg-icon>
               <span class="color-white">{{ getStatisticsWeightByTransferType('tankTruck') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg"></svg-icon>
+              <svg-icon
+                class="icon-fill"
+                src="assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg"
+              ></svg-icon>
               <span class="color-white">{{ getStatisticsWeightByTransferType('pipeline') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg"></svg-icon>
+              <svg-icon
+                class="icon-fill"
+                src="assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg"
+              ></svg-icon>
               <span class="color-white">{{ getStatisticsWeightByTransferType('manual') }} т.</span>
             </div>
           </div>
           <div class="footer__section">
-            <div class="button" style="margin-right: 27px;" matRipple matRippleColor="white" (click)="massRelationRemove()">
+            <div
+              class="button"
+              style="margin-right: 27px"
+              matRipple
+              matRippleColor="white"
+              (click)="massRelationRemove()"
+            >
               <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"></svg-icon>
             </div>
           </div>

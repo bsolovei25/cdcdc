@@ -1,9 +1,4 @@
-<evj-widget-header
-  [isPreview]="true"
-  [icon]="icon"
-  [code]="code"
-  [title]="title"
-></evj-widget-header>
+<evj-widget-header [isPreview]="true" [icon]="icon" [code]="code" [title]="title"></evj-widget-header>
 <evj-frame-top></evj-frame-top>
 <div class="body-container">
   <div class="unity-body-container">
@@ -11,11 +6,7 @@
       <!--      <svg-icon src="assets/icons/widget-preview/dispatcher-screen.svg" class="image-preview" *ngIf="previewTitle"></svg-icon>-->
       <!--      <svg-icon src="assets/icons/widget-preview/default.svg" class="image-preview" *ngIf="!previewTitle"></svg-icon>-->
       <img src="{{route}}{{previewTitle}}{{format}}" class="image-preview" *ngIf="previewTitle" />
-      <img
-        src="assets/icons/widget-preview/default.svg"
-        class="image-preview"
-        *ngIf="!previewTitle"
-      />
+      <img src="assets/icons/widget-preview/default.svg" class="image-preview" *ngIf="!previewTitle" />
     </div>
   </div>
 </div>

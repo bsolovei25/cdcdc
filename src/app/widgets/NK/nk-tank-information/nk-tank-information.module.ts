@@ -14,7 +14,6 @@ import { NkTankInformationCardComponent } from './components/nk-tank-information
 import { NkTankInformationFilterMenuComponent } from './components/nk-tank-information-filter-menu/nk-tank-information-filter-menu.component';
 import { NkTankInformationPasportComponent } from './components/nk-tank-information-pasport/nk-tank-information-pasport.component';
 
-
 @NgModule({
     declarations: [
         NkTankInformationComponent,
@@ -25,15 +24,9 @@ import { NkTankInformationPasportComponent } from './components/nk-tank-informat
         NkTankInformationCardInfoComponent,
         NkTankInformationCardComponent,
         NkTankInformationFilterMenuComponent,
-        NkTankInformationPasportComponent
+        NkTankInformationPasportComponent,
     ],
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        MatTooltipModule,
-        SharedModule,
-        AngularSvgIconModule
-    ]
+    imports: [CommonModule, HttpClientModule, MatTooltipModule, SharedModule, AngularSvgIconModule],
 })
 export class NkTankInformationModule {
     enterComponent = NkTankInformationComponent;

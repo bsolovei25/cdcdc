@@ -1,11 +1,10 @@
 $color-bg-border: rgba(92, 101, 133, 0.25);
-$color-text-label: #D7E2F2;
-$color-text-value: #8A98B3;
-$color-diagram-bg: #0B1325;
-$color-diagram-active: #0089FF;
-$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-text-label: #d7e2f2;
+$color-text-value: #8a98b3;
+$color-diagram-bg: #0b1325;
+$color-diagram-active: #0089ff;
+$color-diagram-sub: rgba(92, 101, 133, 0.2);
 $color-header-bg: rgba(92, 101, 133, 0.1);
-
 
 .panel-container {
   display: flex;
@@ -188,7 +187,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     height: 45px;
     left: 5px;
     top: calc(50% - 45px / 2);
-    border: 2px solid #0089FF;
+    border: 2px solid #0089ff;
     box-sizing: border-box;
     border-radius: 50%;
 
@@ -205,7 +204,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     top: calc(50% - 16px / 2 - 22.5px);
     font-size: 13px;
     line-height: 16px;
-    color: #D7E2F2;
+    color: #d7e2f2;
   }
 
   .percent-value {
@@ -217,7 +216,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     top: calc(50% - 16px / 2);
     font-size: 13px;
     text-align: center;
-    color: #D7E2F2;
+    color: #d7e2f2;
   }
 
   .unit-value {
@@ -228,7 +227,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     top: calc(50% - 16px / 2 + 6.5px);
     font-size: 13px;
     line-height: 16px;
-    color: #D7E2F2;
+    color: #d7e2f2;
   }
 
   .vertical-line {

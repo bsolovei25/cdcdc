@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'evj-period-selector',
     templateUrl: './period-selector.component.html',
-    styleUrls: ['./period-selector.component.scss']
+    styleUrls: ['./period-selector.component.scss'],
 })
 export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
@@ -20,8 +20,7 @@ export class PeriodSelectorComponent implements OnInit {
         private snackBar: SnackBarService,
         private router: Router,
         public route: ActivatedRoute
-    ) {
-    }
+    ) {}
 
     public ngOnInit(): void {
         if (!this.getQueryParams()) {
@@ -74,16 +73,13 @@ export class PeriodSelectorComponent implements OnInit {
 
         if (this.isCurrent) {
             this.widgetService.currentDates$.next(null);
-            this.router.navigate(
-                [],
-                {
-                    queryParams: {
-                        dtStart: null,
-                        dtEnd: null
-                    },
-                    queryParamsHandling: 'merge'
-                }
-            );
+            this.router.navigate([], {
+                queryParams: {
+                    dtStart: null,
+                    dtEnd: null,
+                },
+                queryParamsHandling: 'merge',
+            });
             this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
         } else {
             this.setDates();
@@ -123,18 +119,15 @@ export class PeriodSelectorComponent implements OnInit {
     private setDates(): void {
         const dates = {
             fromDateTime: this.fromDate,
-            toDateTime: this.toDate
+            toDateTime: this.toDate,
         };
-        this.router.navigate(
-            [],
-            {
-                queryParams: {
-                    dtStart: dates.fromDateTime.getTime(),
-                    dtEnd: dates.toDateTime.getTime()
-                },
-                queryParamsHandling: 'merge'
-            }
-        );
+        this.router.navigate([], {
+            queryParams: {
+                dtStart: dates.fromDateTime.getTime(),
+                dtEnd: dates.toDateTime.getTime(),
+            },
+            queryParamsHandling: 'merge',
+        });
         this.widgetService.currentDates$.next(dates);
     }
 }

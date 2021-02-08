@@ -1,18 +1,12 @@
 <div class="container" [matTooltip]="(settings?.value).toString() + '%'">
-  <div
-    class="progress-main"
-    [style]="{'background-color': settings?.barBackgroundColor}"
-  >
+  <div class="progress-main" [style]="{'background-color': settings?.barBackgroundColor}">
     <div
       class="progress-main__bar color"
       [style]="{'background-color': settings?.barColor, 'width': settings?.isGreaterThan100 ? mainValue + '%' : settings?.value + '%'}"
     ></div>
   </div>
   <ng-container *ngIf="settings?.isGreaterThan100">
-    <div
-      class="progress-extension"
-      [style]="{'background-color': settings?.barBackgroundColor}"
-    >
+    <div class="progress-extension" [style]="{'background-color': settings?.barBackgroundColor}">
       <div class="marker">100</div>
       <div
         class="progress-extension__bar color"

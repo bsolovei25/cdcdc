@@ -22,8 +22,7 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
     public mainWorkerPath: string = 'assets/icons/widgets/admin/responsible_icon.svg';
-    public mainWorkerPathDisable: string =
-        'assets/icons/widgets/admin/responsible_icon-disable.svg';
+    public mainWorkerPathDisable: string = 'assets/icons/widgets/admin/responsible_icon-disable.svg';
 
     constructor(
         private adminService: AdminPanelService,

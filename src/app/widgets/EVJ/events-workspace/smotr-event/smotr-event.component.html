@@ -25,10 +25,7 @@
         </evj-ui-block>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button
-          status="escalate"
-          (click)="isEscalatePopupOpen=true"
-        ></evj-events-workspace-button>
+        <evj-events-workspace-button status="escalate" (click)="isEscalatePopupOpen=true"></evj-events-workspace-button>
       </div>
     </div>
     <div class="column__row row">
@@ -42,7 +39,9 @@
               [compareWith]="compareFn"
               [disabled]="true"
             >
-              <mat-option *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
+              <mat-option
+                *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+                [value]="p"
                 >{{ ewService.statuses[p.name] }}
               </mat-option>
             </mat-select>
@@ -108,20 +107,20 @@
         ></evj-events-smotr-icon>
       </div>
       <div class="row__cell cell cell_right">
-<!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
-<!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
-<!--            <mat-label>Приоритет</mat-label>-->
-<!--            <mat-select-->
-<!--              panelClass="mat-select-custom"-->
-<!--              [(ngModel)]="ewService.event.priority"-->
-<!--              [compareWith]="compareFn"-->
-<!--            >-->
-<!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
-<!--                >{{ ewService.priorities[p.name] }}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
-<!--        </evj-ui-block>-->
+        <!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
+        <!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
+        <!--            <mat-label>Приоритет</mat-label>-->
+        <!--            <mat-select-->
+        <!--              panelClass="mat-select-custom"-->
+        <!--              [(ngModel)]="ewService.event.priority"-->
+        <!--              [compareWith]="compareFn"-->
+        <!--            >-->
+        <!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
+        <!--                >{{ ewService.priorities[p.name] }}-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <!--        </evj-ui-block>-->
       </div>
     </div>
     <div class="column__row row">
@@ -141,7 +140,8 @@
         <div class="information__label label">
           <div class="label__title">Дата закрытия</div>
           <div class="label__text">
-            {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
+            {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy |
+            HH:mm"):'-'}}
           </div>
         </div>
       </div>
@@ -156,9 +156,7 @@
       <div class="row__cell cell cell_right information">
         <div class="information__label label">
           <div class="label__title">Производство</div>
-          <div class="label__text">
-            {{this.ewService.event?.branch?this.ewService.event.branch:''}}
-          </div>
+          <div class="label__text">{{this.ewService.event?.branch?this.ewService.event.branch:''}}</div>
         </div>
       </div>
     </div>
@@ -166,17 +164,11 @@
       <div class="row__cell cell cell_left information">
         <div class="information__label label">
           <div class="label__title">ID в Системе-источник</div>
-          <div class="label__text">
-            {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}
-          </div>
+          <div class="label__text">{{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button
-          status="tools"
-          (click)="onClickUrl()"
-          [disabled]="isDisabledUrlButton()"
-        >
+        <evj-events-workspace-button status="tools" (click)="onClickUrl()" [disabled]="isDisabledUrlButton()">
         </evj-events-workspace-button>
       </div>
     </div>
@@ -228,13 +220,7 @@
   *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
   (click)="overlayChartClose()"
 >
-  <div
-    class="overlay-chart__body"
-    (click)="$event.stopPropagation()"
-    *ngIf="ewService.event.graphValues"
-  >
-    <evj-line-chart-workspace
-      [dataChartAttribute]="ewService.event.graphValues"
-    ></evj-line-chart-workspace>
+  <div class="overlay-chart__body" (click)="$event.stopPropagation()" *ngIf="ewService.event.graphValues">
+    <evj-line-chart-workspace [dataChartAttribute]="ewService.event.graphValues"></evj-line-chart-workspace>
   </div>
 </div>

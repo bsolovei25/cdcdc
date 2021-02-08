@@ -4,13 +4,9 @@ import { TruncatedDiagramCounterItemComponent } from './truncated-diagram-counte
 import { TruncatedDiagramCounterComponent } from './truncated-diagram-counter.component';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
     declarations: [TruncatedDiagramCounterItemComponent, TruncatedDiagramCounterComponent],
-    imports: [
-        CommonModule,
-        SharedModule
-    ]
+    imports: [CommonModule, SharedModule],
 })
 export class TruncatedDiagramCounterModule {
     enterComponent = TruncatedDiagramCounterComponent;

@@ -13,23 +13,25 @@
 }
 
 ::ng-deep {
-  .lowerBorder, .higherBorder {
+  .lowerBorder,
+  .higherBorder {
     fill: none;
     stroke-dasharray: 2 1;
     stroke: var(--color-kpe-gaude-additional);
     opacity: 1;
-    &-area{
+    &-area {
       fill: var(--color-kpe-line-diagram-bg);
       opacity: 0.25;
     }
   }
 
-  .lowerColorize, .higherColorize {
+  .lowerColorize,
+  .higherColorize {
     fill: none;
     stroke-dasharray: 2 1;
     stroke: var(--color-astue-onpz-warning);
     opacity: 1;
-    &-area{
+    &-area {
       fill: var(--color-astue-onpz-warning);
       opacity: 0.1;
     }
@@ -129,4 +131,3 @@
     fill: transparent;
   }
 }
-

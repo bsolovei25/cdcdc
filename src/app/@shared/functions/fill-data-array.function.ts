@@ -46,14 +46,11 @@ export function fillDataArray(
         // зачистка повторяющихся дат
         const filteredArray: IChartMini[] = [];
         item.graph.forEach((val, idx, array) => {
-            const filtered = array.filter(
-                (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-            );
+            const filtered = array.filter((el) => el.timeStamp.getTime() === val.timeStamp.getTime());
             val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
             if (
                 !filteredArray.length ||
-                filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                    val.timeStamp.getTime()
+                filteredArray[filteredArray.length - 1].timeStamp.getTime() !== val.timeStamp.getTime()
             ) {
                 filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
             }
@@ -78,9 +75,7 @@ export function fillDataArray(
                 while (item.graph[item.graph.length - 1].timeStamp.getTime() < endTime) {
                     item.graph.push({
                         value: item.graph[item.graph.length - 1].value,
-                        timeStamp: new Date(
-                            item.graph[item.graph.length - 1].timeStamp.getTime() + 1000 * 60 * 60
-                        ),
+                        timeStamp: new Date(item.graph[item.graph.length - 1].timeStamp.getTime() + 1000 * 60 * 60),
                     });
                 }
             }
@@ -157,16 +152,12 @@ export function fillDataArrayChart(
             while (points[points.length - 1].timeStamp.getTime() < endTime) {
                 points.push({
                     value: points[points.length - 1].value,
-                    timeStamp: new Date(
-                        points[points.length - 1].timeStamp.getTime() + 1000 * 60 * 60
-                    ),
+                    timeStamp: new Date(points[points.length - 1].timeStamp.getTime() + 1000 * 60 * 60),
                 });
             }
         }
         // фильтрация по началу и окончанию периода
-        points = points.filter(
-            (g) => g.timeStamp.getTime() >= startTime && g.timeStamp.getTime() <= endTime
-        );
+        points = points.filter((g) => g.timeStamp.getTime() >= startTime && g.timeStamp.getTime() <= endTime);
     }
     return points;
 }

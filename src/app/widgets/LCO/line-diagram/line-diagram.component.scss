@@ -212,7 +212,13 @@
             left: 2px;
             height: 8px;
 
-            background-image: linear-gradient(90deg, var(--color-aps-active), var(--color-aps-active) 33.33%, transparent 33.33%, transparent 100%);
+            background-image: linear-gradient(
+              90deg,
+              var(--color-aps-active),
+              var(--color-aps-active) 33.33%,
+              transparent 33.33%,
+              transparent 100%
+            );
             background-size: 3px 100%;
 
             &--white {
@@ -230,7 +236,13 @@
           &__warning {
             position: absolute;
             height: 8px;
-            background-image: linear-gradient(90deg, var(--color-cd-warning), var(--color-cd-warning) 33.33%, transparent 33.33%, transparent 100%);
+            background-image: linear-gradient(
+              90deg,
+              var(--color-cd-warning),
+              var(--color-cd-warning) 33.33%,
+              transparent 33.33%,
+              transparent 100%
+            );
             background-size: 3px 100%;
 
             &--line {
@@ -260,7 +272,6 @@
       }
     }
 
-
     &__max-graph {
       margin-left: 10px;
       flex-basis: 20%;
@@ -271,9 +282,6 @@
         border-radius: 5px;
         font-size: 16px;
       }
-
     }
   }
 }
-
-

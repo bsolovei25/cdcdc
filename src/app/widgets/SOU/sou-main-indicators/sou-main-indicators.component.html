@@ -5,10 +5,7 @@
     type="astue"
     icon="pie"
   ></evj-contemporary-widget-header>
-  <div class="content"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div *ngIf="!!(data$ | async)" class="block">
       <div class="block__header">
         <div class="title">
@@ -21,7 +18,7 @@
           <evj-kpe-gauge-chart
             [fact]="(data$ | async).reductionSpeed?.diagram?.fact || 0"
             [plan]="(data$ | async).reductionSpeed?.diagram?.plan || 0"
-            background=sou
+            background="sou"
             [style.width.%]="100"
           ></evj-kpe-gauge-chart>
         </div>
@@ -30,7 +27,8 @@
             <span class="property__name">{{getFormattedData(card.date)}}</span>
             <div class="property__value">
               <svg-icon
-                [src]="'assets/icons/widgets/SOU/sou-main-indicators/' + (card.value < 0 ? 'dec' : 'inc') + '.svg'"></svg-icon>
+                [src]="'assets/icons/widgets/SOU/sou-main-indicators/' + (card.value < 0 ? 'dec' : 'inc') + '.svg'"
+              ></svg-icon>
               <span [class]="card.value < 0 ? 'dec' : 'inc'"> {{card.value > 0 ? card.value : -1 * card.value}} </span>
             </div>
           </div>
@@ -49,7 +47,9 @@
             *ngFor="let item of menu; let i = index"
             [ngClass]="{'menu__item_active': i === choosenItem}"
             (click)="changeMenuItem(i)"
-          >{{item}}</div>
+          >
+            {{item}}
+          </div>
         </div>
       </div>
       <div class="block__body">
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="block" >
+    <div class="block">
       <div class="block__header">
         <div class="title">
           <span class="title__item">{{(data$ | async)?.formationSpeed?.title + ','}}</span>
@@ -80,7 +80,7 @@
           <evj-kpe-gauge-chart
             [fact]="(data$ | async)?.formationSpeed?.diagram?.fact || 0"
             [plan]="(data$ | async)?.formationSpeed?.diagram?.plan || 0"
-            background=sou
+            background="sou"
             [style.width.%]="100"
           ></evj-kpe-gauge-chart>
         </div>
@@ -98,21 +98,28 @@
       <div class="block">
         <div class="block__header">
           <div class="title">
-            <span class="title__item">{{(data$ | async)?.errorsOperations?.title + ','}} <span
-              class="unit">{{(data$ | async)?.errorsOperations?.units}}</span> </span>
+            <span class="title__item"
+              >{{(data$ | async)?.errorsOperations?.title + ','}}
+              <span class="unit">{{(data$ | async)?.errorsOperations?.units}}</span>
+            </span>
           </div>
         </div>
         <div class="block__body">
           <div class="main">
-            <span><span>{{(data$ | async)?.errorsOperations?.value}}</span>/{{(data$ | async)?.errorsOperations?.maxValue}}</span>
+            <span
+              ><span>{{(data$ | async)?.errorsOperations?.value}}</span>/{{(data$ |
+              async)?.errorsOperations?.maxValue}}</span
+            >
           </div>
         </div>
       </div>
       <div class="block">
         <div class="block__header">
           <div class="title">
-            <span class="title__item">{{(data$ | async)?.errorsRude?.title + ','}} <span
-              class="unit">{{(data$ | async)?.errorsRude?.units}}</span> </span>
+            <span class="title__item"
+              >{{(data$ | async)?.errorsRude?.title + ','}}
+              <span class="unit">{{(data$ | async)?.errorsRude?.units}}</span>
+            </span>
           </div>
         </div>
         <div class="block__body">
@@ -157,4 +164,3 @@
     </div>
   </div>
 </div>
-

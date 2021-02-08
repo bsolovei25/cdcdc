@@ -3,11 +3,19 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from '@circlon/angular-tree-component';
-import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
+import {
+    IReportTemplate,
+    ITreeFolderMap,
+    ITemplate,
+    ISystemOptions,
+    IReportFile,
+    ISystemOptionsTemplate,
+    IFolder,
+    IPostSystemOptionsTemplate,
+} from 'src/app/dashboard/models/ADMIN/report-server';
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -35,7 +43,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
             transition('expanded => collapsed', animate('150ms ease-out')),
         ]),
     ],
-    providers: [TreeDraggedElement]
+    providers: [TreeDraggedElement],
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild(TreeComponent) private tree: TreeComponent;
@@ -106,7 +114,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             default1: true,
         },
         hiddenNodeIds: {},
-        activeNodeIds: {}
+        activeNodeIds: {},
     };
 
     optionsTree: ITreeOptions = {
@@ -115,8 +123,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         getNodeClone: (node) => ({
             ...node.data,
             id: this.randomInt(1, 1000000),
-            name: `copy of ${node.data.name}`
-        })
+            name: `copy of ${node.data.name}`,
+        }),
     };
 
     constructor(
@@ -138,11 +146,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        this.subscriptions.push(
-            this.getReportFolder(),
-            this.getRecordFile(),
-            this.getReportTemplate(),
-        );
+        this.subscriptions.push(this.getReportFolder(), this.getRecordFile(), this.getReportTemplate());
     }
 
     ngOnDestroy(): void {
@@ -154,29 +158,26 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         this.setStyleScroll();
     }
 
-
     setStyleScroll(): void {
         const rightScroll = document.getElementById('rightScrollReportConfig');
         const leftScroll = document.getElementById('leftScrollReportConfig');
 
         if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
-                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+                rightScroll.style.cssText = 'margin-left: 5px; width: calc(100% - 5px);';
             } else {
-                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
-
+                rightScroll.style.cssText = 'margin-left: 10px; width: calc(100% - 10px);';
             }
         }
 
         if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: 0px; width: calc(100% - 5px);';
             } else {
-                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: -5px; width: calc(100% - 5px);';
             }
         }
     }
-
 
     protected dataHandler(ref: any): void {
         //this.data = ref;
@@ -187,86 +188,100 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     }
 
     getReportFolder(): Subscription {
-        return this.reportService.getTemplateFolder().subscribe(ans => {
-            this.dataFolder = this.mapData(ans);
-        },
+        return this.reportService.getTemplateFolder().subscribe(
+            (ans) => {
+                this.dataFolder = this.mapData(ans);
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-            });
+            }
+        );
     }
 
     getReportTemplate(): Subscription {
         this.isLoading = true;
-        return this.reportService.getReportTemplate().subscribe((data) => {
-            this.data = data;
-            this.setStyleScroll();
-            this.isLoading = false;
-        },
+        return this.reportService.getReportTemplate().subscribe(
+            (data) => {
+                this.data = data;
+                this.setStyleScroll();
+                this.isLoading = false;
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                 this.isLoading = false;
-            });
+            }
+        );
     }
 
     // Get system-options
     getOptions(): Subscription {
-        return this.reportService.getSystemOptions().subscribe((data) => {
-            this.mapOptions(data);
-        },
+        return this.reportService.getSystemOptions().subscribe(
+            (data) => {
+                this.mapOptions(data);
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-            });
+            }
+        );
     }
 
     getReporting(id: number): Subscription {
         this.selectFile = {};
         this.isLoading = true;
-        return this.reportService.getReporting(id).subscribe((ans) => {
-            if (ans?.fileTemplate) {
-                this.selectFile = ans.fileTemplate;
-            }
-            this.reportTemplate = ans;
-            this.optionsActive = ans.systemOptions;
-            this.optionsCustom = ans;
-            this.isLoading = false;
-            this.setStyleScroll();
-        },
+        return this.reportService.getReporting(id).subscribe(
+            (ans) => {
+                if (ans?.fileTemplate) {
+                    this.selectFile = ans.fileTemplate;
+                }
+                this.reportTemplate = ans;
+                this.optionsActive = ans.systemOptions;
+                this.optionsCustom = ans;
+                this.isLoading = false;
+                this.setStyleScroll();
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-            });
+            }
+        );
     }
 
     getRecordFile(): Subscription {
         this.isLoading = true;
-        return this.reportService.getReportFileTemplate().subscribe(ans => {
-            this.dataFile = ans;
-            this.isLoading = false;
-        },
+        return this.reportService.getReportFileTemplate().subscribe(
+            (ans) => {
+                this.dataFile = ans;
+                this.isLoading = false;
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                 this.isLoading = false;
-            });
+            }
+        );
     }
 
     putReportTemplate(template): void {
         this.isLoading = true;
-        this.reportService.putReportTemplate(template).subscribe((ans) => {
-            this.getReportTemplate();
-            this.isLoading = false;
-        },
+        this.reportService.putReportTemplate(template).subscribe(
+            (ans) => {
+                this.getReportTemplate();
+                this.isLoading = false;
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                 this.isLoading = false;
-            });
+            }
+        );
     }
 
     putFolder(folder): void {
-        this.reportService.putFolderTemplate(folder).subscribe(ans => {
-            console.log(ans);
-        },
+        this.reportService.putFolderTemplate(folder).subscribe(
+            (ans) => {
+                console.log(ans);
+            },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-            });
+            }
+        );
     }
 
     // Delete template
@@ -277,16 +292,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService
-                .deleteReportTemplate(item.idTemplate).subscribe(ans => {
-                    this.isLoading = false;
-                    this.getReportFolder();
-                }, (error) => {
-                    this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                    this.isLoading = false;
-                }),
+            acceptFunction: () =>
+                this.reportService.deleteReportTemplate(item.idTemplate).subscribe(
+                    (ans) => {
+                        this.isLoading = false;
+                        this.getReportFolder();
+                    },
+                    (error) => {
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.isLoading = false;
+                    }
+                ),
             closeFunction: () => this.reportService.closeAlert(),
-            cancelFunction: () => { },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -299,18 +317,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             questionText: 'Вы уверены, что хотите удалить папку?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService.deleteFolder(item.idFolder).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-            }, (error) => {
-                this.isLoading = false;
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-            }),
+            acceptFunction: () =>
+                this.reportService.deleteFolder(item.idFolder).subscribe(
+                    (ans) => {
+                        this.isLoading = false;
+                        this.getReportFolder();
+                    },
+                    (error) => {
+                        this.isLoading = false;
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                    }
+                ),
             closeFunction: () => {
                 this.reportService.closeAlert();
                 this.isLoading = false;
             },
-            cancelFunction: () => { },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -331,7 +353,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 createdAt: item.createdAt,
                 isDeleted: item.isDeleted,
                 children: [],
-            }
+            };
             dataTreeItem.push(templateObj);
         }
         const testObject = {
@@ -340,7 +362,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             type: 'Folder',
             idFolder: 0,
             children: dataTreeItem,
-        }
+        };
         const test = [];
         test.push(testObject);
         return test;
@@ -356,7 +378,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 name: i.name,
                 type: 'Folder',
                 children: this.mapDataFolder(i?.childFolders),
-            }
+            };
             for (let temp of i.templates) {
                 let templateObj = {
                     id: 'temp' + temp.id,
@@ -369,7 +391,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                     createdAt: temp.createdAt,
                     isDeleted: temp.isDeleted,
                     children: [],
-                }
+                };
                 obj.children.push(templateObj);
             }
             test.push(obj);
@@ -420,7 +442,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => { },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -446,7 +468,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => { },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -473,14 +495,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             this.optionsActive = [];
             this.setStyleScroll();
         }
-
     }
 
     //OnClick Template system-options
 
     onClickParamReference(item: ISystemOptionsTemplate): void {
-        if (item.templateSystemOption.
-            systemOptionType === 'customOptions') {
+        if (item.templateSystemOption.systemOptionType === 'customOptions') {
             this.popupUserCustomOptions = true;
             this.popupUserOptions = true;
         } else {
@@ -514,7 +534,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.popupOptionsActive = item;
                 this.popupUserOptions = true;
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -539,13 +560,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         if (item.isActive) {
             this.optionsActive.push(obj);
         } else {
-            const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
+            const index = this.optionsActive.findIndex((e) => e.templateSystemOption.id === item.id);
             this.optionsActive.splice(index, 1);
         }
     }
 
     changeSwapSystemOptions(item: any): void {
-        (item.value === 'true') ? item.value = 'false' : item.value = 'true';
+        item.value === 'true' ? (item.value = 'false') : (item.value = 'true');
     }
 
     //PUSH INPUT FOR FOLDER/TEMPLATE
@@ -573,29 +594,33 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                     name: this.newRecord,
                     parentFolderId: this.folderActive,
                 };
-                this.reportService.postTemplateFolder(object).subscribe(ans => {
-                    this.addItem = false;
-                    this.isLoading = false;
-                    this.getReportFolder();
-                },
+                this.reportService.postTemplateFolder(object).subscribe(
+                    (ans) => {
+                        this.addItem = false;
+                        this.isLoading = false;
+                        this.getReportFolder();
+                    },
                     (error) => {
                         this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                    });
+                    }
+                );
             }
 
             if (this.createReport) {
                 const object = {
                     name: this.newRecord,
-                    folderId: (this.folderActive === 0) ? undefined : this.folderActive,
+                    folderId: this.folderActive === 0 ? undefined : this.folderActive,
                 };
-                this.reportService.postReportTemplate(object).subscribe(ans => {
-                    this.addItem = false;
-                    this.isLoading = false;
-                    this.getReportFolder();
-                },
+                this.reportService.postReportTemplate(object).subscribe(
+                    (ans) => {
+                        this.addItem = false;
+                        this.isLoading = false;
+                        this.getReportFolder();
+                    },
                     (error) => {
                         this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                    });
+                    }
+                );
             }
             this.newRecord = null;
         } else {
@@ -621,10 +646,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         for (let i of this.optionsActive) {
             objItem = {
                 templateSystemOption: {
-                    id: i.templateSystemOption.id
+                    id: i.templateSystemOption.id,
                 },
                 value: i.value,
-            }
+            };
 
             optionObject.push(objItem);
         }
@@ -640,20 +665,20 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
             questionText: 'Применить внесенные изменения?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
-                this.materialController.openSnackBar(
-                    'Файл-шаблон сохранен'
-                );
-                this.getReporting(this.isIdReport);
-            }, (error) => {
-                this.materialController.openSnackBar(
-                    'Выберите файл'
-                );
-            }),
+            acceptFunction: () =>
+                this.reportService.postSystemOptions(itemId, obj).subscribe(
+                    (ans) => {
+                        this.materialController.openSnackBar('Файл-шаблон сохранен');
+                        this.getReporting(this.isIdReport);
+                    },
+                    (error) => {
+                        this.materialController.openSnackBar('Выберите файл');
+                    }
+                ),
             closeFunction: () => {
                 this.reportService.closeAlert();
             },
-            cancelFunction: () => { },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -677,7 +702,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     // Click on Folder
 
     onFolder(event): void {
-        if (event.type === "Folder") {
+        if (event.type === 'Folder') {
             if (event.id === this.folderIdActive) {
                 this.folderIdActive = 'default1';
                 this.folderActive = 0;
@@ -709,14 +734,14 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     // Drop on tree
 
     onMovedItem(event): void {
-        if (event.node.type === "Folder") {
+        if (event.node.type === 'Folder') {
             const obj = {
                 id: event.node.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.idFolder,
             };
             this.putFolder(obj);
-        } else if (event.node.type === "Template") {
+        } else if (event.node.type === 'Template') {
             const obj = {
                 createdAt: event.node.createdAt,
                 createdBy: event.node.createdBy,
@@ -725,10 +750,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 id: event.node.idTemplate,
                 name: event.node.name,
                 folderId: event.to.parent.idFolder,
-            }
+            };
             this.putReportTemplate(obj);
         }
-
     }
 
     updateFiletemplate(event): void {
@@ -743,11 +767,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
 
     selectBoxFile(event): void {
         this.isSelectBox = false;
-        this.selectFile = this.dataFile.find(e => e.fileId === event.fileId);
+        this.selectFile = this.dataFile.find((e) => e.fileId === event.fileId);
     }
 
     closeSelectBox(): void {
         this.isSelectBox = false;
     }
-
 }

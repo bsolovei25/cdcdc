@@ -90,7 +90,7 @@ table {
 
     .shadow {
       display: none;
-      pointer-events: none
+      pointer-events: none;
     }
   }
 
@@ -124,7 +124,7 @@ table {
             position: absolute;
             left: 0;
 
-            pointer-events: none
+            pointer-events: none;
           }
         }
       }
@@ -138,7 +138,7 @@ table {
     input {
       height: 30px;
       flex: 1;
-      
+
       padding: 0 5px 0 5px;
       background: transparent;
       outline: none;
@@ -169,7 +169,7 @@ table {
             background: linear-gradient(90deg, var(--color-aps-active) 0%, transparent 83.8%);
             opacity: 0.4;
 
-            pointer-events: none
+            pointer-events: none;
           }
         }
       }

@@ -4,16 +4,10 @@ import { TriggeringCriticalParametersComponent } from './triggering-critical-par
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
-  declarations: [ TriggeringCriticalParametersComponent ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule
-  ]
+    declarations: [TriggeringCriticalParametersComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class TriggeringCriticalParametersModule {
-  enterComponent = TriggeringCriticalParametersComponent;
+    enterComponent = TriggeringCriticalParametersComponent;
 }

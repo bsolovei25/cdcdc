@@ -32,10 +32,7 @@ export class Result<X> implements IResult {
     }
 
     static create<Y = undefined>(code?: CoreResultCodeEnum, comment?: string, data?: Y): Result<Y>;
-    static create<Y = undefined>(
-        codeError?: CoreResultCodeEnum | Error,
-        comment?: string
-    ): Result<Y> {
+    static create<Y = undefined>(codeError?: CoreResultCodeEnum | Error, comment?: string): Result<Y> {
         if (codeError) {
             // result from result code
             if (typeof codeError === 'number') {
@@ -45,10 +42,7 @@ export class Result<X> implements IResult {
             if (codeError instanceof Error) {
                 // result from Error
                 console.error(codeError);
-                return new Result<Y>().setResult(
-                    CoreResultCodeEnum.unhandledError,
-                    codeError.message
-                );
+                return new Result<Y>().setResult(CoreResultCodeEnum.unhandledError, codeError.message);
             }
         }
         // new empty Result
@@ -59,12 +53,7 @@ export class Result<X> implements IResult {
         return new Result<Y>().setResult(otherResult.code, otherResult.comment);
     }
 
-    setResult(
-        code: CoreResultCodeEnum,
-        comment?: string,
-        httpCode?: number,
-        responseData?: HttpEvent<X>
-    ): Result<X> {
+    setResult(code: CoreResultCodeEnum, comment?: string, httpCode?: number, responseData?: HttpEvent<X>): Result<X> {
         this.code = code;
         this.description = getResultDescription(code);
         this.comment = comment;

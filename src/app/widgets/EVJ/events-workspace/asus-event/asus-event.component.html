@@ -1,4 +1,9 @@
-<div class="asus" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+<div
+  class="asus"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
+>
   <div class="asus__column column column_left">
     <div class="column__row row">
       <div class="row__cell cell cell_left">
@@ -29,10 +34,7 @@
               [value]="ewService.event.asusEvent.category"
               [compareWith]="compareFn"
             >
-              <mat-option
-                *ngFor="let category of ewService.asusCategories"
-                [value]="category?.name"
-              >
+              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category?.name">
                 {{ category?.name }}
               </mat-option>
             </mat-select>
@@ -51,7 +53,9 @@
               [compareWith]="compareFn"
               [disabled]="true"
             >
-              <mat-option *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
+              <mat-option
+                *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+                [value]="p"
                 >{{ ewService.statuses[p.name] }}
               </mat-option>
             </mat-select>
@@ -68,9 +72,7 @@
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
-              <mat-option *ngFor="let p of ewService.asusUnits$ | async" [value]="p.codeSap"
-                >{{ p.name }}
-              </mat-option>
+              <mat-option *ngFor="let p of ewService.asusUnits$ | async" [value]="p.codeSap">{{ p.name }} </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
@@ -114,37 +116,37 @@
         </div>
       </div>
     </div>
-<!--    <div class="column__row row datepicker">-->
-<!--      <div class="datepicker__title">Крайний срок</div>-->
-<!--      <div class="datepicker__body">-->
-<!--        <div class="row__cell cell cell_left">-->
-<!--          <evj-ui-block status="normal">-->
-<!--            <div class="date">-->
-<!--              <div class="date__name">Срок реакции</div>-->
-<!--              <evj-time-data-picker-->
-<!--                class="date__date"-->
-<!--                [data]="ewService.event.asusEvent?.datetimeReaction"-->
-<!--                (dateTimePicker)="dateTimePicker($event)"-->
-<!--                [disabled]="true"-->
-<!--              ></evj-time-data-picker>-->
-<!--            </div>-->
-<!--          </evj-ui-block>-->
-<!--        </div>-->
-<!--        <div class="row__cell cell cell_right">-->
-<!--          <evj-ui-block status="normal">-->
-<!--            <div class="date">-->
-<!--              <div class="date__name">Дата начала работ</div>-->
-<!--              <evj-time-data-picker-->
-<!--                class="date__date"-->
-<!--                [data]="ewService.event.asusEvent?.datetimeStart"-->
-<!--                (dateTimePicker)="dateTimePicker($event)"-->
-<!--                [disabled]="true"-->
-<!--              ></evj-time-data-picker>-->
-<!--            </div>-->
-<!--          </evj-ui-block>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="column__row row datepicker">-->
+    <!--      <div class="datepicker__title">Крайний срок</div>-->
+    <!--      <div class="datepicker__body">-->
+    <!--        <div class="row__cell cell cell_left">-->
+    <!--          <evj-ui-block status="normal">-->
+    <!--            <div class="date">-->
+    <!--              <div class="date__name">Срок реакции</div>-->
+    <!--              <evj-time-data-picker-->
+    <!--                class="date__date"-->
+    <!--                [data]="ewService.event.asusEvent?.datetimeReaction"-->
+    <!--                (dateTimePicker)="dateTimePicker($event)"-->
+    <!--                [disabled]="true"-->
+    <!--              ></evj-time-data-picker>-->
+    <!--            </div>-->
+    <!--          </evj-ui-block>-->
+    <!--        </div>-->
+    <!--        <div class="row__cell cell cell_right">-->
+    <!--          <evj-ui-block status="normal">-->
+    <!--            <div class="date">-->
+    <!--              <div class="date__name">Дата начала работ</div>-->
+    <!--              <evj-time-data-picker-->
+    <!--                class="date__date"-->
+    <!--                [data]="ewService.event.asusEvent?.datetimeStart"-->
+    <!--                (dateTimePicker)="dateTimePicker($event)"-->
+    <!--                [disabled]="true"-->
+    <!--              ></evj-time-data-picker>-->
+    <!--            </div>-->
+    <!--          </evj-ui-block>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
   <div class="asus__column column column_right">
     <div class="column__row row">
@@ -159,97 +161,85 @@
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
             >
-              <mat-option
-                *ngFor="let equipment of ewService.asusEquipments"
-                [value]="equipment.codeSap"
-              >{{ equipment.name }}
+              <mat-option *ngFor="let equipment of ewService.asusEquipments" [value]="equipment.codeSap"
+                >{{ equipment.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
-<!--        <evj-ui-block status="normal">-->
-<!--          <mat-form-field class="status">-->
-<!--            <mat-label>Услуга</mat-label>-->
-<!--            <mat-select-->
-<!--              panelClass="mat-select-custom"-->
-<!--              [disabled]="isCreateEvent()"-->
-<!--              [(ngModel)]="ewService.event.asusEvent.service"-->
-<!--            >-->
-<!--              <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"-->
-<!--                >{{ service.name }}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
-<!--        </evj-ui-block>-->
+        <!--        <evj-ui-block status="normal">-->
+        <!--          <mat-form-field class="status">-->
+        <!--            <mat-label>Услуга</mat-label>-->
+        <!--            <mat-select-->
+        <!--              panelClass="mat-select-custom"-->
+        <!--              [disabled]="isCreateEvent()"-->
+        <!--              [(ngModel)]="ewService.event.asusEvent.service"-->
+        <!--            >-->
+        <!--              <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"-->
+        <!--                >{{ service.name }}-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <!--        </evj-ui-block>-->
       </div>
       <div class="row__cell cell cell_right">
-<!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
-<!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
-<!--            <mat-label>Приоритет</mat-label>-->
-<!--            <mat-select-->
-<!--              panelClass="mat-select-custom"-->
-<!--              [(ngModel)]="ewService.event.priority"-->
-<!--              [compareWith]="compareFn"-->
-<!--              [disabled]="true"-->
-<!--            >-->
-<!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
-<!--                >{{ ewService.priorities[p.name] }}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
-<!--        </evj-ui-block>-->
+        <!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
+        <!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
+        <!--            <mat-label>Приоритет</mat-label>-->
+        <!--            <mat-select-->
+        <!--              panelClass="mat-select-custom"-->
+        <!--              [(ngModel)]="ewService.event.priority"-->
+        <!--              [compareWith]="compareFn"-->
+        <!--              [disabled]="true"-->
+        <!--            >-->
+        <!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
+        <!--                >{{ ewService.priorities[p.name] }}-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <!--        </evj-ui-block>-->
       </div>
     </div>
     <div class="column__row row">
       <div class="row__cell cell cell_left">
         <evj-ui-block status="normal">
           <mat-form-field class="status">
-<!--            [disabled]="isCreateEvent() || !isAvailableOption('eoService')"-->
-<!--            (click)="optionClick('eoService')"-->
+            <!--            [disabled]="isCreateEvent() || !isAvailableOption('eoService')"-->
+            <!--            (click)="optionClick('eoService')"-->
             <mat-label>Единица обслуживания</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              disabled
-              [(ngModel)]="ewService.event.asusEvent.eoService"
-            >
-              <mat-option
-                *ngFor="let eoService of ewService.asusEOServices"
-                [value]="eoService.codeSap"
-              >{{ eoService.name }}
+            <mat-select panelClass="mat-select-custom" disabled [(ngModel)]="ewService.event.asusEvent.eoService">
+              <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
+                >{{ eoService.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
       <div class="row__cell cell cell_right">
-<!--        <evj-ui-block status="normal">-->
-<!--          <mat-form-field class="status">-->
-<!--            <mat-label>Рабочая группа</mat-label>-->
-<!--            <mat-select-->
-<!--              panelClass="mat-select-custom"-->
-<!--              [disabled]="isCreateEvent()"-->
-<!--              [(ngModel)]="ewService.event.asusEvent.workGroup"-->
-<!--            >-->
-<!--              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"-->
-<!--              >{{ workgroup.name }}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
-<!--        </evj-ui-block>-->
+        <!--        <evj-ui-block status="normal">-->
+        <!--          <mat-form-field class="status">-->
+        <!--            <mat-label>Рабочая группа</mat-label>-->
+        <!--            <mat-select-->
+        <!--              panelClass="mat-select-custom"-->
+        <!--              [disabled]="isCreateEvent()"-->
+        <!--              [(ngModel)]="ewService.event.asusEvent.workGroup"-->
+        <!--            >-->
+        <!--              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"-->
+        <!--              >{{ workgroup.name }}-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <!--        </evj-ui-block>-->
       </div>
     </div>
     <div class="column__row row">
       <div class="row__cell cell cell_left information">
         <div class="label">
           <div class="label__title">Автор</div>
-          <div class="label__text">
-            {{this.ewService.event.asusEvent?.consumer || 'Не установлен'}}
-          </div>
+          <div class="label__text">{{this.ewService.event.asusEvent?.consumer || 'Не установлен'}}</div>
         </div>
       </div>
-      <div class="row__cell cell cell_right">
-
-      </div>
+      <div class="row__cell cell cell_right"></div>
     </div>
     <div class="column__row row">
       <div class="row__cell cell cell_left information">
@@ -263,9 +253,7 @@
       <div class="row__cell cell cell_right information">
         <div class="label">
           <div class="label__title">Дата регистрации</div>
-          <div class="label__text">
-            {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}
-          </div>
+          <div class="label__text">{{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}</div>
         </div>
       </div>
     </div>

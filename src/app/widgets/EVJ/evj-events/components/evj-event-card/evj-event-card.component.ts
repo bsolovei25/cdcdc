@@ -1,28 +1,27 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
     IEventsWidgetNotificationPreview,
-    EventsWidgetNotificationStatus
+    EventsWidgetNotificationStatus,
 } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 
 export const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))])
+    transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))]),
 ]);
 
 @Component({
     selector: 'evj-evj-event-card',
     templateUrl: './evj-event-card.component.html',
     styleUrls: ['./evj-event-card.component.scss'],
-    animations: [fadeAnimation]
+    animations: [fadeAnimation],
 })
 export class EvjEventCardComponent implements OnInit {
-
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
@@ -38,11 +37,9 @@ export class EvjEventCardComponent implements OnInit {
     @Output()
     public selectionExpandedElement: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private eventService: EventService) {
-    }
+    constructor(private eventService: EventService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -56,10 +53,7 @@ export class EvjEventCardComponent implements OnInit {
     public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
-            const a = await this.eventService.changeEventIsAcknowledged(
-                eventCard.id,
-                eventCard.isAcknowledged
-            );
+            const a = await this.eventService.changeEventIsAcknowledged(eventCard.id, eventCard.isAcknowledged);
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
@@ -70,5 +64,4 @@ export class EvjEventCardComponent implements OnInit {
         this.expandedElement.toggle(id);
         this.selectionExpandedElement.emit();
     }
-
 }

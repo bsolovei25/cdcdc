@@ -13,8 +13,7 @@ import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.servi
     templateUrl: './ozsm-circle-planning-diagram.component.html',
     styleUrls: ['./ozsm-circle-planning-diagram.component.scss'],
 })
-export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public cData: ICircleData[] = cardData;
     public pData: ICircleData[] = [];
     constructor(

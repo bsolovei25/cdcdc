@@ -1,100 +1,81 @@
 <div class="container pointer-event">
-  <evj-contemporary-widget-header
-    [uniqId]="widgetUniqId"
-    [widgetTitle]="widgetTitle"
-    icon="diagram"
-  >
+  <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="diagram">
   </evj-contemporary-widget-header>
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <table class="table">
       <thead class="table__header">
-      <tr class="table__header__row">
-        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          {{ column.name }}
-        </th>
-      </tr>
+        <tr class="table__header__row">
+          <th *ngFor="let column of columnsToDisplay" class="table__header__column">{{ column.name }}</th>
+        </tr>
       </thead>
       <tbody class="table__body">
-      <ng-container *ngFor="let element of data">
-        <tr
-          class="table__body__row"
-          [class.last-tr]="element?.name === 'last-row'"
-          [class.table__body__row--active]="selectedRowProduct === element.name"
-        >
-          <ng-container *ngIf="element.name !== 'last-row'">
-            <td
-              *ngFor="let column of columnsToDisplay"
-              class="table__body__column"
-              [class.table__body__column--active]="selectedRowProduct === element.name"
-              [class.table__body__column--active--warning]="element.deviation !== 0 && selectedRowProduct === element.name"
-              [class.table__body__column--warning]="element.deviation !== 0"
-              (click)="onClickRow($event, element)"
-            >
-              <ng-container *ngIf="column.name === 'Мат. поток'">
-                <div
-                  (click)="onClickRow($event, element)"
-                  class="table__body__column__row-title"
-                  [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
-                  [class.table__body__column__row-title__border-warning]="element.deviation !== 0"
-                >
-                  <svg-icon
-                    *ngIf="selectedRowProduct !== element.name && element.deviation === 0;"
-                    class="table__body__column__row-title__icon__background"
-                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
+        <ng-container *ngFor="let element of data">
+          <tr
+            class="table__body__row"
+            [class.last-tr]="element?.name === 'last-row'"
+            [class.table__body__row--active]="selectedRowProduct === element.name"
+          >
+            <ng-container *ngIf="element.name !== 'last-row'">
+              <td
+                *ngFor="let column of columnsToDisplay"
+                class="table__body__column"
+                [class.table__body__column--active]="selectedRowProduct === element.name"
+                [class.table__body__column--active--warning]="element.deviation !== 0 && selectedRowProduct === element.name"
+                [class.table__body__column--warning]="element.deviation !== 0"
+                (click)="onClickRow($event, element)"
+              >
+                <ng-container *ngIf="column.name === 'Мат. поток'">
+                  <div
+                    (click)="onClickRow($event, element)"
+                    class="table__body__column__row-title"
+                    [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
+                    [class.table__body__column__row-title__border-warning]="element.deviation !== 0"
                   >
-                  </svg-icon>
-                  <svg-icon
-                    *ngIf="selectedRowProduct === element.name && element.deviation === 0"
-                    class="table__body__column__row-title__icon__background"
-                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
-                  >
-                  </svg-icon>
-                  <svg-icon
-                    *ngIf="element.deviation !== 0"
-                    class="table__body__column__row-title__icon__background--orange-name"
-                    src="assets/icons/widgets/CD/cd-deviation-mat/gradient_orange.svg"
-                  >
-                  </svg-icon>
+                    <svg-icon
+                      *ngIf="selectedRowProduct !== element.name && element.deviation === 0;"
+                      class="table__body__column__row-title__icon__background"
+                      src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="selectedRowProduct === element.name && element.deviation === 0"
+                      class="table__body__column__row-title__icon__background"
+                      src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="element.deviation !== 0"
+                      class="table__body__column__row-title__icon__background--orange-name"
+                      src="assets/icons/widgets/CD/cd-deviation-mat/gradient_orange.svg"
+                    >
+                    </svg-icon>
 
-
-                  <span class="table__body__column__row-title__text__name"
-                  >{{ element.name }}
-                    </span>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="column.name === 'Факт'">
-                  <span
-                    class="table__body__column__row-title__value"
-                  >{{ element.totalValue.toFixed(0) }}</span
-                  >
-              </ng-container>
-              <ng-container *ngIf="column.name === 'Модель'">
-                  <span
-                    class="table__body__column__row-title__value"
-                  >{{ element.totalModelValue.toFixed(0) }}</span
-                  >
-              </ng-container>
-              <ng-container *ngIf="column.name === '∆'">
+                    <span class="table__body__column__row-title__text__name">{{ element.name }} </span>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="column.name === 'Факт'">
+                  <span class="table__body__column__row-title__value">{{ element.totalValue.toFixed(0) }}</span>
+                </ng-container>
+                <ng-container *ngIf="column.name === 'Модель'">
+                  <span class="table__body__column__row-title__value">{{ element.totalModelValue.toFixed(0) }}</span>
+                </ng-container>
+                <ng-container *ngIf="column.name === '∆'">
                   <span
                     class="table__body__column__row-title__value"
                     [class.table__body__column__row-title__value-orange]="element.deviation !== 0"
-                  >{{ element.totalDeviation.toFixed(0) }}</span
+                    >{{ element.totalDeviation.toFixed(0) }}</span
                   >
-                <svg-icon
-                  *ngIf="element.deviation !== 0"
-                  class="table__body__column__row-title__icon__background--orange"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
-                >
-                </svg-icon>
-              </ng-container>
-            </td>
-          </ng-container>
-        </tr>
-      </ng-container>
+                  <svg-icon
+                    *ngIf="element.deviation !== 0"
+                    class="table__body__column__row-title__icon__background--orange"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
+                  >
+                  </svg-icon>
+                </ng-container>
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

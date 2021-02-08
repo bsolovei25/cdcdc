@@ -4,10 +4,7 @@
     <input matInput [matDatepicker]="picker" [formControl]="date" />
     <mat-datepicker-toggle matSuffix [for]="picker">
       <mat-icon matDatepickerToggleIcon (click)="clickDay()">
-        <svg-icon
-          src="assets/icons/widgets/reports/calend.svg"
-          [svgStyle]="{ 'width.px':25, 'height.px':25}"
-        >
+        <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
         </svg-icon>
       </mat-icon>
     </mat-datepicker-toggle>

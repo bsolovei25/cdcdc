@@ -1,95 +1,91 @@
 <div class="container">
-    <div class="container__time">
-        <!--Годичный-->
-        <evj-system-period-date-year *ngIf="timeCheck === 'Годичный'" (year)="setValue($event)"></evj-system-period-date-year>
-        <!--Месячный-->
-        <evj-system-period-date-month *ngIf="timeCheck === 'Месячный'"></evj-system-period-date-month>
-        <!--Суточный-->
-        <evj-system-period-date-day *ngIf="timeCheck === 'Суточный'"></evj-system-period-date-day>
-        <!--Точное время-->
-        <div class="time" *ngIf="timeCheck === 'Точное время'">
-            <mat-form-field>
-                <label>Точное время</label>
-                <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
-                <mat-datepicker-toggle matSuffix [for]="pickerD">
-                    <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
-                        <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                        </svg-icon>
-                    </mat-icon>
-                </mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #pickerD  #picker>
-                </ngx-mat-datetime-picker>
-            </mat-form-field>
-        </div>
-        <!--Без запроса времени-->
-        <div *ngIf="timeCheck === 'Без запроса времени'" class="container">
-        </div>
-        <!--Произвольное время-->
-        <div *ngIf="timeCheck === 'Произвольное время'">
-            <div class="container__time">
-                <div class="time">
-                    <mat-form-field>
-                        <label>От</label>
-                        <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
-                        <mat-datepicker-toggle matSuffix [for]="pickerD">
-                            <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
-                                <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                    [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                                </svg-icon>
-                            </mat-icon>
-                        </mat-datepicker-toggle>
-                        <ngx-mat-datetime-picker #pickerD #picker>
-                        </ngx-mat-datetime-picker>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="container__time">
-                <div class="time">
-                    <mat-form-field>
-                        <label>До</label>
-                        <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
-                        <mat-datepicker-toggle matSuffix [for]="pickerT">
-                            <mat-icon matDatepickerToggleIcon>
-                                <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                    [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                                </svg-icon>
-                            </mat-icon>
-                        </mat-datepicker-toggle>
-                        <ngx-mat-datetime-picker #pickerT>
-                        </ngx-mat-datetime-picker>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-        <!--Произвольная дата-->
-        <div class="arbitraryDate" *ngIf="timeCheck === 'Произвольная дата'">
-            <div class="date">
-                <mat-form-field>
-                    <mat-label>Выберите дату начала</mat-label>
-                    <input matInput [matDatepicker]="pickerFrom" [value]="dateNow">
-                    <mat-datepicker-toggle matSuffix [for]="pickerFrom">
-                        <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
-                            <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                            </svg-icon>
-                        </mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #pickerFrom #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="date">
-                <mat-form-field>
-                    <mat-label>Выберите дату окончания</mat-label>
-                    <input matInput [matDatepicker]="pickerTo" [value]="dateNow">
-                    <mat-datepicker-toggle matSuffix [for]="pickerTo">
-                        <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
-                            <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                            </svg-icon>
-                        </mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #pickerTo #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-        </div>
+  <div class="container__time">
+    <!--Годичный-->
+    <evj-system-period-date-year
+      *ngIf="timeCheck === 'Годичный'"
+      (year)="setValue($event)"
+    ></evj-system-period-date-year>
+    <!--Месячный-->
+    <evj-system-period-date-month *ngIf="timeCheck === 'Месячный'"></evj-system-period-date-month>
+    <!--Суточный-->
+    <evj-system-period-date-day *ngIf="timeCheck === 'Суточный'"></evj-system-period-date-day>
+    <!--Точное время-->
+    <div class="time" *ngIf="timeCheck === 'Точное время'">
+      <mat-form-field>
+        <label>Точное время</label>
+        <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
+        <mat-datepicker-toggle matSuffix [for]="pickerD">
+          <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+            <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+            </svg-icon>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #pickerD #picker> </ngx-mat-datetime-picker>
+      </mat-form-field>
     </div>
+    <!--Без запроса времени-->
+    <div *ngIf="timeCheck === 'Без запроса времени'" class="container"></div>
+    <!--Произвольное время-->
+    <div *ngIf="timeCheck === 'Произвольное время'">
+      <div class="container__time">
+        <div class="time">
+          <mat-form-field>
+            <label>От</label>
+            <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
+            <mat-datepicker-toggle matSuffix [for]="pickerD">
+              <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+                <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                </svg-icon>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerD #picker> </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="container__time">
+        <div class="time">
+          <mat-form-field>
+            <label>До</label>
+            <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow" />
+            <mat-datepicker-toggle matSuffix [for]="pickerT">
+              <mat-icon matDatepickerToggleIcon>
+                <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                </svg-icon>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerT> </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!--Произвольная дата-->
+    <div class="arbitraryDate" *ngIf="timeCheck === 'Произвольная дата'">
+      <div class="date">
+        <mat-form-field>
+          <mat-label>Выберите дату начала</mat-label>
+          <input matInput [matDatepicker]="pickerFrom" [value]="dateNow" />
+          <mat-datepicker-toggle matSuffix [for]="pickerFrom">
+            <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+              <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="date">
+        <mat-form-field>
+          <mat-label>Выберите дату окончания</mat-label>
+          <input matInput [matDatepicker]="pickerTo" [value]="dateNow" />
+          <mat-datepicker-toggle matSuffix [for]="pickerTo">
+            <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+              <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerTo #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
 </div>

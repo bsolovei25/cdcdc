@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    IApsProgressBarSettings
-} from '@shared/components/aps-progress-bar/aps-progress-bar.component';
+import { IApsProgressBarSettings } from '@shared/components/aps-progress-bar/aps-progress-bar.component';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -12,8 +10,7 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./scenarios.component.scss'],
 })
 export class ScenariosComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
-    public selectScenario: FormControl = new FormControl({value: '', disabled: false});
+    public selectScenario: FormControl = new FormControl({ value: '', disabled: false });
 
     public scenarios: string[] = ['НГРУ_июнь_20_Куляшов_15.05_13.44'];
 
@@ -48,8 +45,7 @@ export class ScenariosComponent extends WidgetPlatform<unknown> implements OnIni
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public onClick(): void {
         console.log('click');

@@ -99,7 +99,7 @@
   &__check {
     display: flex;
     flex-wrap: wrap;
-    .item{
+    .item {
       display: flex;
       display: flex;
       width: calc(50% - 15px);
@@ -119,11 +119,11 @@
           margin-right: 15px;
           font-size: 13px;
         }
-  
+
         input[type="radio"] {
           display: none;
         }
-  
+
         input[type="radio"]:checked + label:before {
           content: "\2022";
           color: var(--color-border-active);
@@ -131,7 +131,7 @@
           text-align: center;
           line-height: 13px;
         }
-  
+
         label:before {
           content: "";
           display: inline-block;
@@ -145,15 +145,15 @@
           border: 1px solid var(--color-border-active);
         }
       }
-  
-      .item-name{
+
+      .item-name {
         margin-left: 10px;
         font-size: 12px;
       }
     }
   }
 
-  &__time{
+  &__time {
     min-height: 125px;
     display: flex;
     justify-content: space-evenly;

@@ -18,8 +18,4 @@ export interface IOZSMLineDiagram {
     percent?: number;
 }
 
-export type IOzsmLineDiagramType =
-    | 'blendProducts'
-    | 'packedProducts'
-    | 'componentSupply'
-    | 'crudeSupply';
+export type IOzsmLineDiagramType = 'blendProducts' | 'packedProducts' | 'componentSupply' | 'crudeSupply';

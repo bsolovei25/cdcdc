@@ -1,9 +1,4 @@
-<evj-widget-header-smp
-  [uniqId]="uniqId"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseExit()"
-  *ngIf="isHover"
->
+<evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
 </evj-widget-header-smp>
 <div
   (mousedown)="$event.stopPropagation()"
@@ -96,9 +91,7 @@
           font-size="18"
           letter-spacing="0em"
         >
-          <tspan x="76" y="43.1455" text-anchor="middle">
-            {{ modalDeviation.valueDeviation }}
-          </tspan>
+          <tspan x="76" y="43.1455" text-anchor="middle">{{ modalDeviation.valueDeviation }}</tspan>
         </text>
         <text
           fill="#5B607D"
@@ -198,13 +191,7 @@
           stroke="#F7931E"
           stroke-width="0.75"
         />
-        <circle
-          (click)="closeModal()"
-          r="4.5"
-          transform="matrix(-1 0 0 1 265 115)"
-          fill="#191C2B"
-          stroke="#F7931E"
-        />
+        <circle (click)="closeModal()" r="4.5" transform="matrix(-1 0 0 1 265 115)" fill="#191C2B" stroke="#F7931E" />
         <path d="M265 100V46H249" stroke="#F7931E" />
         <path
           fill-rule="evenodd"

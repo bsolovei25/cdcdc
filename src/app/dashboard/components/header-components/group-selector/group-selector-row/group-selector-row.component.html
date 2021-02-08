@@ -1,9 +1,4 @@
-<div
-  class="container"
-  (click)="onClickGroup()"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()"
->
+<div class="container" (click)="onClickGroup()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <ng-container *ngIf="!isEditing;else input">{{group.name}}</ng-container>
 
   <ng-template #input>

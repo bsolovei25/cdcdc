@@ -15,17 +15,17 @@ import { NgxMaskModule } from 'ngx-mask';
 import { OzsmSharedModule } from './widgets/OZSM/ozsm-shared/ozsm-shared.module';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CoreModule,
-    RouterModule,
-    AngularSvgIconModule,
-    SharedModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NgxMaskModule.forRoot(),
-    OzsmSharedModule
-  ],
+    imports: [
+        BrowserModule,
+        CoreModule,
+        RouterModule,
+        AngularSvgIconModule,
+        SharedModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NgxMaskModule.forRoot(),
+        OzsmSharedModule,
+    ],
     declarations: [AppComponent],
     providers: [
         {
@@ -36,17 +36,17 @@ import { OzsmSharedModule } from './widgets/OZSM/ozsm-shared/ozsm-shared.module'
                 return () => {
                     return appConfigService.loadAppConfig();
                 };
-            }
+            },
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthenticationInterceptor,
-            multi: true
+            multi: true,
         },
-        Title
+        Title,
     ],
     bootstrap: [AppComponent],
-    exports: []
+    exports: [],
 })
-export class AppModule { }
+export class AppModule {}

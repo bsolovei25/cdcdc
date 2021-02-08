@@ -16,10 +16,9 @@ export interface IEncodedFileToSave {
 @Component({
     selector: 'evj-document-coding-menu',
     templateUrl: './document-coding-menu.component.html',
-    styleUrls: ['./document-coding-menu.component.scss']
+    styleUrls: ['./document-coding-menu.component.scss'],
 })
 export class DocumentCodingMenuComponent implements OnInit, OnChanges {
-
     public date: Date;
 
     @Input()
@@ -38,13 +37,12 @@ export class DocumentCodingMenuComponent implements OnInit, OnChanges {
     constructor(
         public oilService: DocumentCodingService,
         public snackBar: SnackBarService,
-        private documentCodingService: DocumentCodingService,
-    ) {
-    }
+        private documentCodingService: DocumentCodingService
+    ) {}
 
     public ngOnInit(): void {
-       this.passportId.setValue('0');
-       this.passportDate.setValue(new Date());
+        this.passportId.setValue('0');
+        this.passportDate.setValue(new Date());
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -70,22 +68,16 @@ export class DocumentCodingMenuComponent implements OnInit, OnChanges {
                     passportDate: new Date(this.passportDate.value).toISOString(),
                 };
                 const result = this.documentCodingService.passportSave(file);
-                result.catch(error => {
-                    this.snackBar.openSnackBar(
-                        'Ошибка ' + error.code, 'snackbar-red'
-                    );
+                result.catch((error) => {
+                    this.snackBar.openSnackBar('Ошибка ' + error.code, 'snackbar-red');
                 });
-                result.then(response => {
-                    this.snackBar.openSnackBar(
-                        'Файл сохранен',
-                    );
+                result.then((response) => {
+                    this.snackBar.openSnackBar('Файл сохранен');
                 });
             },
             closeFunction: () => this.oilService.closeAlert(),
-            cancelFunction: () => {
-            },
+            cancelFunction: () => {},
         };
         this.oilService.alertWindow$.next(windowsParam);
     }
-
 }

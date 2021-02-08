@@ -7,7 +7,7 @@ import { fillDataShape } from '@shared/functions/common-functions';
 @Component({
     selector: 'evj-astue-onpz-planning-card',
     templateUrl: './astue-onpz-planning-card.component.html',
-    styleUrls: ['./astue-onpz-planning-card.component.scss']
+    styleUrls: ['./astue-onpz-planning-card.component.scss'],
 })
 export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
     @Input() private data: IPlanningChart;
@@ -23,8 +23,7 @@ export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
 
     public transformedData: IPlanningChart;
 
-    constructor(private astueOnpzService: AstueOnpzService) {
-    }
+    constructor(private astueOnpzService: AstueOnpzService) {}
 
     public ngOnChanges(): void {
         this.transformedData = fillDataShape(this.data);
@@ -42,8 +41,7 @@ export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
         return this.astueOnpzService.sharedPlanningGraph$.asObservable();
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public graphOpen(): void {
         this.astueOnpzService.setPlanningGraph(this.data);

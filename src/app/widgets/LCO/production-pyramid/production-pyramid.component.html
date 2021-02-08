@@ -11,11 +11,7 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="production"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="production" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="pyramid">
         <div class="pyramid__title">
           <div class="title">
@@ -49,7 +45,7 @@
               <div class="graph graph__prebottom graph__right">196 / 131</div>
             </div>
             <div class="row pyramid__graph">
-              <div class="label__line  label__line-bottom  label__line-bottom-right"></div>
+              <div class="label__line label__line-bottom label__line-bottom-right"></div>
               <div class="graph graph__bottom graph__left">1256 / 1256</div>
               <div class="graph graph__bottom graph__right">256 / 256</div>
             </div>
@@ -87,9 +83,7 @@
         <div class="circle circle__left circle__left-top"></div>
         <div class="circle circle__right circle__right-top"></div>
         <div class="daysCounter__title">
-          <div class="text">
-            Количество дней
-          </div>
+          <div class="text">Количество дней</div>
         </div>
         <div class="daysCounter__counters">
           <div class="counter" *ngFor="let count of array">

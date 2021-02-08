@@ -30,7 +30,6 @@
   border: 1px solid rgba(96, 101, 128, 0.25);
   border-radius: 2px;
 
-
   ::ng-deep {
     .card-normal {
       display: flex;
@@ -54,7 +53,6 @@
     .mat-select-arrow {
       background: var(--evj-events-workspace-white);
     }
-
   }
 
   .choosenUser {
@@ -88,7 +86,6 @@
         &__position {
           color: var(--evj-events-workspace-text-sub);
         }
-
       }
     }
 
@@ -131,7 +128,7 @@
 
         .avatar-mask {
           position: absolute;
-          transform: translate(-5px,3px);
+          transform: translate(-5px, 3px);
         }
       }
     }

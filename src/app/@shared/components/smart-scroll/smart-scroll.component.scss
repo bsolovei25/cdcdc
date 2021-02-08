@@ -6,7 +6,7 @@
 .container {
   height: 100%;
   width: 100%;
-  opacity: .8;
+  opacity: 0.8;
   z-index: 999;
 
   .scroll-bar {
@@ -21,7 +21,7 @@
       right: 3px;
       top: 0;
       bottom: 0;
-      background: #1C1F2B;
+      background: #1c1f2b;
       border-radius: 5px;
     }
 
@@ -110,7 +110,7 @@
       top: 0px;
       bottom: 0px;
       margin: auto;
-      background: #0089FF;
+      background: #0089ff;
 
       &:hover {
         cursor: e-resize;

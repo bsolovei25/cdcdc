@@ -48,9 +48,7 @@ export interface IAstueOnpzColors {
     providedIn: 'root',
 })
 export class AstueOnpzService {
-    private indicatorOptions$: BehaviorSubject<
-        IAstueOnpzMonitoringCarrierOptions
-    > = new BehaviorSubject({
+    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         itemId: null,
@@ -70,32 +68,24 @@ export class AstueOnpzService {
 
     public multilineChartIndicatorTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(
-        null
-    );
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
 
-    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(
-        new Map()
-    );
+    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(new Map());
     private colors: number = 6;
 
-    public sharedMonitoringOptions: Observable<
-        IAstueOnpzMonitoringOptions
-    > = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<
-        IAstueOnpzMonitoringCarrierOptions
-    > = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 
-    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<
-        IMultiChartLine[]
-    >(null);
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(
+        null
+    );
 
-    public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<
-        IMultiChartTransfer
-    >(null);
+    public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<IMultiChartTransfer>(
+        null
+    );
 
     get multiLinePredictors(): Observable<IMultiChartLine[]> {
         return this.multiLinePredictorsChart$.asObservable();
@@ -174,10 +164,7 @@ export class AstueOnpzService {
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
         this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
-        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>(
-            'type',
-            typeParam
-        );
+        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
     }
 
     public updateIndicator(
@@ -185,10 +172,7 @@ export class AstueOnpzService {
         typeParam: AstueOnpzConsumptionIndicatorsWidgetType
     ): void {
         const currentOptions = this.monitoringOptions$.getValue();
-        if (
-            currentOptions.type === typeParam &&
-            currentOptions.indicatorType === indicatorTypeParam
-        ) {
+        if (currentOptions.type === typeParam && currentOptions.indicatorType === indicatorTypeParam) {
             indicatorTypeParam = null;
             typeParam = null;
         }
@@ -212,10 +196,7 @@ export class AstueOnpzService {
         this.monitoringOptions$.next({ ...this.monitoringOptions$.value, ...{ [key]: value } });
     }
 
-    private nextMonitoringCarrierOptions<T>(
-        key: keyof IAstueOnpzMonitoringCarrierOptions,
-        value: T
-    ): void {
+    private nextMonitoringCarrierOptions<T>(key: keyof IAstueOnpzMonitoringCarrierOptions, value: T): void {
         this.indicatorOptions$.next({ ...this.indicatorOptions$.value, ...{ [key]: value } });
     }
 
@@ -260,10 +241,7 @@ export class AstueOnpzService {
         }
     }
 
-    public async getProductChannels(
-        widgetId: string,
-        options: IAstueOnpzMonitoringOptions
-    ): Promise<string[]> {
+    public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
         try {
             const response = await this.http
                 .get<{ id: string; sortIndex: number }[]>(

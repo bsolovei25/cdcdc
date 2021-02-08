@@ -16,11 +16,8 @@ import { filter, map } from 'rxjs/operators';
     templateUrl: './astue-onpz-heat-balance.component.html',
     styleUrls: ['./astue-onpz-heat-balance.component.scss'],
 })
-export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
-    data$: BehaviorSubject<IAstueOnpzHeatBalanceItem[]> = new BehaviorSubject<
-        IAstueOnpzHeatBalanceItem[]
-    >([]);
+export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+    data$: BehaviorSubject<IAstueOnpzHeatBalanceItem[]> = new BehaviorSubject<IAstueOnpzHeatBalanceItem[]>([]);
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Ккал', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
@@ -29,9 +26,7 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRow: SelectionModel<string> = new SelectionModel(true);
-    selectedType$: BehaviorSubject<AstueHeatBalanceDataType> = new BehaviorSubject<
-        AstueHeatBalanceDataType
-    >('oven');
+    selectedType$: BehaviorSubject<AstueHeatBalanceDataType> = new BehaviorSubject<AstueHeatBalanceDataType>('oven');
     selectedItem$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(

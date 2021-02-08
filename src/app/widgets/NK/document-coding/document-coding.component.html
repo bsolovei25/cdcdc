@@ -1,32 +1,37 @@
 <ng-container>
-    <div class="container">
-        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
-            [uniqId]="widgetUniqId" [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
-        <evj-frame-top></evj-frame-top>
-        <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-            <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
-            <div class="block block_top">
-                <div class='left-side'>
-                    <evj-document-coding-table
-                      (selectedProduct)="setProduct($event)"
-                    ></evj-document-coding-table>
-                </div>
-                <div class='right-side'>
-                    <evj-document-coding-tanks
-                      (selectedTank)="setTank($event)"
-                      [isFilterTanks]="filter.isFilterTanks"
-                      [data]="tanks"
-                    ></evj-document-coding-tanks>
-                </div>
-            </div>
-            <div class="block block_bottom">
-                <evj-document-coding-menu
-                  [document]="file"
-                  [tank]="selectedTank"
-                  [product]="selectedProduct"
-                ></evj-document-coding-menu>
-            </div>
+  <div class="container">
+    <evj-widget-header
+      [title]="widgetTitle"
+      [units]="widgetUnits"
+      [code]="widgetCode"
+      [id]="widgetId"
+      [uniqId]="widgetUniqId"
+      [widgetType]="widgetType"
+      [icon]="widgetIcon"
+    ></evj-widget-header>
+    <evj-frame-top></evj-frame-top>
+    <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
+      <div class="block block_top">
+        <div class="left-side">
+          <evj-document-coding-table (selectedProduct)="setProduct($event)"></evj-document-coding-table>
         </div>
-        <evj-frame-bottom></evj-frame-bottom>
+        <div class="right-side">
+          <evj-document-coding-tanks
+            (selectedTank)="setTank($event)"
+            [isFilterTanks]="filter.isFilterTanks"
+            [data]="tanks"
+          ></evj-document-coding-tanks>
+        </div>
+      </div>
+      <div class="block block_bottom">
+        <evj-document-coding-menu
+          [document]="file"
+          [tank]="selectedTank"
+          [product]="selectedProduct"
+        ></evj-document-coding-menu>
+      </div>
     </div>
+    <evj-frame-bottom></evj-frame-bottom>
+  </div>
 </ng-container>

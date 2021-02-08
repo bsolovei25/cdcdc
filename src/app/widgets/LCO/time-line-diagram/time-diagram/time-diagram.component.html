@@ -13,24 +13,8 @@
       <div class="line line__marking line__marking-50"></div>
       <div class="line line__marking line__marking-75"></div>
       <svg width="100%" height="100%">
-        <rect
-          x="0"
-          y="2.5px"
-          width="100%"
-          height="6px"
-          rx="3px"
-          ry="3px"
-          [attr.fill]="colorNormal"
-        />
-        <rect
-          x="0"
-          y="2.5px"
-          [attr.width]="timeLine()"
-          height="6px"
-          rx="3px"
-          ry="3px"
-          [attr.fill]="colorNow"
-        />
+        <rect x="0" y="2.5px" width="100%" height="6px" rx="3px" ry="3px" [attr.fill]="colorNormal" />
+        <rect x="0" y="2.5px" [attr.width]="timeLine()" height="6px" rx="3px" ry="3px" [attr.fill]="colorNow" />
       </svg>
     </div>
   </div>

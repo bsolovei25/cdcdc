@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-} from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { AdminShiftScheduleService } from '../../../../../dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
@@ -25,10 +19,7 @@ export class AdminShiftListEmployeesComponent implements OnInit {
 
     brigadeColors: { color: string; id: number }[] = [];
 
-    constructor(
-        private adminShiftScheduleService: AdminShiftScheduleService,
-        private chDet: ChangeDetectorRef
-    ) {}
+    constructor(private adminShiftScheduleService: AdminShiftScheduleService, private chDet: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.adminShiftScheduleService.brigadeColor$.subscribe((value) => {

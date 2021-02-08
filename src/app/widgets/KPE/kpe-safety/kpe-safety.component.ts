@@ -22,10 +22,9 @@ export interface IKpeSafetyCard {
 @Component({
     selector: 'evj-kpe-safety',
     templateUrl: './kpe-safety.component.html',
-    styleUrls: ['./kpe-safety.component.scss']
+    styleUrls: ['./kpe-safety.component.scss'],
 })
 export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
-
     @ViewChild('mainGauge') public gaugeChart: ElementRef;
 
     public deviationChartData: IDeviationDiagramData[] = [];
@@ -39,11 +38,12 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
 
     public displayedMonth: Date;
 
-    constructor(protected widgetService: WidgetService,
-                private kpeHelperService: KpeHelperService,
-                @Inject('isMock') public isMock: boolean,
-                @Inject('widgetId') public id: string,
-                @Inject('uniqId') public uniqId: string
+    constructor(
+        protected widgetService: WidgetService,
+        private kpeHelperService: KpeHelperService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -53,7 +53,7 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
     }
 
     public ngAfterViewInit(): void {
-        queueMicrotask(() => this.isRendered = true);
+        queueMicrotask(() => (this.isRendered = true));
     }
 
     public gaugeWidth(container: HTMLDivElement): string {
@@ -72,12 +72,12 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
         this.gaugeCards = this.kpeHelperService.sortArray<IKpeSafetyCard>(ref.gaugeCards, 4);
 
         this.cardsList = [];
-        this.gaugeCards.forEach (card => {
+        this.gaugeCards.forEach((card) => {
             this.cardsList = [...this.cardsList, ...card];
         });
 
         this.deviationDiagramData = ref.deviationDiagram;
-        ref.deviationChart.forEach(data => {
+        ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
                 this.displayedMonth = new Date(data.graph[0].timeStamp);
             }

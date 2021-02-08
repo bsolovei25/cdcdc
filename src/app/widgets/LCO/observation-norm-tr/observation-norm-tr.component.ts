@@ -1,13 +1,4 @@
-import {
-    Component,
-    Inject,
-    OnInit,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IObservationNormTR } from 'src/app/dashboard/models/LCO/observation-norm-tr';
@@ -18,9 +9,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     templateUrl: './observation-norm-tr.component.html',
     styleUrls: ['./observation-norm-tr.component.scss'],
 })
-export class ObservationNormTRComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy, AfterViewInit {
-
+export class ObservationNormTRComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     circleRadius: string = (35).toString();
     minRadius: number = 47;
     maxRadius: number = 75;
@@ -138,7 +127,7 @@ export class ObservationNormTRComponent extends WidgetPlatform<unknown>
         return (
             this.minRadius +
             ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) /
-            (this.data.maxValue - this.data.minValue)
+                (this.data.maxValue - this.data.minValue)
         );
     }
 
@@ -161,17 +150,9 @@ export class ObservationNormTRComponent extends WidgetPlatform<unknown>
                 'strokeDasharray',
                 `${circumference} ${circumference}`
             );
-            this.renderer.setStyle(
-                this.activeCircle.nativeElement,
-                'strokeDashoffset',
-                `${circumference}`
-            );
+            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${circumference}`);
             const offset = circumference - (percent / 100) * circumference;
-            this.renderer.setStyle(
-                this.activeCircle.nativeElement,
-                'strokeDashoffset',
-                `${offset.toString()}`
-            );
+            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${offset.toString()}`);
         }
     }
 
@@ -259,11 +240,7 @@ export class ObservationNormTRComponent extends WidgetPlatform<unknown>
                     ) - 10
                 ).toString();
                 this.renderer.setStyle(this.lastCircle.nativeElement, 'display', 'block');
-                this.renderer.setAttribute(
-                    this.lastCircle.nativeElement,
-                    'transform',
-                    `translate(${x}, ${y})`
-                );
+                this.renderer.setAttribute(this.lastCircle.nativeElement, 'transform', `translate(${x}, ${y})`);
             }
         }
     }

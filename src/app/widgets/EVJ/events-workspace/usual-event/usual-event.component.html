@@ -24,27 +24,21 @@
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.priority.name}}">
       <mat-form-field class="{{ewService.event.priority.name}}">
         <mat-label>Приоритет</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.priority"
-          [compareWith]="compareFn"
-        >
-          <mat-option *ngFor="let p of ewService.priority" [value]="p"
-          >{{ ewService.priorities[p.name] }}
-          </mat-option>
+        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+          <mat-option *ngFor="let p of ewService.priority" [value]="p">{{ ewService.priorities[p.name] }} </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
       <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
         <mat-label>Событие</mat-label>
-        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged" [disabled]="!ewService.event.isUserCanEditAcknowledged">
-          <mat-option [value]="true">
-            Квитировано
-          </mat-option>
-          <mat-option [value]="false">
-            Не квитировано
-          </mat-option>
+        <mat-select
+          panelClass="mat-select-custom"
+          [(ngModel)]="ewService.event.isAcknowledged"
+          [disabled]="!ewService.event.isUserCanEditAcknowledged"
+        >
+          <mat-option [value]="true"> Квитировано </mat-option>
+          <mat-option [value]="false"> Не квитировано </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
@@ -63,8 +57,10 @@
                   [(ngModel)]="ewService.event.status"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
-                  >{{ ewService.statuses[p.name] }}
+                  <mat-option
+                    *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+                    [value]="p"
+                    >{{ ewService.statuses[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -80,9 +76,7 @@
                     [(ngModel)]="ewService.event.equipmentCategory"
                     [compareWith]="compareFn"
                   >
-                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                    >{{ p.name }}
-                    </mat-option>
+                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
                   </mat-select>
                 </mat-form-field>
               </ng-container>
@@ -99,9 +93,7 @@
                   [(ngModel)]="ewService.event.eventType"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
-                  >{{ p.name }}
-                  </mat-option>
+                  <mat-option *ngFor="let p of ewService.eventTypes" [value]="p">{{ p.name }} </mat-option>
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
@@ -125,10 +117,7 @@
                 </mat-form-field> -->
               </div>
               <div class="position_icon">
-                <svg-icon
-                  src="assets/icons/edit.svg"
-                  [svgStyle]="{ 'width.px':25, 'height.px':20 }"
-                ></svg-icon>
+                <svg-icon src="assets/icons/edit.svg" [svgStyle]="{ 'width.px':25, 'height.px':20 }"></svg-icon>
               </div>
             </evj-ui-block>
           </div>
@@ -168,14 +157,10 @@
     <div class="workspace__body__right">
       <div class="info_block">
         <div class="creator">
-          <div class="creator_title">
-            Автор
-          </div>
+          <div class="creator_title">Автор</div>
           <div class="creator_body">
-            {{
-            this.ewService.event.fixedBy?.displayName ?
-              this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
-                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+            {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName === 'Synchronizable
+            S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
             {{this.ewService.event.fixedBy?.positionDescription}}
           </div>
         </div>
@@ -212,9 +197,7 @@
       [compareWith]="compareFn"
     >
       <mat-option [value]="undefined">Не выбрана</mat-option>
-      <mat-option *ngFor="let p of ewService.subCategoryFilter | async" [value]="p"
-      >{{ p.description }}
-      </mat-option>
+      <mat-option *ngFor="let p of ewService.subCategoryFilter | async" [value]="p">{{ p.description }} </mat-option>
     </mat-select>
   </mat-form-field>
 </ng-template>

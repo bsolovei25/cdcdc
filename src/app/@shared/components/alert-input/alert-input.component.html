@@ -1,32 +1,41 @@
-<div class="loading-shade loading-shade__blur"
-     *ngIf="info"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()">
+<div
+  class="loading-shade loading-shade__blur"
+  *ngIf="info"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
   <div class="alert-block">
     <h3 class="block-title">{{info?.title}}</h3>
     <div class="block-top">
       <div class="block-text">
-        <input [placeholder]="info?.placeholder"
-               matInput
-               type="text"
-               [(ngModel)]="info.value"
-               style="height: 44px; text-align: left;"
-               required />
+        <input
+          [placeholder]="info?.placeholder"
+          matInput
+          type="text"
+          [(ngModel)]="info.value"
+          style="height: 44px; text-align: left"
+          required
+        />
       </div>
     </div>
     <div class="block-bottom">
       <div class="block-button">
-        <evj-button [isSmallButton]="false"
-                    [textButton]="info?.acceptText"
-                    [isChangingState]="false"
-                    [style.opacity]="info?.value.length > 0 ? '1' : '0.4'"
-                    (click)="info?.value.length > 0 ? accept() : null"></evj-button>
+        <evj-button
+          [isSmallButton]="false"
+          [textButton]="info?.acceptText"
+          [isChangingState]="false"
+          [style.opacity]="info?.value.length > 0 ? '1' : '0.4'"
+          (click)="info?.value.length > 0 ? accept() : null"
+        ></evj-button>
       </div>
       <div class="block-button">
-        <evj-button [isSmallButton]="false"
-                    [textButton]="info?.cancelText"
-                    [isChangingState]="false"
-                    (click)="cancel()"></evj-button>
+        <evj-button
+          [isSmallButton]="false"
+          [textButton]="info?.cancelText"
+          [isChangingState]="false"
+          (click)="cancel()"
+        ></evj-button>
       </div>
     </div>
   </div>
+</div>

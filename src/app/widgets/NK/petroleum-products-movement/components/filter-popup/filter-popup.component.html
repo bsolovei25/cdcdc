@@ -1,6 +1,5 @@
 <div class="filter">
   <div class="filter_settings-body">
-
     <div class="filter_block" (click)="setSort(true)">
       <div class="filter_block__settings">
         <div class="filter_block__settings__title-block">
@@ -29,7 +28,7 @@
   </div>
   <div class="filter_block__search" *ngIf="isSearch">
     <div class="filter_block__search__input-block">
-      <input class="vertical-middle" [(ngModel)]="filterSetting.text" (keyup)="setText($event?.target?.value)">
+      <input class="vertical-middle" [(ngModel)]="filterSetting.text" (keyup)="setText($event?.target?.value)" />
     </div>
     <div class="filter_block__search__icon-block">
       <svg-icon class="icon" src="assets/icons/search-icon.svg"></svg-icon>

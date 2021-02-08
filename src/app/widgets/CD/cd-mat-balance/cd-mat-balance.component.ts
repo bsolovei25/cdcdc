@@ -6,10 +6,7 @@ import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.com
 import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import {
-    IEventsWidgetNotification,
-    IUser
-} from '../../../dashboard/models/EVJ/events-widget';
+import { IEventsWidgetNotification, IUser } from '../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '@core/service/auth.service';
@@ -89,7 +86,7 @@ export interface IAllEstablishedFacts {
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss']
+    styleUrls: ['./cd-mat-balance.component.scss'],
 })
 export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IMatBalance;
@@ -129,21 +126,21 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
-                                    }
+                                    },
                                 };
-                            }
-                        }
-                    ]
+                            },
+                        },
+                    ],
                 },
                 {
                     name: 'Модель',
-                    value: 0
+                    value: 0,
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0
-                }
-            ]
+                    value: 0,
+                },
+            ],
         },
         {
             name: 'Вернуться к карточке события',
@@ -152,8 +149,8 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
                 this.userService.loadScreenByWidget('events-workspace');
                 this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
-            }
-        }
+            },
+        },
     ];
 
     modalDeviation: IModalDeviation;
@@ -215,19 +212,18 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
                 {
                     comment: facts,
                     createdAt: new Date(),
-                    displayName: this.authService.user$.getValue()?.displayName
-                }
+                    displayName: this.authService.user$.getValue()?.displayName,
+                },
             ],
             deadline: dateTime,
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),
-            retrievalEvents: []
+            retrievalEvents: [],
         };
         try {
             await this.ewService.postEventRetrieval(event);
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
     closeModal(): void {

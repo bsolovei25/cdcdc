@@ -24,27 +24,21 @@
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.priority.name}}">
       <mat-form-field class="{{ewService.event.priority.name}}">
         <mat-label>Приоритет</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.priority"
-          [compareWith]="compareFn"
-        >
-          <mat-option *ngFor="let p of ewService.priority" [value]="p"
-          >{{ ewService.priorities[p.name] }}
-          </mat-option>
+        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+          <mat-option *ngFor="let p of ewService.priority" [value]="p">{{ ewService.priorities[p.name] }} </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
       <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
         <mat-label>Событие</mat-label>
-        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged" [disabled]="!ewService.event.isUserCanEditAcknowledged">
-          <mat-option [value]="true">
-            Квитировано
-          </mat-option>
-          <mat-option [value]="false">
-            Не квитировано
-          </mat-option>
+        <mat-select
+          panelClass="mat-select-custom"
+          [(ngModel)]="ewService.event.isAcknowledged"
+          [disabled]="!ewService.event.isUserCanEditAcknowledged"
+        >
+          <mat-option [value]="true"> Квитировано </mat-option>
+          <mat-option [value]="false"> Не квитировано </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
@@ -63,8 +57,10 @@
                   [(ngModel)]="ewService.event.status"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
-                  >{{ ewService.statuses[p.name] }}
+                  <mat-option
+                    *ngFor="let p of ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+                    [value]="p"
+                    >{{ ewService.statuses[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -79,9 +75,7 @@
                   [(ngModel)]="ewService.event.equipmentCategory"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                  >{{ p.name }}
-                  </mat-option>
+                  <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
@@ -97,9 +91,7 @@
                   [(ngModel)]="ewService.event.eventType"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
-                  >{{ p.name }}
-                  </mat-option>
+                  <mat-option *ngFor="let p of ewService.eventTypes" [value]="p">{{ p.name }} </mat-option>
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
@@ -114,10 +106,7 @@
                 ></evj-input>
               </div>
               <div class="position_icon">
-                <svg-icon
-                  src="./assets/icons/edit.svg"
-                  [svgStyle]="{ 'width.px':25, 'height.px':20 }"
-                ></svg-icon>
+                <svg-icon src="./assets/icons/edit.svg" [svgStyle]="{ 'width.px':25, 'height.px':20 }"></svg-icon>
               </div>
             </evj-ui-block>
           </div>
@@ -125,11 +114,12 @@
       </div>
 
       <div class="description">
-        <evj-event-description style="height: 100%"
-                               [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
-                               [description]="ewService.event.description"
-                               [isRetrievalEvent]="false"
-                               (changedDescription)="onChangeEventDescription($event)"
+        <evj-event-description
+          style="height: 100%"
+          [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
+          [description]="ewService.event.description"
+          [isRetrievalEvent]="false"
+          (changedDescription)="onChangeEventDescription($event)"
         ></evj-event-description>
       </div>
 
@@ -158,14 +148,10 @@
     <div class="workspace__body__right">
       <div class="info_block">
         <div class="creator">
-          <div class="creator_title">
-            Автор
-          </div>
+          <div class="creator_title">Автор</div>
           <div class="creator_body">
-            {{
-            this.ewService.event.fixedBy?.displayName ?
-              this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
-                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+            {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName === 'Synchronizable
+            S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
           </div>
         </div>
         <div class="deadline">
@@ -183,14 +169,8 @@
         <evj-ui-block class="workspace__body__categories" status="normal">
           <mat-form-field class="categories_selectbox">
             <mat-label>Место</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [(ngModel)]="ewService.event.unit"
-              [compareWith]="compareFn"
-            >
-              <mat-option *ngFor="let cat of ewService.units" [value]="cat">
-                {{ cat.name }}
-              </mat-option>
+            <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.unit" [compareWith]="compareFn">
+              <mat-option *ngFor="let cat of ewService.units" [value]="cat"> {{ cat.name }} </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
@@ -200,11 +180,14 @@
       </div>
       <div class="monitoring">
         <ng-container
-          *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: ewService.event.cdData?.deviationMatBalCount}"></ng-container>
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: ewService.event.cdData?.deviationMatBalCount}"
+        ></ng-container>
         <ng-container
-          *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: ewService.event.cdData?.deviationTempBalCount}"></ng-container>
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: ewService.event.cdData?.deviationTempBalCount}"
+        ></ng-container>
         <ng-container
-          *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: ewService.event.cdData?.deviationQualityCount}"></ng-container>
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: ewService.event.cdData?.deviationQualityCount}"
+        ></ng-container>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>
@@ -212,7 +195,6 @@
     </div>
   </div>
 </section>
-
 
 <ng-template let-deviationCounter="deviationCounter" let-label="label" let-type="type" #monitoringCard>
   <evj-ui-block status="normal">
@@ -222,7 +204,7 @@
       </div>
       <span class="text-color">{{label}}</span>
       <span style="flex-grow: 1"></span>
-      <span style="color: var(--color-cd-text-sub);">Отклонений: </span>
+      <span style="color: var(--color-cd-text-sub)">Отклонений: </span>
       <span style="margin-left: 5px" class="text-color">{{deviationCounter}}</span>
     </div>
   </evj-ui-block>

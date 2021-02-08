@@ -9,10 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @NgModule({
-  declarations: [ CustomReportPropertiesReferenceComponent, CustomReportOptionsComponent],
+    declarations: [CustomReportPropertiesReferenceComponent, CustomReportOptionsComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -21,8 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatSelectModule,
         MatChipsModule,
         MatIconModule,
-        ReactiveFormsModule
-    ]
+        ReactiveFormsModule,
+    ],
 })
 export class CustomReportPropertiesReferenceModule {
     enterComponent = CustomReportPropertiesReferenceComponent;

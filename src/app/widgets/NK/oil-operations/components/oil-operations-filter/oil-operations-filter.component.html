@@ -1,31 +1,28 @@
 <div class="container-operation-filter">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">{{ filterTitle }}</div>
-        </div>
-        <div class="content">
-          <cdk-virtual-scroll-viewport [itemSize]="41" class="content-block">
-            <ng-container *cdkVirtualFor="let item of filterData">
-              <div class="item__shadow-block">
-                <div class="item__i" (click)="onOptionSelect(item)">
-                  <div class="name-param" [class.active]="activeItem?.id === item.id">
-                    {{ item.name || '-' }}
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-          </cdk-virtual-scroll-viewport>
-        </div>
-        <div class="bottom">
-            <div class="bottom__block">
-                <div class="bottom__save-block" (click)="onSaveClick()">
-                    <div class="bottom__button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>
+  <div style="height: 100%">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
+      </div>
+      <div class="title__name">{{ filterTitle }}</div>
     </div>
+    <div class="content">
+      <cdk-virtual-scroll-viewport [itemSize]="41" class="content-block">
+        <ng-container *cdkVirtualFor="let item of filterData">
+          <div class="item__shadow-block">
+            <div class="item__i" (click)="onOptionSelect(item)">
+              <div class="name-param" [class.active]="activeItem?.id === item.id">{{ item.name || '-' }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="bottom">
+      <div class="bottom__block">
+        <div class="bottom__save-block" (click)="onSaveClick()">
+          <div class="bottom__button-save">Сохранить</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

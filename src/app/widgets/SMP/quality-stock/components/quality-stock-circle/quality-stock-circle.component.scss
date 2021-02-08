@@ -1,155 +1,155 @@
 .container-circle {
-    height: calc(100% - 32px);
-    width: calc(100% - 17px);
-    margin: 0 auto;
-    margin-right: 0;
-    border-left: 0.5px solid var(--color-smp-border);
-    border-right: 0.5px solid var(--color-smp-border);
-    position: relative;
-    background: var(--color-bg-header-table);
+  height: calc(100% - 32px);
+  width: calc(100% - 17px);
+  margin: 0 auto;
+  margin-right: 0;
+  border-left: 0.5px solid var(--color-smp-border);
+  border-right: 0.5px solid var(--color-smp-border);
+  position: relative;
+  background: var(--color-bg-header-table);
 
-    &__title {
-        font-size: 10px;
-        color: var(--color-smp-text-sub);
-        position: absolute;
-        top: -6px;
-        left: 15px;
-    }
+  &__title {
+    font-size: 10px;
+    color: var(--color-smp-text-sub);
+    position: absolute;
+    top: -6px;
+    left: 15px;
+  }
 
-    &__content {
-        height: calc(100% - 17px);
-        width: calc(50% - 10px);
-        position: absolute;
-        top: 17px;
-        z-index: 999;
-    }
+  &__content {
+    height: calc(100% - 17px);
+    width: calc(50% - 10px);
+    position: absolute;
+    top: 17px;
+    z-index: 999;
+  }
 }
 
 .energetics {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
+  border-right: 0.5px dashed var(--color-border-main-transparrent);
+
+  overflow: hidden;
+
+  &__graphic,
+  &__cards {
+    height: 100%;
+    flex-basis: 50%;
+  }
+
+  &__graphic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__round {
     position: relative;
 
-    width: 100%;
     height: 100%;
+    width: 100%;
 
-    box-sizing: border-box;
-    border-left: 0.5px dashed var(--color-border-main-transparrent);
-    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    svg {
+      text {
+        font-size: 3.5px;
+        fill: var(--color-text-main);
+      }
 
-    overflow: hidden;
-
-    &__graphic,
-    &__cards {
-        height: 100%;
-        flex-basis: 50%;
+      .limitLabel {
+        font-size: 2.7px;
+        fill: var(--color-text-main);
+      }
     }
+  }
 
-    &__graphic {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__round {
-        position: relative;
-
-        height: 100%;
-        width: 100%;
-
-        svg {
-            text {
-                font-size: 3.5px;
-                fill: var(--color-text-main);
-            }
-
-            .limitLabel {
-                font-size: 2.7px;
-                fill: var(--color-text-main);
-            }
-        }
-    }
-
-    .danger {
+  .danger {
+    border-color: var(--color-deviation);
+    * {
+      border-color: var(--color-deviation);
+      &::after,
+      &::before {
         border-color: var(--color-deviation);
-        * {
-            border-color: var(--color-deviation);
-            &::after,
-            &::before {
-                border-color: var(--color-deviation);
-            }
+      }
+    }
+    .number {
+      color: var(--color-deviation);
+    }
+  }
+
+  .dld {
+    display: contents;
+    min-height: 60px;
+  }
+
+  .rotate {
+    transform: rotate(180deg);
+  }
+
+  .graph {
+    &__line {
+      position: relative;
+
+      width: 100%;
+      height: 8px;
+
+      svg {
+        background: var(--color-bg-line-diagram);
+        border-radius: 12px;
+
+        box-sizing: border-box;
+        padding: 0 2px;
+      }
+
+      .line {
+        position: absolute;
+
+        width: 2px;
+
+        background: transparent;
+        border-left: 1px solid var(--color-text-diagram);
+
+        &__marking {
+          height: 3px;
+
+          border-color: var(--color-marker-diagram);
+
+          bottom: -11px;
+
+          &-0 {
+            left: 3px;
+          }
+
+          &-50 {
+            left: 40%;
+          }
+
+          &-100 {
+            right: 0px;
+          }
         }
-        .number {
-            color: var(--color-deviation);
+
+        &__limit {
+          height: 15px;
+          right: 40px;
+          top: 4px;
+
+          &-higher {
+            right: 20%;
+          }
         }
+      }
     }
-
-    .dld {
-        display: contents;
-        min-height: 60px;
-    }
-
-    .rotate {
-        transform: rotate(180deg);
-    }
-
-    .graph {
-        &__line {
-            position: relative;
-
-            width: 100%;
-            height: 8px;
-
-            svg {
-                background: var(--color-bg-line-diagram);
-                border-radius: 12px;
-
-                box-sizing: border-box;
-                padding: 0 2px;
-            }
-
-            .line {
-                position: absolute;
-
-                width: 2px;
-
-                background: transparent;
-                border-left: 1px solid var(--color-text-diagram);
-
-                &__marking {
-                    height: 3px;
-
-                    border-color: var(--color-marker-diagram);
-
-                    bottom: -11px;
-
-                    &-0 {
-                        left: 3px;
-                    }
-
-                    &-50 {
-                        left: 40%;
-                    }
-
-                    &-100 {
-                        right: 0px;
-                    }
-                }
-
-                &__limit {
-                    height: 15px;
-                    right: 40px;
-                    top: 4px;
-
-                    &-higher {
-                        right: 20%;
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
 .logo-text {
-    font-size: 3px !important;
-    fill: var(--color-text-sub) !important;
+  font-size: 3px !important;
+  fill: var(--color-text-sub) !important;
 }

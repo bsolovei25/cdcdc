@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./expandable-bottom-frame.component.scss'],
 })
 export class ExpandableBottomFrameComponent implements OnInit {
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public onClick(): void {
         console.log('click');

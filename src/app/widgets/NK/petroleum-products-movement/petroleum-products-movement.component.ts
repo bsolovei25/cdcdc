@@ -9,9 +9,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     templateUrl: './petroleum-products-movement.component.html',
     styleUrls: ['./petroleum-products-movement.component.scss'],
 })
-export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
-
+export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public typeScreen: string = 'info';
 
     private refreshTimeoutSecs: number = 45;
@@ -45,7 +43,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown>
         this.initPetroleumMovement();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     private async initPetroleumMovement(): Promise<void> {
         this.petroleumService.isLoad$.next(true);
@@ -57,15 +55,11 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown>
             console.error(e);
         }
         this.petroleumService.isLoad$.next(false);
-        this.widgetService.currentDates$.subscribe(
-            (dates) => {
-                this.petroleumService.reGetTransfers(dates);
-            }
-        );
-        this.petroleumService.currentTransfersFilter$.subscribe(
-            (item) => {
-                this.petroleumService.reGetTransfers(this.widgetService.currentDates$.getValue());
-            }
-        );
+        this.widgetService.currentDates$.subscribe((dates) => {
+            this.petroleumService.reGetTransfers(dates);
+        });
+        this.petroleumService.currentTransfersFilter$.subscribe((item) => {
+            this.petroleumService.reGetTransfers(this.widgetService.currentDates$.getValue());
+        });
     }
 }

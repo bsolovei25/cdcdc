@@ -94,7 +94,7 @@ export interface IChoosenHistorical {
         name: string;
         params?: Param_MI;
         open?: boolean;
-    }
+    };
     active?: boolean;
     open?: boolean;
 }

@@ -1,36 +1,18 @@
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
-    icon="letter"
-    type="astue"
-  >
-    <div
-      class="content-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="letter" type="astue">
+    <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div (click)="viewChanger(false)">
-        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
-        </svg-icon>
+        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"> </svg-icon>
       </div>
       <div (click)="viewChanger(true)">
-        <svg-icon
-          [ngClass]="{'blocks': isList}"
-          class="header__icon"
-          src="assets/pic/blocks.svg"
-        ></svg-icon>
+        <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="assets/pic/blocks.svg"></svg-icon>
       </div>
     </div>
   </evj-contemporary-widget-header>
   <evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
   <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
-  <div
-    class="pointer-events"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
     <div class="cd-events">
       <evj-evj-event-filters
@@ -38,7 +20,8 @@
         [inputPriority]="priority"
         (outPriority)="priorityOfFilter($event)"
         (outUnits)="unitsOfFilter($event)"
-        (description)="searchFilter($event)">
+        (description)="searchFilter($event)"
+      >
       </evj-evj-event-filters>
       <div
         class="notifications"
@@ -78,12 +61,8 @@
               (click)="onFilterClick(f)"
               [class.filter_active]="f?.isActive"
             >
-              <span class="filter__name">
-                {{f?.name}}
-              </span>
-              <span class="filter__count">
-                {{f?.notificationsCount}}
-              </span>
+              <span class="filter__name"> {{f?.name}} </span>
+              <span class="filter__count"> {{f?.notificationsCount}} </span>
             </div>
           </div>
 

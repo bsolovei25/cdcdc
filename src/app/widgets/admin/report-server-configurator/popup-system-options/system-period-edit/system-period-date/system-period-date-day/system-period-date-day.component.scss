@@ -1,33 +1,33 @@
 .day {
-    ::ng-deep {
-        .mat-form-field-infix {
-            width: 100px;
-        }
-
-        .mat-form-field-underline {
-            display: none;
-        }
-
-        input {
-            border-bottom: 0;
-        }
-
-        .mat-icon {
-            margin-top: -10px;
-        }
+  ::ng-deep {
+    .mat-form-field-infix {
+      width: 100px;
     }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    input {
+      border-bottom: 0;
+    }
+
+    .mat-icon {
+      margin-top: -10px;
+    }
+  }
 }
 
 ::ng-deep {
-    .day {
-        ::ng-deep {
-            .mat-calendar-header {
-                display: none;
-            }
+  .day {
+    ::ng-deep {
+      .mat-calendar-header {
+        display: none;
+      }
 
-            .mat-calendar-table {
-                margin-top: 20px;
-            }
-        }
+      .mat-calendar-table {
+        margin-top: 20px;
+      }
     }
+  }
 }

@@ -5,15 +5,9 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 @NgModule({
     declarations: [ApsStructureIdComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatTooltipModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatTooltipModule],
 })
 export class ApsStructureIdModule {
     enterComponent = ApsStructureIdComponent;

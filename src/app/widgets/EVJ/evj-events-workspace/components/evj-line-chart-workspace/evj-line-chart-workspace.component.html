@@ -2,37 +2,27 @@
   <div class="line-chart" #chart></div>
   <div class="totals">
     <div class="totals__item totals__item_plan">
-      <h3 class="totals__heading">
-        План
-      </h3>
+      <h3 class="totals__heading">План</h3>
       <h4 class="totals__count">{{data?.totals.plan | number:'1.1-1'}}</h4>
     </div>
 
     <div class="totals__item totals__item_fact">
-      <h3 class="totals__heading">
-        Факт
-      </h3>
+      <h3 class="totals__heading">Факт</h3>
       <h4 class="totals__count">{{data?.totals.fact | number:'1.1-1'}}</h4>
     </div>
 
     <div class="totals__item totals__item_deviation">
-      <h3 class="totals__heading">
-        Отклонение
-      </h3>
+      <h3 class="totals__heading">Отклонение</h3>
       <h4 class="totals__count">{{data?.totals.deviation | number:'1.1-1'}}</h4>
     </div>
 
     <div class="totals__item totals__item_bounds" *ngIf="getLastGraphValue('upperLimit')">
-      <h3 class="totals__heading">
-        Верхняя граница
-      </h3>
+      <h3 class="totals__heading">Верхняя граница</h3>
       <h4 class="totals__count">{{getLastGraphValue('upperLimit') | number:'1.1-1'}}</h4>
     </div>
 
     <div class="totals__item totals__item_bounds" *ngIf="getLastGraphValue('lowerLimit')">
-      <h3 class="totals__heading">
-        Нижняя граница
-      </h3>
+      <h3 class="totals__heading">Нижняя граница</h3>
       <h4 class="totals__count">{{getLastGraphValue('lowerLimit') | number:'1.1-1'}}</h4>
     </div>
   </div>

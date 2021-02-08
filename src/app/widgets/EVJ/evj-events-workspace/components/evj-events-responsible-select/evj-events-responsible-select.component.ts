@@ -13,7 +13,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EvjEventsResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
     public selected: string = 'Не выбрано';
-    filter: FormControl = new FormControl({value: '', disabled: true});
+    filter: FormControl = new FormControl({ value: '', disabled: true });
 
     public responsible: IUser = null;
 
@@ -56,8 +56,7 @@ export class EvjEventsResponsibleSelectComponent implements OnInit {
         }
         this.users = this.ewService.users.filter(
             (user) =>
-                user.firstName.toLowerCase().indexOf(value) > -1 ||
-                user.lastName.toLowerCase().indexOf(value) > -1
+                user.firstName.toLowerCase().indexOf(value) > -1 || user.lastName.toLowerCase().indexOf(value) > -1
         );
     }
 }

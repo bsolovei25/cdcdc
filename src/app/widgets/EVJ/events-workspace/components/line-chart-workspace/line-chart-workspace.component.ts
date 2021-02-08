@@ -8,11 +8,7 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
-import {
-    LineChartData,
-    LineChartGraph,
-    LineChartGraphValue,
-} from 'src/app/dashboard/models/line-chart';
+import { LineChartData, LineChartGraph, LineChartGraphValue } from 'src/app/dashboard/models/line-chart';
 
 @Component({
     selector: 'evj-line-chart-workspace',
@@ -219,9 +215,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                             const planvalue = plan
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (planvalue && planvalue.value < d.value) {
                                 acc.values.push(d);
                             }
@@ -230,9 +224,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                             const ul = upperLimit
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (ul && ul.value < d.value) {
                                 acc.values.push(d);
                             }
@@ -240,9 +232,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                             const li = lowerLimit
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (li && li.value > d.value) {
                                 acc.values.push(d);
                             }
@@ -272,19 +262,9 @@ export class LineChartWorkspaceComponent implements OnInit {
         this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
         if (this.data.graphs.find((d) => d.graphType === 'plan')) {
-            this.x.domain(
-                d3Array.extent(
-                    this.data.graphs.map((v) => v.values.map((v) => v.date))[1],
-                    (d: Date) => d
-                )
-            );
+            this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[1], (d: Date) => d));
         } else {
-            this.x.domain(
-                d3Array.extent(
-                    this.data.graphs.map((v) => v.values.map((v) => v.date))[0],
-                    (d: Date) => d
-                )
-            );
+            this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
         }
 
         const yMin = d3Array.min(this.data.graphs, (c) => d3Array.min(c.values, (d) => d.value));
@@ -332,14 +312,8 @@ export class LineChartWorkspaceComponent implements OnInit {
             this.width = minWidth;
         }
 
-        this.svg = d3
-            .select(element)
-            .append('svg')
-            .attr('width', this.width)
-            .attr('height', element.offsetHeight);
-        this.g = this.svg
-            .append('g')
-            .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+        this.svg = d3.select(element).append('svg').attr('width', this.width).attr('height', element.offsetHeight);
+        this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
     private makeXGridLines() {
@@ -356,15 +330,7 @@ export class LineChartWorkspaceComponent implements OnInit {
             date: '%d.%m.%Y',
             time: '%H:%M:%S',
             periods: ['', ''],
-            days: [
-                'воскресенье',
-                'понедельник',
-                'вторник',
-                'среда',
-                'четверг',
-                'пятница',
-                'суббота',
-            ],
+            days: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
             shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             months: [
                 'Январь',
@@ -380,20 +346,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                 'Ноябрь',
                 'Декабрь',
             ],
-            shortMonths: [
-                'Янв',
-                'Фев',
-                'Мар',
-                'Апр',
-                'Май',
-                'Июн',
-                'Июл',
-                'Авг',
-                'Сен',
-                'Окт',
-                'Ноя',
-                'Дек',
-            ],
+            shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         });
         const formatMillisecond = locale.format('.%L'),
             formatSecond = locale.format(':%S'),
@@ -408,30 +361,25 @@ export class LineChartWorkspaceComponent implements OnInit {
             return (d3.timeSecond(date) < date
                 ? formatMillisecond
                 : d3.timeMinute(date) < date
-                    ? formatSecond
-                    : d3.timeHour(date) < date
-                        ? formatMinute
-                        : d3.timeDay(date) < date
-                            ? formatHour
-                            : d3.timeMonth(date) < date
-                                ? d3.timeWeek(date) < date
-                                    ? formatDay
-                                    : formatWeek
-                                : d3.timeYear(date) < date
-                                    ? formatMonth
-                                    : formatYear)(date);
+                ? formatSecond
+                : d3.timeHour(date) < date
+                ? formatMinute
+                : d3.timeDay(date) < date
+                ? formatHour
+                : d3.timeMonth(date) < date
+                ? d3.timeWeek(date) < date
+                    ? formatDay
+                    : formatWeek
+                : d3.timeYear(date) < date
+                ? formatMonth
+                : formatYear)(date);
         }
         // let RU = d3.timeFormatDefaultLocale(ru_RU);
         this.g
             .append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                d3Axis
-                    .axisBottom(this.x)
-                    .ticks(7)
-                    .tickFormat(multiFormat)
-            );
+            .call(d3Axis.axisBottom(this.x).ticks(7).tickFormat(multiFormat));
 
         this.g
             .append('g')
@@ -452,43 +400,24 @@ export class LineChartWorkspaceComponent implements OnInit {
             .selectAll('grid')
             .attr('class', 'grid')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                this.makeXGridLines()
-                    .tickSize(-this.height)
-                    .tickFormat('')
-            )
+            .call(this.makeXGridLines().tickSize(-this.height).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(97,101,128, .5)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(97,101,128, .5)').style('stroke-width', '0.5')
             );
 
         this.g
             .append('g')
             .attr('class', 'grid')
-            .call(
-                this.makeYGridLines()
-                    .tickSize(-this.width)
-                    .tickFormat('')
-            )
+            .call(this.makeYGridLines().tickSize(-this.width).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(220,220,220, .25)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(220,220,220, .25)').style('stroke-width', '0.5')
             );
     }
 
     private drawPath() {
-        const trend = this.g
-            .selectAll('.trend')
-            .data(this.data.graphs)
-            .enter()
-            .append('g')
-            .attr('class', 'trend');
+        const trend = this.g.selectAll('.trend').data(this.data.graphs).enter().append('g').attr('class', 'trend');
 
         trend
             .append('path')
@@ -533,11 +462,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .y0((d) => 0)
                 .y1((d) => this.y(d.value));
 
-            const upperLimitSource = this.g
-                .selectAll('.limit-area')
-                .data([upperLimit])
-                .enter()
-                .append('g');
+            const upperLimitSource = this.g.selectAll('.limit-area').data([upperLimit]).enter().append('g');
 
             upperLimitSource
                 .append('path')
@@ -557,15 +482,9 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .attr('y1', '0%')
                 .attr('y2', '100%');
 
-            upperLimitGradient
-                .append('stop')
-                .attr('offset', '0%')
-                .attr('stop-color', 'transparent');
+            upperLimitGradient.append('stop').attr('offset', '0%').attr('stop-color', 'transparent');
 
-            upperLimitGradient
-                .append('stop')
-                .attr('offset', '50%')
-                .attr('stop-color', 'rgba(255,255,255,0.015');
+            upperLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
         }
 
         if (lowerLimit) {
@@ -576,11 +495,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .y0((d) => this.height)
                 .y1((d) => this.y(d.value));
 
-            const lowerLimitSource = this.g
-                .selectAll('.limit-area')
-                .data([lowerLimit])
-                .enter()
-                .append('g');
+            const lowerLimitSource = this.g.selectAll('.limit-area').data([lowerLimit]).enter().append('g');
 
             lowerLimitSource
                 .append('path')
@@ -599,15 +514,9 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .attr('y1', '0%')
                 .attr('y2', '100%');
 
-            lowerLimitGradient
-                .append('stop')
-                .attr('offset', '50%')
-                .attr('stop-color', 'rgba(255,255,255,0.015');
+            lowerLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
 
-            lowerLimitGradient
-                .append('stop')
-                .attr('offset', '100%')
-                .attr('stop-color', 'transparent');
+            lowerLimitGradient.append('stop').attr('offset', '100%').attr('stop-color', 'transparent');
         }
     }
 

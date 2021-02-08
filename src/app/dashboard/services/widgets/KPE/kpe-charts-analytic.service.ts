@@ -6,8 +6,6 @@ import { IKpeChartsAnalyticSharedStates } from '../../../models/KPE/kpe-charts-a
     providedIn: 'root',
 })
 export class KpeChartsAnalyticService {
-    public syncStates$: Subject<IKpeChartsAnalyticSharedStates> = new Subject<
-        IKpeChartsAnalyticSharedStates
-    >();
+    public syncStates$: Subject<IKpeChartsAnalyticSharedStates> = new Subject<IKpeChartsAnalyticSharedStates>();
     constructor() {}
 }

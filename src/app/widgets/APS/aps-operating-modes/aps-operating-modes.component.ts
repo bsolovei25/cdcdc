@@ -33,8 +33,7 @@ export interface IHeaderName {
     templateUrl: './aps-operating-modes.component.html',
     styleUrls: ['./aps-operating-modes.component.scss'],
 })
-export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport, { static: false })
     public viewPort: CdkVirtualScrollViewport;
 
@@ -99,8 +98,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                 this.editedData.forEach(
                     (el) =>
                         (el[boolItem.key] =
-                            ('' + !!+el[boolItem.key]).charAt(0).toUpperCase() +
-                            ('' + !!+el[boolItem.key]).slice(1))
+                            ('' + !!+el[boolItem.key]).charAt(0).toUpperCase() + ('' + !!+el[boolItem.key]).slice(1))
                 );
             });
         try {
@@ -161,9 +159,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         return `-${offset + 3}px`;
     }
 
-    public scrollHandler(event: {
-        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
-    }): void {
+    public scrollHandler(event: { target: { offsetHeight: number; scrollTop: number; scrollHeight: number } }): void {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.data.length &&

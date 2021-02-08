@@ -2,10 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, Injector } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
-import {
-    AstueOnpzService,
-    IAstueOnpzMonitoringOptions
-} from '../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzService, IAstueOnpzMonitoringOptions } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
 import { BehaviorSubject } from 'rxjs';
@@ -43,7 +40,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        private injector: Injector,
+        private injector: Injector
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -66,8 +63,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: { graphIds: string[] }): void {
-    }
+    protected dataHandler(ref: { graphIds: string[] }): void {}
 
     private async getData(options: IAstueOnpzMonitoringOptions): Promise<void> {
         this.data$.next(await this.astueOnpzService.getProductChannels(this.widgetId, options));
@@ -82,5 +78,5 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
             ],
             parent: this.injector,
         });
-    }
+    };
 }

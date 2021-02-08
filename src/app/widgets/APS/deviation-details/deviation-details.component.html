@@ -1,28 +1,13 @@
-<evj-contemporary-widget-header
-  [uniqId]="uniqId"
-  [widgetTitle]="widgetTitle"
-  icon="deviation-details"
->
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-  </div>
+<evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="deviation-details">
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></div>
 </evj-contemporary-widget-header>
 
-<div
-  class="wrapper"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="list">
     <ng-container *ngFor="let deviation of deviations">
       <div class="list__item">
         <div class="progress-bar">
-          <span
-            [class.completed]="deviation?.progressBar?.value === 100"
-          >{{ deviation.name }}</span>
+          <span [class.completed]="deviation?.progressBar?.value === 100">{{ deviation.name }}</span>
           <evj-aps-progress-bar [settings]="deviation.progressBar"></evj-aps-progress-bar>
         </div>
         <div class="progress-values">

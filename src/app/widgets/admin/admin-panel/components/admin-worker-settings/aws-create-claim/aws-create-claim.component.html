@@ -2,7 +2,8 @@
   <div class="alert">
     <div class="claims">
       <div class="list">
-        <div *ngFor="let claim of allSpecialClaims"
+        <div
+          *ngFor="let claim of allSpecialClaims"
           class="card"
           [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
           (click)="selectClaim.select(claim)"
@@ -12,34 +13,37 @@
       </div>
     </div>
     <div class="search" *ngIf="selectClaim.hasValue()">
-      <input type="text" placeholder="Поиск" [(ngModel)]="search">
+      <input type="text" placeholder="Поиск" [(ngModel)]="search" />
     </div>
     <div class="list-button" *ngIf="selectClaim.hasValue()" (click)="onClickListButton()">
       {{!checkIsAllSelected() ? 'Выделить все' : 'Снять выделение'}}
-<!--      {{'Выделить все'}}-->
+      <!--      {{'Выделить все'}}-->
     </div>
     <div class="items">
       <div class="list" *ngIf="selectClaim.hasValue()">
         <ng-container *ngIf="selectClaim?.selected[0]?.claimValueType === 'widget'">
-            <div *ngFor="let widget of allWidgets | searchWidget: search"
-              class="card"
-              [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], widget)}"
-              (click)="chooseClaim(selectClaim?.selected[0], widget)"
-            >
-              {{widget.title}}
-            </div>
+          <div
+            *ngFor="let widget of allWidgets | searchWidget: search"
+            class="card"
+            [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], widget)}"
+            (click)="chooseClaim(selectClaim?.selected[0], widget)"
+          >
+            {{widget.title}}
+          </div>
         </ng-container>
         <ng-container *ngIf="selectClaim?.selected[0]?.claimValueType === 'unit'">
-            <div *ngFor="let unit of allUnits | searchUnit: search"
-              class="card"
-              [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], unit)}"
-              (click)="chooseClaim(selectClaim?.selected[0], unit)"
-            >
-              {{unit.name}}
-            </div>
+          <div
+            *ngFor="let unit of allUnits | searchUnit: search"
+            class="card"
+            [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], unit)}"
+            (click)="chooseClaim(selectClaim?.selected[0], unit)"
+          >
+            {{unit.name}}
+          </div>
         </ng-container>
         <ng-container *ngIf="selectClaim?.selected[0]?.claimValueType === 'notificationCategory'">
-          <div *ngFor="let category of allEventsCategories"
+          <div
+            *ngFor="let category of allEventsCategories"
             class="card"
             [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], category)}"
             (click)="chooseClaim(selectClaim?.selected[0], category)"

@@ -1,6 +1,13 @@
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-                     [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [widgetType]="widgetType"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -26,8 +33,7 @@
         </div>
       </div>
       <div class="documents-scans__bottom">
-        <div class="bottom-block">
-        </div>
+        <div class="bottom-block"></div>
       </div>
     </div>
   </div>

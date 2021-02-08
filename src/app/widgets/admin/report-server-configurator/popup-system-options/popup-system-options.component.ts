@@ -2,36 +2,33 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { ISystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
 
 @Component({
-  selector: 'evj-popup-system-options',
-  templateUrl: './popup-system-options.component.html',
-  styleUrls: ['./popup-system-options.component.scss']
+    selector: 'evj-popup-system-options',
+    templateUrl: './popup-system-options.component.html',
+    styleUrls: ['./popup-system-options.component.scss'],
 })
 export class PopupSystemOptionsComponent implements OnInit, OnChanges {
-  @Output() close: EventEmitter<any> = new EventEmitter<any>();
-  @Input() optionsType: ISystemOptionsTemplate;
-  @Input() templateData: any;
+    @Output() close: EventEmitter<any> = new EventEmitter<any>();
+    @Input() optionsType: ISystemOptionsTemplate;
+    @Input() templateData: any;
 
-  public systemOptions: string;
+    public systemOptions: string;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    this.systemOptions = this.optionsType.templateSystemOption.systemOptionType;
-  }
+    ngOnChanges(): void {
+        this.systemOptions = this.optionsType.templateSystemOption.systemOptionType;
+    }
 
+    resultPopup(event): void {
+        const systemCustomOptionsId = this.optionsType.id;
+        const obj = {
+            close: event.close,
+            systemIdChange: systemCustomOptionsId,
+        };
 
-  resultPopup(event): void {
-    const systemCustomOptionsId = this.optionsType.id;
-    const obj = {
-      close: event.close,
-      systemIdChange: systemCustomOptionsId,
-    };
-
-    this.optionsType = null;
-    this.close.emit(obj);
-  }
-
+        this.optionsType = null;
+        this.close.emit(obj);
+    }
 }

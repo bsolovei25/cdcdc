@@ -1,8 +1,5 @@
-<div class="content"
-     style="border-left: none; border-right: none">
-  <section class="table__left"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()">
+<div class="content" style="border-left: none; border-right: none">
+  <section class="table__left" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="table__container scroll-bar">
       <table>
         <thead>
@@ -14,36 +11,40 @@
         </thead>
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
-            <tr *ngIf="!element.isInvisible && element?.childredTanks?.length > 0"
-                class="table__tr"
-                (click)="expandedElement.toggle(element.uid)">
+            <tr
+              *ngIf="!element.isInvisible && element?.childredTanks?.length > 0"
+              class="table__tr"
+              (click)="expandedElement.toggle(element.uid)"
+            >
               <td class="name">
-                <svg-icon class="name__icon"
-                          src="assets/icons/widgets/calibration-table/arrow-name.svg"
-                          [svgStyle]="{ 'width.px':12, 'height.px':8 }"
-                          [class.arrow-rtl]="expandedElement.isSelected(element.uid)"></svg-icon>
+                <svg-icon
+                  class="name__icon"
+                  src="assets/icons/widgets/calibration-table/arrow-name.svg"
+                  [svgStyle]="{ 'width.px':12, 'height.px':8 }"
+                  [class.arrow-rtl]="expandedElement.isSelected(element.uid)"
+                ></svg-icon>
                 <span class="name__text">{{ element.name }}</span>
               </td>
             </tr>
             <ng-container *ngFor="let elementChildren of element?.childredTanks">
-              <tr class="expanded-row"
-                  *ngIf="expandedElement.isSelected(element.uid) && !elementChildren.isInvisible"
-                  [class.chooseElement]="chooseElement.isSelected(elementChildren.uid)"
-                  (click)="chooseTank(elementChildren)">
-                <td class="name expanded-column">
-                  {{ elementChildren.name }}
-                </td>
+              <tr
+                class="expanded-row"
+                *ngIf="expandedElement.isSelected(element.uid) && !elementChildren.isInvisible"
+                [class.chooseElement]="chooseElement.isSelected(elementChildren.uid)"
+                (click)="chooseTank(elementChildren)"
+              >
+                <td class="name expanded-column">{{ elementChildren.name }}</td>
               </tr>
             </ng-container>
           </ng-container>
           <ng-container *ngFor="let element of dataSourceTanks">
-            <tr class="expanded-row"
-                (click)="element.uid !== 'last-row' ? chooseTank(element) : null"
-                [class.last-row]="element.uid === 'last-row'"
-                [class.chooseElement]="chooseElement.isSelected(element.uid)">
-              <td class="name">
-                {{ element.name }}
-              </td>
+            <tr
+              class="expanded-row"
+              (click)="element.uid !== 'last-row' ? chooseTank(element) : null"
+              [class.last-row]="element.uid === 'last-row'"
+              [class.chooseElement]="chooseElement.isSelected(element.uid)"
+            >
+              <td class="name">{{ element.name }}</td>
             </tr>
           </ng-container>
         </tbody>
@@ -54,20 +55,25 @@
                 <div class="footer-left__block">
                   <div class="footer-left__input-block">
                     <div class="footer-left__button-search">
-                      <svg-icon *ngIf="!isRefInput"
-                                class="button_filter_icon"
-                                src="assets/icons/widgets/references/search_white.svg"></svg-icon>
+                      <svg-icon
+                        *ngIf="!isRefInput"
+                        class="button_filter_icon"
+                        src="assets/icons/widgets/references/search_white.svg"
+                      ></svg-icon>
 
-                      <svg-icon *ngIf="isRefInput"
-                                class="indicator-selector__collapse"
-                                src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                      <svg-icon
+                        *ngIf="isRefInput"
+                        class="indicator-selector__collapse"
+                        src="assets/icons/widgets/references/search_blue.svg"
+                      ></svg-icon>
                     </div>
-                    <div class="footer-left__input"
-                         [class.bottom-reference-left__input-active]="isRefInput">
-                      <input type="text"
-                             (focus)="isRefInput = true"
-                             (blur)="isRefInput = false"
-                             (keyup)="searchInput($event)" />
+                    <div class="footer-left__input" [class.bottom-reference-left__input-active]="isRefInput">
+                      <input
+                        type="text"
+                        (focus)="isRefInput = true"
+                        (blur)="isRefInput = false"
+                        (keyup)="searchInput($event)"
+                      />
                     </div>
                   </div>
                 </div>
@@ -79,9 +85,7 @@
     </div>
   </section>
 
-  <section class="table__right"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()">
+  <section class="table__right" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="table__container scroll-bar">
       <table>
         <thead>
@@ -105,32 +109,24 @@
         </thead>
         <tbody class="table__body">
           <ng-container *ngFor="let element of chooseTanks">
-            <tr class="expanded-row"
-                [class.last-row]="element?.comment === 'last-row'">
+            <tr class="expanded-row" [class.last-row]="element?.comment === 'last-row'">
               <ng-container *ngIf="element?.comment !== 'last-row'; else elseBlock">
+                <td class="name">{{ element?.createdAt | date }}</td>
+                <td class="name">{{ element?.createdBy }}</td>
+                <td class="name">{{ element?.action }}</td>
                 <td class="name">
-                  {{ element?.createdAt | date }}
-                </td>
-                <td class="name">
-                  {{ element?.createdBy }}
-                </td>
-                <td class="name">
-                  {{ element?.action }}
-                </td>
-                <td class="name">
-                  <ng-container
-                                *ngIf="element?.action !== 'Таблица градуировки' || element.newValue === '-'">
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки' || element.newValue === '-'">
                     {{ element?.newValue }}
                   </ng-container>
-                  <ng-container
-                                *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
-                    <a style="color: white"
-                       href="{{restUrl}}/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}">{{ element?.newValue }}</a>
+                  <ng-container *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
+                    <a
+                      style="color: white"
+                      href="{{restUrl}}/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}"
+                      >{{ element?.newValue }}</a
+                    >
                   </ng-container>
                 </td>
-                <td class="name">
-                  {{ element?.comment }}
-                </td>
+                <td class="name">{{ element?.comment }}</td>
               </ng-container>
               <ng-template #elseBlock>
                 <td class="name"></td>
@@ -139,8 +135,7 @@
                 <td class="name"></td>
                 <td class="name"></td>
               </ng-template>
-              <span *ngIf="chooseTanks?.length < 2"
-                    class="no-data-text">Данных нет</span>
+              <span *ngIf="chooseTanks?.length < 2" class="no-data-text">Данных нет</span>
             </tr>
           </ng-container>
         </tbody>

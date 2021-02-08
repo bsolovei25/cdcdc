@@ -1,12 +1,4 @@
-import {
-    Directive,
-    HostListener,
-    ElementRef,
-    Input,
-    OnInit,
-    Renderer2,
-    EventEmitter,
-} from '@angular/core';
+import { Directive, HostListener, ElementRef, Input, OnInit, Renderer2, EventEmitter } from '@angular/core';
 
 @Directive({
     selector: '[paginatorDots]',

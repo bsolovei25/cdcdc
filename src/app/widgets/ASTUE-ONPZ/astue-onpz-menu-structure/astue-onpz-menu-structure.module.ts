@@ -7,12 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [AstueOnpzMenuStructureComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-    ],
+    imports: [CommonModule, SharedModule, MatSelectModule, ReactiveFormsModule],
 })
 export class AstueOnpzMenuStructureModule {
     enterComponent = AstueOnpzMenuStructureComponent;

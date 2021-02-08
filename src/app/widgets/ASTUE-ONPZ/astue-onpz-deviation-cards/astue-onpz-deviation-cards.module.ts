@@ -6,16 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
     declarations: [AstueOnpzDeviationCardsComponent],
-    imports: [
-        CommonModule,
-        AngularSvgIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        SharedModule,
-    ]
+    imports: [CommonModule, AngularSvgIconModule, MatFormFieldModule, MatSelectModule, SharedModule],
 })
 export class AstueOnpzDeviationCardsModule {
     enterComponent = AstueOnpzDeviationCardsComponent;

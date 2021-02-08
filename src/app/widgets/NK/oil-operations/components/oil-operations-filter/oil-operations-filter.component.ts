@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { IOilFilter } from 'src/app/dashboard/models/oil-operations';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -19,7 +19,7 @@ export interface IOilFilterOutput {
 @Component({
     selector: 'evj-oil-operations-filter',
     templateUrl: './oil-operations-filter.component.html',
-    styleUrls: ['./oil-operations-filter.component.scss']
+    styleUrls: ['./oil-operations-filter.component.scss'],
 })
 export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
     public activeItem: IOilFilter = {
@@ -34,9 +34,7 @@ export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
     @ViewChild(CdkVirtualScrollViewport)
     public viewPort: CdkVirtualScrollViewport;
 
-    constructor(
-        private popoverRef: PopoverRef,
-    ) {
+    constructor(private popoverRef: PopoverRef) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.close();
         });
@@ -47,8 +45,7 @@ export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.scrollToActive();
@@ -56,9 +53,9 @@ export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
 
     @AsyncRender
     private scrollToActive(): void {
-        const selectedIndex = this.filterData.findIndex(elem => elem.id === this.activeItem.id);
+        const selectedIndex = this.filterData.findIndex((elem) => elem.id === this.activeItem.id);
         if (selectedIndex > -1) {
-            this.viewPort.scrollToIndex(selectedIndex, 'auto' );
+            this.viewPort.scrollToIndex(selectedIndex, 'auto');
         }
     }
 

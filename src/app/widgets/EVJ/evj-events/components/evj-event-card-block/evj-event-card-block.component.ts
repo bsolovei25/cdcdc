@@ -5,10 +5,9 @@ import { EventService } from '../../../../../dashboard/services/widgets/EVJ/even
 @Component({
     selector: 'evj-evj-event-card-block',
     templateUrl: './evj-event-card-block.component.html',
-    styleUrls: ['./evj-event-card-block.component.scss']
+    styleUrls: ['./evj-event-card-block.component.scss'],
 })
 export class EvjEventCardBlockComponent implements OnInit {
-
     @Input() data: IEventsWidgetNotificationPreview;
     @Input() public cardActiveId: number = 0;
     @Input() public isVideoWall: boolean = false;
@@ -17,11 +16,9 @@ export class EvjEventCardBlockComponent implements OnInit {
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(private eventService: EventService) {
-    }
+    constructor(private eventService: EventService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -36,13 +33,9 @@ export class EvjEventCardBlockComponent implements OnInit {
         event.stopPropagation();
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
-            await this.eventService.changeEventIsAcknowledged(
-                eventCard.id,
-                eventCard.isAcknowledged
-            );
+            await this.eventService.changeEventIsAcknowledged(eventCard.id, eventCard.isAcknowledged);
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
     }
-
 }

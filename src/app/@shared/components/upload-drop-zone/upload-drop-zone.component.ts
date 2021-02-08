@@ -1,6 +1,13 @@
 import {
-    Component, OnInit, Inject,
-    Renderer2, ElementRef, ViewChild, Output, EventEmitter, Input
+    Component,
+    OnInit,
+    Inject,
+    Renderer2,
+    ElementRef,
+    ViewChild,
+    Output,
+    EventEmitter,
+    Input,
 } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
@@ -11,7 +18,6 @@ import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
     styleUrls: ['./upload-drop-zone.component.scss'],
 })
 export class UploadDropZoneComponent {
-
     date: Date = new Date();
 
     public fileLoad: boolean = false;
@@ -29,8 +35,7 @@ export class UploadDropZoneComponent {
         private renderer: Renderer2,
         public snackBar: SnackBarService,
         @Inject(MAT_DIALOG_DATA) public data: string
-    ) {
-    }
+    ) {}
 
     dragOver(event: DragEvent): void {
         event.stopPropagation();
@@ -64,5 +69,4 @@ export class UploadDropZoneComponent {
             this.snackBar.openSnackBar('Неверный формат файла', 'snackbar-red');
         }
     }
-
 }

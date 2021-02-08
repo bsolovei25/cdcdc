@@ -1,41 +1,39 @@
 <div class="header-workspace">
-  <div
-    class="header-workspace__button"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="header-workspace__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="right-side">
-      <div class="header-workspace__container hover-effect"
-           matRipple [matRippleColor]="'white'"
-           (click)="createEvent(true)"
+      <div
+        class="header-workspace__container hover-effect"
+        matRipple
+        [matRippleColor]="'white'"
+        (click)="createEvent(true)"
       >
         <div class="title">Новое событие</div>
       </div>
-      <div class="header-workspace__container hover-effect"
-           matRipple [matRippleColor]="'white'"
-           *ngIf="!!eventProdTask" (click)="changeStatus()"
+      <div
+        class="header-workspace__container hover-effect"
+        matRipple
+        [matRippleColor]="'white'"
+        *ngIf="!!eventProdTask"
+        (click)="changeStatus()"
       >
         <div class="title">{{eventProdTask}}</div>
       </div>
     </div>
 
     <div class="right-side">
-      <div class="header-workspace__container hover-effect"
-           matRipple [matRippleColor]="'white'"
-           (click)="backEvent()"
-      >
+      <div class="header-workspace__container hover-effect" matRipple [matRippleColor]="'white'" (click)="backEvent()">
         <div class="title">Вернуться к событию</div>
-        <div class="icon-wrapper">
-        </div>
+        <div class="icon-wrapper"></div>
       </div>
       <div
         class="header-workspace__container active-button"
-        matRipple [matRippleColor]="'white'"
+        matRipple
+        [matRippleColor]="'white'"
         *ngIf="!createIcon && blockWorkspaceButton"
-        (click)="createEvent(false)">
+        (click)="createEvent(false)"
+      >
         <div class="title">Сохранить</div>
       </div>
     </div>
   </div>
 </div>
-

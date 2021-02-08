@@ -19,10 +19,13 @@
   <div class="border-container" [style]="borderLeft"></div>
 </div>
 
-<ng-template #lineDiagram let-label="label"
-             let-currentValue="currentValue"
-             let-minValue="minValue"
-             let-maxValue="maxValue">
+<ng-template
+  #lineDiagram
+  let-label="label"
+  let-currentValue="currentValue"
+  let-minValue="minValue"
+  let-maxValue="maxValue"
+>
   <div class="diagram-container">
     <div class="label">{{label}}</div>
     <div class="diagram-component">

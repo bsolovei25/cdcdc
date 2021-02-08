@@ -69,11 +69,9 @@
     }
 
     &__title {
-
     }
 
     &__unit {
-
     }
   }
 
@@ -106,7 +104,6 @@
   }
 
   .text {
-
     &_status {
       color: var(--color-aps-active);
     }
@@ -118,7 +115,7 @@
 }
 
 .filter-select {
-  border: 1px #0B1325;
+  border: 1px #0b1325;
   border-style: none solid;
   border-radius: 3px;
   max-height: 30px;
@@ -147,7 +144,11 @@
       width: 100%;
     }
 
-    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+    .mat-form-field-appearance-legacy.mat-form-field-can-float
+      .mat-input-server:focus
+      + .mat-form-field-label-wrapper
+      .mat-form-field-label {
       display: none;
     }
 

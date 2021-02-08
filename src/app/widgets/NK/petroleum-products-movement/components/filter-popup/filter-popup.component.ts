@@ -7,9 +7,9 @@ export interface IFilterSetting {
 }
 
 @Component({
-  selector: 'evj-filter-popup',
-  templateUrl: './filter-popup.component.html',
-  styleUrls: ['./filter-popup.component.scss']
+    selector: 'evj-filter-popup',
+    templateUrl: './filter-popup.component.html',
+    styleUrls: ['./filter-popup.component.scss'],
 })
 export class FilterPopupComponent {
     @Input() filterSetting: IFilterSetting;
@@ -17,7 +17,7 @@ export class FilterPopupComponent {
     @Output() public sortFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() public sortText: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor() { }
+    constructor() {}
 
     public setSort(isUp: boolean): void {
         if ((isUp && this.filterSetting?.isUp) || (!isUp && this.filterSetting?.isDown)) {

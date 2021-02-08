@@ -13,11 +13,7 @@
       <div class="header__interface">
         <img class="icon" src="assets/pic/diagram.svg" />
         <div class="title">Анализ трендов</div>
-        <div
-          class="buttons"
-          (mousedown)="$event.stopPropagation()"
-          (touchstart)="$event.stopPropagation()"
-        >
+        <div class="buttons" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
           <div class="buttons__mat-select">
             <mat-form-field>
               <img
@@ -25,9 +21,7 @@
                 src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
               />
               <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
-                <mat-option *ngFor="let p of selectValues" [value]="p.value">
-                  {{ p.title }}
-                </mat-option>
+                <mat-option *ngFor="let p of selectValues" [value]="p.value"> {{ p.title }} </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -43,9 +37,7 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <div class="menu__item" (click)="onClickHeader()">
-          Удалить с экрана
-        </div>
+        <div class="menu__item" (click)="onClickHeader()">Удалить с экрана</div>
       </div>
     </div>
     <div class="timeline">
@@ -65,15 +57,10 @@
     </div>
     <div class="body">
       <div class="scroll-container">
-        <ng-container *ngFor="let item of allCheckedCharts">
-        </ng-container>
+        <ng-container *ngFor="let item of allCheckedCharts"> </ng-container>
         <!-- TODO  -->
-        <ng-container
-          *ngFor="let item of allCheckedCharts"
-        >
-          <ng-container
-            *ngComponentOutlet="chartComponent; injector: (widgetId | fn:getInjector :  item);"
-          >
+        <ng-container *ngFor="let item of allCheckedCharts">
+          <ng-container *ngComponentOutlet="chartComponent; injector: (widgetId | fn:getInjector :  item);">
           </ng-container>
         </ng-container>
         <!-- TODO  -->
@@ -104,7 +91,6 @@
     <!--  </div>-->
   </div>
 </div>
-
 
 <!-- <ng-template #lineChart let-isWarning="isWarning">
   <div class="line-chart" [class.line-chart__warning]="isWarning">

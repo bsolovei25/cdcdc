@@ -71,11 +71,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             this.svg.remove();
         }
 
-        this.svg = d3
-            .select(this.chart.nativeElement)
-            .append('svg')
-            .attr('width', '100px')
-            .attr('height', '100px');
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '100px').attr('height', '100px');
 
         const arcBg = d3
             .arc()
@@ -104,17 +100,11 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             .attr('height', '100px')
             .style('transform', 'translate(50px, 50px)');
 
-        g.append('path')
-            .attr('d', arcBg)
-            .style('fill', 'var(--sou-mvp-color-bg-title)');
+        g.append('path').attr('d', arcBg).style('fill', 'var(--sou-mvp-color-bg-title)');
 
-        g.append('path')
-            .attr('d', mainPie)
-            .style('fill', 'var(--sou-mvp-color-white)');
+        g.append('path').attr('d', mainPie).style('fill', 'var(--sou-mvp-color-white)');
 
-        g.append('path')
-            .attr('d', arc)
-            .style('fill', 'var(--sou-mvp-color-warning)');
+        g.append('path').attr('d', arc).style('fill', 'var(--sou-mvp-color-warning)');
     }
 
     public ngOnInit(): void {

@@ -26,18 +26,16 @@ export class OperationScreenComponent implements OnInit {
     }
 
     private filterHandler(): void {
-        this.petroleumService.currentTransfersFilter$.subscribe(
-            (item) => {
-                switch (item) {
-                    case 'open':
-                        this.isOpen = true;
-                        break;
-                    case 'all':
-                        this.isOpen = false;
-                        break;
-                }
+        this.petroleumService.currentTransfersFilter$.subscribe((item) => {
+            switch (item) {
+                case 'open':
+                    this.isOpen = true;
+                    break;
+                case 'all':
+                    this.isOpen = false;
+                    break;
             }
-        );
+        });
     }
 
     public filterClick(isOpen: boolean): void {

@@ -11,10 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { AstueOnpzConventionalFuelModule } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module';
 
-
-
 @NgModule({
-  declarations: [AstueOnpzTableIndicatorsComponent],
+    declarations: [AstueOnpzTableIndicatorsComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -25,8 +23,8 @@ import { AstueOnpzConventionalFuelModule } from '../astue-onpz-conventional-fuel
         EvjEventsWorkspaceModule,
         MatFormFieldModule,
         MatSelectModule,
-        AstueOnpzConventionalFuelModule
-    ]
+        AstueOnpzConventionalFuelModule,
+    ],
 })
 export class AstueOnpzTableIndicatorsModule {
     enterComponent = AstueOnpzTableIndicatorsComponent;

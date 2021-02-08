@@ -3,23 +3,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventsSmotrIconComponent } from './events-smotr-icon.component';
 
 describe('EventsSmotrIconComponent', () => {
-  let component: EventsSmotrIconComponent;
-  let fixture: ComponentFixture<EventsSmotrIconComponent>;
+    let component: EventsSmotrIconComponent;
+    let fixture: ComponentFixture<EventsSmotrIconComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EventsSmotrIconComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [EventsSmotrIconComponent],
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EventsSmotrIconComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(EventsSmotrIconComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

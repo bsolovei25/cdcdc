@@ -6,10 +6,10 @@ import { ApsNotchedContainerComponent } from './components/aps-notched-container
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from "@angular/forms";
-import { ApsContextMenuDirective } from "../../../dashboard/components/aps-context-menu/aps-context-menu.directive";
-import { ApsContextMenuComponent } from "../../../dashboard/components/aps-context-menu/aps-context-menu.component";
-import { ApsDropdownMenuComponent } from "../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component";
+import { FormsModule } from '@angular/forms';
+import { ApsContextMenuDirective } from '../../../dashboard/components/aps-context-menu/aps-context-menu.directive';
+import { ApsContextMenuComponent } from '../../../dashboard/components/aps-context-menu/aps-context-menu.component';
+import { ApsDropdownMenuComponent } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -20,7 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
         ApsNotchedContainerComponent,
         ApsContextMenuDirective,
         ApsContextMenuComponent,
-        ApsDropdownMenuComponent
+        ApsDropdownMenuComponent,
     ],
     imports: [
         CommonModule,
@@ -29,14 +29,10 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSelectModule,
         FormsModule,
         MatButtonModule,
-        MatMenuModule
+        MatMenuModule,
     ],
-    exports: [
-        ApsContextMenuDirective
-    ],
-    providers: [
-        ApsContextMenuDirective
-    ]
+    exports: [ApsContextMenuDirective],
+    providers: [ApsContextMenuDirective],
 })
 export class ScenariosModule {
     enterComponent = ScenariosComponent;

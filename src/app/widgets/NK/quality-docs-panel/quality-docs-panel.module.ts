@@ -10,10 +10,8 @@ import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [ QualityDocsPanelComponent, QualityDocsRecordComponent ],
+    declarations: [QualityDocsPanelComponent, QualityDocsRecordComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -23,7 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ScrollingModule,
         OldScrollingModule,
         ReactiveFormsModule,
-    ]
+    ],
 })
 export class QualityDocsPanelModule {
     enterComponent = QualityDocsPanelComponent;

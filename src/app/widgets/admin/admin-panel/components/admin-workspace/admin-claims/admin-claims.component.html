@@ -1,12 +1,8 @@
 <div class="claims">
   <div class="row" *ngIf="claims.length!==0">
-    <div class="row__title" style="margin-top: 0px;">Права</div>
+    <div class="row__title" style="margin-top: 0px">Права</div>
     <div class="row__items">
-      <evj-aws-claim-card
-        *ngFor="let claim of claims"
-        [name]="claim.claimName"
-        [isActive]="true"
-      ></evj-aws-claim-card>
+      <evj-aws-claim-card *ngFor="let claim of claims" [name]="claim.claimName" [isActive]="true"></evj-aws-claim-card>
     </div>
   </div>
   <div class="row"></div>
