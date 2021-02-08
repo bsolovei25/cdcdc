@@ -20,7 +20,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
+} from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -36,60 +40,57 @@ import { SystemPeriodEditComponent } from './popup-system-options/system-period-
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 import { TreeModule } from '@circlon/angular-tree-component';
 
-
-
 @NgModule({
-  declarations: [
-    ReportServerConfiguratorComponent,
-    AddReportFileComponent,
-    PopupSystemOptionsComponent,
-    SystemAutogenerateComponent,
-    SystemMacroEditComponent,
-    SystemParameterValuesAutogenerationComponent,
-    SystemReportSheetsComponent,
-    PopupUserOptionsComponent,
-    AdditionalParamComponent,
-    NecessaryParamComponent,
-    ReportFileSelectBoxComponent,
-    ParameterAutogenerationComponent,
-    SystemPathEditComponent,
-    SystemPathUserComponent,
-    SystemPeriodEditComponent,
-    SystemPeriodDateYearComponent,
-        SystemPeriodDateMonthComponent,
-        SystemPeriodDateDayComponent,
-        SystemPeriodDateComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    NgxMatMomentModule,
-    FormsModule,
-    MatIconModule,
-    OverlayModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    TreeModule
-  ],
-  exports: [
+    declarations: [
+        ReportServerConfiguratorComponent,
+        AddReportFileComponent,
+        PopupSystemOptionsComponent,
+        SystemAutogenerateComponent,
+        SystemMacroEditComponent,
+        SystemParameterValuesAutogenerationComponent,
+        SystemReportSheetsComponent,
+        PopupUserOptionsComponent,
+        AdditionalParamComponent,
+        NecessaryParamComponent,
+        ReportFileSelectBoxComponent,
+        ParameterAutogenerationComponent,
+        SystemPathEditComponent,
+        SystemPathUserComponent,
+        SystemPeriodEditComponent,
         SystemPeriodDateYearComponent,
         SystemPeriodDateMonthComponent,
         SystemPeriodDateDayComponent,
         SystemPeriodDateComponent,
-  ]
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
+        FormsModule,
+        MatIconModule,
+        OverlayModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        TreeModule,
+    ],
+    exports: [
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
+        SystemPeriodDateComponent,
+    ],
 })
 export class ReportServerConfiguratorModule {
-  enterComponent = ReportServerConfiguratorComponent;
+    enterComponent = ReportServerConfiguratorComponent;
 }
-

@@ -2,17 +2,11 @@
   <div class="card_item">
     <div class="card_item__top">
       <div class="card_item__top___left">
-        <div class="product-text">
-          {{event?.productName ? event.productName : ''}}
-        </div>
-        <div class="date-text">
-          {{event?.cardDate | date:'dd.MM.yyyy'}}
-        </div>
+        <div class="product-text">{{event?.productName ? event.productName : ''}}</div>
+        <div class="date-text">{{event?.cardDate | date:'dd.MM.yyyy'}}</div>
       </div>
       <div class="card_item__top___right">
-        <div class="status-text">
-          {{event?.statusName}}
-        </div>
+        <div class="status-text">{{event?.statusName}}</div>
       </div>
     </div>
     <div class="card_item__middle">
@@ -26,15 +20,11 @@
         </div>
       </div>
       <div class="card_item__middle___text-block">
-        <div class="info-text">
-          {{event?.description}}
-        </div>
+        <div class="info-text">{{event?.description}}</div>
       </div>
     </div>
     <div class="card_item__bottom">
-      <div class="time-text">
-        {{event?.day || event?.day===0 ? event.day+'д.' : '' }}
-      </div>
+      <div class="time-text">{{event?.day || event?.day===0 ? event.day+'д.' : '' }}</div>
     </div>
   </div>
   <div class="card_item__loader">

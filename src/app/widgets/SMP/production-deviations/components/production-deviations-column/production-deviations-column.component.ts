@@ -1,11 +1,4 @@
-import {
-    Component,
-    ViewChild,
-    ElementRef,
-    Input,
-    ChangeDetectionStrategy,
-    OnChanges,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import {
     IProductionDeviationsColumn,
@@ -75,9 +68,7 @@ export class ProductionDeviationsColumnComponent implements OnChanges {
             this.linesCounters.set('fact', factLines);
         } else if (this.data.limit) {
             const allLines: number = Math.floor((maxLines * this.data.fact) / this.data.maxValue);
-            const limitLines: number = Math.floor(
-                (maxLines * this.data.limit.value) / this.data.maxValue
-            );
+            const limitLines: number = Math.floor((maxLines * this.data.limit.value) / this.data.maxValue);
             this.linesCounters.set(this.data.limit.type, allLines - limitLines);
             this.linesCounters.set('fact', limitLines);
         }

@@ -11,20 +11,14 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="eco-dia"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="eco-dia" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="dl-dia">
         <div class="dl-dia__graph">
           <div class="graph__line">
             <div class="line line__marking line__marking-0"></div>
             <div class="line line__marking line__marking-50"></div>
             <div class="line line__limit line__limit-lower">
-              <div class="label label__limit label__limit-lower">
-                0%
-              </div>
+              <div class="label label__limit label__limit-lower">0%</div>
             </div>
             <div
               class="line line__limit line__limit-higher"

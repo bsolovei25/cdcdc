@@ -1,4 +1,4 @@
-@import 'src/mixins';
+@import "src/mixins";
 
 .active-filter {
   &:after {
@@ -79,7 +79,6 @@
   }
 }
 
-
 .input-block {
   display: flex;
   position: relative;
@@ -136,5 +135,4 @@
   &__input-active {
     background: linear-gradient(90deg, transparent 10%, var(--color-active) 100%);
   }
-
 }

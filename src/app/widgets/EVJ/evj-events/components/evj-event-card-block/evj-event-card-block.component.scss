@@ -118,7 +118,6 @@
       }
 
       &__time {
-
         &-title {
         }
       }
@@ -135,8 +134,6 @@
         fill: var(--color-border-unactive);
       }
     }
-
-
   }
 }
 
@@ -146,8 +143,7 @@
 
     &__id,
     &__unit,
-    &__status
-    {
+    &__status {
       font-size: 14px;
     }
   }
@@ -186,8 +182,7 @@
 
     &__id,
     &__unit,
-    &__status
-    {
+    &__status {
       font-size: 24px;
     }
   }
@@ -213,8 +208,7 @@
 
     &__time,
     &__critical,
-    &__remove
-    {
+    &__remove {
       font-size: 24px;
     }
   }

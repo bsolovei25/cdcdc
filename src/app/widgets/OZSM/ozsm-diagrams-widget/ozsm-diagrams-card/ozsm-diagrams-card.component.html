@@ -1,10 +1,7 @@
 <div class="wrapper" [ngClass]="{mirror:mirrorize}">
   <div class="card-container">
     <div class="content" [ngClass]="{mirror:mirrorize}">
-      <span 
-        class="fact"
-        [ngClass]="{zeroDeviation:!data.deviation}"
-      >{{ data.fact }}</span>
+      <span class="fact" [ngClass]="{zeroDeviation:!data.deviation}">{{ data.fact }}</span>
       <div class="info">
         <span *ngIf="data.deviation" class="deviation">{{ data.deviation}} </span>
         <span *ngIf="data.deviation" class="plan">&#160;/ {{ data.plan }}</span>

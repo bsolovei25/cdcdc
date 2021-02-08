@@ -53,8 +53,6 @@ export class EventsPlaceComponent implements OnInit {
         } else {
             value = value.toLowerCase();
         }
-        this.units = this.ewService.units.filter(
-            (unit) => unit.name.toLowerCase().indexOf(value) > -1
-        );
+        this.units = this.ewService.units.filter((unit) => unit.name.toLowerCase().indexOf(value) > -1);
     }
 }

@@ -1,6 +1,11 @@
 <div class="additional-block">
-    <evj-additional-param [data]="customOptionsActive" [options]="options" (close)="closeAdditional($event)" (openOptions)="openOptions($event)"></evj-additional-param>
+  <evj-additional-param
+    [data]="customOptionsActive"
+    [options]="options"
+    (close)="closeAdditional($event)"
+    (openOptions)="openOptions($event)"
+  ></evj-additional-param>
 </div>
 <div *ngIf="isOpenNecessaryParam" class="necessary-block">
-    <evj-necessary-param [activeOptions]="data" (options)="chooseOptions($event)"></evj-necessary-param>
+  <evj-necessary-param [activeOptions]="data" (options)="chooseOptions($event)"></evj-necessary-param>
 </div>

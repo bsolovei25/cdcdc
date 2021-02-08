@@ -1,10 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'evj-events-workspace-datetimepicker',
@@ -12,7 +6,6 @@ import {
     styleUrls: ['./evj-events-workspace-datetimepicker.component.scss'],
 })
 export class EvjEventsWorkspaceDatetimepickerComponent implements OnInit {
-
     @Input()
     public date: Date = new Date();
 
@@ -23,17 +16,13 @@ export class EvjEventsWorkspaceDatetimepickerComponent implements OnInit {
     public disabled: boolean = false;
 
     @Output()
-    public onValueChange: EventEmitter<string | Date>
-        = new EventEmitter<string | Date>();
+    public onValueChange: EventEmitter<string | Date> = new EventEmitter<string | Date>();
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public onClick(): void {
-    }
+    public onClick(): void {}
 
     public dateTimePickerInputStart(value: string | Date): void {
         this.onValueChange.emit(value);

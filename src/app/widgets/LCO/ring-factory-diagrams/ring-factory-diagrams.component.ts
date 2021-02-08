@@ -10,7 +10,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     styleUrls: ['./ring-factory-diagrams.component.scss'],
 })
 export class RingFactoryDiagramsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     datas: RingFactoryWidget[] = [
         {
             id: '1',
@@ -24,8 +23,7 @@ export class RingFactoryDiagramsComponent extends WidgetPlatform<unknown> implem
         },
         {
             id: '2',
-            title:
-                'Комплекс атмосферно-вакуумной переработки нефти, висбрекинга и стабилизации бензина',
+            title: 'Комплекс атмосферно-вакуумной переработки нефти, висбрекинга и стабилизации бензина',
             typeFabric: 1,
             values: [
                 { name: 'АВТ-3', plan: 89, fact: 100 },

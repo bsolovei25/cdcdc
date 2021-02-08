@@ -23,7 +23,6 @@
   }
 }
 
-
 .reference {
   position: relative;
   // background: rgba(34, 36, 47, 0.5);
@@ -129,7 +128,6 @@
   padding-top: 5px;
 }
 
-
 .table-width {
   &__title {
     width: 35%;
@@ -147,8 +145,6 @@
     width: 10%;
   }
 }
-
-
 
 .illustration_widget {
   height: 430px;
@@ -540,15 +536,6 @@
   ) !important;
 }
 
-
-
-
-
-
-
-
-
-
 .dates-selector {
   color: var(--color-text-sub-heading);
   position: relative;
@@ -698,10 +685,9 @@
         min-width: 100px;
       }
 
-      .mat-input-element{
+      .mat-input-element {
         border: none !important;
       }
-
     }
   }
 
@@ -771,16 +757,14 @@
   }
 }
 
-  ::ng-deep .mat-datepicker-popup {
-    margin-top: -5px !important;
+::ng-deep .mat-datepicker-popup {
+  margin-top: -5px !important;
 }
-
 
 .icon-buttons {
   display: flex;
   justify-content: center;
 }
-
 
 input.data {
   text-align: left;

@@ -4,14 +4,8 @@ import { IReportTemplate } from '../../../models/ADMIN/report-server';
 import { SelectionModel } from '@angular/cdk/collections';
 
 export const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [
-        style({ opacity: 0, height: 0 }),
-        animate('100ms', style({ opacity: 1, height: 145 }))
-    ]),
-    transition(':leave', [
-        style({ opacity: 1, height: 145 }),
-        animate('100ms', style({ opacity: 0, height: 0 }))
-    ])
+    transition(':enter', [style({ opacity: 0, height: 0 }), animate('100ms', style({ opacity: 1, height: 145 }))]),
+    transition(':leave', [style({ opacity: 1, height: 145 }), animate('100ms', style({ opacity: 0, height: 0 }))]),
 ]);
 
 export interface IReportTree {
@@ -28,7 +22,6 @@ export interface IReportTree {
     animations: [fadeAnimation],
 })
 export class ReportTreeComponent implements OnInit {
-
     isLoading: boolean = false;
 
     count: number = 1;
@@ -42,9 +35,7 @@ export class ReportTreeComponent implements OnInit {
         this.count = count + 6;
     }
 
+    constructor() {}
 
-    constructor() { }
-
-    ngOnInit(): void { }
-
+    ngOnInit(): void {}
 }

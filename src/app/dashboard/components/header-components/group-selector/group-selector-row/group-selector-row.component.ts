@@ -19,7 +19,7 @@ export class GroupSelectorRowComponent implements OnInit {
     public isShowButtons: boolean = false;
     public isEditing: boolean = false;
 
-    public formControl: FormControl = new FormControl({value: '', disabled: false});
+    public formControl: FormControl = new FormControl({ value: '', disabled: false });
 
     constructor() {}
 

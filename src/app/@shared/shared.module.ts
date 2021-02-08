@@ -40,12 +40,7 @@ import { AlertPasswordComponent } from './components/alert-password/alert-passwo
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PopoverOverlayComponent } from './components/popover-overlay/popover-overlay.component';
-import {
-    MatDialogModule,
-    MatDialogRef,
-    MAT_DIALOG_DATA,
-    MatDialog,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
@@ -56,16 +51,13 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-    NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule,
-} from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
 import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
 import { CheckerComponent } from './components/checker/checker.component';
-import { FormatStatusPipe } from "../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe";
+import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
 
 @NgModule({
     declarations: [

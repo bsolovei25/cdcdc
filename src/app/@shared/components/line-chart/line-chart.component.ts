@@ -1,18 +1,7 @@
-import {
-    Component,
-    ViewChild,
-    ElementRef,
-    OnChanges,
-    HostListener,
-    Input,
-    OnInit,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, OnChanges, HostListener, Input, OnInit } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import {
-    IProductionTrend,
-    ProductionTrendType,
-} from '../../../dashboard/models/LCO/production-trends.model';
+import { IProductionTrend, ProductionTrendType } from '../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
@@ -29,8 +18,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =
-        'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' = 'production-trend';
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -100,22 +88,13 @@ export class LineChartComponent implements OnChanges, OnInit {
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr(
-                'viewBox',
-                `0 0 ${this.graphMaxX} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
-            );
+            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
     }
 
     private findMinMax(): void {
@@ -123,9 +102,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
         }
 
-        [this.dataMin, this.dataMax] = d3.extent(
-            this.data.flatMap((x) => x.graph).map((x) => x.value)
-        );
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
         this.dataMin -= (this.dataMax - this.dataMin) * this.DELTA_CF;
         this.dataMax += (this.dataMax - this.dataMin) * this.DELTA_CF;
     }
@@ -143,27 +120,14 @@ export class LineChartComponent implements OnChanges, OnInit {
             domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
         }
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
 
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(7)
-            .tickFormat(dateFormatLocale())
-            .tickSizeOuter(0);
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(10)
-            .tickSize(0);
+        this.axis.axisX = d3.axisBottom(this.scaleFuncs.x).ticks(7).tickFormat(dateFormatLocale()).tickSizeOuter(0);
+        this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(10).tickSize(0);
 
         const chartData: {
             graphType: ProductionTrendType;
@@ -260,10 +224,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
         // отрисовка центра начала координат
         g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
-        const linesG = g
-            .append('g')
-            .attr('opacity', 1)
-            .attr('class', 'longer-line');
+        const linesG = g.append('g').attr('opacity', 1).attr('class', 'longer-line');
 
         linesG
             .append('line')
@@ -282,10 +243,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('stroke', 'currentColor');
 
         // изменение засечек с линий на круги
-        this.svg
-            .select('g.axis:last-of-type')
-            .selectAll('.tick line')
-            .remove();
+        this.svg.select('g.axis:last-of-type').selectAll('.tick line').remove();
         this.svg
             .select('g.axis:last-of-type')
             .selectAll('.tick')

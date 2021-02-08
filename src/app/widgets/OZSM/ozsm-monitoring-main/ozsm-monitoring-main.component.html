@@ -1,16 +1,12 @@
-<evj-widget-header-smp
-  [uniqId]="uniqId"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseExit()"
-  *ngIf="isHover"
->
+<evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
 </evj-widget-header-smp>
 
-<div class="padding-container"
-     (mouseenter)="onMouseEnter()"
-     (mouseleave)="onMouseExit()"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()"
+<div
+  class="padding-container"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
 >
   <div #graphContainer class="scale-container">
     <div [style]="styleTransform" class="abs-container">
@@ -39,13 +35,13 @@
               </span>
               <span class="title">Налив по направлениям</span>
               <span class="icon">
-                <svg-icon src='assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg'></svg-icon>
+                <svg-icon src="assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg"></svg-icon>
               </span>
             </div>
             <div class="widget-card__body">
               <ng-container *ngFor="let card of [1,2]">
                 <evj-ozsm-card-line-diagram
-                  [data] = "{
+                  [data]="{
                     'icon': 'railway',
                     'title': 'Авто',
                     'maxValue': 39227,
@@ -63,59 +59,56 @@
               </span>
               <span class="title">Отгрузка по направлениям</span>
               <span class="icon">
-                <svg-icon src='assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg'></svg-icon>
+                <svg-icon src="assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg"></svg-icon>
               </span>
             </div>
             <div class="widget-card__body">
-                <evj-ozsm-card-line-diagram
-                [data] = "{
+              <evj-ozsm-card-line-diagram
+                [data]="{
                   'icon' : 'railway',
                   'title': 'Отгрузка ЖД',
                   'maxValue': 39227,
                   'currentValue': 35227,
                   'type': 'icon'
                 }"
-                ></evj-ozsm-card-line-diagram>
-                <evj-ozsm-card-line-diagram
-                [data] = "{
+              ></evj-ozsm-card-line-diagram>
+              <evj-ozsm-card-line-diagram
+                [data]="{
                   'icon' : 'automobile',
                   'title': 'Отгрузка Авто',
                   'maxValue': 39227,
                   'currentValue': 3227,
                   'type': 'icon'
                 }"
-                ></evj-ozsm-card-line-diagram>
+              ></evj-ozsm-card-line-diagram>
             </div>
           </div>
         </div>
         <div class="diagram-container">
           <div class="diagram-card">
             <evj-ozsm-cirle-diagram-icon
-              diagramValue = 360
-              deviation = 0
-              innerValue = 35658
-              titleText = 'Изготовление крышек'
-              innerIcon='cap'
+              diagramValue="360"
+              deviation="0"
+              innerValue="35658"
+              titleText="Изготовление крышек"
+              innerIcon="cap"
             ></evj-ozsm-cirle-diagram-icon>
           </div>
           <div class="diagram-card">
             <evj-ozsm-cirle-diagram-icon
-              diagramValue = 0
-              deviation = 35658
-              innerValue = 35658
-              titleText = 'Изготовление канистр'
-              innerIcon='canister'
+              diagramValue="0"
+              deviation="35658"
+              innerValue="35658"
+              titleText="Изготовление канистр"
+              innerIcon="canister"
             ></evj-ozsm-cirle-diagram-icon>
           </div>
         </div>
         <div class="simple-diagrams">
-          <evj-ozsm-simple-circle-diagram>
-          </evj-ozsm-simple-circle-diagram>
+          <evj-ozsm-simple-circle-diagram> </evj-ozsm-simple-circle-diagram>
         </div>
         <div class="circle-diagram-full">
-          <evj-ozsm-diagrams-card
-            [style.transform]="'translate(0px, 6px)'"
-          ></evj-ozsm-diagrams-card>
+          <evj-ozsm-diagrams-card [style.transform]="'translate(0px, 6px)'"></evj-ozsm-diagrams-card>
           <div class="custom">
             <div class="circle"></div>
             <div class="line"></div>
@@ -143,11 +136,9 @@
           ></evj-ozsm-diagrams-card>
         </div>
         <div class="arrow-container">
-          <svg-icon
-            src="assets/icons/widgets/OZSM/ozsm-monitoring-main/monitoring-graph-arrows.svg"></svg-icon>
+          <svg-icon src="assets/icons/widgets/OZSM/ozsm-monitoring-main/monitoring-graph-arrows.svg"></svg-icon>
         </div>
       </div>
     </div>
   </div>
 </div>
-

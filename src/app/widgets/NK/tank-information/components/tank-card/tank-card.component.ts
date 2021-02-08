@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ChangeDetectionStrategy,
-    OnChanges
-} from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { ITankCardValue } from 'src/app/dashboard/models/NK/tank-information';
 import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
@@ -12,7 +6,7 @@ import { TooltipService } from '@shared/components/tooltip/service/tooltip.servi
     selector: 'evj-tank-card',
     templateUrl: './tank-card.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./tank-card.component.scss']
+    styleUrls: ['./tank-card.component.scss'],
 })
 export class TankCardComponent implements OnInit, OnChanges {
     @Input() public data: ITankCardValue;
@@ -32,8 +26,7 @@ export class TankCardComponent implements OnInit, OnChanges {
         // work: 'В работе'
     };
 
-    constructor(private tooltipService: TooltipService) {
-    }
+    constructor(private tooltipService: TooltipService) {}
 
     ngOnChanges(): void {
         // this.data.objectStatus = 'inOut';
@@ -45,10 +38,9 @@ export class TankCardComponent implements OnInit, OnChanges {
         } else if (this.data.fillLevelPercentage < 0) {
             this.data.fillLevelPercentage = 0;
         }
-        this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
+        this.heightCard = this.data.attributes.length * this.heightValue + 40;
         this.tooltipService.close();
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 }

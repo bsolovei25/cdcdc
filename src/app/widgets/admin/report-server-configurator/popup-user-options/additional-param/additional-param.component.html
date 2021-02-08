@@ -1,50 +1,52 @@
 <div class="container">
-    <div class="title">
-        <div class="title__button-close" (click)="closeAdditional()">
-            <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-            </svg-icon>
-        </div>
-        <div class="title__name">Дополнительные параметры</div>
+  <div class="title">
+    <div class="title__button-close" (click)="closeAdditional()">
+      <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
     </div>
-    <div class="content">
-        <ng-container *ngFor="let item of this.optionsChoose" >
-            <div class="content__title-block" (click)="onShowOptions(item)" [class.active]="item.open">
-                <div class="content__title-button">
-                    <svg-icon *ngIf="item.open" src="assets/icons/widgets/reports/arrow-up.svg"
-                        [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+    <div class="title__name">Дополнительные параметры</div>
+  </div>
+  <div class="content">
+    <ng-container *ngFor="let item of this.optionsChoose">
+      <div class="content__title-block" (click)="onShowOptions(item)" [class.active]="item.open">
+        <div class="content__title-button">
+          <svg-icon
+            *ngIf="item.open"
+            src="assets/icons/widgets/reports/arrow-up.svg"
+            [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+          ></svg-icon>
 
-                    <svg-icon *ngIf="!item.open" src="assets/icons/widgets/reports/arrow-bottom.svg"
-                        [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-                </div>
-                <div class="content__item-title" >
-                    {{item.name}}
-                </div>
+          <svg-icon
+            *ngIf="!item.open"
+            src="assets/icons/widgets/reports/arrow-bottom.svg"
+            [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+          ></svg-icon>
+        </div>
+        <div class="content__item-title">{{item.name}}</div>
+      </div>
+      <div *ngIf="item.open" class="content__item-options">
+        <ng-container *ngFor="let key of objectKeys(item)">
+          <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open' && key !== 'isActive'">
+            <div class="item-block" [class.displayOff]="(item.type !== 'comboBox') && (key === 'source')">
+              <div class="options">{{ optionsName[key] }}</div>
+              <div class="value">{{ item[key] }}</div>
             </div>
-            <div *ngIf="item.open" class="content__item-options">
-                <ng-container *ngFor="let key of objectKeys(item)">
-                    <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open' && key !== 'isActive'">
-                    <div class="item-block" [class.displayOff] = "(item.type !== 'comboBox') && (key === 'source')">
-                        <div class="options" > {{ optionsName[key] }}</div>
-                        <div class="value" > {{ item[key] }}</div>
-                    </div>
-                </ng-container>
-                </ng-container>
-            </div>
+          </ng-container>
         </ng-container>
-    </div>
-    <div class="bottom">
-        <div class="bottom__block-edit">
-            <div class="bottom__block-add">
-                <div class="bottom__button-add" (click)="openCustomOptions()">
-                    <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon">
-                    </svg-icon>
-                </div>
-            </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="bottom">
+    <div class="bottom__block-edit">
+      <div class="bottom__block-add">
+        <div class="bottom__button-add" (click)="openCustomOptions()">
+          <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon"> </svg-icon>
         </div>
-        <div class="bottom__block">
-            <div class="bottom__save-block" (click)="saveReport()">
-                <div class="bottom__button-save">Сохранить</div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="bottom__block">
+      <div class="bottom__save-block" (click)="saveReport()">
+        <div class="bottom__button-save">Сохранить</div>
+      </div>
+    </div>
+  </div>
 </div>

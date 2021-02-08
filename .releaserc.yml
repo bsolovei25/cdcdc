@@ -5,7 +5,7 @@ plugins:
     - changelogFile: CHANGELOG.md
   - - "@semantic-release/git"
     - assets:
-      - dist/**/*.{js,css}
+      # - dist/**/*.{js,css}
       - CHANGELOG.md
       - docs
       - package.json
@@ -20,6 +20,7 @@ plugins:
 branches:
   - "master"
   - "develop"
-  - "devops"
+  - name: "devops"
+    prerelease: true
   - name: "alpha"
     prerelease: true

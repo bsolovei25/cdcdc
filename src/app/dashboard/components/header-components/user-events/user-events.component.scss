@@ -1,38 +1,38 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .treangle {
-    height: 26px;
-    width: 26px;
+  height: 26px;
+  width: 26px;
 
-    border-radius: 2px;
-    background: var(--header-events-color-bg-main);
+  border-radius: 2px;
+  background: var(--header-events-color-bg-main);
 
-    position: absolute;
-    z-index: 2;
+  position: absolute;
+  z-index: 2;
 
-    transform: skew(30deg, -60deg);
+  transform: skew(30deg, -60deg);
 
-    top: 75px;
-    right: 45px;
+  top: 75px;
+  right: 45px;
 }
 
 .container {
-    height: 446px;
-    width: 451px;
+  height: 446px;
+  width: 451px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-    background: var(--header-events-color-bg-main);
+  background: var(--header-events-color-bg-main);
 
-    position: absolute;
-    top: 70px;
-    right: 30px;
+  position: absolute;
+  top: 70px;
+  right: 30px;
 
-    z-index: 3;
+  z-index: 3;
 }
 
 .title {
@@ -59,13 +59,26 @@
 }
 
 .close-btn {
-    cursor: pointer;
+  cursor: pointer;
 
-    fill: var(--header-events-color-font-standard);
+  fill: var(--header-events-color-font-standard);
 }
 
 .body-container {
-    flex: 1;
+  flex: 1;
+
+  margin: 8px 5px;
+  padding: 0 8px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--header-events-color-bg-thumb);
+    border-radius: 0;
+  }
 
     margin: 8px 5px;
     padding: 0 8px;

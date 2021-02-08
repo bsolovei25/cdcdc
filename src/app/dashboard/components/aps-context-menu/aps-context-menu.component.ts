@@ -1,12 +1,4 @@
-import {
-    Component,
-    Input,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    AfterViewInit
-} from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { INavItem } from '../aps-dropdown-menu/aps-dropdown-menu.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ApsContextMenuDirective } from './aps-context-menu.directive';
@@ -15,10 +7,9 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
     selector: 'evj-aps-context-menu',
     templateUrl: './aps-context-menu.component.html',
-    styleUrls: ['./aps-context-menu.component.scss']
+    styleUrls: ['./aps-context-menu.component.scss'],
 })
 export class ApsContextMenuComponent implements OnInit, OnDestroy, AfterViewInit {
-
     @ViewChild('clickHoverMenuTrigger') clickHoverMenuTrigger: MatMenuTrigger;
 
     @Input()
@@ -41,14 +32,9 @@ export class ApsContextMenuComponent implements OnInit, OnDestroy, AfterViewInit
     @ViewChild('container', { static: false })
     public container: ElementRef;
 
-    constructor(
-        public directive: ApsContextMenuDirective,
-        public elRef: ElementRef
-    ) {
-    }
+    constructor(public directive: ApsContextMenuDirective, public elRef: ElementRef) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.subscription = this.event.subscribe((event) => this.triggerContextMenu(event));
@@ -60,10 +46,8 @@ export class ApsContextMenuComponent implements OnInit, OnDestroy, AfterViewInit
         }
         event.preventDefault();
         this.menu?.closeMenu();
-        const offsetX = this.container
-            ?.nativeElement.parentNode.parentNode.getBoundingClientRect().x;
-        const offsetY = this.container
-            ?.nativeElement.parentNode.parentNode.getBoundingClientRect().y;
+        const offsetX = this.container?.nativeElement.parentNode.parentNode.getBoundingClientRect().x;
+        const offsetY = this.container?.nativeElement.parentNode.parentNode.getBoundingClientRect().y;
         this.menuX = event?.clientX - offsetX;
         this.menuY = event?.clientY - offsetY;
         this.menu?.openMenu();

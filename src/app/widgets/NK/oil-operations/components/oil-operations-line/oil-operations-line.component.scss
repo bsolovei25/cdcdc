@@ -1,18 +1,18 @@
-.container-line{
-    direction: ltr;
-    border-radius: 20px;
-    display: flex;
-    width: calc(100% - 10px);
-    height: 100%;
-    padding: 10px;
-    padding-bottom: 0;
-    min-width: 390px;
+.container-line {
+  direction: ltr;
+  border-radius: 20px;
+  display: flex;
+  width: calc(100% - 10px);
+  height: 100%;
+  padding: 10px;
+  padding-bottom: 0;
+  min-width: 390px;
 
-    &__menu{
-        width: 25%;
-    }
+  &__menu {
+    width: 25%;
+  }
 
-    &__line-chart{
-        width: 75%;
-    }
+  &__line-chart {
+    width: 75%;
+  }
 }

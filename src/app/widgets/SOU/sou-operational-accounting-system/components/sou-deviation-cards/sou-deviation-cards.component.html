@@ -1,12 +1,18 @@
 <div class="container">
   <div class="header">
     <div class="header__icon">
-      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/letter.svg"></svg-icon>
+      <svg-icon
+        [svgStyle]="{'width': '100%', 'height': '100%'}"
+        src="assets/icons/widgets/SOU/header-icons/letter.svg"
+      ></svg-icon>
     </div>
     <div class="header__label">Карточки отклонений</div>
     <span style="flex-grow: 1"></span>
     <div class="header__button-close" (click)="buttonClick()">
-      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/close.svg"></svg-icon>
+      <svg-icon
+        [svgStyle]="{'width': '100%', 'height': '100%'}"
+        src="assets/icons/widgets/SOU/header-icons/close.svg"
+      ></svg-icon>
     </div>
   </div>
   <div class="table-content">
@@ -18,7 +24,6 @@
   </div>
 </div>
 
-
 <ng-template #card let-cardData="cardData">
   <div class="card">
     <div class="card_header">
@@ -26,7 +31,10 @@
     </div>
     <div class="card_content">
       <div class="card_content__icon">
-        <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/warning.svg"></svg-icon>
+        <svg-icon
+          [svgStyle]="{'width': '100%', 'height': '100%'}"
+          src="assets/icons/widgets/SOU/warning.svg"
+        ></svg-icon>
       </div>
       <div class="card_content__textarea">
         <span>{{cardData?.message}}</span>

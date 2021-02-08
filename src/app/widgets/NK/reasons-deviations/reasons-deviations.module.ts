@@ -10,24 +10,17 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ReasonsDeviationsService } from './reasons-deviations.service';
 
-
-
 @NgModule({
-  declarations: [
-      ReasonsDeviationsComponent,
-      ReasonsDeviationsInfoContentComponent,
-      ReasonsDeviationsInfoTankComponent,
-      ReasonsDeviationsLineChartComponent,
-      ReasonsDeviationsPicTankComponent,
-      ReasonsDeviationsTankLevelComponent
-  ],
-  imports: [
-    CommonModule, SharedModule,
-      AngularSvgIconModule
-  ],
-  providers: [
-    ReasonsDeviationsService,
-  ],
+    declarations: [
+        ReasonsDeviationsComponent,
+        ReasonsDeviationsInfoContentComponent,
+        ReasonsDeviationsInfoTankComponent,
+        ReasonsDeviationsLineChartComponent,
+        ReasonsDeviationsPicTankComponent,
+        ReasonsDeviationsTankLevelComponent,
+    ],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
+    providers: [ReasonsDeviationsService],
 })
 export class ReasonsDeviationsModule {
     enterComponent = ReasonsDeviationsComponent;

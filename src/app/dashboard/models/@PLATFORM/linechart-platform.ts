@@ -41,9 +41,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     private subscriptions: Subscription[] = [];
 
     protected constructor(protected widgetService: WidgetService) {
-        this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe(this.changesIntervalHandler.bind(this))
-        );
+        this.subscriptions.push(this.widgetService.currentDates$.subscribe(this.changesIntervalHandler.bind(this)));
     }
 
     public ngOnInit(): void {}
@@ -67,9 +65,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         if (!data) {
             return;
         }
-        data.map((item) =>
-            item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp)))
-        );
+        data.map((item) => item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp))));
         this.subGraphData = data;
         if (this.dataType === 'rest') {
             this.restDataHandler(data);
@@ -105,9 +101,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
             this.sbLeft = 0;
             this.setRestGraphData();
             return;
-        } else if (
-            currentGraphInterval.toDateTime.getTime() > subGraphInterval.toDateTime.getTime()
-        ) {
+        } else if (currentGraphInterval.toDateTime.getTime() > subGraphInterval.toDateTime.getTime()) {
             this.sbLeft = 100 - this.sbWidth;
             this.setRestGraphData();
             return;
@@ -136,19 +130,13 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
 
     // Установка значений основного графика
     protected async setRestGraphData(): Promise<void> {
-        const reqDateTimeInterval = this.extractScrollDateTimes(
-            this.dateTimeInterval,
-            this.sbWidth,
-            this.sbLeft
-        );
+        const reqDateTimeInterval = this.extractScrollDateTimes(this.dateTimeInterval, this.sbWidth, this.sbLeft);
         this.graphDateTimeInterval = { ...reqDateTimeInterval };
         const data = await this.restGraphHandler(reqDateTimeInterval);
         if (!data) {
             return;
         }
-        data.map((item) =>
-            item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp)))
-        );
+        data.map((item) => item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp))));
         this.graphData = data;
     }
 
@@ -157,11 +145,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         return 100 - this.sbLeft - this.sbWidth <= this.realtimeDelta;
     }
 
-    protected extractScrollDateTimes(
-        dateTimeInterval: IDatesInterval,
-        width: number,
-        left: number
-    ): IDatesInterval {
+    protected extractScrollDateTimes(dateTimeInterval: IDatesInterval, width: number, left: number): IDatesInterval {
         if (!dateTimeInterval || width === null || left === null) {
             console.error('extractScrollDateTimes: No valid params');
             return null;
@@ -187,8 +171,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     ): { sbWidth: number; sbLeft: number } {
         const sbWidth = (getDelta(dateTimeInterval) / getDelta(currentDateTimeInterval)) * 100;
         const sbLeft =
-            (currentDateTimeInterval.fromDateTime.getTime() -
-                dateTimeInterval.fromDateTime.getTime()) /
+            (currentDateTimeInterval.fromDateTime.getTime() - dateTimeInterval.fromDateTime.getTime()) /
             getDelta(dateTimeInterval);
 
         function getDelta(interval: IDatesInterval): number {

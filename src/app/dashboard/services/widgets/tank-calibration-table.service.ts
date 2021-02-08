@@ -7,7 +7,6 @@ import { ICalibrationTable } from 'src/app/widgets/NK/tank-calibration-table/tan
     providedIn: 'root',
 })
 export class TankCalibrationTableService {
-
     private readonly restUrl: string;
 
     private restFileUrl: string = '';
@@ -18,43 +17,27 @@ export class TankCalibrationTableService {
     }
 
     async getTankAvailable(): Promise<any[]> {
-        return this.http
-            .get<any[]>(
-                this.restUrl + `/api/graduation-table/Graduation/tanks/available`
-            )
-            .toPromise();
+        return this.http.get<any[]>(this.restUrl + `/api/graduation-table/Graduation/tanks/available`).toPromise();
     }
 
     async getTankOnlineTable(id: string): Promise<any[]> {
         return this.http
-            .get<any[]>(
-                this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/onlinetable`
-            )
+            .get<any[]>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/onlinetable`)
             .toPromise();
     }
 
     async getTanks(): Promise<ICalibrationTable[]> {
-        return this.http
-            .get<ICalibrationTable[]>(
-                this.restUrl + `/api/graduation-table/Graduation/tanks`
-            )
-            .toPromise();
+        return this.http.get<ICalibrationTable[]>(this.restUrl + `/api/graduation-table/Graduation/tanks`).toPromise();
     }
 
     async getTanksHistory(): Promise<ICalibrationTable[]> {
         return this.http
-            .get<ICalibrationTable[]>(
-                this.restUrl + `/api/graduation-table/Graduation/tanks/history`
-            )
+            .get<ICalibrationTable[]>(this.restUrl + `/api/graduation-table/Graduation/tanks/history`)
             .toPromise();
     }
 
     async getHistoryTanks(id: string): Promise<any[]> {
-        return this.http
-            .get<any[]>(
-                this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/history`
-            )
-            .toPromise();
+        return this.http.get<any[]>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/history`).toPromise();
     }
 
     async postNewDate(id: string, body, file: Blob): Promise<any> {
@@ -63,27 +46,27 @@ export class TankCalibrationTableService {
         data.append('comment', body.comment);
         data.append('startDate', new Date(body.startDate).toISOString());
         data.append('endDate', new Date(body.endDate).toISOString());
-        return this.http
-            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data)
-            .toPromise();
+        return this.http.post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data).toPromise();
     }
 
-    async postDataFile(id: string, newDate: Date,
-        comment: string, newDateType: 'startDate' | 'endDate'): Promise<void> {
+    async postDataFile(
+        id: string,
+        newDate: Date,
+        comment: string,
+        newDateType: 'startDate' | 'endDate'
+    ): Promise<void> {
         return this.http
             .post<void>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/date`, {
                 newDate,
                 comment,
-                newDateType
+                newDateType,
             })
             .toPromise();
     }
 
     async putTank(id: string): Promise<any> {
         try {
-            return this.http
-                .put(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`, null)
-                .toPromise();
+            return this.http.put(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`, null).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -96,9 +79,6 @@ export class TankCalibrationTableService {
     }
 
     async deleteTank(id: string): Promise<void> {
-        return await this.http
-            .delete<void>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`)
-            .toPromise();
+        return await this.http.delete<void>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`).toPromise();
     }
-
 }

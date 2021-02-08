@@ -8,7 +8,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     styleUrls: ['./truncated-diagram-percentage.component.scss'],
 })
 export class TruncatedDiagramPercentageComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public datas: any = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },
         { name: 'Статическое Оборудование 2', plan: 32, value: 5 },

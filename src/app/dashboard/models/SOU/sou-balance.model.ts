@@ -3,7 +3,7 @@ export interface ISouBalance {
     icon: string;
     mass: number;
     percent: number;
-    products: ISouBalanceProducts[]
+    products: ISouBalanceProducts[];
 }
 
 export interface ISouBalanceProducts {

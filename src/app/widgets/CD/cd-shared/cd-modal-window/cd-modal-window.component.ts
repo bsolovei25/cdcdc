@@ -21,23 +21,17 @@ export interface ICDModalWindow {
 @Component({
     selector: 'evj-cd-modal-window',
     templateUrl: './cd-modal-window.component.html',
-    styleUrls: ['./cd-modal-window.component.scss']
+    styleUrls: ['./cd-modal-window.component.scss'],
 })
 export class CdModalWindowComponent implements OnInit {
     @Input() public info: ICDModalWindow;
 
     users: IUser[] = [];
     isOpenStartDate: boolean = false;
-    timeStart: FormControl = new FormControl(
-        moment()
-            .second(0)
-            .minutes(0),
-        [Validators.required]
-    );
+    timeStart: FormControl = new FormControl(moment().second(0).minutes(0), [Validators.required]);
     allEstablishedFacts: IAllEstablishedFacts[] = [];
 
-    constructor(private cdMatBalanceService: CdMatBalanceService) {
-    }
+    constructor(private cdMatBalanceService: CdMatBalanceService) {}
 
     ngOnInit(): void {
         this.getDropDownFacts();
@@ -75,8 +69,7 @@ export class CdModalWindowComponent implements OnInit {
     async getDropDownFacts(): Promise<void> {
         try {
             this.allEstablishedFacts = await this.cdMatBalanceService.getEstablishedFactsArray();
-        } catch (err) {
-        }
+        } catch (err) {}
     }
 
     openBlock(): void {

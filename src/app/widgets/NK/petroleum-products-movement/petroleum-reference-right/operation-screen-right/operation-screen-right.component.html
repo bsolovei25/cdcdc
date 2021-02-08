@@ -15,11 +15,7 @@
     </div>
     <div class="reference" [@Branch]="(isShowTank) ? 'expanded' : 'collapsed'">
       <ng-container *ngFor="let item of tanks">
-        <div
-          class="ref_items"
-          [class.ref_items__active]="item.isActive"
-          (click)="objectClick(item.objectName)"
-        >
+        <div class="ref_items" [class.ref_items__active]="item.isActive" (click)="objectClick(item.objectName)">
           <div class="item_icon">
             <svg-icon
               src="assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
@@ -45,11 +41,7 @@
     </div>
     <div class="reference" [@Branch]="(isShowFacilities) ? 'expanded' : 'collapsed'">
       <ng-container *ngFor="let item of units">
-        <div
-          class="ref_items"
-          [class.ref_items__active]="item.isActive"
-          (click)="objectClick(item.objectName)"
-        >
+        <div class="ref_items" [class.ref_items__active]="item.isActive" (click)="objectClick(item.objectName)">
           <div class="item_icon">
             <svg-icon
               src="assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"

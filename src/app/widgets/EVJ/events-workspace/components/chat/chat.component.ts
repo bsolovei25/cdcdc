@@ -1,16 +1,6 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Output,
-    EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { IMessage } from '@shared/models/message.model';
-import {
-    PopoverOverlayService,
-} from '@shared/components/popover-overlay/popover-overlay.service';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { FileAttachMenuComponent } from '../file-attach-menu/file-attach-menu.component';
 import { IMessageFileAttachment } from '@shared/models/message.model';
 import { AppConfigService } from '@core/service/app-config.service';
@@ -35,23 +25,21 @@ export class ChatComponent implements OnInit {
     @Input() public onClickItem: () => void = () => {};
 
     @Output()
-    private addingMessage: EventEmitter<IChatMessageWithAttachments> =
-        new EventEmitter<IChatMessageWithAttachments>();
+    private addingMessage: EventEmitter<IChatMessageWithAttachments> = new EventEmitter<IChatMessageWithAttachments>();
 
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('input') input: ElementRef;
     @ViewChild('graph') graph: ElementRef;
 
-    public get headerTitle(): string { return this.dataTitle + '123'; }
+    public get headerTitle(): string {
+        return this.dataTitle + '123';
+    }
 
     public filesToUpload: IMessageFileAttachment[] = [];
 
     public isFilePopoverOpened: boolean = false;
 
-    constructor(
-        private popoverOverlayService: PopoverOverlayService,
-        private appConfigService: AppConfigService,
-    ) {}
+    constructor(private popoverOverlayService: PopoverOverlayService, private appConfigService: AppConfigService) {}
 
     public ngOnInit(): void {}
 
@@ -88,7 +76,7 @@ export class ChatComponent implements OnInit {
         });
         this.isFilePopoverOpened = true;
 
-        popoverRef.afterClosed$.subscribe(res => {
+        popoverRef.afterClosed$.subscribe((res) => {
             this.isFilePopoverOpened = false;
             if (res && res.data) {
                 this.filesToUpload = res.data as IMessageFileAttachment[];
@@ -97,7 +85,9 @@ export class ChatComponent implements OnInit {
     }
 
     public openAttachmentBlank(fileId: string): void {
-        if (!fileId) { return; }
+        if (!fileId) {
+            return;
+        }
         window.open(`${this.appConfigService.restUrl}/api/file-storage/${fileId}`, '_blank');
     }
 }

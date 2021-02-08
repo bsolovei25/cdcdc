@@ -1,43 +1,20 @@
-<h4 class="widgets-panel__heading">
-  Доступные виджеты
-</h4>
+<h4 class="widgets-panel__heading">Доступные виджеты</h4>
 <div class="widget_menu">
   <label class="mycheckbox">
-    <input
-      type="checkbox"
-      id="checkBoxFix"
-      value="Swap Items"
-      class="mycheckbox__default"
-      (click)="changeSwap()"
-    />
+    <input type="checkbox" id="checkBoxFix" value="Swap Items" class="mycheckbox__default" (click)="changeSwap()" />
     <div class="mycheckbox__new" [class.mycheckbox__checked]="!fixWidget"></div>
     <div class="mycheckbox__descr">Зафиксировать виджеты</div>
   </label>
   <label class="mycheckbox">
-    <input
-      type="checkbox"
-      id="checkBoxGrid"
-      value="Swap Items"
-      class="mycheckbox__default"
-      (click)="getGridView()"
-    />
+    <input type="checkbox" id="checkBoxGrid" value="Swap Items" class="mycheckbox__default" (click)="getGridView()" />
     <div class="mycheckbox__new" [class.mycheckbox__checked]="!gridWidget"></div>
     <div class="mycheckbox__descr">Сетка</div>
   </label>
 </div>
 <div class="search_block">
-  <evj-search
-    isWidgets="true"
-    (search)="searchWidgetsInput($event)"
-    [panelActive]="panelActive"
-  ></evj-search>
+  <evj-search isWidgets="true" (search)="searchWidgetsInput($event)" [panelActive]="panelActive"></evj-search>
 </div>
-<cdk-virtual-scroll-viewport
-  itemSize="210"
-  minBufferPx="800"
-  maxBufferPx="2500"
-  class="widgets-panel__list scroll-bar"
->
+<cdk-virtual-scroll-viewport itemSize="210" minBufferPx="800" maxBufferPx="2500" class="widgets-panel__list scroll-bar">
   <div
     [@items]="filterWidgets$.getValue().length"
     *cdkVirtualFor="let item of filterWidgets$ | async; trackBy: dataById"
@@ -45,9 +22,6 @@
     (dragstart)="dragStartHandler($event, item.id)"
     class="widget"
   >
-    <ng-container
-      *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
-    >
-    </ng-container>
+    <ng-container *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"> </ng-container>
   </div>
 </cdk-virtual-scroll-viewport>

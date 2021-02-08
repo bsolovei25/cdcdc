@@ -7,10 +7,10 @@ import { IOilTransfer } from '../../../../../dashboard/models/oil-operations';
 export interface IReasonsDeviationsRawData {
     name: string;
     graph: {
-        date: Date,
-        value: number,
-        direction: 'in' | 'out',
-        state: 'start' | 'end',
+        date: Date;
+        value: number;
+        direction: 'in' | 'out';
+        state: 'start' | 'end';
     }[];
 }
 
@@ -20,7 +20,6 @@ export interface IReasonsDeviationsRawData {
     styleUrls: ['./reasons-deviations-line-chart.component.scss'],
 })
 export class ReasonsDeviationsLineChartComponent implements OnChanges {
-
     @Input()
     private transfer: IOilTransfer | null = null;
 
@@ -28,16 +27,13 @@ export class ReasonsDeviationsLineChartComponent implements OnChanges {
         {
             graphType: 'fact',
             graphStyle: 'main',
-            graph: [
-            ],
+            graph: [],
         },
     ];
 
     public points: IPointTank[] = [];
 
-    constructor(
-        private reasonsDeviationsService: ReasonsDeviationsService,
-    ) {}
+    constructor(private reasonsDeviationsService: ReasonsDeviationsService) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.getData();
@@ -47,7 +43,7 @@ export class ReasonsDeviationsLineChartComponent implements OnChanges {
         this.data[0].graph = [];
         this.points = [];
         const rawData = await this.getRawData();
-        rawData?.graph.forEach(item => {
+        rawData?.graph.forEach((item) => {
             this.data[0].graph.push({ value: item.value, timeStamp: new Date(item.date) });
             this.points.push({
                 value: item.value,
@@ -70,7 +66,7 @@ export class ReasonsDeviationsLineChartComponent implements OnChanges {
             return await this.reasonsDeviationsService.getChartData<IReasonsDeviationsRawData>(
                 this.transfer.id,
                 this.transfer.startTime,
-                this.transfer.endTime,
+                this.transfer.endTime
             );
         }
         return null;

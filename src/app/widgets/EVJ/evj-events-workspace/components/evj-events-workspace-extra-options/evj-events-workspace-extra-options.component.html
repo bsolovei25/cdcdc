@@ -1,7 +1,8 @@
 <ng-container *ngIf="info?.isShow">
-  <div class="loading-shade loading-shade__blur"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
+  <div
+    class="loading-shade loading-shade__blur"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
   >
     <div class="container">
       <div class="container__header">
@@ -34,18 +35,13 @@
                       [compareWith]="compareFn"
                     >
                       <ng-container *ngFor="let p of allParameters">
-                        <mat-option [value]="p"
-                        >
-                          {{p?.name}}
-                        </mat-option>
+                        <mat-option [value]="p"> {{p?.name}} </mat-option>
                       </ng-container>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
-              <div class="value">
-
-              </div>
+              <div class="value"></div>
             </div>
           </div>
           <div class="extra-options">
@@ -54,42 +50,47 @@
             </div>
             <div class="container__body__parameters">
               <div class="dropdown">
-                <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                 (click)="addParameters()"
-                                 textButton="Добавить зависимые параметры"
-                                 [isChangingState]="false"
-                                 [disabled]="disableAdd"
-                                 [type]="'primary'">
+                <evj-rect-button
+                  class="add-button"
+                  matRipple
+                  matRippleColor="white"
+                  (click)="addParameters()"
+                  textButton="Добавить зависимые параметры"
+                  [isChangingState]="false"
+                  [disabled]="disableAdd"
+                  [type]="'primary'"
+                >
                   >
                 </evj-rect-button>
               </div>
               <div class="value">
-                <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                 (click)="removeParameters()"
-                                 textButton="Удалить параметр"
-                                 [isChangingState]="false"
-                                 [type]="'primary'">
+                <evj-rect-button
+                  class="add-button"
+                  matRipple
+                  matRippleColor="white"
+                  (click)="removeParameters()"
+                  textButton="Удалить параметр"
+                  [isChangingState]="false"
+                  [type]="'primary'"
+                >
                 </evj-rect-button>
               </div>
             </div>
-            <div formArrayName="dependentParameters"
-                 *ngFor="let d of dependParameters.controls; let idx = index"
-            >
+            <div formArrayName="dependentParameters" *ngFor="let d of dependParameters.controls; let idx = index">
               <ng-container [formGroupName]="idx">
                 <div class="container__body__parameters">
                   <div class="dropdown">
                     <div class="event-mat-select">
                       <mat-form-field class="example-full-width">
                         <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
-                          <mat-option *ngFor="let p of dependentParameters"
-                                      [value]="p">{{p?.name}}</mat-option>
+                          <mat-option *ngFor="let p of dependentParameters" [value]="p">{{p?.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                   </div>
                   <div class="value">
                     <div class="value__text">
-                      <input type="number" formControlName="numericValue">
+                      <input type="number" formControlName="numericValue" />
                     </div>
                   </div>
                 </div>
@@ -98,19 +99,27 @@
             <div class="save-buttons">
               <div class="container__body__parameters">
                 <div class="dropdown">
-                  <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                   textButton="Cбросить"
-                                   [isChangingState]="false"
-                                   (click)="discard()"
-                                   [type]="'primary'">
+                  <evj-rect-button
+                    class="add-button"
+                    matRipple
+                    matRippleColor="white"
+                    textButton="Cбросить"
+                    [isChangingState]="false"
+                    (click)="discard()"
+                    [type]="'primary'"
+                  >
                   </evj-rect-button>
                 </div>
                 <div class="value">
-                  <evj-rect-button class="add-button" matRipple matRippleColor="white"
-                                   textButton="Cохранить"
-                                   (click)="accept()"
-                                   [isChangingState]="false"
-                                   [type]="'primary'">
+                  <evj-rect-button
+                    class="add-button"
+                    matRipple
+                    matRippleColor="white"
+                    textButton="Cохранить"
+                    (click)="accept()"
+                    [isChangingState]="false"
+                    [type]="'primary'"
+                  >
                   </evj-rect-button>
                 </div>
               </div>

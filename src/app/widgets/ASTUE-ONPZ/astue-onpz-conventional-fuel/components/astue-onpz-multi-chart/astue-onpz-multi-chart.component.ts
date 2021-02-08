@@ -176,23 +176,15 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private initData(): void {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
             .attr(
                 'viewBox',
-                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${
-                    this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
-                }`
+                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
             );
     }
 
@@ -217,8 +209,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                         item.graphType === 'plan'
                     ))
             );
+            const factChart = this.data?.find((x) => x.graphType === 'fact')?.graph;
+            if (!!factChart?.length) {
+                this.data.find((x) => x.graphType === 'fact').graph = factChart.filter(
+                    (x) => x.timeStamp.getTime() < new Date().getTime()
+                );
+            }
         }
-
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
         if (filterData.length !== this.data.length) {
             console.error('BACK ERROR: Timeline is not in interval!!!');
@@ -274,15 +271,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentChart.maxValue = max + (max - min) * this.coefs[key].max;
             currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
-        const mainChartGroup = [
-            'fact',
-            'plan',
-            'forecast',
-            'factModel',
-            'border',
-            'higherBorder',
-            'lowerBorder',
-        ];
+        const mainChartGroup = ['fact', 'plan', 'forecast', 'factModel', 'border', 'higherBorder', 'lowerBorder'];
         const filterChartArray = this.charts.filter((x) => mainChartGroup.includes(x.graphType));
         const domainMain = [
             d3.max(filterChartArray.map((x) => x.maxValue)),
@@ -308,10 +297,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder'
             ) {
-                this.axisLabels[chart.graphType] = this.defineAxisYLabels(
-                    chart.minValue,
-                    chart.maxValue
-                );
+                this.axisLabels[chart.graphType] = this.defineAxisYLabels(chart.minValue, chart.maxValue);
             } else {
                 min = chart.minValue < min ? chart.minValue : min;
                 max = chart.maxValue > max ? chart.maxValue : max;
@@ -369,26 +355,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         this.charts.forEach((item) => {
             const domain = [item.maxValue, item.minValue];
-            item.scaleY = d3
-                .scaleLinear()
-                .domain(domain)
-                .range(rangeY);
-            item.axisY = d3
-                .axisLeft(item.scaleY)
-                .ticks(5)
-                .tickSize(0);
-            this.scaleFuncs.y = d3
-                .scaleLinear()
-                .domain(domain)
-                .range(rangeY);
+            item.scaleY = d3.scaleLinear().domain(domain).range(rangeY);
+            item.axisY = d3.axisLeft(item.scaleY).ticks(5).tickSize(0);
+            this.scaleFuncs.y = d3.scaleLinear().domain(domain).range(rangeY);
         });
 
         // TODO delete time format for historical ++
@@ -490,13 +464,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private drawAreasDeviation(): void {
-        const deviationType = this.astueOnpzService.multilineChartTransfer.getValue().isEconomy
-            ? 'normal'
-            : 'warning';
+        const deviationType = this.astueOnpzService.multilineChartTransfer.getValue().isEconomy ? 'normal' : 'warning';
         if (deviationType) {
-            this.svg
-                .select(`path.graph-area-border`)
-                ?.attr('class', `graph-area-border graph-area_${deviationType}`);
+            this.svg.select(`path.graph-area-border`)?.attr('class', `graph-area-border graph-area_${deviationType}`);
         }
     }
 
@@ -550,9 +520,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 d3
                     .axisBottom(this.scaleFuncs.x)
                     .ticks(20)
-                    .tickSize(
-                        -(this.graphMaxY - this.padding.bottom - this.padding.top + this.topMargin)
-                    )
+                    .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top + this.topMargin))
                     .tickFormat('')
             )
             .style('color', '#272A38');
@@ -591,10 +559,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             }
             if (idx === 0) {
                 const t = g.getElementsByTagName('text')[0];
-                t.setAttribute(
-                    'style',
-                    `transform: translate(${(1 / 2) * g.getBoundingClientRect().width + 5}px, 0);`
-                );
+                t.setAttribute('style', `transform: translate(${(1 / 2) * g.getBoundingClientRect().width + 5}px, 0);`);
             } else if (idx === lastG) {
                 const t = g.getElementsByTagName('text')[0];
                 t.setAttribute(
@@ -629,12 +594,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             }
             const translate: string = `translate(${left},0)`;
             left -= this.axisYWidth;
-            const height: number =
-                this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
-            const axisY = this.svg
-                .append('g')
-                .attr('transform', translate)
-                .attr('class', 'axisY');
+            const height: number = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
+            const axisY = this.svg.append('g').attr('transform', translate).attr('class', 'axisY');
             axisY
                 .append('rect')
                 .attr('class', `axisY-bg_${(counter % 2) + 1}`)
@@ -803,8 +764,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             'lowerBorder',
         ];
         const padding =
-            this.charts.map((item) => item.graphType).filter((x) => filterGraphTypes.includes(x))
-                ?.length ?? 0;
+            this.charts.map((item) => item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
         const cf = this.charts.length - (padding > 0 ? padding - 1 : 0);
         return this.padding.left + this.axisYWidth * cf;
     }
@@ -868,13 +828,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
-            const filterChart = chart.graph.filter(
-                (item) => item.timeStamp.getTime() <= currentDatetime.getTime()
-            );
-            const statValue =
-                filterChart?.length > 0
-                    ? filterChart[filterChart.length - 1]
-                    : chart?.graph[0] ?? null;
+            const filterChart = chart.graph.filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
+            const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
                 plan = statValue.value;
@@ -950,10 +905,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         factY = factY ? factY : null;
 
-        this.svg
-            .select('.mouse-line')
-            .attr('x1', x)
-            .attr('x2', x);
+        this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
 
         if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
             factX = new Date();
@@ -973,9 +925,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
-            const filterChart = chart.graph.filter(
-                (item) => item.timeStamp.getTime() <= date.getTime()
-            );
+            const filterChart = chart.graph.filter((item) => item.timeStamp.getTime() <= date.getTime());
             const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {

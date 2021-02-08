@@ -5,8 +5,7 @@
   font-family: "Tahoma";
   src: url("../assets/fonts/Tahoma/Tahoma.eot");
   src: url("../assets/fonts/Tahoma/Tahoma.eot?#iefix") format("embedded-opentype"),
-    url("../assets/fonts/Tahoma/Tahoma.woff2") format("woff2"),
-    url("../assets/fonts/Tahoma/Tahoma.woff") format("woff"),
+    url("../assets/fonts/Tahoma/Tahoma.woff2") format("woff2"), url("../assets/fonts/Tahoma/Tahoma.woff") format("woff"),
     url("../assets/fonts/Tahoma/Tahoma.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -84,7 +83,8 @@ select:-webkit-autofill:focus {
   }
 }
 
-.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+.mat-input-element:disabled,
+.mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
   color: var(--color-text-sub) !important;
 }
 

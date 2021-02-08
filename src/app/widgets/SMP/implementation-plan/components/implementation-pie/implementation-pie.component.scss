@@ -1,18 +1,18 @@
 .cb {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
 }
 
 .item-b {
-    display: flex;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  flex: 1;
 
-    ::ng-deep svg {
-        height: 100px;
-        width: 100px;
-    }
+  ::ng-deep svg {
+    height: 100px;
+    width: 100px;
+  }
 }

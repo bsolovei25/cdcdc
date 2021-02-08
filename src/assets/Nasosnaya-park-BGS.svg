@@ -7,8 +7,8 @@
 <line id="line_bottom" x1="498" y1="289.5" x2="588" y2="289.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top" x1="498" y1="185.5" x2="588" y2="185.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume" x="502" y="249" width="82" height="1" fill="#0089FF"/>
-<text id="text" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="526.445" y="223.852">P-37</tspan></text>
-<text id="text_value" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="516.251" y="277.058">12 047 &#x442;</tspan></text>
+<text id="text" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="543.445" y="223.852">P-37</tspan></text>
+<text id="text_value" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="543.251" y="277.058">12 047 &#x442;</tspan></text>
 <circle id="point" cx="499" cy="200" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_2" cx="587" cy="199" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_3" cx="499" cy="275" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -20,8 +20,8 @@
 <line id="line_bottom_2" x1="498" y1="641.5" x2="588" y2="641.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top_2" x1="498" y1="537.5" x2="588" y2="537.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume_2" x="502" y="601" width="82" height="1" fill="#0089FF"/>
-<text id="text_2" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="526.445" y="575.852">P-37</tspan></text>
-<text id="text_value_2" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="516.251" y="629.058">12 047 &#x442;</tspan></text>
+<text id="text_2" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="543.445" y="575.852">P-37</tspan></text>
+<text id="text_value_2" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="542.251" y="629.058">12 047 &#x442;</tspan></text>
 <circle id="point_5" cx="499" cy="552" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_6" cx="587" cy="551" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_7" cx="499" cy="627" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -33,12 +33,12 @@
 <line id="line_bottom_3" x1="498" y1="465.5" x2="588" y2="465.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top_3" x1="498" y1="361.5" x2="588" y2="361.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <rect id="line_volume_3" x="502" y="425" width="82" height="1" fill="#0089FF"/>
-<text id="text_3" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="526.445" y="399.852">P-37</tspan></text>
+<text id="text_3" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="543.445" y="399.852">P-37</tspan></text>
 <circle id="point_9" cx="499" cy="376" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_10" cx="587" cy="375" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_11" cx="499" cy="451" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 <circle id="point_12" cx="587" cy="450" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
-<text id="text_value_3" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="517.251" y="454.058">12 047 &#x442;</tspan></text>
+<text id="text_value_3" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="543.251" y="454.058">12 047 &#x442;</tspan></text>
 </g>
 <path id="line_268" d="M462 200.5H495V199.5H462V200.5Z" fill="#272A38"/>
 <path id="line_272" d="M462 552.5H495V551.5H462V552.5Z" fill="#272A38"/>
@@ -57,7 +57,7 @@
 <path id="point_13" d="M286.414 200C286.414 201.938 284.861 203.5 282.957 203.5C281.053 203.5 279.5 201.938 279.5 200C279.5 198.062 281.053 196.5 282.957 196.5C284.861 196.5 286.414 198.062 286.414 200Z" fill="#1C1F2B" stroke="#272A38"/>
 <path id="point_14" d="M461.5 200C461.5 201.938 459.947 203.5 458.043 203.5C456.139 203.5 454.586 201.938 454.586 200C454.586 198.062 456.139 196.5 458.043 196.5C459.947 196.5 461.5 198.062 461.5 200Z" fill="#1C1F2B" stroke="#272A38"/>
 </g>
-<g id="element-1_1">
+<g id="element-1_1__Nasosnaya-park-BGS">
 <rect id="rect_6" x="28.5" y="180.5" width="113" height="39" rx="1.5" fill="#1C1F2B" stroke="#272A38"/>
 <text id="text_5" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="48" y="197.764">&#x41f;&#x440;&#x438;&#x433;&#x43e;&#x442;&#x43e;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x435;&#10;</tspan><tspan x="48" y="211.764">&#x438;&#x437; &#x43b;. 417</tspan></text>
 <circle id="circle" cx="28" cy="200" r="11.5" fill="#1C1F2B" stroke="#272A38"/>
@@ -78,7 +78,7 @@
 </g>
 <g id="element-3_14">
 <path id="rect_7" d="M283 525C283 524.172 283.672 523.5 284.5 523.5H456.5C457.328 523.5 458 524.172 458 525V559.5H283V525Z" fill="#1C1F2B" stroke="#272A38"/>
-<path id="rect_8" d="M284.5 582.5H456.5C457.328 582.5 458 581.828 458 581V559.5H283V581C283 581.828 283.672 582.5 284.5 582.5Z" fill="#1C1F2B" stroke="#272A38"/>
+<path id="rect_8" d="M283 581C283 581.828 283.672 582.5 284.5 582.5H456.5C457.328 582.5 458 581.828 458 581V559.5H283V581Z" fill="#1C1F2B" stroke="#272A38"/>
 <text id="text_6" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="292.5" y="538.764">&#x421;&#x43c;&#x435;&#x441;&#x438; &#x43a;&#x43e;&#x43c;&#x43f;&#x43e;&#x43d;&#x435;&#x43d;&#x442;&#x43e;&#x432; &#x430;&#x432;&#x438;&#x430;&#x446;.&#10;</tspan><tspan x="292.5" y="552.764">&#x431;&#x435;&#x43d;&#x437;&#x438;&#x43d;&#x430; &#x43c;&#x430;&#x440;&#x43a;&#x430; &#x410;</tspan></text>
 <text id="text_percent_2" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="292.5" y="574.764">0 &#x442;&#x43d;</tspan></text>
 <text id="text_value_5" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="327.5" y="574.764">0%</tspan></text>

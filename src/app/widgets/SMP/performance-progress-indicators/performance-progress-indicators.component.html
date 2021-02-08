@@ -1,10 +1,5 @@
 <div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
   </evj-widget-header-smp>
   <div
     class="content"
@@ -24,9 +19,7 @@
       <div class="frame-bottom"></div>
     </div>
     <div class="content__middle">
-      <evj-performance-progress-line-circle
-        [data]="progressIndicators?.circle"
-      ></evj-performance-progress-line-circle>
+      <evj-performance-progress-line-circle [data]="progressIndicators?.circle"></evj-performance-progress-line-circle>
     </div>
     <div class="content__right">
       <div class="b-a">

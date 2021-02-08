@@ -3,14 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { DocumentCodingService } from './document-coding.service';
 
 describe('DocumentCodingService', () => {
-  let service: DocumentCodingService;
+    let service: DocumentCodingService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DocumentCodingService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(DocumentCodingService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

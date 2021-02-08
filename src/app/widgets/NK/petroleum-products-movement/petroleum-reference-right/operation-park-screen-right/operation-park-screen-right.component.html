@@ -13,40 +13,36 @@
       </div>
       <div class="workspace_button">
         <div class="button_operation" (click)="createOperation()">
-          <div class="buttons">
-            Создание операций
-          </div>
+          <div class="buttons">Создание операций</div>
         </div>
         <div class="button_edit_param" (click)="changeParam()">
-          <div class="buttons">
-            Редактирование параметров
-          </div>
+          <div class="buttons">Редактирование параметров</div>
         </div>
       </div>
     </div>
-<!--    <div class="filter">-->
-<!--      <div class="filter_title">-->
-<!--        <div>Фильтр</div>-->
-<!--        <div>-->
-<!--          <svg-icon-->
-<!--            src="assets/icons/widgets/petroleum-products-movement/filter.svg"-->
-<!--            [svgStyle]="{ 'width.px':15, 'height.px':15 }"-->
-<!--          ></svg-icon>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="filter_button">-->
-<!--        <div class="button_all_period_operation">-->
-<!--          <div class="buttons">-->
-<!--            Все операции за период-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="button_open_operation">-->
-<!--          <div class="buttons">-->
-<!--            Только открытые операции-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="filter">-->
+    <!--      <div class="filter_title">-->
+    <!--        <div>Фильтр</div>-->
+    <!--        <div>-->
+    <!--          <svg-icon-->
+    <!--            src="assets/icons/widgets/petroleum-products-movement/filter.svg"-->
+    <!--            [svgStyle]="{ 'width.px':15, 'height.px':15 }"-->
+    <!--          ></svg-icon>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="filter_button">-->
+    <!--        <div class="button_all_period_operation">-->
+    <!--          <div class="buttons">-->
+    <!--            Все операции за период-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="button_open_operation">-->
+    <!--          <div class="buttons">-->
+    <!--            Только открытые операции-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="additionally_title">
       <div>Дополнительно</div>
       <div>
@@ -60,9 +56,7 @@
       <div class="additionally_button">
         <ng-container *ngFor="let item of dataAdditionally">
           <div class="button_additionally">
-            <div class="buttons">
-              {{item}}
-            </div>
+            <div class="buttons">{{item}}</div>
           </div>
         </ng-container>
       </div>

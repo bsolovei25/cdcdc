@@ -5,10 +5,7 @@
     type="astue"
     icon="sliders"
   ></evj-contemporary-widget-header>
-  <div class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="diagram">
       <span class="diagram__header">
         Каждая &nbsp;<span> {{data?.rate}}-ая </span>&nbsp; паспортизация является некондицией
@@ -38,7 +35,7 @@
         <evj-kpe-pasportize-percent-product
           *ngFor="let item of data?.products"
           [data]="item"
-          [style.width.%]=100
+          [style.width.%]="100"
         ></evj-kpe-pasportize-percent-product>
       </div>
     </div>

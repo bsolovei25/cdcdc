@@ -7,13 +7,9 @@ import { IHeaderDate } from '../models/i-header-date';
     providedIn: 'root',
 })
 export class HeaderDataService {
-    private localDate$: BehaviorSubject<IHeaderDate | null> = new BehaviorSubject<IHeaderDate | null>(
-        null
-    );
+    private localDate$: BehaviorSubject<IHeaderDate | null> = new BehaviorSubject<IHeaderDate | null>(null);
 
-    public date$: Observable<IHeaderDate> = this.localDate$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
+    public date$: Observable<IHeaderDate> = this.localDate$.asObservable().pipe(filter((item) => item !== null));
 
     public statusButton: boolean;
     public startDatetime: Date = new Date();

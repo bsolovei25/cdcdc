@@ -1,71 +1,71 @@
 .container-info-content {
+  height: 100%;
+  padding: 25px;
+  padding-top: 15px;
+  padding-bottom: 5px;
+
+  &__content {
+    display: flex;
+    border-radius: 15px;
     height: 100%;
-    padding: 25px;
-    padding-top: 15px;
-    padding-bottom: 5px;
+    width: 100%;
+    background-color: var(--color-oil-table);
+    font-size: 14px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 
-    &__content {
+    .block {
+      margin-left: 12px;
+      width: 50%;
+      .time {
+        height: 33%;
+        align-items: center;
         display: flex;
-        border-radius: 15px;
-        height: 100%;
-        width: 100%;
-        background-color: var(--color-oil-table);
-        font-size: 14px;
-        padding-top: 3px;
-        padding-bottom: 3px;
 
-        .block {
-            margin-left: 12px;
-            width: 50%;
-            .time {
-                height: 33%;
-                align-items: center;
-                display: flex;
-
-                &__icon {
-                    margin-top: 10px;
-                }
-
-                &__value {
-                    margin-top: 5px;
-                    margin-left: 10px;
-                    color: white;
-                }
-            }
-
-            .info {
-                height: 33%;
-                align-items: center;
-                display: flex;
-                justify-content: space-between;
-                padding-right: 30px;
-
-                &__name {
-                    font-size: 13px;
-                    width: 60%;
-                    color: var(--color-text-sub);
-                }
-
-                &__value {
-                    width: 20%;
-                }
-
-                &__percent {
-                    width: 20%;
-                }
-
-                .normal {
-                    color: white;
-                }
-
-                .active {
-                    color: var(--color-border-active);
-                }
-
-                .notActive {
-                    color: var(--color-text-sub);
-                }
-            }
+        &__icon {
+          margin-top: 10px;
         }
+
+        &__value {
+          margin-top: 5px;
+          margin-left: 10px;
+          color: white;
+        }
+      }
+
+      .info {
+        height: 33%;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 30px;
+
+        &__name {
+          font-size: 13px;
+          width: 60%;
+          color: var(--color-text-sub);
+        }
+
+        &__value {
+          width: 20%;
+        }
+
+        &__percent {
+          width: 20%;
+        }
+
+        .normal {
+          color: white;
+        }
+
+        .active {
+          color: var(--color-border-active);
+        }
+
+        .notActive {
+          color: var(--color-text-sub);
+        }
+      }
     }
+  }
 }

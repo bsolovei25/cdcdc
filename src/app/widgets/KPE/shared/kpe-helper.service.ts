@@ -6,21 +6,20 @@ import { IProductionTrend } from '../../../dashboard/models/LCO/production-trend
 
 @Injectable()
 export class KpeHelperService {
+    constructor() {}
 
-    constructor() { }
-
-    private fillArray(data: { x: number, y: number }[], count: number): { x: number, y: number }[] {
-        function getPrev(idx: number): { x: number, y: number } {
+    private fillArray(data: { x: number; y: number }[], count: number): { x: number; y: number }[] {
+        function getPrev(idx: number): { x: number; y: number } {
             const filterArray = data.filter((el) => el.x < idx);
             return filterArray.length > 0 ? filterArray[filterArray.length - 1] : null;
         }
 
-        function getNext(idx: number): { x: number, y: number } {
+        function getNext(idx: number): { x: number; y: number } {
             const filterArray = data.filter((el) => el.x > idx);
             return filterArray.length > 0 ? filterArray[0] : null;
         }
 
-        const dataArray: { x: number, y: number }[] = [];
+        const dataArray: { x: number; y: number }[] = [];
         for (let i = 0; i < count; i++) {
             dataArray.push(data.find((el) => el.x === i + 1) ?? null);
         }
@@ -39,7 +38,7 @@ export class KpeHelperService {
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + (idx + 1 - prev.x) / (next.x - prev.x) * (next.y - prev.y)
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
                 };
             }
             dataArray[idx] = el;
@@ -47,30 +46,41 @@ export class KpeHelperService {
         return dataArray;
     }
 
-    private fillArrayTimestamp(array: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[] {
+    private fillArrayTimestamp(array: { value: number; timeStamp: Date }[]): { value: number; timeStamp: Date }[] {
         const firstDate = new Date(array[0].timeStamp);
         const lastDate = new Date(array[array.length - 1].timeStamp);
         const firstValue = array[0].value;
         const lastValue = array[array.length - 1].value;
-        let result: {value: number, timeStamp: Date}[] = [];
+        let result: { value: number; timeStamp: Date }[] = [];
         for (let i = 1; i <= this.getNumOfDays(firstDate); i++) {
-            const arrayItemFiltered = array.find(arrayItem => new Date(arrayItem.timeStamp).getDate() === i);
+            const arrayItemFiltered = array.find((arrayItem) => new Date(arrayItem.timeStamp).getDate() === i);
             if (arrayItemFiltered) {
-                result = [...result, {timeStamp: arrayItemFiltered.timeStamp, value: arrayItemFiltered.value}];
+                result = [...result, { timeStamp: arrayItemFiltered.timeStamp, value: arrayItemFiltered.value }];
             } else if (firstDate.getDate() > i) {
-                result = [...result, {timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: firstValue}];
+                result = [
+                    ...result,
+                    { timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: firstValue },
+                ];
             } else if (lastDate.getDate() < i) {
-                result = [...result, {timeStamp: new Date(lastDate.getFullYear(), lastDate.getMonth(), i), value: lastValue}];
+                result = [
+                    ...result,
+                    { timeStamp: new Date(lastDate.getFullYear(), lastDate.getMonth(), i), value: lastValue },
+                ];
             } else {
-                result = [...result, {timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: 0}];
+                result = [
+                    ...result,
+                    { timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: 0 },
+                ];
             }
         }
         return result;
     }
 
     public prepareKpeLineChartData(data: IKpeLineChartData[] | null): IDeviationDiagramData[] | IBarDiagramData[] {
-        if (!data) { return; }
-        function fieldHandler(field: {value: number, timeStamp: string}[]): {x: number, y: number}[][] {
+        if (!data) {
+            return;
+        }
+        function fieldHandler(field: { value: number; timeStamp: string }[]): { x: number; y: number }[][] {
             let tempArr = [];
             const resultArr = [];
             let month: number = new Date(field[0].timeStamp).getMonth();
@@ -94,15 +104,15 @@ export class KpeHelperService {
             return resultArr;
         }
 
-        function distinct(array: {x: number, y: number}[]): {x: number, y: number}[] {
-            return [...new Map(array.map(item => [item.x, item])).values()];
+        function distinct(array: { x: number; y: number }[]): { x: number; y: number }[] {
+            return [...new Map(array.map((item) => [item.x, item])).values()];
         }
 
         let planArray = [];
         let factArray = [];
 
         let displayedMonth = new Date();
-        data.forEach(item => {
+        data.forEach((item) => {
             if (item.graphType === 'fact') {
                 displayedMonth = new Date(item.graph[0].timeStamp);
             }
@@ -110,7 +120,7 @@ export class KpeHelperService {
 
         const numOfDays = this.getNumOfDays(displayedMonth);
 
-        data.forEach(item => {
+        data.forEach((item) => {
             if (item.graphType === 'plan') {
                 planArray = this.fillArray(distinct(fieldHandler(item.graph)[0]), numOfDays);
             }
@@ -120,8 +130,8 @@ export class KpeHelperService {
         });
 
         const resultData = [];
-        planArray.forEach(item => {
-            const factValue = factArray.find(factItem => factItem.x === item.x);
+        planArray.forEach((item) => {
+            const factValue = factArray.find((factItem) => factItem.x === item.x);
             resultData.push({
                 day: item.x,
                 planValue: item.y,
@@ -132,7 +142,7 @@ export class KpeHelperService {
     }
 
     public prepareKpeTrendChartData(data: IProductionTrend[]): IProductionTrend[] {
-        function fieldHandler(field: {value: number, timeStamp: Date}[]): {value: number, timeStamp: any}[][] {
+        function fieldHandler(field: { value: number; timeStamp: Date }[]): { value: number; timeStamp: any }[][] {
             let tempArr = [];
             const resultArr = [];
             let month: number = new Date(field[0].timeStamp).getMonth();
@@ -156,12 +166,12 @@ export class KpeHelperService {
             return resultArr;
         }
 
-        function distinct(array: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[] {
-            return [...new Map(array.map(item => [item.timeStamp, item])).values()];
+        function distinct(array: { value: number; timeStamp: Date }[]): { value: number; timeStamp: Date }[] {
+            return [...new Map(array.map((item) => [item.timeStamp, item])).values()];
         }
 
         const resultData: IProductionTrend[] = [];
-        data.forEach(item => {
+        data.forEach((item) => {
             item.graph = distinct(fieldHandler(item.graph)[0]);
             let graphData;
             if (item.graphType === 'fact') {
@@ -188,10 +198,7 @@ export class KpeHelperService {
         return true;
     }
 
-    public sortArray<T>(
-        arr: T[],
-        n: number
-    ): T[][] {
+    public sortArray<T>(arr: T[], n: number): T[][] {
         let i = 0;
         let j = 0;
         const result = [];
@@ -210,6 +217,6 @@ export class KpeHelperService {
     }
 
     public getNumOfDays(timeStamp: Date): number {
-        return new Date((new Date(timeStamp)).getFullYear(), (new Date(timeStamp)).getMonth() + 1, 0).getDate();
+        return new Date(new Date(timeStamp).getFullYear(), new Date(timeStamp).getMonth() + 1, 0).getDate();
     }
 }

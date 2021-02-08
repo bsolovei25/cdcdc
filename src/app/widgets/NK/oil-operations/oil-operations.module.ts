@@ -25,21 +25,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OilOperationsManualAssignComponent } from './components/oil-operations-manual-assign/oil-operations-manual-assign.component';
 import { MatRippleModule } from '@angular/material/core';
 
-
-
 @NgModule({
-  declarations: [
-      OilOperationsComponent,
-      OilOperationsAdjustmentComponent,
-      OilOperationsFreeShipmentComponent,
-      OilOperationsLineComponent,
-      OilOperationsLineChartComponent,
-      OilOperationsLineMenuComponent,
-      OilOperationsReceivedOperationsComponent,
-      OilOperationsShipmentFormationComponent,
-      OilOperationsTankFilterComponent,
-      OilOperationsManualAssignComponent,
-  ],
+    declarations: [
+        OilOperationsComponent,
+        OilOperationsAdjustmentComponent,
+        OilOperationsFreeShipmentComponent,
+        OilOperationsLineComponent,
+        OilOperationsLineChartComponent,
+        OilOperationsLineMenuComponent,
+        OilOperationsReceivedOperationsComponent,
+        OilOperationsShipmentFormationComponent,
+        OilOperationsTankFilterComponent,
+        OilOperationsManualAssignComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,
@@ -57,7 +55,7 @@ import { MatRippleModule } from '@angular/material/core';
         OldScrollingModule,
         MatRippleModule,
     ],
-    exports: []
+    exports: [],
 })
 export class OilOperationsModule {
     enterComponent = OilOperationsComponent;

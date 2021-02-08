@@ -1,18 +1,10 @@
 <div class="year">
-  <mat-form-field style="width: 100%;">
+  <mat-form-field style="width: 100%">
     <mat-label>Выберите год</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      disabled
-      [value]="date"
-    />
+    <input matInput [matDatepicker]="picker" disabled [value]="date" />
     <mat-datepicker-toggle matSuffix [for]="picker">
       <mat-icon matDatepickerToggleIcon (click)="clickYear()">
-        <svg-icon
-          src="assets/icons/widgets/reports/calend.svg"
-          [svgStyle]="{ 'width.px':25, 'height.px':25}"
-        >
+        <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
         </svg-icon>
       </mat-icon>
     </mat-datepicker-toggle>

@@ -1,143 +1,143 @@
 .title {
-    position: relative;
-    height: 40px;
-    width: 100%;
-    background-color: var(--color-oil-border-line);
-    color: var(--color-text-main);
-    text-align: center;
-    line-height: 40px;
-    font-size: 12px;
-    display: flex;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background-color: var(--color-oil-border-line);
+  color: var(--color-text-main);
+  text-align: center;
+  line-height: 40px;
+  font-size: 12px;
+  display: flex;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 
-    &__name {
-        font-size: 14px;
-        width: 100%;
-        white-space: nowrap;
-        padding: 5px;
-        padding-top: 0;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        text-align: center;
-    }
+  &__name {
+    font-size: 14px;
+    width: 100%;
+    white-space: nowrap;
+    padding: 5px;
+    padding-top: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+  }
 }
 
 .content {
-    overflow: auto;
-    overflow-x: hidden;
-    height: calc(100% - 98px);
-    background-color: var(--color-oil-menu);
-    border-top: 1px solid var(--color-bg-main);
-    border-bottom: 1px solid var(--color-bg-main);
-    font-size: 14px;
-    direction: rtl;
+  overflow: auto;
+  overflow-x: hidden;
+  height: calc(100% - 98px);
+  background-color: var(--color-oil-menu);
+  border-top: 1px solid var(--color-bg-main);
+  border-bottom: 1px solid var(--color-bg-main);
+  font-size: 14px;
+  direction: rtl;
 
-    .scroll-block {
-        direction: ltr;
-        height: 100%;
-        &__date {
-            height: 25%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+  .scroll-block {
+    direction: ltr;
+    height: 100%;
+    &__date {
+      height: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-            ::ng-deep {
-                .mat-form-field-flex {
-                    display: block;
-                    text-align: center;
-                }
-
-                .mat-form-field-infix label {
-                    color: var(--color-text-sub);
-                    font-size: 12px;
-                }
-
-                .mat-form-field-underline {
-                    display: none;
-                }
-            }
+      ::ng-deep {
+        .mat-form-field-flex {
+          display: block;
+          text-align: center;
         }
 
-        &__file {
-            height: calc(50% - 3px);
-            border-top: 3px solid var(--color-bg-main);
-
-            .title-file {
-                margin-top: 15px;
-                height: 10%;
-                color: var(--color-text-sub);
-                text-align: center;
-            }
-
-            .pdf {
-                height: 40%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .xls {
-                height: 40%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+        .mat-form-field-infix label {
+          color: var(--color-text-sub);
+          font-size: 12px;
         }
+
+        .mat-form-field-underline {
+          display: none;
+        }
+      }
     }
-}
 
-.bottom {
-    position: relative;
-    height: 40px;
-    width: 100%;
-    background-color: var(--color-oil-border-line);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    &__file {
+      height: calc(50% - 3px);
+      border-top: 3px solid var(--color-bg-main);
 
-    &__block {
-        cursor: pointer;
-        height: 100%;
-        width: 20%;
-        background: var(--color-oil-full-screen);
-        border-bottom-left-radius: 20px;
+      .title-file {
+        margin-top: 15px;
+        height: 10%;
+        color: var(--color-text-sub);
+        text-align: center;
+      }
+
+      .pdf {
+        height: 40%;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      .xls {
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
+  }
+}
+
+.bottom {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background-color: var(--color-oil-border-line);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  &__block {
+    cursor: pointer;
+    height: 100%;
+    width: 20%;
+    background: var(--color-oil-full-screen);
+    border-bottom-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    margin-left: 50px;
-    margin-right: 50px;
+  width: 4px;
+  height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    border-radius: 25px;
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 ::-webkit-resizer {
-    background-color: var(--color-border-active);
+  background-color: var(--color-border-active);
 }

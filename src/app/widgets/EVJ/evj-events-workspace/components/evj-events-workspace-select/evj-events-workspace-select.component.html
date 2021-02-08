@@ -9,9 +9,7 @@
         (selectionChange)="ewService.changeCategory()"
         [disabled]="!ewService.isCategoryEdit"
       >
-        <mat-option
-          *ngFor="let item of ewService.categoryPipe | async; i as index"
-          [value]="item">
+        <mat-option *ngFor="let item of ewService.categoryPipe | async; i as index" [value]="item">
           {{ ewService.categories[item.name] }}
         </mat-option>
       </mat-select>
@@ -26,22 +24,17 @@
       >
         <mat-option
           *ngFor="let item of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent); i as index"
-          [value]="item">
+          [value]="item"
+        >
           {{ ewService.statuses[item.name] }}
         </mat-option>
       </mat-select>
     </ng-container>
 
     <ng-container *ngIf="dataType === 'priorities'">
-      <mat-select
-        panelClass="mat-balance-select"
-        [(ngModel)]="ewService.event.priority"
-        [compareWith]="compareFn"
-      >
-        <mat-option
-          *ngFor="let item of ewService.priority; i as index"
-          [value]="item"
-        >{{ ewService.priorities[item.name] }}
+      <mat-select panelClass="mat-balance-select" [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+        <mat-option *ngFor="let item of ewService.priority; i as index" [value]="item"
+          >{{ ewService.priorities[item.name] }}
         </mat-option>
       </mat-select>
     </ng-container>
@@ -53,11 +46,7 @@
         [(ngModel)]="ewService.event.eventType"
         [compareWith]="compareFn"
       >
-        <mat-option
-          *ngFor="let item of ewService.eventTypes; i as index"
-          [value]="item">
-          {{ item.name }}
-        </mat-option>
+        <mat-option *ngFor="let item of ewService.eventTypes; i as index" [value]="item"> {{ item.name }} </mat-option>
       </mat-select>
     </ng-container>
 
@@ -71,17 +60,12 @@
       >
         <mat-option [value]="null"> Не выбрано</mat-option>
         <ng-container *ngIf="ewService.isCreateNewEvent">
-          <mat-option
-            *ngFor="let item of ewService.subCategoryFilter | async"
-            [value]="item"> {{ item.description }}
+          <mat-option *ngFor="let item of ewService.subCategoryFilter | async" [value]="item">
+            {{ item.description }}
           </mat-option>
         </ng-container>
         <ng-container *ngIf="!ewService.isCreateNewEvent">
-          <mat-option
-            *ngFor="let item of ewService.subCategory"
-            [value]="item">
-            {{ item.description }}
-          </mat-option>
+          <mat-option *ngFor="let item of ewService.subCategory" [value]="item"> {{ item.description }} </mat-option>
         </ng-container>
       </mat-select>
     </ng-container>
@@ -94,9 +78,7 @@
         [compareWith]="compareFn"
       >
         <mat-option [value]="null"> Не выбрано</mat-option>
-        <mat-option
-          *ngFor="let item of ewService.subCategoryFilter | async"
-          [value]="item">
+        <mat-option *ngFor="let item of ewService.subCategoryFilter | async" [value]="item">
           {{ item.description }}
         </mat-option>
       </mat-select>
@@ -110,24 +92,13 @@
         [compareWith]="compareFn"
         [disabled]="!ewService.isCreateNewEvent"
       >
-        <mat-option
-          *ngFor="let item of ewService.units"
-          [value]="item">
-          {{ item.name }}
-        </mat-option>
+        <mat-option *ngFor="let item of ewService.units" [value]="item"> {{ item.name }} </mat-option>
       </mat-select>
     </ng-container>
 
     <ng-container *ngIf="dataType === 'equipmentCategory'">
-      <mat-select
-        panelClass="mat-balance-select"
-        (valueChange)="onSelect($event)"
-      >
-        <mat-option
-          *ngFor="let item of ewService.equipmentCategory"
-          [value]="item">
-          {{ item.name }}
-        </mat-option>
+      <mat-select panelClass="mat-balance-select" (valueChange)="onSelect($event)">
+        <mat-option *ngFor="let item of ewService.equipmentCategory" [value]="item"> {{ item.name }} </mat-option>
       </mat-select>
     </ng-container>
 
@@ -138,10 +109,8 @@
         [(ngModel)]="ewService.event.asusEvent.eoService"
         [disabled]="!ewService.event.isUserCanEditAcknowledged"
       >
-        <mat-option
-          *ngFor="let eoService of ewService.asusEOServices"
-          [value]="eoService.codeSap"
-        >{{ eoService.name }}
+        <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
+          >{{ eoService.name }}
         </mat-option>
       </mat-select>
     </ng-container>
@@ -153,9 +122,7 @@
         [value]="items[0]?.value"
         [disabled]="disabled"
       >
-        <mat-option
-          *ngFor="let item of ewService.equipmentCategory"
-          [value]="items[0].value">
+        <mat-option *ngFor="let item of ewService.equipmentCategory" [value]="items[0].value">
           {{ item.name }}
         </mat-option>
       </mat-select>
@@ -168,12 +135,8 @@
         [(ngModel)]="ewService.event.isAcknowledged"
         [disabled]="!ewService.event.isUserCanEditAcknowledged"
       >
-        <mat-option [value]="true">
-          {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}}
-        </mat-option>
-        <mat-option [value]="false">
-          {{dataType === 'event' ? 'Не квитировано' : 'Не ознакомлен'}}
-        </mat-option>
+        <mat-option [value]="true"> {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}} </mat-option>
+        <mat-option [value]="false"> {{dataType === 'event' ? 'Не квитировано' : 'Не ознакомлен'}} </mat-option>
       </mat-select>
     </ng-container>
   </mat-form-field>

@@ -14,20 +14,16 @@ import { KpeHelperService } from './kpe-helper.service';
         KpeLineChartComponent,
         KpeGaugeChartComponent,
         KpeDeviationDiagramComponent,
-        KpeEqualizerChartComponent
+        KpeEqualizerChartComponent,
     ],
     exports: [
         KpeLineDiagramComponent,
         KpeLineChartComponent,
         KpeGaugeChartComponent,
         KpeDeviationDiagramComponent,
-        KpeEqualizerChartComponent
+        KpeEqualizerChartComponent,
     ],
-    imports: [
-        CommonModule,
-        AngularSvgIconModule
-    ],
+    imports: [CommonModule, AngularSvgIconModule],
     providers: [KpeHelperService],
 })
-export class KpeSharedModule {
-}
+export class KpeSharedModule {}

@@ -9,21 +9,17 @@ import { IFolderReport } from '../../../components/report/reports.component';
     providedIn: 'root',
 })
 export class ReportsService {
-
     private readonly restUrl: string;
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
 
-    public alertWindow$: BehaviorSubject<IAlertWindowModel> =
-        new BehaviorSubject<IAlertWindowModel>(null);
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     async getReportsTemplate(): Promise<any> {
         try {
-            return this.http
-                .get<any>(this.restUrl + `/api/report-template/all`)
-                .toPromise();
+            return this.http.get<any>(this.restUrl + `/api/report-template/all`).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -31,24 +27,18 @@ export class ReportsService {
 
     async getTemplate(id: number): Promise<any> {
         try {
-            return this.http
-                .get<any>(this.restUrl + `/api/report-template/${id}`)
-                .toPromise();
+            return this.http.get<any>(this.restUrl + `/api/report-template/${id}`).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
     async getTemplateFolder(): Promise<IFolderReport> {
-        return await this.http
-            .get<IFolderReport>(this.restUrl + '/api/report-folders/all')
-            .toPromise();
+        return await this.http.get<IFolderReport>(this.restUrl + '/api/report-folders/all').toPromise();
     }
 
     async postTemplate(id: number, body): Promise<any> {
-        return this.http
-            .post<any>(this.restUrl + `/api/reporting/${id}/template/create`, body)
-            .toPromise();
+        return this.http.post<any>(this.restUrl + `/api/reporting/${id}/template/create`, body).toPromise();
     }
 
     public getCustomOptions(): Observable<any> {
@@ -70,6 +60,4 @@ export class ReportsService {
     public closeAlert(): void {
         this.alertWindow$.next(null);
     }
-
-
 }

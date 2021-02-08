@@ -16,8 +16,7 @@
         panelClass="admin-panel-select"
       >
         <mat-select-trigger>
-          {{selectFormControl.value ? selectFormControl.value[selectFormControl.value.length - 1] :
-          ''}}
+          {{selectFormControl.value ? selectFormControl.value[selectFormControl.value.length - 1] : ''}}
           <span *ngIf="selectFormControl.value?.length > 1" class="example-additional-selection">
             (+{{selectFormControl.value.length - 1}})
           </span>

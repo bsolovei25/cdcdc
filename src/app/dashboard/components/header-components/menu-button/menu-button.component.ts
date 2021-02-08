@@ -107,9 +107,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data?.sid) {
-                    const idx: number = this.menuItems.findIndex(
-                        (item) => item.name === 'Изменение пароля'
-                    );
+                    const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение пароля');
                     this.menuItems.splice(idx, 1);
                 } else {
                     this.setMenuItems();

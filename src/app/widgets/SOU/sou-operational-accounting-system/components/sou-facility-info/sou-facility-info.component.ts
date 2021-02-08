@@ -4,7 +4,7 @@ import { ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational
 @Component({
     selector: 'evj-sou-facility-info',
     templateUrl: './sou-facility-info.component.html',
-    styleUrls: ['./sou-facility-info.component.scss']
+    styleUrls: ['./sou-facility-info.component.scss'],
 })
 export class SouFacilityInfoComponent implements OnInit {
     @Output() openPanel: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -12,11 +12,9 @@ export class SouFacilityInfoComponent implements OnInit {
     @Input() data: ISOUSection;
     @Input() count: number = 0;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     counterClick(): void {
         this.openPanel.emit();

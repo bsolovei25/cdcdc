@@ -14,7 +14,7 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
     @Input() public disabled: boolean = false;
 
-    filter: FormControl = new FormControl({value: '', disabled: true});
+    filter: FormControl = new FormControl({ value: '', disabled: true });
 
     public responsible: IUser = null;
 

@@ -1,12 +1,23 @@
 <div class="events-correct">
   <div class="events-correct__header">
     <div [class.left-title]="!isSmotr">Корректирующие мероприятия</div>
-    <div matTooltip="Привязать существующее событие" class="button__search" (click)="openSearchRetrieval()" [class.button__search_bottom]="!isSmotr">
-      <svg-icon src="assets/icons/widgets/workspace/searchWindow.svg"
-        [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 3}"></svg-icon>
+    <div
+      matTooltip="Привязать существующее событие"
+      class="button__search"
+      (click)="openSearchRetrieval()"
+      [class.button__search_bottom]="!isSmotr"
+    >
+      <svg-icon
+        src="assets/icons/widgets/workspace/searchWindow.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 3}"
+      ></svg-icon>
     </div>
-    <div matTooltip="Добавить новое событие" class="button__add" [class.button__add_bottom]="!isSmotr" (click)="addRetrieval()">
-    </div>
+    <div
+      matTooltip="Добавить новое событие"
+      class="button__add"
+      [class.button__add_bottom]="!isSmotr"
+      (click)="addRetrieval()"
+    ></div>
     <div class="date" *ngIf="!isSmotr">
       <div class="date__title">Начало события</div>
       <div class="date__info">{{ewService.event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}</div>

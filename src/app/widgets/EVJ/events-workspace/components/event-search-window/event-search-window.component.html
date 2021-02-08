@@ -1,6 +1,9 @@
 <ng-container *ngIf="info?.isShow">
-  <div class="loading-shade loading-shade__blur" (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()">
+  <div
+    class="loading-shade loading-shade__blur"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="confirm-container">
       <div class="confirm-container__body confirm-container-body">
         <div class="confirm-container-body__header">
@@ -23,7 +26,11 @@
         <div class="confirm-container-body__content">
           <div class="block">
             <ng-container *ngFor="let retrieval of results">
-              <div class="card" (click)="selectCard(retrieval)" [class.active]="selectId === retrieval.innerNotificationId">
+              <div
+                class="card"
+                (click)="selectCard(retrieval)"
+                [class.active]="selectId === retrieval.innerNotificationId"
+              >
                 <evj-events-correct-card [isClickable]="false" [event]="retrieval"></evj-events-correct-card>
               </div>
             </ng-container>
@@ -32,12 +39,15 @@
       </div>
       <div class="confirm-container__footer">
         <div class="button-container">
-          <evj-rect-button [textButton]="'Подтвердить'" (click)="accept()" [isChangingState]="false"
-            [type]="'primary'"></evj-rect-button>
+          <evj-rect-button
+            [textButton]="'Подтвердить'"
+            (click)="accept()"
+            [isChangingState]="false"
+            [type]="'primary'"
+          ></evj-rect-button>
         </div>
         <div class="button-container">
-          <evj-rect-button [textButton]="'Отменить'" (click)="cancel()" [isChangingState]="false">
-          </evj-rect-button>
+          <evj-rect-button [textButton]="'Отменить'" (click)="cancel()" [isChangingState]="false"> </evj-rect-button>
         </div>
       </div>
     </div>

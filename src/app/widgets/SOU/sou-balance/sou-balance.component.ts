@@ -4,33 +4,33 @@ import { ISouBalance } from 'src/app/dashboard/models/SOU/sou-balance.model';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 @Component({
-  selector: 'evj-sou-balance',
-  templateUrl: './sou-balance.component.html',
-  styleUrls: ['./sou-balance.component.scss']
+    selector: 'evj-sou-balance',
+    templateUrl: './sou-balance.component.html',
+    styleUrls: ['./sou-balance.component.scss'],
 })
 export class SouBalanceComponent extends WidgetPlatform implements OnInit {
-  menuData: string[] = ['Измеренное', 'Согласованное'];
-  data: ISouBalance[] = [];
+    menuData: string[] = ['Измеренное', 'Согласованное'];
+    data: ISouBalance[] = [];
 
-  chosenItem: number = 0;
-  public changeSetting(i: number): void {
-    this.chosenItem = i;
-  }
+    chosenItem: number = 0;
+    public changeSetting(i: number): void {
+        this.chosenItem = i;
+    }
 
-  constructor(
-      protected widgetService: WidgetService,
-      @Inject('isMock') public isMock: boolean,
-      @Inject('widgetId') public id: string,
-      @Inject('uniqId') public uniqId: string
-  ) {
-      super(widgetService, isMock, id, uniqId);
-  }
+    constructor(
+        protected widgetService: WidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
-  ngOnInit(): void {
-      this.widgetInit();
-  }
+    ngOnInit(): void {
+        this.widgetInit();
+    }
 
-  protected dataHandler(ref: {groups: ISouBalance[]}): void {
-      this.data = ref.groups;
-  }
+    protected dataHandler(ref: { groups: ISouBalance[] }): void {
+        this.data = ref.groups;
+    }
 }

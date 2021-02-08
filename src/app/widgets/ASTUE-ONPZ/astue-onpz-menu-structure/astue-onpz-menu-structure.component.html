@@ -1,48 +1,37 @@
 <evj-contemporary-widget-header [uniqId]="uniqId" type="astue">
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div>{{ widgetTitle }}</div>
   </div>
 </evj-contemporary-widget-header>
 
-<div
-  class="wrapper"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
-
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="select">
-  <div class="select-label">Выбор производства</div>
+    <div class="select-label">Выбор производства</div>
 
-  <div class="astue-mat-select">
-    <mat-form-field>
-      <mat-select panelClass="mat-balance-select"
-                  [formControl]="manufactureSelect"
-                  (selectionChange)="onManufactureSelect($event)">
-        <mat-option *ngFor="let manufacture of manufactures" [value]="manufacture.name">
-          {{ manufacture.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="astue-mat-select">
+      <mat-form-field>
+        <mat-select
+          panelClass="mat-balance-select"
+          [formControl]="manufactureSelect"
+          (selectionChange)="onManufactureSelect($event)"
+        >
+          <mat-option *ngFor="let manufacture of manufactures" [value]="manufacture.name">
+            {{ manufacture.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="select">
-  <div class="select-label">Выбор установки</div>
+    <div class="select-label">Выбор установки</div>
 
-  <div class="astue-mat-select">
-    <mat-form-field>
-      <mat-select panelClass="mat-balance-select"
-                  [formControl]="unitSelect"
-                  (selectionChange)="onUnitSelect($event)">
-        <mat-option *ngFor="let unit of units" [value]="unit.name">
-          {{ unit.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="astue-mat-select">
+      <mat-form-field>
+        <mat-select panelClass="mat-balance-select" [formControl]="unitSelect" (selectionChange)="onUnitSelect($event)">
+          <mat-option *ngFor="let unit of units" [value]="unit.name"> {{ unit.name }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 </div>

@@ -60,10 +60,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('y', '308');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '40')
                                 .attr('y', '370')
@@ -72,10 +69,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '40')
                                 .attr('y', '440')
@@ -101,10 +95,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('y', '190');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '70')
                                 .attr('y', '280')
@@ -112,10 +103,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '140')
                                 .attr('y', '280')
@@ -140,10 +128,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('transform', 'scale(-1,1)');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '330')
                                 .attr('y', '280')
@@ -151,10 +136,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '400')
                                 .attr('y', '280')
@@ -179,10 +161,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('y', '308');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '548')
                                 .attr('y', '370')
@@ -191,10 +170,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '548')
                                 .attr('y', '440')
@@ -221,10 +197,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('transform', 'scale(-1)');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '330')
                                 .attr('y', '620')
@@ -232,10 +205,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '400')
                                 .attr('y', '620')
@@ -260,10 +230,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .attr('transform', 'scale(1,-1)');
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '36px')
                                 .attr('x', '70')
                                 .attr('y', '620')
@@ -271,10 +238,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                                 .text('-' + dat.critical);
 
                             svg.append('text')
-                                .attr(
-                                    'font-family',
-                                    " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                                )
+                                .attr('font-family', " font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                                 .attr('font-size', '30px')
                                 .attr('x', '140')
                                 .attr('y', '620')

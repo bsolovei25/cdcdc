@@ -66,18 +66,18 @@
     transition: 0.8s;
 
     .report-container__button-remove {
-        transition: 0.2s;
-        cursor: pointer;
-        width: 34px;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_blue.svg);
+      transition: 0.2s;
+      cursor: pointer;
+      width: 34px;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_blue.svg);
 
-        &:hover {
-          transition: 1s;
-          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_red.svg);
-        }
+      &:hover {
+        transition: 1s;
+        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_red.svg);
+      }
     }
   }
 }

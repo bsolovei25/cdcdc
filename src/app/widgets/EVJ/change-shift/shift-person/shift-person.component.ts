@@ -6,7 +6,10 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
-interface IMapper { code: string; name: string; }
+interface IMapper {
+    code: string;
+    name: string;
+}
 
 @Component({
     selector: 'evj-shift-person',
@@ -80,11 +83,9 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
         private shiftService: ShiftService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private materialController: SnackBarService
-    ) { }
+    ) {}
 
-    public ngOnInit(): void {
-
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
         this.photoPathUser = this.avatarConfiguratorService.getAvatarPath(this.person.employee.photoId);
@@ -169,22 +170,10 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
                 );
                 break;
             case 'Передать смену':
-                this.shiftService.changeStatus(
-                    'passed',
-                    person.employee.id,
-                    this.shiftId,
-                    this.widgetId,
-                    this.unitId
-                );
+                this.shiftService.changeStatus('passed', person.employee.id, this.shiftId, this.widgetId, this.unitId);
                 break;
             case 'Отсутствует':
-                this.shiftService.changeStatus(
-                    'absent',
-                    person.employee.id,
-                    this.shiftId,
-                    this.widgetId,
-                    this.unitId
-                );
+                this.shiftService.changeStatus('absent', person.employee.id, this.shiftId, this.widgetId, this.unitId);
                 break;
             case 'На месте':
                 this.shiftService.changeStatus(
@@ -210,7 +199,7 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
                     questionText: `Вы действительно хотите перевести пользователя ${person.employee.lastName} ${person.employee.firstName} в статус Отсутствующие?`,
                     acceptText: 'Да',
                     cancelText: 'Отмена',
-                    closeFunction: () =>  this.shiftService.alertWindowLeaveShift$.next(null),
+                    closeFunction: () => this.shiftService.alertWindowLeaveShift$.next(null),
                     acceptFunction: async () => {
                         await this.shiftService.changeStatus(
                             'missing',
@@ -218,10 +207,12 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
                             this.shiftId,
                             this.widgetId,
                             this.unitId,
-                            null,
+                            null
                         );
-                        this.materialController.openSnackBar(`Пользователь ${person.employee.lastName} ${person.employee.firstName} успешно удален из смены`);
-                    }
+                        this.materialController.openSnackBar(
+                            `Пользователь ${person.employee.lastName} ${person.employee.firstName} успешно удален из смены`
+                        );
+                    },
                 });
                 break;
             case 'Сделать главным':

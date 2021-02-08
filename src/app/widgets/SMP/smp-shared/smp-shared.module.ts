@@ -7,22 +7,14 @@ import { ProductGroupsTableComponent } from './product-group/product-groups-tabl
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
 @NgModule({
     declarations: [
         ProductGroupsLeftComponent,
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
-        ProductGroupsTableComponent
+        ProductGroupsTableComponent,
     ],
-    exports: [
-        ProductGroupsTableComponent
-    ],
-    imports: [
-        SharedModule,
-        CommonModule,
-        AngularSvgIconModule
-    ]
+    exports: [ProductGroupsTableComponent],
+    imports: [SharedModule, CommonModule, AngularSvgIconModule],
 })
-export class SmpSharedModule {
-}
+export class SmpSharedModule {}

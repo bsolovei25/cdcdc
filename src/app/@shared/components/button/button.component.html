@@ -10,9 +10,7 @@
   >
     <div class="button__frame-normal button__frame-normal-left"></div>
     <div class="button__frame-normal button__frame-normal-right"></div>
-    <ng-container *ngIf="textButton; else image">
-      {{textButton}}
-    </ng-container>
+    <ng-container *ngIf="textButton; else image"> {{textButton}} </ng-container>
     <ng-template #image>
       <div class="button__icon">
         <img [src]="changeButtonIcon()" alt="" />
@@ -22,11 +20,5 @@
 </ng-container>
 
 <ng-template #roundedButtonTemplate>
-  <button
-    [disabled]="disabled"
-    (click)="onClick()"
-    [class]="'button-rounded' + ' ' + type"
-  >
-    {{ textButton }}
-  </button>
+  <button [disabled]="disabled" (click)="onClick()" [class]="'button-rounded' + ' ' + type">{{ textButton }}</button>
 </ng-template>

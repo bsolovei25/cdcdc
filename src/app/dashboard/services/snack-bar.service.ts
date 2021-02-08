@@ -7,8 +7,7 @@ type snackBarColor = 'snackbar-red' | 'blue';
     providedIn: 'root',
 })
 export class SnackBarService {
-
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private snackBar: MatSnackBar) {}
 
     public openSnackBar(
         msg: string = 'Операция выполнена',

@@ -1,19 +1,11 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header
-    type="astue"
-    [widgetTitle]="widgetTitle"
-    [uniqId]="widgetUniqId"
-  >
+  <evj-contemporary-widget-header type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
     <div class="header-container">
-      <div class="button" (click)="handleTabClick()" matRipple matRippleColor="white"> В источник </div>
+      <div class="button" (click)="handleTabClick()" matRipple matRippleColor="white">В источник</div>
     </div>
   </evj-contemporary-widget-header>
 
-  <div
-    class="content_block"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="wrapper">
       <div class="chart-container">
         <div class="gauge-card">
@@ -26,9 +18,7 @@
                 [displayType]="'limited'"
               ></evj-ejco-gauge-chart>
             </div>
-            <div class="gauge-card__label">
-              {{ data?.chartData?.title }}
-            </div>
+            <div class="gauge-card__label">{{ data?.chartData?.title }}</div>
           </div>
         </div>
       </div>
@@ -44,9 +34,7 @@
                   [deviation]="chart?.deviation"
                 ></evj-ejco-gauge-chart>
               </div>
-              <div class="gauge-card__label">
-                {{ chart?.title }}
-              </div>
+              <div class="gauge-card__label">{{ chart?.title }}</div>
             </div>
           </div>
         </ng-container>

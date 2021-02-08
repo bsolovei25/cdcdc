@@ -135,14 +135,12 @@ export class UserSettingsService {
 
     private addWidgetApi(uniqId: string): void {
         const updateWidget = this.save(uniqId);
-        this.http
-            .post(this.restUrl + '/api/user-management/widget/' + this.screenId, updateWidget)
-            .subscribe(
-                (ans: IUserGridItem) => {
-                    this.setWidgetOnScreen(ans.widgetType, ans.uniqueId);
-                },
-                (error) => console.log(error)
-            );
+        this.http.post(this.restUrl + '/api/user-management/widget/' + this.screenId, updateWidget).subscribe(
+            (ans: IUserGridItem) => {
+                this.setWidgetOnScreen(ans.widgetType, ans.uniqueId);
+            },
+            (error) => console.log(error)
+        );
     }
 
     private save(uniqId: string): IUserGridItem {
@@ -160,12 +158,10 @@ export class UserSettingsService {
 
     private updateWidgetApi(uniqId: string): void {
         const updateWidget = this.save(uniqId);
-        this.http
-            .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
-            .subscribe(
-                (ans) => {},
-                (error) => console.log(error)
-            );
+        this.http.put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget).subscribe(
+            (ans) => {},
+            (error) => console.log(error)
+        );
     }
 
     public updateByPosition(oldItem: GridsterItem, newItem: GridsterItem): void {
@@ -175,9 +171,7 @@ export class UserSettingsService {
     public async removeItem(widgetId: string): Promise<void> {
         this.overlayService.setIsLoad(true);
         try {
-            await this.http
-                .delete(this.restUrl + '/api/user-management/widget/' + widgetId)
-                .toPromise();
+            await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
             this.widgetService.removeItemService(widgetId);
         } catch (e) {
             console.error(`widget delete error: ${e}`);
@@ -244,9 +238,7 @@ export class UserSettingsService {
     public async deleteGroup(groupId: number): Promise<boolean> {
         try {
             await this.http
-                .delete<IGroupScreens>(
-                    `${this.restUrl}/api/user-management/screen-group/${groupId}`
-                )
+                .delete<IGroupScreens>(`${this.restUrl}/api/user-management/screen-group/${groupId}`)
                 .toPromise();
             const groups = this.groupsList$.getValue().filter((item) => item.id !== groupId);
             this.groupsList$.next(groups);
@@ -392,15 +384,13 @@ export class UserSettingsService {
     }
 
     public updateScreen(screen: IScreenSettings): Subscription {
-        return this.http
-            .put(`${this.restUrl}/api/user-management/screen/${screen.id}`, screen)
-            .subscribe(
-                (ans) => {
-                    this.snackBar.openSnackBar('Экран успешно изменен');
-                    this.getScreens(this.groupId);
-                },
-                (error) => console.log(error)
-            );
+        return this.http.put(`${this.restUrl}/api/user-management/screen/${screen.id}`, screen).subscribe(
+            (ans) => {
+                this.snackBar.openSnackBar('Экран успешно изменен');
+                this.getScreens(this.groupId);
+            },
+            (error) => console.log(error)
+        );
     }
 
     public clearScreens(): void {
@@ -423,11 +413,9 @@ export class UserSettingsService {
         this.widgetsOnScreen.clear();
     }
 
-    private async getScreenByWidgetType(widgetType: string): Promise<number> {
+    public async getScreenByWidgetType(widgetType: string): Promise<number> {
         const screen = await this.http
-            .get<IScreenSettings>(
-                `${this.restUrl}` + `/api/user-management/screens/widget/${widgetType}`
-            )
+            .get<IScreenSettings>(`${this.restUrl}` + `/api/user-management/screens/widget/${widgetType}`)
             .toPromise();
         return screen?.id ?? null;
     }

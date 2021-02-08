@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, HostListener, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -38,10 +38,7 @@ export class EvjUsualEventComponent implements OnInit {
         return a && b && a.id === b.id;
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

@@ -34,7 +34,6 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     isClickPushReference: boolean = false;
     isClickPushRecord: boolean = false;
 
-
     isRefInput: boolean = false;
     isRecInput: boolean = false;
 
@@ -59,9 +58,9 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     public allFileTree: any;
 
     types = {
-        'typeString': 'Текст',
-        'typeInt': 'Число',
-        'typeDateTime': 'Дата',
+        typeString: 'Текст',
+        typeInt: 'Число',
+        typeDateTime: 'Дата',
     };
 
     public datas: IReferenceTypes[] = [];
@@ -108,16 +107,16 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
         const leftScroll = document.getElementById('leftScrollAdmRef');
         if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
-                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+                rightScroll.style.cssText = 'margin-left: 5px; width: calc(100% - 45px);';
             } else {
-                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+                rightScroll.style.cssText = 'margin-left: 10px; width: calc(100% - 50px);';
             }
         }
         if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: 0px; width: calc(100% - 5px);';
             } else {
-                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+                leftScroll.style.cssText = 'margin-right: -5px; width: calc(100% - 5px);';
             }
         }
     }
@@ -132,9 +131,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.getReference()
-        );
+        this.subscriptions.push(this.getReference());
     }
 
     protected dataHandler(ref: any): void {
@@ -148,7 +145,6 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
             this.setStyleScroll();
         });
     }
-
 
     onClickReference(data, index) {
         if (this.indexColumn !== undefined && this.indexColumn !== null) {
@@ -175,7 +171,6 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
                 }
             }
             this.setStyleScroll();
-
         } else {
             this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
                 data.columns = datas;
@@ -217,7 +212,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
             isRequred: item.isRequred,
             isUnique: item.isUnique,
             columnTypeId: item.columnTypeId,
-        }
+        };
 
         this.referencesService.putEditColumn(object).subscribe();
     }
@@ -228,11 +223,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
 
     drop(event: CdkDragDrop<string[]>) {
         const prevId = this.data[this.indexColumn].id;
-        moveItemInArray(
-            this.data[this.indexColumn].columns,
-            event.previousIndex,
-            event.currentIndex
-        );
+        moveItemInArray(this.data[this.indexColumn].columns, event.previousIndex, event.currentIndex);
 
         let massColumnSend = [];
         // let index = 0;
@@ -257,7 +248,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     }
 
     sortByOrder(arr): void {
-        arr.sort((a, b) => a.columnOrder > b.columnOrder ? 1 : -1);
+        arr.sort((a, b) => (a.columnOrder > b.columnOrder ? 1 : -1));
     }
 
     onPushBlockInReference(): void {
@@ -298,7 +289,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
                 columnTypeId: this.isType,
             };
             if (this.newFioRecord?.trim().length > 0) {
-                this.referencesService.pushColumnReference(object).subscribe(ans => {
+                this.referencesService.pushColumnReference(object).subscribe((ans) => {
                     this.referencesService.getRestReference();
                     this.data[this.indexColumn].columns.push(ans);
                     this.blockNeed();
@@ -319,9 +310,7 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
             this.data = this.datas;
         }
         const record = event.currentTarget.value.toLowerCase();
-        const filterData = this.data.filter(
-            (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-        );
+        const filterData = this.data.filter((e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1);
 
         this.data = filterData;
         if (!event.currentTarget.value) {
@@ -345,25 +334,25 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     }
 
     deleteReference(item): void {
-        this.referencesService.removeReference(item.id).subscribe(ans => {
+        this.referencesService.removeReference(item.id).subscribe((ans) => {
             this.referencesService.getRestReference();
             const indexDelete = this.data.indexOf(item);
             this.data.splice(indexDelete, 1);
         });
-
     }
 
     deleteRecord(item): void {
         this.isLongBlock = true;
-        this.referencesService.removeRecord(item.id).subscribe((ans) => {
-            this.referencesService.getRestReference();
-            const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
-            this.data[this.indexColumn].columns.splice(indexDelete, 1);
-        }, (error) => {
-            this.deleteColumn(item);
-        }
+        this.referencesService.removeRecord(item.id).subscribe(
+            (ans) => {
+                this.referencesService.getRestReference();
+                const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+                this.data[this.indexColumn].columns.splice(indexDelete, 1);
+            },
+            (error) => {
+                this.deleteColumn(item);
+            }
         );
-
     }
 
     onEdit(item): void {
@@ -398,11 +387,12 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
             questionText: 'Вы уверены, что хотите удалить столбец с данными?',
             acceptText: 'Да',
             cancelText: 'Отменить',
-            acceptFunction: () => this.referencesService.removeRecordWithColumn(item.id).subscribe(ans => {
-                this.referencesService.getRestReference();
-                const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
-                this.data[this.indexColumn].columns.splice(indexDelete, 1);
-            }),
+            acceptFunction: () =>
+                this.referencesService.removeRecordWithColumn(item.id).subscribe((ans) => {
+                    this.referencesService.getRestReference();
+                    const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+                    this.data[this.indexColumn].columns.splice(indexDelete, 1);
+                }),
             closeFunction: () => this.referencesService.closeAlert(),
         };
         this.referencesService.alertWindow$.next(windowsParam);

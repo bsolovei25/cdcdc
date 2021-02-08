@@ -1,19 +1,8 @@
-import {
-    Component,
-    ElementRef,
-    HostListener,
-    Inject,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {
-    IOzsmPlanningMain,
-    IOzsmPlanningMainItem,
-} from '../../../dashboard/models/OZSM/ozsm-planning-main.model';
+import { IOzsmPlanningMain, IOzsmPlanningMainItem } from '../../../dashboard/models/OZSM/ozsm-planning-main.model';
 import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.service';
 import { filter, map } from 'rxjs/operators';
 
@@ -22,8 +11,7 @@ import { filter, map } from 'rxjs/operators';
     templateUrl: './ozsm-planning-main.component.html',
     styleUrls: ['./ozsm-planning-main.component.scss'],
 })
-export class OzsmPlanningMainComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('graphContainer')
     public graphContainer: ElementRef;
 
@@ -88,12 +76,8 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown>
     }
 
     private resize(): void {
-        const scaleY =
-            (this.graphContainer?.nativeElement?.offsetHeight ?? this.staticHeight) /
-            this.staticHeight;
-        const scaleX =
-            (this.graphContainer?.nativeElement?.offsetWidth ?? this.staticWidth) /
-            this.staticWidth;
+        const scaleY = (this.graphContainer?.nativeElement?.offsetHeight ?? this.staticHeight) / this.staticHeight;
+        const scaleX = (this.graphContainer?.nativeElement?.offsetWidth ?? this.staticWidth) / this.staticWidth;
         const scale: number = scaleX < scaleY ? scaleX : scaleY;
         this.styleTransform = `transform: translate(-50%, -50%) scale(${scale})`;
     }

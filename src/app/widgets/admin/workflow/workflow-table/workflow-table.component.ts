@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    AfterContentInit,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, AfterContentInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EventService } from 'src/app/dashboard/services/widgets/EVJ/event.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
@@ -44,11 +36,7 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
         this.localeData = event;
         if (this.localeData?.height) {
             setTimeout(() => {
-                this.renderer.setStyle(
-                    this.tank.nativeElement,
-                    'height',
-                    `${this.localeData.height - 80}px`
-                );
+                this.renderer.setStyle(this.tank.nativeElement, 'height', `${this.localeData.height - 80}px`);
             }, 200);
         }
         this.selectedElement.clear();

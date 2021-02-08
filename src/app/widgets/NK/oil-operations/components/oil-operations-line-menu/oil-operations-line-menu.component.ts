@@ -1,11 +1,4 @@
-import {
-    AfterViewInit,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IDatesInterval } from '../../../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { merge } from 'rxjs';
@@ -16,7 +9,6 @@ import { merge } from 'rxjs';
     styleUrls: ['./oil-operations-line-menu.component.scss'],
 })
 export class OilOperationsLineMenuComponent implements OnInit, AfterViewInit {
-
     public dateFrom: FormControl = new FormControl();
 
     public dateTo: FormControl = new FormControl();
@@ -27,8 +19,7 @@ export class OilOperationsLineMenuComponent implements OnInit, AfterViewInit {
     @Output()
     public emitDates: EventEmitter<IDatesInterval> = new EventEmitter<IDatesInterval>();
 
-    constructor() {
-    }
+    constructor() {}
 
     public ngOnInit(): void {
         this.dateFrom.setValue(this.currentDates.fromDateTime);
@@ -37,10 +28,7 @@ export class OilOperationsLineMenuComponent implements OnInit, AfterViewInit {
 
     public ngAfterViewInit(): void {
         if (this.dateFrom && this.dateTo) {
-            const datesFormControls = merge(
-                this.dateFrom.valueChanges,
-                this.dateTo.valueChanges,
-            );
+            const datesFormControls = merge(this.dateFrom.valueChanges, this.dateTo.valueChanges);
 
             datesFormControls.subscribe(() => {
                 this.emitDates.emit({

@@ -6,7 +6,7 @@ export function fillDataArray(
     isFutureFilling: boolean = false,
     isFillPlan: boolean = false,
     startTime: number = null,
-    endTime: number = null,
+    endTime: number = null
 ): void {
     data.forEach((item) => {
         if (!item.graph?.length) {
@@ -46,14 +46,11 @@ export function fillDataArray(
         // зачистка повторяющихся дат
         const filteredArray: IChartMini[] = [];
         item.graph.forEach((val, idx, array) => {
-            const filtered = array.filter(
-                (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-            );
+            const filtered = array.filter((el) => el.timeStamp.getTime() === val.timeStamp.getTime());
             val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
             if (
                 !filteredArray.length ||
-                filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                    val.timeStamp.getTime()
+                filteredArray[filteredArray.length - 1].timeStamp.getTime() !== val.timeStamp.getTime()
             ) {
                 filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
             }
@@ -78,14 +75,14 @@ export function fillDataArray(
                 while (item.graph[item.graph.length - 1].timeStamp.getTime() < endTime) {
                     item.graph.push({
                         value: item.graph[item.graph.length - 1].value,
-                        timeStamp: new Date(item.graph[item.graph.length - 1].timeStamp.getTime()
-                            + 1000 * 60 * 60),
+                        timeStamp: new Date(item.graph[item.graph.length - 1].timeStamp.getTime() + 1000 * 60 * 60),
                     });
                 }
             }
             // фильтрация по началу и окончанию периода
-            item.graph = item.graph.filter((g) => g.timeStamp.getTime() >= startTime
-                        && g.timeStamp.getTime() <= endTime);
+            item.graph = item.graph.filter(
+                (g) => g.timeStamp.getTime() >= startTime && g.timeStamp.getTime() <= endTime
+            );
         }
     });
 }
@@ -94,20 +91,20 @@ export function fillDataArrayChart(
     points: IChartMini[],
     startTime: number = null,
     endTime: number = null,
-    isFutureFilling: boolean = false,
+    isFutureFilling: boolean = false
 ): IChartMini[] {
     if (!points?.length) {
         return points;
     }
-    points.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
+    // points.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
     // заполнение пропусков в массиве
     const arr = points;
     for (let idx = 0; idx < arr.length; idx++) {
         const el = arr[idx];
-        if (!!idx) {
+        if (idx > 0) {
             const lastEl = arr[idx - 1];
             let a = (el.timeStamp.getTime() - lastEl.timeStamp.getTime()) / (1000 * 60 * 60);
-            if (a !== 1) {
+            if (a > 1) {
                 const array: IChartMini[] = [];
                 const step = (el.value - lastEl.value) / a;
                 const timestamp = lastEl.timeStamp;
@@ -132,14 +129,11 @@ export function fillDataArrayChart(
     // зачистка повторяющихся дат
     const filteredArray: IChartMini[] = [];
     points.forEach((val, idx, array) => {
-        const filtered = array.filter(
-            (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-        );
+        const filtered = array.filter((el) => el.timeStamp.getTime() === val.timeStamp.getTime());
         val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
         if (
             !filteredArray.length ||
-            filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-            val.timeStamp.getTime()
+            filteredArray[filteredArray.length - 1].timeStamp.getTime() !== val.timeStamp.getTime()
         ) {
             filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
         }
@@ -158,14 +152,12 @@ export function fillDataArrayChart(
             while (points[points.length - 1].timeStamp.getTime() < endTime) {
                 points.push({
                     value: points[points.length - 1].value,
-                    timeStamp: new Date(points[points.length - 1].timeStamp.getTime()
-                        + 1000 * 60 * 60),
+                    timeStamp: new Date(points[points.length - 1].timeStamp.getTime() + 1000 * 60 * 60),
                 });
             }
         }
         // фильтрация по началу и окончанию периода
-        points = points.filter((g) => g.timeStamp.getTime() >= startTime
-            && g.timeStamp.getTime() <= endTime);
+        points = points.filter((g) => g.timeStamp.getTime() >= startTime && g.timeStamp.getTime() <= endTime);
     }
     return points;
 }

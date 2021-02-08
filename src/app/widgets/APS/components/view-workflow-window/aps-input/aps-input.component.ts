@@ -8,16 +8,12 @@ interface IInputAps {
 @Component({
     selector: 'evj-aps-input',
     templateUrl: './aps-input.component.html',
-    styleUrls: ['./aps-input.component.scss']
+    styleUrls: ['./aps-input.component.scss'],
 })
 export class ApsInputComponent implements OnInit {
-
     @Input() public data: IInputAps;
 
-    constructor() { }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
-
-
+    public ngOnInit(): void {}
 }

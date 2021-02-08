@@ -8,9 +8,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
     declarations: [FacilityDeviationComponent, FacilityDeviationElementComponent],
-    imports: [
-        CommonModule, DashboardModule, SharedModule, AngularSvgIconModule
-    ]
+    imports: [CommonModule, DashboardModule, SharedModule, AngularSvgIconModule],
 })
 export class FacilityDeviationModule {
     enterComponent = FacilityDeviationComponent;

@@ -72,18 +72,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         }
 
         req = req.clone({
-            headers: req.headers.append(
-                this.authorizationHeader,
-                `Bearer ${this.authService.userSessionToken}`
-            ),
+            headers: req.headers.append(this.authorizationHeader, `Bearer ${this.authService.userSessionToken}`),
         });
 
         if (this.authService.keycloakToken) {
             req = req.clone({
-                headers: req.headers.append(
-                    'Authorization',
-                    `Bearer ${this.authService.keycloakToken}`
-                ),
+                headers: req.headers.append('Authorization', `Bearer ${this.authService.keycloakToken}`),
             });
         }
 

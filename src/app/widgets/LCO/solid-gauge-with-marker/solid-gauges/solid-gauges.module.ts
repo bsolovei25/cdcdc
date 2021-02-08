@@ -4,15 +4,10 @@ import { SolidGaugesComponent } from './solid-gauges.component';
 import { SharedModule } from '@shared/shared.module';
 import { SolidGaugeWithMarkerComponent } from '../solid-gauge-with-marker/solid-gauge-with-marker.component';
 
-
-
 @NgModule({
-  declarations: [ SolidGaugesComponent, SolidGaugeWithMarkerComponent ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ]
+    declarations: [SolidGaugesComponent, SolidGaugeWithMarkerComponent],
+    imports: [CommonModule, SharedModule],
 })
 export class SolidGaugesModule {
-  enterComponent = SolidGaugesComponent;
+    enterComponent = SolidGaugesComponent;
 }

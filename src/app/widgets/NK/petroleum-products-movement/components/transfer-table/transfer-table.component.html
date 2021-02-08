@@ -1,22 +1,23 @@
 <div class="reference_title">
   <ng-container *ngFor="let item of dictionary">
     <div class="title_block">
-      <div class="title" >
-        <div style="cursor: pointer" (click)="showFilter(item)">
-          {{ item.title }}
-        </div>
+      <div class="title">
+        <div style="cursor: pointer" (click)="showFilter(item)">{{ item.title }}</div>
         <div style="position: relative">
           <svg-icon
             class="filter_icon"
             [svgStyle]="{ 'width.px':12, 'height.px':12 }"
-            src="assets/icons/SearchFilter.svg" [class.filter_icon__active]="item.filter.isActive">
+            src="assets/icons/SearchFilter.svg"
+            [class.filter_icon__active]="item.filter.isActive"
+          >
           </svg-icon>
           <div *ngIf="item.filter.isActive" class="filter_block">
             <evj-filter-popup
               [filterSetting]="getFilterParams(item)"
               [isSearch]="item.filter.isSearch"
               (sortFilter)="setSortFilter($event, item)"
-              (sortText)="setTextFilter($event, item)">
+              (sortText)="setTextFilter($event, item)"
+            >
             </evj-filter-popup>
           </div>
         </div>
@@ -40,9 +41,7 @@
                 <div class="date">
                   {{ (dic.key === 'startTime' ? item.startTime : item.endTime) | date:'dd.MM.yyyy | HH:mm:ss' }}
                 </div>
-                <div class="operator">
-                  {{ (dic.key === 'startTime' ? item.sourceClient : item.destinationClient) }}
-                </div>
+                <div class="operator">{{ (dic.key === 'startTime' ? item.sourceClient : item.destinationClient) }}</div>
               </div>
             </div>
           </ng-container>
@@ -76,9 +75,7 @@
               >
                 {{ item[dic.key] | number:'0.2-2' }}
               </ng-container>
-              <ng-template #text>
-                {{ item[dic.key] }}
-              </ng-template>
+              <ng-template #text> {{ item[dic.key] }} </ng-template>
             </div>
           </div>
         </ng-container>

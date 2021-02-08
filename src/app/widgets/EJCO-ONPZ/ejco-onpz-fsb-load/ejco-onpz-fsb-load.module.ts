@@ -6,15 +6,8 @@ import { EjcoOnpzSharedModule } from '../ejco-onpz-shared/ejco-onpz-shared.modul
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-    declarations: [
-        EjcoOnpzFsbLoadComponent,
-    ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        EjcoOnpzSharedModule,
-        MatTooltipModule,
-    ],
+    declarations: [EjcoOnpzFsbLoadComponent],
+    imports: [CommonModule, SharedModule, EjcoOnpzSharedModule, MatTooltipModule],
 })
 export class EjcoOnpzFsbLoadModule {
     enterComponent = EjcoOnpzFsbLoadComponent;

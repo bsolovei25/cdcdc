@@ -10,12 +10,13 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 export class EjsEventComponent implements OnInit, OnDestroy {
     @Input()
     public noOverflow: boolean = false;
+    private readonly urlOrigin: string = 'http://10.80.128.41/meridium';
 
     constructor(public ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {
         if (this.ewService.isCreateNewEvent) {
-            this.onClickEjs();
+            window.open(this.urlOrigin);
             this.ewService.goBackEvent();
         }
     }
@@ -28,10 +29,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

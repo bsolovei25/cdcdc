@@ -7,45 +7,21 @@
         width="42"
         height="42"
         preserveAspectRatio="xMidYMid slice"
-        style="clip-path: circle(50% at center);"
+        style="clip-path: circle(50% at center)"
         [attr.xlink:href]="photoPath"
       />
 
-      <image
-        x="-39"
-        y="-0.5"
-        width="120"
-        height="50"
-        xlink:href="assets/icons/widgets/admin/worker-card.svg"
-      />
+      <image x="-39" y="-0.5" width="120" height="50" xlink:href="assets/icons/widgets/admin/worker-card.svg" />
 
-      <text
-        x="33"
-        y="9"
-        text-anchor="start"
-        class="svg__txt"
-        *ngIf="phoneRegExp.test(person.phone)"
-      >
+      <text x="33" y="9" text-anchor="start" class="svg__txt" *ngIf="phoneRegExp.test(person.phone)">
         +7 {{person.phone|mask:'(000) 000-00-00'}}
       </text>
-      <text
-        x="33"
-        y="9"
-        text-anchor="start"
-        class="svg__txt"
-        *ngIf="!phoneRegExp.test(person.phone)"
-      >
+      <text x="33" y="9" text-anchor="start" class="svg__txt" *ngIf="!phoneRegExp.test(person.phone)">
         Телефон не указан
       </text>
-      <text x="33" y="20" text-anchor="start" class="svg__txt">
-        {{wrapLongString(person.email)}}
-      </text>
-      <text x="33" y="32" text-anchor="start" class="svg__txt">
-        {{wrapLongString(getPersonUnit())}}
-      </text>
-      <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{wrapLongString(getPersonBrigade())}}
-      </text>
+      <text x="33" y="20" text-anchor="start" class="svg__txt">{{wrapLongString(person.email)}}</text>
+      <text x="33" y="32" text-anchor="start" class="svg__txt">{{wrapLongString(getPersonUnit())}}</text>
+      <text x="33" y="43" text-anchor="start" class="svg__txt">{{wrapLongString(getPersonBrigade())}}</text>
       <image
         x="-35"
         y="40"
@@ -65,34 +41,16 @@
         width="80"
         height="80"
         preserveAspectRatio="xMidYMid slice"
-        style="clip-path: circle(40px at center);"
+        style="clip-path: circle(40px at center)"
         [attr.xlink:href]="photoPath"
       />
 
-      <image
-        x="-65"
-        y="0"
-        width="300"
-        height="100"
-        [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
-      />
+      <image x="-65" y="0" width="300" height="100" [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal" />
 
-      <text
-        x="65"
-        y="32"
-        text-anchor="start"
-        class="svg__txt-small"
-        [ngClass]="{'svg__txt-small-active':isActiveCard}"
-      >
+      <text x="65" y="32" text-anchor="start" class="svg__txt-small" [ngClass]="{'svg__txt-small-active':isActiveCard}">
         {{wrapLongString(getPersonName())}}
       </text>
-      <text
-        x="65"
-        y="79"
-        text-anchor="start"
-        class="svg__txt-small"
-        [ngClass]="{'svg__txt-small-active':isActiveCard}"
-      >
+      <text x="65" y="79" text-anchor="start" class="svg__txt-small" [ngClass]="{'svg__txt-small-active':isActiveCard}">
         {{wrapLongString(getPersonPosition())}}
       </text>
       <image

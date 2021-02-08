@@ -172,8 +172,8 @@
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);
   --color-smp-tank-plan: rgb(0, 75, 134);
-  --color-smp-free: #183D61;
-  --color-smp-rest: #008AFC;
+  --color-smp-free: #183d61;
+  --color-smp-rest: #008afc;
   --color-smp-border: rgba(91, 96, 125, 0.5);
   --color-smp-text-sub: rgb(95, 101, 128);
   --color-smp-pie-normal: rgb(127, 169, 191);
@@ -181,7 +181,6 @@
   --color-smp-events-back: rgb(33, 38, 55);
   --color-smp-events-chats: rgba(38, 65, 95, 0.17);
   --color-smp-events-header: rgba(95, 101, 128, 0.1);
-
 
   --color-smp-ev-ws-grad1: #192330;
   --color-smp-ev-ws-grad2: rgba(40, 92, 133, 1);
@@ -194,13 +193,13 @@
   --color-smp-checkbox: rgba(95, 101, 128, 0.55);
   --color-smp-white: #ffffff;
 
-  --color-smp-left-gauge: #7FA9BF;
+  --color-smp-left-gauge: #7fa9bf;
   --color-smp-gauge-back: rgba(39, 42, 56);
 
-  --color-smp-days-normal: #0089FF;
-  --color-smp-days-warning: #F4A321;
-  --color-smp-days-danger: #DC0000;
-  --color-smp-days-unknown: rgba(39 , 42, 56, 1);
+  --color-smp-days-normal: #0089ff;
+  --color-smp-days-warning: #f4a321;
+  --color-smp-days-danger: #dc0000;
+  --color-smp-days-unknown: rgba(39, 42, 56, 1);
 
   // APS
   --color-aps-warning: #ff931e;
@@ -215,7 +214,6 @@
   --color-bg-row-header: #141928;
   --color-aps-table-td: #191c27;
   --color-aps-bg-btns: rgba(48, 53, 73, 0.5);
-
 
   --color-aps-border-sup: #0e1320;
 
@@ -272,7 +270,7 @@
   // APS table
   --color-aps-table-bg-main: #131725;
   --color-aps-table-bg-main-active: rgba(12, 19, 36, 1);
-  --color-aps-table-text-sub: #61657F;
+  --color-aps-table-text-sub: #61657f;
   --color-aps-structure-item: #1d2131;
   --color-aps-structure-bg-main: #161a28;
   --color-aps-structure-border: #2d3246;
@@ -280,15 +278,12 @@
   --color-aps-bg-active-col: rgba(0, 137, 255, 0.2);
   --color-aps-good-rgb: 0, 167, 61;
 
-
-
   // KPE font-color
   --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
   --color-kpe-border-sub: #262a39;
   --color-kpe-pasportize-text: #8c99b2;
   --color-kpe-white: #ffffff;
-
 
   // KPE equalizer-chart
 
@@ -319,10 +314,9 @@
   --color-kpe-key-p-d-bg-d: rgb(20, 22, 33);
 
   --color-kpe-table-select: #303549;
-  --color-kpe-table-danger: #FF1D25;
+  --color-kpe-table-danger: #ff1d25;
   --color-kpe-deviation-warning: rgba(247, 147, 30, 0.2);
   --color-kpe-deviation-danger: rgba(255, 29, 37, 0.2);
-
 
   // KPE energy
   --color-kpe-energy-diagram-bg: rgb(21, 23, 33);
@@ -359,30 +353,30 @@
   --nk-color-bg-card-body: rgba(39, 42, 56, 0.5);
   --nk-color-bg-component-title: #303549;
   --nk-color-bg-component-title-dark: rgb(38, 42, 58);
-  --nk-color-font-title-main: #D7E2F2;
+  --nk-color-font-title-main: #d7e2f2;
   --nk-color-font-title-sub: #8c99b2;
   --nk-color-bg-innage-daigram: rgba(0, 137, 255, 0.2);
   --nk-color-border-main: #5b607d;
   --nk-color-selected-filter: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0%, rgba(35, 120, 217, 0) 100%);
   --nk-color-font-unactive-filter: #606580;
-  --nk-color-active: #0089FF;
+  --nk-color-active: #0089ff;
   --nk-color-table-main: #1b1f2c;
   --nk-color-bg-volume-indicator: #1b1f2c;
-  --nk-color-temperature-gradient: linear-gradient(0deg, #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
-  --nk-color-innage-axis: #E8E6DD;
+  --nk-color-temperature-gradient: linear-gradient(0deg, #00a99d 4.3px, #f4a321 39px, #ff0000 84px);
+  --nk-color-innage-axis: #e8e6dd;
   --nk-color-scroll-thumb: #272b35;
-  --nk-color-bg-innage-min: #0C5395;
+  --nk-color-bg-innage-min: #0c5395;
   --nk-color-bg-correct: #121928;
-  --nk-color-bg-dark: #0C1421;
+  --nk-color-bg-dark: #0c1421;
   --nk-color-table-row-bg: rgba(29, 31, 43);
 
-  --nk-color-bg-selected: #282D3C;
-  --nk-color-bg-lvl-last: #00549D;
+  --nk-color-bg-selected: #282d3c;
+  --nk-color-bg-lvl-last: #00549d;
   --nk-color-white: #ffffff;
   --nk-color-bg-body: #161922;
   --nk-color-bg-card-body: #1e212d;
   --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
-  --nk-color-table-header-text: #8799B3;
+  --nk-color-table-header-text: #8799b3;
 
   --color-gray80: #272a38;
   --color-gray40: #8c99b2;
@@ -397,7 +391,7 @@
   --color-astue-tag-3: #8090f0;
   --color-astue-onpz-bg-tag-3: #303652;
   --color-astue-tag-4: #0f62fe;
-  --color-astue-onpz-bg-tag-4: #192C55;
+  --color-astue-onpz-bg-tag-4: #192c55;
   --color-astue-tag-5: #0089ff;
   --color-astue-onpz-bg-tag-5: #163455;
   --color-astue-tag-6: #039de0;
@@ -415,14 +409,14 @@
   --color-astue-tag-12: #606580;
   --color-astue-onpz-bg-tag-12: #2a2d3c;
 
-  --color-astue-tag-13: #FF1D25;
-  --color-astue-onpz-bg-tag-13: #491F2A;
+  --color-astue-tag-13: #ff1d25;
+  --color-astue-onpz-bg-tag-13: #491f2a;
   --color-astue-tag-14: #ff791f;
   --color-astue-onpz-bg-tag-14: #493129;
-  --color-astue-tag-15: #FFB100;
-  --color-astue-onpz-bg-tag-15: #493C22;
-  --color-astue-tag-16: #00A73D;
-  --color-astue-onpz-bg-tag-16: #163A2F;
+  --color-astue-tag-15: #ffb100;
+  --color-astue-onpz-bg-tag-15: #493c22;
+  --color-astue-tag-16: #00a73d;
+  --color-astue-onpz-bg-tag-16: #163a2f;
 
   --color-astue-onpz-bg-tag-17: #45c5fa;
 
@@ -437,20 +431,20 @@
   --color-sou-text-sub: #41435f;
 
   // SOU MVP
-  --sou-mvp-color-bg-main: #1C1F2B;
-  --sou-mvp-color-border: #4B5169;
-  --sou-mvp-color-bg-title: #272A38;
+  --sou-mvp-color-bg-main: #1c1f2b;
+  --sou-mvp-color-border: #4b5169;
+  --sou-mvp-color-bg-title: #272a38;
   --sou-mvp-color-border-unactive: #303549;
   --sou-mvp-color-text-diagram-main: #d7e2f2;
   --sou-mvp-color-text-diagram-sub: #606580;
-  --sou-mvp-color-text-info: #8C99B2;
-  --sou-mvp-color-warning: #F7931E;
+  --sou-mvp-color-text-info: #8c99b2;
+  --sou-mvp-color-warning: #f7931e;
   --sou-mvp-color-bg-warning: #483628;
   --sou-mvp-color-white: #ffffff;
-  --sou-mvp-color-active: #0089FF;
+  --sou-mvp-color-active: #0089ff;
   --sou-mvp-color-bg-active-spec: #163455;
   --sou-mvp-color-bg-active: rgba(0, 137, 255, 0.2);
-  --sou-mvp-color-bg-select: #12151E;
+  --sou-mvp-color-bg-select: #12151e;
   --sou-mvp-color-bg-select-custom-border: rgba(25, 28, 44, 0);
   --sou-mvp-color-popup-shadow: rgba(0, 0, 0, 0.3);
 
@@ -461,7 +455,6 @@
   // sou-balance
   --sou-balance-setting-border: #303549;
   --sou-balance-product-bg: #272a38;
-
 
   // ASTUE-ONPZ
   --color-astue-onpz-bg-header: #222431;
@@ -497,38 +490,38 @@
   --color-astue-onpz-btn: rgba(37, 39, 54);
   --color-contemporary-header-bg: rgb(34, 36, 47);
 
-  --color-astue-onpz-widget-bg: #1C1F2B;
-  --color-astue-onpz-widget-border: #272A38;
+  --color-astue-onpz-widget-bg: #1c1f2b;
+  --color-astue-onpz-widget-border: #272a38;
 
-  --color-astue-onpz-predictors-slider-border: #4B5169;
-  --astue-onpz-factorypredictors-slider-bg: #12151E;
+  --color-astue-onpz-predictors-slider-border: #4b5169;
+  --astue-onpz-factorypredictors-slider-bg: #12151e;
 
-  --astue-onpz-factory-analisys-grid: #4B5169;
-  --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
-  --astue-onpz-factory-analisys-grid-bg: #12151E;
-  --astue-onpz-factory-analisys-grid-bg-opacity: rgb(18,21,30,0.5);
-  --astue-onpz-factory-analisys-legend: #8C99B2;
+  --astue-onpz-factory-analisys-grid: #4b5169;
+  --astue-onpz-factory-analisys-grid-opacity: rgba(75, 81, 105, 0.5);
+  --astue-onpz-factory-analisys-grid-bg: #12151e;
+  --astue-onpz-factory-analisys-grid-bg-opacity: rgb(18, 21, 30, 0.5);
+  --astue-onpz-factory-analisys-legend: #8c99b2;
   --astue-onpz-factory-analisys-label: #606580;
-  --astue-onpz-factory-analisys-norm: 0,137,255;
-  --astue-onpz-factory-analisys-bad: 162,226,255;
-  --astue-onpz-factory-analisys-sum: 0,167,61;
+  --astue-onpz-factory-analisys-norm: 0, 137, 255;
+  --astue-onpz-factory-analisys-bad: 162, 226, 255;
+  --astue-onpz-factory-analisys-sum: 0, 167, 61;
 
-  --color-astue-onpz-factory-analisys-contrast: #FFFFFF;
-  --color-astue-onpz-factory-analisys-chart-card-bg: #272A38;
+  --color-astue-onpz-factory-analisys-contrast: #ffffff;
+  --color-astue-onpz-factory-analisys-chart-card-bg: #272a38;
 
   --color-astue-onpz-mnemonic-furnace-box-text: #606580;
-  --color-astue-onpz-mnemonic-furnace-main-text: #D7E2F2;
-  --color-astue-onpz-mnemonic-furnace-sub-text: #8C99B2;
+  --color-astue-onpz-mnemonic-furnace-main-text: #d7e2f2;
+  --color-astue-onpz-mnemonic-furnace-sub-text: #8c99b2;
   --color-astue-onpz-mnemonic-furnace-unit-text: #606580;
-  --color-astue-onpz-mnemonic-furnace-lines: #4B5169;
-  --color-astue-onpz-mnemonic-furnace-norm: #F7931E;
-  --color-astue-onpz-mnemonic-furnace-warning: #F7931E;
+  --color-astue-onpz-mnemonic-furnace-lines: #4b5169;
+  --color-astue-onpz-mnemonic-furnace-norm: #f7931e;
+  --color-astue-onpz-mnemonic-furnace-warning: #f7931e;
   --color-astue-onpz-mnemonic-furnace-warning-rgb: 247, 147, 30;
-  --color-astue-onpz-mnemonic-furnace-active: #0089FF;
+  --color-astue-onpz-mnemonic-furnace-active: #0089ff;
   --color-astue-onpz-mnemonic-furnace-active-rgb: 0, 137, 255;
-  --color-astue-onpz-mnemonic-furnace-item-bg: #272A38;
+  --color-astue-onpz-mnemonic-furnace-item-bg: #272a38;
   --color-astue-onpz-mnemonic-furnace-item-bg-light: #303549;
-  --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1C1F2B;
+  --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1c1f2b;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
@@ -550,7 +543,7 @@
   --color-new-header-linedate: #191c2a;
 
   // ejco
-  --color-ejco-sub-border: #3C4053;
+  --color-ejco-sub-border: #3c4053;
 
   // ozsm
   --ozsm-color-bg-border: rgba(39, 42, 56, 0.5);
@@ -558,7 +551,7 @@
   --ozsm-color-tank-storage-bg: rgb(18, 48, 80);
   --ozsm-color-bg-dark: rgba(18, 21, 30, 0.5);
   --ozsm-color-border: rgba(96, 101, 128, 0.25);
-  --ozsm-color-bg-card: #272A38;
+  --ozsm-color-bg-card: #272a38;
   --ozsm-color-circle-arc-bg: rgba(0, 137, 255, 0.25);
   --ozsm-color-active: #0089ff;
   --ozsm-color-white: #ffffff;
@@ -568,22 +561,22 @@
   --ozsm-color-marker-diagram: #606580;
   --ozsm-color-line-bg: #272a38;
   --ozsm-color-text-main: #d7e2f2;
-  --ozsm-color-text-plan: #0089FF;
+  --ozsm-color-text-plan: #0089ff;
   --ozsm-color-bg-header: rgba(39, 42, 56, 0.5);
   --ozsm-color-bg-main: #1b1e27;
 
   --ozsm--color-bg-loading-parks-title: #171a24;
-  --ozsm-color-font-loading-parks-information: #00A73D;
-  --ozsm-color-bg-dark-no-opacity: #1C1F2B;
+  --ozsm-color-font-loading-parks-information: #00a73d;
+  --ozsm-color-bg-dark-no-opacity: #1c1f2b;
   --ozsm-color-border-no-opacity: #303549;
-  --ozsm-color-border-due: #4B5169;
-  --ozsm-color-circle-diagram-icon-bg-sub: #1C1F2B;
+  --ozsm-color-border-due: #4b5169;
+  --ozsm-color-circle-diagram-icon-bg-sub: #1c1f2b;
   --ozsm-color-circle-diagram-inner-bg: #171a24;
 
   --ozsm-color-loading-space-bg-sub: #1c1f2b;
   --ozsm-color-bg-innage-diagram: rgba(0, 137, 255, 0.2);
   --ozsm-color-bg-data-icon: #303549;
-  --ozsm-color-border-select: #4B5169;
+  --ozsm-color-border-select: #4b5169;
   --ozsm-color-bg-btn: #303549;
   --ozsm-color-bg-main-toggle: #303549;
   --ozsm-color-bg-packing-list: #141721;
@@ -597,46 +590,46 @@
   --ozsm-resources-circle-diagram-color-bg-main: #171a24;
   --ozsm-resources-circle-diagram-color-bg-info-title: rgba(39, 42, 56, 0.5);
   --ozsm-resources-circle-diagram-color-bg-info-list: rgba(18, 21, 30, 0.5);
-  --ozsm-resources-circle-diagram-color-font-main: #D7E2F2;
+  --ozsm-resources-circle-diagram-color-font-main: #d7e2f2;
   --ozsm-resources-circle-diagram-color-font-sub: #606580;
-  --ozsm-resources-circle-diagram-color-active: #0089FF;
+  --ozsm-resources-circle-diagram-color-active: #0089ff;
   --ozsm-resources-circle-diagram-color-back: #1b1f2c;
   --ozsm-resources-circle-diagram-color-line: #3c4257;
   --ozsm-resources-circle-diagram-color-back-line: #111626;
 
-  --color-badge-notification-header: #DA2329;
+  --color-badge-notification-header: #da2329;
 
   // Header events
   --header-events-color-bg-main: #161922;
-  --header-events-color-font-main: #D7E2F2;
+  --header-events-color-font-main: #d7e2f2;
   --header-events-color-bg-item-main: rgba(27, 30, 41);
   --header-events-color-font-standard: #606580;
-  --header-events-color-font-warning: #F7931E;
-  --header-events-color-font-danger: #FF0000;
-  --header-events-color-bg-active: #0089FF;
+  --header-events-color-font-warning: #f7931e;
+  --header-events-color-font-danger: #ff0000;
+  --header-events-color-bg-active: #0089ff;
   --header-events-color-bg-hover: #1f222e;
   --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
 
   // event
   --color-events-bg-card: #141721;
-  --color-events-border: #35394A;
+  --color-events-border: #35394a;
   --color-events-btn: #202330;
-  --color-events-bg-filters: #181B25;
-  --color-event-card-bg-sub: #1E212D;
-  --color-event-card-bg-body: #1A1D28;
+  --color-events-bg-filters: #181b25;
+  --color-event-card-bg-sub: #1e212d;
+  --color-event-card-bg-body: #1a1d28;
   --color-event-card-gradient: #222633;
   --color-event-card-gradient-danger: rgba(235, 87, 87, 0.2329306722689075);
   --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
-  --color-event-card-font-sub: #8C99B2;
+  --color-event-card-font-sub: #8c99b2;
   --evj-events-preview: rgba(39, 42, 56, 0.5);
-  --evj-events-icon-bg: #2A394A;
+  --evj-events-icon-bg: #2a394a;
   --evj-events-icon: rgb(63, 168, 243);
   --evj-events-file-attachment: rgba(39, 43, 53, 0.75);
 
   // Admin shift
-  --color-admin-shift-border: #4B5169;
-  --color-admin-shift-active: #0089FF;
-  --color-admin-shift-text-sub: #D7E2F2;
+  --color-admin-shift-border: #4b5169;
+  --color-admin-shift-active: #0089ff;
+  --color-admin-shift-text-sub: #d7e2f2;
   --color-admin-shift-white: #ffffff;
   --color-admin-shift-active-bright: rgba(0, 137, 255, 0.2);
   --color-admin-title-bg: #242634;
@@ -651,8 +644,8 @@
   --color-admin-shift-brigade-3-text: rgba(8, 189, 186);
   --color-admin-shift-brigade-3: rgba(8, 189, 186, 0.2);
 
-  --color-admin-shift-brigade-4-text:  rgba(255, 125, 150);
-  --color-admin-shift-brigade-4:  rgba(255, 125, 150, 0.2);
+  --color-admin-shift-brigade-4-text: rgba(255, 125, 150);
+  --color-admin-shift-brigade-4: rgba(255, 125, 150, 0.2);
 
   --color-admin-shift-brigade-5-text: rgba(253, 209, 58);
   --color-admin-shift-brigade-5: rgba(253, 209, 58, 0.2);
@@ -660,22 +653,22 @@
   --color-admin-shift-brigade-6-text: rgba(69, 197, 250);
   --color-admin-shift-brigade-6: rgba(69, 197, 250, 0.2);
 
-  --color-admin-shift-brigade-delete:  #F7931E;
+  --color-admin-shift-brigade-delete: #f7931e;
 
   // EVJ
-  --evj-color-bg-footer: #272A38;
-  --evj-color-bg-main: #12151E;
-  --evj-color-item-bg-main: #1C202C;
-  --evj-color-scrollbar-thumb: #282D3C;
+  --evj-color-bg-footer: #272a38;
+  --evj-color-bg-main: #12151e;
+  --evj-color-item-bg-main: #1c202c;
+  --evj-color-scrollbar-thumb: #282d3c;
   --evj-color-white: #ffffff;
-  --evj-color-item-text-sub: #61657F;
-  --evj-color-item-text-filter: #8D99B2;
+  --evj-color-item-text-sub: #61657f;
+  --evj-color-item-text-filter: #8d99b2;
 
-  --evj-color-active: #0089FF;
+  --evj-color-active: #0089ff;
   --evj-color-bg-btn: rgba(48, 53, 73, 0.5);
   --evj-color-bg-filter: rgba(39, 42, 56, 0.5);
 
-  --evj-color-message-stroke: #1A1E29;
+  --evj-color-message-stroke: #1a1e29;
   --evj-color-scrollbar-corner: #999;
   --evj-color-scrollbar-resizer: #666;
   --evj-color-bg-info: rgba(32, 35, 51, 0.4);
@@ -686,21 +679,21 @@
   --evj-color-bg-hours: rgba(32, 35, 51, 0.75);
 
   // events workspace
-  --evj-events-workspace-critical: #DB0000;
+  --evj-events-workspace-critical: #db0000;
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
-  --evj-events-workspace-minor: #F8921C;
+  --evj-events-workspace-minor: #f8921c;
   --evj-events-workspace-minor-bg: rgba(248, 146, 28, 0.15);
   --evj-events-workspace-button: #303549;
-  --evj-events-workspace-button-active: #0089FF;
+  --evj-events-workspace-button-active: #0089ff;
   --evj-events-workspace-bg-dark: rgba(18, 21, 30, 0.5);
   --evj-events-workspace-color-border: rgba(96, 101, 128, 0.25);
   --evj-events-workspace-responsible-bg: #171a24;
   --evj-events-workspace-white: #ffffff;
   --evj-events-workspace-item-border: rgba(96, 101, 128, 0.25);
   --evj-events-workspace-text-sub: #616580;
-  --evj-events-workspace-item-title: #8A98B3;
+  --evj-events-workspace-item-title: #8a98b3;
   --evj-events-workspace-color-button-extra: rgba(48, 53, 73, 0.5);
-  --evj-events-workspace-color-border-extra: rgba(92, 101, 133, 0.25)
+  --evj-events-workspace-color-border-extra: rgba(92, 101, 133, 0.25);
 }
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;

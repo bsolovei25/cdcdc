@@ -9,9 +9,7 @@
       ></evj-input>
     </div>
     <div class="workspace__links">
-      <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true"
-        >Доступные рабочие области</a
-      >
+      <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true">Доступные рабочие области</a>
       |
       <a [ngClass]="{'active-link':!isWorkspaceActive}" (click)="isWorkspaceActive=false">Права</a>
     </div>

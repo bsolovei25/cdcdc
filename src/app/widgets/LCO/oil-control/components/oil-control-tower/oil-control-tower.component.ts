@@ -6,7 +6,7 @@ import {
     ViewChild,
     ElementRef,
     ChangeDetectionStrategy,
-    AfterViewInit
+    AfterViewInit,
 } from '@angular/core';
 import { OilStorages } from 'src/app/dashboard/models/oil-control';
 import * as d3 from 'd3';
@@ -15,7 +15,7 @@ import * as d3 from 'd3';
     selector: 'evj-oil-control-tower',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './oil-control-tower.component.html',
-    styleUrls: ['./oil-control-tower.component.scss']
+    styleUrls: ['./oil-control-tower.component.scss'],
 })
 export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChanges {
     @ViewChild('oilBak') oilBak: ElementRef;
@@ -29,11 +29,9 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
 
     public rectYHeight: number = 370;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         //  this.drawBak(this.oilBak.nativeElement);
@@ -51,8 +49,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
     public drawBak(el): void {
         let tankLevelPercent;
         const value = Math.round(this.data?.valueStorage);
-        tankLevelPercent =
-            (this.data.tankLevel < 0) ? 0 : (this.data.tankLevel > 100) ? 100 : this.data.tankLevel;
+        tankLevelPercent = this.data.tankLevel < 0 ? 0 : this.data.tankLevel > 100 ? 100 : this.data.tankLevel;
         this.isCriticalArrow = false;
         this.towerPic = d3
             .select(el)
@@ -83,7 +80,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
 
         const bakValue = this.towerPic
             .append('text')
-            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '38px')
             .attr('x', '190')
             .attr('y', '100')
@@ -99,5 +96,4 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
             })
             .text(value);
     }
-
 }

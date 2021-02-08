@@ -1,4 +1,4 @@
-<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+<div style="height: 100%; width: 100%" *ngIf="!isMock">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -10,11 +10,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <div
-    class="content_block"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="wrapper">
       <div class="chart">
         <evj-spline-diagram [data]="data" [currentMonth]="displayedMonth"></evj-spline-diagram>

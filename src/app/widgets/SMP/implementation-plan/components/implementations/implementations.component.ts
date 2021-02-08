@@ -2,15 +2,13 @@ import { IImplementationPlan } from './../../../../../dashboard/models/SMP/imple
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'evj-implementations',
-  templateUrl: './implementations.component.html',
-  styleUrls: ['./implementations.component.scss']
+    selector: 'evj-implementations',
+    templateUrl: './implementations.component.html',
+    styleUrls: ['./implementations.component.scss'],
 })
 export class ImplementationsComponent implements OnInit {
-  @Input() data: IImplementationPlan;
-  constructor() { }
+    @Input() data: IImplementationPlan;
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

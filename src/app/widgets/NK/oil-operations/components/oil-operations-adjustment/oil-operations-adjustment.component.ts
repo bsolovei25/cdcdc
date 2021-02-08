@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { OilOperationsService } from '../../../../../dashboard/services/widgets/oil-operations.service';
@@ -12,11 +12,11 @@ export interface IOilControlManualAdjEmitResponse {
 @Component({
     selector: 'evj-oil-operations-adjustment',
     templateUrl: './oil-operations-adjustment.component.html',
-    styleUrls: ['./oil-operations-adjustment.component.scss']
+    styleUrls: ['./oil-operations-adjustment.component.scss'],
 })
 export class OilOperationsAdjustmentComponent implements OnInit {
-
-    @Output() public closeAdjust: EventEmitter<IOilControlManualAdjEmitResponse | null> = new EventEmitter<IOilControlManualAdjEmitResponse>();
+    @Output()
+    public closeAdjust: EventEmitter<IOilControlManualAdjEmitResponse | null> = new EventEmitter<IOilControlManualAdjEmitResponse>();
 
     public isActive: string;
 
@@ -26,12 +26,9 @@ export class OilOperationsAdjustmentComponent implements OnInit {
 
     public noteInput: FormControl = new FormControl();
 
-    public reasons: { id: number, name: string }[] = [];
+    public reasons: { id: number; name: string }[] = [];
 
-    constructor(
-        private oilOperationService: OilOperationsService,
-    ) {
-    }
+    constructor(private oilOperationService: OilOperationsService) {}
 
     public ngOnInit(): void {
         this.getAdjustmentTypes();
@@ -39,12 +36,11 @@ export class OilOperationsAdjustmentComponent implements OnInit {
     }
 
     private async getAdjustmentTypes(): Promise<void> {
-        this.reasons = await this.oilOperationService.getManualAdjustmentTypes<{ id: number, name: string }[]>();
+        this.reasons = await this.oilOperationService.getManualAdjustmentTypes<{ id: number; name: string }[]>();
         this.reasonSelect.setValue(this.reasons[0]?.id);
     }
 
-    public onReasonSelect(event: MatSelectChange): void {
-    }
+    public onReasonSelect(event: MatSelectChange): void {}
 
     active(item: string): void {
         if (this.isActive === item) {

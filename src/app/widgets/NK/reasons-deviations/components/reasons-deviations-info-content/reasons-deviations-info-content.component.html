@@ -3,69 +3,43 @@
     <div class="block">
       <div class="time">
         <div class="time__icon">
-          <svg-icon src="assets/icons/widgets/oil-control-all/reasons-deviations/clock.svg"
-                    [svgStyle]="{ 'width.px':17, 'height.px':17 }">
+          <svg-icon
+            src="assets/icons/widgets/oil-control-all/reasons-deviations/clock.svg"
+            [svgStyle]="{ 'width.px':17, 'height.px':17 }"
+          >
           </svg-icon>
         </div>
         <div class="time__value">
-          {{ (data?.startTime | dateFormat: 'hh:mm:ss') || '-' }} -
-          {{ (data?.endTime | dateFormat: 'hh:mm:ss') || '-' }}
+          {{ (data?.startTime | dateFormat: 'hh:mm:ss') || '-' }} - {{ (data?.endTime | dateFormat: 'hh:mm:ss') || '-'
+          }}
         </div>
       </div>
       <div class="info">
-        <div class="info__name">
-          Отгружено по резервуару:
-        </div>
-        <div class="info__value">
-          {{ (data?.mass | number : '0.0-2') || '-' }} т.
-        </div>
+        <div class="info__name">Отгружено по резервуару:</div>
+        <div class="info__value">{{ (data?.mass | number : '0.0-2') || '-' }} т.</div>
         <div class="info__percent"></div>
       </div>
       <div class="info">
-        <div class="info__name">
-          По данным отгрузки:
-        </div>
-        <div class="info__value">
-          {{ (data?.shipmentsMass | number : '0.0-2') || '-' }} т.
-        </div>
-        <div class="info__percent">
-          {{ (data?.shipmentsMassPercent | number : '0.0-2') || '-' }} %
-        </div>
+        <div class="info__name">По данным отгрузки:</div>
+        <div class="info__value">{{ (data?.shipmentsMass | number : '0.0-2') || '-' }} т.</div>
+        <div class="info__percent">{{ (data?.shipmentsMassPercent | number : '0.0-2') || '-' }} %</div>
       </div>
     </div>
     <div class="block">
       <div class="info">
-        <div class="info__name">
-          Дебаланс:
-        </div>
-        <div class="info__value">
-          {{ (data?.deviation | number : '0.0-2') || '-' }} т.
-        </div>
-        <div class="info__percent">
-          {{ (data?.deviationPercent | number : '0.0-2') || '-' }} %
-        </div>
+        <div class="info__name">Дебаланс:</div>
+        <div class="info__value">{{ (data?.deviation | number : '0.0-2') || '-' }} т.</div>
+        <div class="info__percent">{{ (data?.deviationPercent | number : '0.0-2') || '-' }} %</div>
       </div>
       <div class="info">
-        <div class="info__name">
-          Допустимый дебаланс:
-        </div>
-        <div class="info__value active">
-          {{ (data?.maxDeviation | number : '0.0-2') || '-' }} т.
-        </div>
-        <div class="info__percent active">
-          {{ (data?.maxDeviationPercent | number : '0.0-2') || '-' }} %
-        </div>
+        <div class="info__name">Допустимый дебаланс:</div>
+        <div class="info__value active">{{ (data?.maxDeviation | number : '0.0-2') || '-' }} т.</div>
+        <div class="info__percent active">{{ (data?.maxDeviationPercent | number : '0.0-2') || '-' }} %</div>
       </div>
       <div class="info">
-        <div class="info__name">
-          Отклонение:
-        </div>
-        <div class="info__value notActive">
-          {{ (data?.debalance | number : '0.0-2') || '-' }} т.
-        </div>
-        <div class="info__percent notActive">
-          {{ (data?.debalancePercent | number : '0.0-2') || '-' }} %
-        </div>
+        <div class="info__name">Отклонение:</div>
+        <div class="info__value notActive">{{ (data?.debalance | number : '0.0-2') || '-' }} т.</div>
+        <div class="info__percent notActive">{{ (data?.debalancePercent | number : '0.0-2') || '-' }} %</div>
       </div>
     </div>
   </div>

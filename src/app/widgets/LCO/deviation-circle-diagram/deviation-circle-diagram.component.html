@@ -22,12 +22,7 @@
             xlink:href="assets/icons/widgets/deviation-circle-diagram/outer_contour.svg"
           />
 
-          <circle
-            [attr.cx]="centerX"
-            [attr.cy]="centerY"
-            [attr.r]="radius"
-            [attr.fill]="colorMain"
-          ></circle>
+          <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="radius" [attr.fill]="colorMain"></circle>
           <circle
             [attr.cx]="centerX"
             [attr.cy]="centerY"
@@ -51,7 +46,7 @@
             [attr.stroke-dashoffset]="
               diaOffset(radius, deviationCircleDiagram.deviation)
             "
-            style="transition: 0.25s;"
+            style="transition: 0.25s"
           ></circle>
 
           <!-- improvement line -->
@@ -68,7 +63,7 @@
             [attr.stroke-dashoffset]="
               diaOffset(radius, deviationCircleDiagram.improvement)
             "
-            style="transition: 0.5s;"
+            style="transition: 0.5s"
           ></circle>
 
           <!-- dynamic points -->
@@ -130,40 +125,14 @@
       </div>
       <div class="counters">
         <svg width="100%" height="100%" viewBox="0 0 50 50">
-          <text
-            [attr.x]="45"
-            [attr.y]="5"
-            [attr.fill]="colorDeviation"
-            text-anchor="end"
-            class="svg__name"
-          >
+          <text [attr.x]="45" [attr.y]="5" [attr.fill]="colorDeviation" text-anchor="end" class="svg__name">
             Отклонение
           </text>
-          <text
-            [attr.x]="45"
-            [attr.y]="33"
-            [attr.fill]="colorFull"
-            text-anchor="end"
-            class="svg__name"
-          >
-            Улучшение
-          </text>
-          <text
-            [attr.x]="33"
-            [attr.y]="18"
-            [attr.fill]="colorDeviation"
-            text-anchor="end"
-            class="svg__numbers"
-          >
+          <text [attr.x]="45" [attr.y]="33" [attr.fill]="colorFull" text-anchor="end" class="svg__name">Улучшение</text>
+          <text [attr.x]="33" [attr.y]="18" [attr.fill]="colorDeviation" text-anchor="end" class="svg__numbers">
             +{{ deviationCircleDiagram.deviation }}
           </text>
-          <text
-            [attr.x]="33"
-            [attr.y]="46"
-            [attr.fill]="colorFull"
-            text-anchor="end"
-            class="svg__numbers"
-          >
+          <text [attr.x]="33" [attr.y]="46" [attr.fill]="colorFull" text-anchor="end" class="svg__numbers">
             -{{ deviationCircleDiagram.improvement }}
           </text>
           <image
@@ -172,7 +141,7 @@
             width="8"
             height="8"
             xlink:href="assets/icons/widgets/calendar-plan/deviat.svg"
-            style="transform: rotate(180deg);"
+            style="transform: rotate(180deg)"
           />
           <image
             x="-45"
@@ -180,7 +149,7 @@
             width="8"
             height="8"
             xlink:href="assets/icons/widgets/calendar-plan/deviat_danger.svg"
-            style="transform: rotate(180deg);"
+            style="transform: rotate(180deg)"
           />
         </svg>
       </div>

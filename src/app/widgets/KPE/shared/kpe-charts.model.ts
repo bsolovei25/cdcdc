@@ -1,6 +1,6 @@
 export interface IKpeLineChartData {
     graphType: 'fact' | 'plan' | 'lowerBorder' | 'higherBorder';
-    graph?: {value: number; timeStamp: string}[];
+    graph?: { value: number; timeStamp: string }[];
     graphStyle?: 'main' | 'common' | 'additional';
 }
 

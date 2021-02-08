@@ -78,9 +78,7 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
 
     private InitUnity() {
         window['UnityLoader'] = UnityLoader;
-        this.loadProject(
-            `${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`
-        );
+        this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`);
     }
 
     private CallUnityScript(funName, ...args) {

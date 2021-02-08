@@ -124,7 +124,6 @@ $border-size: 4px;
     justify-content: space-between;
     box-sizing: border-box;
 
-
     &__right {
       box-sizing: border-box;
       flex-grow: 1;
@@ -198,9 +197,7 @@ $border-size: 4px;
     }
   }
 
-
   ///CREATE EVENT
-
 
   .block-border {
     &__title {
@@ -404,7 +401,6 @@ $border-size: 4px;
       margin: 7px 10px 0px 5px;
     }
 
-
     &_active {
       border: 0.5px solid var(--color-border-active);
       color: var(--color-text-sub);
@@ -467,16 +463,16 @@ $border-size: 4px;
 
   .activeFact {
     background-image: linear-gradient(
-        to left,
-        rgba(107, 166, 241, 0.7) 2%,
-        rgba(107, 166, 241, 0.63) 6%,
-        rgba(107, 166, 241, 0.46) 16%,
-        rgba(107, 166, 241, 0.32) 26%,
-        rgba(107, 166, 241, 0.2) 38%,
-        rgba(107, 166, 241, 0.11) 50%,
-        rgba(107, 166, 241, 0.05) 63%,
-        rgba(107, 166, 241, 0.01) 79%,
-        rgba(107, 166, 241, 0) 102%
+      to left,
+      rgba(107, 166, 241, 0.7) 2%,
+      rgba(107, 166, 241, 0.63) 6%,
+      rgba(107, 166, 241, 0.46) 16%,
+      rgba(107, 166, 241, 0.32) 26%,
+      rgba(107, 166, 241, 0.2) 38%,
+      rgba(107, 166, 241, 0.11) 50%,
+      rgba(107, 166, 241, 0.05) 63%,
+      rgba(107, 166, 241, 0.01) 79%,
+      rgba(107, 166, 241, 0) 102%
     ) !important;
 
     color: white;
@@ -501,7 +497,6 @@ $border-size: 4px;
       }
     }
   }
-
 
   /// GRAPH OPEN
   #overlay-chart {

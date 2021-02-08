@@ -3,7 +3,8 @@
     <div class="product__title">{{data?.name}}</div>
     <div class="line-diagram">
       <div class="line-diagram-bg">
-        <div class="line-diagram-inner"
+        <div
+          class="line-diagram-inner"
           [style.width.%]="data?.badCountPercent > 0? (data?.badCountPercent > 100 ? 100 : data?.badCountPercent) : 0"
         ></div>
       </div>

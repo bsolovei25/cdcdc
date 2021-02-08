@@ -6,11 +6,7 @@ import { QualityStockSecurityComponent } from './components/quality-stock-securi
 import { SharedModule } from '../../../@shared/shared.module';
 
 @NgModule({
-    declarations: [
-        QualityStockComponent,
-        QualityStockCircleComponent,
-        QualityStockSecurityComponent,
-    ],
+    declarations: [QualityStockComponent, QualityStockCircleComponent, QualityStockSecurityComponent],
     imports: [CommonModule, SharedModule],
 })
 export class QualityStockModule {

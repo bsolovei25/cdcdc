@@ -1,17 +1,8 @@
-import {
-    Component,
-    OnInit,
-    Output,
-    EventEmitter,
-    Input,
-    OnChanges
-} from '@angular/core';
-import {
-    OilOperationsFilterComponent
-} from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { OilOperationsFilterComponent } from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { IOilFilter } from '../../../../models/oil-operations';
-import { IOilFilterInput} from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { IOilFilterInput } from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { IDocumentCodingFilterType } from '../../../../../widgets/NK/document-coding/components/document-coding-table/document-coding-table.component';
 
 export interface ITableGridFilter<T, R> {
@@ -28,9 +19,8 @@ export interface ITableGridActiveFilter {
 @Component({
     selector: 'evj-table-grid-filter',
     templateUrl: './table-grid-filter.component.html',
-    styleUrls: ['./table-grid-filter.component.scss']
+    styleUrls: ['./table-grid-filter.component.scss'],
 })
-
 export class TableGridFilterComponent implements OnInit, OnChanges {
     @Output()
     public filterSelect: EventEmitter<ITableGridActiveFilter> = new EventEmitter<ITableGridActiveFilter>();
@@ -44,13 +34,9 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
 
     public activeFilter: IOilFilter;
 
-    constructor(
-        private popoverOverlayService: PopoverOverlayService,
-    ) {
-    }
+    constructor(private popoverOverlayService: PopoverOverlayService) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
         this.updateFilterTitle();
@@ -79,7 +65,7 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
         });
         this.isPopoverOpened = true;
 
-        popoverRef.afterClosed$.subscribe(res => {
+        popoverRef.afterClosed$.subscribe((res) => {
             this.isPopoverOpened = false;
             if (res && res.data && res.type === 'close') {
                 this.activeFilter = res.data.activeFilter;

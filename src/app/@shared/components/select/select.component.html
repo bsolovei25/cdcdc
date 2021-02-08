@@ -1,14 +1,9 @@
 <div class="container auto-width">
   <mat-form-field appearance="none">
     <mat-label>{{ label }}</mat-label>
-    <mat-select
-      (valueChange)="onSelect($event)"
-      [value]="items[0]?.value"
-    >
+    <mat-select (valueChange)="onSelect($event)" [value]="items[0]?.value">
       <ng-container *ngFor="let item of items">
-        <mat-option [value]="item.value">
-          {{ item.label }}
-        </mat-option>
+        <mat-option [value]="item.value"> {{ item.label }} </mat-option>
       </ng-container>
     </mat-select>
   </mat-form-field>

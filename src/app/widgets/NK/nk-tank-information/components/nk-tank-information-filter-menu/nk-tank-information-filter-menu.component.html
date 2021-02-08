@@ -1,14 +1,13 @@
 <div class="menu-container">
-    <div class="filter-menu">
-        <div 
-            *ngFor = "let item of filterList" class="filter-menu__item" 
-            [class.filter-menu__item_selected]="selectedFilter === item"
-            (click) = "chooseFilter($event)"
-        >
-            <span>{{item}}</span>
-            <div  class="filter-menu__item_selection"
-                *ngIf="selected === item"
-            ></div>
-        </div>
+  <div class="filter-menu">
+    <div
+      *ngFor="let item of filterList"
+      class="filter-menu__item"
+      [class.filter-menu__item_selected]="selectedFilter === item"
+      (click)="chooseFilter($event)"
+    >
+      <span>{{item}}</span>
+      <div class="filter-menu__item_selection" *ngIf="selected === item"></div>
     </div>
+  </div>
 </div>

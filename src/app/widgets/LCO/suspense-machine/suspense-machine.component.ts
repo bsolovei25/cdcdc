@@ -26,7 +26,6 @@ export class SuspenseMachineComponent extends WidgetPlatform<unknown> implements
     data: ITableData;
     displayedColumns: { id: number; caption: string }[] = [];
 
-
     constructor(
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,

@@ -1,67 +1,65 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  &__title {
     height: 40px;
-    display: flex;
-    align-items: center;
-
-    &__title {
-        height: 40px;
-        width: 144px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        background: var(--ozsm--color-bg-loading-parks-title);
-
-        border-top: 1px solid var(--ozsm-color-border);
-        border-bottom: 1px solid var(--ozsm-color-border);
-
-        font-size: 12px;
-        line-height: 14px;
-
-
-        color: var(--ozsm-color-text-main);
-    }
-
-    &__icon {
-        height: 40px;
-        width: 40px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        background:var(--ozsm-color-bg-header);
-        border: 1px solid var(--ozsm-color-border);
-        border-radius: 2px 0 0 2px;
-    }
-
-}
-
-.menu {
-    height: 40px;
-    width: 410px;
-    padding: 0 18px;
+    width: 144px;
 
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
 
     background: var(--ozsm--color-bg-loading-parks-title);
 
     border-top: 1px solid var(--ozsm-color-border);
-    border-right: 1px solid var(--ozsm-color-border);
-    border-radius: 0 2px 0px 0;
+    border-bottom: 1px solid var(--ozsm-color-border);
 
-    span {
-        width: 72px;
-        text-align: center;
-        font-size: 10px;
-        line-height: 12px;
-        color: var(--ozsm-color-marker-diagram);
-    }
+    font-size: 12px;
+    line-height: 14px;
+
+    color: var(--ozsm-color-text-main);
+  }
+
+  &__icon {
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--ozsm-color-bg-header);
+    border: 1px solid var(--ozsm-color-border);
+    border-radius: 2px 0 0 2px;
+  }
+}
+
+.menu {
+  height: 40px;
+  width: 410px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background: var(--ozsm--color-bg-loading-parks-title);
+
+  border-top: 1px solid var(--ozsm-color-border);
+  border-right: 1px solid var(--ozsm-color-border);
+  border-radius: 0 2px 0px 0;
+
+  span {
+    width: 72px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--ozsm-color-marker-diagram);
+  }
 }

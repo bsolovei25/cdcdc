@@ -1,8 +1,6 @@
 <div [class.block-container]="viewType === 'block'">
   <ng-container *ngFor="let cardData of cardDataArr">
-    <ng-container
-      *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"
-    ></ng-container>
+    <ng-container *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"></ng-container>
   </ng-container>
 </div>
 
@@ -23,32 +21,26 @@
         <div class="line__circle line__circle__left"></div>
         <div class="line__circle line__circle__right"></div>
       </div>
-      <span class="notification__unit">
-        {{ cardData?.unit?.name || '-' }}
-      </span>
+      <span class="notification__unit"> {{ cardData?.unit?.name || '-' }} </span>
       <div class="line notification__line notification__line_top">
         <div class="line__circle line__circle__left"></div>
         <div class="line__circle line__circle__right"></div>
       </div>
-      <span class="notification__date-time">
-        {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-      </span>
+      <span class="notification__date-time"> {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }} </span>
     </div>
 
     <div class="notification__body">
       <div class="notification__info">
         <span class="notification__info-description">
-          {{ cardData?.subCategory?.name === 'shiftPassing' ? cardData?.subCategory?.description : (cardData?.description || '-') }}
+          {{ cardData?.subCategory?.name === 'shiftPassing' ? cardData?.subCategory?.description :
+          (cardData?.description || '-') }}
         </span>
         <span class="notification__info-facts">
-          {{  cardData?.subCategory?.name === 'shiftPassing' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0]?.comment || '-') }}
+          {{ cardData?.subCategory?.name === 'shiftPassing' ? cardData?.shiftPassEstablishedFacts :
+          (cardData?.facts[0]?.comment || '-') }}
         </span>
       </div>
-      <div
-        class="notification__extra"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+      <div class="notification__extra" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <span
           class="notification__status"
           [ngClass]=" cardData?.priority?.name ?
@@ -89,7 +81,8 @@
 <ng-template #block let-cardData="cardData">
   <div
     class="notification__block"
-    [class.notification-event]="!isCdEvents" [class.notification-cd-event]="isCdEvents"
+    [class.notification-event]="!isCdEvents"
+    [class.notification-cd-event]="isCdEvents"
     [class.selected-block]="cardData?.id === cardActiveId"
     [class.notification__block-size--wall]="isVideoWall"
     [class.notification__block-size]="!isVideoWall"
@@ -98,17 +91,10 @@
     (click)="eventClick(cardData?.id)"
   >
     <div class="notification__block__header">
-      <span
-        class="notification__block__number number"
-        [ngClass]="'notification__number_' + cardData?.priority"
-      >
+      <span class="notification__block__number number" [ngClass]="'notification__number_' + cardData?.priority">
         {{ cardData?.id }}
       </span>
-      <span
-        class="notification__block__unit unit"
-      >
-        {{ cardData?.unit?.name || '-' }}
-      </span>
+      <span class="notification__block__unit unit"> {{ cardData?.unit?.name || '-' }} </span>
 
       <div
         class="label-button"
@@ -158,16 +144,16 @@
       </div>
     </div>
     <div class="notification__block__body body">
-      <span class="notification__block__description description">
-        {{ cardData?.description }}
-      </span>
+      <span class="notification__block__description description"> {{ cardData?.description }} </span>
       <span class="notification__block__facts facts">
         {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
       </span>
     </div>
     <div class="notification__block__footer footer">
       <span class="notification__block__footer-text footer-text">Начало события:</span>
-      <span class="notification__block__footer-text footer-text">{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+      <span class="notification__block__footer-text footer-text"
+        >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
+      >
     </div>
   </div>
 </ng-template>

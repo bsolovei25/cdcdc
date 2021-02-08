@@ -13,18 +13,13 @@ export class PopoverRef<T = any> {
     private afterClosed = new Subject<PopoverCloseEvent<T>>();
     public afterClosed$ = this.afterClosed.asObservable();
 
-    constructor(
-        public overlay: OverlayRef,
-        public content: PopoverContent,
-        public data: T
-    ) {
-    }
+    constructor(public overlay: OverlayRef, public content: PopoverContent, public data: T) {}
 
     public close(type: PopoverCloseEvent['type'] = 'close', data?: T): void {
         this.overlay.dispose();
         this.afterClosed.next({
             type,
-            data
+            data,
         });
         this.afterClosed.complete();
     }

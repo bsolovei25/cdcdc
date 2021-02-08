@@ -8,17 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-    declarations: [
-        CdReactorParametersComponent
-    ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatCheckboxModule,
-        FormsModule,
-        MatTooltipModule
-    ]
+    declarations: [CdReactorParametersComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatCheckboxModule, FormsModule, MatTooltipModule],
 })
 export class CdReactorParametersModule {
     enterComponent = CdReactorParametersComponent;

@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-rectangle-input',
-  templateUrl: './rectangle-input.component.html',
-  styleUrls: ['./rectangle-input.component.scss']
+    selector: 'evj-rectangle-input',
+    templateUrl: './rectangle-input.component.html',
+    styleUrls: ['./rectangle-input.component.scss'],
 })
 export class RectangleInputComponent {
-
     public searchValue: string;
     @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();
     @Input()

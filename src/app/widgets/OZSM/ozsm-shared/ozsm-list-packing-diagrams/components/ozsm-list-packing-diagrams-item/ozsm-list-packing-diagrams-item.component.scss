@@ -65,107 +65,106 @@
 }
 
 .information-indicator {
-    width: 165px;
-    padding-top: 6px;
-    padding-right: 10px;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  width: 165px;
+  padding-top: 6px;
+  padding-right: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .indicator-values {
-    width: 100%;
+  width: 100%;
 
-    display: flex;
-    justify-content: space-between;
-    
-    span {
-        font-size: 12px;
-        line-height: 14px;
-        color: var(--ozsm-color-marker-diagram);
-    }
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--ozsm-color-marker-diagram);
+  }
 }
 
 .indicator-line {
-    height: 8px;
-    width: 100%;
+  height: 8px;
+  width: 100%;
 
-    margin-top: 4px;
+  margin-top: 4px;
 
-    border: 1px solid var(--ozsm-color-border);
-    border-radius: 2px;
+  border: 1px solid var(--ozsm-color-border);
+  border-radius: 2px;
 
-    &__inner {
-        height: 6px;
+  &__inner {
+    height: 6px;
 
-        border: 1px solid var(--ozsm-color-bg-packing-list);
+    border: 1px solid var(--ozsm-color-bg-packing-list);
 
-        &_value {
-            height: 6px;
-            background: var(--ozsm-color-active);
-        }
+    &_value {
+      height: 6px;
+      background: var(--ozsm-color-active);
     }
+  }
 }
 
 .information__text {
-    height: 30px;
-    width: 60px;
-    padding: 5px 10px;
+  height: 30px;
+  width: 60px;
+  padding: 5px 10px;
 
-    flex: 1;
+  flex: 1;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 
-    background: var(--ozsm-color-line-bg);
-    border-radius: 0 2px 2px 0;
+  background: var(--ozsm-color-line-bg);
+  border-radius: 0 2px 2px 0;
 
-    transform: translateX(1px);
+  transform: translateX(1px);
 
-    span {
-        font-size: 10px;
-        line-height: 12px;
-        color: var(--ozsm-color-text-main);
+  span {
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--ozsm-color-text-main);
 
-        &:first-child {
-            font-size: 12px;
-            line-height: 14px;
-            color: var(--ozsm-color-active);
-        }
+    &:first-child {
+      font-size: 12px;
+      line-height: 14px;
+      color: var(--ozsm-color-active);
     }
+  }
 }
 
 .information-overboard {
-    width: 100px;
+  width: 100px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    position: absolute;
-    bottom: -20px;
-    left: 5px;
+  position: absolute;
+  bottom: -20px;
+  left: 5px;
 
-    &__item {
-
-        &:last-child {
-            margin-left: 8px;
-        }
-
-        span {
-            font-size: 12px;
-            line-height: 14px;
-            color: var(--ozsm-color-white);
-        }
-
-        .units {
-            margin-left: 2px;
-
-            font-size: 10px;
-            line-height: 12px;
-            color: var(--ozsm-color-marker-diagram);
-        }
+  &__item {
+    &:last-child {
+      margin-left: 8px;
     }
+
+    span {
+      font-size: 12px;
+      line-height: 14px;
+      color: var(--ozsm-color-white);
+    }
+
+    .units {
+      margin-left: 2px;
+
+      font-size: 10px;
+      line-height: 12px;
+      color: var(--ozsm-color-marker-diagram);
+    }
+  }
 }

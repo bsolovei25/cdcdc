@@ -60,10 +60,7 @@ export class TimeDiagramComponent implements OnInit {
         let percent: number = 0;
         if (this.timeLeft > 0 && !this.isMock) {
             percent =
-                100 -
-                (this.timeLeft /
-                    (Date.parse(this.data.dropTimeNext) - Date.parse(this.data.dropTimeLast))) *
-                    100;
+                100 - (this.timeLeft / (Date.parse(this.data.dropTimeNext) - Date.parse(this.data.dropTimeLast))) * 100;
         } else if (this.timeLeft === 0 && !this.isMock) {
             percent = 0;
         } else {

@@ -48,9 +48,7 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
     }
 
     public onChangeSelect(): void {
-        const unit: IUnitEvents = this.adminService.units.find(
-            (item) => item.name === this.select.value
-        );
+        const unit: IUnitEvents = this.adminService.units.find((item) => item.name === this.select.value);
         const returnedData = unit ? unit : null;
         this.saveChanging.emit(returnedData);
 

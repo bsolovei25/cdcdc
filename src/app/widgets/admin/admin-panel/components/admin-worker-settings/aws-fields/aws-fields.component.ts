@@ -66,9 +66,7 @@ export class AwsFieldsComponent implements OnInit {
                     key: 'email',
                 },
             ];
-            const unit: IUnitEvents = this.adminService.units.find(
-                (item) => item.id === this.worker.unitId
-            );
+            const unit: IUnitEvents = this.adminService.units.find((item) => item.id === this.worker.unitId);
             this.selectOptions = [
                 {
                     name: 'Установка',

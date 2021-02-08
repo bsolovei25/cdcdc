@@ -1,48 +1,23 @@
 <evj-contemporary-widget-header [uniqId]="uniqId" icon="map" type="astue">
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
   </div>
 </evj-contemporary-widget-header>
 
 <ng-template #headerTabs>
   <div class="tabs-container">
-    <div class="tab"
-         (click)="setActiveIndicator('pimsPlan')"
-         [class.tab--active]="activeIndicatorType === 'pimsPlan'"
-    >
-      <div
-        class="tab__title"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+    <div class="tab" (click)="setActiveIndicator('pimsPlan')" [class.tab--active]="activeIndicatorType === 'pimsPlan'">
+      <div class="tab__title" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         План PIMS
       </div>
     </div>
-    <div class="tab"
-         (click)="setActiveIndicator('normPlan')"
-         [class.tab--active]="activeIndicatorType === 'normPlan'"
-    >
-      <div
-        class="tab__title"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+    <div class="tab" (click)="setActiveIndicator('normPlan')" [class.tab--active]="activeIndicatorType === 'normPlan'">
+      <div class="tab__title" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         Нормативный план
       </div>
     </div>
-    <div class="tab"
-         (click)="setActiveIndicator('operPlan')"
-         [class.tab--active]="activeIndicatorType === 'operPlan'"
-    >
-      <div
-        class="tab__title"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+    <div class="tab" (click)="setActiveIndicator('operPlan')" [class.tab--active]="activeIndicatorType === 'operPlan'">
+      <div class="tab__title" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         Оперативный план
       </div>
     </div>
@@ -65,31 +40,31 @@
 
   <div class="circle1">
     <svg viewBox="0 0 100 100" fill="none">
-      <rect x="25" y="25" width="50" height="50"/>
+      <rect x="25" y="25" width="50" height="50" />
     </svg>
   </div>
 
   <div class="circle2">
     <svg viewBox="0 0 100 100" fill="none">
-      <rect x="25" y="25" width="50" height="50"/>
+      <rect x="25" y="25" width="50" height="50" />
     </svg>
   </div>
 
   <div class="circle3">
     <svg viewBox="0 0 100 100" fill="none">
-      <rect x="25" y="25" width="50" height="50"/>
+      <rect x="25" y="25" width="50" height="50" />
     </svg>
   </div>
 
   <div class="circle4">
     <svg viewBox="0 0 100 100" fill="none">
-      <rect x="25" y="25" width="50" height="50"/>
+      <rect x="25" y="25" width="50" height="50" />
     </svg>
   </div>
 
   <div class="circle5">
     <svg viewBox="0 0 100 100" fill="none">
-      <rect x="25" y="25" width="50" height="50"/>
+      <rect x="25" y="25" width="50" height="50" />
     </svg>
   </div>
 </div>

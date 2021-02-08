@@ -6,18 +6,16 @@ import {
     IPerfCircleDay,
     IPerfProgCircle,
     IPerfProgPark,
-    IProgressIndicators
+    IProgressIndicators,
 } from 'src/app/dashboard/models/SMP/performance-progress-indicators.model';
 import { SmpService } from '../../../dashboard/services/widgets/SMP/smp.service';
-
 
 @Component({
     selector: 'evj-performance-progress-indicators',
     templateUrl: './performance-progress-indicators.component.html',
-    styleUrls: ['./performance-progress-indicators.component.scss']
+    styleUrls: ['./performance-progress-indicators.component.scss'],
 })
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public progressIndicators: IProgressIndicators;
 
     constructor(
@@ -46,14 +44,14 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
             balance: value.data.shipment.deathRest,
             certified: value.data.shipment.nFact,
             planLevel: value.data.shipment.factAll,
-            factLevel: value.data.shipment.fact
+            factLevel: value.data.shipment.fact,
         };
         const newStatePark: IPerfProgPark = {
             capacity: value.data.statePark.maxRest,
             balance: value.data.statePark.deathRest,
             certified: value.data.statePark.passportrest,
             planLevel: value.data.statePark.allRest,
-            factLevel: value.data.statePark.freeRest
+            factLevel: value.data.statePark.freeRest,
         };
         const newCircles: IPerfProgCircle[] = [];
         let month: IPerfCircleDay[] = [];
@@ -62,7 +60,7 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
             circle.days.forEach((d) => {
                 month.push({
                     day: d.day,
-                    state: d.critical.toString()
+                    state: d.critical.toString(),
                 });
             });
             newCircles.push({
@@ -73,13 +71,13 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
                 piePercent: circle.prodPlanPer,
                 gaugePercent: 0,
                 isCritical: !!circle.critical,
-                days: month
+                days: month,
             });
         });
         this.progressIndicators = {
             shipment: newShipment,
             statePark: newStatePark,
-            circle: newCircles
+            circle: newCircles,
         };
 
         return this.progressIndicators;
@@ -89,6 +87,5 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 }

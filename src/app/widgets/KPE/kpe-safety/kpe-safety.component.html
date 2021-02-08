@@ -15,53 +15,50 @@
       </div>
     </div>
   </evj-contemporary-widget-header>
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="readiness">
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
-          <evj-kpe-gauge-chart #gaugeChart isPercent="true"
-                               [background]="'dark'"
-                               [fact]="deviationDiagramData?.fact"
-                               [plan]="deviationDiagramData?.plan"
-                               [deviation]="deviationDiagramData?.deviation"
+          <evj-kpe-gauge-chart
+            #gaugeChart
+            isPercent="true"
+            [background]="'dark'"
+            [fact]="deviationDiagramData?.fact"
+            [plan]="deviationDiagramData?.plan"
+            [deviation]="deviationDiagramData?.deviation"
           ></evj-kpe-gauge-chart>
         </div>
         <div class="readiness__header__chart">
-          <evj-kpe-deviation-diagram [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram
+            [data]="deviationChartData"
+            [currentMonth]="displayedMonth"
+          ></evj-kpe-deviation-diagram>
         </div>
       </div>
-        <div class="readiness__main">
-          <ng-container *ngFor="let card of cardsList">
-            <div class="readiness__main__gauge element-container">
-              <div class="gauge-card">
-                <div class="gauge-card__content">
-                  <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="card?.unit"
-                    >{{ card?.unit || 'ед.изм'}}</div>
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="!card?.unit"
-                    >%</div>
+      <div class="readiness__main">
+        <ng-container *ngFor="let card of cardsList">
+          <div class="readiness__main__gauge element-container">
+            <div class="gauge-card">
+              <div class="gauge-card__content">
+                <div class="gauge-card__units">
+                  <div class="gauge-card__units__unit" [class.gauge-card__units__unit_active]="card?.unit">
+                    {{ card?.unit || 'ед.изм'}}
                   </div>
-                  <div class="gauge-card__diagram">
-                    <evj-kpe-gauge-chart
-                      [fact]="card?.fact"
-                      [plan]="card?.plan"
-                      [deviation]="card?.deviation"
-                    ></evj-kpe-gauge-chart>
-                  </div>
-                  <div class="gauge-card__label">
-                    {{ card?.title }}
-                  </div>
+                  <div class="gauge-card__units__unit" [class.gauge-card__units__unit_active]="!card?.unit">%</div>
                 </div>
+                <div class="gauge-card__diagram">
+                  <evj-kpe-gauge-chart
+                    [fact]="card?.fact"
+                    [plan]="card?.plan"
+                    [deviation]="card?.deviation"
+                  ></evj-kpe-gauge-chart>
+                </div>
+                <div class="gauge-card__label">{{ card?.title }}</div>
               </div>
             </div>
-          </ng-container>
-        </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

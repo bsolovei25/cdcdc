@@ -2,21 +2,19 @@ import { ITankCardValue } from '../../../../../dashboard/models/NK/tank-informat
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
-  selector: 'evj-nk-tank-information-card',
-  templateUrl: './nk-tank-information-card.component.html',
-  styleUrls: ['./nk-tank-information-card.component.scss']
+    selector: 'evj-nk-tank-information-card',
+    templateUrl: './nk-tank-information-card.component.html',
+    styleUrls: ['./nk-tank-information-card.component.scss'],
 })
-
 export class NkTankInformationCardComponent implements OnInit, OnChanges {
-  @Input() cardData: ITankCardValue;
-  isRepair: boolean;
+    @Input() cardData: ITankCardValue;
+    isRepair: boolean;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {}
+    ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    this.isRepair = this.cardData.objectStatus === 'repair' ? true : false;
-  }
-
+    ngOnChanges(): void {
+        this.isRepair = this.cardData.objectStatus === 'repair' ? true : false;
+    }
 }

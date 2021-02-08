@@ -5,11 +5,7 @@
   [class.input-container_disabled]="isDisabled"
   [class.input-container_focus]="isInput"
 >
-  <div
-    class="placeholder"
-    [ngClass]="{'placeholder_focus':isInput}"
-    *ngIf="options.isMovingPlaceholder"
-  >
+  <div class="placeholder" [ngClass]="{'placeholder_focus':isInput}" *ngIf="options.isMovingPlaceholder">
     {{options.placeholder}}
   </div>
   <input

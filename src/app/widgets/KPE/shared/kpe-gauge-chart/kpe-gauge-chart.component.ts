@@ -1,12 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { newArray } from '@angular/compiler/src/util';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
@@ -70,11 +62,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         const innerRadius = outerRadius - diagramWidth;
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3
-                .pie()
-                .startAngle(startAngel)
-                .endAngle(endAngel)
-                .value(1);
+            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
         }
 
         const backPie = createPie((-3 * Math.PI) / 4, (3 * Math.PI) / 4);
@@ -87,20 +75,14 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             (3 * Math.PI) / 4
         );
 
-        const arc: d3.Arc = d3
-            .arc()
-            .outerRadius(outerRadius)
-            .innerRadius(innerRadius)
-            .padAngle(0.025);
+        const arc: d3.Arc = d3.arc().outerRadius(outerRadius).innerRadius(innerRadius).padAngle(0.025);
 
         const backArc: d3.Arc = d3
             .arc()
             .outerRadius(outerRadius + 1.5)
             .innerRadius(innerRadius - 1.5);
 
-        d3.select(this.chart.nativeElement)
-            .selectAll('*')
-            .remove();
+        d3.select(this.chart.nativeElement).selectAll('*').remove();
 
         const svg = d3
             .select(this.chart.nativeElement)
@@ -163,15 +145,9 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .attr('y2', '100%')
             .attr('spreadMethod', 'pad');
 
-        shadowGradient
-            .append('svg:stop')
-            .attr('offset', '0%')
-            .attr('class', 'needle-shadow-gradient-1');
+        shadowGradient.append('svg:stop').attr('offset', '0%').attr('class', 'needle-shadow-gradient-1');
 
-        shadowGradient
-            .append('svg:stop')
-            .attr('offset', '100%')
-            .attr('class', 'needle-shadow-gradient-2');
+        shadowGradient.append('svg:stop').attr('offset', '100%').attr('class', 'needle-shadow-gradient-2');
 
         const shadow = d3
             .arc()
@@ -180,8 +156,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
-        const arrowAngle =
-            this.fact > this.plan ? 135 : -135 + (270 * mainValue) / this.diagramCounter;
+        const arrowAngle = this.fact > this.plan ? 135 : -135 + (270 * mainValue) / this.diagramCounter;
 
         const needleShadow = svg
             .append('path')
@@ -203,7 +178,9 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
                 'class',
                 this.background === 'lite'
                     ? 'kpe-gauge-hide-down-sector'
-                    : this.background === 'dark' ? 'kpe-gauge-hide-down-sector-d' : 'kpe-gauge-hide-down-sector-sou'
+                    : this.background === 'dark'
+                    ? 'kpe-gauge-hide-down-sector-d'
+                    : 'kpe-gauge-hide-down-sector-sou'
             );
 
         svg.append('path')
@@ -213,18 +190,17 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
         drawCircle(
             circleRad,
-            this.background === 'lite' ? 'needle-hover-circle-back' : this.background === 'dark' ? 'needle-hover-circle-back-d' : 'needle-hover-circle-back-sou'
+            this.background === 'lite'
+                ? 'needle-hover-circle-back'
+                : this.background === 'dark'
+                ? 'needle-hover-circle-back-d'
+                : 'needle-hover-circle-back-sou'
         );
 
         const g = svg.append('g').attr('class', 'text');
 
         if (!this.noDeviation) {
-            g.append('line')
-                .attr('class', 'line')
-                .attr('x1', -14)
-                .attr('y1', 3)
-                .attr('x2', 14)
-                .attr('y2', 3);
+            g.append('line').attr('class', 'line').attr('x1', -14).attr('y1', 3).attr('x2', 14).attr('y2', 3);
             addText(`${this.fact}`, 'text text__value', -2);
             addText(`\u0394 ${this.deviation}`, 'text text__deviation', 13);
             addText(`${this.plan}${this.isPercent ? '%' : ''}`, 'text text__plan', 28);
@@ -235,18 +211,11 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         }
 
         function addText(text: string, cls: string, yCord: number): void {
-            g.append('text')
-                .attr('class', cls)
-                .attr('text-anchor', 'middle')
-                .attr('x', 0)
-                .attr('y', yCord)
-                .text(text);
+            g.append('text').attr('class', cls).attr('text-anchor', 'middle').attr('x', 0).attr('y', yCord).text(text);
         }
 
         function drawCircle(r: number, className: string): void {
-            svg.append('circle')
-                .attr('r', r)
-                .attr('class', className);
+            svg.append('circle').attr('r', r).attr('class', className);
         }
     }
 }

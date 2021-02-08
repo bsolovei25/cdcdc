@@ -7,10 +7,9 @@ import { IEncodedFileToSave } from '../../../widgets/NK/document-coding/componen
 import { IOilFilter } from '../../models/oil-operations';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class DocumentCodingService {
-
     private restUrl: string;
 
     public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
@@ -28,26 +27,26 @@ export class DocumentCodingService {
             return await this.http.get<T[]>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T[]>(resolve => []);
+            return new Promise<T[]>((resolve) => []);
         }
     }
 
     public async getProductListByFilter<T>(
         labs: IOilFilter[] | null = null,
-        groups: IOilFilter[] | null = null,
-        ): Promise<T[]> {
+        groups: IOilFilter[] | null = null
+    ): Promise<T[]> {
         const filterQuery = this.combineMultiFilterRequest(labs, groups);
         try {
-            return await this.http.get<T[]>(`${this.restUrl}/api/oil-control/productsbyfilter${labs || groups ? filterQuery : ''}`).toPromise();
+            return await this.http
+                .get<T[]>(`${this.restUrl}/api/oil-control/productsbyfilter${labs || groups ? filterQuery : ''}`)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T[]>(resolve => []);
+            return new Promise<T[]>((resolve) => []);
         }
     }
 
-    public async passportSave(
-        file: IEncodedFileToSave
-    ): Promise<void> {
+    public async passportSave(file: IEncodedFileToSave): Promise<void> {
         try {
             return await this.http.post<void>(`${this.restUrl}/api/oil-control/passport/bddk`, file).toPromise();
         } catch (e) {
@@ -57,12 +56,14 @@ export class DocumentCodingService {
     }
 
     private combineMultiFilterRequest(labs: IOilFilter[] | null, groups: IOilFilter[] | null): string {
-        if (!labs || !groups) { return; }
+        if (!labs || !groups) {
+            return;
+        }
         let result = '?';
-        labs.forEach(filter => {
+        labs.forEach((filter) => {
             result = result + 'LabIds=' + filter.id + '&';
         });
-        groups.forEach(filter => {
+        groups.forEach((filter) => {
             result = result + 'GroupIds=' + filter.id + '&';
         });
         return result.substring(0, result.length - 1);

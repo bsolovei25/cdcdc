@@ -5,7 +5,7 @@
     }
 
     .disabled {
-      stroke: #272A38;
+      stroke: #272a38;
 
       &-text {
         fill: #606580;
@@ -16,62 +16,63 @@
       }
 
       &-line {
-        fill: #272A38;
+        fill: #272a38;
       }
     }
 
     .standard {
-      stroke: #4B5169;
-      fill: #272A38;
+      stroke: #4b5169;
+      fill: #272a38;
 
       &-text {
-        fill: #D7E2F2;
+        fill: #d7e2f2;
       }
 
       &-arrow {
-        stroke: #D7E2F2;
+        stroke: #d7e2f2;
       }
 
       &-line {
-        fill: #4B5169;
+        fill: #4b5169;
       }
     }
 
     .deviation {
-      stroke: #F7931E;
+      stroke: #f7931e;
       fill: #483628;
 
       &-text {
-        fill: #D7E2F2;
+        fill: #d7e2f2;
       }
 
       &-arrow {
-        stroke: #D7E2F2;
+        stroke: #d7e2f2;
       }
 
       &-line {
-        fill: #F7931E;
+        fill: #f7931e;
       }
     }
 
     .active {
-      stroke: #0089FF;
+      stroke: #0089ff;
       fill: #163455;
 
       &-text {
-        fill: #D7E2F2;
+        fill: #d7e2f2;
       }
 
       &-arrow {
-        stroke: #D7E2F2;
+        stroke: #d7e2f2;
       }
 
       &-line {
-        fill: #0089FF;
+        fill: #0089ff;
       }
     }
 
+    .text-anchor {
+      text-anchor: middle;
+    }
   }
-
 }
-

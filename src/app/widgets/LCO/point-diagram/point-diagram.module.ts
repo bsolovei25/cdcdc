@@ -6,14 +6,9 @@ import { SharedModule } from '@shared/shared.module';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
 
 @NgModule({
-  declarations: [OneColumnComponent, PointDiagramComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        DashboardModule
-    ],
-    exports: [
-    ]
+    declarations: [OneColumnComponent, PointDiagramComponent],
+    imports: [CommonModule, SharedModule, DashboardModule],
+    exports: [],
 })
 export class PointDiagramModule {
     enterComponent = PointDiagramComponent;

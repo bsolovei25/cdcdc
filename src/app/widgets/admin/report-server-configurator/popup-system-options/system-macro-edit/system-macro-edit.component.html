@@ -1,73 +1,64 @@
 <div class="container">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">Редактирование макросов</div>
-        </div>
-        <div class="content" #macroTable>
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of data" cdkDrag>
-                    <div class="item-list" (click)="clickItem(item)" [class.active]="item === itemChoose">
-                        <ng-container *ngIf="!item.edit">
-                            <div>{{ item.name }}</div>
-                            <div *ngIf="item === itemChoose" class="item-list__button-edit">
-                                <svg-icon src="assets/icons/widgets/reports/edit_white.svg" (click)="editItem(item)">
-                                </svg-icon>
-                            </div>
-                              <!--DELETE ITEM-->
-                            <div *ngIf="item === itemChoose" class="item-list__button-remove"
-                                (click)="deleteItem(item)">
-                            </div>
-                        </ng-container>
-                        <!--EDIT ITEM-->
-                        <ng-container *ngIf="item.edit">
-                            <div class="item-list__add-block-input" (click)="$event.stopPropagation()">
-                                <input type="text" [(ngModel)]="nameItem" placeholder="Новое наименование..." />
-                            </div>
-                            <div class="item-list__add-block-icon" (click)="editItemAccept(item)">
-                                <svg-icon src="assets/icons/widgets/reports/accept.svg">
-                                </svg-icon>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
-
-                <!--ADD ITEM-->
-                <ng-container *ngIf="addItem">
-                    <div class="item-list__add-block-input" (click)="$event.stopPropagation()">
-                        <input type="text" [(ngModel)]="nameItem" placeholder="Наименование..." />
-                    </div>
-                    <div class="item-list__add-block-icon" (click)="addItemAccept()">
-                        <svg-icon src="assets/icons/widgets/reports/accept.svg">
-                        </svg-icon>
-                    </div>
-                </ng-container>
-
-                <!--TABLE BORDER-->
-                <ng-container *ngFor="let item of this.blockOut">
-                    <div class="out-block">
-
-                    </div>
-                  </ng-container>
-            </div>
-        </div>
-        <div class="bottom">
-            <div class="bottom__block-edit">
-                <div class="bottom__block-add">
-                    <div class="bottom__button-add" (click)="addItemBlock()">
-                        <svg-icon src="assets/icons/widgets/reports/add_white.svg" class="add_button_icon">
-                        </svg-icon>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom__block">
-                <div class="bottom__save-block" (click)="save()">
-                    <div class="bottom__button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>
+  <div style="height: 100%">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
+      </div>
+      <div class="title__name">Редактирование макросов</div>
     </div>
+    <div class="content" #macroTable>
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of data" cdkDrag>
+          <div class="item-list" (click)="clickItem(item)" [class.active]="item === itemChoose">
+            <ng-container *ngIf="!item.edit">
+              <div>{{ item.name }}</div>
+              <div *ngIf="item === itemChoose" class="item-list__button-edit">
+                <svg-icon src="assets/icons/widgets/reports/edit_white.svg" (click)="editItem(item)"> </svg-icon>
+              </div>
+              <!--DELETE ITEM-->
+              <div *ngIf="item === itemChoose" class="item-list__button-remove" (click)="deleteItem(item)"></div>
+            </ng-container>
+            <!--EDIT ITEM-->
+            <ng-container *ngIf="item.edit">
+              <div class="item-list__add-block-input" (click)="$event.stopPropagation()">
+                <input type="text" [(ngModel)]="nameItem" placeholder="Новое наименование..." />
+              </div>
+              <div class="item-list__add-block-icon" (click)="editItemAccept(item)">
+                <svg-icon src="assets/icons/widgets/reports/accept.svg"> </svg-icon>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!--ADD ITEM-->
+        <ng-container *ngIf="addItem">
+          <div class="item-list__add-block-input" (click)="$event.stopPropagation()">
+            <input type="text" [(ngModel)]="nameItem" placeholder="Наименование..." />
+          </div>
+          <div class="item-list__add-block-icon" (click)="addItemAccept()">
+            <svg-icon src="assets/icons/widgets/reports/accept.svg"> </svg-icon>
+          </div>
+        </ng-container>
+
+        <!--TABLE BORDER-->
+        <ng-container *ngFor="let item of this.blockOut">
+          <div class="out-block"></div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom__block-edit">
+        <div class="bottom__block-add">
+          <div class="bottom__button-add" (click)="addItemBlock()">
+            <svg-icon src="assets/icons/widgets/reports/add_white.svg" class="add_button_icon"> </svg-icon>
+          </div>
+        </div>
+      </div>
+      <div class="bottom__block">
+        <div class="bottom__save-block" (click)="save()">
+          <div class="bottom__button-save">Сохранить</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

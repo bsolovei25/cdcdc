@@ -4,13 +4,9 @@ import { TruncatedDiagramPercentageComponent } from './truncated-diagram-percent
 import { TruncatedDiagramPercentageItemComponent } from './truncated-diagram-percentage-item/truncated-diagram-percentage-item.component';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
     declarations: [TruncatedDiagramPercentageComponent, TruncatedDiagramPercentageItemComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-    ]
+    imports: [CommonModule, SharedModule],
 })
 export class TruncatedDiagramPercentageModule {
     enterComponent = TruncatedDiagramPercentageComponent;

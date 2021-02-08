@@ -81,7 +81,7 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
 
         if (this.chartCards.length > 0) {
-            if(this.displayMode === 'line') {
+            if (this.displayMode === 'line') {
                 this.chartCard = this.chartCards[0];
             } else {
                 this.chartCard = this.chartCards.shift();

@@ -38,14 +38,8 @@
     </div>
   </div>
   <div class="chat__input input-line">
-     <div class="line"></div>
-    <input
-      class="input"
-      type="text"
-      [placeholder]="placeholder"
-      (keypress)="onEnterPush($event)"
-      #input
-    />
+    <div class="line"></div>
+    <input class="input" type="text" [placeholder]="placeholder" (keypress)="onEnterPush($event)" #input />
     <button
       #attachFileBtn
       matTooltip="Добавить файл"

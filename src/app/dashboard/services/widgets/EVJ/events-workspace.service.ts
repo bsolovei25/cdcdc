@@ -9,8 +9,10 @@ import {
     IAsusTmPlace,
     IAsusTpPlace,
     IAsusWorkgroup,
-    ICategory, IEventsWidgetAttributes,
-    IEventsWidgetNotification, IExtraOptionsWindow,
+    ICategory,
+    IEventsWidgetAttributes,
+    IEventsWidgetNotification,
+    IExtraOptionsWindow,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -19,7 +21,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser
+    IUser,
 } from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../../snack-bar.service';
@@ -38,9 +40,7 @@ import { ClaimService, EnumClaimGlobal } from '../../claim.service';
     providedIn: 'root',
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<
-        IEventsWidgetNotification
-    >(null);
+    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
 
     public set event(value: IEventsWidgetNotification) {
         this.event$.next(value);
@@ -144,22 +144,14 @@ export class EventsWorkspaceService {
 
     private defaultEvent: IEventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<
-        ISearchRetrievalWindow
-    >(null);
-    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
-    public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<
-        IExtraOptionsWindow
-        >(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<IExtraOptionsWindow>(null);
 
     get isCategoryEdit(): boolean {
         return (
             this.isCreateNewEvent ||
-            this.claimService.claimGlobal$.value.some(
-                (x) => x === EnumClaimGlobal.EventsChangeCategory
-            )
+            this.claimService.claimGlobal$.value.some((x) => x === EnumClaimGlobal.EventsChangeCategory)
         );
     }
 
@@ -182,12 +174,12 @@ export class EventsWorkspaceService {
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
         try {
+            await this.loadReferences();
             this.setDefaultEvent();
             if (id) {
                 await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
-            this.loadReferences();
         } catch (err) {
             console.error(err);
         } finally {
@@ -196,8 +188,8 @@ export class EventsWorkspaceService {
     }
 
     private async getEvent(id: number): Promise<void> {
-        this.event = await this.eventService.getEvent(id);
-        this.event = { ...this.defaultEvent, ...this.event };
+        const event = await this.eventService.getEvent(id);
+        this.event = { ...this.defaultEvent, ...event };
         this.event.comments = await this.processAttachments(this.event.comments);
         this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
@@ -240,10 +232,7 @@ export class EventsWorkspaceService {
     public async createEvent(idParent: number = null): Promise<void> {
         this.isEditEvent = true;
         if (this.isCreateNewEvent) {
-            this.snackBarService.openSnackBar(
-                'Для создания нового события, сохраните текущее!',
-                'snackbar-red'
-            );
+            this.snackBarService.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
             return;
         }
         if (!this.checkParentRetrievalCategory(idParent)) {
@@ -352,10 +341,7 @@ export class EventsWorkspaceService {
 
     private async saveEditedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         if (this.event.category.name === 'asus') {
-            this.snackBarService.openSnackBar(
-                'Данное действие не допустимо для выбранного события!',
-                'snackbar-red'
-            );
+            this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
         } else {
             try {
                 await this.eventService.putEvent(this.event, saveMethod);
@@ -368,10 +354,7 @@ export class EventsWorkspaceService {
 
     public async deleteRetrievalEvent(retrieval: IRetrievalEventDto): Promise<void> {
         try {
-            await this.eventService.deleteRetrievalEvents(
-                this.event.id,
-                retrieval.innerNotificationId
-            );
+            await this.eventService.deleteRetrievalEvents(this.event.id, retrieval.innerNotificationId);
             const index = this.event.retrievalEvents.findIndex(
                 (item) => item.innerNotificationId === retrieval.innerNotificationId
             );
@@ -383,10 +366,7 @@ export class EventsWorkspaceService {
         }
     }
 
-    public async sendMessageToEvent(
-        msg: IChatMessageWithAttachments,
-        category: 'comments' | 'facts'
-    ): Promise<void> {
+    public async sendMessageToEvent(msg: IChatMessageWithAttachments, category: 'comments' | 'facts'): Promise<void> {
         this.isLoading = true;
         console.log(msg);
         await this.uploadNewlyAddedAttachments(msg.attachments).then((attachments) => {
@@ -484,11 +464,7 @@ export class EventsWorkspaceService {
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: null,
             organization: 'АО Газпромнефть',
-            priority: this.priority
-                ? this.priority[2]
-                    ? this.priority[2]
-                    : this.priority[0]
-                : undefined,
+            priority: this.priority ? (this.priority[2] ? this.priority[2] : this.priority[0]) : undefined,
             responsibleOperator: null,
             retrievalEvents: [],
             severity: 'Critical',
@@ -498,12 +474,13 @@ export class EventsWorkspaceService {
                       id: 0,
                       name: null,
                       code: null,
+                      description: null,
                   },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unit: this.units.find((u) => u.id === this.attributes$.getValue().UnitId) ?? null,
+            unit: this.units.find((u) => u.id === this.attributes$?.getValue()?.UnitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],
@@ -617,19 +594,14 @@ export class EventsWorkspaceService {
 
     public async changeCategory(): Promise<void> {
         if (this.event.category.name === 'tasks') {
-            this.event.productionTasks.subCategory = this.subCategory?.find(
-                (value) => value.code === '0'
-            );
+            this.event.productionTasks.subCategory = this.subCategory?.find((value) => value.code === '0');
         }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }
     }
 
-    public eventCompare(
-        event1: IEventsWidgetNotification,
-        event2: IEventsWidgetNotification
-    ): boolean {
+    public eventCompare(event1: IEventsWidgetNotification, event2: IEventsWidgetNotification): boolean {
         if (!event1) {
             return true;
         }
@@ -659,9 +631,7 @@ export class EventsWorkspaceService {
         return messages;
     }
 
-    private async uploadNewlyAddedAttachments(
-        files: IMessageFileAttachment[]
-    ): Promise<IMessageFileAttachment[]> {
+    private async uploadNewlyAddedAttachments(files: IMessageFileAttachment[]): Promise<IMessageFileAttachment[]> {
         files?.map(async (file) => {
             if (!file.fileId && file._file) {
                 file.fileId = await this.uploadAttachment(file._file);

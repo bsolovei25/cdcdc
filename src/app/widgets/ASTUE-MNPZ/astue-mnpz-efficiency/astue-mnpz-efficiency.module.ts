@@ -26,16 +26,9 @@ import { MatRippleModule } from '@angular/material/core';
         AstueEfficiencyItemCardComponent,
         AstueEfficiencyTableDisplayComponent,
         AstueEfficiencyUnitsComponent,
-        AstueEfficiencyUnitCardComponent
+        AstueEfficiencyUnitCardComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRippleModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, FormsModule, ReactiveFormsModule, MatRippleModule],
 })
 export class AstueMnpzEfficiencyModule {
     enterComponent = AstueMnpzEfficiencyComponent;

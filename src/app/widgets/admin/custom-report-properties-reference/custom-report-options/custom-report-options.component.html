@@ -1,112 +1,92 @@
 <ng-container *ngFor="let key of objectKeys(this.data); let i = index;">
-    <ng-container *ngIf="key !== 'id' && key !== 'name'">
-        <div class="options">
-            <div class="options__title">{{ options[key] }}</div>
-            <div class="options__value"
-                 [class.source]="key === 'source'">
-                <ng-container *ngIf="key === 'description'">
-                    <div *ngIf="i !== isEdit">
-                        {{ data[key] }}
+  <ng-container *ngIf="key !== 'id' && key !== 'name'">
+    <div class="options">
+      <div class="options__title">{{ options[key] }}</div>
+      <div class="options__value" [class.source]="key === 'source'">
+        <ng-container *ngIf="key === 'description'">
+          <div *ngIf="i !== isEdit">
+            {{ data[key] }}
 
-                        <div class="edit-button"
-                             (click)="onBlockEditRecord(i)">
-                            <svg-icon class="collapse"
-                                      src="assets/icons/widgets/references/edit_white.svg">
-                            </svg-icon>
-                        </div>
-                    </div>
-                    <div *ngIf="i === isEdit"
-                         class="block-info">
-                        <div class="add-block-input">
-                            <input type="text"
-                                   [(ngModel)]="data[key]"
-                                   placeholder="Новое описание..." />
-                        </div>
-                        <div class="add-block-icon"
-                             (click)="editOptions()">
-                            <svg-icon src="assets/icons/widgets/references/accept.svg"
-                                      class="add_button_icon">
-                            </svg-icon>
-                        </div>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="key === 'type'">
-                    <mat-form-field class="categories_selectbox">
-                        <mat-select panelClass="mat-select-custom"
-                                    [(ngModel)]="data[key]"
-                                    (selectionChange)="editOptions()">
-                            <mat-option *ngFor="let p of systemOptionType"
-                                        [value]="p">{{ p }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </ng-container>
-                <ng-container *ngIf="key === 'validationRule'">
-                    <div *ngIf="i !== isEdit">
-                        {{ data[key] }}
-
-                        <div class="edit-button"
-                             (click)="onBlockEditRecord(i)">
-                            <svg-icon class="collapse"
-                                      src="assets/icons/widgets/references/edit_white.svg">
-                            </svg-icon>
-                        </div>
-                    </div>
-                    <div *ngIf="i === isEdit"
-                         class="block-info">
-                        <div class="add-block-input">
-                            <input type="text"
-                                   [(ngModel)]="data[key]"
-                                   placeholder="Новое правило..." />
-                        </div>
-                        <div class="add-block-icon"
-                             (click)="editOptions()">
-                            <svg-icon src="assets/icons/widgets/references/accept.svg"
-                                      class="add_button_icon">
-                            </svg-icon>
-                        </div>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="key === 'isRequired'">
-                    <label class="mycheckbox">
-                        <input type="checkbox"
-                               id="checkBoxValue"
-                               class="mycheckbox__default"
-                               [checked]="data[key]"
-                               (click)="changeSwap()" />
-                        <div class="mycheckbox__new"
-                             [class.mycheckbox__checked]="data[key]"></div>
-                    </label>
-                </ng-container>
-                <ng-container *ngIf="key === 'sortOrder' ">
-                    {{ data[key] }}
-                </ng-container>
-                <ng-container *ngIf="key === 'source' && data.type === 'comboBox'">
-                    <mat-form-field class="example-chip-list">
-                        <mat-chip-list #chipList
-                                       aria-label="valueInput selection">
-                            <mat-chip *ngFor="let value of valuesInput"
-                                      [selectable]="selectable"
-                                      [removable]="removable"
-                                      (removed)="remove(value)">
-                                {{ value }}
-                                <mat-icon matChipRemove
-                                          *ngIf="removable">
-                                    <svg-icon src="assets/icons/widgets/reports/close-icon.svg"
-                                              [svgStyle]="{ 'width.px':10, 'height.px':18, 'margin-top.px': 0}">
-                                    </svg-icon>
-                                </mat-icon>
-                            </mat-chip>
-                            <input placeholder="Введите источник..."
-                                   #valueInput
-                                   [formControl]="valueCtrl"
-                                   [matChipInputFor]="chipList"
-                                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                   (matChipInputTokenEnd)="add($event)">
-                        </mat-chip-list>
-                    </mat-form-field>
-                </ng-container>
+            <div class="edit-button" (click)="onBlockEditRecord(i)">
+              <svg-icon class="collapse" src="assets/icons/widgets/references/edit_white.svg"> </svg-icon>
             </div>
-        </div>
-    </ng-container>
+          </div>
+          <div *ngIf="i === isEdit" class="block-info">
+            <div class="add-block-input">
+              <input type="text" [(ngModel)]="data[key]" placeholder="Новое описание..." />
+            </div>
+            <div class="add-block-icon" (click)="editOptions()">
+              <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"> </svg-icon>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="key === 'type'">
+          <mat-form-field class="categories_selectbox">
+            <mat-select panelClass="mat-select-custom" [(ngModel)]="data[key]" (selectionChange)="editOptions()">
+              <mat-option *ngFor="let p of systemOptionType" [value]="p">{{ p }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="key === 'validationRule'">
+          <div *ngIf="i !== isEdit">
+            {{ data[key] }}
+
+            <div class="edit-button" (click)="onBlockEditRecord(i)">
+              <svg-icon class="collapse" src="assets/icons/widgets/references/edit_white.svg"> </svg-icon>
+            </div>
+          </div>
+          <div *ngIf="i === isEdit" class="block-info">
+            <div class="add-block-input">
+              <input type="text" [(ngModel)]="data[key]" placeholder="Новое правило..." />
+            </div>
+            <div class="add-block-icon" (click)="editOptions()">
+              <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"> </svg-icon>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="key === 'isRequired'">
+          <label class="mycheckbox">
+            <input
+              type="checkbox"
+              id="checkBoxValue"
+              class="mycheckbox__default"
+              [checked]="data[key]"
+              (click)="changeSwap()"
+            />
+            <div class="mycheckbox__new" [class.mycheckbox__checked]="data[key]"></div>
+          </label>
+        </ng-container>
+        <ng-container *ngIf="key === 'sortOrder' "> {{ data[key] }} </ng-container>
+        <ng-container *ngIf="key === 'source' && data.type === 'comboBox'">
+          <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList aria-label="valueInput selection">
+              <mat-chip
+                *ngFor="let value of valuesInput"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(value)"
+              >
+                {{ value }}
+                <mat-icon matChipRemove *ngIf="removable">
+                  <svg-icon
+                    src="assets/icons/widgets/reports/close-icon.svg"
+                    [svgStyle]="{ 'width.px':10, 'height.px':18, 'margin-top.px': 0}"
+                  >
+                  </svg-icon>
+                </mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Введите источник..."
+                #valueInput
+                [formControl]="valueCtrl"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-list>
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>

@@ -1,8 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input, OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 import { ITankAttribute } from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
@@ -18,7 +14,7 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
     public data: ITankAttribute[];
     private subscriptions: Subscription[] = [];
 
-    public readonly dict: { title: string, key: string }[] = [
+    public readonly dict: { title: string; key: string }[] = [
         {
             title: 'Название параметра',
             key: 'paramTitle',
@@ -40,7 +36,6 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
             key: 'buttons',
         },
     ];
-
 
     public readonly testData: ITankAttribute[] = [
         {
@@ -75,20 +70,16 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
         },
     ];
 
-    constructor(
-        private petroleumService: PetroleumScreenService,
-        private snackBarService: SnackBarService
-    ) {}
+    constructor(private petroleumService: PetroleumScreenService, private snackBarService: SnackBarService) {}
 
     public ngOnInit(): void {
         if (this.subscriptions?.length > 0) {
             return;
         }
         this.subscriptions.push(
-            this.petroleumService.currentTankParam.subscribe(
-            (item) => {
+            this.petroleumService.currentTankParam.subscribe((item) => {
                 this.data = item.objectAttributes;
-                this.data.sort( (a, b) => {
+                this.data.sort((a, b) => {
                     if (a.isEdit && !b.isEdit) {
                         return -1;
                     } else if (!a.isEdit && b.isEdit) {
@@ -96,8 +87,8 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
                     }
                     return 0;
                 });
-            }
-        ));
+            })
+        );
     }
 
     public ngOnDestroy(): void {
@@ -111,7 +102,10 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
     dateTimePicker(date: Date, item: ITankAttribute): void {
         console.log(date);
         if (date.getTime() > Date.now()) {
-            this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
+            this.snackBarService.openSnackBar(
+                'Некорректно установлено время (установите время не превышающее текущее)',
+                'snackbar-red'
+            );
             item.paramDateTime = new Date(item.paramSaveDateTime);
             return;
         }
@@ -119,7 +113,7 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
     }
 
     public startEdit(item: ITankAttribute): void {
-        this.testData.forEach(el => el.isActive = false);
+        this.testData.forEach((el) => (el.isActive = false));
         item.isActive = true;
         item.paramSaveValue = item.paramValue;
         item.paramSaveDateTime = new Date(item.paramDateTime);

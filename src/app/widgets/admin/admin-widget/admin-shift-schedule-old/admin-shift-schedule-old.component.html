@@ -15,11 +15,7 @@
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
 
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
     <ng-container *ngIf="isSelectMenu">
@@ -112,9 +108,7 @@
                   (click)="selectShift(shift)"
                 >
                   <p>{{ idx + 1 }} смена</p>
-                  <p>
-                    {{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}
-                  </p>
+                  <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
                   <p
                     *ngIf="!shift.brigadeId"
                     class="btn shift-today-item"
@@ -144,11 +138,7 @@
                     ></svg-icon>
                   </div>
                   <mat-menu #menu2="matMenu" class="customize-menu">
-                    <button
-                      mat-menu-item
-                      *ngFor="let b of allBrigade"
-                      (click)="onChooseBrigade(b, selectedDay)"
-                    >
+                    <button mat-menu-item *ngFor="let b of allBrigade" (click)="onChooseBrigade(b, selectedDay)">
                       {{ b.brigadeNumber }}
                     </button>
                   </mat-menu>
@@ -219,7 +209,7 @@
           </div>
         </div>
         <div class="control-block__right-side">
-          <div style="height: calc(100% - 24px);">
+          <div style="height: calc(100% - 24px)">
             <evj-admin-shift-list-employees-old [data]="allUsersUnit"></evj-admin-shift-list-employees-old>
           </div>
         </div>
