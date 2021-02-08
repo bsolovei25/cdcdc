@@ -48,6 +48,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     fullElement: Map<number, IElementFullAndUI> = new Map();
     dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Данные с бэка
     localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+    countTypesElement: number = 11;
 
     srcNameElement: string = 'ng-reflect-src';
 
@@ -62,6 +63,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     ngOnInit(): void {}
 
     ngOnChanges(): void {
+        console.log(this.chosenInstall, this.chosenSetting);
         if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.localChosenInstall = this.chosenInstall;
@@ -205,7 +207,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     loadSchema(): void {
         let i: number = 1;
-        while (i <= 10) {
+        while (i <= this.countTypesElement) {
             const elements = this.searchElements(i);
             if (elements) {
                 this.elementsNode?.push(...elements);
@@ -411,12 +413,15 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
-        if (name.includes('rect')) {
+        if (name?.includes('rect')) {
             if (element?.children?.length) {
                 let path: Element;
                 Array.from(element?.children).forEach((value) => {
                     if (value?.tagName === 'path') {
                         path = path ?? value;
+                    }
+                    if (value?.tagName === 'rect') {
+                        elementFull?.rects.push(value);
                     }
                 });
                 if (path) {
@@ -426,10 +431,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 elementFull?.rects.push(element);
             }
         }
-        if (name.includes('point')) {
+        if (name?.includes('point')) {
             elementFull?.points.push(element);
         }
-        if (name.includes('text')) {
+        if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
             } else if (name.includes('text_percent')) {
@@ -438,10 +443,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 elementFull.texts.push(element);
             }
         }
-        if (name.includes('arrow-group')) {
+        if (name?.includes('arrow-group')) {
             elementFull?.arrows.push(...this.searchArrow(element?.children));
         }
-        if (name.includes('circle')) {
+        if (name?.includes('circle')) {
             elementFull.circle = element;
         }
         return elementFull;
@@ -461,6 +466,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     eventListenerClick(elementFull: IElementFull): () => void {
         return () => {
             this.elementActive(elementFull);
+            console.log(elementFull);
             if (typeof elementFull.metaFile.related === 'object') {
                 elementFull.metaFile?.related?.forEach((value) => {
                     const element = this.dataAttribute.get(value);
@@ -645,7 +651,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             }
             i++;
         }
-
         return localElements;
     }
 
@@ -663,6 +668,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 return 'Nasosnaya-park-A-95';
             case 'Насосная т.1163-1164 парк А-92':
                 return 'Nasosnaya-park-A-92';
+            case 'ТСБ-1 Узел смешения нефти и КГС':
+                return 'TSB-1-Usel';
+            case 'АВТ-10':
+                return 'ABT-10-ELOU';
         }
     }
 }
