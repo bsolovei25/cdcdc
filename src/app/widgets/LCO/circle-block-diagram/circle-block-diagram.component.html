@@ -22,12 +22,7 @@
             xlink:href="assets/icons/widgets/deviation-circle-diagram/outer_contour.svg"
           />
 
-          <circle
-            [attr.cx]="centerX"
-            [attr.cy]="centerY"
-            [attr.r]="radius"
-            [attr.fill]="colorMain"
-          ></circle>
+          <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="radius" [attr.fill]="colorMain"></circle>
           <circle
             [attr.cx]="centerX"
             [attr.cy]="centerY"
@@ -49,42 +44,14 @@
             [attr.stroke-dashoffset]="
               diaOffset(radius, blockDiagram.improvement)
             "
-            style="transition: 0.5s;"
+            style="transition: 0.5s"
           ></circle>
 
           <!-- верхняя линия -->
-          <line
-            [attr.x1]="centerX"
-            [attr.y1]="10.4"
-            x2="21"
-            y2="6"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="21"
-            [attr.y1]="6"
-            x2="2"
-            y2="6"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="2"
-            [attr.y1]="6"
-            x2="1"
-            y2="5"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="1"
-            [attr.y1]="5"
-            x2="1"
-            y2="3"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
+          <line [attr.x1]="centerX" [attr.y1]="10.4" x2="21" y2="6" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="21" [attr.y1]="6" x2="2" y2="6" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="2" [attr.y1]="6" x2="1" y2="5" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="1" [attr.y1]="5" x2="1" y2="3" [attr.stroke]="colorContour" stroke-width="0.2" />
 
           <!-- точка на верхней линии -->
           <circle
@@ -105,70 +72,16 @@
             [attr.stroke]="colorContour"
             stroke-width="0.2"
           ></circle>
-          <circle
-            [attr.cx]="centerX"
-            [attr.cy]="10.4"
-            [attr.r]="0.5"
-            [attr.fill]="colorContour"
-          ></circle>
+          <circle [attr.cx]="centerX" [attr.cy]="10.4" [attr.r]="0.5" [attr.fill]="colorContour"></circle>
 
           <!-- нижняя линия -->
-          <line
-            [attr.x1]="34"
-            [attr.y1]="36"
-            x2="47"
-            y2="36"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="47"
-            [attr.y1]="36"
-            x2="48"
-            y2="37"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="48"
-            [attr.y1]="37"
-            x2="48"
-            y2="49"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="48"
-            [attr.y1]="49"
-            x2="47"
-            y2="50"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="47"
-            [attr.y1]="50"
-            x2="3"
-            y2="50"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="3"
-            [attr.y1]="50"
-            x2="2"
-            y2="49"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
-          <line
-            [attr.x1]="2"
-            [attr.y1]="49"
-            x2="2"
-            y2="45"
-            [attr.stroke]="colorContour"
-            stroke-width="0.2"
-          />
+          <line [attr.x1]="34" [attr.y1]="36" x2="47" y2="36" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="47" [attr.y1]="36" x2="48" y2="37" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="48" [attr.y1]="37" x2="48" y2="49" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="48" [attr.y1]="49" x2="47" y2="50" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="47" [attr.y1]="50" x2="3" y2="50" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="3" [attr.y1]="50" x2="2" y2="49" [attr.stroke]="colorContour" stroke-width="0.2" />
+          <line [attr.x1]="2" [attr.y1]="49" x2="2" y2="45" [attr.stroke]="colorContour" stroke-width="0.2" />
 
           <!-- нижняя точка на диаграмме -->
           <circle
@@ -191,37 +104,15 @@
           <text [attr.x]="centerX" [attr.y]="27" text-anchor="middle" class="svg__title">
             {{ blockDiagram.improvement }}%
           </text>
-          <text [attr.x]="3" [attr.y]="3.5" class="svg__txt">
-            Блокировки и усовершенствованное управление
-          </text>
-          <text [attr.x]="11" [attr.y]="45" text-anchor="middle" class="svg__txt">
-            Отключенных
-          </text>
-          <text [attr.x]="11" [attr.y]="48" text-anchor="middle" class="svg__txt">
-            блокировок
-          </text>
-          <text [attr.x]="37" [attr.y]="45" text-anchor="middle" class="svg__txt">
-            Не указана причина
-          </text>
-          <text [attr.x]="37" [attr.y]="48" text-anchor="middle" class="svg__txt">
-            снятия блокировок
-          </text>
-          <text
-            [attr.x]="11"
-            [attr.y]="42"
-            text-anchor="middle"
-            [attr.fill]="colorDeviation"
-            class="svg__number"
-          >
+          <text [attr.x]="3" [attr.y]="3.5" class="svg__txt">Блокировки и усовершенствованное управление</text>
+          <text [attr.x]="11" [attr.y]="45" text-anchor="middle" class="svg__txt">Отключенных</text>
+          <text [attr.x]="11" [attr.y]="48" text-anchor="middle" class="svg__txt">блокировок</text>
+          <text [attr.x]="37" [attr.y]="45" text-anchor="middle" class="svg__txt">Не указана причина</text>
+          <text [attr.x]="37" [attr.y]="48" text-anchor="middle" class="svg__txt">снятия блокировок</text>
+          <text [attr.x]="11" [attr.y]="42" text-anchor="middle" [attr.fill]="colorDeviation" class="svg__number">
             {{blockDiagram.disabled}}%
           </text>
-          <text
-            [attr.x]="37"
-            [attr.y]="42"
-            text-anchor="middle"
-            [attr.fill]="colorNormal"
-            class="svg__number"
-          >
+          <text [attr.x]="37" [attr.y]="42" text-anchor="middle" [attr.fill]="colorNormal" class="svg__number">
             {{blockDiagram.noReason}}%
           </text>
         </svg>

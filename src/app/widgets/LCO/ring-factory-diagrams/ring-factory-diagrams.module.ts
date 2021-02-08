@@ -4,13 +4,9 @@ import { RingFactoryDiagramsComponent } from './ring-factory-diagrams.component'
 import { RingFactoryDiagramComponent } from './ring-factory-diagram/ring-factory-diagram.component';
 import { SharedModule } from '../../../@shared/shared.module';
 
-
 @NgModule({
     declarations: [RingFactoryDiagramsComponent, RingFactoryDiagramComponent],
-    imports: [
-        CommonModule,
-        SharedModule
-    ]
+    imports: [CommonModule, SharedModule],
 })
 export class RingFactoryDiagramsModule {
     enterComponent = RingFactoryDiagramsComponent;

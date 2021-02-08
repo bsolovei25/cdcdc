@@ -1,4 +1,4 @@
-<div class="container pointer-event" >
+<div class="container pointer-event">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -12,15 +12,10 @@
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
   <evj-workflow-table [data]="alertWorkspaceTable"> </evj-workflow-table>
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-    #content
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" #content>
     <div class="workflow">
       <div class="workflow__choose-scenario" #splitLeft>
-        <evj-workflow-list style="height: 100%;"></evj-workflow-list>
+        <evj-workflow-list style="height: 100%"></evj-workflow-list>
       </div>
       <div class="workflow__vertival-bar" #splitVertivalBar></div>
       <div class="workflow__right-block">
@@ -60,34 +55,29 @@
           <div class="workflow__scenario__title">Сценарий</div>
 
           <div class="workflow__scenario__body" #containerWorkflow>
-            <div
-              @fadeAnimation
-              class="workflow__scenario__body__alert"
-              *ngIf="comboAction || emailAction.length > 0"
-            >
-              <div сlass="workflow__scenario__body__alert__text">
-                Оповещение сотрудников при выполнение действии
-              </div>
+            <div @fadeAnimation class="workflow__scenario__body__alert" *ngIf="comboAction || emailAction.length > 0">
+              <div сlass="workflow__scenario__body__alert__text">Оповещение сотрудников при выполнение действии</div>
               <div
                 сlass="workflow__scenario__body__alert__btn"
-                style=" border-radius: 25px;
-          border: 2px solid white;
-          height: 19px;
-          padding: 4px 17px;
-          font-size: 12px;
-          align-items: center; display: flex;margin-left: 10px; cursor: pointer;"
+                style="
+                  border-radius: 25px;
+                  border: 2px solid white;
+                  height: 19px;
+                  padding: 4px 17px;
+                  font-size: 12px;
+                  align-items: center;
+                  display: flex;
+                  margin-left: 10px;
+                  cursor: pointer;
+                "
                 (click)="saveProperty()"
               >
                 Сохранить
               </div>
             </div>
-            <div
-              class="workflow__scenario__body__top"
-              #splitTop
-              [id]="LEADER_LINE_PARENT_CONTAINER"
-            >
+            <div class="workflow__scenario__body__top" #splitTop [id]="LEADER_LINE_PARENT_CONTAINER">
               <gridster
-                style="min-width: 100% !important; min-height: 100% !important;"
+                style="min-width: 100% !important; min-height: 100% !important"
                 class="workflow__scenario__body__top__gridster"
                 id="gridSize"
                 [options]="options"
@@ -99,7 +89,7 @@
                     #line
                     [item]="i"
                     (click)="chooseGridItem($event, i)"
-                    style="height: 1600px; overflow: visible !important;"
+                    style="height: 1600px; overflow: visible !important"
                     class="workflow__scenario__body__top__gridster__item"
                     [class.workflow__scenario__body__top__gridster__item--active]="activeActions === i"
                     [id]="i.scenarioAction"
@@ -123,18 +113,18 @@
                     <svg-icon
                       *ngIf="activeActions === i"
                       (click)="deleteAction(i.scenarioAction)"
-                      style="position: absolute; bottom: -10px; right: -4px;"
+                      style="position: absolute; bottom: -10px; right: -4px"
                       src="assets/icons/widgets/workflow/trash_w.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                     ></svg-icon>
                   </gridster-item>
                 </ng-container>
                 <div [id]="LEADER_LINE_REMOVE_CONTAINER">
-                  <div style="display: none;">
+                  <div style="display: none">
                     <svg-icon
                       #removeLineTemplate
                       [id]="LEADER_LINE_REMOVE_TEMPLATE"
-                      style="height: 18px;"
+                      style="height: 18px"
                       class="remove-line__icon"
                       src="assets/icons/widgets/admin-shift-schedule/close.svg"
                       [svgStyle]="{ 'width.px':'10', 'height.px':'10' }"
@@ -168,14 +158,9 @@
               <div class="email" *ngIf="emailAction.length > 0">
                 <ng-container *ngFor="let email of emailAction">
                   <div class="email__subject" *ngIf="email.name === 'EmailSubject'">
-                    <div class="email__subject__title">
-                      {{ email.description }}
-                    </div>
+                    <div class="email__subject__title">{{ email.description }}</div>
                     <div class="email__subject__value">
-                      <input
-                        placeholder="Введите тему..."
-                        [(ngModel)]="emailPropActionUI.emailSubject"
-                      />
+                      <input placeholder="Введите тему..." [(ngModel)]="emailPropActionUI.emailSubject" />
                     </div>
                   </div>
                   <div class="email__recipient" *ngIf="email.name === 'EmailTo'">

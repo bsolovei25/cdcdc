@@ -2,28 +2,26 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges } from '@a
 import { ITankInformation } from 'src/app/dashboard/models/NK/tank-information';
 
 @Component({
-  selector: 'evj-tank-line',
-  templateUrl: './tank-line.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./tank-line.component.scss']
+    selector: 'evj-tank-line',
+    templateUrl: './tank-line.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./tank-line.component.scss'],
 })
 export class TankLineComponent implements OnInit, OnChanges {
-  @Input() public data: ITankInformation;
+    @Input() public data: ITankInformation;
 
-  public heightCard: number;
-  public heightValue: number = 25;
+    public heightCard: number;
+    public heightValue: number = 25;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    let maxValue: number;
-    this.data.tank.forEach(e => {
-      (maxValue > e.attributes.length) ? maxValue = maxValue : maxValue = e.attributes.length;
-    });
-    this.heightCard = maxValue * this.heightValue + 40;
-  }
-
+    ngOnChanges(): void {
+        let maxValue: number;
+        this.data.tank.forEach((e) => {
+            maxValue > e.attributes.length ? (maxValue = maxValue) : (maxValue = e.attributes.length);
+        });
+        this.heightCard = maxValue * this.heightValue + 40;
+    }
 }

@@ -1,12 +1,6 @@
-<h4 class="reports-panel__heading">
-  Доступные отчеты
-</h4>
+<h4 class="reports-panel__heading">Доступные отчеты</h4>
 <div class="search_block">
-  <evj-search
-    isReport="true"
-    (search)="searchReports($event)"
-    [panelActive]="panelActive"
-  ></evj-search>
+  <evj-search isReport="true" (search)="searchReports($event)" [panelActive]="panelActive"></evj-search>
 </div>
 <div class="reports-panel__list scroll-bar">
   <div class="options-header">
@@ -17,13 +11,13 @@
       *ngFor="let folder of folders"
       [data]="folder"
     ></evj-report-tree>
-    <div style="margin-top: 15px; margin-left: 10px;">
+    <div style="margin-top: 15px; margin-left: 10px">
       <evj-report
         *ngFor="let i of templates"
         [activeElements]="activeElements"
         [search]="search"
         [data]="i"
-        style="width: 100%; margin: 10px auto;"
+        style="width: 100%; margin: 10px auto"
       ></evj-report>
     </div>
   </div>

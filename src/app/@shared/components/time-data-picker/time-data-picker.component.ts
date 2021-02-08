@@ -1,20 +1,8 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    Output,
-    EventEmitter,
-    OnChanges,
-    ViewChild,
-    Inject,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { ThemePalette } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
-import {
-    NGX_MAT_DATE_FORMATS,
-    NgxMatDateFormats,
-} from '@angular-material-components/datetime-picker';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
 
 export const CUSTOM_DATETIME_FORMATS: NgxMatDateFormats = {
     parse: {

@@ -42,9 +42,9 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public disabled: boolean = false;
 
     @Output()
-    public onValueChange: EventEmitter<
+    public onValueChange: EventEmitter<string | number | IEventsWorkspaceSelectValue> = new EventEmitter<
         string | number | IEventsWorkspaceSelectValue
-    > = new EventEmitter<string | number | IEventsWorkspaceSelectValue>();
+    >();
 
     constructor(public ewService: EventsWorkspaceService) {}
 

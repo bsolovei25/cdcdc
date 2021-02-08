@@ -1,17 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IOilFilterTanks, IOilOperationsTank } from 'src/app/dashboard/models/oil-operations';
-import {
-    OilOperationsService
-} from '../../../../../dashboard/services/widgets/oil-operations.service';
+import { OilOperationsService } from '../../../../../dashboard/services/widgets/oil-operations.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 
 @Component({
     selector: 'evj-oil-operations-tank-filter',
     templateUrl: './oil-operations-tank-filter.component.html',
-    styleUrls: ['./oil-operations-tank-filter.component.scss']
+    styleUrls: ['./oil-operations-tank-filter.component.scss'],
 })
 export class OilOperationsTankFilterComponent implements OnInit {
-
     public data: IOilFilterTanks[];
 
     @Output() public closeFilterTank: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -24,19 +21,18 @@ export class OilOperationsTankFilterComponent implements OnInit {
 
     public filteredTanks: IOilOperationsTank[] = [];
 
-    constructor(
-        private oilOperationService: OilOperationsService,
-        public snackBar: SnackBarService,
-    ) {
-    }
+    constructor(private oilOperationService: OilOperationsService, public snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
         this.getProducts();
     }
 
     public productOpen(itemIdParam: number, collapse: boolean = true): void {
-        this.accordionMap.set(itemIdParam, collapse ? !this.accordionMap.get(itemIdParam) : this.accordionMap.get(itemIdParam));
-        this.getTanksByProductId(itemIdParam).then(result => {
+        this.accordionMap.set(
+            itemIdParam,
+            collapse ? !this.accordionMap.get(itemIdParam) : this.accordionMap.get(itemIdParam)
+        );
+        this.getTanksByProductId(itemIdParam).then((result) => {
             const filteredResult = [];
             for (const item1 of result) {
                 for (const item2 of this.filteredTanks) {
@@ -47,7 +43,7 @@ export class OilOperationsTankFilterComponent implements OnInit {
             }
             const finalResult = this.filteredTanks.length ? filteredResult : result;
 
-            this.data.map(item => {
+            this.data.map((item) => {
                 if (item.id === itemIdParam) {
                     item.data = finalResult;
                 }
@@ -82,7 +78,10 @@ export class OilOperationsTankFilterComponent implements OnInit {
     }
 
     public async changeSwap(itemParam: IOilOperationsTank): Promise<void> {
-        const result = await this.oilOperationService.editTanksById<IOilOperationsTank>(itemParam.id, !itemParam.enabled);
+        const result = await this.oilOperationService.editTanksById<IOilOperationsTank>(
+            itemParam.id,
+            !itemParam.enabled
+        );
         if (result) {
             this.replaceTank(result);
         }
@@ -106,9 +105,12 @@ export class OilOperationsTankFilterComponent implements OnInit {
     }
 
     private replaceTank(newTank: IOilOperationsTank): void {
-        this.data.flatMap(item => item.data).filter(tank => tank.id === newTank.id).forEach(tank => {
-            tank.enabled = newTank.enabled;
-        });
+        this.data
+            .flatMap((item) => item.data)
+            .filter((tank) => tank.id === newTank.id)
+            .forEach((tank) => {
+                tank.enabled = newTank.enabled;
+            });
         this.snackBar.openSnackBar('Действие выполнено');
     }
 

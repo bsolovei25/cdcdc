@@ -112,7 +112,7 @@ $br-color: var(--ozsm-color-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     position: absolute;
     left: 60px;
     top: 680px;
@@ -126,15 +126,15 @@ $br-color: var(--ozsm-color-border);
       width: 25px;
       display: flex;
       align-items: center;
-    
+
       .circle {
         height: 5px;
         width: 5px;
-    
+
         border: 1px solid var(--ozsm-color-marker-diagram);
         border-radius: 50%;
       }
-    
+
       .line {
         height: 1px;
         background: var(--ozsm-color-marker-diagram);

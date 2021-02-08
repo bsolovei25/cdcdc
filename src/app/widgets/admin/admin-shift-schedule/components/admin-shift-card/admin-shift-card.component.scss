@@ -29,7 +29,7 @@
   .admin-btns {
     height: 40px;
     flex: 1;
-  
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,29 +37,29 @@
     background: var(--color-admin-title-bg);
 
     position: relative;
-  
-    &__item{
+
+    &__item {
       height: 24px;
       padding: 0 12px;
-  
+
       display: flex;
       align-items: center;
       justify-content: center;
-  
+
       border: 1px solid var(--color-admin-shift-border);
       border-radius: 0 2px 2px 0;
-  
+
       font-size: 13px;
       line-height: 16px;
       color: var(--color-admin-shift-text-sub);
-  
+
       cursor: pointer;
-  
+
       &:first-child {
         border-radius: 2px 0 0 2px;
       }
     }
-  
+
     .active {
       border: 1px solid var(--color-admin-shift-active);
       background: var(--color-admin-shift-active-bright);
@@ -74,7 +74,7 @@
 
       position: absolute;
       bottom: -20px;
-  }
+    }
   }
 
   &__content {

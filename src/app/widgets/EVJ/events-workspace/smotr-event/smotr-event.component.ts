@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
@@ -34,10 +34,7 @@ export class SmotrEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

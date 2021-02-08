@@ -1,23 +1,14 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-    AfterViewInit
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    ISplineDiagramData
-} from './components/spline-diagram/spline-diagram.component';
+import { ISplineDiagramData } from './components/spline-diagram/spline-diagram.component';
 
 @Component({
     selector: 'evj-spline-trends-chart',
     templateUrl: './spline-trends-chart.component.html',
-    styleUrls: ['./spline-trends-chart.component.scss']
+    styleUrls: ['./spline-trends-chart.component.scss'],
 })
 export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
-
     public data: ISplineDiagramData;
 
     public displayedMonth: Date;
@@ -31,25 +22,24 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
         super(widgetService, isMock, id, uniqId);
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         super.widgetInit();
     }
 
-    private fillArray(data: { x: number, y: number }[], count: number): { x: number, y: number }[] {
-        function getPrev(idx: number): { x: number, y: number } {
+    private fillArray(data: { x: number; y: number }[], count: number): { x: number; y: number }[] {
+        function getPrev(idx: number): { x: number; y: number } {
             const filterArray = data.filter((el) => el.x < idx);
             return filterArray.length > 0 ? filterArray[filterArray.length - 1] : null;
         }
 
-        function getNext(idx: number): { x: number, y: number } {
+        function getNext(idx: number): { x: number; y: number } {
             const filterArray = data.filter((el) => el.x > idx);
             return filterArray.length > 0 ? filterArray[0] : null;
         }
 
-        const dataArray: { x: number, y: number }[] = [];
+        const dataArray: { x: number; y: number }[] = [];
         for (let i = 0; i < count; i++) {
             dataArray.push(data.find((el) => el.x === i + 1) ?? null);
         }
@@ -68,7 +58,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + (idx + 1 - prev.x) / (next.x - prev.x) * (next.y - prev.y)
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
                 };
             }
             dataArray[idx] = el;
@@ -77,7 +67,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
     }
 
     private processData(ref: any): ISplineDiagramData {
-        function splitHandler(field: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[][] {
+        function splitHandler(field: { value: number; timeStamp: Date }[]): { value: number; timeStamp: Date }[][] {
             let tempArr = [];
             const resultArr = [];
             let month: number = new Date(field[0].timeStamp).getMonth();
@@ -98,13 +88,15 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
             return resultArr;
         }
 
-        function fieldHandler(field: {value: number, timeStamp: Date}[]): {x: number, y: number}[] {
+        function fieldHandler(field: { value: number; timeStamp: Date }[]): { x: number; y: number }[] {
             // field = field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
-            const fieldNew = field?.map(el => {return {
-                x: new Date(el.timeStamp).getDate(),
-                y: el.value,
-            }; });
-            return [...new Map(fieldNew.map(item => [item.x, item])).values()];
+            const fieldNew = field?.map((el) => {
+                return {
+                    x: new Date(el.timeStamp).getDate(),
+                    y: el.value,
+                };
+            });
+            return [...new Map(fieldNew.map((item) => [item.x, item])).values()];
         }
 
         this.displayedMonth = splitHandler(ref?.fact)[0][0].timeStamp;
@@ -126,7 +118,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
     }
 
     private getNumOfDays(timeStamp: Date): number {
-        return new Date((new Date(timeStamp)).getFullYear(), (new Date(timeStamp)).getMonth() + 1, 0).getDate();
+        return new Date(new Date(timeStamp).getFullYear(), new Date(timeStamp).getMonth() + 1, 0).getDate();
     }
 
     protected dataHandler(ref: any): void {

@@ -5,14 +5,10 @@
   </div>
   <div class="tank-capacity">
     <div class="overload">
-      <div class="value"
-           [style.height.%]="value - 100 > 0 ? 100 - (value - 100) : 100"
-      ></div>
+      <div class="value" [style.height.%]="value - 100 > 0 ? 100 - (value - 100) : 100"></div>
     </div>
     <div class="total">
-      <div class="value"
-           [style.height.%]="value - 100 > 0 ? 0 : 100 - value"
-      ></div>
+      <div class="value" [style.height.%]="value - 100 > 0 ? 0 : 100 - value"></div>
     </div>
   </div>
 </div>

@@ -120,14 +120,8 @@ export interface IActionCombobox {
 }
 
 const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [
-        style({ opacity: 0, height: 0 }),
-        animate('100ms', style({ opacity: 1, height: 10 })),
-    ]),
-    transition(':leave', [
-        style({ opacity: 1, height: 10 }),
-        animate('100ms', style({ opacity: 0, height: 0 })),
-    ]),
+    transition(':enter', [style({ opacity: 0, height: 0 }), animate('100ms', style({ opacity: 1, height: 10 }))]),
+    transition(':leave', [style({ opacity: 1, height: 10 }), animate('100ms', style({ opacity: 0, height: 0 }))]),
 ]);
 
 @Component({
@@ -501,8 +495,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 if (item?.scenarioAction && item?.nextScenarioAction) {
                     setTimeout(() => {
                         const el1 = this.lines.find((el) => el.el.id === item.scenarioAction)?.el;
-                        const el2 = this.lines.find((el) => el.el.id === item.nextScenarioAction)
-                            ?.el;
+                        const el2 = this.lines.find((el) => el.el.id === item.nextScenarioAction)?.el;
                         if (el1 && el2) {
                             const leaderLine = new LeaderLine(
                                 el1,
@@ -587,10 +580,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         const parentNode = document.getElementById(this.LEADER_LINE_PARENT_CONTAINER);
         const arrowNode = document.querySelector('#' + lineId + ' g use');
 
-        let verticalOffset =
-            arrowNode.getBoundingClientRect().top - parentNode.getBoundingClientRect().top;
-        let horizontalOffset =
-            arrowNode.getBoundingClientRect().left - parentNode.getBoundingClientRect().left;
+        let verticalOffset = arrowNode.getBoundingClientRect().top - parentNode.getBoundingClientRect().top;
+        let horizontalOffset = arrowNode.getBoundingClientRect().left - parentNode.getBoundingClientRect().left;
 
         const startEndNodesArr = lineId.substr(5).split('-s-');
         const startNode = document.getElementById(startEndNodesArr[0]);
@@ -603,9 +594,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             verticalOffset = verticalOffset - iconNode.getBoundingClientRect().height / 2;
         } else {
             verticalOffset =
-                verticalOffset +
-                arrowNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2;
+                verticalOffset + arrowNode.getBoundingClientRect().height - iconNode.getBoundingClientRect().height / 2;
         }
 
         if (!xPos) {
@@ -670,10 +659,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         this.alertWindow = windowsParam;
     }
 
-    createConnection(
-        targetScenarioActionId: string,
-        sourceScenarioAction: string
-    ): IGridsterItemLocal[] {
+    createConnection(targetScenarioActionId: string, sourceScenarioAction: string): IGridsterItemLocal[] {
         const items = [...this.items];
 
         const idx = this.items.findIndex((val) => val.scenarioAction === sourceScenarioAction);
@@ -684,10 +670,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
         let sourceId = sourceScenarioAction;
         items.map((value) => {
-            if (
-                value.previousScenarioAction === sourceId &&
-                value.scenarioAction !== items[idxNext].scenarioAction
-            ) {
+            if (value.previousScenarioAction === sourceId && value.scenarioAction !== items[idxNext].scenarioAction) {
                 value.value.previousScenarioAction = '';
                 sourceId = value.scenarioAction;
                 value.nextScenarioAction = '';
@@ -722,11 +705,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         };
         try {
             this.isLoading = true;
-            await this.workflowService.putActionsConnections(
-                this.chooseModules.uid,
-                this.chooseScenarios.uid,
-                body
-            );
+            await this.workflowService.putActionsConnections(this.chooseModules.uid, this.chooseScenarios.uid, body);
             this.resetScenario();
             await this.loadWorkfkowAvailbleActions();
             this.isLoading = false;
@@ -748,10 +727,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 acceptText: 'Да',
                 cancelText: 'Нет',
                 acceptFunction: () => {
-                    const arr = this.createConnection(
-                        targetItem.scenarioAction,
-                        sourceItem?.scenarioAction
-                    );
+                    const arr = this.createConnection(targetItem.scenarioAction, sourceItem?.scenarioAction);
                     this.alertWindow = null;
                     this.putConnect(arr);
                 },
@@ -868,9 +844,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                         this.chooseScenarios.uid,
                         scenarioAction
                     );
-                    const idx = this.items.findIndex(
-                        (val) => val.scenarioAction === scenarioAction
-                    );
+                    const idx = this.items.findIndex((val) => val.scenarioAction === scenarioAction);
                     if (idx >= 0) {
                         this.items.splice(idx, 1);
                     }
@@ -963,10 +937,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     async getActionProp(actionId: string): Promise<void> {
         try {
             this.isLoading = true;
-            const ans = await this.workflowService.getActionProperties(
-                this.chooseModules.uid,
-                actionId
-            );
+            const ans = await this.workflowService.getActionProperties(this.chooseModules.uid, actionId);
             const el = ans.find((val) => val.name === 'EmailSubject');
             this.emailAction = [];
             if (el) {

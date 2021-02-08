@@ -1,10 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import {
-    IButtonImgSrc,
-    IWorkspace,
-    IGroup,
-    IGlobalClaim,
-} from '../../../../../dashboard/models/ADMIN/admin-panel';
+import { IButtonImgSrc, IWorkspace, IGroup, IGlobalClaim } from '../../../../../dashboard/models/ADMIN/admin-panel';
 import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -148,9 +143,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public defineIsClaimInGroup(claim: IGlobalClaim): boolean {
         const currentGroup = this.groupSelection.selected[0];
-        return currentGroup
-            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
-            : false;
+        return currentGroup ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType) : false;
     }
 
     public onClickToGeneralClaim(claim: IGlobalClaim): void {
@@ -184,25 +177,17 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public getSelectedSpecialClaims(claim: IGlobalClaim): IGlobalClaim[] {
         const currentGroup = this.groupSelection.selected[0];
-        return currentGroup
-            ? currentGroup.claims.filter((item) => item.claimType === claim.claimType)
-            : [];
+        return currentGroup ? currentGroup.claims.filter((item) => item.claimType === claim.claimType) : [];
     }
 
     public getClaimTitleByValue(claim: IGlobalClaim): string {
         switch (claim.claimValueType) {
             case 'widget':
-                return (
-                    this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ??
-                    ''
-                );
+                return this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ?? '';
             case 'unit':
                 return this.adminService.units.find((item) => item.id === +claim.value)?.name ?? '';
             case 'notificationCategory':
-                return (
-                    this.adminService.eventsCategories.find((item) => item.name === claim.value)
-                        ?.description ?? ''
-                );
+                return this.adminService.eventsCategories.find((item) => item.name === claim.value)?.description ?? '';
             default:
                 return '';
         }
@@ -414,12 +399,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         try {
             this.isDataLoading = true;
             const promises: Promise<void>[] = [];
-            this.newGroups.forEach((item) =>
-                promises.push(this.adminService.createNewGroup(item).toPromise())
-            );
-            this.deletedGroupsIds.forEach((id) =>
-                promises.push(this.adminService.deleteGroupById(id).toPromise())
-            );
+            this.newGroups.forEach((item) => promises.push(this.adminService.createNewGroup(item).toPromise()));
+            this.deletedGroupsIds.forEach((id) => promises.push(this.adminService.deleteGroupById(id).toPromise()));
             this.editedGroupsIds.forEach(async (id) => {
                 const group = this.groups.find((item) => item.id === id);
                 if (group) {

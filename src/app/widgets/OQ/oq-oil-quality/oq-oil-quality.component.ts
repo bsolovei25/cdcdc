@@ -5,10 +5,9 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 @Component({
     selector: 'evj-oq-oil-quality',
     templateUrl: './oq-oil-quality.component.html',
-    styleUrls: ['./oq-oil-quality.component.scss']
+    styleUrls: ['./oq-oil-quality.component.scss'],
 })
 export class OqOilQualityComponent extends WidgetPlatform<unknown> implements OnInit {
-
     public readonly defaultUrl: string = 'http://msk25-cvtrdev/';
 
     constructor(
@@ -20,9 +19,7 @@ export class OqOilQualityComponent extends WidgetPlatform<unknown> implements On
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 }

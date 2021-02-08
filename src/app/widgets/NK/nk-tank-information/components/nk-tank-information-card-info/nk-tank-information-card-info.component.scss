@@ -1,66 +1,67 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .volume {
-    padding: 10px 20px;
+  padding: 10px 20px;
 
-    display: flex;
-    flex-direction: column;
-    
-    line-height: 19px;
-    font-size: 16px;
+  display: flex;
+  flex-direction: column;
 
-    .value-info {
-        font-size: 18px;
-        line-height: 22px;
-    }
+  line-height: 19px;
+  font-size: 16px;
 
-    .units {
-        font-size: 12px;
-        line-height: 14px;
-    }
+  .value-info {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .units {
+    font-size: 12px;
+    line-height: 14px;
+  }
 }
 
-.volume__info, .free-space__info {
-    margin-bottom: 10px;
-    padding: 5px;
+.volume__info,
+.free-space__info {
+  margin-bottom: 10px;
+  padding: 5px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .free-space {
-    background: var(--nk-color-bg-component);
-    border-radius: 2px;
+  background: var(--nk-color-bg-component);
+  border-radius: 2px;
 }
 
 .free-space__diagram {
-    padding: 5px;
+  padding: 5px;
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .indicator {
-    height: 10px;
-    width: 48px;
+  height: 10px;
+  width: 48px;
 
-    border: 1px solid var(--nk-color-border-main);
+  border: 1px solid var(--nk-color-border-main);
+  border-radius: 2px;
+
+  background: var(--nk-color-bg-card-body);
+
+  .indicator__inner {
+    height: 100%;
+    width: 100%;
+
+    border: 1px solid var(--nk-color-bg-volume-indicator);
     border-radius: 2px;
+  }
 
-    background: var(--nk-color-bg-card-body);
-
-    .indicator__inner {
-        height: 100%;
-        width: 100%;
-
-        border: 1px solid var(--nk-color-bg-volume-indicator);
-        border-radius: 2px;
-    }
-
-    .indicator__inner_active {
-        background: var(--nk-color-active);
-    }
+  .indicator__inner_active {
+    background: var(--nk-color-active);
+  }
 }

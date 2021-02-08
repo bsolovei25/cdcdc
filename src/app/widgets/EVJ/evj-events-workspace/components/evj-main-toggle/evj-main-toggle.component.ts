@@ -2,11 +2,12 @@ import {
     ChangeDetectorRef,
     Component,
     EventEmitter,
-    Input, OnChanges,
+    Input,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { IEjcoOnpzUnit } from '../../../../EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.component';
 import { Subscription } from 'rxjs';
@@ -16,9 +17,9 @@ import { UserSettingsService } from '../../../../../dashboard/services/user-sett
 import { ClaimService, EnumClaimWidgets } from '../../../../../dashboard/services/claim.service';
 
 @Component({
-  selector: 'evj-evj-main-toggle',
-  templateUrl: './evj-main-toggle.component.html',
-  styleUrls: ['./evj-main-toggle.component.scss']
+    selector: 'evj-evj-main-toggle',
+    templateUrl: './evj-main-toggle.component.html',
+    styleUrls: ['./evj-main-toggle.component.scss'],
 })
 export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
     @Input() isPreview: boolean;

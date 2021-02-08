@@ -60,23 +60,14 @@ export class CircleDiagramComponent extends WidgetPlatform<unknown> implements O
         if (summ === 0) {
             color = d3.scaleOrdinal().range(['gray']);
         } else {
-            color = d3
-                .scaleOrdinal()
-                .range(['white', 'orange', 'var(--color-border-active)', 'var(--color-circle)']);
+            color = d3.scaleOrdinal().range(['white', 'orange', 'var(--color-border-active)', 'var(--color-circle)']);
         }
 
-        this.svg = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '40 25 208 120');
+        this.svg = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '40 25 208 120');
 
         let group = this.svg.append('g').attr('transform', 'translate(102 ,88)');
 
-        const arc = d3
-            .arc()
-            .innerRadius(43)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -85,12 +76,7 @@ export class CircleDiagramComponent extends WidgetPlatform<unknown> implements O
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)
@@ -173,9 +159,7 @@ export class CircleDiagramComponent extends WidgetPlatform<unknown> implements O
             .append('image')
             .attr(
                 'xlink:href',
-                !data.acknowledged
-                    ? 'assets/pic/circle-diagram-grey.svg'
-                    : 'assets/pic/circle-diagram-orange.svg'
+                !data.acknowledged ? 'assets/pic/circle-diagram-grey.svg' : 'assets/pic/circle-diagram-orange.svg'
             )
             .attr('height', '189px')
             .attr('width', '110px')

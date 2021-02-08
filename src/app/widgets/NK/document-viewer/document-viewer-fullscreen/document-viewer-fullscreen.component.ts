@@ -3,14 +3,12 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IDocumentViewer } from '../document-viewer.component';
 
-
 @Component({
-  selector: 'evj-document-viewer-fullscreen',
-  templateUrl: './document-viewer-fullscreen.component.html',
-  styleUrls: ['./document-viewer-fullscreen.component.scss']
+    selector: 'evj-document-viewer-fullscreen',
+    templateUrl: './document-viewer-fullscreen.component.html',
+    styleUrls: ['./document-viewer-fullscreen.component.scss'],
 })
 export class DocumentViewerFullscreenComponent implements OnInit {
-
     @ViewChild(PdfViewerComponent) pdfViewport: PdfViewerComponent;
 
     public src: string;
@@ -41,15 +39,11 @@ export class DocumentViewerFullscreenComponent implements OnInit {
     public static itemCols: number = 20;
     public static itemRows: number = 16;
 
-    constructor(
-        private dialogRef: MatDialogRef<any>,
-        @Inject(MAT_DIALOG_DATA) public dataRef: IDocumentViewer,
-    ) { }
+    constructor(private dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public dataRef: IDocumentViewer) {}
 
     public ngOnInit(): void {
         this.isLoading = true;
-        setTimeout(() =>
-            this.src = this.dataRef.src, 2000);
+        setTimeout(() => (this.src = this.dataRef.src), 2000);
     }
 
     public afterLoadComplete(pdfData: any): void {
@@ -57,8 +51,7 @@ export class DocumentViewerFullscreenComponent implements OnInit {
         this.totalPages = pdfData.numPages;
         this.page = this.dataRef.page;
         this.search = this.dataRef.search;
-        setTimeout(() =>
-            this.searchInPdf(this.search), 200);
+        setTimeout(() => this.searchInPdf(this.search), 200);
     }
 
     public scaleDocument(isBigger: boolean): void {

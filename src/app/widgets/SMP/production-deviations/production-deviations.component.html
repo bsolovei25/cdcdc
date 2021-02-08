@@ -1,10 +1,5 @@
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
   </evj-widget-header-smp>
   <div
     class="content"

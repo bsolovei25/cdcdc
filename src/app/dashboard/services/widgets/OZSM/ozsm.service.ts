@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    IOzsmLineDiagramResponse,
-    IOzsmLineDiagramType,
-} from '../../../models/OZSM/ozsm-line-diagram.model';
+import { IOzsmLineDiagramResponse, IOzsmLineDiagramType } from '../../../models/OZSM/ozsm-line-diagram.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { tryCatch } from 'rxjs/internal-compatibility';
@@ -21,12 +18,10 @@ export class OzsmService {
     private readonly restUrl: string;
 
     public scenarioId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-    public scenarioIdFilter$: Observable<string> = this.scenarioId$
-        .asObservable()
-        .pipe(filter((x) => !!x));
-    public lineDiagrams$: BehaviorSubject<IOzsmLineDiagramResponse[]> = new BehaviorSubject<
-        IOzsmLineDiagramResponse[]
-    >([]);
+    public scenarioIdFilter$: Observable<string> = this.scenarioId$.asObservable().pipe(filter((x) => !!x));
+    public lineDiagrams$: BehaviorSubject<IOzsmLineDiagramResponse[]> = new BehaviorSubject<IOzsmLineDiagramResponse[]>(
+        []
+    );
 
     constructor(private http: HttpClient, private appConfigService: AppConfigService) {
         this.restUrl = this.appConfigService.restUrl;
@@ -37,9 +32,7 @@ export class OzsmService {
             return (
                 (
                     await this.http
-                        .get<{ scenarioInfo: IOzsmScenarioResponse[] }>(
-                            `${this.restUrl}/api/ozsm/Ozsm/ScenarioInfo`
-                        )
+                        .get<{ scenarioInfo: IOzsmScenarioResponse[] }>(`${this.restUrl}/api/ozsm/Ozsm/ScenarioInfo`)
                         .toPromise()
                 )?.scenarioInfo ?? []
             );
@@ -48,15 +41,10 @@ export class OzsmService {
         }
     }
 
-    public async getLineDiagrams(
-        scenarioId: string,
-        type: IOzsmLineDiagramType
-    ): Promise<IOzsmLineDiagramResponse> {
+    public async getLineDiagrams(scenarioId: string, type: IOzsmLineDiagramType): Promise<IOzsmLineDiagramResponse> {
         try {
             const res = await this.http
-                .get<IOzsmLineDiagramResponse>(
-                    `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/${type}`
-                )
+                .get<IOzsmLineDiagramResponse>(`${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/${type}`)
                 .toPromise();
             res.type = type;
             return res;
@@ -70,9 +58,7 @@ export class OzsmService {
         }
     }
 
-    public async getPlanningDiagram(
-        scenarioId: string
-    ): Promise<IOzsmCirclePlanningDiagramResponse> {
+    public async getPlanningDiagram(scenarioId: string): Promise<IOzsmCirclePlanningDiagramResponse> {
         try {
             return (
                 await this.http
@@ -105,18 +91,14 @@ export class OzsmService {
     public async getStorageStats(scenarioId: string): Promise<IOzsmStorageStatsResponse> {
         try {
             return await this.http
-                .get<IOzsmStorageStatsResponse>(
-                    `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/StorageStats`
-                )
+                .get<IOzsmStorageStatsResponse>(`${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/StorageStats`)
                 .toPromise();
         } catch (e) {
             return null;
         }
     }
 
-    public async getProductionAllocation(
-        scenarioId: string
-    ): Promise<IOzsmPlanningMainItemResponse[]> {
+    public async getProductionAllocation(scenarioId: string): Promise<IOzsmPlanningMainItemResponse[]> {
         try {
             return (
                 (

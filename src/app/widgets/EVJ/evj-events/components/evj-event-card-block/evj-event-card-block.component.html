@@ -1,18 +1,13 @@
-<div
-  class="card-block"
-  (click)="eventClick(data?.id)"
-  [class.sizes]="!isVideoWall"
-  [class.sizes--wall]="isVideoWall"
->
+<div class="card-block" (click)="eventClick(data?.id)" [class.sizes]="!isVideoWall" [class.sizes--wall]="isVideoWall">
   <div class="card-block__header header header-size">
     <div class="header__left-block">
       <div class="header__id header-size__id">{{ data?.id }}</div>
       <div class="header__unit header-size__unit">{{ data?.unit?.name }}</div>
     </div>
     <div class="header__right-block">
-      <div class="header__status header-size__status"
-           [ngClass]="'header__status_' + data?.priority?.name">
-        {{ data?.statusName }}</div>
+      <div class="header__status header-size__status" [ngClass]="'header__status_' + data?.priority?.name">
+        {{ data?.statusName }}
+      </div>
       <div class="header__icons">
         <div class="header__icons icon">
           <svg-icon
@@ -35,12 +30,8 @@
   </div>
 
   <div class="card-block__body body-size" [class.card-block__body--active]="data?.id === cardActiveId">
-    <div class="body__description body-size__description">
-      {{ data?.description }}
-    </div>
-    <div class="body__facts body-size__facts">
-      {{ data?.facts[0] ? data?.facts[0].comment : '-' }}
-    </div>
+    <div class="body__description body-size__description">{{ data?.description }}</div>
+    <div class="body__facts body-size__facts">{{ data?.facts[0] ? data?.facts[0].comment : '-' }}</div>
   </div>
   <div class="card-block__footer footer footer-size">
     <div class="footer__left-block">
@@ -48,9 +39,12 @@
       <div class="footer__time footer-size__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
     </div>
     <div class="footer__right-block">
-      <div matRipple
-           [matRippleColor]="'white'"
-           class="footer__critical footer-size__critical" (click)="changeIsAcknowledged($event, data)">
+      <div
+        matRipple
+        [matRippleColor]="'white'"
+        class="footer__critical footer-size__critical"
+        (click)="changeIsAcknowledged($event, data)"
+      >
         {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
       </div>
       <svg-icon

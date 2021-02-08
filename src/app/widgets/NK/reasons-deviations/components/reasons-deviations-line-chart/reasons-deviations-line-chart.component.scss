@@ -1,13 +1,13 @@
-.container-line-chart{
+.container-line-chart {
+  height: 100%;
+  padding: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  &__content {
+    border-radius: 15px;
     height: 100%;
-    padding: 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    
-    &__content{
-        border-radius: 15px;
-        height: 100%;
-        width: 100%;
-        background-color: var(--color-oil-table);
-    }
+    width: 100%;
+    background-color: var(--color-oil-table);
+  }
 }

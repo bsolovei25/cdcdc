@@ -11,11 +11,7 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="energetics"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="energetics" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="energetics__container">
         <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
         <div class="energetics__energy">
@@ -23,12 +19,7 @@
             <div class="energetics__round">
               <svg width="100%" height="100%" viewBox="0 0 50 50">
                 <!-- termo dia -->
-                <circle
-                  [attr.cx]="centerX"
-                  [attr.cy]="centerY"
-                  [attr.r]="termoRadius"
-                  [attr.fill]="colorMain"
-                ></circle>
+                <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="termoRadius" [attr.fill]="colorMain"></circle>
                 <circle
                   [attr.cx]="centerX"
                   [attr.cy]="centerY"
@@ -121,12 +112,7 @@
                 ></circle>
 
                 <!-- fuel dia -->
-                <circle
-                  [attr.cx]="centerX"
-                  [attr.cy]="centerY"
-                  [attr.r]="fuelRadius"
-                  [attr.fill]="colorMain"
-                ></circle>
+                <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" [attr.fill]="colorMain"></circle>
                 <circle
                   [attr.cx]="centerX"
                   [attr.cy]="centerY"
@@ -227,13 +213,7 @@
                 />
 
                 <!-- logo dia -->
-                <image
-                  x="15"
-                  y="15"
-                  width="20"
-                  height="20"
-                  xlink:href="assets/icons/widgets/energetics/dia_logo.svg"
-                />
+                <image x="15" y="15" width="20" height="20" xlink:href="assets/icons/widgets/energetics/dia_logo.svg" />
 
                 <!-- labels dia -->
 
@@ -350,16 +330,8 @@
             <div class="card" [ngClass]="{'danger':isTermoCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
-                <img
-                  src="assets/icons/widgets/energetics/termo.svg"
-                  alt=""
-                  *ngIf="!isTermoCardDanger"
-                />
-                <img
-                  src="assets/icons/widgets/energetics/termo_danger.svg"
-                  alt=""
-                  *ngIf="isTermoCardDanger"
-                />
+                <img src="assets/icons/widgets/energetics/termo.svg" alt="" *ngIf="!isTermoCardDanger" />
+                <img src="assets/icons/widgets/energetics/termo_danger.svg" alt="" *ngIf="isTermoCardDanger" />
               </div>
               <div class="card__counters">
                 <div class="card__counter">
@@ -439,16 +411,8 @@
             <div class="card" [ngClass]="{'danger':isElectroCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
-                <img
-                  src="assets/icons/widgets/energetics/electro.svg"
-                  alt=""
-                  *ngIf="!isElectroCardDanger"
-                />
-                <img
-                  src="assets/icons/widgets/energetics/electro_danger.svg"
-                  alt=""
-                  *ngIf="isElectroCardDanger"
-                />
+                <img src="assets/icons/widgets/energetics/electro.svg" alt="" *ngIf="!isElectroCardDanger" />
+                <img src="assets/icons/widgets/energetics/electro_danger.svg" alt="" *ngIf="isElectroCardDanger" />
               </div>
               <div class="card__counters">
                 <div class="card__counter">
@@ -528,16 +492,8 @@
             <div class="card" [ngClass]="{'danger':isFuelCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
-                <img
-                  src="assets/icons/widgets/energetics/fuel.svg"
-                  alt=""
-                  *ngIf="!isFuelCardDanger"
-                />
-                <img
-                  src="assets/icons/widgets/energetics/fuel_danger.svg"
-                  alt=""
-                  *ngIf="isFuelCardDanger"
-                />
+                <img src="assets/icons/widgets/energetics/fuel.svg" alt="" *ngIf="!isFuelCardDanger" />
+                <img src="assets/icons/widgets/energetics/fuel_danger.svg" alt="" *ngIf="isFuelCardDanger" />
               </div>
               <div class="card__counters">
                 <div class="card__counter">

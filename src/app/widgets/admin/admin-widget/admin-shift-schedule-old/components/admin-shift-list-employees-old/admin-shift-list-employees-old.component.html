@@ -4,19 +4,10 @@
     <div class="employees">
       <div class="search-input">
         <div class="search-input__height-input">
-          <evj-circle-input
-            placeholder="Введите ФИО сотрудника"
-            (searchChange)="search($event)"
-          ></evj-circle-input>
+          <evj-circle-input placeholder="Введите ФИО сотрудника" (searchChange)="search($event)"></evj-circle-input>
         </div>
       </div>
-      <div
-        class="list-employee"
-        id="0"
-        cdkDropList
-        #doneList="cdkDropList"
-        [cdkDropListData]="data"
-      >
+      <div class="list-employee" id="0" cdkDropList #doneList="cdkDropList" [cdkDropListData]="data">
         <ng-container *ngFor="let item of data">
           <ng-container *ngIf="!item?.isNotVisible">
             <evj-admin-shift-info-employee-old

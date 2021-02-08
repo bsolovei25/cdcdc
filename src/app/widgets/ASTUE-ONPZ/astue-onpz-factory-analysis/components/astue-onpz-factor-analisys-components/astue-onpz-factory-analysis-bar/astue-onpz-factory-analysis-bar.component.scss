@@ -53,7 +53,7 @@
   }
 
   &__sum {
-    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-sum),0.2);
+    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-sum), 0.2);
     --internal-color-solid: rgb(var(--astue-onpz-factory-analisys-sum));
 
     .filler {
@@ -70,12 +70,12 @@
   }
 
   &__bad {
-    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-bad),0.2);
+    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-bad), 0.2);
     --internal-color-solid: rgb(var(--astue-onpz-factory-analisys-bad));
   }
 
   &__norm {
-    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-norm),0.2);
+    --internal-color-filler: rgba(var(--astue-onpz-factory-analisys-norm), 0.2);
     --internal-color-solid: rgb(var(--astue-onpz-factory-analisys-norm));
 
     .arrows {

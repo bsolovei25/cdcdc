@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    Output,
-    EventEmitter,
-    ViewChild,
-    ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl, Validators } from '@angular/forms';
 import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
@@ -25,15 +17,13 @@ export class AwsCardComponent implements OnInit {
     };
     @Input() public disabled: boolean = false;
 
-    @Output() public saveChanging: EventEmitter<IWorkerOptionAdminPanel> = new EventEmitter<
-        IWorkerOptionAdminPanel
-    >();
+    @Output() public saveChanging: EventEmitter<IWorkerOptionAdminPanel> = new EventEmitter<IWorkerOptionAdminPanel>();
 
     @ViewChild('input') private input: ElementRef;
 
     private isCloseClick: boolean = false;
 
-    public inputFormControl: FormControl = new FormControl({value: '', disabled: true});
+    public inputFormControl: FormControl = new FormControl({ value: '', disabled: true });
 
     public placeholder: string = '';
 

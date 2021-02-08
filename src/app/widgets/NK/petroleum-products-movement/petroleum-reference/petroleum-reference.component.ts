@@ -39,7 +39,7 @@ export class PetroleumReferenceComponent {
 
     @Output() exitBlock: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private petroleumService: PetroleumScreenService) { }
+    constructor(private petroleumService: PetroleumScreenService) {}
 
     public title: string[] = [
         'Источник',

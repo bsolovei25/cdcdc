@@ -1,11 +1,7 @@
-<div class="indicator-diagram"
-     [matBadge]="data?.notification?.notificationsCount"
-     [matBadgeHidden]="data?.notification?.notificationsCount === 0"
-     (click)="toggleMenu()"
->
-</div>
-<evj-user-events
-     *ngIf="menu"
-     (onClose)="toggleMenu()"
-     [data] = "data.notification.notifications" 
-></evj-user-events>
+<div
+  class="indicator-diagram"
+  [matBadge]="data?.notification?.notificationsCount"
+  [matBadgeHidden]="data?.notification?.notificationsCount === 0"
+  (click)="toggleMenu()"
+></div>
+<evj-user-events *ngIf="menu" (onClose)="toggleMenu()" [data]="data.notification.notifications"></evj-user-events>

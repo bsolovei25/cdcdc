@@ -131,18 +131,15 @@ export class SemicircleEnergyComponent extends WidgetPlatform<unknown> implement
         switch (this.iconType) {
             case 0:
                 this.diagramLogo = 'assets/icons/widgets/energetics/electro.svg';
-                this.diagramLogoDanger =
-                    'assets/icons/widgets/energetics/electro_danger.svg';
+                this.diagramLogoDanger = 'assets/icons/widgets/energetics/electro_danger.svg';
                 return;
             case 1:
                 this.diagramLogo = 'assets/icons/widgets/energetics/termo.svg';
-                this.diagramLogoDanger =
-                    'assets/icons/widgets/energetics/termo_danger.svg';
+                this.diagramLogoDanger = 'assets/icons/widgets/energetics/termo_danger.svg';
                 return;
             case 2:
                 this.diagramLogo = 'assets/icons/widgets/energetics/fuel.svg';
-                this.diagramLogoDanger =
-                    'assets/icons/widgets/energetics/fuel_danger.svg';
+                this.diagramLogoDanger = 'assets/icons/widgets/energetics/fuel_danger.svg';
                 return;
         }
     }
@@ -153,8 +150,7 @@ export class SemicircleEnergyComponent extends WidgetPlatform<unknown> implement
             key = 'production' + (i + 1);
             if (
                 this.energyCircleDiagram[key] &&
-                (this.energyCircleDiagram[key] < this.lowerLimit ||
-                    this.energyCircleDiagram[key] > this.upperLimit)
+                (this.energyCircleDiagram[key] < this.lowerLimit || this.energyCircleDiagram[key] > this.upperLimit)
             ) {
                 this.isWarning = true;
                 return;
@@ -206,10 +202,7 @@ export class SemicircleEnergyComponent extends WidgetPlatform<unknown> implement
         if (percent < this.energyCircleDiagram.lowerLimit) {
             return this.colorDeviation;
         }
-        if (
-            percent >= this.energyCircleDiagram.lowerLimit &&
-            percent < this.energyCircleDiagram.upperLimit
-        ) {
+        if (percent >= this.energyCircleDiagram.lowerLimit && percent < this.energyCircleDiagram.upperLimit) {
             return this.colorNormal;
         }
         if (percent === this.energyCircleDiagram.upperLimit) {

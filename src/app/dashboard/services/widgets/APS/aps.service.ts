@@ -3,10 +3,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
-import {
-    ITable,
-    ITableToDisplay,
-} from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
+import { ITable, ITableToDisplay } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
 import { filter, map } from 'rxjs/operators';
 import { SnackBarService } from '../../snack-bar.service';
 
@@ -22,11 +19,7 @@ export class ApsService {
 
     private readonly calculateTimeInSec: number = 270;
 
-    constructor(
-        public http: HttpClient,
-        configService: AppConfigService,
-        private snackBarService: SnackBarService
-    ) {
+    constructor(public http: HttpClient, configService: AppConfigService, private snackBarService: SnackBarService) {
         this.restUrl = configService.restUrl;
         combineLatest([this.selectScenario$, this.selectTable$])
             .pipe(
@@ -50,9 +43,7 @@ export class ApsService {
     }
 
     async getAllScenario(): Promise<IScenario[]> {
-        return this.http
-            .get<IScenario[]>(this.restUrl + `/api/debugging-service-ApsService/Scenario`)
-            .toPromise();
+        return this.http.get<IScenario[]>(this.restUrl + `/api/debugging-service-ApsService/Scenario`).toPromise();
     }
 
     async getNextChunk(currentCount: number): Promise<ITable> {
@@ -92,9 +83,7 @@ export class ApsService {
     }
     private async getCalculate(id: number): Promise<unknown> {
         return await this.http
-            .get<unknown>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`
-            )
+            .get<unknown>(this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`)
             .toPromise();
     }
 }

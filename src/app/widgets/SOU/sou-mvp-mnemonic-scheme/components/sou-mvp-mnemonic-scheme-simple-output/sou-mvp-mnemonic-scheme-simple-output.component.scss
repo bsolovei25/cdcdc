@@ -46,9 +46,9 @@
     span {
       font-size: 12px;
       line-height: 14px;
-  
+
       color: var(--sou-mvp-color-text-diagram-main);
-  
+
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -65,13 +65,13 @@
     .connection-circle {
       height: 8px;
       width: 8px;
-    
+
       display: flex;
       justify-content: center;
       align-items: center;
-    
+
       border-radius: 50%;
-    
+
       background: var(--sou-mvp-color-bg-main);
       border: 1px solid var(--sou-mvp-color-border);
       position: absolute;

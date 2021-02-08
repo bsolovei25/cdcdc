@@ -1,10 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import {
-    Overlay,
-    ConnectionPositionPair,
-    PositionStrategy,
-    OverlayConfig,
-} from '@angular/cdk/overlay';
+import { Overlay, ConnectionPositionPair, PositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { PopoverRef, PopoverContent } from './popover-overlay.ref';
 import { PopoverOverlayComponent } from './popover-overlay.component';
@@ -19,39 +14,49 @@ export type PopoverParams<T> = {
 };
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class PopoverOverlayService {
+    constructor(private overlay: Overlay, private injector: Injector) {}
 
-    constructor(
-        private overlay: Overlay,
-        private injector: Injector,
-    ) {
-    }
-
-    public open<T>({origin, content, data, width, height, position}: PopoverParams<T>): PopoverRef<T> {
-        const overlayRef = this.overlay.create(this.getOverlayConfig({origin, width, height, position}));
+    public open<T>({ origin, content, data, width, height, position }: PopoverParams<T>): PopoverRef<T> {
+        const overlayRef = this.overlay.create(this.getOverlayConfig({ origin, width, height, position }));
         const popoverRef = new PopoverRef<T>(overlayRef, content, data);
 
-        const injector = Injector.create({providers: [{ provide: PopoverRef, useValue: popoverRef }], parent: this.injector, name: ''});
+        const injector = Injector.create({
+            providers: [{ provide: PopoverRef, useValue: popoverRef }],
+            parent: this.injector,
+            name: '',
+        });
         overlayRef.attach(new ComponentPortal(PopoverOverlayComponent, null, injector));
 
         return popoverRef;
     }
 
-    private getOverlayConfig({origin, width, height, position}: {origin: HTMLElement, width: string | number, height: string | number; position?: 'start' | 'end' | 'center'}): OverlayConfig {
+    private getOverlayConfig({
+        origin,
+        width,
+        height,
+        position,
+    }: {
+        origin: HTMLElement;
+        width: string | number;
+        height: string | number;
+        position?: 'start' | 'end' | 'center';
+    }): OverlayConfig {
         return new OverlayConfig({
             hasBackdrop: true,
             width,
             height,
             backdropClass: 'popover-backdrop',
             positionStrategy: this.getOverlayPosition(origin, position),
-            scrollStrategy: this.overlay.scrollStrategies.reposition()
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
         });
     }
 
     private getOverlayPosition(origin: HTMLElement, position: 'start' | 'end' | 'center'): PositionStrategy {
-        return this.overlay.position()
+        return this.overlay
+            .position()
             .flexibleConnectedTo(origin)
             .withPositions(this.getPositions(position))
             .withFlexibleDimensions(false)
@@ -64,7 +69,7 @@ export class PopoverOverlayService {
                 originX: 'center',
                 originY: 'top',
                 overlayX: position,
-                overlayY: 'bottom'
+                overlayY: 'bottom',
             },
             {
                 originX: 'center',

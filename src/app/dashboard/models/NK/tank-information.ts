@@ -12,9 +12,7 @@ export class ITankInformationRef {
     public type: string;
 
     constructor(data: ITankInformation) {
-        Object.assign<ITankInformationRef,
-        ITankInformation,
-        Partial<ITankInformationRef>>(this, data, {});
+        Object.assign<ITankInformationRef, ITankInformation, Partial<ITankInformationRef>>(this, data, {});
     }
 }
 
@@ -69,9 +67,7 @@ export class ITankCardValueRef {
 
     constructor(data: ITankCardValue) {
         // if (data.measuredVolume > data.maxValue)
-        Object.assign<ITankCardValueRef,
-        ITankCardValue,
-        Partial<ITankCardValueRef>>(this, data, {});
+        Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
     }
 }
 
@@ -103,7 +99,7 @@ export const ITankInformationDtoFn = (data: any): ITankInformationRef => {
     return new ITankInformationRef({
         id: data.id,
         name: data.name,
-        tank: data.tank ? data.tank.map(el => ITankValueDtoFn(el)) : null,
+        tank: data.tank ? data.tank.map((el) => ITankValueDtoFn(el)) : null,
         type: data.type,
     });
 };

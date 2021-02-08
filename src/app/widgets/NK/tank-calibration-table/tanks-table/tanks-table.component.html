@@ -1,13 +1,13 @@
-<div class="container"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()">
+<div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <section class="tank">
     <div class="tank__header">
       <span class="tank__header__close">
-        <svg-icon mat-dialog-close
-                  src="assets/icons/widgets/calibration-table/close.svg"
-                  [svgStyle]="{ 'width.px': 30, 'height.px': 30 }">
+        <svg-icon
+          mat-dialog-close
+          src="assets/icons/widgets/calibration-table/close.svg"
+          [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+        >
         </svg-icon>
       </span>
       <h3 class="tank__header__title">Выбор резервуара</h3>
@@ -16,44 +16,48 @@
       <table class="table">
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
-            <tr *ngIf="!element.isInvisible && element.childredTanks.length > 0"
-                class="table__body__item__row"
-                (click)="expandedElement.isSelected(element) ?
+            <tr
+              *ngIf="!element.isInvisible && element.childredTanks.length > 0"
+              class="table__body__item__row"
+              (click)="expandedElement.isSelected(element) ?
                        expandedElement.deselect(element)
-                       : expandedElement.select(element)">
+                       : expandedElement.select(element)"
+            >
               <td class="table__body__item__row__col">
-                <svg-icon class="col__icon"
-                          src="assets/icons/widgets/calibration-table/arrow-name.svg"
-                          [svgStyle]="{ 'width.px': 13, 'height.px': 13 }"
-                          [class.col__icon-arrow-rtl]="expandedElement.isSelected(element)">
+                <svg-icon
+                  class="col__icon"
+                  src="assets/icons/widgets/calibration-table/arrow-name.svg"
+                  [svgStyle]="{ 'width.px': 13, 'height.px': 13 }"
+                  [class.col__icon-arrow-rtl]="expandedElement.isSelected(element)"
+                >
                 </svg-icon>
                 <span class="col__name">{{ element.name }}</span>
               </td>
             </tr>
             <ng-container *ngFor="let elementChildren of element?.childredTanks">
-              <tr *ngIf="expandedElement.isSelected(element) && !elementChildren.isInvisible"
-                  (click)="selectedElement.isSelected(elementChildren) ?
+              <tr
+                *ngIf="expandedElement.isSelected(element) && !elementChildren.isInvisible"
+                (click)="selectedElement.isSelected(elementChildren) ?
                          selectedElement.deselect(elementChildren)
                         : selectedElement.select(elementChildren)"
-                  (dblclick)="doubleClick(elementChildren)"
-                  [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(elementChildren)"
-                  class="table__body__item__row__expanded">
-                <td class="col__name">
-                  {{ elementChildren.name }}
-                </td>
+                (dblclick)="doubleClick(elementChildren)"
+                [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(elementChildren)"
+                class="table__body__item__row__expanded"
+              >
+                <td class="col__name">{{ elementChildren.name }}</td>
               </tr>
             </ng-container>
           </ng-container>
           <ng-container *ngFor="let element of dataSourceTanks">
-            <tr (click)="selectedElement.isSelected(element) ?
+            <tr
+              (click)="selectedElement.isSelected(element) ?
                        selectedElement.deselect(element)
                        : selectedElement.select(element)"
-                (dblclick)="doubleClick(element)"
-                [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
-                class="table__body__item__row__expanded">
-              <td class="col__name">
-                {{ element.name }}
-              </td>
+              (dblclick)="doubleClick(element)"
+              [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
+              class="table__body__item__row__expanded"
+            >
+              <td class="col__name">{{ element.name }}</td>
             </tr>
           </ng-container>
         </tbody>
@@ -62,24 +66,23 @@
     <div class="tank__footer">
       <div class="tank__footer__search__input-block">
         <div class="tank__footer__search__button-search">
-          <svg-icon *ngIf="!isRefInput"
-                    class="button_filter_icon"
-                    src="assets/icons/widgets/references/search_white.svg"></svg-icon>
+          <svg-icon
+            *ngIf="!isRefInput"
+            class="button_filter_icon"
+            src="assets/icons/widgets/references/search_white.svg"
+          ></svg-icon>
 
-          <svg-icon *ngIf="isRefInput"
-                    class="indicator-selector__collapse"
-                    src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+          <svg-icon
+            *ngIf="isRefInput"
+            class="indicator-selector__collapse"
+            src="assets/icons/widgets/references/search_blue.svg"
+          ></svg-icon>
         </div>
-        <div class="tank__footer__search__input"
-             [class.tank__footer__search__input-active]="isRefInput">
-          <input type="text"
-                 (focus)="isRefInput = true"
-                 (blur)="isRefInput = false"
-                 (keyup)="searchInput($event)" />
+        <div class="tank__footer__search__input" [class.tank__footer__search__input-active]="isRefInput">
+          <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false" (keyup)="searchInput($event)" />
         </div>
       </div>
-      <span class="tank__footer__btn"
-            (click)="addClick()">Добавить</span>
+      <span class="tank__footer__btn" (click)="addClick()">Добавить</span>
     </div>
   </section>
 </div>

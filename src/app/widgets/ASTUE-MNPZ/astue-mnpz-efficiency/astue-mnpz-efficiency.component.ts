@@ -17,8 +17,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
     templateUrl: './astue-mnpz-efficiency.component.html',
     styleUrls: ['./astue-mnpz-efficiency.component.scss'],
 })
-export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isLoading: boolean = true;
 
     public isGraphDisplay: boolean = true;

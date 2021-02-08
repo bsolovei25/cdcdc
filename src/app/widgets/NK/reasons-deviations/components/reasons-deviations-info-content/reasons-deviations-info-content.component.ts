@@ -5,16 +5,13 @@ import { IOilReasonsDeviations } from '../../reasons-deviations.component';
     selector: 'evj-reasons-deviations-info-content',
     templateUrl: './reasons-deviations-info-content.component.html',
     styleUrls: ['./reasons-deviations-info-content.component.scss'],
-    providers: [{provide: LOCALE_ID, useValue: 'en-US'}]
+    providers: [{ provide: LOCALE_ID, useValue: 'en-US' }],
 })
 export class ReasonsDeviationsInfoContentComponent implements OnInit {
-
     @Input()
     public data: IOilReasonsDeviations | null = null;
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 }

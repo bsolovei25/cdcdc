@@ -1,10 +1,5 @@
 <div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
   </evj-widget-header-smp>
   <div class="frame-top"></div>
   <div
@@ -17,28 +12,20 @@
     <div class="block-fabric">
       <div class="icon-block">
         <div class="icon active-icon">
-          <svg-icon
-            src="assets/icons/widgets/SMP/fabric.svg"
-            [svgStyle]="{ 'width.px':50, 'height.px':30}"
-          >
-          </svg-icon>
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}"> </svg-icon>
           <div class="icon__text">МНПЗ</div>
         </div>
         <div class="checkbox checkbox_checked">
           <div class="checkbox__inner"></div>
         </div>
         <div class="arrow-container">
-            <div class="line"></div>
-            <div class="arrow"></div>
+          <div class="line"></div>
+          <div class="arrow"></div>
         </div>
       </div>
       <div class="icon-block">
         <div class="icon">
-          <svg-icon
-            src="assets/icons/widgets/SMP/fabric.svg"
-            [svgStyle]="{ 'width.px':50, 'height.px':30}"
-          >
-          </svg-icon>
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}"> </svg-icon>
           <div class="icon__text">ОНПЗ</div>
         </div>
         <div class="checkbox checkbox_checked">
@@ -51,11 +38,7 @@
       </div>
       <div class="icon-block">
         <div class="icon">
-          <svg-icon
-            src="assets/icons/widgets/SMP/fabric.svg"
-            [svgStyle]="{ 'width.px':50, 'height.px':30}"
-          >
-          </svg-icon>
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}"> </svg-icon>
           <div class="icon__text">ЯНОС</div>
         </div>
         <div class="checkbox checkbox_checked">

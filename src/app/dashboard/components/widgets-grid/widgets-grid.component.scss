@@ -52,7 +52,6 @@ gridster-item {
       height: 5px;
     }
   }
-
 }
 
 .options {
@@ -149,7 +148,7 @@ gridster-item {
 }
 ::-webkit-scrollbar-thumb {
   height: 50px;
-  background-color: var(--color-border-main);;
+  background-color: var(--color-border-main);
   border-radius: 10px;
 }
 ::-webkit-resizer {

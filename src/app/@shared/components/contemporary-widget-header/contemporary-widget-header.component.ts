@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'evj-contemporary-widget-header',
     templateUrl: './contemporary-widget-header.component.html',
-    styleUrls: ['./contemporary-widget-header.component.scss']
+    styleUrls: ['./contemporary-widget-header.component.scss'],
 })
 export class ContemporaryWidgetHeaderComponent implements OnInit, OnDestroy {
     @Input() private uniqId: string = '';
@@ -24,8 +24,7 @@ export class ContemporaryWidgetHeaderComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {
-    }
+    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(

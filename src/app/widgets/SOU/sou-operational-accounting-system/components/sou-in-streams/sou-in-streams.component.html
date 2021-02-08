@@ -1,96 +1,99 @@
 <div class="in-streams">
   <table class="table">
     <thead class="table__header">
-    <tr class="header__row">
-      <th class="header__column"></th>
-      <th class="header__column"></th>
-      <th class="header__column">Согл.</th>
-      <th class="header__column header__column__diff">Мгновен. значение</th>
-      <th class="header__column header__column__diff">Значение за час</th>
-      <th class="header__column header__column__diff">Накоп.</th>
-      <th class="header__column"></th>
-      <th class="header__column header__column__trust-value">Уровень доверия</th>
-      <th class="header__column"></th>
-    </tr>
+      <tr class="header__row">
+        <th class="header__column"></th>
+        <th class="header__column"></th>
+        <th class="header__column">Согл.</th>
+        <th class="header__column header__column__diff">Мгновен. значение</th>
+        <th class="header__column header__column__diff">Значение за час</th>
+        <th class="header__column header__column__diff">Накоп.</th>
+        <th class="header__column"></th>
+        <th class="header__column header__column__trust-value">Уровень доверия</th>
+        <th class="header__column"></th>
+      </tr>
     </thead>
     <tbody class="table__body">
-    <tr class="body__row"
-        *ngFor="let item of flowIn; let idx = index"
-        [class.body__row_inactivity]="!item.isEnable">
-      <td class="body__column">{{ item.srcName }}
-        <svg-icon
-          class="body__column__svg-line"
-          src="assets/icons/widgets/SOU/sou-in-streams/line.svg"
-          [svgStyle]="{ 'width.px': 19, 'height.px': 6 }"
-        ></svg-icon>
-      </td>
-      <td class="body__column body__column__text_grey">{{ item.valueMeasuring }}</td>
-      <td class="body__column body__column__text_grey">{{ item.valueCalculate }}</td>
-      <td
-        class="body__column">
-        <div class="column">
+      <tr class="body__row" *ngFor="let item of flowIn; let idx = index" [class.body__row_inactivity]="!item.isEnable">
+        <td class="body__column">
+          {{ item.srcName }}
+          <svg-icon
+            class="body__column__svg-line"
+            src="assets/icons/widgets/SOU/sou-in-streams/line.svg"
+            [svgStyle]="{ 'width.px': 19, 'height.px': 6 }"
+          ></svg-icon>
+        </td>
+        <td class="body__column body__column__text_grey">{{ item.valueMeasuring }}</td>
+        <td class="body__column body__column__text_grey">{{ item.valueCalculate }}</td>
+        <td class="body__column">
+          <div class="column">
+            <div class="column__block">
+              <svg-icon
+                class="column__icon"
+                src="assets/icons/widgets/SOU/sou-in-streams/lightning.svg"
+                [svgStyle]="{ 'width.px': 8, 'height.px': 12 }"
+              ></svg-icon>
+              <span class="column__value">{{ item.valueMoment }}</span>
+              <span class="column__eng-value">т/ч</span>
+            </div>
+
+            <span class="column__percent" [class.column__percent_inactivity]="!item.isEnable"
+              >{{ item?.valueMomentPercent }} %</span
+            >
+          </div>
+        </td>
+        <td class="body__column">
           <div class="column__block">
             <svg-icon
-              class="column__icon"
-              src="assets/icons/widgets/SOU/sou-in-streams/lightning.svg"
-              [svgStyle]="{ 'width.px': 8, 'height.px': 12 }"
+              src="assets/icons/widgets/SOU/sou-in-streams/stopwatch.svg"
+              [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
             ></svg-icon>
-            <span class="column__value">{{ item.valueMoment }}</span>
-            <span class="column__eng-value">т/ч</span>
+            <span class="column__value">{{ item.valueByHour }}</span>
+            <span class="column__eng-value">т</span>
           </div>
 
-          <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueMomentPercent }}
-            %</span>
-        </div>
-      </td>
-      <td class="body__column">
-        <div class="column__block">
-          <svg-icon
-            src="assets/icons/widgets/SOU/sou-in-streams/stopwatch.svg"
-            [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
-          ></svg-icon>
-          <span class="column__value">{{ item.valueByHour }}</span>
-          <span class="column__eng-value">т</span>
-        </div>
-
-        <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueByHourPercent }}
-          %</span>
-      </td>
-      <td class="body__column">
-        <div class="column__block">
-          <svg-icon
-            src="assets/icons/widgets/SOU/sou-in-streams/accum.svg"
-            [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
-          ></svg-icon>
-          <span class="column__value"> {{ item.valueTank }}</span>
-          <span class="column__eng-value">т</span>
-        </div>
-
-        <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}
-          %</span>
-      </td>
-      <td class="body__column">{{ item.productName }}</td>
-      <td class="body__column column body__column--padding-disabled body__column__trust-level">
-        <span class="body__column column__trust-level"
-              [class.column__trust-level_deviation]="item.isExceedingConfInterval"
-              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance | spaceNumber: 1 }}%</span>
-      </td>
-      <td class="body__column column body__column--padding-disabled">
-        <div class="column__block-pims">
-          <span class="column__block-pims__value"
-                [class.column__block-pims__value_deviation]="item.isExceedingConfInterval"
-                [class.column__block-pims__value--no-active]="!item.isEnable"
-                [matTooltip]="item.tag"
-          >{{ item.tag }}</span>
-          <div class="column__block-pims__slide">
-            <mat-slide-toggle [(ngModel)]="item.isEnable" disableRipple="true"></mat-slide-toggle>
+          <span class="column__percent" [class.column__percent_inactivity]="!item.isEnable"
+            >{{ item?.valueByHourPercent }} %</span
+          >
+        </td>
+        <td class="body__column">
+          <div class="column__block">
+            <svg-icon
+              src="assets/icons/widgets/SOU/sou-in-streams/accum.svg"
+              [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
+            ></svg-icon>
+            <span class="column__value"> {{ item.valueTank }}</span>
+            <span class="column__eng-value">т</span>
           </div>
-        </div>
-      </td>
-    </tr>
+
+          <span class="column__percent" [class.column__percent_inactivity]="!item.isEnable"
+            >{{ item?.valueTankPercent }} %</span
+          >
+        </td>
+        <td class="body__column">{{ item.productName }}</td>
+        <td class="body__column column body__column--padding-disabled body__column__trust-level">
+          <span
+            class="body__column column__trust-level"
+            [class.column__trust-level_deviation]="item.isExceedingConfInterval"
+            [class.column__trust-level--no-active]="!item.isEnable"
+            >{{ item.tolerance | spaceNumber: 1 }}%</span
+          >
+        </td>
+        <td class="body__column column body__column--padding-disabled">
+          <div class="column__block-pims">
+            <span
+              class="column__block-pims__value"
+              [class.column__block-pims__value_deviation]="item.isExceedingConfInterval"
+              [class.column__block-pims__value--no-active]="!item.isEnable"
+              [matTooltip]="item.tag"
+              >{{ item.tag }}</span
+            >
+            <div class="column__block-pims__slide">
+              <mat-slide-toggle [(ngModel)]="item.isEnable" disableRipple="true"></mat-slide-toggle>
+            </div>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

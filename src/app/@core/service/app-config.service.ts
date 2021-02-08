@@ -5,16 +5,13 @@ import { BehaviorSubject } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AppConfigService {
     private appConfig: any;
     restUrl$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    constructor(private http: HttpClient,
-                private titleService: Title
-    ) {
-    }
+    constructor(private http: HttpClient, private titleService: Title) {}
 
     public async loadAppConfig(): Promise<void> {
         this.appConfig = await this.http.get('assets/config.json').toPromise();

@@ -4,7 +4,7 @@ import { EventService } from '../../../../../dashboard/services/widgets/EVJ/even
 @Component({
     selector: 'evj-evj-event-preview',
     templateUrl: './evj-event-preview.component.html',
-    styleUrls: ['./evj-event-preview.component.scss']
+    styleUrls: ['./evj-event-preview.component.scss'],
 })
 export class EvjEventPreviewComponent implements OnInit, OnDestroy {
     @Input()
@@ -13,14 +13,11 @@ export class EvjEventPreviewComponent implements OnInit, OnDestroy {
     @Output()
     public close: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public ngOnDestroy(): void {
-    }
+    public ngOnDestroy(): void {}
 
     public onClose(): void {
         this.close.emit();

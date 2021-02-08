@@ -1,16 +1,18 @@
 <div class="container-info-tank">
-    <div class="container-info-tank__content">
-        <div class="info">
-            <evj-reasons-deviations-tank-level [data]="data" [transfer]="transfer"></evj-reasons-deviations-tank-level>
-        </div>
-        <div class="arrow">
-            <svg-icon src="assets/icons/widgets/oil-control-all/reasons-deviations/arrowBak.svg"
-                class="arrow__svg"></svg-icon>
-        </div>
-        <div class="image">
-            <ng-container *ngFor="let item of data?.shipmentStatistics?.transportTypeStatistics">
-                <evj-reasons-deviations-pic-tank [data]="item"></evj-reasons-deviations-pic-tank>
-            </ng-container>
-        </div>
+  <div class="container-info-tank__content">
+    <div class="info">
+      <evj-reasons-deviations-tank-level [data]="data" [transfer]="transfer"></evj-reasons-deviations-tank-level>
     </div>
+    <div class="arrow">
+      <svg-icon
+        src="assets/icons/widgets/oil-control-all/reasons-deviations/arrowBak.svg"
+        class="arrow__svg"
+      ></svg-icon>
+    </div>
+    <div class="image">
+      <ng-container *ngFor="let item of data?.shipmentStatistics?.transportTypeStatistics">
+        <evj-reasons-deviations-pic-tank [data]="item"></evj-reasons-deviations-pic-tank>
+      </ng-container>
+    </div>
+  </div>
 </div>

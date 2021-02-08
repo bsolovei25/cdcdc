@@ -1,97 +1,95 @@
 <div class="oil_block_inter_info" [class.oil_block_inter_info_short]="checkWidth">
-    <div class="row" [class.row_short]="checkWidth">
-        <div class="row__page">
-            <evj-paginator [perPage]="1" [currentPage]="activeOperationValue" [criticalPage]="criticalPage"
-                [totalCount]="this.maxPage" [aroundCount]="1" (changePage)="onNextOperation($event)">
-            </evj-paginator>
-        </div>
-        <div class="row__data" [class.row__date_short]="checkWidth">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
-                    <path id="Path_544"
-                        d="M7535.5 1321.214l2.409 2.409a.484.484 0 0 1-.684.684l-2.546-2.546a.485.485 0 0 1-.147-.347v-4.465a.484.484 0 0 1 .968 0v4.265zm7.016.2a7.5 7.5 0 1 0-2.2 5.3 7.477 7.477 0 0 0 2.2-5.3zm-2.881 4.619a6.532 6.532 0 1 0-4.619 1.913 6.511 6.511 0 0 0 4.614-1.913z"
-                        class="cls-2" data-name="Path 544" transform="translate(-7527.511 -1313.914)" />
-                </svg>
-            </div>
-            <div style="margin-left: 5px">
-                {{data?.operations[activeOperationValue - 1]?.timeStart  | date: 'HH:mm:ss'}} -
-                {{data?.operations[activeOperationValue - 1]?.timeEnd  | date: 'HH:mm:ss'}}
-            </div>
-        </div>
-        <div class="row__name_value_debalance" [class.row__name_value_debalance_short]="checkWidth">
-            Дебаланс:
-        </div>
-        <div class="row__value_oil_debalance">
-            <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
-                <ng-container *ngIf="item.name === 'Дебаланс'">
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueFirst | number:'1.0-1'}} т.
-                    </div>
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueSecond | number:'1.0-0'}} %
-                    </div>
-                </ng-container>
-            </ng-container>
-        </div>
+  <div class="row" [class.row_short]="checkWidth">
+    <div class="row__page">
+      <evj-paginator
+        [perPage]="1"
+        [currentPage]="activeOperationValue"
+        [criticalPage]="criticalPage"
+        [totalCount]="this.maxPage"
+        [aroundCount]="1"
+        (changePage)="onNextOperation($event)"
+      >
+      </evj-paginator>
     </div>
-    <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
-            <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
-                <div class="row__name_value" [class.row__name_value_short]="checkWidth">
-                    Отгружено по резервуару:
-                </div>
-                <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueFirst | number:'1.0-1'}} т.
-                    </div>
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueSecond | number:'1.0-0'}} %
-                    </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="item.name === 'Допустимый дебаланс'">
-                <div class="row__name_value" [class.row__name_value_short]="checkWidth">
-                    Допустимый дебаланс:
-                </div>
-                <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueFirst | number:'1.0-1'}} т.
-                    </div>
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueSecond | number:'1.0-0'}} %
-                    </div>
-                </div>
-            </ng-container>
+    <div class="row__data" [class.row__date_short]="checkWidth">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+          <path
+            id="Path_544"
+            d="M7535.5 1321.214l2.409 2.409a.484.484 0 0 1-.684.684l-2.546-2.546a.485.485 0 0 1-.147-.347v-4.465a.484.484 0 0 1 .968 0v4.265zm7.016.2a7.5 7.5 0 1 0-2.2 5.3 7.477 7.477 0 0 0 2.2-5.3zm-2.881 4.619a6.532 6.532 0 1 0-4.619 1.913 6.511 6.511 0 0 0 4.614-1.913z"
+            class="cls-2"
+            data-name="Path 544"
+            transform="translate(-7527.511 -1313.914)"
+          />
+        </svg>
+      </div>
+      <div style="margin-left: 5px">
+        {{data?.operations[activeOperationValue - 1]?.timeStart | date: 'HH:mm:ss'}} -
+        {{data?.operations[activeOperationValue - 1]?.timeEnd | date: 'HH:mm:ss'}}
+      </div>
+    </div>
+    <div class="row__name_value_debalance" [class.row__name_value_debalance_short]="checkWidth">Дебаланс:</div>
+    <div class="row__value_oil_debalance">
+      <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
+        <ng-container *ngIf="item.name === 'Дебаланс'">
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueFirst | number:'1.0-1'}} т.
+          </div>
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueSecond | number:'1.0-0'}} %
+          </div>
         </ng-container>
+      </ng-container>
     </div>
-    <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
-            <ng-container *ngIf="item.name === 'По данным отгрузки'">
-                <div class="row__name_value" [class.row__name_value_short]="checkWidth">
-                    По данными отгрузки:
-                </div>
-                <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueFirst | number:'1.0-1'}} т.
-                    </div>
-                    <div [class.critical]="item.status === 'critical'">
-                        {{item?.valueSecond | number:'1.0-0'}} %
-                    </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="item.name === 'Отклонение'">
-                <div class="row__name_value" [class.row__name_value_short]="checkWidth">
-                    Отклонение:
-                </div>
-                <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueFirst | number:'1.0-1'}} т.
-                    </div>
-                    <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item?.valueSecond | number:'1.0-0'}} %
-                    </div>
-                </div>
-            </ng-container>
-        </ng-container>
-    </div>
+  </div>
+  <div class="row" [class.row_short]="checkWidth">
+    <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
+      <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
+        <div class="row__name_value" [class.row__name_value_short]="checkWidth">Отгружено по резервуару:</div>
+        <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueFirst | number:'1.0-1'}} т.
+          </div>
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueSecond | number:'1.0-0'}} %
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="item.name === 'Допустимый дебаланс'">
+        <div class="row__name_value" [class.row__name_value_short]="checkWidth">Допустимый дебаланс:</div>
+        <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueFirst | number:'1.0-1'}} т.
+          </div>
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueSecond | number:'1.0-0'}} %
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="row" [class.row_short]="checkWidth">
+    <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
+      <ng-container *ngIf="item.name === 'По данным отгрузки'">
+        <div class="row__name_value" [class.row__name_value_short]="checkWidth">По данными отгрузки:</div>
+        <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueFirst | number:'1.0-1'}} т.
+          </div>
+          <div [class.critical]="item.status === 'critical'">{{item?.valueSecond | number:'1.0-0'}} %</div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="item.name === 'Отклонение'">
+        <div class="row__name_value" [class.row__name_value_short]="checkWidth">Отклонение:</div>
+        <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueFirst | number:'1.0-1'}} т.
+          </div>
+          <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
+            {{item?.valueSecond | number:'1.0-0'}} %
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 </div>

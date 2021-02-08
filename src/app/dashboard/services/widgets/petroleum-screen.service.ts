@@ -4,9 +4,15 @@ import { filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import {
-    IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
-    ITransfer, ITransferFilter,
-    ObjectDirection, ObjectType, TransfersFilter
+    IPetroleumObject,
+    ITankAttribute,
+    ITankInfo,
+    ITankParam,
+    ITransfer,
+    ITransferFilter,
+    ObjectDirection,
+    ObjectType,
+    TransfersFilter,
 } from '../../models/NK/petroleum-products-movement.model';
 import { SnackBarService } from '../snack-bar.service';
 import { IDatesInterval, WidgetService } from '../widget.service';
@@ -24,17 +30,11 @@ export class PetroleumScreenService {
 
     public transfers$: BehaviorSubject<ITransfer[]> = new BehaviorSubject<ITransfer[]>([]);
 
-    public objectsAll$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<
-        IPetroleumObject[]
-    >([]);
-    public objectsSource$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<
-        IPetroleumObject[]
-    >([]);
-    public objectsReceiver$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<
-        IPetroleumObject[]
-    >([]);
+    public objectsAll$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
+    public objectsSource$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
+    public objectsReceiver$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
     private currentTankParam$: BehaviorSubject<ITankParam> = new BehaviorSubject<ITankParam>(null);
-    public  currentTankParam: Observable<ITankParam> = this.currentTankParam$
+    public currentTankParam: Observable<ITankParam> = this.currentTankParam$
         .asObservable()
         .pipe(filter((item) => item != null));
 
@@ -78,7 +78,7 @@ export class PetroleumScreenService {
         private http: HttpClient,
         private configService: AppConfigService,
         private widgetService: WidgetService,
-        private materialController: SnackBarService,
+        private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -104,20 +104,14 @@ export class PetroleumScreenService {
             chooseTransfer.operationType = 'Exist';
             chooseTransfer.isActive = true;
             if (toFirst) {
-                const idx = tempTransfers.findIndex(item => item === chooseTransfer);
+                const idx = tempTransfers.findIndex((item) => item === chooseTransfer);
                 tempTransfers.unshift(...tempTransfers.splice(idx, 1));
             }
             this.transfers$.next(tempTransfers);
             this.currentTransfer$.next(chooseTransfer);
 
-            const objectsReceiver = await this.getObjects(
-                this.client,
-                chooseTransfer.destinationName
-            );
-            const objectsSource = await this.getObjects(
-                this.client,
-                chooseTransfer.sourceName
-            );
+            const objectsReceiver = await this.getObjects(this.client, chooseTransfer.destinationName);
+            const objectsSource = await this.getObjects(this.client, chooseTransfer.sourceName);
             objectsSource.forEach((item) => (item.isActive = true));
             objectsReceiver.forEach((item) => (item.isActive = true));
             this.objectsReceiver$.next(objectsReceiver);
@@ -150,10 +144,11 @@ export class PetroleumScreenService {
             );
             return;
         }
-        if ((currentTransfer.destinationName &&
-            currentTransfer.destinationName !== '') &&
-            (currentTransfer.sourceName &&
-            currentTransfer.sourceName !== '')
+        if (
+            currentTransfer.destinationName &&
+            currentTransfer.destinationName !== '' &&
+            currentTransfer.sourceName &&
+            currentTransfer.sourceName !== ''
         ) {
             this.materialController.openSnackBar(
                 'Для изменения объектов операции, сбросьте текущую операцию!',
@@ -234,7 +229,12 @@ export class PetroleumScreenService {
                 isOpen = true;
                 break;
         }
-        await this.getTransfers(dates?.fromDateTime ?? this.getTodaysPeriod().fromDatetime, dates?.toDateTime ?? this.getTodaysPeriod().toDatetime, isOpen, this.client);
+        await this.getTransfers(
+            dates?.fromDateTime ?? this.getTodaysPeriod().fromDatetime,
+            dates?.toDateTime ?? this.getTodaysPeriod().toDatetime,
+            isOpen,
+            this.client
+        );
         const currentTransfer = this.currentTransfer$.getValue();
         const transfers = this.transfers$.getValue();
         this.transfers$.next(transfers);
@@ -245,21 +245,15 @@ export class PetroleumScreenService {
                 this.currentTransfer$.next(currentTransferTemp);
             }
         }
-        this.filterTransfersByColumn(
-            this.currentFilter?.textFilter?.key,
-            this.currentFilter?.textFilter?.value);
+        this.filterTransfersByColumn(this.currentFilter?.textFilter?.key, this.currentFilter?.textFilter?.value);
         this.sortTransfersByColumn(
             this.currentFilter?.sortFilter?.key,
             this.currentFilter?.sortFilter?.type,
-            this.currentFilter?.sortFilter?.isUp);
+            this.currentFilter?.sortFilter?.isUp
+        );
     }
 
-    public async getTransfers(
-        startTime: Date,
-        endTime: Date,
-        isOpen: boolean,
-        client: string
-    ): Promise<void> {
+    public async getTransfers(startTime: Date, endTime: Date, isOpen: boolean, client: string): Promise<void> {
         let requestUrl = `${this.restUrl}/api/petroleum-flow-transfers/transfer?`;
         if (startTime) {
             requestUrl += `startTime=${startTime.toISOString()}`;
@@ -318,9 +312,9 @@ export class PetroleumScreenService {
             const allObjects = [
                 ...this.objectsAll$.getValue(),
                 ...this.objectsReceiver$.getValue(),
-                ...this.objectsSource$.getValue()
+                ...this.objectsSource$.getValue(),
             ];
-            const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
+            const objectType = allObjects.find((el) => el.objectName === object)?.objectType ?? null;
             return await this.getReferencesAsync(client, object, objectType, direction);
         } catch (e) {
             console.error(e);
@@ -334,10 +328,10 @@ export class PetroleumScreenService {
             return [];
         }
         try {
-            const attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
-            ).toPromise();
-            attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
+            const attributes: ITankAttribute[] = await this.http
+                .get<ITankAttribute[]>(`${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`)
+                .toPromise();
+            attributes.forEach((item) => (item.paramSaveDateTime = new Date(item.paramDateTime)));
             return attributes;
         } catch (e) {
             console.error(e);
@@ -349,7 +343,9 @@ export class PetroleumScreenService {
         this.isLoad$.next(true);
         try {
             const objectName = this.currentTankParam$.getValue().objectName;
-            await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
+            await this.http
+                .post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute)
+                .toPromise();
             const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
             const currentTankParam = this.currentTankParam$.getValue();
             currentTankParam.objectAttributes = attributes;
@@ -377,9 +373,9 @@ export class PetroleumScreenService {
 
     private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
         try {
-            return await this.http.get<ITankInfo>(
-                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
-            ).toPromise();
+            return await this.http
+                .get<ITankInfo>(`${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`)
+                .toPromise();
         } catch (e) {
             console.error(e);
             return null;
@@ -388,9 +384,7 @@ export class PetroleumScreenService {
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {
         const ans = await this.http
-            .get<string[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/products`
-            )
+            .get<string[]>(`${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/products`)
             .toPromise();
         // console.log(objectName);
         // console.log(ans);
@@ -409,21 +403,15 @@ export class PetroleumScreenService {
     }
 
     private async saveTransferAsync(transfer: ITransfer): Promise<any> {
-        return this.http
-            .put(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer)
-            .toPromise();
+        return this.http.put(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
     }
 
     private async createTransferAsync(transfer: ITransfer): Promise<string> {
-        return this.http
-            .post<string>(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer)
-            .toPromise();
+        return this.http.post<string>(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
     }
 
     private async deleteTransferAsync(uid: string): Promise<void> {
-        this.http
-            .delete(`${this.restUrl}/api/petroleum-flow-transfers/transfer/${uid}`)
-            .toPromise();
+        this.http.delete(`${this.restUrl}/api/petroleum-flow-transfers/transfer/${uid}`).toPromise();
     }
 
     private async getTransfersAsync(requestUrl: string): Promise<ITransfer[]> {
@@ -440,17 +428,13 @@ export class PetroleumScreenService {
 
     private async getObjectsAsync(client: string): Promise<IPetroleumObject[]> {
         return this.http
-            .get<IPetroleumObject[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/`
-            )
+            .get<IPetroleumObject[]>(`${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/`)
             .toPromise();
     }
 
     private async getObjectAsync(client: string, objectName: string): Promise<IPetroleumObject> {
         return this.http
-            .get<IPetroleumObject>(
-                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}`
-            )
+            .get<IPetroleumObject>(`${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}`)
             .toPromise();
     }
 
@@ -471,7 +455,7 @@ export class PetroleumScreenService {
         this.alertWindow$.next(null);
     }
 
-    private getTodaysPeriod(): { fromDatetime: Date, toDatetime: Date } {
+    private getTodaysPeriod(): { fromDatetime: Date; toDatetime: Date } {
         const currentDatetime: Date = new Date(Date.now());
         const fromDatetime = new Date(
             currentDatetime.getFullYear(),
@@ -498,11 +482,10 @@ export class PetroleumScreenService {
     public filterTransfersByColumn(key: string, search: string): void {
         const transfers = this.transfers$.getValue();
         if (!key || key === '') {
-            transfers?.forEach((el) => el.isSearchFilter = true);
+            transfers?.forEach((el) => (el.isSearchFilter = true));
             return;
         }
-        transfers?.forEach(
-            (el) => el.isSearchFilter = el[key].toLowerCase().includes(search.toLowerCase()));
+        transfers?.forEach((el) => (el.isSearchFilter = el[key].toLowerCase().includes(search.toLowerCase())));
         this.currentFilter.textFilter = {
             key,
             value: search,
@@ -530,7 +513,9 @@ export class PetroleumScreenService {
                 return;
         }
         this.currentFilter.sortFilter = {
-            key, type, isUp
+            key,
+            type,
+            isUp,
         };
     }
 

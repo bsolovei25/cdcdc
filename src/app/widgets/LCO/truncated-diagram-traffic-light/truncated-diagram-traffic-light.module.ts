@@ -5,16 +5,10 @@ import { PieDiagramComponent } from './components/pie-diagram/pie-diagram.compon
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
-  declarations: [TruncatedDiagramTrafficLightComponent, PieDiagramComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule
-  ]
+    declarations: [TruncatedDiagramTrafficLightComponent, PieDiagramComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class TruncatedDiagramTrafficLightModule {
-    enterComponent = TruncatedDiagramTrafficLightComponent
+    enterComponent = TruncatedDiagramTrafficLightComponent;
 }

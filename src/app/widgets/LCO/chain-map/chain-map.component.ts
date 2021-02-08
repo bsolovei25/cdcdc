@@ -272,7 +272,7 @@ export class ChainMapComponent extends WidgetPlatform<unknown> implements OnInit
         this.drawChain();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     public drawChain(): void {
         this.mass1 = this.data[0];
@@ -366,25 +366,13 @@ export class ChainMapComponent extends WidgetPlatform<unknown> implements OnInit
                 let id = item.getAttribute('item-circle-id');
                 if (datLine === id && datStatus == 0) {
                     item.removeAttribute('href');
-                    item.setAttributeNS(
-                        'http://www.w3.org/1999/xlink',
-                        'href',
-                        'assets/pic/chain4.png'
-                    );
+                    item.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'assets/pic/chain4.png');
                 } else if (datLine === id && datStatus == 1) {
                     item.removeAttribute('href');
-                    item.setAttributeNS(
-                        'http://www.w3.org/1999/xlink',
-                        'href',
-                        'assets/pic/chain2.png'
-                    );
+                    item.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'assets/pic/chain2.png');
                 } else if (datLine === id && datStatus == 2) {
                     item.removeAttribute('href');
-                    item.setAttributeNS(
-                        'http://www.w3.org/1999/xlink',
-                        'href',
-                        'assets/pic/critical_chain.png'
-                    );
+                    item.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'assets/pic/critical_chain.png');
                 }
             }
 

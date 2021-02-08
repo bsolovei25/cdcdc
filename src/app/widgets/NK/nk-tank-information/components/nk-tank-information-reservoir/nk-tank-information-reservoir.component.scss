@@ -1,210 +1,212 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 img {
-    user-select: none;
-    pointer-events: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 .reservoir-card {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .reservoir {
-    margin-top: 50px;
+  margin-top: 50px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    position: relative;
+  position: relative;
 }
 
 .circles {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    perspective: 600px;
-    transform-style: preserve-3d;
+  perspective: 600px;
+  transform-style: preserve-3d;
 }
 
 .circle {
-    height: 115px;
-    width: 115px;
+  height: 115px;
+  width: 115px;
 
-    border: 0.5px solid var(--nk-color-active);
-    opacity: 0.4;
-    border-radius: 50%;
+  border: 0.5px solid var(--nk-color-active);
+  opacity: 0.4;
+  border-radius: 50%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    backface-visibility: hidden;
+  backface-visibility: hidden;
 
-    transform: rotateX(55deg);
+  transform: rotateX(55deg);
 
-    &:last-child .circle__inner{
-        height: 77px;
-        width: 77px;
-        
-        background: var(--nk-color-active);
-        opacity: 0.62;
-    }
+  &:last-child .circle__inner {
+    height: 77px;
+    width: 77px;
 
-    &:first-child {
-        margin-top: -15px;
-    }
+    background: var(--nk-color-active);
+    opacity: 0.62;
+  }
 
-    &:not(:first-child) {
-        margin-top: -110px;
-    }
+  &:first-child {
+    margin-top: -15px;
+  }
 
-    &_repair {
-        border: 0.5px solid var(--nk-color-font-title-sub);
-    }
+  &:not(:first-child) {
+    margin-top: -110px;
+  }
+
+  &_repair {
+    border: 0.5px solid var(--nk-color-font-title-sub);
+  }
 }
 
 .circle__inner {
-    height: 87px;
-    width: 87px;
+  height: 87px;
+  width: 87px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    border: 0.5px solid var(--nk-color-active);
-    border-radius: 50%;
+  border: 0.5px solid var(--nk-color-active);
+  border-radius: 50%;
 
-    z-index: 1;
-    &_repair {
-        border: 0.5px solid var(--nk-color-font-title-sub);
-    }
+  z-index: 1;
+  &_repair {
+    border: 0.5px solid var(--nk-color-font-title-sub);
+  }
 }
 
 .circle__lvl {
-    margin-top: 20px;
-    height: 75px;
-    width: 75px;
+  margin-top: 20px;
+  height: 75px;
+  width: 75px;
 
-    border-radius: 50%;
-    background: var(--nk-color-active);
+  border-radius: 50%;
+  background: var(--nk-color-active);
 }
 
 .reservoir__cap {
-    width: 87px;
+  width: 87px;
 
-    position: absolute;
-    top: 10px;
+  position: absolute;
+  top: 10px;
 
-    z-index: 9000;
+  z-index: 9000;
 }
 
 .reservoir__cap2 {
-    width: 87px;
+  width: 87px;
 
-    position: absolute;
-    top: 18px;
+  position: absolute;
+  top: 18px;
 
-    z-index: 9000;
+  z-index: 9000;
 }
 
-.reservoir__cap3{
-    position: absolute;
+.reservoir__cap3 {
+  position: absolute;
 
-    top: 30px;
-    left: 25px;
+  top: 30px;
+  left: 25px;
 
-    z-index: 9000;
+  z-index: 9000;
 }
 
 .reservoir__cap4 {
-    position: absolute;
+  position: absolute;
 
-    top: 30px;
-    right: 25px;
+  top: 30px;
+  right: 25px;
 
-    z-index: 9000;
+  z-index: 9000;
 }
 
 .reservoir__bottom {
-    width: 87px;
+  width: 87px;
 
-    position: absolute;
-    top: 105px;
+  position: absolute;
+  top: 105px;
 
-    z-index: 9000;
+  z-index: 9000;
 }
 
 .reservoir__stand {
-    width: 160px;
+  width: 160px;
 
-    position: absolute;
-    top: 70px;
-    right: -16px;
+  position: absolute;
+  top: 70px;
+  right: -16px;
 }
 
 .btn {
-    height: 60px;
-    margin-top: 35px;
-    margin-left: 15px;
+  height: 60px;
+  margin-top: 35px;
+  margin-left: 15px;
 
-    transform: translate(10px, 13px);
+  transform: translate(10px, 13px);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-    .top-btn {
-        transform: rotateX(180deg);
-    }
+  .top-btn {
+    transform: rotateX(180deg);
+  }
 }
 
 .arrow {
-    height: 7px; 
-    width: 14px; 
-    margin: 3px;
+  height: 7px;
+  width: 14px;
+  margin: 3px;
 
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 
-    .arrow__before, .arrow__after {
-        height: 100%; 
-        width: 50%;
-        position: absolute; 
-        top: 0;
-        background: var(--nk-color-active);
-    }
+  .arrow__before,
+  .arrow__after {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    background: var(--nk-color-active);
+  }
 
-    .arrow__before {
-        left: 0;
-        transform: skew(0deg, 30deg);
-    }
+  .arrow__before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+  }
 
-    .arrow__after {
-        right: 0;
-        transform: skew(0deg, -30deg);
-    }
+  .arrow__after {
+    right: 0;
+    transform: skew(0deg, -30deg);
+  }
 }
-
 
 .btn__arrow1 {
-    .arrow__before, .arrow__after {
-        opacity: 0.25;
-    }
+  .arrow__before,
+  .arrow__after {
+    opacity: 0.25;
+  }
 }
 .btn__arrow2 {
-    .arrow__before, .arrow__after {
-        opacity: 0.55;
-    }
+  .arrow__before,
+  .arrow__after {
+    opacity: 0.55;
+  }
 }
 
 .repair {
-    border: 0.5px solid var(--nk-color-font-title-sub); 
+  border: 0.5px solid var(--nk-color-font-title-sub);
 }

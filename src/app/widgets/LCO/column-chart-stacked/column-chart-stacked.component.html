@@ -11,27 +11,19 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="col-chart"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="col-chart" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="graphic">
         <div class="axis">
           <div class="axis-name">{{ "количество отклонений" | lowercase }}</div>
 
           <div class="axis-y__arrow">
-            <svg-icon
-              src="assets/icons/widgets/column-chart-stacked/arrow.svg"
-            ></svg-icon>
+            <svg-icon src="assets/icons/widgets/column-chart-stacked/arrow.svg"></svg-icon>
           </div>
         </div>
         <div class="graph scroll-bar">
           <div class="axis-y"></div>
           <div class="axis-x__arrow">
-            <svg-icon
-              src="assets/icons/widgets/column-chart-stacked/arrow.svg"
-            ></svg-icon>
+            <svg-icon src="assets/icons/widgets/column-chart-stacked/arrow.svg"></svg-icon>
           </div>
           <div class="axis-x"></div>
           <div class="graph__cols">

@@ -1,6 +1,12 @@
 <div class="container">
-  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-    [icon]="widgetIcon"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -14,12 +20,19 @@
           <div class="scroll-block" id="leftScrollAdmRef">
             <ng-container *ngFor="let item of data; let i= index">
               <div class="reference-container__block">
-                <div *ngIf="!item.openEdit" class="reference-container__block-info"
-                  [class.block-active]="item.id === idReferenceClick" (click)="onClickReference(item, i)">
+                <div
+                  *ngIf="!item.openEdit"
+                  class="reference-container__block-info"
+                  [class.block-active]="item.id === idReferenceClick"
+                  (click)="onClickReference(item, i)"
+                >
                   <div class="reference-container__name">{{item.name}}</div>
                   <div class="reference-container__button-edit" (click)="onEdit(item)">
-                    <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
-                      src="assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                    <svg-icon
+                      *ngIf="item.id === idReferenceClick"
+                      class="indicator-selector__collapse"
+                      src="assets/icons/widgets/references/edit_white.svg"
+                    ></svg-icon>
                   </div>
                 </div>
                 <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
@@ -30,9 +43,11 @@
                     <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                   </div>
                 </div>
-                <div class="reference-container__button-remove" (click)="deleteReference(item)"
-                  *ngIf="item.id === idReferenceClick">
-                </div>
+                <div
+                  class="reference-container__button-remove"
+                  (click)="deleteReference(item)"
+                  *ngIf="item.id === idReferenceClick"
+                ></div>
               </div>
             </ng-container>
             <div *ngIf="isClickPushReference" class="reference-container__add-block">
@@ -48,23 +63,39 @@
         <div class="bottom-reference-left">
           <div class="bottom-reference-left__block">
             <div class="bottom-reference-left__button-add" (click)="onPushBlockInReference()">
-              <svg-icon *ngIf="!isClickPushReference" src="assets/icons/widgets/references/add_white.svg"
-                class="add_button_icon"></svg-icon>
+              <svg-icon
+                *ngIf="!isClickPushReference"
+                src="assets/icons/widgets/references/add_white.svg"
+                class="add_button_icon"
+              ></svg-icon>
 
-              <svg-icon *ngIf="isClickPushReference" class="indicator-selector__collapse"
-                src="assets/icons/widgets/references/add_blue.svg"></svg-icon>
+              <svg-icon
+                *ngIf="isClickPushReference"
+                class="indicator-selector__collapse"
+                src="assets/icons/widgets/references/add_blue.svg"
+              ></svg-icon>
             </div>
             <div class="bottom-reference-left__input-block">
               <div class="bottom-reference-left__button-search">
-                <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
-                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
+                <svg-icon
+                  *ngIf="!isRefInput"
+                  class="button_filter_icon"
+                  src="assets/icons/widgets/references/search_white.svg"
+                ></svg-icon>
 
-                <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
-                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                <svg-icon
+                  *ngIf="isRefInput"
+                  class="indicator-selector__collapse"
+                  src="assets/icons/widgets/references/search_blue.svg"
+                ></svg-icon>
               </div>
               <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
-                <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
-                  (keyup)="searchReference($event)" />
+                <input
+                  type="text"
+                  (focus)="isRefInput = true"
+                  (blur)="isRefInput = false"
+                  (keyup)="searchReference($event)"
+                />
               </div>
             </div>
           </div>
@@ -82,13 +113,26 @@
           </div>
         </div>
         <div class="references-container-scroll-block">
-          <div id="rightScrollAdmRef" class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"
-            [class.isLongBlock]="isLongBlock" #adminRefereneTable>
+          <div
+            id="rightScrollAdmRef"
+            class="reference-container-value"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            [class.isLongBlock]="isLongBlock"
+            #adminRefereneTable
+          >
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
               <div *ngFor="let item of data[this.indexColumn].columns" cdkDrag class="example-box">
-                <div class="reference-container-value__block" [class.disabled]="item.name === 'Id' || item.name === 'Name'">
-                  <div *ngIf="!item.openEdit" class="reference-container-value__fio-block"
-                    [class.block-active-name]="item.open" (click)="onClickItemReference(item)">
+                <div
+                  class="reference-container-value__block"
+                  [class.disabled]="item.name === 'Id' || item.name === 'Name'"
+                >
+                  <div
+                    *ngIf="!item.openEdit"
+                    class="reference-container-value__fio-block"
+                    [class.block-active-name]="item.open"
+                    (click)="onClickItemReference(item)"
+                  >
                     <div class="reference-container-value__fio">{{item.name}}</div>
                   </div>
                   <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
@@ -101,32 +145,47 @@
                   </div>
                   <div class="reference-container-value__type" [class.block-active]="item.open">
                     <mat-form-field class="categories_selectbox">
-                      <mat-select panelClass="mat-select-custom" [(ngModel)]="item.columnTypeId"
-                        (selectionChange)="editRecord(item)">
-                        <mat-option *ngFor="let p of dataType" [value]="p.type">{{ types[p.type] }}
-                        </mat-option>
+                      <mat-select
+                        panelClass="mat-select-custom"
+                        [(ngModel)]="item.columnTypeId"
+                        (selectionChange)="editRecord(item)"
+                      >
+                        <mat-option *ngFor="let p of dataType" [value]="p.type">{{ types[p.type] }} </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                   <div class="reference-container-value__value" [class.block-active]="item.open">
                     <label class="mycheckbox">
-                      <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" [checked]="item.isRequred"
-                        (click)="changeSwap(item)" />
+                      <input
+                        type="checkbox"
+                        id="checkBoxValue"
+                        class="mycheckbox__default"
+                        [checked]="item.isRequred"
+                        (click)="changeSwap(item)"
+                      />
                       <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isRequred === true"></div>
                     </label>
                   </div>
                   <div class="reference-container-value__uniqValue" [class.block-active]="item.open">
                     <label class="mycheckbox">
-                      <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
-                        [checked]="item.isUnique" (click)="changeUniqSwap(item)" />
+                      <input
+                        type="checkbox"
+                        id="checkBoxUniqValue"
+                        class="mycheckbox__default"
+                        [checked]="item.isUnique"
+                        (click)="changeUniqSwap(item)"
+                      />
 
                       <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isUnique === true"></div>
                     </label>
                   </div>
-                  <div class="reference-container-value__delete-button-none" [class.block-active]="item.open"
-                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock"
-                    (click)="deleteRecord(item)">
-                  </div>
+                  <div
+                    class="reference-container-value__delete-button-none"
+                    [class.block-active]="item.open"
+                    [class.reference-container-value__delete-button]="item.open"
+                    [class.isNotButton]="isLongBlock"
+                    (click)="deleteRecord(item)"
+                  ></div>
                 </div>
               </div>
               <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
@@ -144,15 +203,25 @@
                 </div>
                 <div class="reference-container-value__value">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeNewSwap()"
-                      [checked]="valueNewCheck === true" />
+                    <input
+                      type="checkbox"
+                      id="checkBoxValue"
+                      class="mycheckbox__default"
+                      (click)="changeNewSwap()"
+                      [checked]="valueNewCheck === true"
+                    />
                     <div class="mycheckbox__new" [class.mycheckbox__checked]="valueNewCheck === true"></div>
                   </label>
                 </div>
                 <div class="reference-container-value__uniqValue">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
-                      (click)="changeNewUniqSwap()" [checked]="valueUniqNewCheck === true" />
+                    <input
+                      type="checkbox"
+                      id="checkBoxUniqValue"
+                      class="mycheckbox__default"
+                      (click)="changeNewUniqSwap()"
+                      [checked]="valueUniqNewCheck === true"
+                    />
                     <div class="mycheckbox__new" [class.mycheckbox__checked]="valueUniqNewCheck === true"></div>
                   </label>
                 </div>
@@ -166,18 +235,10 @@
                   <div class="reference-container-value__fio-block">
                     <div class="reference-container-value__fio"></div>
                   </div>
-                  <div class="reference-container__block-info">
-
-                  </div>
-                  <div class="reference-container-value__type">
-
-                  </div>
-                  <div class="reference-container-value__value">
-
-                  </div>
-                  <div class="reference-container-value__uniqValue">
-
-                  </div>
+                  <div class="reference-container__block-info"></div>
+                  <div class="reference-container-value__type"></div>
+                  <div class="reference-container-value__value"></div>
+                  <div class="reference-container-value__uniqValue"></div>
                 </div>
               </div>
             </ng-container>
@@ -186,22 +247,38 @@
         <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
           <div class="bottom-reference-right__block">
             <div class="bottom-reference-right__button-add" (click)="onPushBlockInRecord()">
-              <svg-icon *ngIf="!isClickPushRecord" src="assets/icons/widgets/references/add_white.svg"
-                class="add_button_icon"></svg-icon>
+              <svg-icon
+                *ngIf="!isClickPushRecord"
+                src="assets/icons/widgets/references/add_white.svg"
+                class="add_button_icon"
+              ></svg-icon>
 
-              <svg-icon *ngIf="isClickPushRecord" class="indicator-selector__collapse"
-                src="assets/icons/widgets/references/add_blue.svg"></svg-icon>
+              <svg-icon
+                *ngIf="isClickPushRecord"
+                class="indicator-selector__collapse"
+                src="assets/icons/widgets/references/add_blue.svg"
+              ></svg-icon>
             </div>
             <div class="bottom-reference-right__input-block">
               <div class="bottom-reference-right__button-search">
-                <svg-icon *ngIf="!isRecInput" class="button_filter_icon"
-                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-                <svg-icon *ngIf="isRecInput" class="button_filter_icon"
-                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                <svg-icon
+                  *ngIf="!isRecInput"
+                  class="button_filter_icon"
+                  src="assets/icons/widgets/references/search_white.svg"
+                ></svg-icon>
+                <svg-icon
+                  *ngIf="isRecInput"
+                  class="button_filter_icon"
+                  src="assets/icons/widgets/references/search_blue.svg"
+                ></svg-icon>
               </div>
               <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput">
-                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false"
-                  (keyup)="searchRecords($event)" />
+                <input
+                  type="text"
+                  (focus)="isRecInput = true"
+                  (blur)="isRecInput = false"
+                  (keyup)="searchRecords($event)"
+                />
               </div>
             </div>
           </div>

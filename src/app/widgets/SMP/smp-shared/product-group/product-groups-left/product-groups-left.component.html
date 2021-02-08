@@ -1,71 +1,69 @@
 <div class="cb">
-    <div #myCircle class="item-b"></div>
-    <!--LEFT-BUTTON-->
+  <div #myCircle class="item-b"></div>
+  <!--LEFT-BUTTON-->
 
-    <div class="scale__top">
-        <svg-icon src="assets/icons/widgets/SMP/scale-top.svg" [svgStyle]="{ 'width.px':10, 'height.px':15 }">
-        </svg-icon>
-    </div>
-    <div class="scale__middle">
-        <svg-icon src="assets/icons/widgets/SMP/scale-middle.svg" [svgStyle]="{ 'width.px':5, 'height.px':14 }">
-        </svg-icon>
-    </div>
-    <div class="scale__bottom">
-        <svg-icon src="assets/icons/widgets/SMP/scale-bottom.svg" [svgStyle]="{ 'width.px': 10, 'height.px':15 }">
-        </svg-icon>
-    </div>
+  <div class="scale__top">
+    <svg-icon src="assets/icons/widgets/SMP/scale-top.svg" [svgStyle]="{ 'width.px':10, 'height.px':15 }"> </svg-icon>
+  </div>
+  <div class="scale__middle">
+    <svg-icon src="assets/icons/widgets/SMP/scale-middle.svg" [svgStyle]="{ 'width.px':5, 'height.px':14 }"> </svg-icon>
+  </div>
+  <div class="scale__bottom">
+    <svg-icon src="assets/icons/widgets/SMP/scale-bottom.svg" [svgStyle]="{ 'width.px': 10, 'height.px':15 }">
+    </svg-icon>
+  </div>
 
-    <div class="right-top-button {{ status[data.criticalShip]}}">
-        <svg-icon src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg"
-            [svgStyle]="{ 'width.px':26, 'height.px':14 }"></svg-icon>
+  <div class="right-top-button {{ status[data.criticalShip]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg"
+      [svgStyle]="{ 'width.px':26, 'height.px':14 }"
+    ></svg-icon>
+  </div>
+  <div class="right-middle-button {{ status[data.criticalRazn]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg"
+      [svgStyle]="{ 'width.px':21, 'height.px':14 }"
+    ></svg-icon>
+  </div>
+  <div class="right-bottom-button {{ status[data.criticalTank]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg"
+      [svgStyle]="{ 'width.px':26, 'height.px':14 }"
+    ></svg-icon>
+  </div>
+  <!--LEFT-BUTTON-->
+  <div class="left-top-button {{ status[data.criticalProd]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg"
+      [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+    ></svg-icon>
+  </div>
+  <div class="left-bottom-button {{ status[data.criticalPass]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg"
+      [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+    ></svg-icon>
+  </div>
+  <div class="reservoir-container">
+    <div class="top">
+      <div class="top__inner_fact" [style.height.%]="factTankLevel > 86? 7 * (factTankLevel - 86) : 0"></div>
+      <div class="top__inner_plan" [style.height.%]="planTankLevel > 86? 7 * (planTankLevel - 86) : 0"></div>
     </div>
-    <div class="right-middle-button {{ status[data.criticalRazn]}}">
-        <svg-icon src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg"
-            [svgStyle]="{ 'width.px':21, 'height.px':14 }"></svg-icon>
+    <div class="mid">
+      <div
+        class="mid__inner_fact"
+        [style.height.%]="factTankLevel >= 86? 100: factTankLevel >= 14? 7/5 * (factTankLevel - 14) : 0"
+      ></div>
+      <div
+        class="mid__inner_plan"
+        [style.height.%]="planTankLevel >= 86? 100: factTankLevel >= 14? 7/5 * (planTankLevel - 14) : 0"
+      ></div>
+      <div class="mid-line mid-line__top"></div>
+      <div class="mid-line mid-line__bottom"></div>
     </div>
-    <div class="right-bottom-button {{ status[data.criticalTank]}}">
-        <svg-icon src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg"
-            [svgStyle]="{ 'width.px':26, 'height.px':14 }"></svg-icon>
+    <div class="bottom">
+      <div class="bottom__inner_fact" [style.height.%]="factTankLevel >= 14? 100: 7 * factTankLevel"></div>
+      <div class="bottom__inner_plan" [style.height.%]="planTankLevel >= 14? 100: 7 * planTankLevel"></div>
     </div>
-    <!--LEFT-BUTTON-->
-    <div class="left-top-button {{ status[data.criticalProd]}}">
-        <svg-icon src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
-    </div>
-    <div class="left-bottom-button {{ status[data.criticalPass]}}">
-        <svg-icon src="assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
-    </div>
-    <div class="reservoir-container">
-        <div class="top">
-            <div 
-                class="top__inner_fact"
-                [style.height.%]="factTankLevel > 86? 7 * (factTankLevel - 86) : 0"
-            ></div>
-            <div 
-                class="top__inner_plan"
-                [style.height.%]="planTankLevel > 86? 7 * (planTankLevel - 86) : 0"
-            ></div>
-        </div>
-        <div class="mid">
-            <div
-                class="mid__inner_fact"
-                [style.height.%]="factTankLevel >= 86? 100: factTankLevel >= 14? 7/5 * (factTankLevel - 14) : 0"
-            ></div>
-            <div
-                class="mid__inner_plan"
-                [style.height.%]="planTankLevel >= 86? 100: factTankLevel >= 14? 7/5 * (planTankLevel - 14) : 0"
-            ></div>
-            <div class="mid-line mid-line__top"></div>
-            <div class="mid-line mid-line__bottom"></div>
-        </div>
-        <div class="bottom">
-            <div
-                class="bottom__inner_fact"
-                [style.height.%]="factTankLevel >= 14? 100: 7 * factTankLevel"></div>
-            <div
-                class="bottom__inner_plan"
-                [style.height.%]="planTankLevel >= 14? 100: 7 * planTankLevel"></div>
-        </div>
-    </div>
+  </div>
 </div>

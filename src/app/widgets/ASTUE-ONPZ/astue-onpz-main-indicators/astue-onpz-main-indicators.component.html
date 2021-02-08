@@ -5,10 +5,7 @@
     icon="astue-indicators"
     type="astue"
   ></evj-contemporary-widget-header>
-  <div class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="diagram">
       <div class="diagram__container">
         <svg-icon
@@ -22,17 +19,22 @@
             [ngClass]="{
               'percent-warning': data?.deviationValue !== 0
             }"
-          >{{data?.deviationValue > 0 ? '+' : ''}}{{data?.deviationValue | spaceNumber : 1}}</span>
+            >{{data?.deviationValue > 0 ? '+' : ''}}{{data?.deviationValue | spaceNumber : 1}}</span
+          >
           <span class="unit">{{data?.engUnits}}</span>
         </div>
         <div class="info">
           <div class="info__item">
             <span class="description">Факт</span>
-            <span class="values">&bull; {{data?.factValue | spaceNumber : 1}} <span class="unit">{{data?.engUnits}}</span></span>
+            <span class="values"
+              >&bull; {{data?.factValue | spaceNumber : 1}} <span class="unit">{{data?.engUnits}}</span></span
+            >
           </div>
           <div class="info__item">
             <span class="description">План</span>
-            <span class="values values-plan">&bull; {{data?.planValue | spaceNumber : 1}} <span class="unit">{{data?.engUnits}}</span></span>
+            <span class="values values-plan"
+              >&bull; {{data?.planValue | spaceNumber : 1}} <span class="unit">{{data?.engUnits}}</span></span
+            >
           </div>
         </div>
       </div>

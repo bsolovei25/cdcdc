@@ -1,4 +1,5 @@
-<div class="main-container"
+<div
+  class="main-container"
   [ngClass]="{
     off:!flowData?.isEnable,
     selected:flowData?.code === mvpService.selectedCode
@@ -6,10 +7,7 @@
 >
   <div class="container" (click)="mvpService.openPopup(sections, flowData?.code)">
     <div class="connection__left">
-      <div
-        class="connection-circle"
-        *ngFor="let j of inputArr"
-      ></div>
+      <div class="connection-circle" *ngFor="let j of inputArr"></div>
     </div>
     <div class="info">
       <div class="title">
@@ -35,13 +33,10 @@
       </div>
     </div>
     <div class="connection__right">
-      <div
-        class="connection-circle"
-        *ngFor="let i of outputArr"
-      ></div>
+      <div class="connection-circle" *ngFor="let i of outputArr"></div>
     </div>
   </div>
-  <div class="line-container" *ngIf='!noLine'>
+  <div class="line-container" *ngIf="!noLine">
     <div
       class="line"
       [ngClass]="{

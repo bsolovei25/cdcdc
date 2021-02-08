@@ -1,16 +1,13 @@
-<evj-widget-header-smp
-  [uniqId]="uniqId"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseExit()"
-  *ngIf="isHover"
->
+<evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
 </evj-widget-header-smp>
 
-<div class="wrapper"
-     (mouseenter)="onMouseEnter()"
-     (mouseleave)="onMouseExit()"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()">
+<div
+  class="wrapper"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
   <div class="vertical-connector"></div>
   <ng-container *ngTemplateOutlet="card1"></ng-container>
   <ng-container *ngTemplateOutlet="card2"></ng-container>
@@ -47,7 +44,7 @@
       </div>
       <div class="container">
         <evj-ozsm-diagrams-card
-        [data]="{
+          [data]="{
           fact: 5087,
           plan: 4861,
           deviation: 226,

@@ -2,8 +2,8 @@
   <mat-form-field class="date-range-picker" appearance="none">
     <mat-label></mat-label>
     <mat-date-range-input [formGroup]="formGroup" [rangePicker]="picker">
-      <input matStartDate formControlName="dateStart">
-      <input matEndDate formControlName="dateEnd">
+      <input matStartDate formControlName="dateStart" />
+      <input matEndDate formControlName="dateEnd" />
     </mat-date-range-input>
     <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
@@ -12,4 +12,3 @@
     <mat-error *ngIf="formGroup.controls.dateEnd.hasError('matEndDateInvalid')">Invalid end date</mat-error>
   </mat-form-field>
 </div>
-

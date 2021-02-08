@@ -1,10 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    IAPSRecipeDiagram,
-    IColumnsToDisplay
-} from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
+import { IAPSRecipeDiagram, IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IStreams } from '../cd-mat-balance/cd-mat-balance.component';
@@ -12,7 +9,7 @@ import { IStreams } from '../cd-mat-balance/cd-mat-balance.component';
 @Component({
     selector: 'evj-cd-deviation-mat',
     templateUrl: './cd-deviation-mat.component.html',
-    styleUrls: ['./cd-deviation-mat.component.scss']
+    styleUrls: ['./cd-deviation-mat.component.scss'],
 })
 export class CdDeviationMatComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IStreams[] = [];
@@ -20,7 +17,7 @@ export class CdDeviationMatComponent extends WidgetPlatform<unknown> implements 
         { name: 'Мат. поток', date: new Date() },
         { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
         { name: 'Модель', date: new Date('2020-02-02T03:24:00') },
-        { name: '∆', date: new Date('2020-02-03T03:24:00') }
+        { name: '∆', date: new Date('2020-02-03T03:24:00') },
     ];
 
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
@@ -54,8 +51,8 @@ export class CdDeviationMatComponent extends WidgetPlatform<unknown> implements 
                     deviation: 0,
                     modelValue: 0,
                     name: 'last-row',
-                    value: 8.846439278
-                }
+                    value: 8.846439278,
+                },
             ];
         }
     }

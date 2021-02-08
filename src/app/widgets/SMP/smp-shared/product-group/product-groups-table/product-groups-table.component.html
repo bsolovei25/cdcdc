@@ -13,8 +13,12 @@
       </div>
     </div>
     <div class="test">
-      <div id="botscroll" class="middle_table" [class.middle_table-short]="widgetType === 'product-groups-short'"
-        (scroll)="onBottomScroll($event)">
+      <div
+        id="botscroll"
+        class="middle_table"
+        [class.middle_table-short]="widgetType === 'product-groups-short'"
+        (scroll)="onBottomScroll($event)"
+      >
         <table>
           <tbody>
             <ng-container *ngFor="let items of datas; trackBy: rowsById">
@@ -28,8 +32,7 @@
                 <td class="move">
                   <div class="product">
                     <ng-container *ngFor="let item of items.products; let i = index; ">
-                      <evj-product-groups-middle [dataProductsItems]="item">
-                      </evj-product-groups-middle>
+                      <evj-product-groups-middle [dataProductsItems]="item"> </evj-product-groups-middle>
                     </ng-container>
                   </div>
                 </td>
@@ -48,8 +51,12 @@
         <div class="line__bottom_scroll" *ngIf="scrollLine"></div>
       </div>
     </div>
-    <div id="topscroll" class="topscroll" [class.scroll]="widgetType === 'product-groups-short'"
-      (scroll)="onTopScroll($event)">
+    <div
+      id="topscroll"
+      class="topscroll"
+      [class.scroll]="widgetType === 'product-groups-short'"
+      (scroll)="onTopScroll($event)"
+    >
       <div class="fake" [style.width.px]="botScrollWidth"></div>
     </div>
     <div class="left-background"></div>

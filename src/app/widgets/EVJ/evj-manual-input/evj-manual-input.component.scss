@@ -19,7 +19,8 @@ input {
 
 .message-icon {
   cursor: pointer;
-  &:hover, activeIcon {
+  &:hover,
+  activeIcon {
     ::ng-deep {
       .path2 {
         stroke: var(--evj-color-message-stroke);
@@ -129,26 +130,26 @@ input {
   }
 }
 
-.historical{
+.historical {
   padding: 0 14px;
   flex: 1;
   display: flex;
   justify-content: flex-end;
 
-  &__btn{
+  &__btn {
     box-sizing: border-box;
 
     height: 30px;
     width: 177px;
     padding: 0 10px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 2px;
     background-color: var(--evj-color-bg-btn);
-  
+
     &:hover {
       cursor: pointer;
       background-color: var(--evj-color-active);
@@ -218,7 +219,6 @@ input {
 
     color: var(--evj-color-white);
     background: var(--evj-color-bg-filter);
-
 
     .set-button {
       box-sizing: border-box;
@@ -299,7 +299,7 @@ input {
       justify-content: space-between;
       font-size: 14px;
       color: var(--evj-color-item-text-filter);
-  
+
       &__button-list {
         margin-right: 14px;
         cursor: pointer;
@@ -314,7 +314,6 @@ input {
         background: var(--evj-color-bg-info);
 
         padding-left: 40px;
-
 
         .block-param {
           display: flex;
@@ -399,7 +398,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     cursor: pointer;
     width: 20px;
   }
@@ -455,7 +454,7 @@ input {
 
         position: relative;
         background: var(--evj-color-bg-machine-item);
-        
+
         &_selected {
           border-left: 3px solid var(--evj-color-active);
           background: var(--nk-color-bg-selected);
@@ -510,7 +509,6 @@ input {
           right: 60px;
           z-index: 1;
 
-
           .input-header {
             height: 45px;
             padding: 0 24px;
@@ -553,7 +551,6 @@ input {
     .item-container-none {
       display: none;
     }
-
   }
 }
 
@@ -566,7 +563,7 @@ input {
   display: none;
 }
 
-.message{
+.message {
   width: 120px;
   display: flex;
   justify-content: center;
@@ -678,7 +675,7 @@ input.data {
       padding: 0 40px;
       margin: 1px 0;
       justify-content: flex-start;
-      
+
       cursor: pointer;
 
       span {
@@ -723,7 +720,7 @@ input.data {
           background: var(--evj-color-bg-info);
         }
 
-        .hours{
+        .hours {
           display: flex;
           &__item {
             flex: 1;
@@ -767,14 +764,14 @@ input.data {
     min-width: 350px;
     padding: 0 40px;
     justify-content: flex-start;
-    
+
     cursor: pointer;
 
     span {
       color: var(--evj-color-item-text-sub);
       font-size: 14px;
       margin-left: 54px;
-      
+
       white-space: nowrap;
       text-align: left;
       overflow: hidden;
@@ -805,7 +802,7 @@ input.data {
       display: flex;
       background: var(--evj-color-bg-main);
 
-      .hours{
+      .hours {
         display: flex;
         width: 100%;
 

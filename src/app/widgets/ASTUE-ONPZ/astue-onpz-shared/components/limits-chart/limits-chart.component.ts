@@ -1,10 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, OnChanges, HostListener } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import {
-    IProductionTrend,
-    ProductionTrendType,
-} from '../../../../../dashboard/models/LCO/production-trends.model';
+import { IProductionTrend, ProductionTrendType } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
@@ -101,9 +98,7 @@ export class LimitsChartComponent implements OnChanges {
     // TODO add dt interval historical ++
     private getOxArea(): void {
         if (this.currentDates) {
-            [this.dateMin, this.dateMax] = d3.extent(
-                this.data.flatMap((x) => x.graph).map((x) => x.timeStamp)
-            );
+            [this.dateMin, this.dateMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.timeStamp));
         } else {
             const isFilterData =
                 this.data
@@ -126,30 +121,20 @@ export class LimitsChartComponent implements OnChanges {
     private initData(): void {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
             .attr(
                 'viewBox',
-                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${
-                    this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
-                }`
+                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
             );
     }
 
     private findMinMax(): void {
-        [this.dataMin, this.dataMax] = d3.extent(
-            this.data.flatMap((x) => x.graph).map((x) => x.value)
-        );
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
         this.dataMin -= (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
         this.dataMax += (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
     }
@@ -158,25 +143,15 @@ export class LimitsChartComponent implements OnChanges {
         const domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
 
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
 
         // TODO add time format ++
         if (!!this.currentDates) {
-            this.axis.axisX = d3
-                .axisBottom(this.scaleFuncs.x)
-                .ticks(8)
-                .tickFormat(dateFormatLocale())
-                .tickSizeOuter(0);
+            this.axis.axisX = d3.axisBottom(this.scaleFuncs.x).ticks(8).tickFormat(dateFormatLocale()).tickSizeOuter(0);
         } else {
             this.axis.axisX = d3
                 .axisBottom(this.scaleFuncs.x)
@@ -185,11 +160,7 @@ export class LimitsChartComponent implements OnChanges {
                 .tickSizeOuter(0);
         }
 
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(5)
-            .tickSize(0)
-            .tickFormat(d3.format('d'));
+        this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(5).tickSize(0).tickFormat(d3.format('d'));
     }
 
     private transformData(): void {
@@ -239,17 +210,11 @@ export class LimitsChartComponent implements OnChanges {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            this.svg
-                .append('path')
-                .attr('class', `graph-line-${chart.graphType}`)
-                .attr('d', line(chart.graph));
+            this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
 
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
-                this.svg
-                    .append('path')
-                    .attr('class', `graph-area-${chart.graphType}`)
-                    .attr('d', areaFn(chart.graph));
+                this.svg.append('path').attr('class', `graph-area-${chart.graphType}`).attr('d', areaFn(chart.graph));
             }
         });
     }
@@ -344,12 +309,7 @@ export class LimitsChartComponent implements OnChanges {
 
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
             return this.scaleFuncs.y.invert(
-                findCursorPosition(
-                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
-                    type,
-                    this.svg,
-                    this.padding
-                ).y
+                findCursorPosition(this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp), type, this.svg, this.padding).y
             );
         };
 

@@ -13,14 +13,10 @@
       </div>
       <div class="workspace_button">
         <div class="button_operation" (click)="createOperation()">
-          <div class="buttons">
-            Создание операций
-          </div>
+          <div class="buttons">Создание операций</div>
         </div>
         <div class="button_edit_param" (click)="changeParam()">
-          <div class="buttons">
-            Редактирование параметров
-          </div>
+          <div class="buttons">Редактирование параметров</div>
         </div>
       </div>
     </div>
@@ -35,19 +31,11 @@
         </div>
       </div>
       <div class="filter_buttons">
-        <div class="filter_button"
-            [class.filter_button__active]="!isOpen"
-            (click)="filterClick(false)">
-          <div class="buttons">
-            Все операции за период
-          </div>
+        <div class="filter_button" [class.filter_button__active]="!isOpen" (click)="filterClick(false)">
+          <div class="buttons">Все операции за период</div>
         </div>
-        <div class="filter_button"
-             [class.filter_button__active]="isOpen"
-             (click)="filterClick(true)">
-          <div class="buttons">
-            Только открытые операции
-          </div>
+        <div class="filter_button" [class.filter_button__active]="isOpen" (click)="filterClick(true)">
+          <div class="buttons">Только открытые операции</div>
         </div>
       </div>
     </div>
@@ -65,9 +53,7 @@
       <div class="reports_button">
         <ng-container *ngFor="let item of data">
           <div class="button_rep">
-            <div class="buttons">
-              {{item}}
-            </div>
+            <div class="buttons">{{item}}</div>
           </div>
         </ng-container>
       </div>

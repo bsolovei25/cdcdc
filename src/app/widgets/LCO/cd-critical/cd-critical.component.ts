@@ -3,12 +3,11 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
-  selector: 'evj-cd-critical',
-  templateUrl: './cd-critical.component.html',
-  styleUrls: ['./cd-critical.component.scss']
+    selector: 'evj-cd-critical',
+    templateUrl: './cd-critical.component.html',
+    styleUrls: ['./cd-critical.component.scss'],
 })
 export class CdCriticalComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -27,6 +26,5 @@ export class CdCriticalComponent extends WidgetPlatform<unknown> implements OnIn
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 }

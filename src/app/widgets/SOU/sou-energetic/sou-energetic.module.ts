@@ -7,11 +7,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
-    declarations: [
-        SouEnergeticComponent,
-        SouEnergeticCardComponent,
-        SouEnergeticCircleIconComponent,
-    ],
+    declarations: [SouEnergeticComponent, SouEnergeticCardComponent, SouEnergeticCircleIconComponent],
     imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class SouEnergeticModule {

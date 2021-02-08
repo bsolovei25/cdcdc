@@ -27,59 +27,60 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
+} from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChip, MatChipInput, MatChipList, MatChipsModule } from '@angular/material/chips';
 
-
-
 @NgModule({
-  declarations: [
-    PetroleumProductsMovementComponent,
-    FilterPopupComponent,
-    TransferTableComponent,
-    PetroleumReferenceComponent,
-    InfoScreenComponent,
-    OperationParkScreenComponent,
-    OperationScreenComponent,
-    PetroleumReferenceLeftComponent,
-    InfoScreenLeftComponent,
-    OperationParkScreenLeftComponent,
-    OperationScreenLeftComponent,
-    PetroleumReferenceRightComponent,
-    InfoScreenRightComponent,
-    OperationScreenRightComponent,
-    OperationParkScreenRightComponent,
-    PetroleumUnityComponent,
-    PetroleumUnityInfoComponent,
-
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    NgxMatMomentModule,
-    FormsModule,
-    MatIconModule,
-    OverlayModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatChipsModule,
-  ]
+    declarations: [
+        PetroleumProductsMovementComponent,
+        FilterPopupComponent,
+        TransferTableComponent,
+        PetroleumReferenceComponent,
+        InfoScreenComponent,
+        OperationParkScreenComponent,
+        OperationScreenComponent,
+        PetroleumReferenceLeftComponent,
+        InfoScreenLeftComponent,
+        OperationParkScreenLeftComponent,
+        OperationScreenLeftComponent,
+        PetroleumReferenceRightComponent,
+        InfoScreenRightComponent,
+        OperationScreenRightComponent,
+        OperationParkScreenRightComponent,
+        PetroleumUnityComponent,
+        PetroleumUnityInfoComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
+        FormsModule,
+        MatIconModule,
+        OverlayModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatChipsModule,
+    ],
 })
 export class PetroleumProductsMovementModule {
-  enterComponent = PetroleumProductsMovementComponent;
+    enterComponent = PetroleumProductsMovementComponent;
 }

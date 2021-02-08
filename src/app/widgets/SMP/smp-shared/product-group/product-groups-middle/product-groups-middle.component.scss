@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -6,7 +6,6 @@
   fill: rgba(244, 163, 33, 0.2);
   stroke: #f4a321;
 }
-
 
 %danger {
   fill: #f9031b;
@@ -36,73 +35,72 @@
 .bottom,
 .mid,
 .top {
-    width: 13px;
-    padding: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  width: 13px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
-    &__inner {
-        &_fact {
-            width: 9px;
-            background: var(--color-smp-free);
+  &__inner {
+    &_fact {
+      width: 9px;
+      background: var(--color-smp-free);
 
-            position: absolute;
-            bottom: 0;
-        }
-        &_plan {
-            width: 9px;
-            background: var(--color-smp-rest);
-            
-            position: absolute;
-            bottom: 0;
-        }    
+      position: absolute;
+      bottom: 0;
     }
+    &_plan {
+      width: 9px;
+      background: var(--color-smp-rest);
+
+      position: absolute;
+      bottom: 0;
+    }
+  }
 }
 
 .top {
-    height: 6px;
-    padding-bottom: 0;
-    border: 1px solid var(--color-smp-checkbox);
-    border-bottom: none;
+  height: 6px;
+  padding-bottom: 0;
+  border: 1px solid var(--color-smp-checkbox);
+  border-bottom: none;
 
-    transform: skewX(45deg) translate(-3px, 0px);
-
+  transform: skewX(45deg) translate(-3px, 0px);
 }
 
 .bottom {
-    height: 6px;
-    padding-top: 0;
-    border: 1px solid var(--color-smp-checkbox);
-    border-top: none;
+  height: 6px;
+  padding-top: 0;
+  border: 1px solid var(--color-smp-checkbox);
+  border-top: none;
 
-    transform: skewX(-45deg) translate(-3px, 0px);
+  transform: skewX(-45deg) translate(-3px, 0px);
 }
 
 .mid {
-    height: 30px;
-    padding: 0 2px;
-    border-left: 1px solid var(--color-smp-checkbox);
-    border-right: 1px solid var(--color-smp-checkbox);
+  height: 30px;
+  padding: 0 2px;
+  border-left: 1px solid var(--color-smp-checkbox);
+  border-right: 1px solid var(--color-smp-checkbox);
 
-    position: relative;
+  position: relative;
 
-    &-line {
-      height: 1px;
-      width: 9px;
-    
-      border-top: 1px dashed var(--color-smp-white);
-      position: absolute;
-      
-      &__bottom {
-          bottom: 0px;
-      }
-    
-      &__top {
-          top: 0px;
-      }
+  &-line {
+    height: 1px;
+    width: 9px;
+
+    border-top: 1px dashed var(--color-smp-white);
+    position: absolute;
+
+    &__bottom {
+      bottom: 0px;
     }
+
+    &__top {
+      top: 0px;
+    }
+  }
 }
 
 .cb {
@@ -219,8 +217,7 @@
 
 .warning {
   ::ng-deep {
-    .b195262e-0f36-4bd7-8b5d-a0004436b690
-    .e5bde44f-423f-4ebd-9e40-b8254243c480,
+    .b195262e-0f36-4bd7-8b5d-a0004436b690 .e5bde44f-423f-4ebd-9e40-b8254243c480,
     .e265c3d5-5f8f-4caa-95ee-ecedde9f1cbf,
     .eace7803-5e18-410e-8515-7508218748cb,
     .a0f3c4b4-caba-4fe1-9614-0f32a4fa6d04,
@@ -230,7 +227,7 @@
     .b5395a1a-5078-4461-97ee-2d7ecdb09673,
     .e72d58eb-7242-4b8d-a086-92e84ec30fcf,
     .ea6ef7ac-d2fe-402d-8a7f-c372a4ba690c,
-    .befd9104-8ba5-4d66-b64c-dc2c6e40ac27{
+    .befd9104-8ba5-4d66-b64c-dc2c6e40ac27 {
       @extend %warning;
     }
   }

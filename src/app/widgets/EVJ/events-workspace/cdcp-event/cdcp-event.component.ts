@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -9,7 +9,7 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
 @Component({
     selector: 'evj-cdcp-event',
     templateUrl: './cdcp-event.component.html',
-    styleUrls: ['./cdcp-event.component.scss']
+    styleUrls: ['./cdcp-event.component.scss'],
 })
 export class CdcpEventComponent implements OnInit {
     @Input()
@@ -19,7 +19,7 @@ export class CdcpEventComponent implements OnInit {
         type: 'text',
         state: 'normal',
         placeholder: 'Номер позиции',
-        isMovingPlaceholder: true
+        isMovingPlaceholder: true,
     };
 
     constructor(
@@ -27,20 +27,15 @@ export class CdcpEventComponent implements OnInit {
         private userService: UserSettingsService,
         private cdMatBalanceService: CdMatBalanceService,
         private snackBar: SnackBarService
-    ) {
-    }
+    ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
@@ -57,10 +52,7 @@ export class CdcpEventComponent implements OnInit {
             this.cdMatBalanceService.isOpenEvent$.next(this.ewService.event);
             this.userService.loadScreenByWidget('cd-mat-balance');
         } else {
-            this.snackBar.openSnackBar(
-                'Для создания нового события, сохраните текущее!',
-                'snackbar-red'
-            );
+            this.snackBar.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
         }
     }
 }

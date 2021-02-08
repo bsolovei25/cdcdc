@@ -2,7 +2,7 @@
   <div [ngClass]="type ? 'aps-header__background-' + type : 'aps-header__background'"></div>
   <div class="aps-header__interface">
     <ng-container *ngIf="widgetTitle">
-      <img alt="" *ngIf="icon" class="icon" src="assets/pic/{{icon}}.svg"/>
+      <img alt="" *ngIf="icon" class="icon" src="assets/pic/{{icon}}.svg" />
       <div class="title">{{widgetTitle}}</div>
     </ng-container>
 
@@ -15,7 +15,7 @@
       *ngIf="!!additionalMenuItems.length || claimWidgets.includes(EnumClaimWidgets.delete)"
     >
       <div class="button button_menu" (click)="toggleMenu()">
-        <img src="assets/pic/menu.svg"/>
+        <img src="assets/pic/menu.svg" />
       </div>
     </div>
   </div>
@@ -26,14 +26,8 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">
-      {{item.title}}
-    </div>
-    <div
-      class="menu__item"
-      (click)="onRemoveButton()"
-      *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
-    >
+    <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">{{item.title}}</div>
+    <div class="menu__item" (click)="onRemoveButton()" *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)">
       Удалить с экрана
     </div>
   </div>

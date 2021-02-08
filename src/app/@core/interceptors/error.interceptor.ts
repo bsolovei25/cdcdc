@@ -18,7 +18,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private router: Router,
         private materialController: SnackBarService,
-        private authService: AuthService) {}
+        private authService: AuthService
+    ) {}
 
     /** Intercept request with custom error handling */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -30,20 +31,18 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.router.navigate(['login']);
                         break;
                     case 403:
-                        this.materialController.openSnackBar('У Вас недостаточно прав для выполнения этой операции!',
-                            'snackbar-red');
+                        this.materialController.openSnackBar(
+                            'У Вас недостаточно прав для выполнения этой операции!',
+                            'snackbar-red'
+                        );
                         break;
                     case 500:
                         break;
                     case 0:
-                        this.materialController.openSnackBar('Сервер не отвечает',
-                            'snackbar-red');
+                        this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
                         break;
                     case 477:
-                        this.materialController.openSnackBar(
-                            err.error.messages[0].message,
-                            'snackbar-red'
-                        );
+                        this.materialController.openSnackBar(err.error.messages[0].message, 'snackbar-red');
                         console.error(err);
                         console.error(err.error.messages[0].message);
                         break;

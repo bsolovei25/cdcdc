@@ -1,14 +1,14 @@
 <div class="categories">
-  <div class="categories__item"
-       [class.categories__item--active]="data?.isActive"
-       (click)="onCLickItem(data)">
+  <div class="categories__item" [class.categories__item--active]="data?.isActive" (click)="onCLickItem(data)">
     <div class="categories__item__name">{{data?.name}}</div>
     <div class="categories__item__footer">
       <div class="categories__item__footer__icon">
-        <svg-icon class="categories__item__footer__icon"
-                  [class.categories__item__footer__icon--active]="data?.isActive"
-                  [applyCss]="true"
-                  [src]="data.iconUrl"></svg-icon>
+        <svg-icon
+          class="categories__item__footer__icon"
+          [class.categories__item__footer__icon--active]="data?.isActive"
+          [applyCss]="true"
+          [src]="data.iconUrl"
+        ></svg-icon>
       </div>
       <div class="categories__item__footer__value">
         <span class="counts__count">{{data?.notificationsCounts?.open}}</span>
@@ -18,11 +18,7 @@
     </div>
   </div>
   <div class="categories__link">
-    <button
-      class="categories__link__btn"
-      [disabled]="data?.url === '#'"
-      (click)="onClickUrl($event, data?.url)"
-    >
+    <button class="categories__link__btn" [disabled]="data?.url === '#'" (click)="onClickUrl($event, data?.url)">
       В систему источник
     </button>
   </div>

@@ -1,12 +1,12 @@
 <div class="container-select">
-    <div class="container-select__info">
-        <div *ngFor="let item of data" (click)="choose(item)">
-           <div class="item"> {{ item.name }} </div>
-        </div>
+  <div class="container-select__info">
+    <div *ngFor="let item of data" (click)="choose(item)">
+      <div class="item">{{ item.name }}</div>
     </div>
-    <div class="container-select__search">
-        <div class="search-block">
-            <evj-circle-input (searchChange)="search($event)" style="height: 100%;"></evj-circle-input>
-        </div>
+  </div>
+  <div class="container-select__search">
+    <div class="search-block">
+      <evj-circle-input (searchChange)="search($event)" style="height: 100%"></evj-circle-input>
     </div>
+  </div>
 </div>

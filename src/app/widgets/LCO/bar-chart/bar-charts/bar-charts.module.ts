@@ -5,15 +5,9 @@ import { BarChartsComponent } from './bar-charts.component';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
-  declarations: [BarChartsComponent, BarChartComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-    ]
+    declarations: [BarChartsComponent, BarChartComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class BarChartsModule {
     enterComponent = BarChartsComponent;

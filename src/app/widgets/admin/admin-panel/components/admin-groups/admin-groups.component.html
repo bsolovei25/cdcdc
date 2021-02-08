@@ -1,8 +1,4 @@
-<div
-  class="container"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="column" *ngIf="!isDataLoading">
@@ -106,13 +102,9 @@
         >
           Рабочие области
         </div>
-        <div class="block__title" style="flex:1; margin-right: 20px;"></div>
+        <div class="block__title" style="flex: 1; margin-right: 20px"></div>
       </div>
-      <div
-        class="block"
-        [ngClass]="{'block_active': blockSelection.isEmpty()}"
-        *ngIf="blockSelection.isEmpty()"
-      >
+      <div class="block" [ngClass]="{'block_active': blockSelection.isEmpty()}" *ngIf="blockSelection.isEmpty()">
         <div class="block__body claims">
           <div class="title">Общие права</div>
           <div class="cards scroll scroll-bar">
@@ -144,10 +136,7 @@
                 <div class="claim__items">
                   <div class="claim__item" *ngFor="let item of getSelectedSpecialClaims(claim)">
                     {{getClaimTitleByValue(item)}}
-                    <div
-                      class="claim__button claim__button-delete"
-                      (click)="onRemoveSpecialClaim(item)"
-                    >
+                    <div class="claim__button claim__button-delete" (click)="onRemoveSpecialClaim(item)">
                       <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
                     </div>
                   </div>
@@ -157,11 +146,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="block"
-        [ngClass]="{'block_active': blockSelection.hasValue()}"
-        *ngIf="blockSelection.hasValue()"
-      >
+      <div class="block" [ngClass]="{'block_active': blockSelection.hasValue()}" *ngIf="blockSelection.hasValue()">
         <div class="block__body block__body_workspaces">
           <evj-aws-workspaces
             class="workspaces workspaces__list scroll scroll-bar"

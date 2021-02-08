@@ -14,7 +14,7 @@ To load settings
 */
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class WidgetSettingsService {
     private readonly restUrl: string;
@@ -33,20 +33,13 @@ export class WidgetSettingsService {
         }
     }
 
-    public async saveSettings<TSettings>(
-        widgetUniqueId: string,
-        settings: TSettings
-    ): Promise<void> {
+    public async saveSettings<TSettings>(widgetUniqueId: string, settings: TSettings): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
         // const json = this.jsonStringify(settings);
         await this.http.post(url, settings).toPromise();
     }
 
-    public async saveSingleSetting(
-        widgetUniqueId: string,
-        key: string,
-        value: string
-    ): Promise<void> {
+    public async saveSingleSetting(widgetUniqueId: string, key: string, value: string): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}/${key}`;
         await this.http.post(url, `${value}`).toPromise();
     }

@@ -15,11 +15,7 @@
       <evj-card-verifier [verifyInfo]="verifyInfo"></evj-card-verifier>
     </div>
 
-    <div
-      *ngIf="isWindowUsbVerifyActive"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div *ngIf="isWindowUsbVerifyActive" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="shadow-panel"></div>
       <evj-usb-verifier [verifyInfo]="verifyInfo"></evj-usb-verifier>
     </div>
@@ -31,26 +27,17 @@
       <evj-alert-window [info]="shiftService.alertWindowLeaveShift$ | async"></evj-alert-window>
     </ng-container>
 
-    <div
-      class="change-shift"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="change-shift__mainWorker">
-        <svg-icon
-          class="mainWorker__frame"
-          src="assets/icons/change-shift-main-avatar-frame.svg"
-        >
-        </svg-icon>
+        <svg-icon class="mainWorker__frame" src="assets/icons/change-shift-main-avatar-frame.svg"> </svg-icon>
         <div class="mainWorker__avatar">
-          <img class="mainWorker__img" [src]="photoPathMain">
+          <img class="mainWorker__img" [src]="photoPathMain" />
         </div>
         <div class="mainWorker__info">
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
               <div class="mainWorker__name">
-                {{ getMain().employee.lastName }} {{
-                getMain().employee.firstName.charAt(0).toUpperCase() }}.
+                {{ getMain().employee.lastName }} {{ getMain().employee.firstName.charAt(0).toUpperCase() }}.
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
                 {{ this.getDisplayPosition(getMain().position) }}
@@ -68,12 +55,8 @@
           </div>
           <div class="mainWorker__row">
             <div class="mainWorker__squad">
-              <div class="mainWorker__number">
-                Бригада
-              </div>
-              <div class="mainWorker__number">
-                {{ currentShift?.brigade?.number }}
-              </div>
+              <div class="mainWorker__number">Бригада</div>
+              <div class="mainWorker__number">{{ currentShift?.brigade?.number }}</div>
             </div>
           </div>
         </div>
@@ -81,9 +64,7 @@
       <div class="change-shift__onShift">
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift">
-          <div class="onShift__add" #addShift (click)="showPeople()">
-            Добавить
-          </div>
+          <div class="onShift__add" #addShift (click)="showPeople()">Добавить</div>
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
               <evj-shift-person
@@ -135,15 +116,11 @@
         </ng-container>
       </div>
       <div class="change-shift__comment">
-        <div class="comment__title">
-          Комментарии оператора
-        </div>
+        <div class="comment__title">Комментарии оператора</div>
         <div class="comment__body">
           <div class="comment__display">
             <div class="messages scroll-bar" #scroll>
-              <div class="message" *ngFor="let comment of comments">
-                {{ comment.comment }}
-              </div>
+              <div class="message" *ngFor="let comment of comments">{{ comment.comment }}</div>
             </div>
           </div>
           <div class="comment__new">
@@ -154,45 +131,31 @@
               (keypress)="onEnterPush($event)"
               #input
             />
-            <button type="submit" class="button comment__file   gridster-item-content">
+            <button type="submit" class="button comment__file gridster-item-content">
               <svg-icon src="assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
             </button>
-            <button
-              type="submit"
-              class="button comment__submit  gridster-item-content"
-              (click)="onSendMessage()"
-            >
+            <button type="submit" class="button comment__submit gridster-item-content" (click)="onSendMessage()">
               <svg-icon src="assets/icons/widgets/change-shift/send.svg"></svg-icon>
             </button>
           </div>
         </div>
       </div>
-      <ng-container
-        *ngIf="widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
-      >
+      <ng-container *ngIf="widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
-            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">
-              Передать смену
-            </button>
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">Передать смену</button>
           </div>
         </div>
       </ng-container>
 
-      <ng-container
-        *ngIf="widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
-      >
+      <ng-container *ngIf="widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
-            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">
-              Принять смену
-            </button>
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">Принять смену</button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <button (click)="this.shiftCancel()" matRipple matRippleColor="white">
-              Отказаться
-            </button>
+            <button (click)="this.shiftCancel()" matRipple matRippleColor="white">Отказаться</button>
           </div>
         </div>
       </ng-container>
@@ -206,9 +169,7 @@
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <button (click)="unsetRequireComment()" matRipple matRippleColor="white">
-              Отмена
-            </button>
+            <button (click)="unsetRequireComment()" matRipple matRippleColor="white">Отмена</button>
           </div>
         </div>
       </ng-container>

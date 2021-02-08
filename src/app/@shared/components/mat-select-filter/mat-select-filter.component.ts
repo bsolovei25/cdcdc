@@ -1,9 +1,13 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
-    EventEmitter, forwardRef, Inject,
-    Input, OnDestroy,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    OnDestroy,
     OnInit,
     QueryList,
     ViewChild,
@@ -23,8 +27,8 @@ import { MatSelect } from '@angular/material/select';
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => MatSelectFilterComponent),
-            multi: true
-        }
+            multi: true,
+        },
     ],
 })
 export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
@@ -37,7 +41,7 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
     @Input()
     public noResultFoundText: string = 'Не найдено';
 
-    @ViewChild('filterSelectInput', {read: ElementRef})
+    @ViewChild('filterSelectInput', { read: ElementRef })
     public filterSelectInput: ElementRef;
 
     public filterOptions: QueryList<MatOption>;
@@ -62,8 +66,7 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
         @Inject(MatSelect)
         public matSelect: MatSelect,
         private changeDetectorRef: ChangeDetectorRef
-    ) {
-    }
+    ) {}
 
     public ngOnInit(): void {
         // присвоение уникального класса
@@ -80,39 +83,33 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
             this.matSelect.panelClass = panelClass;
         }
 
-        this.matSelect.openedChange
-            .pipe(takeUntil(this.onDestroy))
-            .subscribe((opened) => {
-                if (opened) {
-                    this.focusFilter();
-                } else {
-                    this.resetFilter();
-                }
-            });
+        this.matSelect.openedChange.pipe(takeUntil(this.onDestroy)).subscribe((opened) => {
+            if (opened) {
+                this.focusFilter();
+            } else {
+                this.resetFilter();
+            }
+        });
 
         this.matSelect.openedChange
             .pipe(take(1))
             .pipe(takeUntil(this.onDestroy))
             .subscribe(() => {
                 this.filterOptions = this.matSelect.options;
-                this.filterOptions.changes
-                    .pipe(takeUntil(this.onDestroy))
-                    .subscribe(() => {
-                        const keyManager = this.matSelect._keyManager;
-                        if (keyManager && this.matSelect.panelOpen) {
-                            // страховка от expression has been changed
-                            setTimeout(() => {
-                                keyManager.setFirstItemActive();
-                            });
-                        }
-                    });
+                this.filterOptions.changes.pipe(takeUntil(this.onDestroy)).subscribe(() => {
+                    const keyManager = this.matSelect._keyManager;
+                    if (keyManager && this.matSelect.panelOpen) {
+                        // страховка от expression has been changed
+                        setTimeout(() => {
+                            keyManager.setFirstItemActive();
+                        });
+                    }
+                });
             });
 
-        this.change
-            .pipe(takeUntil(this.onDestroy))
-            .subscribe(() => {
-                this.changeDetectorRef.detectChanges();
-            });
+        this.change.pipe(takeUntil(this.onDestroy)).subscribe(() => {
+            this.changeDetectorRef.detectChanges();
+        });
     }
 
     public ngOnDestroy(): void {
@@ -185,12 +182,11 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
         }
         const overlayClass = 'cdk-overlay-pane-select-filter';
         // TODO подумать над лучшим решением
-        this.matSelect.overlayDir.attach
-            .pipe(takeUntil(this.onDestroy))
-            .subscribe(() => {
-                this.filterSelectInput.nativeElement.parentElement.parentElement
-                    .parentElement.parentElement.parentElement.classList.add(overlayClass);
-            });
+        this.matSelect.overlayDir.attach.pipe(takeUntil(this.onDestroy)).subscribe(() => {
+            this.filterSelectInput.nativeElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add(
+                overlayClass
+            );
+        });
         this.overlayClassSet = true;
     }
 }

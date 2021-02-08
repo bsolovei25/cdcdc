@@ -7,13 +7,12 @@ input {
 
   outline: none;
   border: none;
-  
+
   height: 31px;
   outline: none;
   border: none;
   background: transparent;
   color: var(--evj-color-white);
-
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +37,7 @@ input {
 ::-webkit-scrollbar-thumb {
   height: 20px;
   width: 4px;
-  background-color:  var(--evj-color-scrollbar-thumb);
+  background-color: var(--evj-color-scrollbar-thumb);
   border-radius: 0;
 }
 
@@ -73,7 +72,7 @@ input {
 
     background-color: var(--evj-color-bg-hours);
     color: var(--evj-color-item-text-filter);
-    
+
     text-align: center;
   }
 
@@ -93,12 +92,12 @@ input {
       width: 400px;
       padding-left: 40px;
       text-align: left;
-      
+
       cursor: pointer;
       span {
         padding: 0 14px;
       }
-  
+
       ::ng-deep {
         svg-icon {
           .cls-1 {
@@ -109,7 +108,9 @@ input {
     }
   }
 
-  .machine, .group, .params {
+  .machine,
+  .group,
+  .params {
     height: 40px;
     text-align: left;
 
@@ -175,5 +176,4 @@ input {
       transform: rotate(-90deg);
     }
   }
-
 }

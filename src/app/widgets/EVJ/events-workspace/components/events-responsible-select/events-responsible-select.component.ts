@@ -14,7 +14,7 @@ export class EventsResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
     @Input() public disabled: boolean = false;
 
-    filter: FormControl = new FormControl({value: '', disabled: true});
+    filter: FormControl = new FormControl({ value: '', disabled: true });
 
     public responsible: IUser = null;
 
@@ -57,8 +57,7 @@ export class EventsResponsibleSelectComponent implements OnInit {
         }
         this.users = this.ewService.users.filter(
             (user) =>
-                user.firstName.toLowerCase().indexOf(value) > -1 ||
-                user.lastName.toLowerCase().indexOf(value) > -1
+                user.firstName.toLowerCase().indexOf(value) > -1 || user.lastName.toLowerCase().indexOf(value) > -1
         );
     }
 }

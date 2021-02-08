@@ -66,7 +66,7 @@
           background: var(--color-sou-button);
           border-radius: 4px;
           cursor: pointer;
-          transition: .3s;
+          transition: 0.3s;
 
           &__active {
             background: var(--color-aps-active);
@@ -74,7 +74,7 @@
 
           &:hover {
             background: var(--color-aps-active);
-            transition: .3s;
+            transition: 0.3s;
           }
         }
       }

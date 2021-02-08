@@ -165,11 +165,7 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
     async createСonnection(body: ICreateConnection): Promise<void> {
         try {
             this.isLoading = true;
-            await this.workflowService.putActionsConnections(
-                this.chooseModules.uid,
-                this.chooseScenarios.uid,
-                body
-            );
+            await this.workflowService.putActionsConnections(this.chooseModules.uid, this.chooseScenarios.uid, body);
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;

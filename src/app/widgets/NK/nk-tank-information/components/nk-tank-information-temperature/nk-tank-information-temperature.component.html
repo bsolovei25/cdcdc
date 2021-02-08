@@ -1,20 +1,23 @@
 <div class="temperature">
-    <div class="temperature__title">
-        <span>Тем. °С</span>
-    </div>
+  <div class="temperature__title">
+    <span>Тем. °С</span>
+  </div>
 
-    <div class="thermometer-container">
-        <div class="thermometer">
-            <div *ngIf="!isRepair" class="thermometer-inner" [ngStyle]="{'height': temperature / maxTemperature * 84 + 'px'}">
-            </div>
-        </div>
-        <div class="thermometer-circle">
-            <div class="thermometer-circle__inner"></div>
-        </div>
+  <div class="thermometer-container">
+    <div class="thermometer">
+      <div
+        *ngIf="!isRepair"
+        class="thermometer-inner"
+        [ngStyle]="{'height': temperature / maxTemperature * 84 + 'px'}"
+      ></div>
     </div>
+    <div class="thermometer-circle">
+      <div class="thermometer-circle__inner"></div>
+    </div>
+  </div>
 
-    <div class="temperature__value">
-        <span *ngIf="!isRepair">{{temperature | number:'0.0-1'}}</span>
-        <span *ngIf="isRepair">0</span>
-    </div>
+  <div class="temperature__value">
+    <span *ngIf="!isRepair">{{temperature | number:'0.0-1'}}</span>
+    <span *ngIf="isRepair">0</span>
+  </div>
 </div>

@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ViewChild,
-    ElementRef,
-    Inject,
-    HostListener,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, HostListener, OnDestroy } from '@angular/core';
 import { ShiftService } from '../../../dashboard/services/widgets/EVJ/shift.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
@@ -147,9 +139,7 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         }
 
         if (this.currentShift.shiftMembers?.length > 0) {
-            let index = this.currentShift.shiftMembers.findIndex(
-                (item) => item.position === 'responsible'
-            );
+            let index = this.currentShift.shiftMembers.findIndex((item) => item.position === 'responsible');
             if (index === -1) {
                 console.warn('No responsible found in shift');
                 index = 0;
@@ -159,7 +149,9 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
             const tempMember = this.currentShift.shiftMembers[0];
             this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
             this.currentShift.shiftMembers[index] = tempMember;
-            this.photoPathMain = this.avatarConfiguratorService.getAvatarPath(this.currentShift?.shiftMembers[0]?.employee?.photoId);
+            this.photoPathMain = this.avatarConfiguratorService.getAvatarPath(
+                this.currentShift?.shiftMembers[0]?.employee?.photoId
+            );
 
             this.comments = [];
             if (widgetType === 'shift-pass') {
@@ -176,12 +168,10 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         }
 
         this.presentMembers = this.currentShift.shiftMembers.filter(
-            (el) =>
-                el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
+            (el) => el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
         );
         this.absentMembers = this.currentShift.shiftMembers.filter(
-            (el) =>
-                el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
+            (el) => el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
         );
     }
 
@@ -194,8 +184,7 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
     async onSendMessage(): Promise<void> {
         if (this.input.nativeElement.value) {
             const comment = await this.shiftService.sendComment(
-                this.currentShift.shiftMembers.find((el) => el.position === 'responsible').employee
-                    .id,
+                this.currentShift.shiftMembers.find((el) => el.position === 'responsible').employee.id,
                 this.currentShift.id,
                 this.input.nativeElement.value,
                 this.widgetType
@@ -292,12 +281,7 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
-                    this.shiftService.cancelShift(
-                        this.currentShift.id,
-                        ans.comment,
-                        this.widgetId,
-                        this.unitId
-                    );
+                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId, this.unitId);
                     this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');

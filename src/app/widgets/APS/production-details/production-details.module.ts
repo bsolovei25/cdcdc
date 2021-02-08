@@ -8,12 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ScrollingModule } from "@angular/cdk/scrolling";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
-    declarations: [
-        ProductionDetailsComponent,
-    ],
+    declarations: [ProductionDetailsComponent],
     imports: [
         CommonModule,
         SharedModule,

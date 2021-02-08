@@ -1,11 +1,7 @@
 <ng-container>
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
   <evj-frame-top></evj-frame-top>
-  <div
-    class="body-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="unity-body-container">
       <div class="loading-shade" *ngIf="!isStart && !isMock">
         <div class="loader">

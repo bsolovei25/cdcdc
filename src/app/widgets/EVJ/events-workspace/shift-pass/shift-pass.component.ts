@@ -5,19 +5,15 @@ import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/E
 @Component({
     selector: 'evj-shift-pass',
     templateUrl: './shift-pass.component.html',
-    styleUrls: ['./shift-pass.component.scss']
+    styleUrls: ['./shift-pass.component.scss'],
 })
 export class ShiftPassComponent implements OnInit {
-
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
         if (this.ewService.isEditEvent) {
-            this.ewService.event.priority =
-                this.ewService.priority.find(value => value.name === 'danger');
-            this.ewService.event.status =
-                this.ewService.status.find(value => value.name === 'inWork');
+            this.ewService.event.priority = this.ewService.priority.find((value) => value.name === 'danger');
+            this.ewService.event.status = this.ewService.status.find((value) => value.name === 'inWork');
         }
     }
 
@@ -27,10 +23,7 @@ export class ShiftPassComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
@@ -52,5 +45,4 @@ export class ShiftPassComponent implements OnInit {
             this.ewService.event.shiftPassEvent[el] = description;
         }
     }
-
 }

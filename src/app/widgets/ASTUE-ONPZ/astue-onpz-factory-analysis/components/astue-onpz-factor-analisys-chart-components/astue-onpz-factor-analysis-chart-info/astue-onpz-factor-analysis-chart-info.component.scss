@@ -27,7 +27,7 @@
     border-color: rgb(var(--astue-onpz-factory-analisys-norm));
 
     .value {
-      color: rgb(var(--astue-onpz-factory-analisys-norm));;
+      color: rgb(var(--astue-onpz-factory-analisys-norm));
     }
   }
 
@@ -46,7 +46,7 @@
       color: var(--astue-onpz-factory-analisys-grid);
 
       &::before {
-        content: '+-';
+        content: "+-";
         margin-right: -3px;
       }
     }

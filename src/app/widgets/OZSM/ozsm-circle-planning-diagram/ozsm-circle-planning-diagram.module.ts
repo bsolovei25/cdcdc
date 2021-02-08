@@ -4,15 +4,9 @@ import { OzsmCirclePlanningDiagramComponent } from './ozsm-circle-planning-diagr
 import { OzsmSharedModule } from '../ozsm-shared/ozsm-shared.module';
 import { SharedModule } from '@shared/shared.module';
 
-
-
 @NgModule({
-  declarations: [OzsmCirclePlanningDiagramComponent],
-    imports: [
-        CommonModule,
-        OzsmSharedModule,
-        SharedModule
-    ]
+    declarations: [OzsmCirclePlanningDiagramComponent],
+    imports: [CommonModule, OzsmSharedModule, SharedModule],
 })
 export class OzsmCirclePlanningDiagramModule {
     enterComponent = OzsmCirclePlanningDiagramComponent;

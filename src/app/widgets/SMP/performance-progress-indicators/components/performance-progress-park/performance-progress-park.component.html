@@ -1,22 +1,22 @@
 <div class="container-park">
-    <div class="container-park__title">{{ this.title }}</div>
-    <div class="container-park__content">
-        <div class="tank">
-            <evj-performance-progress-bar [data]='data'></evj-performance-progress-bar>
-        </div>
-        <div class="value">
-            <div class="value-block">
-                <div class="value-block__title">Вместимость всего</div>
-                <div class="value-block__value">{{ data?.capacity | spaceNumber}}</div>
-            </div>
-            <div class="value-block">
-                <div class="value-block__title">Остаток</div>
-                <div class="value-block__value">{{ data?.balance | spaceNumber}}</div>
-            </div>
-            <div class="value-block">
-                <div class="value-block__title">Паспортизировано</div>
-                <div class="value-block__value">{{ data?.certified | spaceNumber}}</div>
-            </div>
-        </div>
+  <div class="container-park__title">{{ this.title }}</div>
+  <div class="container-park__content">
+    <div class="tank">
+      <evj-performance-progress-bar [data]="data"></evj-performance-progress-bar>
     </div>
+    <div class="value">
+      <div class="value-block">
+        <div class="value-block__title">Вместимость всего</div>
+        <div class="value-block__value">{{ data?.capacity | spaceNumber}}</div>
+      </div>
+      <div class="value-block">
+        <div class="value-block__title">Остаток</div>
+        <div class="value-block__value">{{ data?.balance | spaceNumber}}</div>
+      </div>
+      <div class="value-block">
+        <div class="value-block__title">Паспортизировано</div>
+        <div class="value-block__value">{{ data?.certified | spaceNumber}}</div>
+      </div>
+    </div>
+  </div>
 </div>

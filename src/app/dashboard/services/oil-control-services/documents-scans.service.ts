@@ -18,10 +18,9 @@ export interface IOilControlPassportOpts {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class DocumentsScansService {
-
     private readonly BATCH_SIZE: number = 50;
 
     private restUrl: string;
@@ -36,22 +35,22 @@ export class DocumentsScansService {
 
     public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
-    constructor(
-        private http: HttpClient,
-        configService: AppConfigService
-    ) {
+    constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
 
     public async getDocumentList(): Promise<IDocumentsScan[]> {
-        const documents = await
-            this.http.get<IDocumentsScan[]>(`${this.restUrl}/api/oil-control/Passport`).toPromise();
-        documents.map((doc) => { doc.date = new Date(doc.date); });
+        const documents = await this.http.get<IDocumentsScan[]>(`${this.restUrl}/api/oil-control/Passport`).toPromise();
+        documents.map((doc) => {
+            doc.date = new Date(doc.date);
+        });
         return documents;
     }
 
     public async getDocumentView(id: string): Promise<string> {
-        const blob = await this.http.get(`${this.restUrl}/api/oil-control/Passport/${id}/view`, {responseType: 'blob'}).toPromise();
+        const blob = await this.http
+            .get(`${this.restUrl}/api/oil-control/Passport/${id}/view`, { responseType: 'blob' })
+            .toPromise();
         return window.URL.createObjectURL(blob);
     }
 
@@ -71,15 +70,12 @@ export class DocumentsScansService {
         return this.http.get(`${this.restUrl}/api/oil-control/Passport/${action}/${id}`).toPromise();
     }
 
-    public async getPassportsByFilter(
-        lastId: number,
-        options: IOilControlPassportOpts
-    ): Promise<IQualityDocsRecord[]> {
+    public async getPassportsByFilter(lastId: number, options: IOilControlPassportOpts): Promise<IQualityDocsRecord[]> {
         try {
             return this.http
                 .get<IQualityDocsRecord[]>(
                     this.restUrl +
-                    `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
+                        `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -99,17 +95,17 @@ export class DocumentsScansService {
             res += `&PassportName=${options.PassportName}`;
         }
         if (options.ProductIds?.length) {
-            options.ProductIds.forEach(id => {
+            options.ProductIds.forEach((id) => {
                 res += `&ProductIds=${id}`;
             });
         }
         if (options.GroupIds?.length) {
-            options.GroupIds.forEach(id => {
+            options.GroupIds.forEach((id) => {
                 res += `&GroupIds=${id}`;
             });
         }
         if (options.TankIds?.length) {
-            options.TankIds.forEach(id => {
+            options.TankIds.forEach((id) => {
                 res += `&TankIds=${id}`;
             });
         }

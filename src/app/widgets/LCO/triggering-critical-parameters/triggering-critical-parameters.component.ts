@@ -4,7 +4,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { EventService } from 'src/app/dashboard/services/widgets/EVJ/event.service';
 
-
 export interface ITriggeringCriticalParameters {
     equipment: string;
     gasContamination: number;
@@ -22,8 +21,7 @@ export interface ITriggeringCriticalParameters {
     templateUrl: './triggering-critical-parameters.component.html',
     styleUrls: ['./triggering-critical-parameters.component.scss'],
 })
-export class TriggeringCriticalParametersComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class TriggeringCriticalParametersComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     isLoading: boolean = true;
 
     data: ITriggeringCriticalParameters[] = [];

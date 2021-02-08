@@ -1,6 +1,13 @@
 <div class="container">
-  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-                     [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [widgetType]="widgetType"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -22,7 +29,10 @@
       <div class="quality-docs-panel__container">
         <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" autosize class="scroll-block" #table>
           <ng-container *cdkVirtualFor="let item of data">
-            <evj-quality-docs-record [data]="item" (emitBlockUnblock)="rowBlockUnblock($event)"></evj-quality-docs-record>
+            <evj-quality-docs-record
+              [data]="item"
+              (emitBlockUnblock)="rowBlockUnblock($event)"
+            ></evj-quality-docs-record>
           </ng-container>
         </cdk-virtual-scroll-viewport>
       </div>
@@ -31,16 +41,21 @@
           <ng-container *ngFor="let filter of filters">
             <div class="input-block" [attr.id]="filter.type + '-qual-docs-panel'" (click)="openFilter(filter)">
               <div class="input-block__button-search">
-                <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg">
+                <svg-icon
+                  *ngIf="isPopoverOpened.get(filter.type)"
+                  src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"
+                >
                 </svg-icon>
-                <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+                <svg-icon
+                  *ngIf="!isPopoverOpened.get(filter.type)"
+                  src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"
+                ></svg-icon>
               </div>
               <div class="input-block__input" [class.input-block__input-active]="isPopoverOpened.get(filter.type)">
                 <div class="input-back">
                   <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
                   <div class="icon">
-                    <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg">
-                    </svg-icon>
+                    <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"> </svg-icon>
                   </div>
                 </div>
               </div>
@@ -48,10 +63,16 @@
           </ng-container>
           <div class="input-block pasport">
             <div class="input-block__button-search">
-              <svg-icon *ngIf="!isPasportInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-              <svg-icon *ngIf="isPasportInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+              <svg-icon
+                *ngIf="!isPasportInput"
+                class="button_filter_icon"
+                src="assets/icons/widgets/references/search_white.svg"
+              ></svg-icon>
+              <svg-icon
+                *ngIf="isPasportInput"
+                class="button_filter_icon"
+                src="assets/icons/widgets/references/search_blue.svg"
+              ></svg-icon>
             </div>
             <!--<div class="input-block__input" [class.input-block__input-active]="isPasportInput">
               <input type="text"
@@ -60,12 +81,10 @@
                      [formControl]="passportFormControl"
                      placeholder="Паспорт" (keyup)="searchRecords($event)"/>
             </div>-->
-            <evj-circle-input (searchChange)="searchRecords($event)" style="height: 100%;"></evj-circle-input>
+            <evj-circle-input (searchChange)="searchRecords($event)" style="height: 100%"></evj-circle-input>
           </div>
           <div class="blocked-button" (click)="blockFilterToggle()">
-            <svg-icon
-              src="assets/icons/widgets/oil-control-all/quality-docs-panel/blocked.svg">
-            </svg-icon>
+            <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/blocked.svg"> </svg-icon>
           </div>
         </div>
       </div>

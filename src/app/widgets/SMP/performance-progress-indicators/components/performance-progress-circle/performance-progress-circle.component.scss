@@ -1,22 +1,22 @@
 .item-b {
-    margin: 0px auto;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
+  margin: 0px auto;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
 
-    ::ng-deep svg {
-        height: 100%;
-        width: calc(100% - 15px);
-        position: absolute;
-    }
+  ::ng-deep svg {
+    height: 100%;
+    width: calc(100% - 15px);
+    position: absolute;
+  }
 }
 
 .cb {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
 }

@@ -1,5 +1,5 @@
 {
-    "printWidth": 100,
+    "printWidth": 120,
     "bracketSpacing": true,
     "endOfLine": "crlf",
     "overrides": [
@@ -12,7 +12,8 @@
                 "quoteProps": "as-needed",
                 "trailingComma": "es5",
                 "arrowParens": "always",
-                "parser": "typescript"
+                "parser": "typescript",
+                "bracketSpacing": true
             }
         },
         {

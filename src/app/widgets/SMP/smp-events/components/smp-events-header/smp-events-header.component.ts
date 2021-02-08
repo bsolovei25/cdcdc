@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Output,
-    EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
 import { ISmpEventStatus } from '../../../../../dashboard/models/SMP/smp-events.model';

@@ -1,10 +1,5 @@
 <div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
   </evj-widget-header-smp>
   <div
     class="content"
@@ -13,28 +8,29 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div
-      class="interactive-indicators"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="interactive-indicators" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="interactive-indicators__labels">
         <div class="labels__items">
-          <div (click)="toggleLabel($event, item)" class="labels__item"
-               [class.labels__item__disable]="!item.isChoosing"
-               *ngFor="let item of currentIndicators"
+          <div
+            (click)="toggleLabel($event, item)"
+            class="labels__item"
+            [class.labels__item__disable]="!item.isChoosing"
+            *ngFor="let item of currentIndicators"
           >
-            <div class="item__icon"
-                 style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(item.value.tagName) }})"
-                 [ngClass]="{
+            <div
+              class="item__icon"
+              style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(item.value.tagName) }})"
+              [ngClass]="{
                  'background-white': item.key === 'FactValue',
-                 'background-blue': item.key === 'PlanValue' }">
-              <svg-icon [src]="getPathSvg(item.key)"
-                        class="item-color-{{ colors?.get(item.value.tagName)}}"
-                        [ngClass]="!item.isChoosing ? 'item-color-disabled' : ''"
+                 'background-blue': item.key === 'PlanValue' }"
+            >
+              <svg-icon
+                [src]="getPathSvg(item.key)"
+                class="item-color-{{ colors?.get(item.value.tagName)}}"
+                [ngClass]="!item.isChoosing ? 'item-color-disabled' : ''"
               ></svg-icon>
             </div>
-            <div class=" item__name">{{ item.value.name }}</div>
+            <div class="item__name">{{ item.value.name }}</div>
             <div class="item__delete" (click)="deleteLabel($event, item.key)">
               <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/close.svg"></svg-icon>
             </div>
@@ -43,47 +39,38 @@
         <div class="labels__select">
           <mat-form-field class="select__item">
             <mat-label>Выберите показатель</mat-label>
-            <mat-select (selectionChange)="chooseIndicator($event.value)" [value]="selectValue"
-                        panelClass="mat-select-custom">
-              <mat-option *ngFor="let p of restIndicators" [value]="p.key">
-                {{ p.value.name }}
-              </mat-option>
+            <mat-select
+              (selectionChange)="chooseIndicator($event.value)"
+              [value]="selectValue"
+              panelClass="mat-select-custom"
+            >
+              <mat-option *ngFor="let p of restIndicators" [value]="p.key"> {{ p.value.name }} </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="interactive-indicators__table">
         <div class="table__header">
-          <svg-icon
-            class="table__header__icon"
-            src="assets/icons/widgets/ASTUE-ONPZ/screen.svg"
-          ></svg-icon>
+          <svg-icon class="table__header__icon" src="assets/icons/widgets/ASTUE-ONPZ/screen.svg"></svg-icon>
           Показатели
         </div>
         <table class="table">
           <tbody>
-          <tr class="table__row">
-            <td class="table__column">{{ 'Плановое значение' }}</td>
-            <td class="table__column">
-              {{ data?.planValue | number: "0.2-2" }}
-            </td>
-          </tr>
-          <tr class="table__row">
-            <td class="table__column">{{ 'Текущее значение' }}</td>
-            <td class="table__column">
-              {{ data?.factValue | number: "0.2-2" }}
-            </td>
-          </tr>
-          <tr class="table__row">
-            <td class="table__column">{{ 'Текущее отклонение' }}</td>
-            <td class="table__column">
-              {{ data?.deviationValue | number: "0.2-2" }}
-              <svg-icon
-                class="table__column__icon"
-                src="assets/icons/widgets/ASTUE-ONPZ/lamp.svg"
-              ></svg-icon>
-            </td>
-          </tr>
+            <tr class="table__row">
+              <td class="table__column">{{ 'Плановое значение' }}</td>
+              <td class="table__column">{{ data?.planValue | number: "0.2-2" }}</td>
+            </tr>
+            <tr class="table__row">
+              <td class="table__column">{{ 'Текущее значение' }}</td>
+              <td class="table__column">{{ data?.factValue | number: "0.2-2" }}</td>
+            </tr>
+            <tr class="table__row">
+              <td class="table__column">{{ 'Текущее отклонение' }}</td>
+              <td class="table__column">
+                {{ data?.deviationValue | number: "0.2-2" }}
+                <svg-icon class="table__column__icon" src="assets/icons/widgets/ASTUE-ONPZ/lamp.svg"></svg-icon>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

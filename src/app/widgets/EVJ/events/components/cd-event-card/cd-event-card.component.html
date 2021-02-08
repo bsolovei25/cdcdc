@@ -6,32 +6,21 @@
     [ngClass]="'notification--' + cardData?.priority?.name"
   >
     <div class="notification__header">
-      <span class="notification__header__number">
-        {{ cardData?.id }}
-      </span>
-      <span *ngIf="cardData?.eventType"
-            class="notification__header__name">
-        {{ cardData?.eventType?.name }}
-      </span>
+      <span class="notification__header__number"> {{ cardData?.id }} </span>
+      <span *ngIf="cardData?.eventType" class="notification__header__name"> {{ cardData?.eventType?.name }} </span>
       <div class="notification__header__line--unit">
         <div></div>
       </div>
-      <span class="notification__header__unit">
-        {{ cardData?.unit?.name || '-' }}
-      </span>
+      <span class="notification__header__unit"> {{ cardData?.unit?.name || '-' }} </span>
       <div class="notification__header__line">
         <div></div>
       </div>
-      <span class="notification__header__date-time">
-        {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-      </span>
+      <span class="notification__header__date-time"> {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }} </span>
     </div>
 
     <div class="notification__body">
       <div class="notification__body__info">
-        <span class="notification__body__info-description">
-          {{ cardData?.description || '-' }}
-        </span>
+        <span class="notification__body__info-description"> {{ cardData?.description || '-' }} </span>
         <span class="notification__body__info-facts">
           {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
         </span>

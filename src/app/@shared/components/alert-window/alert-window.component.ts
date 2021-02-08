@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
 
-
 @Component({
     selector: 'evj-alert-window',
     templateUrl: './alert-window.component.html',

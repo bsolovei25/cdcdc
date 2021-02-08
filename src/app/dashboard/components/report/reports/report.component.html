@@ -1,8 +1,6 @@
 <div class="panel" @fadeAnimation *ngIf="data && !activeElements?.isSelected(data?.id)">
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
-    <p class="panel-header__text" [class.panel-header__text--active]="active || activeSearch">
-      {{data.name}}
-    </p>
+    <p class="panel-header__text" [class.panel-header__text--active]="active || activeSearch">{{data.name}}</p>
     <svg-icon
       *ngIf="active"
       class="panel-header__icon panel-header__icon__active"
@@ -18,18 +16,9 @@
   </div>
   <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'exactTime'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'exactTime'">
       <mat-label class="form__title">Точное время</mat-label>
-      <input
-        disabled
-        autocomplete="off"
-        matInput
-        [ngxMatDatetimePicker]="pickerD"
-        [value]="dateNow"
-      />
+      <input disabled autocomplete="off" matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
       <mat-datepicker-toggle matSuffix [for]="pickerD">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
@@ -42,10 +31,7 @@
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'timePeriod'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'timePeriod'">
       <mat-label class="form__title">Выберите дату начала</mat-label>
       <input
         disabled
@@ -66,10 +52,7 @@
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerT disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'timePeriod'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'timePeriod'">
       <mat-label class="form__title">Выберите дату окончания</mat-label>
       <input
         disabled
@@ -90,18 +73,9 @@
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerTend disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'datePeriod'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'datePeriod'">
       <mat-label class="form__title">Выберите дату начала</mat-label>
-      <input
-        disabled
-        autocomplete="off"
-        matInput
-        [matDatepicker]="pickerFrom"
-        [(ngModel)]="periodTime.startDateTime"
-      />
+      <input disabled autocomplete="off" matInput [matDatepicker]="pickerFrom" [(ngModel)]="periodTime.startDateTime" />
       <mat-datepicker-toggle matSuffix [for]="pickerFrom">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
@@ -114,18 +88,9 @@
       </mat-datepicker-toggle>
       <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'datePeriod'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'datePeriod'">
       <mat-label class="form__title">Выберите дату окончания</mat-label>
-      <input
-        disabled
-        autocomplete="off"
-        matInput
-        [matDatepicker]="pickerTo"
-        [(ngModel)]="periodTime.endDateTime"
-      />
+      <input disabled autocomplete="off" matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
       <mat-datepicker-toggle matSuffix [for]="pickerTo">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
@@ -138,18 +103,9 @@
       </mat-datepicker-toggle>
       <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field
-      class="form form__picker custom-picker"
-      *ngIf="periodTime?.periodType === 'day'"
-    >
+    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'day'">
       <mat-label class="form__title">Выберите день</mat-label>
-      <input
-        disabled
-        autocomplete="off"
-        matInput
-        [matDatepicker]="pickerTo"
-        [(ngModel)]="periodTime.endDateTime"
-      />
+      <input disabled autocomplete="off" matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
       <mat-datepicker-toggle matSuffix [for]="pickerTo">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
@@ -177,13 +133,7 @@
       <ng-container *ngFor="let option of formGroup">
         <mat-form-field class="form form__picker custom-picker" *ngIf="option.type === 'dateTime'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
-          <input
-            disabled
-            autocomplete="off"
-            matInput
-            [ngxMatDatetimePicker]="pickerD"
-            [(ngModel)]="option.value"
-          />
+          <input disabled autocomplete="off" matInput [ngxMatDatetimePicker]="pickerD" [(ngModel)]="option.value" />
           <mat-datepicker-toggle matSuffix [for]="pickerD">
             <mat-icon matDatepickerToggleIcon>
               <svg-icon
@@ -199,19 +149,14 @@
         <mat-form-field class="form" *ngIf="option.type === 'comboBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
           <mat-select [(ngModel)]="option.value">
-            <mat-option *ngFor="let source of option?.source" [value]="source">
-              {{ source }}
-            </mat-option>
+            <mat-option *ngFor="let source of option?.source" [value]="source"> {{ source }} </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="form" *ngIf="option.type === 'textBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
           <input matInput [(ngModel)]="option.value" />
         </mat-form-field>
-        <mat-checkbox
-          style="margin-top: 18px;"
-          [(ngModel)]="option.value"
-          *ngIf="option.type === 'checkBox'"
+        <mat-checkbox style="margin-top: 18px" [(ngModel)]="option.value" *ngIf="option.type === 'checkBox'"
           >{{ option.name }}</mat-checkbox
         >
       </ng-container>

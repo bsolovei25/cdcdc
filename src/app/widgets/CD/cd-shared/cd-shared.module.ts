@@ -10,18 +10,11 @@ import { SharedModule } from '@shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule
-} from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-    declarations: [
-        CdLineChartComponent,
-        CdMnemonicComponent,
-        CdModalWindowComponent
-    ],
+    declarations: [CdLineChartComponent, CdMnemonicComponent, CdModalWindowComponent],
     exports: [CdLineChartComponent, CdMnemonicComponent, CdModalWindowComponent],
     imports: [
         CommonModule,
@@ -36,7 +29,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         NgxMatTimepickerModule,
         ReactiveFormsModule,
         MatTooltipModule,
-    ]
+    ],
 })
-export class CDSharedModule {
-}
+export class CDSharedModule {}

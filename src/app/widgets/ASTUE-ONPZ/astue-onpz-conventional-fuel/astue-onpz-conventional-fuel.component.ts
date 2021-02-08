@@ -1,11 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -26,8 +19,7 @@ import { map } from 'rxjs/operators';
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
-    implements OnInit, OnDestroy {
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     public colors: Map<string, number>;
     public unitName: string = '';
@@ -54,12 +46,11 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
-    public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService
-        .paddingLegend$;
+    public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService.paddingLegend$;
 
-    public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<
-        IAstueOnpzConventionalFuelTransfer
-    >(null);
+    public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(
+        null
+    );
 
     constructor(
         protected widgetService: WidgetService,

@@ -12,19 +12,12 @@
         <svg-icon class="header__icon" src="assets/icons/widgets/events/letter.svg"></svg-icon>
       </div>
       <div class="header__icon-wrapper" (click)="viewChanger(false)">
-        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
-        </svg-icon>
+        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"> </svg-icon>
       </div>
       <div class="header__icon-wrapper" (click)="viewChanger(true)">
-        <svg-icon
-          [ngClass]="{'blocks': isList}"
-          class="header__icon"
-          src="assets/pic/blocks.svg"
-        ></svg-icon>
+        <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="assets/pic/blocks.svg"></svg-icon>
       </div>
-      <span class="header__name">
-        {{ widgetTitle }}
-      </span>
+      <span class="header__name"> {{ widgetTitle }} </span>
       <svg-icon
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
@@ -41,16 +34,14 @@
         class="header__icon_bell"
         src="assets/icons/widgets/events/mute_bell.svg"
       ></svg-icon>
-      <div *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
-           class="delete_widget"
-           (click)="onRemoveButton()"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
+      <div
+        *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
+        class="delete_widget"
+        (click)="onRemoveButton()"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
       >
-        <svg-icon
-          style="height: 100%; width: 100%; fill: #8C99B2"
-          src="assets/icons/close_bad.svg"
-        ></svg-icon>
+        <svg-icon style="height: 100%; width: 100%; fill: #8c99b2" src="assets/icons/close_bad.svg"></svg-icon>
       </div>
     </div>
   </div>
@@ -59,11 +50,7 @@
 <evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
 
 <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
-<div
-  class="pointer-events"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-event-preview>
   <div [class.events]="!isCDEvents" [class.cd-events]="isCDEvents">
     <div
@@ -113,12 +100,8 @@
             (click)="onFilterClick(f)"
             [class.filter_active]="f?.isActive"
           >
-            <span class="filter__name">
-              {{f?.name}}
-            </span>
-            <span class="filter__count">
-              {{f?.notificationsCount}}
-            </span>
+            <span class="filter__name"> {{f?.name}} </span>
+            <span class="filter__count"> {{f?.notificationsCount}} </span>
           </div>
         </div>
 

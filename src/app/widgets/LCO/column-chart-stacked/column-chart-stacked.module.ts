@@ -5,14 +5,9 @@ import { CcsOneColumnComponent } from './ccs-one-column/ccs-one-column.component
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
 @NgModule({
     declarations: [CcsOneColumnComponent, ColumnChartStackedComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class ColumnChartStackedModule {
     enterComponent = ColumnChartStackedComponent;

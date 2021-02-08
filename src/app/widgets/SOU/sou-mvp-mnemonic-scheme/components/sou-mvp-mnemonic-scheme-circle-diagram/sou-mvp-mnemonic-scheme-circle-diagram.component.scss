@@ -1,8 +1,8 @@
-*{
+* {
   box-sizing: border-box;
 }
 
-.container{
+.container {
   margin-right: -2px;
 
   display: flex;
@@ -55,7 +55,7 @@
     .diagram-values {
       height: 34px;
       width: 34px;
-  
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -82,13 +82,13 @@
   .connection-circle {
     height: 8px;
     width: 8px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 50%;
-  
+
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border);
 
@@ -99,18 +99,18 @@
 
   ::ng-deep {
     svg {
-        .diagram-inner {
-          fill: var(--sou-mvp-color-border);
-        }
-  
-        .diagram-value {
-          fill: var(--sou-mvp-color-white);
-        }
+      .diagram-inner {
+        fill: var(--sou-mvp-color-border);
+      }
+
+      .diagram-value {
+        fill: var(--sou-mvp-color-white);
+      }
     }
   }
 }
 
-.off{
+.off {
   .title {
     background: var(--sou-mvp-color-bg-main);
     border-color: var(--sou-mvp-color-border-unactive);
@@ -128,7 +128,7 @@
       .value {
         color: var(--sou-mvp-color-text-diagram-sub);
       }
-  
+
       .percent {
         color: var(--sou-mvp-color-text-diagram-sub);
       }
@@ -149,7 +149,7 @@
   }
 }
 
-.warning{
+.warning {
   .title {
     background: var(--sou-mvp-color-bg-warning);
     border-color: var(--sou-mvp-color-warning);
@@ -167,7 +167,7 @@
       .value {
         color: var(--sou-mvp-color-white);
       }
-  
+
       .percent {
         color: var(--sou-mvp-color-text-diagram-main);
       }
@@ -198,13 +198,13 @@
   .connection-circle {
     height: 8px;
     width: 8px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 50%;
-  
+
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border);
 
@@ -222,7 +222,7 @@
   align-items: center;
 }
 
-.selected{
+.selected {
   .title {
     background: var(--sou-mvp-color-bg-active-spec);
     border-color: var(--sou-mvp-color-active);
@@ -244,7 +244,7 @@
       .value {
         color: var(--sou-mvp-color-text-diagram-main);
       }
-  
+
       .percent {
         color: var(--sou-mvp-color-text-diagram-main);
       }

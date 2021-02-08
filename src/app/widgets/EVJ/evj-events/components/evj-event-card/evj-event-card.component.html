@@ -1,8 +1,6 @@
 <div [class.block-container]="viewType === 'block'">
   <ng-container *ngFor="let cardData of cardDataArr">
-    <ng-container
-      *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"
-    ></ng-container>
+    <ng-container *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"></ng-container>
   </ng-container>
 </div>
 
@@ -34,31 +32,23 @@
            'notification__vertical-line_standard'"
     ></div>
     <div class="notification__header">
-      <span class="notification__header__number">
-        {{ cardData?.id }}
-      </span>
+      <span class="notification__header__number"> {{ cardData?.id }} </span>
       <span *ngIf="cardData?.subCategory || cardData?.category" class="notification__header__name">
         {{ cardData?.subCategory?.description || cardData?.category?.description}}
       </span>
       <div class="notification__header__line--unit">
         <div></div>
       </div>
-      <span class="notification__header__unit">
-        {{ cardData?.unit?.name || '-' }}
-      </span>
+      <span class="notification__header__unit"> {{ cardData?.unit?.name || '-' }} </span>
       <div class="notification__header__line">
         <div></div>
       </div>
-      <span class="notification__header__date-time">
-        {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-      </span>
+      <span class="notification__header__date-time"> {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }} </span>
     </div>
 
     <div class="notification__body">
       <div class="notification__body__info">
-        <span class="notification__body__info-description">
-          {{ cardData?.description || '-' }}
-        </span>
+        <span class="notification__body__info-description"> {{ cardData?.description || '-' }} </span>
         <span class="notification__body__info-facts">
           {{ cardData?.facts[0]?.comment || cardData?.shiftPassEstablishedFacts || '-' }}
         </span>
@@ -133,21 +123,14 @@
         >
         </svg-icon>
         <div class="notification__header">
-          <span class="notification__header__number">
-            {{ retrievalEvent?.id }}
-          </span>
-          <span
-            *ngIf="cardData?.subCategory || cardData?.category"
-            class="notification__header__name"
-          >
+          <span class="notification__header__number"> {{ retrievalEvent?.id }} </span>
+          <span *ngIf="cardData?.subCategory || cardData?.category" class="notification__header__name">
             {{ cardData?.subCategory?.description || cardData?.category?.description}}
           </span>
           <div class="notification__header__line--unit">
             <div></div>
           </div>
-          <span class="notification__header__unit">
-            {{ retrievalEvent?.unit?.name || '-' }}
-          </span>
+          <span class="notification__header__unit"> {{ retrievalEvent?.unit?.name || '-' }} </span>
           <div class="notification__header__line">
             <div></div>
           </div>
@@ -158,9 +141,7 @@
 
         <div class="notification__body">
           <div class="notification__body__info">
-            <span
-              class="notification__body__info-description notification__body__info-description_children"
-            >
+            <span class="notification__body__info-description notification__body__info-description_children">
               {{ retrievalEvent?.description || '-' }}
             </span>
             <span class="notification__body__info-facts">
@@ -200,10 +181,7 @@
                 [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
               >
               </svg-icon>
-              <span
-                *ngIf="!retrievalEvent?.source"
-                class="notification__body__icon--delete__mock"
-              ></span>
+              <span *ngIf="!retrievalEvent?.source" class="notification__body__icon--delete__mock"></span>
             </div>
             <div class="notification__body__extra_end-time">
               <span class="notification__header__date-time">

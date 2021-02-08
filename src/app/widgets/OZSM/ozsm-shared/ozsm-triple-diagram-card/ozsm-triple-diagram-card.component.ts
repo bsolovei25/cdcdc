@@ -8,8 +8,7 @@ import { IOzsmCircleDiagram } from '../ozsm-circle-diagram/ozsm-circle-diagram.c
     styleUrls: ['./ozsm-triple-diagram-card.component.scss'],
 })
 export class OzsmTripleDiagramCardComponent implements OnInit {
-
-    public circleData: IOzsmCircleDiagram  = {
+    public circleData: IOzsmCircleDiagram = {
         fact: 5208,
         plan: 5208,
         units: 'тн',
@@ -17,9 +16,7 @@ export class OzsmTripleDiagramCardComponent implements OnInit {
 
     public data: any;
 
-    constructor(
-        private http: HttpClient,
-    ) {}
+    constructor(private http: HttpClient) {}
 
     public ngOnInit(): void {
         this.mockDataConnect();

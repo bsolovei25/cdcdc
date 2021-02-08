@@ -25,8 +25,7 @@ export class OilOperationsLineChartComponent implements OnInit, AfterViewInit {
     public sbWidth: number = 20;
     public sbLeft: number = 6;
 
-    constructor() {
-    }
+    constructor() {}
 
     public ngOnInit(): void {
         setTimeout(() => {
@@ -35,8 +34,7 @@ export class OilOperationsLineChartComponent implements OnInit, AfterViewInit {
         }, 0);
     }
 
-    public ngAfterViewInit(): void {
-    }
+    public ngAfterViewInit(): void {}
 
     close(): void {
         this.closeLineChart.emit(false);

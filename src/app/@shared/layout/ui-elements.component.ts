@@ -11,7 +11,7 @@ export class UiElementsComponent {
         let snackBar = document.getElementById('snackbar');
         snackBar.className = 'show';
         snackBar.innerText = text;
-        setTimeout(function() {
+        setTimeout(function () {
             snackBar.className = snackBar.className.replace('show', '');
         }, durection);
     }

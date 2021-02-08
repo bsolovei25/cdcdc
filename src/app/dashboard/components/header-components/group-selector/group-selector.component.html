@@ -1,7 +1,5 @@
 <div class="group-selector" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-  <span class="group-selector__name">
-    {{selector.selected[0]?.name}}
-  </span>
+  <span class="group-selector__name"> {{selector.selected[0]?.name}} </span>
 
   <div class="group-selector__dropdown dropdown" *ngIf="isDropdownShowing">
     <ng-container *ngFor="let group of groups">
@@ -16,12 +14,8 @@
       </div>
     </ng-container>
     <div class="dropdown__row create">
-      <input class=" create__input input" type="text" [formControl]="formControl" />
-      <div
-        class="create__add add"
-        [class.add_active]="!!formControl.value"
-        (click)="onCreateGroup()"
-      ></div>
+      <input class="create__input input" type="text" [formControl]="formControl" />
+      <div class="create__add add" [class.add_active]="!!formControl.value" (click)="onCreateGroup()"></div>
     </div>
   </div>
 

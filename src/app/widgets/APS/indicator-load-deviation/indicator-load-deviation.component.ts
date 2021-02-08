@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    Inject,
-    ViewChild,
-    ElementRef,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
@@ -25,7 +17,8 @@ export interface IApsIndicatorLoad {
     templateUrl: './indicator-load-deviation.component.html',
     styleUrls: ['./indicator-load-deviation.component.scss'],
 })
-export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
+export class IndicatorLoadDeviationComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('menu', { static: true }) private menu: ElementRef;
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
@@ -114,15 +107,11 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
 
     private drawMenu(): void {
         this.svgMenu = d3Selection.select(this.menu.nativeElement).append('svg');
-        this.svgMenu
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('viewBox', '0 0 400 50');
+        this.svgMenu.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 400 50');
 
         const buttons = this.svgMenu.append('g').attr('class', 'buttons');
         const urlButton = 'assets/icons/widgets/APS/aps-indicator-load-deviation/button.svg';
-        const urlButtonActive =
-            'assets/icons/widgets/APS/aps-indicator-load-deviation/button-active.svg';
+        const urlButtonActive = 'assets/icons/widgets/APS/aps-indicator-load-deviation/button-active.svg';
         buttons
             .append('image')
             .attr('xlink:href', urlButton)
@@ -161,10 +150,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
         const labels = this.svgMenu.append('g').attr('class', 'labels');
         labels
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/data-quality.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/data-quality.svg')
             .attr('x', 29)
             .attr('y', 40);
         labels
@@ -177,10 +163,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
             .text('Качество данных');
         labels
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/graph-quality.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/graph-quality.svg')
             .attr('x', 199)
             .attr('y', 40);
         labels
@@ -235,33 +218,21 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
         this.drawArc(lastArc([value]), 'needle-arc', arc, svg); // отрисовка подвижной дуги
         this.drawArc(pie(new Array(60)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
 
-        svg.append('circle')
-            .attr('class', 'point')
-            .attr('cx', 0)
-            .attr('cy', -5)
-            .attr('r', 1);
+        svg.append('circle').attr('class', 'point').attr('cx', 0).attr('cy', -5).attr('r', 1);
         svg.append('text')
             .attr('class', 'value')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 2)
             .text(value.toFixed(1));
-        svg.append('text')
-            .attr('class', 'units')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 6)
-            .text('%');
+        svg.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 6).text('%');
 
         return svg;
     }
 
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
-        this.svgBody
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('viewBox', '0 0 400 200');
+        this.svgBody.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 400 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -274,20 +245,14 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
             .attr('stroke-width', 1);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg')
             .attr('x', 5)
             .attr('y', 0)
             .attr('width', 190)
             .attr('height', 55);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg')
             .attr('x', 5)
             .attr('y', -200)
             .attr('width', 190)
@@ -392,32 +357,17 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
             .attr('x', 3.2)
             .attr('y', 1)
             .text(this.activeCard.deviation);
-        block
-            .append('text')
-            .attr('class', 'units')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 3)
-            .text('ТН');
+        block.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 3).text('ТН');
 
         let text = this.activeCard.name;
         if (text.length > 14) {
             text = text.slice(0, 11) + '...';
         }
 
-        block
-            .append('text')
-            .attr('class', 'name')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 7.5)
-            .text(text);
+        block.append('text').attr('class', 'name').attr('text-anchor', 'middle').attr('x', 0).attr('y', 7.5).text(text);
         block
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/deviation-arrow.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/deviation-arrow.svg')
             .attr('x', -3.5)
             .attr('y', 0)
             .attr('width', 1.2)
@@ -479,40 +429,28 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
         this.data.forEach((item, idx) => {
             card = cards.append('g').attr('class', 'card');
             card.append('image')
-                .attr(
-                    'xlink:href',
-                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-                )
+                .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg')
                 .attr('x', 210)
                 .attr('y', stepCounter)
                 .attr('width', 48)
                 .attr('height', 45);
 
             card.append('image')
-                .attr(
-                    'xlink:href',
-                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-                )
+                .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg')
                 .attr('x', 210)
                 .attr('y', stepCounter)
                 .attr('width', 190)
                 .attr('height', 46);
 
             card.append('image')
-                .attr(
-                    'xlink:href',
-                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-                )
+                .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg')
                 .attr('x', 320)
                 .attr('y', stepCounter + 3)
                 .attr('width', 75)
                 .attr('height', 40);
 
             card.append('image')
-                .attr(
-                    'xlink:href',
-                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-                )
+                .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg')
                 .attr('x', 217)
                 .attr('y', stepCounter + 13)
                 .attr('width', 20)
@@ -563,46 +501,19 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
 
     //#region gaude functions
 
-    private defineArc(
-        innerRad: number,
-        outerRad: number,
-        padAngle: number = 0,
-        cornerRadius: number = 0
-    ): any {
-        return d3
-            .arc()
-            .innerRadius(innerRad)
-            .outerRadius(outerRad)
-            .cornerRadius(cornerRadius)
-            .padAngle(padAngle);
+    private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
+        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3
-            .pie()
-            .startAngle(startAngle)
-            .endAngle(endAngle)
-            .value(val);
+        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block
-            .selectAll('.arc')
-            .data(dataFn)
-            .enter()
-            .append('path')
-            .attr('class', cls)
-            .attr('d', arcFn);
+        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
     }
 
-    private drawNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
+    private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {
         block
             .selectAll(`.needle`)
             .data(data)
@@ -617,14 +528,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 
-    private drawCircleNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
+    private drawCircleNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {
         block
             .selectAll(`.needle`)
             .data(data)
