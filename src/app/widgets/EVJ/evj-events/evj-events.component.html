@@ -1,7 +1,16 @@
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="letter" type="astue">
-    <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="letter"
+    type="astue"
+  >
+    <div
+      class="content-container"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div (click)="viewChanger(false)">
         <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"> </svg-icon>
       </div>
@@ -21,6 +30,7 @@
         (outPriority)="priorityOfFilter($event)"
         (outUnits)="unitsOfFilter($event)"
         (description)="searchFilter($event)"
+        [placeNames]="placeNames"
       >
       </evj-evj-event-filters>
       <div

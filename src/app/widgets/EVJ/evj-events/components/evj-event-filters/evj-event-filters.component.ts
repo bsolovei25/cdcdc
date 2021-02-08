@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
@@ -13,7 +21,7 @@ import { Subject } from 'rxjs';
     templateUrl: './evj-event-filters.component.html',
     styleUrls: ['./evj-event-filters.component.scss'],
 })
-export class EvjEventFiltersComponent implements OnInit {
+export class EvjEventFiltersComponent implements OnInit, OnChanges {
     public unitsSelect: FormControl = new FormControl();
     public prioritySelect: FormControl = new FormControl();
     searchControl: FormControl = new FormControl();
@@ -21,6 +29,9 @@ export class EvjEventFiltersComponent implements OnInit {
     priority: IPriority[] = [];
     filter: FormControl = new FormControl({ value: '', disabled: true });
     private onDestroy: Subject<void> = new Subject<void>();
+
+    @Input()
+    public placeNames: string[] = [];
 
     @Input() set inputUnits(values: IUnits[]) {
         if (!!this.unitsSelect.value) {
@@ -41,6 +52,12 @@ export class EvjEventFiltersComponent implements OnInit {
     @Output() description: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private eventService: EventService, public ewService: EventsWorkspaceService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (!!this.placeNames.length) {
+            this.setUnitNames(this.placeNames);
+        }
+    }
 
     ngOnInit(): void {
         this.searchControl.valueChanges.subscribe((value) => {
@@ -95,5 +112,20 @@ export class EvjEventFiltersComponent implements OnInit {
             value = value.toLowerCase();
         }
         this.units = this.ewService.units.filter((unit) => unit.name.toLowerCase().indexOf(value) > -1);
+    }
+
+    private setUnitNames(names: string[]): void {
+        const enabledUnitNames: IUnits[] = [];
+        names.forEach(name => {
+            const unit = this.units.find(unitItem => unitItem.name === name);
+            enabledUnitNames.push({
+                id: unit ? unit.id : 0,
+                name: unit ? unit.name : name,
+                createdAt: unit ? unit.createdAt : null,
+                createdById: unit ? unit.createdById : null,
+                synonyms: [],
+            });
+        });
+        this.inputUnits = enabledUnitNames;
     }
 }

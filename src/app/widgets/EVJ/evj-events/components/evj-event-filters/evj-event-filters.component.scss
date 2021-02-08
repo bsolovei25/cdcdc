@@ -64,17 +64,6 @@
         color: var(--color-aps-button-color);
       }
     }
-
-    //input {
-    //  color: var(--color-text-sub);
-    //  font-size: 14px;
-    //
-    //  &:hover {
-    //    cursor: pointer;
-    //    color: var(--color-active);
-    //    text-decoration: underline;
-    //  }
-    //}
   }
 }
 
@@ -154,3 +143,14 @@
     background: var(--color-bg-main) !important;
   }
 }
+
+.cursor-disabled {
+  cursor: not-allowed !important;
+
+  > * {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+

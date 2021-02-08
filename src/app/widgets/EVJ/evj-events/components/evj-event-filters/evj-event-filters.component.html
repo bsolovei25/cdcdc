@@ -17,13 +17,20 @@
         <mat-form-field>
           <mat-label>Установка</mat-label>
           <mat-select
-            panelClass="evj-event-filters-background "
+            panelClass="evj-event-filters-background"
             [formControl]="unitsSelect"
             (selectionChange)="onUnitsSelect($event)"
             multiple
           >
             <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
-            <mat-option *ngFor="let item of units" [value]="item.id"> {{ item.name }} </mat-option>
+            <mat-option
+              *ngFor="let item of units"
+              [value]="item.id"
+              [disabled]="!!placeNames.length"
+              [class.cursor-disabled]="!!placeNames.length"
+            >
+              {{ item.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
