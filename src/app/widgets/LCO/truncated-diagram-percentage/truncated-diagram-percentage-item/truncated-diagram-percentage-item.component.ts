@@ -51,10 +51,7 @@ export class TruncatedDiagramPercentageItemComponent implements OnInit {
             this.RADIUS = 50;
         }
 
-        const arc = d3
-            .arc()
-            .innerRadius(41)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(41).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -63,12 +60,7 @@ export class TruncatedDiagramPercentageItemComponent implements OnInit {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

@@ -75,9 +75,7 @@ export class AstueOnpzService {
 
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<
-        IAstueOnpzMonitoringCarrierOptions
-    > = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 

@@ -266,10 +266,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             this.svg = null;
         }
 
-        this.svg = d3
-            .select(this.hostElement.nativeElement)
-            .select('svg')
-            .append('g');
+        this.svg = d3.select(this.hostElement.nativeElement).select('svg').append('g');
         this.svg.attr('viewBox', `0 0 ${this.size.width} ${this.size.height}`);
     }
 
@@ -480,10 +477,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 this.toggleFloatingDayThreshold('enable');
                 const rect: DOMRect = element.getBoundingClientRect();
                 this.positionMouse = event.clientX - rect.left;
-                this.svg
-                    .select('.mouse-line')
-                    .attr('x1', this.positionMouse)
-                    .attr('x2', this.positionMouse);
+                this.svg.select('.mouse-line').attr('x1', this.positionMouse).attr('x2', this.positionMouse);
                 const formatDate = d3.timeFormat('%H:%M');
                 if (this.positionMouse >= this.sizeXCoord.min && this.positionMouse <= this.sizeXCoord.max) {
                     this.setChartInfoValues(this.getValuesAtX(this.positionMouse));

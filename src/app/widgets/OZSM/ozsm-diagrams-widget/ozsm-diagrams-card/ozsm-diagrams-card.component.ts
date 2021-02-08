@@ -79,10 +79,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     }
 
     private appendCircle(r: number, className: string): void {
-        this.g
-            .append('circle')
-            .attr('r', r)
-            .attr('class', className);
+        this.g.append('circle').attr('r', r).attr('class', className);
     }
 
     private appendMask(): void {
@@ -95,11 +92,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
             .attr('height', 2)
             .attr('patternUnits', 'userSpaceOnUse');
 
-        pattern
-            .append('rect')
-            .attr('width', 1)
-            .attr('height', 2)
-            .attr('fill', 'white');
+        pattern.append('rect').attr('width', 1).attr('height', 2).attr('fill', 'white');
 
         const mask = defs.append('mask').attr('id', 'mask-dash');
 
@@ -167,10 +160,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
             .startAngle(-3.95)
             .endAngle(0.8);
 
-        this.g
-            .append('path')
-            .attr('d', outerArc)
-            .attr('class', 'ozms-outer-arc');
+        this.g.append('path').attr('d', outerArc).attr('class', 'ozms-outer-arc');
     }
 
     private drawOutterSvg(): void {
@@ -182,11 +172,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         const tickMain = this.getTick(mainValue);
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3
-                .pie()
-                .startAngle(startAngel)
-                .endAngle(endAngel)
-                .value(1);
+            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
         }
 
         const mainPie = createPie(-Math.PI, (2 * Math.PI * mainValue) / this.diagramCounter - Math.PI);
@@ -226,13 +212,6 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     }
 
     private drawDiagram(className: string, pie: any, arc: any): void {
-        this.g
-            .append('g')
-            .attr('class', className)
-            .selectAll('path')
-            .data(pie())
-            .enter()
-            .append('path')
-            .attr('d', arc);
+        this.g.append('g').attr('class', className).selectAll('path').data(pie()).enter().append('path').attr('d', arc);
     }
 }

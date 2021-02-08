@@ -240,9 +240,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
 
     public isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<
-        IEventsWidgetNotificationPreview
-    >(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<IEventsWidgetNotificationPreview>(
+        null
+    );
 
     public isPreviewOpened: boolean = false;
 

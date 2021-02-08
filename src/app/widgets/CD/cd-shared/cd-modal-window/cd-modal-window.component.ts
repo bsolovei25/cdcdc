@@ -28,12 +28,7 @@ export class CdModalWindowComponent implements OnInit {
 
     users: IUser[] = [];
     isOpenStartDate: boolean = false;
-    timeStart: FormControl = new FormControl(
-        moment()
-            .second(0)
-            .minutes(0),
-        [Validators.required]
-    );
+    timeStart: FormControl = new FormControl(moment().second(0).minutes(0), [Validators.required]);
     allEstablishedFacts: IAllEstablishedFacts[] = [];
 
     constructor(private cdMatBalanceService: CdMatBalanceService) {}

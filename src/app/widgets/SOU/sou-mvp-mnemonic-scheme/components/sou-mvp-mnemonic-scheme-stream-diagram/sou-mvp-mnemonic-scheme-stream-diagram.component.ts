@@ -43,11 +43,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
             this.svg.remove();
         }
 
-        this.svg = d3
-            .select(this.chart.nativeElement)
-            .append('svg')
-            .attr('width', '22px')
-            .attr('height', '22px');
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '22px').attr('height', '22px');
 
         const arc = d3
             .arc()
@@ -67,13 +63,9 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
         const g: any = this.svg.append('g').style('transform', 'translate(11px, 11px)');
 
-        g.append('path')
-            .attr('d', arcBg)
-            .attr('class', 'diagram-inner');
+        g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
 
-        g.append('path')
-            .attr('d', arc)
-            .attr('class', 'diagram-value');
+        g.append('path').attr('d', arc).attr('class', 'diagram-value');
     }
 
     ngAfterViewInit(): void {}

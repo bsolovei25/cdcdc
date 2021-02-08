@@ -90,7 +90,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                 ["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
                 "/",
                 ["Font", "FontSize"],
-                ["TextColor", "-", "About"]
+                ["TextColor", "-", "About"],
               ],
 
               /*
@@ -119,7 +119,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
               // element will be used.
               font_style: {
                 element: "font",
-                attributes: { face: "#(family)" }
+                attributes: { face: "#(family)" },
               },
 
               /*
@@ -133,7 +133,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
               fontSize_style: {
                 element: "font",
                 attributes: { size: "#(size)" },
-                styles: { "font-size": "#(size)px" }
+                styles: { "font-size": "#(size)px" },
               },
 
               /*
@@ -143,15 +143,15 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
               colorButton_foreStyle: {
                 element: "font",
-                attributes: { color: "#(color)" }
+                attributes: { color: "#(color)" },
               },
 
               colorButton_backStyle: {
                 element: "font",
-                styles: { "background-color": "#(color)" }
+                styles: { "background-color": "#(color)" },
               },
 
-              on: { instanceReady: configureFlashOutput }
+              on: { instanceReady: configureFlashOutput },
             });
 
             /*
@@ -180,7 +180,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                   breakBeforeOpen: false,
                   breakAfterOpen: false,
                   breakBeforeClose: false,
-                  breakAfterClose: false
+                  breakAfterClose: false,
                 });
               }
               dataProcessor.writer.setRules("br", {
@@ -188,13 +188,13 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                 breakBeforeOpen: false,
                 breakAfterOpen: false,
                 breakBeforeClose: false,
-                breakAfterClose: false
+                breakAfterClose: false,
               });
 
               // Output properties as attributes, not styles.
               htmlFilter.addRules({
                 elements: {
-                  $: function(element) {
+                  $: function (element) {
                     var style, match, width, height, align;
 
                     // Output dimensions of images as width and height
@@ -250,8 +250,8 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                     if (element.attributes.style === "") delete element.attributes.style;
 
                     return element;
-                  }
-                }
+                  },
+                },
               });
             }
 
@@ -266,7 +266,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
               flash.setData(html);
             }
 
-            CKEDITOR.domReady(function() {
+            CKEDITOR.domReady(function () {
               if (!swfobject.hasFlashPlayerVersion("8")) {
                 CKEDITOR.dom.element
                   .createFromHtml(
@@ -279,7 +279,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
               }
 
               swfobject.embedSWF("assets/outputforflash/outputforflash.swf", "ckFlashContainer", "550", "400", "8", {
-                wmode: "transparent"
+                wmode: "transparent",
               });
             });
           </script>

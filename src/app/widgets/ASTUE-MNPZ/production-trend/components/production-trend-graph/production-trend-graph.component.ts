@@ -19,7 +19,8 @@ export interface IWsData<T> {
     templateUrl: './production-trend-graph.component.html',
     styleUrls: ['./production-trend-graph.component.scss'],
 })
-export class ProductionTrendGraphComponent extends LineChartPlatform<IProductionTrend>
+export class ProductionTrendGraphComponent
+    extends LineChartPlatform<IProductionTrend>
     implements OnChanges, OnInit, OnDestroy {
     @Input() dataWs: IProductionTrend[] = null;
     @Input() widgetId: string = null;

@@ -83,14 +83,8 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')
@@ -123,27 +117,14 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         const domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
 
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
 
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(12)
-            .tickFormat(d3.timeFormat('%d'))
-            .tickSizeOuter(0);
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(5)
-            .tickSize(0);
+        this.axis.axisX = d3.axisBottom(this.scaleFuncs.x).ticks(12).tickFormat(d3.timeFormat('%d')).tickSizeOuter(0);
+        this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(5).tickSize(0);
     }
 
     private transformData(): void {
@@ -193,10 +174,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            this.svg
-                .append('path')
-                .attr('class', `graph-line-${chart.graphType}`)
-                .attr('d', line(chart.graph));
+            this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
 
             let className: string;
             const fact = this.chartData.find((factChart) => factChart.graphType === 'fact')?.graph ?? [];
@@ -216,10 +194,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                     className = 'graph-area-border';
                 }
 
-                this.svg
-                    .append('path')
-                    .attr('class', className)
-                    .attr('d', areaFn(chart.graph));
+                this.svg.append('path').attr('class', className).attr('d', areaFn(chart.graph));
             }
         });
     }
@@ -231,12 +206,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
         const x = fact[fact.length - 1].x;
         const y = plan.find((corrdinate) => corrdinate.x === x)?.y;
-        pointsG
-            .append('circle')
-            .attr('class', 'point point_plan')
-            .attr('cx', x)
-            .attr('cy', y)
-            .attr('r', 2);
+        pointsG.append('circle').attr('class', 'point point_plan').attr('cx', x).attr('cy', y).attr('r', 2);
 
         const g = pointsG.append('g').attr('class', 'fact-point');
         let r = 8;

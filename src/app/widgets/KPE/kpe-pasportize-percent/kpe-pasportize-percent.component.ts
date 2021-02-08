@@ -39,11 +39,7 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
             this.svg.remove();
         }
 
-        this.svg = d3
-            .select(this.chart.nativeElement)
-            .append('svg')
-            .attr('width', '120px')
-            .attr('height', '120px');
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '120px').attr('height', '120px');
 
         const arc = d3
             .arc()
@@ -65,13 +61,9 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
             .attr('height', '120px')
             .style('transform', 'translate(60px, 60px)');
 
-        g.append('path')
-            .attr('d', arcBg)
-            .attr('class', 'diagram-inner');
+        g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
 
-        g.append('path')
-            .attr('d', arc)
-            .attr('class', 'diagram-value');
+        g.append('path').attr('d', arc).attr('class', 'diagram-value');
     }
 
     constructor(

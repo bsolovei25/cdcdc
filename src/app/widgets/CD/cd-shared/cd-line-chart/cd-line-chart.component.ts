@@ -163,13 +163,7 @@ export class CdLineChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${-10}, 0)`)
             .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(3)
-                    .tickFormat(d3.format('.1f'))
-            ) // форматирование до 1 знака после запятой
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(3).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
             .call((g) => g.select('.domain').remove());
     }
 
@@ -229,11 +223,7 @@ export class CdLineChartComponent implements OnChanges {
             .x((d) => this.scales.x(d.x))
             .y((d) => this.scales.y(d.y));
 
-        this.g
-            .append('path')
-            .datum(dataset)
-            .attr('class', lineClass)
-            .attr('d', line);
+        this.g.append('path').datum(dataset).attr('class', lineClass).attr('d', line);
 
         dataset.forEach((data, idx) => {
             if (idx === 0) {

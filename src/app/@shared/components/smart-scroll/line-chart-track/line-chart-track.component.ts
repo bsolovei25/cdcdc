@@ -66,19 +66,13 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
         }
         const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
-        const time = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        const time = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
         const [dataMin, dataMax] = d3.extent(this.data, (item: IChartMini) => item.value);
         const domainValues = [dataMax, dataMin];
 
         const rangeY = [this.paddingY, this.graphMaxY - this.paddingY];
-        const val = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        const val = d3.scaleLinear().domain(domainValues).range(rangeY);
 
         this.chartData = [];
         this.data.forEach((item, index) => {
@@ -93,14 +87,8 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         this.svg
             .attr('width', '100%')

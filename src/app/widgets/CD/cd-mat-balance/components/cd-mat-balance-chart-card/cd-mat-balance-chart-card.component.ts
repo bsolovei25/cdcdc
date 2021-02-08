@@ -39,7 +39,8 @@ export interface IMatBalanceChartCard {
     templateUrl: './cd-mat-balance-chart-card.component.html',
     styleUrls: ['./cd-mat-balance-chart-card.component.scss'],
 })
-export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceChartCard>
+export class CdMatBalanceChartCardComponent
+    extends ChannelPlatform<IMatBalanceChartCard>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('chart')
     public chartElement: ElementRef;

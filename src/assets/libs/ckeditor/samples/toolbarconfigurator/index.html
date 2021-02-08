@@ -208,7 +208,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
     <script src="../js/sf.js"></script>
 
     <script>
-      (function() {
+      (function () {
         "use strict";
 
         var mode = window.location.hash.substr(1) === "advanced" ? "advanced" : "basic",
@@ -230,7 +230,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
         updateSwitcher();
 
-        CKEDITOR.document.getWindow().on("hashchange", function(e) {
+        CKEDITOR.document.getWindow().on("hashchange", function (e) {
           var hash = window.location.hash.substr(1);
           if (!(hash === "advanced" || hash === "basic")) {
             return;
@@ -239,7 +239,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
           onToolbarsDone(mode);
         });
 
-        CKEDITOR.document.getWindow().on("resize", function() {
+        CKEDITOR.document.getWindow().on("resize", function () {
           updateToolbar((mode === "basic" ? toolbarModifier : toolbarTextModifier)["editorInstance"]);
         });
 
@@ -301,7 +301,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
           if (++done === 2) {
             onToolbarsDone();
 
-            positionSticky.watch(CKEDITOR.document.findOne(".toolbar"), function() {
+            positionSticky.watch(CKEDITOR.document.findOne(".toolbar"), function () {
               return mode === "advanced";
             });
           }
@@ -316,7 +316,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
           updateSwitcher();
 
-          setTimeout(function() {
+          setTimeout(function () {
             CKEDITOR.document.findOne(".editors-container").addClass("active");
             CKEDITOR.document.findOne("#toolbarModifierWrapper").addClass("active");
           }, 200);
@@ -378,7 +378,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
           staticContainer: null,
 
-          init: function() {
+          init: function () {
             var element = CKEDITOR.dom.element.createFromHtml(
               '<div class="staticContainer">' +
                 '<div class="grid-container" >' +
@@ -394,22 +394,22 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             CKEDITOR.document.getBody().append(element);
           },
 
-          watch: function(element, preventFunc) {
+          watch: function (element, preventFunc) {
             this.watched.push({
               element: element,
               placeholder: new CKEDITOR.dom.element("div"),
               isFixed: false,
-              preventFunc: preventFunc
+              preventFunc: preventFunc,
             });
           },
 
-          checkAll: function() {
+          checkAll: function () {
             for (var i = 0; i < this.watched.length; i++) {
               this.check(this.watched[i]);
             }
           },
 
-          check: function(element) {
+          check: function (element) {
             var isFixed = element.isFixed;
             var shouldBeFixed = this.shouldBeFixed(element);
 
@@ -445,7 +445,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             element.isFixed = !element.isFixed;
           },
 
-          shouldBeFixed: function(element) {
+          shouldBeFixed: function (element) {
             if (element.preventFunc && element.preventFunc()) {
               return false;
             }
@@ -461,7 +461,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             } else {
               return clientRect.top < staticHeight;
             }
-          }
+          },
         };
 
         positionSticky.init();
@@ -474,7 +474,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
         positionSticky.watch(CKEDITOR.document.findOne(".editors-container"));
 
         // Help button and help-content.
-        (function() {
+        (function () {
           var helpButton = CKEDITOR.document.getById("help"),
             helpContent = CKEDITOR.document.getById("help-content");
 
@@ -483,15 +483,15 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             helpButton.hide();
           } else {
             // Display help modal when the button is clicked.
-            helpButton.on("click", function(evt) {
+            helpButton.on("click", function (evt) {
               SF.modal({
                 // Clone modal content from DOM.
                 content: helpContent.getHtml(),
 
-                afterCreate: function(modal) {
+                afterCreate: function (modal) {
                   // Enable modal content button to close the modal.
                   new CKEDITOR.dom.element(modal.modalElem()).findOne(".help-content-close").once("click", modal.close);
-                }
+                },
               }).show();
             });
           }

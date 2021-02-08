@@ -48,10 +48,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
 
         let group = this.svg.append('g').attr('transform', 'translate(50 ,50)');
 
-        const arc = d3
-            .arc()
-            .innerRadius(38.5)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(38.5).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -60,12 +57,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

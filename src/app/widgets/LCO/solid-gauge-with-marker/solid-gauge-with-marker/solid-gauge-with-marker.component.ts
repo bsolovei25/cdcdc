@@ -114,18 +114,11 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
     }
 
     render(container, newValue, criticalPie, pie, data): void {
-        this.svg = d3
-            .select(container)
-            .append('svg:svg')
-            .attr('class', 'gauge')
-            .attr('viewBox', '-10 -30 320 290');
+        this.svg = d3.select(container).append('svg:svg').attr('class', 'gauge').attr('viewBox', '-10 -30 320 290');
 
         const centerTx = this.centerTranslation(this.r);
 
-        const arcs = this.svg
-            .append('g')
-            .attr('class', 'arc')
-            .attr('transform', centerTx);
+        const arcs = this.svg.append('g').attr('class', 'arc').attr('transform', centerTx);
 
         if (newValue < criticalPie) {
             arcs.selectAll('path')
@@ -177,11 +170,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
             [this.config.pointerWidth / 4, 0],
         ];
         const pointerLine = d3.line().curve(d3.curveLinear);
-        const pg = this.svg
-            .append('g')
-            .data([lineData])
-            .attr('class', 'pointer')
-            .attr('transform', centerTx);
+        const pg = this.svg.append('g').data([lineData]).attr('class', 'pointer').attr('transform', centerTx);
 
         this.pointer = pg
             .append('path')
@@ -261,10 +250,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
 
         // a linear scale this.gaugemap maps domain values to a percent from 0..1
-        this.scale = d3
-            .scaleLinear()
-            .range([0, 1])
-            .domain([this.config.minValue, this.config.maxValue]);
+        this.scale = d3.scaleLinear().range([0, 1]).domain([this.config.minValue, this.config.maxValue]);
 
         this.ticks = this.scale.ticks(this.config.majorTicks);
         this.tickData = d3.range(this.config.majorTicks).map(() => {

@@ -179,12 +179,7 @@ export class SplineDiagramComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 20})`)
             .attr('class', 'x-axis')
-            .call(
-                d3
-                    .axisBottom(this.scales.x)
-                    .tickSize(0)
-                    .ticks(this.sizeX.max)
-            )
+            .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(this.sizeX.max))
             .call((g) => g.select('.domain').remove());
 
         this.svg.selectAll('.x-axis text').attr('class', (d, g) => {
@@ -196,13 +191,7 @@ export class SplineDiagramComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(7)
-                    .tickFormat(d3.format('.1f'))
-            ) // форматирование до 1 знака после запятой
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(7).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
             .call((g) => g.select('.domain').remove());
     }
 
@@ -260,24 +249,12 @@ export class SplineDiagramComponent implements OnChanges {
             .curve(d3.curveMonotoneX);
 
         if (type === 'fact') {
-            this.svg
-                .append('path')
-                .datum(dataset)
-                .attr('class', lineClass)
-                .attr('d', line);
+            this.svg.append('path').datum(dataset).attr('class', lineClass).attr('d', line);
         } else if (type === 'plan') {
             const currentDataset = dataset.filter((el) => el.x <= this.day);
             const futureDataset = dataset.filter((el) => el.x >= this.day);
-            this.svg
-                .append('path')
-                .datum(currentDataset)
-                .attr('class', lineClass)
-                .attr('d', line);
-            this.svg
-                .append('path')
-                .datum(futureDataset)
-                .attr('class', 'plan-threshold-line-rest')
-                .attr('d', line);
+            this.svg.append('path').datum(currentDataset).attr('class', lineClass).attr('d', line);
+            this.svg.append('path').datum(futureDataset).attr('class', 'plan-threshold-line-rest').attr('d', line);
         }
 
         dataset.forEach((data, idx) => {
@@ -323,13 +300,9 @@ export class SplineDiagramComponent implements OnChanges {
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        lg.append('stop')
-            .attr('offset', '0%')
-            .attr('class', 'gradient-stop-1');
+        lg.append('stop').attr('offset', '0%').attr('class', 'gradient-stop-1');
 
-        lg.append('stop')
-            .attr('offset', '100%')
-            .attr('class', 'gradient-stop-2');
+        lg.append('stop').attr('offset', '100%').attr('class', 'gradient-stop-2');
 
         const area = d3
             .area()
@@ -356,17 +329,9 @@ export class SplineDiagramComponent implements OnChanges {
             });
         });
 
-        this.svg
-            .append('path')
-            .datum(dataset)
-            .attr('class', 'data-area')
-            .attr('d', area);
+        this.svg.append('path').datum(dataset).attr('class', 'data-area').attr('d', area);
 
-        this.svg
-            .append('path')
-            .datum(dataset)
-            .attr('class', 'data-area-hide')
-            .attr('d', areaToHide);
+        this.svg.append('path').datum(dataset).attr('class', 'data-area-hide').attr('d', areaToHide);
     }
 
     private drawDayThreshold(): void {

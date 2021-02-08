@@ -98,17 +98,10 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
         }
 
-        this.svgCircle = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '0 0 100 100');
+        this.svgCircle = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 0 100 100');
 
         const group = this.svgCircle.append('g').attr('transform', 'translate(50 ,52)');
-        const arc = d3
-            .arc()
-            .innerRadius(35)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(35).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -117,12 +110,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
             })
             .sort(() => null);
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)
@@ -230,19 +218,11 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     }
 
     render(container, newValue, data): void {
-        this.svg = d3
-            .select(container)
-            .append('svg:svg')
-            .attr('class', 'gauge')
-            .attr('viewBox', '0 0 290 290');
+        this.svg = d3.select(container).append('svg:svg').attr('class', 'gauge').attr('viewBox', '0 0 290 290');
 
         const centerTx = this.centerTranslation(this.r + 2);
 
-        const arcs = this.svg
-            .append('g')
-            .attr('class', 'arc')
-            .attr('id', 'test')
-            .attr('transform', centerTx);
+        const arcs = this.svg.append('g').attr('class', 'arc').attr('id', 'test').attr('transform', centerTx);
 
         const reverseData = [].concat(data.days).reverse();
         const pointPie = reverseData.find((e) => e.state !== 'disable').day;
@@ -334,10 +314,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
 
         // a linear scale this.gaugemap maps domain values to a percent from 0..1
-        this.scale = d3
-            .scaleLinear()
-            .range([0, 1])
-            .domain([this.config.minValue, this.config.maxValue]);
+        this.scale = d3.scaleLinear().range([0, 1]).domain([this.config.minValue, this.config.maxValue]);
 
         this.ticks = this.scale.ticks(this.config.majorTicks);
         this.tickData = d3.range(this.config.majorTicks).map(() => {

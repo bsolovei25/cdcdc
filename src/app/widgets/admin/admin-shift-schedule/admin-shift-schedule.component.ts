@@ -63,7 +63,8 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     styleUrls: ['./admin-shift-schedule.component.scss'],
     providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
-export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
+export class AdminShiftScheduleComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterContentChecked {
     public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
 
@@ -127,21 +128,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
 
     isDutySchedule: boolean = true; // показать график дежурств или управление расписанием
     isOpenStartDate: boolean = false; // Открыть/закрыть overlay Начала смены
-    timeStart: FormControl = new FormControl(
-        moment()
-            .second(0)
-            .minutes(0),
-        [Validators.required]
-    );
+    timeStart: FormControl = new FormControl(moment().second(0).minutes(0), [Validators.required]);
     timeShift: { isSelected: boolean; value: number }[] = [
         // Длительность смены
         { isSelected: true, value: 6 },
         { isSelected: false, value: 8 },
         { isSelected: false, value: 12 },
     ];
-    saveIsDate: Moment = moment()
-        .second(0)
-        .minutes(0); // ПРименить с:. Без минут и секунд
+    saveIsDate: Moment = moment().second(0).minutes(0); // ПРименить с:. Без минут и секунд
 
     //
     public alertWindow: IAlertWindowModel;
@@ -529,11 +523,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
             this.selectedDay = day;
             this.selectedDay.date = new Date(this.selectedDay.date);
-            const yesterdayLocal = new Date(
-                moment(this.selectedDay.date)
-                    .subtract(1, 'days')
-                    .toDate()
-            );
+            const yesterdayLocal = new Date(moment(this.selectedDay.date).subtract(1, 'days').toDate());
             const idxYesterday = this.scheduleShiftMonth.findIndex(
                 (val) =>
                     new Date(val.date).getFullYear() === new Date(yesterdayLocal).getFullYear() &&
@@ -687,9 +677,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
             unitId: this.selectedUnit.id,
             shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
             shiftStartOffset: this.timeStart.value.hours(),
-            applyFrom: `${this.saveIsDate.year()}-${
-                this.saveIsDate.month() + 1 < 10 ? 0 : ''
-            }${this.saveIsDate.month() + 1}-${this.saveIsDate.date() + 1 < 10 ? 0 : ''}${this.saveIsDate.date()}`,
+            applyFrom: `${this.saveIsDate.year()}-${this.saveIsDate.month() + 1 < 10 ? 0 : ''}${
+                this.saveIsDate.month() + 1
+            }-${this.saveIsDate.date() + 1 < 10 ? 0 : ''}${this.saveIsDate.date()}`,
         };
         try {
             await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
@@ -722,12 +712,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
 
     private async getUnitSettings(): Promise<void> {
         const data: IUnitSettings = await this.adminShiftScheduleService.getActualUnitSettings(this.selectedUnit.id);
-        this.timeStart.setValue(
-            moment()
-                .hours(data.shiftStartOffset)
-                .minutes(0)
-                .seconds(0)
-        );
+        this.timeStart.setValue(moment().hours(data.shiftStartOffset).minutes(0).seconds(0));
         this.timeShift.forEach((item) => (item.isSelected = false));
         this.timeShift.find((item) => item.value === data.shiftLengthHours).isSelected = true;
         this.saveIsDate = moment(data.applyFrom);

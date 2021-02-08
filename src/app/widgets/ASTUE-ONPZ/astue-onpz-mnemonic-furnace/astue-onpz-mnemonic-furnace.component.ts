@@ -58,9 +58,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     };
     public schemeStyle: string = '';
 
-    public selectReferences: BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences> = new BehaviorSubject<
-        IAstueOnpzMnemonicFurnaceSelectReferences
-    >(null);
+    public selectReferences: BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences> = new BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences>(
+        null
+    );
 
     public selectManufacture: FormControl = new FormControl({ value: '', disabled: false });
     public selectUnit: FormControl = new FormControl({ value: '', disabled: false });
@@ -73,9 +73,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.resize();
     }
 
-    public popupData$: BehaviorSubject<IAstueOnpzMnemonicFurnacePopup> = new BehaviorSubject<
-        IAstueOnpzMnemonicFurnacePopup
-    >(null);
+    public popupData$: BehaviorSubject<IAstueOnpzMnemonicFurnacePopup> = new BehaviorSubject<IAstueOnpzMnemonicFurnacePopup>(
+        null
+    );
     public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<IAstueOnpzMnemonicFurnace>(null);
 
     constructor(

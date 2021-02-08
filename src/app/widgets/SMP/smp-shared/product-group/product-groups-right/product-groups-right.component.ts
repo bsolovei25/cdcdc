@@ -318,10 +318,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         this.r = this.config.size / 1.5;
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
 
-        this.scale = d3
-            .scaleLinear()
-            .range([0, 1])
-            .domain([this.config.minValue, this.config.maxValue]);
+        this.scale = d3.scaleLinear().range([0, 1]).domain([this.config.minValue, this.config.maxValue]);
 
         this.ticks = this.scale.ticks(this.config.majorTicks);
         this.tickData = d3.range(this.config.majorTicks).map(() => {
@@ -349,10 +346,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
     render(indicator, pie, x, y): void {
         const centerTx = this.centerTranslation(x, y);
 
-        const arcs = this.svg
-            .append('g')
-            .attr('class', 'arc')
-            .attr('transform', centerTx);
+        const arcs = this.svg.append('g').attr('class', 'arc').attr('transform', centerTx);
 
         arcs.selectAll('path')
             .data(this.tickData)

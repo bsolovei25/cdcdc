@@ -28,7 +28,8 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     templateUrl: './admin-shift-schedule-old.component.html',
     styleUrls: ['./admin-shift-schedule-old.component.scss'],
 })
-export class AdminShiftScheduleOldComponent extends WidgetPlatform<unknown>
+export class AdminShiftScheduleOldComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterContentChecked {
     defaultLocale: string = 'ru-RU';
 
@@ -396,11 +397,7 @@ export class AdminShiftScheduleOldComponent extends WidgetPlatform<unknown>
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
             this.selectedDay = day;
             this.selectedDay.date = new Date(this.selectedDay.date);
-            const yesterdayLocal = new Date(
-                moment(this.selectedDay.date)
-                    .subtract(1, 'days')
-                    .toDate()
-            );
+            const yesterdayLocal = new Date(moment(this.selectedDay.date).subtract(1, 'days').toDate());
             const idxYesterday = this.scheduleShiftMonth.findIndex(
                 (val) =>
                     new Date(val.date).getFullYear() === new Date(yesterdayLocal).getFullYear() &&

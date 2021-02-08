@@ -13,7 +13,8 @@ interface INkTankInformationAttributes {
     templateUrl: './nk-tank-information.component.html',
     styleUrls: ['./nk-tank-information.component.scss'],
 })
-export class NkTankInformationComponent extends WidgetPlatform<INkTankInformationAttributes>
+export class NkTankInformationComponent
+    extends WidgetPlatform<INkTankInformationAttributes>
     implements OnInit, OnDestroy, OnChanges {
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
     cardsDataFiltered: ITankCardValue[] = [];

@@ -25,10 +25,9 @@ export class ReasonsDeviationsService {
         try {
             return await this.http
                 .get<T>(
-                    `${
-                        this.restUrl
-                    }/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${endDateParam ??
-                        new Date().toISOString()}`
+                    `${this.restUrl}/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${
+                        endDateParam ?? new Date().toISOString()
+                    }`
                 )
                 .toPromise();
         } catch (e) {

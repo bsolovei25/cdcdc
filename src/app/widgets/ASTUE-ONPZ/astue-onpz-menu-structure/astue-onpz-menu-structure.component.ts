@@ -26,7 +26,8 @@ export interface IAstueOnpzMenuUnit {
     templateUrl: './astue-onpz-menu-structure.component.html',
     styleUrls: ['./astue-onpz-menu-structure.component.scss'],
 })
-export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMenuStructure>
+export class AstueOnpzMenuStructureComponent
+    extends WidgetPlatform<IAstueOnpzMenuStructure>
     implements OnInit, OnDestroy, AfterViewInit {
     public manufactures: IAstueOnpzMenuManufacture[];
 

@@ -26,9 +26,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">
-      {{item.title}}
-    </div>
+    <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">{{item.title}}</div>
     <div class="menu__item" (click)="onRemoveButton()" *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)">
       <span>Удалить с экрана</span>
       <svg-icon src="assets/pic/delete.svg"></svg-icon>

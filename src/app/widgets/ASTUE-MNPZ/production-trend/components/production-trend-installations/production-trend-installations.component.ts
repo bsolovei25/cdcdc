@@ -26,11 +26,7 @@ export class ProductionTrendInstallationsComponent implements OnInit, OnChanges 
     }
 
     draw(fabric, status, el): void {
-        this.svg = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '0 0 100 100');
+        this.svg = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 0 100 100');
 
         const circle = this.svg
             .append('image')

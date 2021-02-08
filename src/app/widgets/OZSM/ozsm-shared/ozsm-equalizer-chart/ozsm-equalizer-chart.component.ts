@@ -138,13 +138,7 @@ export class OzsmEqualizerChartComponent implements OnChanges, OnInit {
             .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom})`)
             .attr('class', 'x-axis')
-            .call(
-                d3
-                    .axisBottom(this.scales.x)
-                    .tickSize(0)
-                    .ticks(this.sizeX.max)
-                    .tickFormat('')
-            )
+            .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(this.sizeX.max).tickFormat(''))
             .call((g) => g.select('.domain').remove());
 
         // y
@@ -152,13 +146,7 @@ export class OzsmEqualizerChartComponent implements OnChanges, OnInit {
             .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(7)
-                    .tickFormat('')
-            )
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(7).tickFormat(''))
             .call((g) => g.select('.domain').remove());
     }
 
@@ -223,10 +211,6 @@ export class OzsmEqualizerChartComponent implements OnChanges, OnInit {
             .y((d) => this.scales.y(d.y))
             .curve(d3.curveStepAfter);
 
-        this.svg
-            .append('path')
-            .datum(this.dataset)
-            .attr('class', 'step-line')
-            .attr('d', line);
+        this.svg.append('path').datum(this.dataset).attr('class', 'step-line').attr('d', line);
     }
 }

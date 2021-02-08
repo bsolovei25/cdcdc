@@ -29,16 +29,12 @@
     </div>
   </div>
   <div class="buttons">
-    <div class="add-project btn" matRipple [matRippleColor]="'white'" (click)="addNewProject()">
-      Добавить проект
-    </div>
+    <div class="add-project btn" matRipple [matRippleColor]="'white'" (click)="addNewProject()">Добавить проект</div>
     <div class="save-cancel">
       <div class="btn" [class.save]="isCreateNewGroup" matRipple [matRippleColor]="'white'" (click)="saveNewProject()">
         Сохранить
       </div>
-      <div class="cancel btn" matRipple [matRippleColor]="'white'" (click)="closeDialog()">
-        Отменить
-      </div>
+      <div class="cancel btn" matRipple [matRippleColor]="'white'" (click)="closeDialog()">Отменить</div>
     </div>
   </div>
 </div>

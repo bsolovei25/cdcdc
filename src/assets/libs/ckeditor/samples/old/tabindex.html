@@ -21,15 +21,15 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
       }
     </style>
     <script>
-      CKEDITOR.on("instanceReady", function(evt) {
+      CKEDITOR.on("instanceReady", function (evt) {
         var editor = evt.editor;
         editor.setData("This editor has it's tabIndex set to <strong>" + editor.tabIndex + "</strong>");
 
         // Apply focus class name.
-        editor.on("focus", function() {
+        editor.on("focus", function () {
           editor.container.addClass("cke_focused");
         });
-        editor.on("blur", function() {
+        editor.on("blur", function () {
           editor.container.removeClass("cke_focused");
         });
 

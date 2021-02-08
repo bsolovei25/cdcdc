@@ -19,7 +19,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
       // require less features.
 
       // The "instanceCreated" event is fired for every editor instance created.
-      CKEDITOR.on("instanceCreated", function(event) {
+      CKEDITOR.on("instanceCreated", function (event) {
         var editor = event.editor,
           element = editor.element;
 
@@ -30,7 +30,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
           // which is fired after the configuration file loading and
           // execution. This makes it possible to change the
           // configurations before the editor initialization takes place.
-          editor.on("configLoaded", function() {
+          editor.on("configLoaded", function () {
             // Remove unnecessary plugins to make the editor simpler.
             editor.config.removePlugins =
               "colorbutton,find,flash,font," +
@@ -42,7 +42,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
               { name: "editing", groups: ["basicstyles", "links"] },
               { name: "undo" },
               { name: "clipboard", groups: ["selection", "clipboard"] },
-              { name: "about" }
+              { name: "about" },
             ];
           });
         }

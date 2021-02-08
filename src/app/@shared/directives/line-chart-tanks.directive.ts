@@ -134,10 +134,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     cardPosX += offset;
                 }
 
-                const cardG = pointG
-                    .append('g')
-                    .attr('class', 'point-card')
-                    .style('display', 'none');
+                const cardG = pointG.append('g').attr('class', 'point-card').style('display', 'none');
 
                 cardG
                     .append('rect')

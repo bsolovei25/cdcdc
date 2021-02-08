@@ -49,10 +49,7 @@ export class PieDiagramComponent implements OnInit {
 
     private initSvg(): void {
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.g = this.svg
-            .append('g')
-            .attr('transform', 'translate(50,50)')
-            .attr('z-index', '50');
+        this.g = this.svg.append('g').attr('transform', 'translate(50,50)').attr('z-index', '50');
     }
 
     private placeText(): void {
@@ -86,10 +83,7 @@ export class PieDiagramComponent implements OnInit {
 
         const data = angleGen([{ size: 1 }, { size: 1 }, { size: 1 }]);
 
-        const arcGen = d3
-            .arc()
-            .innerRadius(42)
-            .outerRadius(50);
+        const arcGen = d3.arc().innerRadius(42).outerRadius(50);
 
         const colors = d3.scaleOrdinal(this.colors);
 

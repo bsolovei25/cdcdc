@@ -12,9 +12,7 @@
           <div class="dropdown">
             <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [(ngModel)]="selectedManufacture">
-              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i">
-                {{manufuct}}
-              </mat-option>
+              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i"> {{manufuct}} </mat-option>
             </mat-select>
           </div>
         </div>
@@ -57,9 +55,7 @@
             <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [value]="'измеренные'">
               <ng-container>
-                <mat-option [value]="'измеренные'">
-                  измеренные
-                </mat-option>
+                <mat-option [value]="'измеренные'"> измеренные </mat-option>
               </ng-container>
             </mat-select>
           </div>

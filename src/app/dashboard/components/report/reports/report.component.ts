@@ -196,9 +196,7 @@ export class ReportComponent implements OnInit {
 
     dateTimePicker(event: Moment, value: 'day' | 'month' | 'year') {
         if (value === 'month') {
-            this.periodTime.startDateTime = moment(event)
-                .add(1, 'months')
-                .toDate();
+            this.periodTime.startDateTime = moment(event).add(1, 'months').toDate();
         } else {
             this.periodTime.startDateTime = event.toDate();
         }

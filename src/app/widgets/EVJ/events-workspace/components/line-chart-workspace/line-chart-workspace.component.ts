@@ -312,11 +312,7 @@ export class LineChartWorkspaceComponent implements OnInit {
             this.width = minWidth;
         }
 
-        this.svg = d3
-            .select(element)
-            .append('svg')
-            .attr('width', this.width)
-            .attr('height', element.offsetHeight);
+        this.svg = d3.select(element).append('svg').attr('width', this.width).attr('height', element.offsetHeight);
         this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
@@ -383,12 +379,7 @@ export class LineChartWorkspaceComponent implements OnInit {
             .append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                d3Axis
-                    .axisBottom(this.x)
-                    .ticks(7)
-                    .tickFormat(multiFormat)
-            );
+            .call(d3Axis.axisBottom(this.x).ticks(7).tickFormat(multiFormat));
 
         this.g
             .append('g')
@@ -409,43 +400,24 @@ export class LineChartWorkspaceComponent implements OnInit {
             .selectAll('grid')
             .attr('class', 'grid')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                this.makeXGridLines()
-                    .tickSize(-this.height)
-                    .tickFormat('')
-            )
+            .call(this.makeXGridLines().tickSize(-this.height).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(97,101,128, .5)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(97,101,128, .5)').style('stroke-width', '0.5')
             );
 
         this.g
             .append('g')
             .attr('class', 'grid')
-            .call(
-                this.makeYGridLines()
-                    .tickSize(-this.width)
-                    .tickFormat('')
-            )
+            .call(this.makeYGridLines().tickSize(-this.width).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(220,220,220, .25)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(220,220,220, .25)').style('stroke-width', '0.5')
             );
     }
 
     private drawPath() {
-        const trend = this.g
-            .selectAll('.trend')
-            .data(this.data.graphs)
-            .enter()
-            .append('g')
-            .attr('class', 'trend');
+        const trend = this.g.selectAll('.trend').data(this.data.graphs).enter().append('g').attr('class', 'trend');
 
         trend
             .append('path')
@@ -490,11 +462,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .y0((d) => 0)
                 .y1((d) => this.y(d.value));
 
-            const upperLimitSource = this.g
-                .selectAll('.limit-area')
-                .data([upperLimit])
-                .enter()
-                .append('g');
+            const upperLimitSource = this.g.selectAll('.limit-area').data([upperLimit]).enter().append('g');
 
             upperLimitSource
                 .append('path')
@@ -514,15 +482,9 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .attr('y1', '0%')
                 .attr('y2', '100%');
 
-            upperLimitGradient
-                .append('stop')
-                .attr('offset', '0%')
-                .attr('stop-color', 'transparent');
+            upperLimitGradient.append('stop').attr('offset', '0%').attr('stop-color', 'transparent');
 
-            upperLimitGradient
-                .append('stop')
-                .attr('offset', '50%')
-                .attr('stop-color', 'rgba(255,255,255,0.015');
+            upperLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
         }
 
         if (lowerLimit) {
@@ -533,11 +495,7 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .y0((d) => this.height)
                 .y1((d) => this.y(d.value));
 
-            const lowerLimitSource = this.g
-                .selectAll('.limit-area')
-                .data([lowerLimit])
-                .enter()
-                .append('g');
+            const lowerLimitSource = this.g.selectAll('.limit-area').data([lowerLimit]).enter().append('g');
 
             lowerLimitSource
                 .append('path')
@@ -556,15 +514,9 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .attr('y1', '0%')
                 .attr('y2', '100%');
 
-            lowerLimitGradient
-                .append('stop')
-                .attr('offset', '50%')
-                .attr('stop-color', 'rgba(255,255,255,0.015');
+            lowerLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
 
-            lowerLimitGradient
-                .append('stop')
-                .attr('offset', '100%')
-                .attr('stop-color', 'transparent');
+            lowerLimitGradient.append('stop').attr('offset', '100%').attr('stop-color', 'transparent');
         }
     }
 

@@ -76,18 +76,11 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             color = d3.scaleOrdinal().range(['white', 'orange', 'rgba(4,12,33,0.1)']);
         }
 
-        const canvas = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '0 3 300 120');
+        const canvas = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 3 300 120');
 
         let group = canvas.append('g').attr('transform', 'translate(60 ,60)');
 
-        const arc = d3
-            .arc()
-            .innerRadius(44)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(44).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -104,12 +97,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('opacity', '0.3')
             .attr('fill', '#040c21');
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

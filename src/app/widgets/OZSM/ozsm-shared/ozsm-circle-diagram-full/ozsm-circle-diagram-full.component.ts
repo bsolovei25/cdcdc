@@ -47,23 +47,11 @@ export class OzsmCircleDiagramFullComponent implements OnInit, OnChanges {
     }
 
     private placeText(): void {
-        this.g
-            .append('text')
-            .attr('class', 'unit-text')
-            .text(this.data.unit)
-            .attr('y', -16);
+        this.g.append('text').attr('class', 'unit-text').text(this.data.unit).attr('y', -16);
 
-        this.g
-            .append('text')
-            .attr('class', 'fact-text')
-            .text(this.data.fact)
-            .attr('y', 0);
+        this.g.append('text').attr('class', 'fact-text').text(this.data.fact).attr('y', 0);
 
-        this.g
-            .append('text')
-            .attr('class', 'plan-text')
-            .attr('y', 11)
-            .text(this.data.plan);
+        this.g.append('text').attr('class', 'plan-text').attr('y', 11).text(this.data.plan);
 
         this.g
             .append('text')
@@ -128,10 +116,7 @@ export class OzsmCircleDiagramFullComponent implements OnInit, OnChanges {
         if (this.data.fact < this.data.plan) {
             const arcDeviation = this.createArc(chartD - 15, chartD - 15 + arcWidth, 1, 0, 1.4 * Math.PI);
 
-            this.g
-                .append('path')
-                .attr('d', arcDeviation)
-                .attr('class', 'arc-deviation');
+            this.g.append('path').attr('d', arcDeviation).attr('class', 'arc-deviation');
         }
 
         const arcValue = this.createArc(chartD - 15, chartD - 15 + arcWidth, 1, 0, k * Math.PI);
