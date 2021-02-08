@@ -42,6 +42,8 @@ export class GroupSelectorOverlayComponent implements OnInit {
 
     public acceptEdit(iconId: string): void {
         this.changeIcon.emit(iconId);
+        this.snackBar.openSnackBar('Иконка выбрана');
+        this.closeOverlay();
     }
 
     public async onDelete(iconId: string): Promise<void> {

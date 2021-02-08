@@ -8,16 +8,13 @@
       <svg-icon src="assets/icons/control-group-icons/close.svg" (click)="closeDialog()"></svg-icon>
     </div>
   </div>
-  <div class="content">
+  <div class="content" #mainContent>
     <div class="project-list">
       <evj-group-selector-group-item
         *ngIf="isCreateNewGroup"
         [group]="newGroup"
         (changed)="onChanged($event)"
-        [saveNewGroup]="{
-          flag: saveNewGroup,
-          id: newGroup.id
-        }"
+        [saveNewGroup]="saveIndicator"
       ></evj-group-selector-group-item>
 
       <evj-group-selector-group-item
