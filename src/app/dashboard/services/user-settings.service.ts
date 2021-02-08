@@ -13,8 +13,7 @@ import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
 import {
-    IGroupScreens,
-    IGroupScreensIcon,
+    IGroupScreens
 } from '../components/header-components/group-selector/group-selector.component';
 import { Title } from '@angular/platform-browser';
 
@@ -23,7 +22,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserSettingsService {
     private screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
-    public iconsList$: BehaviorSubject<IGroupScreensIcon[]> = new BehaviorSubject(null);
+    public iconsList$: BehaviorSubject<string[]> = new BehaviorSubject(null);
     public groupsList$: BehaviorSubject<IGroupScreens[]> = new BehaviorSubject(null);
     public screensShared: Observable<IScreenSettings[]> = this.screens$
         .asObservable()
@@ -32,8 +31,7 @@ export class UserSettingsService {
     // Параметры активной группы
     public groupId: number;
     public groupName: string;
-    public groupIconSrc: string;
-    public groupIconId: number;
+    public groupIconId: string;
 
     private restUrl: string;
     public screenId: number;
@@ -67,10 +65,10 @@ export class UserSettingsService {
         });
     }
 
-    public async getIcons(): Promise<IGroupScreensIcon[]> {
+    public async getIcons(): Promise<string[]> {
         try {
             const icons = await this.http
-                .get<IGroupScreensIcon[]>(`${this.restUrl}/api/ref-book/IconGroup`)
+                .get<string[]>(`${this.restUrl}/api/ref-book/IconGroup`)
                 .toPromise();
             this.iconsList$.next(icons);
             return [];
@@ -83,9 +81,9 @@ export class UserSettingsService {
     public async addIcons(icon: File): Promise<boolean> {
         try {
             const body: FormData = new FormData();
-            body.append('newIcon', icon, icon.name);
+            body.append('uploadFile', icon, icon.name);
             const newIcon = await this.http
-                .post<IGroupScreensIcon>(`${this.restUrl}/api/ref-book/IconGroup`, body)
+                .post<string>(`${this.restUrl}/api/ref-book/IconGroup`, body)
                 .toPromise();
             const icons = this.iconsList$.getValue();
             icons.push(newIcon);
@@ -97,14 +95,12 @@ export class UserSettingsService {
         }
     }
 
-    public async deleteIcon(iconId: number): Promise<boolean> {
+    public async deleteIcon(iconId: string): Promise<boolean> {
         try {
             await this.http
-                .delete<IGroupScreensIcon>(
-                    `${this.restUrl}/api/ref-book/IconGroup/{id}${iconId}`
-                )
+                .delete<string>(`${this.restUrl}/api/ref-book/IconGroup/${iconId}`)
                 .toPromise();
-            const icons = this.iconsList$.getValue().filter((item) => item.id !== iconId);
+            const icons = this.iconsList$.getValue().filter((item) => item !== iconId);
             this.iconsList$.next(icons);
             return true;
         } catch (e) {
@@ -438,7 +434,7 @@ export class UserSettingsService {
 
     private defWidgetSize = (widgetType: string): any => {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
-    };
+    }
 
     public setTitle(newTitle: string): void {
         this.titleService.setTitle(newTitle);

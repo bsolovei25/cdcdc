@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserSettingsService } from '../../../../services/user-settings.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { IGroupScreens, IGroupScreensIcon } from '../group-selector.component';
 import { SnackBarService } from '../../../../services/snack-bar.service';
+import { IGroupScreens } from '../group-selector.component';
 
 @Component({
     selector: 'evj-group-selector-overlay',
@@ -11,23 +9,26 @@ import { SnackBarService } from '../../../../services/snack-bar.service';
     styleUrls: ['./group-selector-overlay.component.scss'],
 })
 export class GroupSelectorOverlayComponent implements OnInit {
-    @Input() iconList: IGroupScreensIcon[] = [];
-    @Input() currentIconId: number = null;
+    @Input() iconList: string[] = [];
+    @Input() group: IGroupScreens;
+    @Input() currentIconId: string = null;
     @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() changeIcon: EventEmitter<number> = new EventEmitter<number>();
+    @Output() changeIcon: EventEmitter<string> = new EventEmitter<string>();
+
+    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+
     constructor(
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService
     ) {}
 
     ngOnInit(): void {
-        this.userSettingsService.getIcons();
         this.userSettingsService.iconsList$.subscribe((val) => (this.iconList = val));
     }
 
     public async getFile(event: FileList): Promise<void> {
         const file: File = event?.[0];
-        const res =  await this.userSettingsService.addIcons(file);
+        const res = await this.userSettingsService.addIcons(file);
         if (res) {
             this.snackBar.openSnackBar('Новая иконка добавлена');
         } else {
@@ -39,15 +40,19 @@ export class GroupSelectorOverlayComponent implements OnInit {
         this.changed.emit(false);
     }
 
-    public acceptEdit(iconId: number): void {
+    public acceptEdit(iconId: string): void {
         this.changeIcon.emit(iconId);
     }
 
-    public async onDelete(iconId: number): Promise<void> {
+    public async onDelete(iconId: string): Promise<void> {
         try {
             await this.userSettingsService.deleteIcon(iconId);
             if (iconId === this.userSettingsService.groupIconId) {
-                this.userSettingsService.groupIconSrc = undefined;
+                this.userSettingsService.groupIconId = '';
+            } else if (this.group.id !== 0 && this.group.iconId === iconId) {
+                let groupData: IGroupScreens;
+                groupData = { ...this.group, iconId: '' };
+                this.userSettingsService.updateGroup(groupData);
             }
             this.snackBar.openSnackBar('Иконка удалена');
         } catch (e) {

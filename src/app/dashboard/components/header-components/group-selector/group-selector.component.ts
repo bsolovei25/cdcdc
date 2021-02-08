@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { UserSettingsService } from '../../../services/user-settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +7,7 @@ import { GroupSelectorDialogComponent } from './group-selector-dialog/group-sele
 
 export interface IGroupScreens {
     id: number;
-    iconId: number;
+    iconId: string;
     name: string;
     description?: string;
     isEnabled: boolean;
@@ -16,11 +15,6 @@ export interface IGroupScreens {
         id: number;
         name: string;
     }[];
-}
-
-export interface IGroupScreensIcon {
-    id: number;
-    src: string;
 }
 
 @Component({
@@ -33,10 +27,12 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     public formControl: FormControl = new FormControl('');
 
+    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+
     public groups: IGroupScreens[] = [];
 
     constructor(
-        private userSettingsService: UserSettingsService,
+        public userSettingsService: UserSettingsService,
         private router: Router,
         private route: ActivatedRoute,
         public dialog: MatDialog
@@ -49,6 +45,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {}
 
     private async asyncStart(): Promise<void> {
+        await this.userSettingsService.getIcons();
         await this.userSettingsService.getGroups();
         this.userSettingsService.groupsList$.subscribe((item) => {
             this.groups = item;
@@ -65,9 +62,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     }
 
     public onSelect(group: IGroupScreens): void {
-        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon.id === group.iconId);
-        this.userSettingsService.groupIconSrc = currentIcon?.src ?? undefined;
-        this.userSettingsService.groupIconId = currentIcon?.id ?? undefined;
+        this.userSettingsService.groupIconId = group.iconId ?? undefined;
         this.userSettingsService.groupId = group.id ?? undefined;
         this.userSettingsService.groupName = group.id ? group.name : undefined;
         this.router.navigate([], {
@@ -103,10 +98,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     }
 
     public getClaims(groupId: number): boolean {
-        if (!groupId) {
-            return false;
-        }
-        return true;
+        return !!groupId;
     }
 
     public openDialog(): void {

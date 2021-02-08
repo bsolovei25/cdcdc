@@ -10,6 +10,7 @@
   position: relative;
   width: 100%;
   margin-top: 1px;
+  padding-left: 5px;
   height: max-content;
   box-sizing: border-box;
   line-height: 16px;
@@ -28,11 +29,15 @@
   }
 
   .group {
+    height: 64px;
     padding: 5px 0;
     display: flex;
 
     &__icon {
-
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__name {

@@ -81,7 +81,6 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     }
 
     private switchTheme(): void {
-        // console.log(this.themeService.theme);
         this.themeService.changeTheme();
     }
 

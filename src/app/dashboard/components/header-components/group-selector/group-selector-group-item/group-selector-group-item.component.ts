@@ -7,13 +7,12 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { IGroupScreens, IGroupScreensIcon } from '../group-selector.component';
+import { IGroupScreens } from '../group-selector.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserSettingsService } from '../../../../services/user-settings.service';
 import { SnackBarService } from '../../../../services/snack-bar.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSelectorModalComponent } from '../group-selector-modal/group-selector-modal.component';
@@ -32,7 +31,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         this.switchSubscribe = this.projectForm.get('isEnabled').valueChanges.subscribe((val) => {
             this.switchStatus = val;
             if (this.groupData.id !== 0) {
-                this.switchEnable(val);
+                this.switchEnable();
             }
             else if (!val && this.groupData.id === this.userSettingsService.groupId) {
                 const selectableGroup = this.userSettingsService.groupsList$.getValue().find(item => item.isEnabled);
@@ -58,13 +57,13 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     @ViewChild('nameElement', { static: true }) nameInput: ElementRef;
     @ViewChild(CdkConnectedOverlay, { static: true }) connectedOverlay: CdkConnectedOverlay;
 
+    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
     public editName: boolean = true;
     public switchStatus: boolean;
     public isEditLogo: boolean;
     public iconSrc: string = '';
-    private isEditLogo$: Observable<boolean> = new Observable<boolean>();
     public groupData: IGroupScreens;
-    public icons: IGroupScreensIcon[];
+    public icons: string[];
     public switchSubscribe: Subscription;
     public positions: ConnectedPosition[] = [
         {
@@ -89,7 +88,6 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService,
         private router: Router,
-        private route: ActivatedRoute,
         public dialog: MatDialog
     ) {}
 
@@ -129,7 +127,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         }
     }
 
-    public async switchEnable(value: boolean): Promise<void> {
+    public async switchEnable(): Promise<void> {
         let group: IGroupScreens;
         group = { ...this.groupData, isEnabled: this.projectForm.get('isEnabled').value };
         try {
@@ -148,7 +146,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
                 .get('isEnabled')
                 .valueChanges.subscribe((val) => {
                     this.switchStatus = val;
-                    this.switchEnable(val);
+                    this.switchEnable();
                 });
         }
     }
@@ -176,9 +174,8 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     }
 
     public onSelect(group: IGroupScreens): void {
-        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon.id === group.iconId);
-        this.userSettingsService.groupIconSrc = currentIcon?.src ?? undefined;
-        this.userSettingsService.groupIconId = currentIcon?.id ?? undefined;
+        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon === group.iconId);
+        this.userSettingsService.groupIconId = currentIcon ?? undefined;
         this.userSettingsService.groupId = group.id ?? undefined;
         this.userSettingsService.groupName = group.id ? group.name : undefined;
         this.router.navigate([], {
@@ -191,9 +188,8 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     public setIcon(): void {
         this.projectForm.get('iconId').setValue(this.groupData.iconId);
         if (!!this.groupData.iconId) {
-            const chosenIcon = this.icons.find((icon) => icon.id === this.groupData.iconId);
-            this.iconSrc = chosenIcon
-                ? chosenIcon.src
+            this.iconSrc = !!this.groupData.iconId
+                ? this.baseSrc + this.groupData.iconId
                 : 'assets/icons/control-group-icons/upload.svg';
         } else {
             this.iconSrc = 'assets/icons/control-group-icons/upload.svg';
@@ -204,25 +200,22 @@ export class GroupSelectorGroupItemComponent implements OnInit {
         this.isEditLogo = true;
     }
 
-    public onChanged(data: boolean): void {
+    public onChanged(): void {
         this.isEditLogo = false;
     }
 
-    public async onChangeIcon(id: number): Promise<void> {
-        if (this.groupData.id === 0) {
-            this.projectForm.get('iconId').setValue(id);
-        } else {
+    public async onChangeIcon(id: string): Promise<void> {
+        this.projectForm.get('iconId').setValue(id);
+        if (this.groupData.id !== 0){
             let group: IGroupScreens;
             group = { ...this.groupData, iconId: this.projectForm.get('iconId').value };
-
             group = await this.userSettingsService.updateGroup(group);
             this.projectForm.get('name').setValue(group.name);
             this.snackBar.openSnackBar('Иконка изменена');
             if (this.userSettingsService.groupId === group.id) {
-                const currentIcon = this.icons?.find((icon) => icon.id === group.iconId);
-                this.userSettingsService.groupIconSrc = currentIcon?.src ?? undefined;
                 this.userSettingsService.groupIconId = id;
             }
         }
+        this.isEditLogo = false;
     }
 }

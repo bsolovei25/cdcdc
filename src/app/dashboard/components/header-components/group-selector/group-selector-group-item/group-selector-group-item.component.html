@@ -3,6 +3,7 @@
     <div class="logo" (click)="editLogo()" [class.logo-active]="isEditLogo">
       <svg-icon
         [src]="iconSrc"
+        [svgStyle]="!!groupData.iconId? { 'width.px':50, 'height.px':53 } : {}"
       ></svg-icon>
     </div>
     <div class="content">
@@ -47,7 +48,8 @@
   <evj-group-selector-overlay
     [iconList]="icons"
     [currentIconId]="this.groupData.iconId"
-    (changed)="onChanged($event)"
+    [group]="groupData"
+    (changed)="onChanged()"
     (changeIcon)="onChangeIcon($event)"
   ></evj-group-selector-overlay>
 </ng-template>

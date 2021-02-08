@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { IGroupScreens } from '../group-selector.component';
 import { UserSettingsService } from '../../../../services/user-settings.service';
 import { SnackBarService } from '../../../../services/snack-bar.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -18,7 +18,6 @@ export class GroupSelectorModalComponent implements OnInit {
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService,
         private router: Router,
-        private route: ActivatedRoute,
         @Inject(MAT_DIALOG_DATA) public groupId: number,
         public dialogRef: MatDialogRef<GroupSelectorModalComponent>
     ) {}
@@ -37,9 +36,8 @@ export class GroupSelectorModalComponent implements OnInit {
     }
 
     public onSelect(group: IGroupScreens): void {
-        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon.id === group.iconId);
-        this.userSettingsService.groupIconSrc = currentIcon?.src ?? undefined;
-        this.userSettingsService.groupIconId = currentIcon?.id ?? undefined;
+        const currentIcon = this.userSettingsService.iconsList$.getValue()?.find((icon) => icon === group.iconId);
+        this.userSettingsService.groupIconId = currentIcon ?? undefined;
         this.userSettingsService.groupId = group.id ?? undefined;
         this.userSettingsService.groupName = group.id ? group.name : undefined;
         this.router.navigate([], {
