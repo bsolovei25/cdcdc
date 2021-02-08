@@ -120,8 +120,14 @@ export class PlanningChartComponent implements OnChanges {
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
-        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+        this.graphMaxX = +d3Selection
+            .select(this.chart.nativeElement)
+            .style('width')
+            .slice(0, -2);
+        this.graphMaxY = +d3Selection
+            .select(this.chart.nativeElement)
+            .style('height')
+            .slice(0, -2);
 
         this.svg
             .attr('width', '100%')
@@ -174,11 +180,17 @@ export class PlanningChartComponent implements OnChanges {
             new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
-        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
+        this.scaleFuncs.x = d3
+            .scaleTime()
+            .domain(domainDates)
+            .rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
+        this.scaleFuncs.y = d3
+            .scaleLinear()
+            .domain(domainValues)
+            .range(rangeY);
 
         if (!!this.currentDates) {
             this.axis.axisX = d3
@@ -193,7 +205,10 @@ export class PlanningChartComponent implements OnChanges {
                 .tickFormat(d3.timeFormat('%H'))
                 .tickSizeOuter(0);
         }
-        this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(5).tickSize(0);
+        this.axis.axisY = d3
+            .axisLeft(this.scaleFuncs.y)
+            .ticks(5)
+            .tickSize(0);
     }
 
     private transformData(): void {
@@ -243,11 +258,17 @@ export class PlanningChartComponent implements OnChanges {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
+            this.svg
+                .append('path')
+                .attr('class', `graph-line-${chart.graphType}`)
+                .attr('d', line(chart.graph));
 
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
-                this.svg.append('path').attr('class', `graph-area-${chart.graphType}`).attr('d', areaFn(chart.graph));
+                this.svg
+                    .append('path')
+                    .attr('class', `graph-area-${chart.graphType}`)
+                    .attr('d', areaFn(chart.graph));
             }
         });
     }

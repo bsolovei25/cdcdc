@@ -33,11 +33,18 @@ export class WidgetsPieComponent implements OnInit {
             color = d3.scaleOrdinal().range(['white', 'orange']);
         }
 
-        const canvas = d3.select(el).append('svg').attr('min-width', '200px').attr('viewBox', '0 -10 200 200');
+        const canvas = d3
+            .select(el)
+            .append('svg')
+            .attr('min-width', '200px')
+            .attr('viewBox', '0 -10 200 200');
 
         let group = canvas.append('g').attr('transform', 'translate(102 ,88)');
 
-        const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
+        const arc = d3
+            .arc()
+            .innerRadius(43)
+            .outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -46,7 +53,12 @@ export class WidgetsPieComponent implements OnInit {
             })
             .sort(() => null);
 
-        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
+        const arcs = group
+            .selectAll('.arc')
+            .data(pie(mass))
+            .enter()
+            .append('g')
+            .attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

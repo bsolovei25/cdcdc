@@ -30,7 +30,7 @@ export class GroupSelectorModalComponent implements OnInit {
         }
         this.snackBar.openSnackBar('Группа удалена');
         if (this.userSettingsService.groupId === this.groupId) {
-            const selectableGroup = this.userSettingsService.groupsList$.getValue().find(item => item.isEnabled);
+            const selectableGroup = this.userSettingsService.groupsList$.getValue().find((item) => item.isEnabled);
             this.onSelect(selectableGroup);
         }
     }

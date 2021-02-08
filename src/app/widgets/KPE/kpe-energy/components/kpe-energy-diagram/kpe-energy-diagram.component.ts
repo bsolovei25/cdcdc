@@ -48,13 +48,21 @@ export class KpeEnergyDiagramComponent implements OnInit {
         const innerRadius = outerRadius - diagramWidth;
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
+            return d3
+                .pie()
+                .startAngle(startAngel)
+                .endAngle(endAngel)
+                .value(1);
         }
 
         const mainPie = createPie(-Math.PI, (2 * Math.PI * mainValue) / this.diagramCounter - Math.PI);
         const subPie = createPie((2 * Math.PI * mainValue) / this.diagramCounter - Math.PI, Math.PI / 2);
 
-        const arc: d3.Arc = d3.arc().outerRadius(outerRadius).innerRadius(innerRadius).padAngle(0.025);
+        const arc: d3.Arc = d3
+            .arc()
+            .outerRadius(outerRadius)
+            .innerRadius(innerRadius)
+            .padAngle(0.025);
 
         const svg = d3
             .select(this.chart.nativeElement)
@@ -103,7 +111,9 @@ export class KpeEnergyDiagramComponent implements OnInit {
         );
 
         function drawCircle(r: number, className: string): void {
-            svg.append('circle').attr('r', r).attr('class', className);
+            svg.append('circle')
+                .attr('r', r)
+                .attr('class', className);
         }
 
         const circleRad = 18;
@@ -118,9 +128,15 @@ export class KpeEnergyDiagramComponent implements OnInit {
             .attr('y2', '100%')
             .attr('spreadMethod', 'pad');
 
-        shadowGradient.append('svg:stop').attr('offset', '0%').attr('class', 'needle-shadow-gradient-1');
+        shadowGradient
+            .append('svg:stop')
+            .attr('offset', '0%')
+            .attr('class', 'needle-shadow-gradient-1');
 
-        shadowGradient.append('svg:stop').attr('offset', '100%').attr('class', 'needle-shadow-gradient-2');
+        shadowGradient
+            .append('svg:stop')
+            .attr('offset', '100%')
+            .attr('class', 'needle-shadow-gradient-2');
 
         const shadow = d3
             .arc()

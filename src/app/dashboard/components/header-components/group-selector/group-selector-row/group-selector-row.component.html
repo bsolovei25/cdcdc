@@ -1,9 +1,4 @@
-<div
-  class="container"
-  (click)="onClickGroup()"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()"
->
+<div class="container" (click)="onClickGroup()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <ng-container *ngIf="!isEditing;else input">
     <div class="group">
       <div class="group__icon">

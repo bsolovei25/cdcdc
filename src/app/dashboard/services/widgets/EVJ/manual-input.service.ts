@@ -220,7 +220,7 @@ export class ManualInputService {
             snackBar.innerText = text;
         } else {
             snackBar.innerText = text;
-            setTimeout(function () {
+            setTimeout(function() {
                 snackBar.className = snackBar.className.replace('show', '');
             }, durection);
             snackBarBlock.className = snackBarBlock.className.replace('show', '');

@@ -54,8 +54,7 @@ import { StringDecoder } from 'string_decoder';
         ]),
     ],
 })
-export class EvjManualInputComponent
-    extends WidgetPlatform<unknown>
+export class EvjManualInputComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;

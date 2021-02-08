@@ -155,7 +155,11 @@ export class PolarChartComponent extends WidgetPlatform<unknown> implements OnIn
         let indexBorder = 0;
         let indexLine = 0;
 
-        this.canvas = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '10 0 130 120');
+        this.canvas = d3
+            .select(el)
+            .append('svg')
+            .attr('min-width', '100px')
+            .attr('viewBox', '10 0 130 120');
 
         let imageFrame = this.canvas
             .append('image')

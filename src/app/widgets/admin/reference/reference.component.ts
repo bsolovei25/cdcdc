@@ -276,7 +276,12 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
                         if (el.valueString) {
                             return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
                         } else if (el.valueInt) {
-                            return el.valueInt.toString().toLowerCase().indexOf(record.toLowerCase()) > -1;
+                            return (
+                                el.valueInt
+                                    .toString()
+                                    .toLowerCase()
+                                    .indexOf(record.toLowerCase()) > -1
+                            );
                         } else if (el.valueDateTime) {
                             return el.valueDateTime.toLowerCase().indexOf(record.toLowerCase()) > -1;
                         }

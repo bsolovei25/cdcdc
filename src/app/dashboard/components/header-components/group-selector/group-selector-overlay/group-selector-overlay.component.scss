@@ -39,7 +39,8 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    .add-icon, .icons {
+    .add-icon,
+    .icons {
       width: 70px;
       height: 70px;
 
@@ -74,7 +75,8 @@
 
           background: var(--color-group-control-icon-upload-bg);
 
-          &__edit, &__delete {
+          &__edit,
+          &__delete {
             color: var(--color-group-control-bg-icons);
           }
 

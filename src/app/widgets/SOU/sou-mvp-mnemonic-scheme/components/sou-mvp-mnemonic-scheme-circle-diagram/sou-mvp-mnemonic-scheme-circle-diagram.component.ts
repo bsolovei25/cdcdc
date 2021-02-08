@@ -41,7 +41,11 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '40px').attr('height', '40px');
+        this.svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
+            .attr('width', '40px')
+            .attr('height', '40px');
 
         const arc = d3
             .arc()
@@ -61,9 +65,13 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
 
         const g: any = this.svg.append('g').style('transform', 'translate(20px, 20px)');
 
-        g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
+        g.append('path')
+            .attr('d', arcBg)
+            .attr('class', 'diagram-inner');
 
-        g.append('path').attr('d', arc).attr('class', 'diagram-value');
+        g.append('path')
+            .attr('d', arc)
+            .attr('class', 'diagram-value');
     }
 
     ngAfterViewInit(): void {}

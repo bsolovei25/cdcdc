@@ -17,10 +17,7 @@ export class GroupSelectorOverlayComponent implements OnInit {
 
     readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
 
-    constructor(
-        private userSettingsService: UserSettingsService,
-        private snackBar: SnackBarService
-    ) {}
+    constructor(private userSettingsService: UserSettingsService, private snackBar: SnackBarService) {}
 
     ngOnInit(): void {
         this.userSettingsService.iconsList$.subscribe((val) => (this.iconList = val));

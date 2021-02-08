@@ -94,7 +94,10 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const group = this.svg.append('g').attr('transform', 'translate(171 ,48)');
 
-        const arc = d3.arc().innerRadius(31).outerRadius(this.RADIUS);
+        const arc = d3
+            .arc()
+            .innerRadius(31)
+            .outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -103,7 +106,12 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             })
             .sort(() => null);
 
-        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
+        const arcs = group
+            .selectAll('.arc')
+            .data(pie(mass))
+            .enter()
+            .append('g')
+            .attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)
@@ -204,7 +212,10 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             const dayStatus =
                 this.status[this.data.daysGroup.find((item) => item.day === i + 1)?.critical] ?? 'unknown';
 
-            group.append('path').attr('d', arcDay).attr('fill', `var(--color-smp-days-${dayStatus})`);
+            group
+                .append('path')
+                .attr('d', arcDay)
+                .attr('fill', `var(--color-smp-days-${dayStatus})`);
         }
     }
 

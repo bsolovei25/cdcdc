@@ -145,7 +145,10 @@ export class LineChartPickerTankDirective implements OnDestroy {
     }
 
     private drawMouseInfoGroup(): void {
-        const infoG = this.svg.select('g.mouse-over').append('g').attr('class', 'mouse-info');
+        const infoG = this.svg
+            .select('g.mouse-over')
+            .append('g')
+            .attr('class', 'mouse-info');
 
         infoG
             .append('clipPath')
@@ -297,7 +300,10 @@ export class LineChartPickerTankDirective implements OnDestroy {
             return;
         }
 
-        this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
+        this.svg
+            .select('.mouse-line')
+            .attr('x1', x)
+            .attr('x2', x);
 
         this.svg.selectAll('.mouse-line-circle').attr('cx', x);
 

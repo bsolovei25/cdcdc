@@ -30,7 +30,8 @@ input {
       color: var(--color-group-control-bg-icons);
     }
 
-    &-active, &:hover {
+    &-active,
+    &:hover {
       background: var(--color-group-control-bg-active);
       svg-icon {
         color: var(--color-group-control-bg-icons-active);
@@ -62,7 +63,8 @@ input {
 
         background: var(--color-group-control-icon-upload-bg);
 
-        &__edit, &__delete {
+        &__edit,
+        &__delete {
           color: var(--color-group-control-bg-icons);
         }
 

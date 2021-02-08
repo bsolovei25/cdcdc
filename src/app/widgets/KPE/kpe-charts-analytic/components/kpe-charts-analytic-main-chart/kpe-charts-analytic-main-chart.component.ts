@@ -245,7 +245,13 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`) // 5 - дополнительный отступ
             .attr('class', 'x-axis')
-            .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(8).tickFormat(dateFormatLocale()))
+            .call(
+                d3
+                    .axisBottom(this.scales.x)
+                    .tickSize(0)
+                    .ticks(8)
+                    .tickFormat(dateFormatLocale())
+            )
             .call((g) => g.select('.domain').remove());
 
         // y
@@ -253,7 +259,12 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
-            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(5))
+            .call(
+                d3
+                    .axisLeft(this.scales.y)
+                    .tickSize(0)
+                    .ticks(5)
+            )
             .call((g) => g.select('.domain').remove());
     }
 
@@ -322,13 +333,20 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
                     .attr('class', className)
                     .attr('d', line);
             } else {
-                this.svg.append('path').datum(dataset).attr('class', className).attr('d', line);
+                this.svg
+                    .append('path')
+                    .datum(dataset)
+                    .attr('class', className)
+                    .attr('d', line);
             }
         }
     }
 
     private drawBorder(dataset: { x: Date; y: number }[], className: string): void {
-        const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+        const graphMaxY: number = +d3Selection
+            .select(this.chart.nativeElement)
+            .style('height')
+            .slice(0, -2);
 
         const areaBottom = d3
             .area()
@@ -492,7 +510,10 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
             this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3');
             this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4');
 
-            const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+            const graphMaxY: number = +d3Selection
+                .select(this.chart.nativeElement)
+                .style('height')
+                .slice(0, -2);
 
             this.svg
                 .append('text')

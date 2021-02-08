@@ -22,8 +22,7 @@ interface IGraphData {
     templateUrl: './astue-onpz-factory-analysis-chart-page.component.html',
     styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss'],
 })
-export class AstueOnpzFactoryAnalysisChartPageComponent
-    extends ChannelPlatform<IGraphData>
+export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<IGraphData>
     implements OnInit, OnDestroy {
     public graphData: IGraph = {
         name: '',

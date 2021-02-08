@@ -75,7 +75,7 @@ import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/compo
 import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module';
 import { GroupSelectorDialogComponent } from './components/header-components/group-selector/group-selector-dialog/group-selector-dialog.component';
 import { GroupSelectorGroupItemComponent } from './components/header-components/group-selector/group-selector-group-item/group-selector-group-item.component';
-import { OverlayModule } from "@angular/cdk/overlay";
+import { OverlayModule } from '@angular/cdk/overlay';
 import { GroupSelectorOverlayComponent } from './components/header-components/group-selector/group-selector-overlay/group-selector-overlay.component';
 import { GroupSelectorModalComponent } from './components/header-components/group-selector/group-selector-modal/group-selector-modal.component';
 import { FilterGroupsPipe } from './components/header-components/group-selector/filter-groups.pipe';

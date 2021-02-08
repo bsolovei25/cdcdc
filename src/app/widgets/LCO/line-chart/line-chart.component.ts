@@ -451,7 +451,12 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(d3Axis.axisBottom(this.x).ticks(7).tickFormat(multiFormat));
+            .call(
+                d3Axis
+                    .axisBottom(this.x)
+                    .ticks(7)
+                    .tickFormat(multiFormat)
+            );
 
         this.g
             .append('g')
@@ -472,19 +477,33 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .selectAll('grid')
             .attr('class', 'grid')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(this.makeXGridLines().tickSize(-this.height).tickFormat(''))
+            .call(
+                this.makeXGridLines()
+                    .tickSize(-this.height)
+                    .tickFormat('')
+            )
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g.selectAll('.tick line').style('stroke', 'rgba(97,101,128, .5)').style('stroke-width', '0.5')
+                g
+                    .selectAll('.tick line')
+                    .style('stroke', 'rgba(97,101,128, .5)')
+                    .style('stroke-width', '0.5')
             );
 
         this.g
             .append('g')
             .attr('class', 'grid')
-            .call(this.makeYGridLines().tickSize(-this.width).tickFormat(''))
+            .call(
+                this.makeYGridLines()
+                    .tickSize(-this.width)
+                    .tickFormat('')
+            )
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g.selectAll('.tick line').style('stroke', 'rgba(220,220,220, .25)').style('stroke-width', '0.5')
+                g
+                    .selectAll('.tick line')
+                    .style('stroke', 'rgba(220,220,220, .25)')
+                    .style('stroke-width', '0.5')
             );
     }
 
@@ -542,7 +561,11 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .y0((d) => 0)
             .y1((d) => this.y(d.value));
 
-        const upperLimitSource = this.g.selectAll('.limit-area').data([upperLimit]).enter().append('g');
+        const upperLimitSource = this.g
+            .selectAll('.limit-area')
+            .data([upperLimit])
+            .enter()
+            .append('g');
 
         upperLimitSource
             .append('path')
@@ -562,9 +585,15 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        upperLimitGradient.append('stop').attr('offset', '0%').attr('stop-color', 'transparent');
+        upperLimitGradient
+            .append('stop')
+            .attr('offset', '0%')
+            .attr('stop-color', 'transparent');
 
-        upperLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
+        upperLimitGradient
+            .append('stop')
+            .attr('offset', '50%')
+            .attr('stop-color', 'rgba(255,255,255,0.015');
 
         const lowerLimitArea = d3Shape
             .area()
@@ -573,7 +602,11 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .y0((d) => this.height)
             .y1((d) => this.y(d.value));
 
-        const lowerLimitSource = this.g.selectAll('.limit-area').data([lowerLimit]).enter().append('g');
+        const lowerLimitSource = this.g
+            .selectAll('.limit-area')
+            .data([lowerLimit])
+            .enter()
+            .append('g');
 
         lowerLimitSource
             .append('path')
@@ -592,9 +625,15 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        lowerLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
+        lowerLimitGradient
+            .append('stop')
+            .attr('offset', '50%')
+            .attr('stop-color', 'rgba(255,255,255,0.015');
 
-        lowerLimitGradient.append('stop').attr('offset', '100%').attr('stop-color', 'transparent');
+        lowerLimitGradient
+            .append('stop')
+            .attr('offset', '100%')
+            .attr('stop-color', 'transparent');
     }
 
     private drawDeviationGradient(fact: { date: Date; value: number }[]): void {
@@ -667,7 +706,11 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .y1((d) => d.y1)
             .y0((d) => d.y0);
 
-        this.g.append('path').datum(dataset).attr('style', `${style}`).attr('d', area);
+        this.g
+            .append('path')
+            .datum(dataset)
+            .attr('style', `${style}`)
+            .attr('d', area);
     }
 
     private appendGradient(params: { id: string; class1: string; class2: string }): void {
@@ -680,9 +723,13 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        grad.append('stop').attr('offset', `0%`).attr('class', `${params.class1}`);
+        grad.append('stop')
+            .attr('offset', `0%`)
+            .attr('class', `${params.class1}`);
 
-        grad.append('stop').attr('offset', `100%`).attr('class', `${params.class2}`);
+        grad.append('stop')
+            .attr('offset', `100%`)
+            .attr('class', `${params.class2}`);
     }
 
     // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {

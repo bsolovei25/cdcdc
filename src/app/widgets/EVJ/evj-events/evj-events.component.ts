@@ -250,9 +250,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<IEventsWidgetNotificationPreview>(
-        null
-    );
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<
+        IEventsWidgetNotificationPreview
+    >(null);
 
     public isPreviewOpened: boolean = false;
 

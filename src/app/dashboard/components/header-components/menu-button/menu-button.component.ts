@@ -37,7 +37,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.setMenuItems();
         this.loadData();
-        this.themeService.isDarkTheme.subscribe(value => {
+        this.themeService.isDarkTheme.subscribe((value) => {
             this.isDarkTheme = value;
             this.setMenuItems();
         });
@@ -60,22 +60,22 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
             {
                 name: 'Полный экран',
                 action: this.fullScreen,
-                icon: 'fullScreen'
+                icon: 'fullScreen',
             },
             {
                 name: 'Изменение пароля',
                 action: this.resetPassword.bind(this),
-                icon: 'password'
+                icon: 'password',
             },
             {
                 name: 'Изменение темы',
                 action: this.themeService.changeTheme.bind(this.themeService),
-                icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme'
+                icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme',
             },
             {
                 name: 'Выйти',
                 action: this.logOut.bind(this),
-                icon: 'logOut'
+                icon: 'logOut',
             },
         ];
     }

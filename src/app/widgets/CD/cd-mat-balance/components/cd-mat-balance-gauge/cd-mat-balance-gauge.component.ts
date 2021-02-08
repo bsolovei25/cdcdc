@@ -94,7 +94,10 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram?.nativeElement).append('svg');
-        this.svgBody.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 200 200');
+        this.svgBody
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -178,7 +181,13 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .attr('x', 0)
             .attr('y', 0.5)
             .text(this.load?.value?.toFixed() ? this.load?.value?.toFixed() : 0);
-        block.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 2.5).text('%');
+        block
+            .append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 2.5)
+            .text('%');
         block
             .append('text')
             .attr('class', 'name')
@@ -198,15 +207,30 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
     //#region gaude functions
 
     private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
-        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
+        return d3
+            .arc()
+            .innerRadius(innerRad)
+            .outerRadius(outerRad)
+            .cornerRadius(cornerRadius)
+            .padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
+        return d3
+            .pie()
+            .startAngle(startAngle)
+            .endAngle(endAngle)
+            .value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
+        block
+            .selectAll('.arc')
+            .data(dataFn)
+            .enter()
+            .append('path')
+            .attr('class', cls)
+            .attr('d', arcFn);
     }
 
     private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {

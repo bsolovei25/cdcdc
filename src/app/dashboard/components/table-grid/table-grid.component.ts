@@ -113,7 +113,12 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter((e) => {
             for (const key of this.objectKeys(e)) {
-                if (e[key].toString().toLowerCase().indexOf(record.toLowerCase()) > -1) {
+                if (
+                    e[key]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(record.toLowerCase()) > -1
+                ) {
                     return true;
                 }
             }

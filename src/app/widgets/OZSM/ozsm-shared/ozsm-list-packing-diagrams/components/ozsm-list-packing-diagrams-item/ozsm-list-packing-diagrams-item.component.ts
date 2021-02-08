@@ -51,11 +51,18 @@ export class OzsmListPackingDiagramsItemComponent implements OnInit {
     }
 
     private placeText(): void {
-        this.g.append('text').attr('class', 'title-number').text(this.data.title).attr('y', 0);
+        this.g
+            .append('text')
+            .attr('class', 'title-number')
+            .text(this.data.title)
+            .attr('y', 0);
     }
 
     private appendCircle(r: number, className: string): void {
-        this.g.append('circle').attr('r', r).attr('class', className);
+        this.g
+            .append('circle')
+            .attr('r', r)
+            .attr('class', className);
     }
 
     private drawInnerSvg(): void {
@@ -71,7 +78,10 @@ export class OzsmListPackingDiagramsItemComponent implements OnInit {
             .startAngle(-3.95)
             .endAngle(0.8);
 
-        this.g.append('path').attr('d', outerArc).attr('class', 'ozms-outer-arc');
+        this.g
+            .append('path')
+            .attr('d', outerArc)
+            .attr('class', 'ozms-outer-arc');
     }
 
     private drawOutterSvg(): void {
@@ -80,7 +90,11 @@ export class OzsmListPackingDiagramsItemComponent implements OnInit {
         const tickMain = this.getTick(mainValue);
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
+            return d3
+                .pie()
+                .startAngle(startAngel)
+                .endAngle(endAngel)
+                .value(1);
         }
 
         const mainPie = createPie(-Math.PI, (2 * Math.PI * mainValue) / this.diagramCounter - Math.PI);
@@ -120,6 +134,13 @@ export class OzsmListPackingDiagramsItemComponent implements OnInit {
     }
 
     private drawDiagram(className: string, pie: any, arc: any): void {
-        this.g.append('g').attr('class', className).selectAll('path').data(pie()).enter().append('path').attr('d', arc);
+        this.g
+            .append('g')
+            .attr('class', className)
+            .selectAll('path')
+            .data(pie())
+            .enter()
+            .append('path')
+            .attr('d', arc);
     }
 }

@@ -42,9 +42,17 @@ export class OzsmCircleDiagramComponent implements OnInit, OnChanges {
     }
 
     private placeText(): void {
-        this.g.append('text').attr('class', 'sub-text').text(this.data.units).attr('y', -30);
+        this.g
+            .append('text')
+            .attr('class', 'sub-text')
+            .text(this.data.units)
+            .attr('y', -30);
 
-        this.g.append('text').attr('class', 'value').text(this.data.fact).attr('y', -5);
+        this.g
+            .append('text')
+            .attr('class', 'value')
+            .text(this.data.fact)
+            .attr('y', -5);
 
         this.g
             .append('rect') // outline for reference
@@ -60,7 +68,10 @@ export class OzsmCircleDiagramComponent implements OnInit, OnChanges {
     }
 
     private appendCircle(r: number, className: string): void {
-        this.g.append('circle').attr('r', r).attr('class', className);
+        this.g
+            .append('circle')
+            .attr('r', r)
+            .attr('class', className);
     }
 
     private appendMask(): void {
@@ -73,7 +84,11 @@ export class OzsmCircleDiagramComponent implements OnInit, OnChanges {
             .attr('height', 2)
             .attr('patternUnits', 'userSpaceOnUse');
 
-        pattern.append('rect').attr('width', 1).attr('height', 2).attr('fill', 'white');
+        pattern
+            .append('rect')
+            .attr('width', 1)
+            .attr('height', 2)
+            .attr('fill', 'white');
 
         const mask = defs.append('mask').attr('id', 'mask-dash');
 
@@ -113,7 +128,10 @@ export class OzsmCircleDiagramComponent implements OnInit, OnChanges {
                 .startAngle(0)
                 .endAngle(1.4 * Math.PI);
 
-            this.g.append('path').attr('d', arcDeviation).attr('class', 'arc-deviation');
+            this.g
+                .append('path')
+                .attr('d', arcDeviation)
+                .attr('class', 'arc-deviation');
         }
 
         const arcValue = d3

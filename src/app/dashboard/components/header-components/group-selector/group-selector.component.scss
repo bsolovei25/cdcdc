@@ -98,7 +98,8 @@
 
     color: var(--color-kpe-text-main);
 
-    &:hover, &_active {
+    &:hover,
+    &_active {
       background: var(--color-new-header-active);
       color: var(--color-kpe-white);
     }

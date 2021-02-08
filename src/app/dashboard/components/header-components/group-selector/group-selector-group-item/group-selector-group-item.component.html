@@ -1,10 +1,7 @@
 <form [formGroup]="projectForm" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
   <div class="container" [class.disabled]="!switchStatus">
     <div class="logo" (click)="editLogo()" [class.logo-active]="isEditLogo">
-      <svg-icon
-        [src]="iconSrc"
-        [svgStyle]="!!groupData.iconId? { 'width.px':50, 'height.px':53 } : {}"
-      ></svg-icon>
+      <svg-icon [src]="iconSrc" [svgStyle]="!!groupData.iconId? { 'width.px':50, 'height.px':53 } : {}"></svg-icon>
     </div>
     <div class="content">
       <input
@@ -20,14 +17,9 @@
           <svg-icon src="assets/icons/control-group-icons/accept.svg" *ngIf="!editName"></svg-icon>
         </div>
         <div class="btn btn__edit" (click)="onEditName()">
-          <svg-icon
-            src="assets/icons/control-group-icons/{{editName ? 'edit.svg' : 'cancelEdit.svg'}}"
-          ></svg-icon>
+          <svg-icon src="assets/icons/control-group-icons/{{editName ? 'edit.svg' : 'cancelEdit.svg'}}"></svg-icon>
         </div>
-        <div class="btn btn__delete"
-             mat-raised-button
-             (click)="openModal()"
-        >
+        <div class="btn btn__delete" mat-raised-button (click)="openModal()">
           <svg-icon src="assets/icons/control-group-icons/delete.svg"></svg-icon>
         </div>
       </div>

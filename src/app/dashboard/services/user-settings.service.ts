@@ -12,9 +12,7 @@ import { GridsterItem } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
-import {
-    IGroupScreens
-} from '../components/header-components/group-selector/group-selector.component';
+import { IGroupScreens } from '../components/header-components/group-selector/group-selector.component';
 import { Title } from '@angular/platform-browser';
 
 @Injectable({
@@ -67,9 +65,7 @@ export class UserSettingsService {
 
     public async getIcons(): Promise<string[]> {
         try {
-            const icons = await this.http
-                .get<string[]>(`${this.restUrl}/api/ref-book/IconGroup`)
-                .toPromise();
+            const icons = await this.http.get<string[]>(`${this.restUrl}/api/ref-book/IconGroup`).toPromise();
             this.iconsList$.next(icons);
             return [];
         } catch (e) {
@@ -82,9 +78,7 @@ export class UserSettingsService {
         try {
             const body: FormData = new FormData();
             body.append('uploadFile', icon, icon.name);
-            const newIcon = await this.http
-                .post<string>(`${this.restUrl}/api/ref-book/IconGroup`, body)
-                .toPromise();
+            const newIcon = await this.http.post<string>(`${this.restUrl}/api/ref-book/IconGroup`, body).toPromise();
             const icons = this.iconsList$.getValue();
             icons.push(newIcon);
             this.iconsList$.next(icons);
@@ -97,9 +91,7 @@ export class UserSettingsService {
 
     public async deleteIcon(iconId: string): Promise<boolean> {
         try {
-            await this.http
-                .delete<string>(`${this.restUrl}/api/ref-book/IconGroup/${iconId}`)
-                .toPromise();
+            await this.http.delete<string>(`${this.restUrl}/api/ref-book/IconGroup/${iconId}`).toPromise();
             const icons = this.iconsList$.getValue().filter((item) => item !== iconId);
             this.iconsList$.next(icons);
             return true;
@@ -422,7 +414,7 @@ export class UserSettingsService {
 
     private defWidgetSize = (widgetType: string): any => {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
-    }
+    };
 
     public setTitle(newTitle: string): void {
         this.titleService.setTitle(newTitle);

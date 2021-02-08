@@ -31,14 +31,14 @@ export class AstueOnpzConventionalFuelService {
         'Потребление электроэнергии',
     ];
     public selectedOptions: Observable<IAstueOnpzConventionalFuelSelectOptions>;
-    public selectedOptions$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
-        this.defaultSelectOptions
-    );
+    public selectedOptions$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<
+        IAstueOnpzConventionalFuelSelectOptions
+    >(this.defaultSelectOptions);
 
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    public predictorsInfo$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(
-        null
-    );
+    public predictorsInfo$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<
+        IAstueOnpzConventionalFuelTransfer
+    >(null);
 
     constructor() {}
 

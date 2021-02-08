@@ -52,7 +52,11 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '140px').attr('height', '140px');
+        this.svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
+            .attr('width', '140px')
+            .attr('height', '140px');
 
         const arc = d3
             .arc()
@@ -85,9 +89,13 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
             .attr('d', arcBg)
             .attr('class', this.data?.deviationValue !== 0 ? 'diagram-deviation' : 'diagram-value');
 
-        g.append('path').attr('d', arc).attr('class', 'diagram-value');
+        g.append('path')
+            .attr('d', arc)
+            .attr('class', 'diagram-value');
 
-        g.append('path').attr('d', arcPlan).attr('class', 'diagram-inner');
+        g.append('path')
+            .attr('d', arcPlan)
+            .attr('class', 'diagram-inner');
     }
 
     public ngOnInit(): void {

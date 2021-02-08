@@ -62,11 +62,18 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform<unknown> implem
             color = d3.scaleOrdinal().range(['white', 'rgba(255,165,0,0.3)']);
         }
 
-        this.svg = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 3 200 200');
+        this.svg = d3
+            .select(el)
+            .append('svg')
+            .attr('min-width', '100px')
+            .attr('viewBox', '0 3 200 200');
 
         let group = this.svg.append('g').attr('transform', 'translate(98.5, 74)');
 
-        const arc = d3.arc().innerRadius(45).outerRadius(this.RADIUS);
+        const arc = d3
+            .arc()
+            .innerRadius(45)
+            .outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -75,7 +82,12 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform<unknown> implem
             })
             .sort(() => null);
 
-        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
+        const arcs = group
+            .selectAll('.arc')
+            .data(pie(mass))
+            .enter()
+            .append('g')
+            .attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

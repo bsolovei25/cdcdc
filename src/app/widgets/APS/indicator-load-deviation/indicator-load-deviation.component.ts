@@ -17,8 +17,7 @@ export interface IApsIndicatorLoad {
     templateUrl: './indicator-load-deviation.component.html',
     styleUrls: ['./indicator-load-deviation.component.scss'],
 })
-export class IndicatorLoadDeviationComponent
-    extends WidgetPlatform<unknown>
+export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('menu', { static: true }) private menu: ElementRef;
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
@@ -107,7 +106,10 @@ export class IndicatorLoadDeviationComponent
 
     private drawMenu(): void {
         this.svgMenu = d3Selection.select(this.menu.nativeElement).append('svg');
-        this.svgMenu.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 400 50');
+        this.svgMenu
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 400 50');
 
         const buttons = this.svgMenu.append('g').attr('class', 'buttons');
         const urlButton = 'assets/icons/widgets/APS/aps-indicator-load-deviation/button.svg';
@@ -218,21 +220,33 @@ export class IndicatorLoadDeviationComponent
         this.drawArc(lastArc([value]), 'needle-arc', arc, svg); // отрисовка подвижной дуги
         this.drawArc(pie(new Array(60)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
 
-        svg.append('circle').attr('class', 'point').attr('cx', 0).attr('cy', -5).attr('r', 1);
+        svg.append('circle')
+            .attr('class', 'point')
+            .attr('cx', 0)
+            .attr('cy', -5)
+            .attr('r', 1);
         svg.append('text')
             .attr('class', 'value')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 2)
             .text(value.toFixed(1));
-        svg.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 6).text('%');
+        svg.append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 6)
+            .text('%');
 
         return svg;
     }
 
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
-        this.svgBody.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 400 200');
+        this.svgBody
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 400 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -357,14 +371,26 @@ export class IndicatorLoadDeviationComponent
             .attr('x', 3.2)
             .attr('y', 1)
             .text(this.activeCard.deviation);
-        block.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 3).text('ТН');
+        block
+            .append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 3)
+            .text('ТН');
 
         let text = this.activeCard.name;
         if (text.length > 14) {
             text = text.slice(0, 11) + '...';
         }
 
-        block.append('text').attr('class', 'name').attr('text-anchor', 'middle').attr('x', 0).attr('y', 7.5).text(text);
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 7.5)
+            .text(text);
         block
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/deviation-arrow.svg')
@@ -502,15 +528,30 @@ export class IndicatorLoadDeviationComponent
     //#region gaude functions
 
     private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
-        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
+        return d3
+            .arc()
+            .innerRadius(innerRad)
+            .outerRadius(outerRad)
+            .cornerRadius(cornerRadius)
+            .padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
+        return d3
+            .pie()
+            .startAngle(startAngle)
+            .endAngle(endAngle)
+            .value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
+        block
+            .selectAll('.arc')
+            .data(dataFn)
+            .enter()
+            .append('path')
+            .attr('class', cls)
+            .attr('d', arcFn);
     }
 
     private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {

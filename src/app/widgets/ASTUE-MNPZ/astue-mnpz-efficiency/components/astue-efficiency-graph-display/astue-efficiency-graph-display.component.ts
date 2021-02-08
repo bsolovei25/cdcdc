@@ -23,8 +23,7 @@ interface ILabels {
     templateUrl: './astue-efficiency-graph-display.component.html',
     styleUrls: ['./astue-efficiency-graph-display.component.scss'],
 })
-export class AstueEfficiencyGraphDisplayComponent
-    extends LineChartPlatform<IProductionTrend>
+export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IProductionTrend>
     implements OnChanges, OnInit, OnDestroy {
     @Input() dataWs: IProductionTrend[] = null;
     @Input() widgetId: string = null;

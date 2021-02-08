@@ -23,7 +23,11 @@ export class KpeExecutionProductionProgramLoadingFileComponent implements OnInit
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '16px').attr('height', '16px');
+        this.svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
+            .attr('width', '16px')
+            .attr('height', '16px');
 
         const arc = d3
             .arc()
@@ -45,7 +49,9 @@ export class KpeExecutionProductionProgramLoadingFileComponent implements OnInit
             .attr('height', '16px')
             .style('transform', 'translate(8px, 8px)');
 
-        g.append('path').attr('d', arc).style('fill', 'var(--color-kpe-gaude-active');
+        g.append('path')
+            .attr('d', arc)
+            .style('fill', 'var(--color-kpe-gaude-active');
     }
     constructor() {}
 

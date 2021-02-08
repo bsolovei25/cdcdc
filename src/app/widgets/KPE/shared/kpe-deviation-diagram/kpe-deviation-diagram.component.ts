@@ -166,7 +166,10 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             .attr('class', 'x-axis')
             .call(
                 this.bottomCalendarFull
-                    ? d3.axisBottom(this.scales.x).tickSize(0).ticks(this.sizeX.max)
+                    ? d3
+                          .axisBottom(this.scales.x)
+                          .tickSize(0)
+                          .ticks(this.sizeX.max)
                     : d3
                           .axisBottom(this.scales.x)
                           .tickSize(0)
@@ -180,7 +183,12 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
-            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(3))
+            .call(
+                d3
+                    .axisLeft(this.scales.y)
+                    .tickSize(0)
+                    .ticks(3)
+            )
             .call((g) => g.select('.domain').remove());
     }
 
@@ -236,7 +244,11 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             .y((d) => this.scales.y(d.y))
             .curve(d3.curveLinear);
 
-        this.svg.append('path').datum(dataset).attr('class', className).attr('d', line);
+        this.svg
+            .append('path')
+            .datum(dataset)
+            .attr('class', className)
+            .attr('d', line);
     }
 
     private drawDayThreshold(): void {

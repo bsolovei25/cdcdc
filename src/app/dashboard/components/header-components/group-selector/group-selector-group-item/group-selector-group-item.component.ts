@@ -42,11 +42,10 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             if (!data?.flag) {
                 this.onEditName();
             }
-            if (this.projectForm.valid && data?.flag ) {
+            if (this.projectForm.valid && data?.flag) {
                 this.onCreateGroup();
-            }
-            else if (!this.projectForm.valid && data?.flag){
-                this.snackBar.openSnackBar('Неверное название группы', 'snackbar-red')
+            } else if (!this.projectForm.valid && data?.flag) {
+                this.snackBar.openSnackBar('Неверное название группы', 'snackbar-red');
                 this.nameInput.nativeElement.focus();
             }
         }
@@ -195,7 +194,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
 
     public async onChangeIcon(id: string): Promise<void> {
         this.projectForm.get('iconId').setValue(id);
-        this.groupData.iconId = id
+        this.groupData.iconId = id;
         this.setIcon();
         if (this.groupData.id !== 0) {
             let group: IGroupScreens;

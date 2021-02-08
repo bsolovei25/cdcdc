@@ -1,7 +1,7 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserSettingsService } from "../../../../services/user-settings.service";
+import { UserSettingsService } from '../../../../services/user-settings.service';
 
 @Component({
     selector: 'evj-group-selector-dialog',
@@ -15,11 +15,11 @@ export class GroupSelectorDialogComponent implements OnInit {
     public newGroup: IGroupScreens;
     public groups: IGroupScreens[] = [];
     public saveIndicator: {
-        flag: boolean,
-        id: number
+        flag: boolean;
+        id: number;
     } = {
         flag: false,
-        id: 0
+        id: 0,
     };
 
     constructor(
@@ -46,7 +46,7 @@ export class GroupSelectorDialogComponent implements OnInit {
             id: 0,
             name: '',
             isEnabled: true,
-            iconId: null
+            iconId: null,
         };
         this.isCreateNewGroup = true;
         this.mainContent.nativeElement.scrollTop = 0;
@@ -54,6 +54,6 @@ export class GroupSelectorDialogComponent implements OnInit {
 
     public saveNewProject(): void {
         this.saveNewGroup = true;
-        this.saveIndicator = {flag: this.saveNewGroup, id: 0};
+        this.saveIndicator = { flag: this.saveNewGroup, id: 0 };
     }
 }

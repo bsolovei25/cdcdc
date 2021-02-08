@@ -24,13 +24,10 @@
         }"
         *ngFor="let item of iconList; let i = index"
       >
-        <svg-icon
-          [src]="baseSrc + item"
-          [svgStyle]="{ 'width.px':50, 'height.px':53 }"
-        ></svg-icon>
+        <svg-icon [src]="baseSrc + item" [svgStyle]="{ 'width.px':50, 'height.px':53 }"></svg-icon>
         <div class="btns-list">
           <div class="btn btn__accept" (click)="acceptEdit(item)">
-            <svg-icon src="assets/icons/control-group-icons/accept.svg" ></svg-icon>
+            <svg-icon src="assets/icons/control-group-icons/accept.svg"></svg-icon>
           </div>
           <div class="btn btn__delete" (click)="onDelete(item)">
             <svg-icon src="assets/icons/control-group-icons/delete.svg"></svg-icon>

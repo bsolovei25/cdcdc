@@ -48,9 +48,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
 
     public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService.paddingLegend$;
 
-    public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(
-        null
-    );
+    public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<
+        IAstueOnpzConventionalFuelTransfer
+    >(null);
 
     constructor(
         protected widgetService: WidgetService,

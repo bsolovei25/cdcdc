@@ -176,8 +176,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private initData(): void {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
-        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
-        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+        this.graphMaxX = +d3Selection
+            .select(this.chart.nativeElement)
+            .style('width')
+            .slice(0, -2);
+        this.graphMaxY = +d3Selection
+            .select(this.chart.nativeElement)
+            .style('height')
+            .slice(0, -2);
 
         this.svg
             .attr('width', '100%')
@@ -355,14 +361,26 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
-        this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
+        this.scaleFuncs.x = d3
+            .scaleTime()
+            .domain(domainDates)
+            .rangeRound(rangeX);
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         this.charts.forEach((item) => {
             const domain = [item.maxValue, item.minValue];
-            item.scaleY = d3.scaleLinear().domain(domain).range(rangeY);
-            item.axisY = d3.axisLeft(item.scaleY).ticks(5).tickSize(0);
-            this.scaleFuncs.y = d3.scaleLinear().domain(domain).range(rangeY);
+            item.scaleY = d3
+                .scaleLinear()
+                .domain(domain)
+                .range(rangeY);
+            item.axisY = d3
+                .axisLeft(item.scaleY)
+                .ticks(5)
+                .tickSize(0);
+            this.scaleFuncs.y = d3
+                .scaleLinear()
+                .domain(domain)
+                .range(rangeY);
         });
 
         // TODO delete time format for historical ++
@@ -595,7 +613,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const translate: string = `translate(${left},0)`;
             left -= this.axisYWidth;
             const height: number = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
-            const axisY = this.svg.append('g').attr('transform', translate).attr('class', 'axisY');
+            const axisY = this.svg
+                .append('g')
+                .attr('transform', translate)
+                .attr('class', 'axisY');
             axisY
                 .append('rect')
                 .attr('class', `axisY-bg_${(counter % 2) + 1}`)
@@ -905,7 +926,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         factY = factY ? factY : null;
 
-        this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
+        this.svg
+            .select('.mouse-line')
+            .attr('x1', x)
+            .attr('x2', x);
 
         if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
             factX = new Date();

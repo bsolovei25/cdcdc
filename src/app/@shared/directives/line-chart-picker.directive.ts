@@ -128,7 +128,10 @@ export class LineChartPickerDirective implements OnDestroy {
     }
 
     private drawMouseInfoGroup(): void {
-        const infoG = this.svg.select('g.mouse-over').append('g').attr('class', 'mouse-info');
+        const infoG = this.svg
+            .select('g.mouse-over')
+            .append('g')
+            .attr('class', 'mouse-info');
 
         // отрисовка левой части плашки
         infoG
@@ -293,7 +296,10 @@ export class LineChartPickerDirective implements OnDestroy {
                 const borderTopY = borderTop ? this.scaleFuncs?.y?.invert(borderTop.y) : null;
                 const borderBotY = borderBottom ? this.scaleFuncs?.y?.invert(borderBottom.y) : null;
 
-                this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
+                this.svg
+                    .select('.mouse-line')
+                    .attr('x1', x)
+                    .attr('x2', x);
 
                 this.svg.selectAll('.mouse-line-circle').attr('cx', x);
 
@@ -349,7 +355,10 @@ export class LineChartPickerDirective implements OnDestroy {
 
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
 
-                this.svg.select('g.mouse-info .mouse-graph-date').attr('x', x).text(formatDate(factX));
+                this.svg
+                    .select('g.mouse-info .mouse-graph-date')
+                    .attr('x', x)
+                    .text(formatDate(factX));
 
                 let cursorColor: string = this.dataPickerColors.standard;
 
