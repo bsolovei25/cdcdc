@@ -104,14 +104,14 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
               language: languageCode,
 
               on: {
-                instanceReady: function () {
+                instanceReady: function() {
                   // Wait for the editor to be ready to set
                   // the language combo.
                   var languages = document.getElementById("languages");
                   languages.value = this.langCode;
                   languages.disabled = false;
-                },
-              },
+                }
+              }
             });
           }
 

@@ -16,7 +16,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
     <script>
       // The instanceReady event is fired, when an instance of CKEditor has finished
       // its initialization.
-      CKEDITOR.on("instanceReady", function (ev) {
+      CKEDITOR.on("instanceReady", function(ev) {
         // Show the editor name and description in the browser status bar.
         document.getElementById("eMessage").innerHTML = "Instance <code>" + ev.editor.name + "<\/code> loaded.";
 
@@ -152,13 +152,13 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             blur: onBlur,
 
             // Check for availability of corresponding plugins.
-            pluginsLoaded: function (evt) {
+            pluginsLoaded: function(evt) {
               var doc = CKEDITOR.document,
                 ed = evt.editor;
               if (!ed.getCommand("bold")) doc.getById("exec-bold").hide();
               if (!ed.getCommand("link")) doc.getById("exec-link").hide();
-            },
-          },
+            }
+          }
         });
       </script>
 

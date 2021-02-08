@@ -105,7 +105,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
             // The "font" element will be used.
             font_style: {
               element: "font",
-              attributes: { face: "#(family)" },
+              attributes: { face: "#(family)" }
             },
 
             /*
@@ -114,7 +114,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
             fontSize_sizes: "xx-small/1;x-small/2;small/3;medium/4;large/5;x-large/6;xx-large/7",
             fontSize_style: {
               element: "font",
-              attributes: { size: "#(size)" },
+              attributes: { size: "#(size)" }
             },
 
             /*
@@ -123,12 +123,12 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 
             colorButton_foreStyle: {
               element: "font",
-              attributes: { color: "#(color)" },
+              attributes: { color: "#(color)" }
             },
 
             colorButton_backStyle: {
               element: "font",
-              styles: { "background-color": "#(color)" },
+              styles: { "background-color": "#(color)" }
             },
 
             /*
@@ -142,13 +142,13 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
               { name: "Deleted Text", element: "del" },
               { name: "Inserted Text", element: "ins" },
               { name: "Cited Work", element: "cite" },
-              { name: "Inline Quotation", element: "q" },
+              { name: "Inline Quotation", element: "q" }
             ],
 
             on: {
               pluginsLoaded: configureTransformations,
-              loaded: configureHtmlWriter,
-            },
+              loaded: configureHtmlWriter
+            }
           });
 
           /*
@@ -159,11 +159,11 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 
             editor.dataProcessor.htmlFilter.addRules({
               attributes: {
-                style: function (value, element) {
+                style: function(value, element) {
                   // Return #RGB for background and border colors
                   return CKEDITOR.tools.convertRgbToHex(value);
-                },
-              },
+                }
+              }
             });
 
             // Default automatic content transformations do not yet take care of
@@ -179,7 +179,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
               [{ element: "h1", right: alignToAttribute }],
               [{ element: "h2", right: alignToAttribute }],
               [{ element: "h3", right: alignToAttribute }],
-              [{ element: "pre", right: alignToAttribute }],
+              [{ element: "pre", right: alignToAttribute }]
             ]);
           }
 
@@ -207,7 +207,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                 breakBeforeOpen: true,
                 breakAfterOpen: false,
                 breakBeforeClose: !dtd[e]["#"],
-                breakAfterClose: true,
+                breakAfterClose: true
               });
             }
           }
