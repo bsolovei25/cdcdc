@@ -16,6 +16,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-push": "npm run fix-prettier"
     }
   },
   "private": true,
