@@ -9,7 +9,7 @@ import {
     IAstueOnpzConventionalFuelSelectOptions,
 } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 import { combineLatest } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 export interface IPlanningChart {
     tag: string;
@@ -60,7 +60,9 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
                             predictor: x[0],
                             select: x[1],
                         };
-                    })
+                    }),
+                    debounceTime(700),
+                    distinctUntilChanged()
                 )
                 .subscribe((ref) => {
                     console.warn(ref);
