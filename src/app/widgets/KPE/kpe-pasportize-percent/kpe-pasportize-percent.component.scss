@@ -137,13 +137,17 @@
 
         border-top: 1px solid var(--color-kpe-bg-sub);
 
-        font-size: 14px;
-        line-height: 17px;
-        color: var(--color-kpe-white);
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--color-kpe-text-main);
 
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        svg-icon {
+          margin-right: 10px;
+        }
       }
     }
 
