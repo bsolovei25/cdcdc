@@ -1,12 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
@@ -116,8 +108,8 @@ export class EvjEventFiltersComponent implements OnInit, OnChanges {
 
     private setUnitNames(names: string[]): void {
         const enabledUnitNames: IUnits[] = [];
-        names.forEach(name => {
-            const unit = this.units.find(unitItem => unitItem.name === name);
+        names.forEach((name) => {
+            const unit = this.units.find((unitItem) => unitItem.name === name);
             enabledUnitNames.push({
                 id: unit ? unit.id : 0,
                 name: unit ? unit.name : name,
