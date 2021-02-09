@@ -18,16 +18,19 @@
         </div>
         <div class="info">
           <div class="info__item">
-            <span class="values values-fact">&bull; {{data?.total}}</span>
+            <span><span class="values values-fact">&bull; </span>{{data?.total}}</span>
             <span class="description">Паспортизаций с первого предъявления</span>
           </div>
           <div class="info__item">
-            <span class="values">&bull; {{data?.first}}</span>
+            <span><span class="values">&bull; </span>{{data?.first}}</span>
             <span class="description">Зафиксированных случаев паспортизации</span>
           </div>
         </div>
       </div>
-      <div class="diagram__footer">Число некондиций по продуктам</div>
+      <div class="diagram__footer">
+        <svg-icon src="assets/icons/widgets/KPE/kpe-pasportize-percent/sort.svg"></svg-icon>
+        Число некондиций по продуктам
+      </div>
     </div>
     <div class="shadow"></div>
     <div class="product-list-container">
