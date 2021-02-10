@@ -9,6 +9,7 @@ import { ThemeConfiguratorService } from '@core/service/theme-configurator.servi
 
 interface IMenuItem {
     name: string;
+    icon: string;
     action: (...args: any) => void;
 }
 
@@ -20,6 +21,7 @@ interface IMenuItem {
 export class MenuButtonComponent implements OnInit, OnDestroy {
     public data: IUser;
     public isDropdownShowing: boolean = false;
+    public isDarkTheme: boolean;
 
     public menuItems: IMenuItem[] = [];
 
@@ -35,6 +37,10 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.setMenuItems();
         this.loadData();
+        this.themeService.isDarkTheme.subscribe((value) => {
+            this.isDarkTheme = value;
+            this.setMenuItems();
+        });
     }
 
     public ngOnDestroy(): void {
@@ -54,24 +60,27 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
             {
                 name: 'Полный экран',
                 action: this.fullScreen,
+                icon: 'fullScreen',
             },
             {
                 name: 'Изменение пароля',
                 action: this.resetPassword.bind(this),
+                icon: 'password',
             },
             {
                 name: 'Изменение темы',
                 action: this.themeService.changeTheme.bind(this.themeService),
+                icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme',
             },
             {
                 name: 'Выйти',
                 action: this.logOut.bind(this),
+                icon: 'logOut',
             },
         ];
     }
 
     private switchTheme(): void {
-        // console.log(this.themeService.theme);
         this.themeService.changeTheme();
     }
 

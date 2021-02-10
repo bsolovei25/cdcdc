@@ -3,7 +3,10 @@
 
   <div class="menu-button__dropdown dropdown" *ngIf="isDropdownShowing">
     <ng-container *ngFor="let menuItem of menuItems">
-      <div class="dropdown__item" (click)="menuItem.action()">{{menuItem.name}}</div>
+      <div class="dropdown__item" (click)="menuItem.action()">
+        <span>{{menuItem.name}}</span>
+        <svg-icon src="assets/icons/{{menuItem.icon}}.svg"></svg-icon>
+      </div>
     </ng-container>
   </div>
 </div>

@@ -1,13 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { UserSettingsService } from '../../../services/user-settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSelectorDialogComponent } from './group-selector-dialog/group-selector-dialog.component';
 
 export interface IGroupScreens {
     id: number;
+    iconId: string;
     name: string;
     description?: string;
+    isEnabled: boolean;
     userScreens?: {
         id: number;
         name: string;
@@ -24,14 +27,15 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     public formControl: FormControl = new FormControl('');
 
+    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+
     public groups: IGroupScreens[] = [];
 
-    public selector: SelectionModel<IGroupScreens> = new SelectionModel<IGroupScreens>();
-
     constructor(
-        private userSettingsService: UserSettingsService,
+        public userSettingsService: UserSettingsService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public dialog: MatDialog
     ) {}
 
     public ngOnInit(): void {
@@ -41,7 +45,11 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {}
 
     private async asyncStart(): Promise<void> {
-        this.groups = await this.getGroups();
+        await this.userSettingsService.getIcons();
+        await this.userSettingsService.getGroups();
+        this.userSettingsService.groupsList$.subscribe((item) => {
+            this.groups = item;
+        });
         this.selectFirstGroup();
     }
 
@@ -54,7 +62,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     }
 
     public onSelect(group: IGroupScreens): void {
-        this.selector.select(group);
+        this.userSettingsService.groupIconId = group.iconId ?? undefined;
         this.userSettingsService.groupId = group.id ?? undefined;
         this.userSettingsService.groupName = group.id ? group.name : undefined;
         this.router.navigate([], {
@@ -64,57 +72,12 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
         this.userSettingsService.getScreens(group.id);
     }
 
-    public async onDelete(group: IGroupScreens): Promise<void> {
-        if (!group) {
-            return;
-        }
-        if (!(await this.userSettingsService.deleteGroup(group.id))) {
-            return;
-        }
-        if (this.selector.selected[0] === group) {
-            this.selectFirstGroup();
-        }
-        const idx = this.groups.findIndex((item) => item === group);
-        this.groups.splice(idx, 1);
-    }
-
-    public async onEdit(group: IGroupScreens, event: string): Promise<void> {
-        if (!(event?.length > 0)) {
-            return;
-        }
-        group.name = event;
-        group = await this.userSettingsService.updateGroup(group);
-    }
-
-    public async onCreateGroup(): Promise<void> {
-        if (!!this.formControl.value) {
-            const newGroup = await this.userSettingsService.addGroup({
-                id: 0,
-                name: this.formControl.value.slice(),
-            });
-            if (!newGroup) {
-                return;
-            }
-            this.groups.push(newGroup);
-            this.onSelect(newGroup);
-            await this.userSettingsService.pushScreen(`Экран группы ${newGroup.name}`);
-            this.formControl.setValue('');
-        }
-    }
-
-    public getClaims(groupId: number): boolean {
-        if (!groupId) {
-            return false;
-        }
-        return true;
-    }
-
     private selectFirstGroup(): void {
         const fn = (id: string) => {
             if (!id) {
                 return;
             }
-            const group = this.groups.find((item) => item.id === +id);
+            const group = this.groups.find((item) => item.id === +id && item.isEnabled);
             if (group) {
                 this.onSelect(group);
             }
@@ -129,13 +92,16 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
             !!groupIdFromSS ? fn(groupIdFromSS) : fn(groupIdFromLS);
         }
 
-        if (!this.selector.selected.length && this.groups?.length > 0) {
-            this.onSelect(this.groups[0]);
+        if (!this.userSettingsService.groupName && this.groups?.length > 0) {
+            this.onSelect(this.groups.find((item) => item.isEnabled));
         }
     }
 
-    private async getGroups(): Promise<IGroupScreens[]> {
-        const groups = await this.userSettingsService.getGroups();
-        return groups;
+    public getClaims(groupId: number): boolean {
+        return !!groupId;
+    }
+
+    public openDialog(): void {
+        this.dialog.open(GroupSelectorDialogComponent, { data: this.groups });
     }
 }

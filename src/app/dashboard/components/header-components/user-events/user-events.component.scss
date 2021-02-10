@@ -80,8 +80,21 @@
     border-radius: 0;
   }
 
+  margin: 8px 5px;
+  padding: 0 8px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--header-events-color-bg-thumb);
+    border-radius: 0;
+  }
+
   &::-webkit-scrollbar-track {
-    background: var(--header-events-color-bg-main);
+    background: var(--color-scroll-thumb);
   }
 
   &::-webkit-scrollbar-track-piece {

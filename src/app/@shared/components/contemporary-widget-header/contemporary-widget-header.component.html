@@ -28,7 +28,8 @@
   >
     <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">{{item.title}}</div>
     <div class="menu__item" (click)="onRemoveButton()" *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)">
-      Удалить с экрана
+      <span>Удалить с экрана</span>
+      <svg-icon src="assets/pic/delete.svg"></svg-icon>
     </div>
   </div>
 </div>
