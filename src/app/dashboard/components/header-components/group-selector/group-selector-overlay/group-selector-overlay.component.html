@@ -24,7 +24,7 @@
         }"
         *ngFor="let item of iconList; let i = index"
       >
-        <img [src]="baseSrc + item"/>
+        <img [src]="baseSrc + item" />
         <div class="btns-list">
           <div class="btn btn__accept" (click)="acceptEdit(item)">
             <svg-icon src="assets/icons/control-group-icons/accept.svg"></svg-icon>

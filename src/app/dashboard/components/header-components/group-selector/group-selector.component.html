@@ -1,10 +1,7 @@
 <div class="group-selector" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <div class="group-selector__name">
     <div class="logo">
-      <img
-        *ngIf="!!userSettingsService.groupIconId"
-        [src]="baseSrc + userSettingsService.groupIconId"
-      />
+      <img *ngIf="!!userSettingsService.groupIconId" [src]="baseSrc + userSettingsService.groupIconId" />
     </div>
     <span>{{userSettingsService.groupName}}</span>
   </div>

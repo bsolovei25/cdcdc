@@ -2,10 +2,7 @@
   <ng-container *ngIf="!isEditing;else input">
     <div class="group">
       <div class="group__icon">
-        <img
-          *ngIf="!!group.iconId"
-          [src]="baseSrc + group.iconId"
-        />
+        <img *ngIf="!!group.iconId" [src]="baseSrc + group.iconId" />
       </div>
       <div class="group__name">{{group.name}}</div>
     </div>
