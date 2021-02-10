@@ -3,7 +3,7 @@ import { IBarChartDataset } from "./kpe-charts-analytic-bar-chart.component";
 export const kpeBarChartData: IBarChartDataset[] = [
     {
         x: new Date(1626208000000),
-        y: 750
+        y: 900
     },
     {
         x: new Date(1628294400000),

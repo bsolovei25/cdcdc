@@ -2,7 +2,7 @@
   <div class="content">
     <div class="chart-container">
       <div class="axis" [style.top.%]="12.5">
-        <div class="value">300</div>
+        <div class="value">900</div>
         <div class="line-danger"></div>
       </div>
       <div class="axis axis_zero">
@@ -10,22 +10,22 @@
         <div class="line"></div>
       </div>
       <div class="axis" [style.bottom.%]="12.5">
-        <div class="value">-300</div>
+        <div class="value">-900</div>
         <div class="line-danger"></div>
       </div>
       <div class="axis" [style.top.%]="25">
-        <div class="value">200</div>
+        <div class="value">600</div>
         <div class="line-warning"></div>
       </div>
       <div class="axis" [style.bottom.%]="25">
-        <div class="value">-200</div>
+        <div class="value">-600</div>
         <div class="line-warning"></div>
       </div>
       <div class="axis" [style.top.%]="37.5">
-        <div class="value">100</div>
+        <div class="value">300</div>
       </div>
       <div class="axis" [style.bottom.%]="37.5">
-        <div class="value">-100</div>
+        <div class="value">-300</div>
       </div>
       <div class="chart">
         <div
@@ -36,12 +36,12 @@
         >
           <div class="icon">
           </div>
-          <div class="chart__top" [ngStyle]="{'height': item.y * 0.025 + '%'}">
+          <div class="chart__top" [ngStyle]="{'height': item.y * 0.0405 + '%'}">
             <ng-container>
               <div class="value"></div>
             </ng-container>
           </div>
-          <div class="day" *ngIf="(d+1) % 2 === 1">{{item.x | date: 'MMM d'}}</div>
+          <div class="day" *ngIf="(d+1) % 2 === 1">{{item.x}}</div>
         </div>
       </div>
       <div class="shadow"></div>
