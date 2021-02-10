@@ -1,65 +1,64 @@
 .container {
-    position: relative;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .content {
-    width: 100%;
-    height: calc(100% - 10px);
-    display: flex;
-   // overflow: auto;
-  }
-  
-  ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  
-  ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 25px;
-  }
-  
-  ::-webkit-scrollbar-track:horizontal {
-    width: 4px;
-    height: 4px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 25px;
-  }
-  
-  :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
-  }
-  
-  :hover::-webkit-scrollbar-track-piece {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.content {
+  width: 100%;
+  height: calc(100% - 10px);
+  display: flex;
+  // overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 4px;
+  height: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-track:horizontal {
+  width: 4px;
+  height: 4px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-track-piece {
   //  border: solid 1px var(--color-border-active);
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
-  }
-  
-  ::-webkit-scrollbar-track {
-    border-radius: 25px;
-  }
-  ::-webkit-scrollbar-track-piece {
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
   //  border: solid 1px var(--color-border-main);
-    border-radius: 25px;
-  }
-  
-  ::-webkit-resizer {
-    background-color: var(--color-border-active);
-  }
-  
+  border-radius: 25px;
+}
+
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}

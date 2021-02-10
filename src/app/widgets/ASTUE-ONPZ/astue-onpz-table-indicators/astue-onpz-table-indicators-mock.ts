@@ -4,7 +4,7 @@ export const heatBalanceData: IParams[] = [
     {
         unit: {
             name: 'Сырьё',
-            description: 'Сырьё'
+            description: 'Сырьё',
         },
         unitParams: [
             {
@@ -17,7 +17,7 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Загрузка печи по продукту',
                 value: 150,
-                modelValue: 200
+                modelValue: 200,
             },
             {
                 description: 'Температура продукта на входе в печь',
@@ -29,7 +29,7 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Температура продукта на входе в печь',
                 value: 120,
-                modelValue: 200
+                modelValue: 200,
             },
             {
                 description: 'Температура продукта на входе в печь',
@@ -41,7 +41,7 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Температура продукта на выходе из печи',
                 value: 120,
-                modelValue: 200
+                modelValue: 200,
             },
             {
                 description: 'Температура продукта на входе в печь',
@@ -53,14 +53,14 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Доля отгона сырья',
                 value: 120,
-                modelValue: 200
-            }
-        ]
+                modelValue: 200,
+            },
+        ],
     },
     {
         unit: {
             name: 'Воздух',
-            description: 'Воздух'
+            description: 'Воздух',
         },
         unitParams: [
             {
@@ -73,7 +73,7 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Температура воздуха на горение в печи',
                 value: 150,
-                modelValue: 200
+                modelValue: 200,
             },
             {
                 description: 'Коэффициент избытка воздуха',
@@ -85,8 +85,8 @@ export const heatBalanceData: IParams[] = [
                 max: 224.9,
                 name: 'Коэффициент избытка воздуха',
                 value: 120,
-                modelValue: 200
-            }
-        ]
-    }
+                modelValue: 200,
+            },
+        ],
+    },
 ];

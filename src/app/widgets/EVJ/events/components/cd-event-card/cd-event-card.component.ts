@@ -5,10 +5,9 @@ import { EventService } from '../../../../../dashboard/services/widgets/EVJ/even
 @Component({
     selector: 'evj-cd-event-card',
     templateUrl: './cd-event-card.component.html',
-    styleUrls: ['./cd-event-card.component.scss']
+    styleUrls: ['./cd-event-card.component.scss'],
 })
 export class CdEventCardComponent implements OnInit {
-
     @Input()
     public cardDataArr: IEventsWidgetNotificationPreview[];
 
@@ -24,11 +23,9 @@ export class CdEventCardComponent implements OnInit {
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(private eventService: EventService) {
-    }
+    constructor(private eventService: EventService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -41,13 +38,9 @@ export class CdEventCardComponent implements OnInit {
     public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
-            const a = await this.eventService.changeEventIsAcknowledged(
-                eventCard.id,
-                eventCard.isAcknowledged
-            );
+            const a = await this.eventService.changeEventIsAcknowledged(eventCard.id, eventCard.isAcknowledged);
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
     }
-
 }

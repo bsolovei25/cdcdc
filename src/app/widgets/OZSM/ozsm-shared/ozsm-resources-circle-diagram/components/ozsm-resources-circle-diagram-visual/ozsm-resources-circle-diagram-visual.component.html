@@ -1,23 +1,23 @@
 <div *ngIf="data" class="diagram">
-    <div class="diagram-visual" #chart>
-        <div class="indicator-line">
-            <div class="circle-indicator"></div>
-            <span class="item__value">{{data.percent || 0}}</span>
-            <span class="item__unit">%</span>
-        </div>
+  <div class="diagram-visual" #chart>
+    <div class="indicator-line">
+      <div class="circle-indicator"></div>
+      <span class="item__value">{{data.percent || 0}}</span>
+      <span class="item__unit">%</span>
     </div>
-    <div class="diagram-info">
-        <div class="diagram-info-title">
-            <span>{{data.name}}</span>
-            <div class="button">
-                <svg-icon src = 'assets/icons/widgets/OZSM/ozsm-resources-circle-diagram/menuDots.svg'></svg-icon>
-            </div>
-        </div>
-        <div class="diagram-info-list">
-            <div class="diagram-info-list-item">
-                <span class="item__value">{{data.value}}</span>
-                <span class="item__unit">{{data.units}}</span>
-            </div>
-        </div>
+  </div>
+  <div class="diagram-info">
+    <div class="diagram-info-title">
+      <span>{{data.name}}</span>
+      <div class="button">
+        <svg-icon src="assets/icons/widgets/OZSM/ozsm-resources-circle-diagram/menuDots.svg"></svg-icon>
+      </div>
     </div>
+    <div class="diagram-info-list">
+      <div class="diagram-info-list-item">
+        <span class="item__value">{{data.value}}</span>
+        <span class="item__unit">{{data.units}}</span>
+      </div>
+    </div>
+  </div>
 </div>

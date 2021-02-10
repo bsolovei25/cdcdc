@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  width: 490px;
+  height: 300px;
+
+  background: var(--color-group-control-bg-main);
+  box-shadow: 0px 0px 20px var(--color-group-control-bg-shadow);
+
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-group-control-text);
+
+  .header {
+    height: 46px;
+    padding-left: 22px;
+    padding-right: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__icon {
+      cursor: pointer;
+      color: var(--color-group-control-bg-icons);
+    }
+  }
+
+  .content {
+    height: 240px;
+    margin-left: 22px;
+    margin-right: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .add-icon,
+    .icons {
+      width: 70px;
+      height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--color-group-control-icon-upload-bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .icons {
+      background: var(--color-group-control-item-bg);
+      position: relative;
+      cursor: pointer;
+
+      .btns-list {
+        width: 70px;
+        display: none;
+        justify-content: center;
+        gap: 4px;
+
+        position: absolute;
+        top: 21px;
+        left: 0;
+
+        .btn {
+          cursor: pointer;
+          height: 28px;
+          width: 28px;
+
+          background: var(--color-group-control-icon-upload-bg);
+
+          &__edit,
+          &__delete {
+            color: var(--color-group-control-bg-icons);
+          }
+
+          &__accept {
+            background: none;
+          }
+        }
+      }
+
+      &:hover {
+        .btns-list {
+          display: flex;
+        }
+      }
+
+      &__current {
+        background: var(--color-group-control-bg-active-light);
+        border: 1px solid var(--color-group-control-bg-active);
+
+        .btns-list {
+          .btn {
+            &:first-child {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    .add-icon {
+      position: relative;
+      input {
+        height: 70px;
+        width: 70px;
+        opacity: 0;
+        position: absolute;
+        cursor: pointer;
+      }
+    }
+  }
+}

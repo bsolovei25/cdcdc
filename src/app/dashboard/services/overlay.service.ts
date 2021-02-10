@@ -10,15 +10,11 @@ import { IAlertPasswordModel } from '../../@shared/models/alert-password.model';
 })
 export class OverlayService {
     public closed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    public dashboardAlert$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
-    public dashboardAlertPassword$: BehaviorSubject<IAlertPasswordModel> = new BehaviorSubject<
-        IAlertPasswordModel
-    >(null);
-    public dashboardIsLoad$: BehaviorSubject<boolean> = new BehaviorSubject<
-        boolean
-        >(null);
+    public dashboardAlert$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public dashboardAlertPassword$: BehaviorSubject<IAlertPasswordModel> = new BehaviorSubject<IAlertPasswordModel>(
+        null
+    );
+    public dashboardIsLoad$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
     public closeDashboardAlert(): void {
         this.dashboardAlert$.next(null);

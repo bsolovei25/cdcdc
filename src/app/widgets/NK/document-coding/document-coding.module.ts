@@ -17,7 +17,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
     declarations: [
         DocumentCodingComponent,
@@ -25,11 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         DocumentCodingMenuComponent,
         DocumentCodingTableComponent,
         DocumentCodingTableRecordComponent,
-        DocumentCodingTanksComponent
+        DocumentCodingTanksComponent,
     ],
-    exports: [
-        DocumentCodingFilterComponent
-    ],
+    exports: [DocumentCodingFilterComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -43,7 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatTooltipModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-    ]
+    ],
 })
 export class DocumentCodingModule {
     enterComponent = DocumentCodingComponent;

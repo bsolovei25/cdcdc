@@ -8,7 +8,7 @@ import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
 import { IInputOptions } from '@shared/models/input.model';
-import { AppConfigService } from "@core/service/app-config.service";
+import { AppConfigService } from '@core/service/app-config.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 export interface ICalibrationTable {
@@ -207,33 +207,23 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
     }
 
     sortLowStartDate<T extends ICalibrationTable>(array: T[]): T[] {
-        return array.sort(
-            (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-        );
+        return array.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
     }
 
     sortHighStartDate<T extends ICalibrationTable>(array: T[]): T[] {
-        return array.sort(
-            (a, b) => new Date(b?.startDate)?.getTime() - new Date(a?.startDate)?.getTime()
-        );
+        return array.sort((a, b) => new Date(b?.startDate)?.getTime() - new Date(a?.startDate)?.getTime());
     }
 
     sortLowEndDate<T extends ICalibrationTable>(array: T[]): T[] {
-        return array.sort(
-            (a, b) => new Date(a?.endDate)?.getTime() - new Date(b?.endDate)?.getTime()
-        );
+        return array.sort((a, b) => new Date(a?.endDate)?.getTime() - new Date(b?.endDate)?.getTime());
     }
 
     sortHighEndDate<T extends ICalibrationTable>(array: T[]): T[] {
-        return array.sort(
-            (a, b) => new Date(b?.endDate)?.getTime() - new Date(a?.endDate)?.getTime()
-        );
+        return array.sort((a, b) => new Date(b?.endDate)?.getTime() - new Date(a?.endDate)?.getTime());
     }
 
     undefinedSortStartDate<T extends ICalibrationTable>(array: T[]): T[] {
-        return array.sort(
-            (a, b) => +b.hasOwnProperty('startDate') - +a.hasOwnProperty('startDate')
-        );
+        return array.sort((a, b) => +b.hasOwnProperty('startDate') - +a.hasOwnProperty('startDate'));
     }
 
     undefinedSortEndDate<T extends ICalibrationTable>(array: T[]): T[] {
@@ -261,9 +251,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
         });
         this.dataSourceTanks = this.data?.filter(
             (val) =>
-                val.name.toLowerCase().includes(event?.target?.value.toLowerCase()) &&
-                !val.parentUid &&
-                !val.isGroup
+                val.name.toLowerCase().includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup
         );
         this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
         if (event?.target?.value.trim().toLowerCase() === '') {
@@ -303,12 +291,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
     }
 
     async doneComment(): Promise<void> {
-        await this.postNewDate(
-            this.postDate.id,
-            this.postDate.newDate,
-            this.comment.value,
-            this.postDate.newDateType
-        );
+        await this.postNewDate(this.postDate.id, this.postDate.newDate, this.comment.value, this.postDate.newDateType);
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
@@ -316,12 +299,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
         this.loadItem();
     }
 
-    async postNewDate(
-        id: string,
-        newDate: Date,
-        comment: string,
-        newDateType: 'startDate' | 'endDate'
-    ): Promise<void> {
+    async postNewDate(id: string, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate'): Promise<void> {
         try {
             await this.calibrationService.postDataFile(id, newDate, comment, newDateType);
             this.snackBar.openSnackBar('Дата успешно изменена');

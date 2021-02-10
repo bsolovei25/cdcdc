@@ -13,7 +13,6 @@ export interface IApsProgressBarSettings {
     styleUrls: ['./aps-progress-bar.component.scss'],
 })
 export class ApsProgressBarComponent implements OnInit {
-
     @Input()
     public settings: IApsProgressBarSettings;
 
@@ -21,8 +20,7 @@ export class ApsProgressBarComponent implements OnInit {
 
     public extensionsValue: number = 0;
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit(): void {
         if (this.settings) {

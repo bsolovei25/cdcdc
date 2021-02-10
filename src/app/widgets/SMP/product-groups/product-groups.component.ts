@@ -5,7 +5,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { SmpService } from '../../../dashboard/services/widgets/SMP/smp.service';
 
-
 @Component({
     selector: 'evj-product-groups',
     templateUrl: './product-groups.component.html',
@@ -42,8 +41,7 @@ export class ProductGroupsComponent extends WidgetPlatform<unknown> implements O
         this.data = (await this.smpService.getDataProgressGroup())?.data.items;
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     ngOnDestroy(): void {
         super.ngOnDestroy();

@@ -35,9 +35,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.adminService.activeWorker$.subscribe(
-                (activeWorker: IUser) => (this.activeWorker = activeWorker)
-            )
+            this.adminService.activeWorker$.subscribe((activeWorker: IUser) => (this.activeWorker = activeWorker))
         );
     }
 
@@ -55,11 +53,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
-        this.subsSelectedWorker = this.adminService
-            .getAllWorkerScreenClaims(workerId)
-            .subscribe((data) => {
-                this.adminService.activeWorkerWorkspaces$.next(data.data);
-            });
+        this.subsSelectedWorker = this.adminService.getAllWorkerScreenClaims(workerId).subscribe((data) => {
+            this.adminService.activeWorkerWorkspaces$.next(data.data);
+        });
     }
 
     public showActiveWorker(workerId: number): boolean {

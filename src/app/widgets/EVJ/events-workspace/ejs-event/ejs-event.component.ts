@@ -29,10 +29,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

@@ -4,10 +4,9 @@ import { IAlertInputModel } from '../../models/alert-input.model';
 @Component({
     selector: 'evj-alert-input',
     templateUrl: './alert-input.component.html',
-    styleUrls: ['./alert-input.component.scss']
+    styleUrls: ['./alert-input.component.scss'],
 })
 export class AlertInputComponent {
-
     @Input() public info: IAlertInputModel;
 
     public accept(): void {

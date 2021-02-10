@@ -4,7 +4,8 @@
       chartType="production-trend"
       [data]="graphData$ | async"
       [limits]="graphDateTimeInterval"
-      [isShowingLegend]="true">
+      [isShowingLegend]="true"
+    >
     </evj-line-chart-shared>
   </div>
   <div class="scroll">
@@ -14,7 +15,8 @@
       [(sbThumbWidth)]="sbWidth"
       [(sbThumbLeft)]="sbLeft"
       (sbThumbLeftChange)="scrollHandler()"
-      (sbThumbWidthChange)="scrollHandler()">
+      (sbThumbWidthChange)="scrollHandler()"
+    >
     </evj-smart-scroll>
   </div>
 </div>

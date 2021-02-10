@@ -90,10 +90,7 @@
             [style.bottom]="limits.up"
           >
             <div class="limit"></div>
-            <div
-              class="limit__label"
-              *ngIf="selection.selected[0]?.fact > selection.selected[0]?.limit.value"
-            >
+            <div class="limit__label" *ngIf="selection.selected[0]?.fact > selection.selected[0]?.limit.value">
               <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
               +{{(selection.selected[0]?.fact - selection.selected[0]?.limit.value).toFixed(0)}}
             </div>
@@ -110,9 +107,7 @@
     </div>
   </div>
   <div class="diagram__sidebar">
-    <div class="label" *ngIf="data.graphType==='baseline';else labelNoBaseline">
-      {{data?.plan.toFixed(0)}}
-    </div>
+    <div class="label" *ngIf="data.graphType==='baseline';else labelNoBaseline">{{data?.plan.toFixed(0)}}</div>
     <ng-template #labelNoBaseline>
       <div class="label label_big">
         <div class="label__item">{{selection.selected[0]?.plan.toFixed(0)}}</div>

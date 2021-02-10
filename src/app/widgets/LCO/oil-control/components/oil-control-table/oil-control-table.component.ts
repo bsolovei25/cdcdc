@@ -4,7 +4,9 @@ import {
     Input,
     ChangeDetectionStrategy,
     OnChanges,
-    Output, EventEmitter, SimpleChanges
+    Output,
+    EventEmitter,
+    SimpleChanges,
 } from '@angular/core';
 import { OilStorages } from 'src/app/dashboard/models/oil-control';
 
@@ -12,7 +14,7 @@ import { OilStorages } from 'src/app/dashboard/models/oil-control';
     selector: 'evj-oil-control-table',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './oil-control-table.component.html',
-    styleUrls: ['./oil-control-table.component.scss']
+    styleUrls: ['./oil-control-table.component.scss'],
 })
 export class OilControlTableComponent implements OnInit, OnChanges {
     @Input() data: OilStorages;
@@ -34,8 +36,7 @@ export class OilControlTableComponent implements OnInit, OnChanges {
 
     public criticalPage: any = [];
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit(): void {
         this.activeOperation = 1;

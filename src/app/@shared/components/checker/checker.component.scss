@@ -1,7 +1,7 @@
 .container {
   display: flex;
   gap: 9px;
-  color: #8C99B2;
+  color: #8c99b2;
   cursor: pointer;
 
   &:hover {
@@ -15,7 +15,7 @@
   min-width: 15px;
   height: 15px;
   margin: auto 0;
-  background: #12151E;
+  background: #12151e;
   border-radius: 2px;
 
   svg-icon {
@@ -32,7 +32,7 @@
   }
 
   &__active {
-    background: #0089FF;
+    background: #0089ff;
 
     svg-icon {
       color: white;

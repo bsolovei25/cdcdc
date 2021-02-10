@@ -10,10 +10,9 @@ import { IChartMini } from '@shared/models/smart-scroll.model';
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',
     templateUrl: './astue-onpz-big-planning-chart.component.html',
-    styleUrls: ['./astue-onpz-big-planning-chart.component.scss']
+    styleUrls: ['./astue-onpz-big-planning-chart.component.scss'],
 })
 export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public sbLeft: number = 0;
     public sbWidth: number = 100;
     public scrollData: IChartMini[] = [];
@@ -55,7 +54,7 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
             this.astueService.colors$.subscribe((value) => {
                 this.colors = value;
             }),
-            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
+            this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref))
         );
     }
 
@@ -63,6 +62,5 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 }

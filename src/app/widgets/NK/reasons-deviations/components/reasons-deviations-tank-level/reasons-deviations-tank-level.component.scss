@@ -1,97 +1,97 @@
 .container-tank-level {
-    height: 135px;
-    width: 145px;
+  height: 135px;
+  width: 145px;
+  font-size: 14px;
+
+  &__title {
+    margin-top: 5px;
+    height: 25px;
+    text-align: center;
     font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
-    &__title {
+  &__content {
+    height: calc(100% - 40px);
+    background-color: var(--color-oil-card);
+    border-radius: 15px;
+    display: flex;
+    margin: 0 auto;
+    max-width: 180px;
+    min-height: 85px;
+
+    .values {
+      width: 50%;
+
+      &__block {
+        text-align: left;
+        height: 26px;
+        line-height: 15px;
         margin-top: 5px;
-        height: 25px;
-        text-align: center;
-        font-size: 14px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
+        margin-left: 10px;
 
-    &__content {
-        height: calc(100% - 40px);
-        background-color: var(--color-oil-card);
-        border-radius: 15px;
-        display: flex;
-        margin: 0 auto;
-        max-width: 180px;
-        min-height: 85px;
-
-        .values {
-            width: 50%;
-
-            &__block {
-                text-align: left;
-                height: 26px;
-                line-height: 15px;
-                margin-top: 5px;
-                margin-left: 10px;
-
-                .title {
-                    font-size: 11px;
-                    color: var(--color-text-sub);
-                }
-
-                .value {
-                    font-size: 12px;
-                }
-            }
+        .title {
+          font-size: 11px;
+          color: var(--color-text-sub);
         }
 
-        .tank {
-            width: 85%;
-            overflow: auto;
-            overflow-x: hidden;
-            position: relative;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-            overflow-y: hidden;
-
-            .first-circle {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                height: calc(100% - 0px);
-                clip-path: circle(50%);
-                width: calc(100% - -11px);
-                right: -28px;
-                background-color: #2a547a;
-                display: grid;
-                align-items: end;
-
-                &__level {
-                    height: 0%;
-                    background-color: var(--color-border-active);
-                }
-            }
-
-            .second-circle {
-                height: calc(100% - 18px);
-                width: calc(100% - -8px);
-                position: absolute;
-                border: 10px solid #203046;
-                right: -39px;
-                border-radius: 50%;
-            }
-
-            &__value {
-                position: absolute;
-                right: 5px;
-                right: 10px;
-                font-size: 12px;
-            }
+        .value {
+          font-size: 12px;
         }
+      }
     }
 
-    &__type-title {
-        height: 20px;
-        text-align: center;
-        text-overflow: ellipsis;
-        overflow: hidden;
+    .tank {
+      width: 85%;
+      overflow: auto;
+      overflow-x: hidden;
+      position: relative;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      overflow-y: hidden;
+
+      .first-circle {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: calc(100% - 0px);
+        clip-path: circle(50%);
+        width: calc(100% - -11px);
+        right: -28px;
+        background-color: #2a547a;
+        display: grid;
+        align-items: end;
+
+        &__level {
+          height: 0%;
+          background-color: var(--color-border-active);
+        }
+      }
+
+      .second-circle {
+        height: calc(100% - 18px);
+        width: calc(100% - -8px);
+        position: absolute;
+        border: 10px solid #203046;
+        right: -39px;
+        border-radius: 50%;
+      }
+
+      &__value {
+        position: absolute;
+        right: 5px;
+        right: 10px;
         font-size: 12px;
+      }
     }
+  }
+
+  &__type-title {
+    height: 20px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 12px;
+  }
 }

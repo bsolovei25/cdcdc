@@ -1,12 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Inject,
-    OnDestroy,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -30,7 +22,8 @@ interface IGraphData {
     templateUrl: './astue-onpz-factory-analysis-chart-page.component.html',
     styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss'],
 })
-export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<IGraphData>
+export class AstueOnpzFactoryAnalysisChartPageComponent
+    extends ChannelPlatform<IGraphData>
     implements OnInit, OnDestroy {
     public graphData: IGraph = {
         name: '',

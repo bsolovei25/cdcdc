@@ -8,18 +8,17 @@ import { IPointTank } from '@shared/models/smart-scroll.model';
 interface ITankMassChartDataResponse {
     name: 'string';
     graph: {
-        date: string,
-        value: 0,
+        date: string;
+        value: 0;
     }[];
 }
 
 @Component({
     selector: 'evj-oil-operations-line',
     templateUrl: './oil-operations-line.component.html',
-    styleUrls: ['./oil-operations-line.component.scss']
+    styleUrls: ['./oil-operations-line.component.scss'],
 })
 export class OilOperationsLineComponent implements OnInit {
-
     @Input()
     public currentDates: IDatesInterval;
 
@@ -34,8 +33,7 @@ export class OilOperationsLineComponent implements OnInit {
 
     @Output() closeLineChart: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private oilOperationService: OilOperationsService,) {
-    }
+    constructor(private oilOperationService: OilOperationsService) {}
 
     public ngOnInit(): void {
         this.dates = this.currentDates;
@@ -51,15 +49,17 @@ export class OilOperationsLineComponent implements OnInit {
     }
 
     private async getChartData(): Promise<void> {
-        const data = await this.oilOperationService.getTankMassChartData<ITankMassChartDataResponse>(this.selectedTank?.id, this.dates.fromDateTime, this.dates.toDateTime);
-        const formattedGraphData: { value: number; timeStamp: Date}[] = [];
-        data.graph.forEach(item => {
-            formattedGraphData.push(
-                {
-                    value: item.value,
-                    timeStamp: new Date(item.date),
-                }
-            );
+        const data = await this.oilOperationService.getTankMassChartData<ITankMassChartDataResponse>(
+            this.selectedTank?.id,
+            this.dates.fromDateTime,
+            this.dates.toDateTime
+        );
+        const formattedGraphData: { value: number; timeStamp: Date }[] = [];
+        data.graph.forEach((item) => {
+            formattedGraphData.push({
+                value: item.value,
+                timeStamp: new Date(item.date),
+            });
             this.pointsData.push({
                 value: item.value,
                 timestamp: new Date(item.date),
@@ -74,7 +74,7 @@ export class OilOperationsLineComponent implements OnInit {
                     tankName: this.selectedTank.name,
                     maxValue: 0,
                 },
-            }
+            },
         ];
     }
 }

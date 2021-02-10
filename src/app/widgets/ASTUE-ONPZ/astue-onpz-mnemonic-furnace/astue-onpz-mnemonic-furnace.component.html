@@ -1,10 +1,5 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header
-    [uniqId]="widgetUniqId"
-    [widgetTitle]="widgetTitle"
-    [icon]="'factory'"
-    type="astue"
-  >
+  <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" [icon]="'factory'" type="astue">
     <div class="header-container">
       <div class="selects">
         <svg-icon
@@ -13,13 +8,14 @@
           [ngStyle]="{ 'width.px':14, 'height.px':14 }"
         ></svg-icon>
 
-        <div (mousedown)="$event.stopPropagation()"
-             (touchstart)="$event.stopPropagation()" class="option-select">
+        <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
           <div class="dropdown">
-<!--            <div class="dropdown__marker"></div>-->
+            <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectManufacture">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (manufacturesSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
+              <mat-option *ngFor="let select of (manufacturesSelects$ | async)" [value]="select.id"
+                >{{select.title}}</mat-option
+              >
             </mat-select>
           </div>
         </div>
@@ -30,13 +26,14 @@
           [ngStyle]="{ 'width.px':14, 'height.px':14 }"
         ></svg-icon>
 
-        <div (mousedown)="$event.stopPropagation()"
-             (touchstart)="$event.stopPropagation()" class="option-select">
+        <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
           <div class="dropdown">
             <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectUnit">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (unitsSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
+              <mat-option *ngFor="let select of (unitsSelects$ | async)" [value]="select.id"
+                >{{select.title}}</mat-option
+              >
             </mat-select>
           </div>
         </div>
@@ -47,96 +44,113 @@
           [ngStyle]="{ 'width.px':14, 'height.px':14 }"
         ></svg-icon>
 
-        <div (mousedown)="$event.stopPropagation()"
-             (touchstart)="$event.stopPropagation()" class="option-select">
+        <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
           <div class="dropdown">
             <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectOven">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (ovensSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
+              <mat-option *ngFor="let select of (ovensSelects$ | async)" [value]="select.id"
+                >{{select.title}}</mat-option
+              >
             </mat-select>
           </div>
         </div>
       </div>
-
     </div>
   </evj-contemporary-widget-header>
 
-  <div (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()" class="container">
+  <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="container">
     <div #schema class="scale-container" *ngIf="data | async">
       <div [style]="schemeStyle" class="abs-container">
         <div class="schema">
-          <svg-icon class="schema__background" src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/mnemonic-furnace.svg"></svg-icon>
+          <svg-icon
+            class="schema__background"
+            src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/mnemonic-furnace.svg"
+          ></svg-icon>
           <div class="wrapper wrapper__left-top">
-            <div class="title"> {{ (data | async)?.inputOilBlock?.title || '' }} </div>
+            <div class="title">{{ (data | async)?.inputOilBlock?.title || '' }}</div>
             <div class="streams">
-              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputOilBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+              <evj-astue-onpz-mnemonic-furnace-line
+                *ngFor="let line of (data | async)?.inputOilBlock?.lines || []"
+                [data]="line"
+              ></evj-astue-onpz-mnemonic-furnace-line>
             </div>
           </div>
           <div class="wrapper wrapper__left-bottom">
-            <div class="title"> {{ (data | async)?.inputGasBlock?.title || '' }} </div>
+            <div class="title">{{ (data | async)?.inputGasBlock?.title || '' }}</div>
             <div class="streams">
-              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputGasBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+              <evj-astue-onpz-mnemonic-furnace-line
+                *ngFor="let line of (data | async)?.inputGasBlock?.lines || []"
+                [data]="line"
+              ></evj-astue-onpz-mnemonic-furnace-line>
             </div>
           </div>
           <div class="wrapper wrapper__middle">
-            <div class="title"> {{ (data | async)?.inputLiquidBlock?.title || '' }} </div>
+            <div class="title">{{ (data | async)?.inputLiquidBlock?.title || '' }}</div>
             <div class="streams">
-              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputLiquidBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+              <evj-astue-onpz-mnemonic-furnace-line
+                *ngFor="let line of (data | async)?.inputLiquidBlock?.lines || []"
+                [data]="line"
+              ></evj-astue-onpz-mnemonic-furnace-line>
             </div>
           </div>
           <div class="wrapper wrapper__right">
-            <div class="title"> {{ (data | async)?.outputBlock?.title || '' }} </div>
+            <div class="title">{{ (data | async)?.outputBlock?.title || '' }}</div>
             <div class="streams">
-              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.outputBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+              <evj-astue-onpz-mnemonic-furnace-line
+                *ngFor="let line of (data | async)?.outputBlock?.lines || []"
+                [data]="line"
+              ></evj-astue-onpz-mnemonic-furnace-line>
             </div>
           </div>
 
           <div class="wrapper-up wrapper-up__left">
-            <div class="title"> {{ (data | async)?.gasStats?.title }} </div>
+            <div class="title">{{ (data | async)?.gasStats?.title }}</div>
             <div class="arrow" [ngClass]="'arrow__' + (data | async)?.gasStats?.main?.streamType">
               <div class="triangle"></div>
-<!--              TODO: временно-->
-<!--              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>-->
+              <!--              TODO: временно-->
+              <!--              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
-              matRipple matRippleColor="white"
+              matRipple
+              matRippleColor="white"
               [data]="(data | async)?.gasStats?.main"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__right">
-            <div class="title"> {{ (data | async)?.dischargeStats?.title }} </div>
+            <div class="title">{{ (data | async)?.dischargeStats?.title }}</div>
             <div class="arrow" [ngClass]="'arrow__' + (data | async)?.dischargeStats?.main?.streamType">
               <div class="triangle"></div>
-<!--              TODO: временно-->
-<!--              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>-->
+              <!--              TODO: временно-->
+              <!--              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
-              matRipple matRippleColor="white"
+              matRipple
+              matRippleColor="white"
               [data]="(data | async)?.dischargeStats?.main"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__center">
-            <div class="title"> Кислород </div>
-            <evj-astue-onpz-mnemonic-furnace-arrow
-              class="main-arrow"></evj-astue-onpz-mnemonic-furnace-arrow>
+            <div class="title">Кислород</div>
+            <evj-astue-onpz-mnemonic-furnace-arrow class="main-arrow"></evj-astue-onpz-mnemonic-furnace-arrow>
             <evj-astue-onpz-mnemonic-furnace-circle
               style="position: absolute; top: 48px"
               class="circle"
-              matRipple matRippleColor="white"
+              matRipple
+              matRippleColor="white"
               [data]="(data | async)?.oxygenStats?.main"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
 
-          <div class="wrapper-title"> {{ (data | async)?.unitTitle || '-' }} </div>
+          <div class="wrapper-title">{{ (data | async)?.unitTitle || '-' }}</div>
 
-          <div class="wrapper-popup"
-               *ngIf="popupData$ | async"
-               [ngClass]="'wrapper-popup__' + (popupData$ | async)?.side"
-               [@inOutAnimation]
+          <div
+            class="wrapper-popup"
+            *ngIf="popupData$ | async"
+            [ngClass]="'wrapper-popup__' + (popupData$ | async)?.side"
+            [@inOutAnimation]
           >
             <evj-astue-onpz-mnemonic-furnace-popup
               [data]="(popupData$ | async)"

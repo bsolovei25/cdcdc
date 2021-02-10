@@ -1,22 +1,24 @@
 <div class="input-block">
-    <div class="input-block__button-search">
-        <svg-icon
-            *ngIf="!adminShift"
-            class="search_white"
-            src="assets/icons/search_white.svg"
-            [ngClass]="{
+  <div class="input-block__button-search">
+    <svg-icon
+      *ngIf="!adminShift"
+      class="search_white"
+      src="assets/icons/search_white.svg"
+      [ngClass]="{
                 'search_blue': isInput
             }"
-        ></svg-icon>
-        <svg-icon
-            *ngIf="adminShift"
-            src="assets/icons/search_white_new.svg"
-        ></svg-icon>
+    ></svg-icon>
+    <svg-icon *ngIf="adminShift" src="assets/icons/search_white_new.svg"></svg-icon>
+  </div>
+  <div class="input-block__input" [class.input-block__input-active]="isInput">
+    <div class="input-back">
+      <input
+        type="text"
+        (focus)="isInput = true"
+        (blur)="isInput = false"
+        [(ngModel)]="search"
+        placeholder="{{ placeholder }}"
+      />
     </div>
-    <div class="input-block__input" [class.input-block__input-active]="isInput">
-        <div class="input-back">
-            <input type="text" (focus)="isInput = true" (blur)="isInput = false" [(ngModel)]="search"
-                placeholder="{{ placeholder }}" />
-        </div>
-    </div>
+  </div>
 </div>

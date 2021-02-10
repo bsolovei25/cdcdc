@@ -1,13 +1,13 @@
-import {
-    Component,
-    OnInit,
-    OnChanges,
-    Input,
-    EventEmitter,
-    Output
-} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, EventEmitter, Output } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
-import { IHistoryIdx, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend, Param_MI} from './../../../../dashboard/models/EVJ/manual-input.model';
+import {
+    IHistoryIdx,
+    IMachine_MI,
+    IGroup_MI,
+    IChoosenHistorical,
+    MI_ParamSend,
+    Param_MI,
+} from './../../../../dashboard/models/EVJ/manual-input.model';
 import { ManualInputService } from '../../../../dashboard/services/widgets/EVJ/manual-input.service';
 
 @Component({
@@ -39,11 +39,7 @@ import { ManualInputService } from '../../../../dashboard/services/widgets/EVJ/m
 })
 export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     @Input() isUserHasWriteClaims: boolean;
-    @Input() set data(data: {
-        machineData: IMachine_MI[];
-        historyIdx: IHistoryIdx
-        edit: boolean
-    }) {
+    @Input() set data(data: { machineData: IMachine_MI[]; historyIdx: IHistoryIdx; edit: boolean }) {
         if (!data.edit) {
             this.editMode = false;
         }
@@ -55,19 +51,20 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
 
         this.machineTitle = data.machineData[data.historyIdx.machineIdx].name;
 
-        this.groupTitle = data.machineData[data.historyIdx.machineIdx]
-            .groups[data.historyIdx.groupIdx].name;
+        this.groupTitle = data.machineData[data.historyIdx.machineIdx].groups[data.historyIdx.groupIdx].name;
 
-        this.paramTitle = data.machineData[data.historyIdx.machineIdx]
-            .groups[data.historyIdx.groupIdx]
-            .params[data.historyIdx.paramsIdx].name;
+        this.paramTitle =
+            data.machineData[data.historyIdx.machineIdx].groups[data.historyIdx.groupIdx].params[
+                data.historyIdx.paramsIdx
+            ].name;
 
-        this.paramsData = data.machineData[data.historyIdx.machineIdx]
-            .groups[data.historyIdx.groupIdx]
-            .params[data.historyIdx.paramsIdx];
+        this.paramsData =
+            data.machineData[data.historyIdx.machineIdx].groups[data.historyIdx.groupIdx].params[
+                data.historyIdx.paramsIdx
+            ];
 
-        this.paramsData?.historyValues?.forEach(item => {
-            item.hourValues.forEach(hour => {
+        this.paramsData?.historyValues?.forEach((item) => {
+            item.hourValues.forEach((hour) => {
                 this.hours.push(hour.hour);
                 this.hoursValue.push(hour.value);
             });
@@ -91,9 +88,7 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
 
     editMode: boolean = false;
 
-    constructor(
-        public manualInputService: ManualInputService,
-    ) {}
+    constructor(public manualInputService: ManualInputService) {}
 
     openAll(): void {
         const status = this.machineData[this.historyIdx.machineIdx].open;
@@ -102,8 +97,9 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     }
 
     openGroup(): void {
-        this.machineData[this.historyIdx.machineIdx].groups[this.historyIdx.groupIdx].open
-        = !this.machineData[this.historyIdx.machineIdx].groups[this.historyIdx.groupIdx].open;
+        this.machineData[this.historyIdx.machineIdx].groups[this.historyIdx.groupIdx].open = !this.machineData[
+            this.historyIdx.machineIdx
+        ].groups[this.historyIdx.groupIdx].open;
     }
 
     activateEditMode(): void {
@@ -119,14 +115,14 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     onChangeHistoricalValue(e: any, i: number, prevValue: number): void {
         const id = this.paramsData.id;
         const time = this.hours[i];
-        if (e.target.value.trim() !== '' &&  +e.target.value !== prevValue) {
-            if (this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time)) {
-                this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time).Value = e.target.value;
+        if (e.target.value.trim() !== '' && +e.target.value !== prevValue) {
+            if (this.sendHistoryData.find((item) => item.Id === id && item.TimeCode === time)) {
+                this.sendHistoryData.find((item) => item.Id === id && item.TimeCode === time).Value = e.target.value;
             } else {
                 this.sendHistoryData.push({
                     Id: id,
                     Value: e.target.value,
-                    TimeCode: time
+                    TimeCode: time,
                 });
             }
         }

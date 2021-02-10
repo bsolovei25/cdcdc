@@ -18,10 +18,13 @@ import { KpeExecutionProductionProgramAddPlanComponent } from './components/kpe-
 import { KpeExecutionProductionProgramEditPlaneComponent } from './components/kpe-execution-production-program-edit-plane/kpe-execution-production-program-edit-plane.component';
 import { KpeExecutionProductionProgramLoadingFileComponent } from './components/kpe-execution-production-program-loading-file/kpe-execution-production-program-loading-file.component';
 
-
-
 @NgModule({
-    declarations: [KpeExecutionProductionProgramComponent, KpeExecutionProductionProgramAddPlanComponent, KpeExecutionProductionProgramEditPlaneComponent, KpeExecutionProductionProgramLoadingFileComponent],
+    declarations: [
+        KpeExecutionProductionProgramComponent,
+        KpeExecutionProductionProgramAddPlanComponent,
+        KpeExecutionProductionProgramEditPlaneComponent,
+        KpeExecutionProductionProgramLoadingFileComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,
@@ -39,9 +42,8 @@ import { KpeExecutionProductionProgramLoadingFileComponent } from './components/
         MatMomentDateModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
-        NgxMatMomentModule
-
-    ]
+        NgxMatMomentModule,
+    ],
 })
 export class KpeExecutionProductionProgramModule {
     enterComponent = KpeExecutionProductionProgramComponent;

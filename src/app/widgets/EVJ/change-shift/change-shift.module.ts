@@ -8,16 +8,9 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatRippleModule } from '@angular/material/core';
 
-
-
 @NgModule({
-  declarations: [ChangeShiftComponent, CardVerifierComponent, ShiftPersonComponent, UsbVerifierComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    MatRippleModule
-  ]
+    declarations: [ChangeShiftComponent, CardVerifierComponent, ShiftPersonComponent, UsbVerifierComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule],
 })
 export class ChangeShiftModule {
     enterComponent = ChangeShiftComponent;

@@ -19,13 +19,7 @@
   </div>
 
   <div class="chat-input input-line">
-    <input
-      class="input"
-      type="text"
-      [placeholder]="placeholder"
-      (keypress)="onEnterPush($event)"
-      #input
-    />
+    <input class="input" type="text" [placeholder]="placeholder" (keypress)="onEnterPush($event)" #input />
     <button class="button" (click)="onSendMessage()">
       <svg-icon
         class="button__icon"

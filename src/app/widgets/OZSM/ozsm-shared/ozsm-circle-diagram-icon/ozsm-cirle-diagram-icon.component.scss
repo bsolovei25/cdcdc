@@ -1,85 +1,85 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .main {
-    height: 88px;
-    width: 182px;
-    padding: 0 12px;
+  height: 88px;
+  width: 182px;
+  padding: 0 12px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    background: var(--ozsm-color-bg-dark);
+  background: var(--ozsm-color-bg-dark);
 
-    border: 1px solid var(--ozsm-color-border);
-    border-radius: 2px;
+  border: 1px solid var(--ozsm-color-border);
+  border-radius: 2px;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .information {
-    height: 63px;
-    width: 71px;
-    margin-left: 14px;
+  height: 63px;
+  width: 71px;
+  margin-left: 14px;
 
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
 
-    color: var(--ozsm-color-white);
-    font-size: 12px;
+  color: var(--ozsm-color-white);
+  font-size: 12px;
 }
 
 .information__main {
-    width: 77px;
-    line-height: 14px;
+  width: 77px;
+  line-height: 14px;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-    color: var(--ozsm-color-marker-diagram);
+  color: var(--ozsm-color-marker-diagram);
 }
 
 .information__sub {
-    font-size: 14px;
-    line-height: 17px;
-    color: var(--ozsm-color-active);
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--ozsm-color-active);
 }
 
 .main__icon {
-    position: absolute;
+  position: absolute;
 }
 
 // svg
 ::ng-deep {
-    .active {
-        fill: var(--ozsm-color-active);
-    }
+  .active {
+    fill: var(--ozsm-color-active);
+  }
 
-    .big-circle {
-        fill: var(--ozsm-color-circle-diagram-icon-bg-sub);
-    }
+  .big-circle {
+    fill: var(--ozsm-color-circle-diagram-icon-bg-sub);
+  }
 
-    .small-circle {
-        fill: var(--ozsm-color-circle-diagram-inner-bg);
-    }
+  .small-circle {
+    fill: var(--ozsm-color-circle-diagram-inner-bg);
+  }
 
-    .unactive {
-        fill: var(--ozsm-color-circle-arc-bg);
-    }
+  .unactive {
+    fill: var(--ozsm-color-circle-arc-bg);
+  }
 
-    .transparent {
-        fill: transparent;
-    }
+  .transparent {
+    fill: transparent;
+  }
 
-    .white {
-        fill: #ffffff;
-    }
+  .white {
+    fill: #ffffff;
+  }
 }

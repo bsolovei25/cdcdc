@@ -17,8 +17,7 @@
   max-height: 40px;
 
   &__background-kpe,
-  &__background-astue
-  {
+  &__background-astue {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -137,6 +136,11 @@
     margin: 2px 0px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    svg-icon {
+      color: var(--color-event-card-font-sub);
+    }
 
     &::before {
       content: "";
@@ -152,6 +156,10 @@
 
     &:hover {
       cursor: pointer;
+
+      svg-icon {
+        color: var(--color-new-header-active);
+      }
 
       &::before {
         opacity: 0.4;

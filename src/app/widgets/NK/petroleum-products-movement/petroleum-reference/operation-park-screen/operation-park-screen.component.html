@@ -16,31 +16,30 @@
 <div class="table_widget">
   <div class="reference_title">
     <ng-container *ngFor="let dic of dict">
-      <div class="title_block"
-           [class.table-width__title]="dic.key === 'paramTitle'"
-           [class.table-width__unit]="dic.key === 'paramUnit'"
-           [class.table-width__datetime]="dic.key === 'paramDateTime'"
-           [class.table-width__value]="dic.key === 'paramValue'"
-           [class.table-width__buttons]="dic.key === 'buttons'">
-        <div class="title">
-          {{ dic.title }}
-        </div>
+      <div
+        class="title_block"
+        [class.table-width__title]="dic.key === 'paramTitle'"
+        [class.table-width__unit]="dic.key === 'paramUnit'"
+        [class.table-width__datetime]="dic.key === 'paramDateTime'"
+        [class.table-width__value]="dic.key === 'paramValue'"
+        [class.table-width__buttons]="dic.key === 'buttons'"
+      >
+        <div class="title">{{ dic.title }}</div>
       </div>
     </ng-container>
   </div>
   <div class="reference_values_short">
     <ng-container *ngFor="let item of data">
-      <div
-        class="values_block"
-        [class.values_block__active]="item.isActive"
-      >
+      <div class="values_block" [class.values_block__active]="item.isActive">
         <ng-container *ngFor="let dic of dict">
-          <div class="values"
-               [class.table-width__title]="dic.key === 'paramTitle'"
-               [class.table-width__unit]="dic.key === 'paramUnit'"
-               [class.table-width__datetime]="dic.key === 'paramDateTime'"
-               [class.table-width__value]="dic.key === 'paramValue'"
-               [class.table-width__buttons]="dic.key === 'buttons'">
+          <div
+            class="values"
+            [class.table-width__title]="dic.key === 'paramTitle'"
+            [class.table-width__unit]="dic.key === 'paramUnit'"
+            [class.table-width__datetime]="dic.key === 'paramDateTime'"
+            [class.table-width__value]="dic.key === 'paramValue'"
+            [class.table-width__buttons]="dic.key === 'buttons'"
+          >
             <ng-container *ngIf="dic.key === 'paramDateTime' && item.paramDateTime">
               <div class="dates-selector__body">
                 <div class="dates-selector__dates">
@@ -48,7 +47,8 @@
                     <evj-time-data-picker
                       [data]="item[dic.key]"
                       (dateTimePicker)="dateTimePicker($event, item)"
-                      [class.dates-selector__date-choose__disabled]="!item.isActive">
+                      [class.dates-selector__date-choose__disabled]="!item.isActive"
+                    >
                     </evj-time-data-picker>
                   </div>
                 </div>
@@ -67,9 +67,7 @@
               </ng-container>
               <ng-container *ngIf="isDropdown(item)">
                 <mat-select [disabled]="!item.isActive" [(ngModel)]="item.paramValue">
-                  <mat-option *ngFor="let el of item?.valueStates" [value]="el">
-                    {{ el }}
-                  </mat-option>
+                  <mat-option *ngFor="let el of item?.valueStates" [value]="el"> {{ el }} </mat-option>
                 </mat-select>
               </ng-container>
             </ng-container>
@@ -99,11 +97,11 @@
                 </ng-container>
               </div>
             </ng-container>
-            <ng-container *ngIf="dic.key !== 'paramValue' &&
-             dic.key !== 'paramDateTime' && dic.key !== 'buttons'">
-              <div class="value">
-                {{ item[dic.key] }}
-              </div>
+            <ng-container
+              *ngIf="dic.key !== 'paramValue' &&
+             dic.key !== 'paramDateTime' && dic.key !== 'buttons'"
+            >
+              <div class="value">{{ item[dic.key] }}</div>
             </ng-container>
           </div>
         </ng-container>
@@ -111,16 +109,6 @@
     </ng-container>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 <!--<div class="table_update_button">-->
 <!--  <div class="left_table">-->

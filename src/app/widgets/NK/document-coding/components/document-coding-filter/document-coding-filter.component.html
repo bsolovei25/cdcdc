@@ -1,9 +1,8 @@
 <div class="container">
-  <div style="height: 100%;">
+  <div style="height: 100%">
     <div class="title">
       <div class="title__button-close" (click)="close()">
-        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-        </svg-icon>
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
       </div>
       <div class="title__name">{{ filterTitle }}</div>
     </div>
@@ -17,8 +16,13 @@
               </div>
               <div class="check-param">
                 <label class="mycheckbox">
-                  <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                         (click)="changeSwap(item)" [checked]="activeItems.has(item.id)"/>
+                  <input
+                    type="checkbox"
+                    id="checkBoxValue"
+                    class="mycheckbox__default"
+                    (click)="changeSwap(item)"
+                    [checked]="activeItems.has(item.id)"
+                  />
                   <div class="mycheckbox__new" [class.mycheckbox__checked]="activeItems.has(item.id)"></div>
                 </label>
               </div>

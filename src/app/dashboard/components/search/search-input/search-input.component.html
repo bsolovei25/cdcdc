@@ -6,11 +6,7 @@
     (keyup)="searchInput()"
   />
 
-  <div
-    class="icon"
-    (click)="resetSearchInput()"
-    *ngIf="searchInputField.value"
-  >
+  <div class="icon" (click)="resetSearchInput()" *ngIf="searchInputField.value">
     <svg-icon
       class="icon-close-button"
       src="assets/icons/close.svg"

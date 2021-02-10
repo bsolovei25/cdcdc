@@ -6,7 +6,7 @@ import {
     IOilShipment,
     IOilShipmentStatistics,
     IOilTransfer,
-    OilOperationsShipmentType
+    OilOperationsShipmentType,
 } from '../../models/oil-operations';
 import { IOilControlManualAdjEmitResponse } from '../../../widgets/NK/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 
@@ -30,10 +30,9 @@ export interface IOilOperationsOptions {
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class OilOperationsService {
-
     private readonly restUrl: string;
 
     private readonly BATCH_SIZE: number = 50;
@@ -41,60 +40,52 @@ export class OilOperationsService {
     constructor(
         private configService: AppConfigService,
         private widgetService: WidgetService,
-        private http: HttpClient,
+        private http: HttpClient
     ) {
         this.restUrl = configService.restUrl;
     }
 
-    public async getTransferList(
-        lastId: number,
-        options: IOilOperationsOptions
-    ): Promise<IOilTransfer[]> {
+    public async getTransferList(lastId: number, options: IOilOperationsOptions): Promise<IOilTransfer[]> {
         try {
             return await this.http
                 .get<IOilTransfer[]>(
-                    this.restUrl +
-                    `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
+                    this.restUrl + `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<IOilTransfer[]>(resolve => []);
+            return new Promise<IOilTransfer[]>((resolve) => []);
         }
     }
 
     public async getShipmentListByFilter(
         lastId: number,
         options: IOilOperationsOptions,
-        batchSize: number = this.BATCH_SIZE,
+        batchSize: number = this.BATCH_SIZE
     ): Promise<IOilShipment[]> {
         try {
             return await this.http
                 .get<IOilShipment[]>(
                     this.restUrl +
-                    `/api/oil-control/shipmentsbyfilter?${this.getOptionString(lastId, options, batchSize)}`
+                        `/api/oil-control/shipmentsbyfilter?${this.getOptionString(lastId, options, batchSize)}`
                 )
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<IOilShipment[]>(resolve => []);
+            return new Promise<IOilShipment[]>((resolve) => []);
         }
     }
 
-    public async getShipmentStatistic(
-        options: IOilOperationsOptions
-    ): Promise<IOilShipmentStatistics> {
-
+    public async getShipmentStatistic(options: IOilOperationsOptions): Promise<IOilShipmentStatistics> {
         try {
             return await this.http
                 .get<IOilShipmentStatistics>(
-                    this.restUrl +
-                    `/api/oil-control/shipmentsbyfilter/statistics?${this.getOptionString(0, options)}`
+                    this.restUrl + `/api/oil-control/shipmentsbyfilter/statistics?${this.getOptionString(0, options)}`
                 )
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<IOilShipmentStatistics>(resolve => {});
+            return new Promise<IOilShipmentStatistics>((resolve) => {});
         }
     }
 
@@ -104,197 +95,209 @@ export class OilOperationsService {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/shipments/${query}`).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
     public async getShipmentsByTransferId<T>(transferId: number): Promise<T> {
         try {
-            return await this.http.get<T>(`${this.restUrl}/api/oil-control/shipments/${transferId}/transfer`).toPromise();
+            return await this.http
+                .get<T>(`${this.restUrl}/api/oil-control/shipments/${transferId}/transfer`)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async getFilterList<T>(filter: 'products' | 'groups' | 'tanks'): Promise<T>  {
+    public async getFilterList<T>(filter: 'products' | 'groups' | 'tanks'): Promise<T> {
         try {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async getOperations<T>(filter: 'products' | 'groups'): Promise<T>  {
+    public async getOperations<T>(filter: 'products' | 'groups'): Promise<T> {
         try {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async operationToBlbs<T>(transferIdParam: number, transferUidParam: string): Promise<T>  {
+    public async operationToBlbs<T>(transferIdParam: number, transferUidParam: string): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferUidParam}/toblps?transferId=${transferIdParam}`, null).toPromise();
+            return await this.http
+                .put<T>(
+                    `${this.restUrl}/api/oil-control/transfer/${transferUidParam}/toblps?transferId=${transferIdParam}`,
+                    null
+                )
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => false);
+            return new Promise<T>((resolve) => false);
         }
     }
 
-    public async handleRelation(shipmentIdParam: number, transferIdParam: number, action: 'add-relation' | 'remove-relation' | 'recovery-relation'): Promise<IOilShipment | null>  {
+    public async handleRelation(
+        shipmentIdParam: number,
+        transferIdParam: number,
+        action: 'add-relation' | 'remove-relation' | 'recovery-relation'
+    ): Promise<IOilShipment | null> {
         try {
-            return await this.http.put<IOilShipment>(`${this.restUrl}/api/oil-control/shipment/${shipmentIdParam}/transfer/${transferIdParam}/${action}`, null).toPromise();
+            return await this.http
+                .put<IOilShipment>(
+                    `${this.restUrl}/api/oil-control/shipment/${shipmentIdParam}/transfer/${transferIdParam}/${action}`,
+                    null
+                )
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<IOilShipment>(resolve => null);
+            return new Promise<IOilShipment>((resolve) => null);
         }
     }
 
-    public async removeShipmentsRelationsByTransferId<T>(transferIdParam: number): Promise<T>  {
+    public async removeShipmentsRelationsByTransferId<T>(transferIdParam: number): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/remove-relation-all`, null).toPromise();
+            return await this.http
+                .put<T>(
+                    `${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/remove-relation-all`,
+                    null
+                )
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async autoAssignShipments<T>(transferIdParam: number): Promise<T>  {
+    public async autoAssignShipments<T>(transferIdParam: number): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null).toPromise();
+            return await this.http
+                .put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async recalcDeviation<T>(transferIdParam: number): Promise<T>  {
+    public async recalcDeviation<T>(transferIdParam: number): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/recalc-deviation`, null).toPromise();
+            return await this.http
+                .put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/recalc-deviation`, null)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
-    public async addShipmentsRelationsFromList<T>(idList: number[], transferIdParam: number): Promise<T>  {
+    public async addShipmentsRelationsFromList<T>(idList: number[], transferIdParam: number): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/add-relation-list`, idList).toPromise();
+            return await this.http
+                .put<T>(
+                    `${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/add-relation-list`,
+                    idList
+                )
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => false);
+            return new Promise<T>((resolve) => false);
         }
     }
 
-    public async getManualAdjustmentTypes<T>(): Promise<T>  {
+    public async getManualAdjustmentTypes<T>(): Promise<T> {
         try {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/manual-adjustment-types`).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => []);
+            return new Promise<T>((resolve) => []);
         }
     }
 
-    public async manualAdjustment<T>(
-        transferIdParam: number,
-        body: IOilControlManualAdjEmitResponse
-        ): Promise<T>  {
+    public async manualAdjustment<T>(transferIdParam: number, body: IOilControlManualAdjEmitResponse): Promise<T> {
         try {
-            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipment/transfer/${transferIdParam}/add-manual`, body).toPromise();
+            return await this.http
+                .put<T>(`${this.restUrl}/api/oil-control/shipment/transfer/${transferIdParam}/add-manual`, body)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
     public async getFreeShipmentsProducts<T>(
         lastId: number,
         options: IOilOperationsOptions,
-        batchSize: number,
+        batchSize: number
     ): Promise<T[]> {
         try {
             return await this.http
                 .get<T[]>(
                     this.restUrl +
-                    `/api/oil-control/shipmentsbyfilter/products?StatisticType=product&${this.getOptionString(lastId, options, batchSize)}`
+                        `/api/oil-control/shipmentsbyfilter/products?StatisticType=product&${this.getOptionString(
+                            lastId,
+                            options,
+                            batchSize
+                        )}`
                 )
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T[]>(resolve => []);
+            return new Promise<T[]>((resolve) => []);
         }
     }
 
     public async getGroupsOfTanks<T>(): Promise<T[]> {
         try {
-            return await this.http
-                .get<T[]>(
-                    this.restUrl +
-                    `/api/oil-control/tanks/groups`
-                )
-                .toPromise();
+            return await this.http.get<T[]>(this.restUrl + `/api/oil-control/tanks/groups`).toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T[]>(resolve => []);
+            return new Promise<T[]>((resolve) => []);
         }
     }
 
     public async getTanksByGroup<T>(idParam: number): Promise<T[]> {
         try {
-            return await this.http
-                .get<T[]>(
-                    this.restUrl +
-                    `/api/oil-control/tanks/${idParam}/bygroup`
-                )
-                .toPromise();
+            return await this.http.get<T[]>(this.restUrl + `/api/oil-control/tanks/${idParam}/bygroup`).toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T[]>(resolve => []);
+            return new Promise<T[]>((resolve) => []);
         }
     }
 
     public async editTanksById<T>(idParam: string, stateParam: boolean): Promise<T> {
         try {
             return await this.http
-                .put<T>(
-                    this.restUrl +
-                    `/api/oil-control/tank/${idParam}/enabled/${stateParam}`, null
-                )
+                .put<T>(this.restUrl + `/api/oil-control/tank/${idParam}/enabled/${stateParam}`, null)
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
     public async getTankById<T>(idParam: string): Promise<T> {
         try {
-            return await this.http
-                .get<T>(
-                    this.restUrl +
-                    `/api/oil-control/tank/${idParam}`
-                )
-                .toPromise();
+            return await this.http.get<T>(this.restUrl + `/api/oil-control/tank/${idParam}`).toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
     public async getTanksByFilter<T>(nameParam: string): Promise<T> {
         try {
             return await this.http
-                .get<T>(
-                    this.restUrl +
-                    `/api/oil-control/tanksbyfilter?NameLike=${nameParam}`
-                )
+                .get<T>(this.restUrl + `/api/oil-control/tanksbyfilter?NameLike=${nameParam}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
@@ -303,27 +306,20 @@ export class OilOperationsService {
             return await this.http
                 .get<T>(
                     this.restUrl +
-                    `/api/oil-control/tank/${tankIdParam}/graph/${startTime.toISOString()}/${endTime.toISOString()}`
+                        `/api/oil-control/tank/${tankIdParam}/graph/${startTime.toISOString()}/${endTime.toISOString()}`
                 )
                 .toPromise();
         } catch (error) {
             console.error(error);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
-    private getFilterString(
-        startTime: Date,
-        endTime: Date,
-        group: string = null,
-        product: string = null,
-    ): string {
+    private getFilterString(startTime: Date, endTime: Date, group: string = null, product: string = null): string {
         if (!startTime || !endTime) {
             return null;
         }
-        let requestQuery: string =
-            `?startTime=${startTime.toISOString()}` +
-            `&endTime=${endTime.toISOString()}`;
+        let requestQuery: string = `?startTime=${startTime.toISOString()}` + `&endTime=${endTime.toISOString()}`;
         if (group) {
             requestQuery += `&group=${group}`;
         }
@@ -333,7 +329,11 @@ export class OilOperationsService {
         return requestQuery;
     }
 
-    private getOptionString(lastId: number, options: IOilOperationsOptions, batchSize: number = this.BATCH_SIZE): string {
+    private getOptionString(
+        lastId: number,
+        options: IOilOperationsOptions,
+        batchSize: number = this.BATCH_SIZE
+    ): string {
         let res = `take=${batchSize}&lastId=${lastId}&`;
         if (options.dates) {
             res +=
@@ -377,17 +377,17 @@ export class OilOperationsService {
             res += `&TankName=${options.TankName}`;
         }
         if (options.TransportTypesIds?.length) {
-            options.TransportTypesIds.forEach(id => {
+            options.TransportTypesIds.forEach((id) => {
                 res += `&TransportTypesIds=${id}`;
             });
         }
         if (options.Directions?.length) {
-            options.Directions.forEach(item => {
+            options.Directions.forEach((item) => {
                 res += `&Directions=${item}`;
             });
         }
         if (options.Ids?.length) {
-            options.Ids.forEach(id => {
+            options.Ids.forEach((id) => {
                 res += `&Ids=${id}`;
             });
         }

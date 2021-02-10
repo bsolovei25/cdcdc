@@ -8,9 +8,8 @@ describe('PopoverOverlayComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PopoverOverlayComponent]
-        })
-            .compileComponents();
+            declarations: [PopoverOverlayComponent],
+        }).compileComponents();
     }));
 
     beforeEach(() => {

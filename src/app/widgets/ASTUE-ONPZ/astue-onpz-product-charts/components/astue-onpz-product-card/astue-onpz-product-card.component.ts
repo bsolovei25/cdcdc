@@ -11,8 +11,7 @@ import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/chann
     templateUrl: './astue-onpz-product-card.component.html',
     styleUrls: ['./astue-onpz-product-card.component.scss'],
 })
-export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart>
-    implements OnInit, OnDestroy {
+export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart> implements OnInit, OnDestroy {
     public data: IAstueProductChart;
 
     constructor(
@@ -41,9 +40,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
 
     public switchToIndicatorScreen(): void {
         const multilineChartTransferType =
-            this.astueOnpzService.monitoringOptions$.getValue().type === 'Deviation'
-                ? 'deviation'
-                : 'limit';
+            this.astueOnpzService.monitoringOptions$.getValue().type === 'Deviation' ? 'deviation' : 'limit';
         this.astueOnpzService.multilineChartTransfer.next({
             type: multilineChartTransferType,
             isEconomy: this.data.isEconomy,
@@ -64,11 +61,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
             });
         });
         this.data?.labels?.forEach(
-            (x) =>
-                (x.value =
-                    x?.type === 'economy' || x?.type === 'exceed'
-                        ? Math.abs(x?.value ?? 0)
-                        : x?.value ?? 0)
+            (x) => (x.value = x?.type === 'economy' || x?.type === 'exceed' ? Math.abs(x?.value ?? 0) : x?.value ?? 0)
         );
     }
 

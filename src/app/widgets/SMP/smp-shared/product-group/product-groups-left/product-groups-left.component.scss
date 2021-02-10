@@ -1,11 +1,10 @@
-*{
+* {
   box-sizing: border-box;
 }
 %warning {
   fill: rgba(244, 163, 33, 0.2);
   stroke: #f4a321;
 }
-
 
 %danger {
   fill: #f9031b;
@@ -32,76 +31,73 @@
 .bottom,
 .mid,
 .top {
-    width: 13px;
-    padding: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  width: 13px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
-    &__inner {
-        &_fact {
-            width: 9px;
-            background: var(--color-smp-free);
+  &__inner {
+    &_fact {
+      width: 9px;
+      background: var(--color-smp-free);
 
-            position: absolute;
-            bottom: 0;
-        }
-        &_plan {
-            width: 9px;
-            background: var(--color-smp-rest);
-            
-            position: absolute;
-            bottom: 0;
-        }    
+      position: absolute;
+      bottom: 0;
     }
+    &_plan {
+      width: 9px;
+      background: var(--color-smp-rest);
+
+      position: absolute;
+      bottom: 0;
+    }
+  }
 }
 
 .top {
-    height: 6px;
-    padding-bottom: 0;
-    border: 1px solid var(--color-smp-checkbox);
-    border-bottom: none;
+  height: 6px;
+  padding-bottom: 0;
+  border: 1px solid var(--color-smp-checkbox);
+  border-bottom: none;
 
-    transform: skewX(45deg) translate(-3px, 0px);
-
+  transform: skewX(45deg) translate(-3px, 0px);
 }
 
 .bottom {
-    height: 6px;
-    padding-top: 0;
-    border: 1px solid var(--color-smp-checkbox);
-    border-top: none;
+  height: 6px;
+  padding-top: 0;
+  border: 1px solid var(--color-smp-checkbox);
+  border-top: none;
 
-    transform: skewX(-45deg) translate(-3px, 0px);
+  transform: skewX(-45deg) translate(-3px, 0px);
 }
 
 .mid {
-    height: 31px;
-    padding: 0 2px;
-    border-left: 1px solid var(--color-smp-checkbox);
-    border-right: 1px solid var(--color-smp-checkbox);
+  height: 31px;
+  padding: 0 2px;
+  border-left: 1px solid var(--color-smp-checkbox);
+  border-right: 1px solid var(--color-smp-checkbox);
 
-    position: relative;
+  position: relative;
 
-    &-line {
-      height: 1px;
-      width: 9px;
-    
-      border-top: 1px dashed var(--color-smp-white);
-      position: absolute;
-      
-      &__bottom {
-          bottom: 0px;
-      }
-    
-      &__top {
-          top: 0px;
-      }
+  &-line {
+    height: 1px;
+    width: 9px;
+
+    border-top: 1px dashed var(--color-smp-white);
+    position: absolute;
+
+    &__bottom {
+      bottom: 0px;
     }
+
+    &__top {
+      top: 0px;
+    }
+  }
 }
-
-
 
 .cb {
   height: 100%;
@@ -169,10 +165,10 @@
 
 .danger {
   ::ng-deep {
-    .a0b87cd4-2066-4285-a34e-05420cfc7ab3, 
-    .a05fe2ee-dc51-4b41-981b-2ed2c4d52c53, 
-    .a4d182d0-b676-414d-b4ae-d69759ad88c5, 
-    .a1ea6938-8d1c-4e9b-970f-5f8af8bfd62e, 
+    .a0b87cd4-2066-4285-a34e-05420cfc7ab3,
+    .a05fe2ee-dc51-4b41-981b-2ed2c4d52c53,
+    .a4d182d0-b676-414d-b4ae-d69759ad88c5,
+    .a1ea6938-8d1c-4e9b-970f-5f8af8bfd62e,
     .ebd376e7-b54a-4ac4-b03f-45abd4515ac1,
     .bd0e29a2-e1ef-4c26-a7db-8a876d32a45a,
     .bef079be-ce38-404e-a011-111b5eb8f7fc,

@@ -12,10 +12,7 @@ import {
     IStatus,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import {
-    MomentDateAdapter,
-    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -29,8 +26,7 @@ import {
         },
     ],
 })
-export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
@@ -119,10 +115,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown>
 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
-        if (
-            isEdit &&
-            this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)
-        ) {
+        if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
             if (this.ewService.isCreateNewEvent) {
                 this.ewService.refreshEvent();
             } else {

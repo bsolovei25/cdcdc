@@ -6,7 +6,7 @@
   *ngIf="isMock"
 ></evj-widget-preview>
 
-<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+<div style="height: 100%; width: 100%" *ngIf="!isMock">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -19,13 +19,9 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="content_block"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="blocks">
-        <div style="display:flex; height: 100%;">
+        <div style="display: flex; height: 100%">
           <div *ngFor="let data of datas;" class="block">
             <evj-widget-pie [data]="data"></evj-widget-pie>
           </div>

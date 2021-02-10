@@ -1,21 +1,22 @@
 <div class="container">
-  <evj-contemporary-widget-header [icon]="null" [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" type="astue"></evj-contemporary-widget-header>
-  <div class="filter-panel"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
+  <evj-contemporary-widget-header
+    [icon]="null"
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    type="astue"
+  ></evj-contemporary-widget-header>
+  <div class="filter-panel" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Ресурс'}"></ng-container>
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Производство'}"></ng-container>
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Установка'}"></ng-container>
   </div>
-  <div class="table-content"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
+  <div class="table-content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="scroll-container scroll-bar">
-<!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Электроэнергия'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Пар'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Условное топливо'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Теплофикационная вода'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Паровой конденсат'}"></ng-container>-->
+      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Электроэнергия'}"></ng-container>-->
+      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Пар'}"></ng-container>-->
+      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Условное топливо'}"></ng-container>-->
+      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Теплофикационная вода'}"></ng-container>-->
+      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Паровой конденсат'}"></ng-container>-->
     </div>
   </div>
 </div>
@@ -23,7 +24,6 @@
 <ng-template #card let-title="title">
   <div class="card">
     <div class="card_header">
-
       <div class="card_header__icon">
         <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/header-icon.svg"></svg-icon>
       </div>
@@ -33,7 +33,10 @@
     </div>
     <div class="card_content">
       <div class="card_content__icon">
-        <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/warning.svg"></svg-icon>
+        <svg-icon
+          [svgStyle]="{'width': '100%', 'height': '100%'}"
+          src="assets/icons/widgets/SOU/warning.svg"
+        ></svg-icon>
       </div>
       <div class="card_content__textarea">
         <span>Превышено плановое значение</span>
@@ -50,12 +53,8 @@
   <div class="filter-select" [class.filter-select__mini]="label === 'Ресурс'">
     <mat-form-field>
       <mat-label>{{label}}</mat-label>
-      <mat-select
-        panelClass="mat-select-custom"
-      >
-        <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">
-          {{ p }}
-        </mat-option>
+      <mat-select panelClass="mat-select-custom">
+        <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p"> {{ p }} </mat-option>
       </mat-select>
     </mat-form-field>
   </div>

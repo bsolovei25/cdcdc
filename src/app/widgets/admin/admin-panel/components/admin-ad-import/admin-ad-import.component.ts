@@ -48,12 +48,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
     }
 
-    private getLdapWorkersList(
-        searchLogin: string,
-        skip: number = 0,
-        take: number = 50,
-        lastSid: string = ''
-    ): void {
+    private getLdapWorkersList(searchLogin: string, skip: number = 0, take: number = 50, lastSid: string = ''): void {
         this.isDataLoading = true;
         this.subscriptions.push(
             this.adminService.getAllLdapUsers(searchLogin, skip, take, lastSid).subscribe(
@@ -65,9 +60,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
                             // this.workersLdap = this.workersLdap.concat(data);
                             const filteredData = data.filter(
                                 (dataItem) =>
-                                    !this.workersLdap.find(
-                                        (user) => user.ldapUser.sid === dataItem.ldapUser.sid
-                                    )
+                                    !this.workersLdap.find((user) => user.ldapUser.sid === dataItem.ldapUser.sid)
                             );
 
                             this.workersLdap = this.workersLdap.concat(filteredData);
@@ -98,10 +91,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
         if (regexp.test(this.searchedWorker)) {
             this.getLdapWorkersList(this.searchedWorker);
         } else {
-            this.snackBar.openSnackBar(
-                'Поисковый запрос должен содержать не менее двух символов',
-                'snackbar-red'
-            );
+            this.snackBar.openSnackBar('Поисковый запрос должен содержать не менее двух символов', 'snackbar-red');
         }
     }
 

@@ -51,9 +51,7 @@ export class WidgetService {
     public dashboard: GridsterItem[] = [];
 
     private widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject([]);
-    public widgets: Observable<IWidget[]> = this.widgets$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
+    public widgets: Observable<IWidget[]> = this.widgets$.asObservable().pipe(filter((item) => item !== null));
     public widgetsPanel$: Observable<IWidget[]> = this.widgets$.asObservable().pipe(
         filter((item) => item !== null),
         map((widgets) => widgets.filter((widget) => widget.isClaim))
@@ -62,9 +60,7 @@ export class WidgetService {
     private reconnectWsTimer: ReturnType<typeof setTimeout>;
     private reconnectRestTimer: ReturnType<typeof setTimeout>;
 
-    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
-        null
-    );
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(null);
     public filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
     // открытые каналы ws на текущем экране
@@ -92,11 +88,7 @@ export class WidgetService {
                         widgetId = this.openedWsChannels[channel].parentChannelId;
                         channelId = channel;
                     }
-                    this.wsAppendOptions(
-                        widgetId,
-                        this.openedWsChannels[channel]?.options,
-                        channelId
-                    );
+                    this.wsAppendOptions(widgetId, this.openedWsChannels[channel]?.options, channelId);
                 }
             });
         });
@@ -109,13 +101,11 @@ export class WidgetService {
     }
 
     private getAvailableWidgets(): Observable<IWidget[]> {
-        return this.http
-            .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
-            .pipe(
-                map((ans: { data: IWidget[] }) => {
-                    return this.mapData(ans.data);
-                })
-            );
+        return this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).pipe(
+            map((ans: { data: IWidget[] }) => {
+                return this.mapData(ans.data);
+            })
+        );
     }
 
     // Для тестирования скорости работы
@@ -124,9 +114,7 @@ export class WidgetService {
         for (let i = 0; i < 10; i++) {
             const start = new Date().getTime();
             await this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).toPromise();
-            await this.http
-                .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
-                .toPromise();
+            await this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).toPromise();
             const end = new Date().getTime();
             arr.push(end - start);
         }
@@ -160,9 +148,7 @@ export class WidgetService {
 
     public async getAvailableChannels<T>(widgetId: string): Promise<T[]> {
         try {
-            return await this.http
-                .get<T[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels`)
-                .toPromise();
+            return await this.http.get<T[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels`).toPromise();
         } catch (e) {
             return [];
         }
@@ -229,11 +215,7 @@ export class WidgetService {
         );
     }
 
-    setChannelLiveDataFromWsOptions<T>(
-        widgetId: string,
-        options: T,
-        channelId: string = null
-    ): void {
+    setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
         if (!widgetId) {
             return;
         }
@@ -246,11 +228,7 @@ export class WidgetService {
         this.wsAppendOptions(widgetId, this.openedWsChannels[widgetId]?.options, channelId);
     }
 
-    private wsConnect(
-        widgetId: string,
-        options: IWebSocketOptions<any> = null,
-        channelId: string = null
-    ): void {
+    private wsConnect(widgetId: string, options: IWebSocketOptions<any> = null, channelId: string = null): void {
         this.ws.next({
             actionType: 'subscribe',
             channelId: widgetId,
@@ -397,10 +375,7 @@ export class WidgetService {
         this.ws.asObservable().subscribe((data) => {
             if (
                 data?.data &&
-                this.isMatchingPeriod(
-                    data?.data?.selectedPeriod,
-                    data?.data?.isHistoricalSupport
-                ) &&
+                this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport) &&
                 this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
             ) {
                 this.widgetsSocketObservable.next(data);
@@ -418,8 +393,7 @@ export class WidgetService {
         return (
             new Date(incoming.fromDateTime).getTime() ===
                 new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
-            new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
+            new Date(incoming.toDateTime).getTime() === new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 
@@ -454,12 +428,7 @@ export class WidgetService {
     public reloadPage(): void {
         const timeFormat = 'HH:mm:ss';
         const currentTime = moment().format(timeFormat);
-        if (
-            moment(currentTime, timeFormat).isBetween(
-                moment('03:00:01', timeFormat),
-                moment('03:29:59', timeFormat)
-            )
-        ) {
+        if (moment(currentTime, timeFormat).isBetween(moment('03:00:01', timeFormat), moment('03:29:59', timeFormat))) {
             // window.location.reload(); // TODO: testing
         }
     }

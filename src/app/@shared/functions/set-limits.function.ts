@@ -4,16 +4,13 @@ import { IDatesInterval } from '../../dashboard/services/widget.service';
 export function setLimits(data: IChartMini[], limits: IDatesInterval): IChartMini[] {
     if (limits) {
         Object.keys(limits).forEach((key) => {
-            const findFunc = (item: IChartMini) =>
-                item.timeStamp.toString() === limits[key].toString();
+            const findFunc = (item: IChartMini) => item.timeStamp.toString() === limits[key].toString();
             if (!data.find(findFunc)) {
                 findAverage(data, limits[key]);
             }
         });
 
-        return data.filter(
-            (item) => item.timeStamp >= limits.fromDateTime && limits.toDateTime >= item.timeStamp
-        );
+        return data.filter((item) => item.timeStamp >= limits.fromDateTime && limits.toDateTime >= item.timeStamp);
     }
     return data;
 }

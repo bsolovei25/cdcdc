@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
@@ -11,10 +11,9 @@ import { Subject } from 'rxjs';
 @Component({
     selector: 'evj-evj-event-filters',
     templateUrl: './evj-event-filters.component.html',
-    styleUrls: ['./evj-event-filters.component.scss']
+    styleUrls: ['./evj-event-filters.component.scss'],
 })
-export class EvjEventFiltersComponent implements OnInit {
-
+export class EvjEventFiltersComponent implements OnInit, OnChanges {
     public unitsSelect: FormControl = new FormControl();
     public prioritySelect: FormControl = new FormControl();
     searchControl: FormControl = new FormControl();
@@ -23,39 +22,42 @@ export class EvjEventFiltersComponent implements OnInit {
     filter: FormControl = new FormControl({ value: '', disabled: true });
     private onDestroy: Subject<void> = new Subject<void>();
 
+    @Input()
+    public placeNames: string[] = [];
 
-    @Input() set inputUnits(value: IUnits) {
+    @Input() set inputUnits(values: IUnits[]) {
         if (!!this.unitsSelect.value) {
             return;
         }
-        this.unitsSelect.setValue(value?.id);
+        const preselectedValues = values.map((item) => item.id);
+        this.unitsSelect.setValue(preselectedValues);
     }
     @Input() set inputPriority(value: IPriority) {
-        console.log(value);
         if (!!this.prioritySelect.value) {
             return;
         }
         this.prioritySelect.setValue(value?.id);
     }
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
-    @Output() outUnits: EventEmitter<IUnits> = new EventEmitter<IUnits>();
+    @Output() outUnits: EventEmitter<IUnits[]> = new EventEmitter<IUnits[]>();
     @Output() outPriority: EventEmitter<IPriority> = new EventEmitter<IPriority>();
     @Output() description: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private eventService: EventService,
-                public ewService: EventsWorkspaceService) {
+    constructor(private eventService: EventService, public ewService: EventsWorkspaceService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (!!this.placeNames.length) {
+            this.setUnitNames(this.placeNames);
+        }
     }
 
     ngOnInit(): void {
-        this.searchControl.valueChanges.subscribe(value => {
+        this.searchControl.valueChanges.subscribe((value) => {
             this.search.emit(value);
         });
-        this.searchControl.valueChanges.pipe(
-            debounceTime(1000),
-            distinctUntilChanged())
-            .subscribe(value => {
-                this.description.emit(value);
-            });
+        this.searchControl.valueChanges.pipe(debounceTime(1000), distinctUntilChanged()).subscribe((value) => {
+            this.description.emit(value);
+        });
         this.loadData();
         this.filter.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(() => {
             this.filterPlant();
@@ -73,7 +75,7 @@ export class EvjEventFiltersComponent implements OnInit {
         if (!this.units?.length) {
             return;
         }
-        this.outUnits.emit(this.units?.find((x) => event.value === x.id) as IUnits ?? null);
+        this.outUnits.emit((this.units?.filter((item) => event.value.includes(item.id)) as IUnits[]) ?? null);
     }
 
     public onPrioritySelect(event: MatSelectChange): void {
@@ -101,9 +103,21 @@ export class EvjEventFiltersComponent implements OnInit {
         } else {
             value = value.toLowerCase();
         }
-        this.units = this.ewService.units.filter(
-            (unit) => unit.name.toLowerCase().indexOf(value) > -1
-        );
+        this.units = this.ewService.units.filter((unit) => unit.name.toLowerCase().indexOf(value) > -1);
     }
 
+    private setUnitNames(names: string[]): void {
+        const enabledUnitNames: IUnits[] = [];
+        names.forEach((name) => {
+            const unit = this.units.find((unitItem) => unitItem.name === name);
+            enabledUnitNames.push({
+                id: unit ? unit.id : 0,
+                name: unit ? unit.name : name,
+                createdAt: unit ? unit.createdAt : null,
+                createdById: unit ? unit.createdById : null,
+                synonyms: [],
+            });
+        });
+        this.inputUnits = enabledUnitNames;
+    }
 }

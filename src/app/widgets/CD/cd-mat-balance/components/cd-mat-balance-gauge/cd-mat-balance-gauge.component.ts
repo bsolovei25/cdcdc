@@ -1,12 +1,4 @@
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    OnInit,
-    ViewChild,
-    Input
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 
@@ -21,7 +13,7 @@ export interface ICdIndicatorLoad {
 @Component({
     selector: 'evj-cd-mat-balance-gauge',
     templateUrl: './cd-mat-balance-gauge.component.html',
-    styleUrls: ['./cd-mat-balance-gauge.component.scss']
+    styleUrls: ['./cd-mat-balance-gauge.component.scss'],
 })
 export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
     @Input() set data(values: ICdIndicatorLoad[]) {
@@ -29,7 +21,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             switch (value.name) {
                 case 'Загрузка':
                     this.load = value;
-                    this.percentLoad = this.load.value / this.load.max * 100;
+                    this.percentLoad = (this.load.value / this.load.max) * 100;
                     if (this.gaugeElement?.nativeElement) {
                         this.drawWidget();
                     }
@@ -62,11 +54,9 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private svgBody: any;
 
-    constructor(private cdRef: ChangeDetectorRef) {
-    }
+    constructor(private cdRef: ChangeDetectorRef) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         this.drawWidget();
@@ -104,10 +94,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram?.nativeElement).append('svg');
-        this.svgBody
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('viewBox', '0 0 200 200');
+        this.svgBody.attr('width', '100%').attr('height', '100%').attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -120,20 +107,14 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .attr('stroke-width', 1);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg')
             .attr('x', 5)
             .attr('y', 0)
             .attr('width', 190)
             .attr('height', 55);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/APS/aps-indicator-load-deviation/diagram-frame.svg')
             .attr('x', 5)
             .attr('y', -200)
             .attr('width', 190)
@@ -179,7 +160,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             x1: -min * Math.cos(Math.PI / 4),
             x2: -max * Math.cos(Math.PI / 4),
             y1: min * Math.sin(Math.PI / 4),
-            y2: max * Math.sin(Math.PI / 4)
+            y2: max * Math.sin(Math.PI / 4),
         };
         // отрисовка линий начала и конца
         const lines = svg.append('g').attr('class', 'lines');
@@ -197,13 +178,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .attr('x', 0)
             .attr('y', 0.5)
             .text(this.load?.value?.toFixed() ? this.load?.value?.toFixed() : 0);
-        block
-            .append('text')
-            .attr('class', 'units')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 2.5)
-            .text('%');
+        block.append('text').attr('class', 'units').attr('text-anchor', 'middle').attr('x', 0).attr('y', 2.5).text('%');
         block
             .append('text')
             .attr('class', 'name')
@@ -222,46 +197,19 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     //#region gaude functions
 
-    private defineArc(
-        innerRad: number,
-        outerRad: number,
-        padAngle: number = 0,
-        cornerRadius: number = 0
-    ): any {
-        return d3
-            .arc()
-            .innerRadius(innerRad)
-            .outerRadius(outerRad)
-            .cornerRadius(cornerRadius)
-            .padAngle(padAngle);
+    private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
+        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3
-            .pie()
-            .startAngle(startAngle)
-            .endAngle(endAngle)
-            .value(val);
+        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block
-            .selectAll('.arc')
-            .data(dataFn)
-            .enter()
-            .append('path')
-            .attr('class', cls)
-            .attr('d', arcFn);
+        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
     }
 
-    private drawNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
+    private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {
         block
             .selectAll(`.needle`)
             .data(data)

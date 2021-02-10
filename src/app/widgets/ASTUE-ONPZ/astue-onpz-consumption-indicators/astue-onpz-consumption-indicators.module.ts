@@ -6,11 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [AstueOnpzConsumptionIndicatorsComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        MatSelectModule,
-    ],
+    imports: [CommonModule, SharedModule, MatSelectModule],
 })
 export class AstueOnpzConsumptionIndicatorsModule {
     enterComponent = AstueOnpzConsumptionIndicatorsComponent;

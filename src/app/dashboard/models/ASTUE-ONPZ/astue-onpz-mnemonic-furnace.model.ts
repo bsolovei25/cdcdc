@@ -84,10 +84,7 @@ export interface IAstueOnpzMnemonicFurnaceBlock {
 
 export interface IAstueOnpzMnemonicFurnaceLine {
     type: AstueOnpzMnemonicFurnaceElementType;
-    data:
-        | IAstueOnpzMnemonicFurnaceCircle
-        | IAstueOnpzMnemonicFurnaceQuad
-        | IAstueOnpzMnemonicFurnaceRect;
+    data: IAstueOnpzMnemonicFurnaceCircle | IAstueOnpzMnemonicFurnaceQuad | IAstueOnpzMnemonicFurnaceRect;
 }
 
 export interface IAstueOnpzMnemonicFurnaceStreamStats {

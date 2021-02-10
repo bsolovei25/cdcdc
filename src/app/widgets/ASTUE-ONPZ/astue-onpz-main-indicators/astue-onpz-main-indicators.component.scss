@@ -24,30 +24,30 @@
       flex-direction: column;
       flex: 1;
       padding: 0 30px;
-  
+
       &__container {
         flex: 1;
         padding: 30px 15px;
-  
+
         display: flex;
         align-items: center;
-  
+
         position: relative;
-  
+
         .diagram-circle {
           ::ng-deep {
             svg {
-                .diagram-inner {
-                  fill: var(--color-astue-onpz-plan);
-                }
-          
-                .diagram-value {
-                  fill: var(--color-astue-onpz-fact);
-                }
+              .diagram-inner {
+                fill: var(--color-astue-onpz-plan);
+              }
 
-                .diagram-deviation {
-                  fill: var(--color-astue-onpz-warning);
-                }
+              .diagram-value {
+                fill: var(--color-astue-onpz-fact);
+              }
+
+              .diagram-deviation {
+                fill: var(--color-astue-onpz-warning);
+              }
             }
           }
         }
@@ -91,19 +91,19 @@
             color: var(--astue-onpz-factory-analisys-legend);
           }
         }
-  
+
         .diagram-inner-text {
           height: 140px;
           width: 140px;
-  
+
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-  
+
           position: absolute;
           left: 15px;
-  
+
           .percent {
             font-size: 26px;
             line-height: 31px;
@@ -112,14 +112,14 @@
               color: var(--color-astue-onpz-warning);
             }
           }
-  
+
           .unit {
             font-size: 12px;
             line-height: 14px;
             color: var(--astue-onpz-factory-analisys-legend);
           }
         }
-        
+
         .custom-bg {
           position: absolute;
           left: 3px;

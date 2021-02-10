@@ -1,117 +1,94 @@
-<evj-contemporary-widget-header
-  [uniqId]="widgetUniqId"
-  [widgetTitle]="widgetTitle"
-  icon="parameter"
-  type="astue"
->
+<evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="parameter" type="astue">
 </evj-contemporary-widget-header>
 <div class="container">
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <table class="table">
       <thead class="table__header">
-      <tr>
-        <ng-container *ngFor="let column of columnsToDisplay">
-          <th>
-            <span>{{ column.name }}</span>
-          </th>
-        </ng-container>
-      </tr>
+        <tr>
+          <ng-container *ngFor="let column of columnsToDisplay">
+            <th>
+              <span>{{ column.name }}</span>
+            </th>
+          </ng-container>
+        </tr>
       </thead>
       <tbody class="table__body">
-      <ng-container *ngFor="let element of data">
-        <tr
-          class="table__body__row"
-        >
-          <td
-            class="table__body__column"
-            (click)="onClickTr($event, element)"
-            colspan="3"
-          >
-            <ng-container *ngIf="element.countExceeding !== 0">
-              <div class="table__body__column--warning-border"></div>
-            </ng-container>
-            <div
-              (click)="onClickTr($event, element)"
-              class="table__body__column__row-title"
-            >
-              <svg-icon
-                class="table__body__column__row-title__icon"
-                (click)="onClickTr($event, element)"
-                [ngClass]="{
+        <ng-container *ngFor="let element of data">
+          <tr class="table__body__row">
+            <td class="table__body__column" (click)="onClickTr($event, element)" colspan="3">
+              <ng-container *ngIf="element.countExceeding !== 0">
+                <div class="table__body__column--warning-border"></div>
+              </ng-container>
+              <div (click)="onClickTr($event, element)" class="table__body__column__row-title">
+                <svg-icon
+                  class="table__body__column__row-title__icon"
+                  (click)="onClickTr($event, element)"
+                  [ngClass]="{
                   'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.name) && element.countExceeding !== 0,
                   'table__body__column__row-title__icon--active':expandedElement.isSelected(element.name) && element.countExceeding === 0
                 }"
-                src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-              >
-              </svg-icon>
-              <div class="table__body__column__row-title">
-                <div class="table__body__column__row-title__text__name">
-                  <span>{{ element.name }}</span>
-                </div>
-                <span class="table__body__column__row-title__text__name__value-right"
-                >Отклонений: {{ element.countExceeding }}
-                  </span>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <ng-container *ngFor="let elementChildren of element.items;  index as i;">
-          <tr
-            *ngIf="expandedElement.isSelected(element.name)"
-            class="table__body__row expanded-row"
-            (click)="onClickRow($event, elementChildren)"
-          >
-            <td
-              *ngFor="let column of columnsToDisplay"
-              class="expanded-column table__body__column table__body__column__children"
-
-              [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
-              [class.table__body__column__children--warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
-              [matTooltip]="elementChildren?.name"
-            >
-              <div
-                *ngIf="column.name === 'Параметры'"
-                class="table__body__column__row-title table__body__column__row-title-children"
-              >
-
-                <svg-icon
-                  [svgStyle]="{'height.px':'43', 'width.px': '21'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isExceeding"
-                  [class.table__body__column__row-title-children__left-block--first__default]="!(selectedProduct$(elementChildren) | async)"
-                  [class.table__body__column__row-title-children__left-block--first__active]="(selectedProduct$(elementChildren) | async) && !elementChildren.isExceeding"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
-
-                  [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
-                <div
-                  class="table__body__column__row-title__text__subname">
-                  <span>{{ elementChildren.name }}</span>
-                </div>
-                <div
-                  class="table__body__column__row-title__engUnit">
-                  <span>{{elementChildren.unitsOfMeasure}}</span>
+                <div class="table__body__column__row-title">
+                  <div class="table__body__column__row-title__text__name">
+                    <span>{{ element.name }}</span>
+                  </div>
+                  <span class="table__body__column__row-title__text__name__value-right"
+                    >Отклонений: {{ element.countExceeding }}
+                  </span>
                 </div>
               </div>
-              <ng-container *ngIf="column.name === 'Модель'">
-                <div class="value">
-                  <span>{{elementChildren.plan.toFixed(0) }}</span>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="column.name === 'Факт'">
-                <div class="value">
-                  <span>{{elementChildren.fact.toFixed(0) }}</span>
-                </div>
-              </ng-container>
             </td>
           </tr>
+          <ng-container *ngFor="let elementChildren of element.items;  index as i;">
+            <tr
+              *ngIf="expandedElement.isSelected(element.name)"
+              class="table__body__row expanded-row"
+              (click)="onClickRow($event, elementChildren)"
+            >
+              <td
+                *ngFor="let column of columnsToDisplay"
+                class="expanded-column table__body__column table__body__column__children"
+                [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
+                [class.table__body__column__children--warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
+                [matTooltip]="elementChildren?.name"
+              >
+                <div
+                  *ngIf="column.name === 'Параметры'"
+                  class="table__body__column__row-title table__body__column__row-title-children"
+                >
+                  <svg-icon
+                    [svgStyle]="{'height.px':'43', 'width.px': '21'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isExceeding"
+                    [class.table__body__column__row-title-children__left-block--first__default]="!(selectedProduct$(elementChildren) | async)"
+                    [class.table__body__column__row-title-children__left-block--first__active]="(selectedProduct$(elementChildren) | async) && !elementChildren.isExceeding"
+                    [class.table__body__column__row-title-children__left-block--first__active-warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
+                    [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
+                  >
+                  </svg-icon>
+                  <div class="table__body__column__row-title__text__subname">
+                    <span>{{ elementChildren.name }}</span>
+                  </div>
+                  <div class="table__body__column__row-title__engUnit">
+                    <span>{{elementChildren.unitsOfMeasure}}</span>
+                  </div>
+                </div>
+                <ng-container *ngIf="column.name === 'Модель'">
+                  <div class="value">
+                    <span>{{elementChildren.plan.toFixed(0) }}</span>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="column.name === 'Факт'">
+                  <div class="value">
+                    <span>{{elementChildren.fact.toFixed(0) }}</span>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
         </ng-container>
-      </ng-container>
       </tbody>
     </table>
   </div>

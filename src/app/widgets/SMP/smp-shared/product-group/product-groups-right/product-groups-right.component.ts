@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    Input,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnChanges,
-} from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ViewChild, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import { IProductGroups } from '../../../../../dashboard/models/SMP/product-groups.model';
@@ -98,27 +90,31 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         this.d3Circle(data, this.svgBlock);
 
-        const innerGauge = d3.arc()
+        const innerGauge = d3
+            .arc()
             .innerRadius(36)
             .outerRadius(38)
             .startAngle(0)
             .endAngle(2 * Math.PI);
 
-        this.svgBlock.append('g')
+        this.svgBlock
+            .append('g')
             .append('path')
             .attr('d', innerGauge)
             .attr('transform', 'translate(-80, 30)')
             .attr('fill', 'var(--color-smp-days-unknown)');
 
-        const gaugeProgress = d3.arc()
+        const gaugeProgress = d3
+            .arc()
             .innerRadius(36)
             .outerRadius(38)
             .startAngle(0)
-            .endAngle(performance * 2 * Math.PI / 100);
+            .endAngle((performance * 2 * Math.PI) / 100);
 
-        this.svgBlock.append('g')
+        this.svgBlock
+            .append('g')
             .append('path')
-            .attr('d', gaugeProgress )
+            .attr('d', gaugeProgress)
             .attr('transform', 'translate(-80, 30)')
             .attr('fill', 'var(--color-smp-left-gauge)');
     }
@@ -167,10 +163,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const valueName = el
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/right-side/pie-icon.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/pie-icon.svg')
             .attr('height', '20px')
             .attr('width', '20px')
             .attr('x', '-87')
@@ -178,10 +171,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const topBorder = el
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/right-side/right-top-border.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-top-border.svg')
             .attr('height', '40px')
             .attr('width', '140px')
             .attr('x', '180')
@@ -189,10 +179,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const bottomBorder = el
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/right-side/right-bottom-border.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-bottom-border.svg')
             .attr('height', '40px')
             .attr('width', '140px')
             .attr('x', '180')
@@ -331,10 +318,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         this.r = this.config.size / 1.5;
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
 
-        this.scale = d3
-            .scaleLinear()
-            .range([0, 1])
-            .domain([this.config.minValue, this.config.maxValue]);
+        this.scale = d3.scaleLinear().range([0, 1]).domain([this.config.minValue, this.config.maxValue]);
 
         this.ticks = this.scale.ticks(this.config.majorTicks);
         this.tickData = d3.range(this.config.majorTicks).map(() => {
@@ -362,10 +346,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
     render(indicator, pie, x, y): void {
         const centerTx = this.centerTranslation(x, y);
 
-        const arcs = this.svg
-            .append('g')
-            .attr('class', 'arc')
-            .attr('transform', centerTx);
+        const arcs = this.svg.append('g').attr('class', 'arc').attr('transform', centerTx);
 
         arcs.selectAll('path')
             .data(this.tickData)

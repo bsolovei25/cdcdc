@@ -1,17 +1,13 @@
 <div class="cb">
   <div #circle class="item-b"></div>
 
-  <div class="back-image"
-    class = "back-image__{{status[data.pieStatus]}}"
-  >
-    <svg-icon src="assets/icons/widgets/SMP/circle-back.svg" [svgStyle]="{ 'width.px':69, 'height.px':69 }">
-    </svg-icon>
+  <div class="back-image" class="back-image__{{status[data.pieStatus]}}">
+    <svg-icon src="assets/icons/widgets/SMP/circle-back.svg" [svgStyle]="{ 'width.px':69, 'height.px':69 }"> </svg-icon>
   </div>
   <!--LEFT-BUTTON-->
 
   <div class="scale__top">
-    <svg-icon src="assets/icons/widgets/SMP/scale-top.svg" [svgStyle]="{ 'width.px':10, 'height.px':14 }">
-    </svg-icon>
+    <svg-icon src="assets/icons/widgets/SMP/scale-top.svg" [svgStyle]="{ 'width.px':10, 'height.px':14 }"> </svg-icon>
   </div>
   <div class="scale__middle">
     <svg-icon src="assets/icons/widgets/SMP/scale-middle.svg" [svgStyle]="{ 'width.px':4.2, 'height.px':11 }">
@@ -23,60 +19,62 @@
   </div>
 
   <div class="left-top-button {{status[0]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"
+    ></svg-icon>
   </div>
-    <div class="left-bottom-button {{status[data.criticalProd]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+  <div class="left-bottom-button {{status[data.criticalProd]}}">
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"
+    ></svg-icon>
   </div>
   <div class="left-button {{status[data.criticalPass]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':42 }"
+    ></svg-icon>
   </div>
   <!--RIGHT-BUTTON-->
   <div class="right-top-button {{status[data.criticalRazn]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"
+    ></svg-icon>
   </div>
   <div class="right-bottom-button {{status[data.criticalShip]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"
+    ></svg-icon>
   </div>
   <div class="right-button {{status[data.criticalTank]}}">
-    <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg"
-      [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
+    <svg-icon
+      src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':42 }"
+    ></svg-icon>
   </div>
   <div class="reservoir-container">
     <div class="top">
-        <div 
-            class="top__inner_fact"
-            [style.height.%]="factTankLevel > 87.5? 8 * (factTankLevel - 87.5) : 0"
-        ></div>
-        <div 
-            class="top__inner_plan"
-            [style.height.%]="planTankLevel > 87.5? 8 * (planTankLevel - 87.5) : 0"
-        ></div>
+      <div class="top__inner_fact" [style.height.%]="factTankLevel > 87.5? 8 * (factTankLevel - 87.5) : 0"></div>
+      <div class="top__inner_plan" [style.height.%]="planTankLevel > 87.5? 8 * (planTankLevel - 87.5) : 0"></div>
     </div>
     <div class="mid">
-        <div
-            class="mid__inner_fact"
-            [style.height.%]="factTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (factTankLevel - 12.5) : 0"
-        ></div>
-        <div
-            class="mid__inner_plan"
-            [style.height.%]="planTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (planTankLevel - 12.5) : 0"
-        ></div>
-        <div class="mid-line mid-line__top"></div>
-        <div class="mid-line mid-line__bottom"></div>
+      <div
+        class="mid__inner_fact"
+        [style.height.%]="factTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (factTankLevel - 12.5) : 0"
+      ></div>
+      <div
+        class="mid__inner_plan"
+        [style.height.%]="planTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (planTankLevel - 12.5) : 0"
+      ></div>
+      <div class="mid-line mid-line__top"></div>
+      <div class="mid-line mid-line__bottom"></div>
     </div>
     <div class="bottom">
-        <div
-            class="bottom__inner_fact"
-            [style.height.%]="factTankLevel >= 12.5? 100: 8 * factTankLevel"></div>
-        <div
-            class="bottom__inner_plan"
-            [style.height.%]="planTankLevel >= 12.5? 100: 8 * planTankLevel"></div>
+      <div class="bottom__inner_fact" [style.height.%]="factTankLevel >= 12.5? 100: 8 * factTankLevel"></div>
+      <div class="bottom__inner_plan" [style.height.%]="planTankLevel >= 12.5? 100: 8 * planTankLevel"></div>
     </div>
   </div>
   <!--circle-->

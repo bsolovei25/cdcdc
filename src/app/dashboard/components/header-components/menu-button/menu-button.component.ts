@@ -5,10 +5,11 @@ import { AuthService } from '@core/service/auth.service';
 import { IAlertPasswordModel } from '@shared/models/alert-password.model';
 import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
-import { ThemeConfiguratorService } from "@core/service/theme-configurator.service";
+import { ThemeConfiguratorService } from '@core/service/theme-configurator.service';
 
 interface IMenuItem {
     name: string;
+    icon: string;
     action: (...args: any) => void;
 }
 
@@ -20,6 +21,7 @@ interface IMenuItem {
 export class MenuButtonComponent implements OnInit, OnDestroy {
     public data: IUser;
     public isDropdownShowing: boolean = false;
+    public isDarkTheme: boolean;
 
     public menuItems: IMenuItem[] = [];
 
@@ -29,12 +31,16 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         public overlayService: OverlayService,
         private router: Router,
         private authService: AuthService,
-        private themeService: ThemeConfiguratorService,
+        private themeService: ThemeConfiguratorService
     ) {}
 
     public ngOnInit(): void {
         this.setMenuItems();
         this.loadData();
+        this.themeService.isDarkTheme.subscribe((value) => {
+            this.isDarkTheme = value;
+            this.setMenuItems();
+        });
     }
 
     public ngOnDestroy(): void {
@@ -54,24 +60,27 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
             {
                 name: 'Полный экран',
                 action: this.fullScreen,
+                icon: 'fullScreen',
             },
             {
                 name: 'Изменение пароля',
                 action: this.resetPassword.bind(this),
+                icon: 'password',
             },
             {
                 name: 'Изменение темы',
                 action: this.themeService.changeTheme.bind(this.themeService),
+                icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme',
             },
             {
                 name: 'Выйти',
                 action: this.logOut.bind(this),
+                icon: 'logOut',
             },
         ];
     }
 
     private switchTheme(): void {
-        // console.log(this.themeService.theme);
         this.themeService.changeTheme();
     }
 
@@ -98,9 +107,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data?.sid) {
-                    const idx: number = this.menuItems.findIndex(
-                        (item) => item.name === 'Изменение пароля'
-                    );
+                    const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение пароля');
                     this.menuItems.splice(idx, 1);
                 } else {
                     this.setMenuItems();

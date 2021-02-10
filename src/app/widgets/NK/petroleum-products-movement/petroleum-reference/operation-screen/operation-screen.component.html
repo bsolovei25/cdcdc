@@ -10,89 +10,82 @@
   <evj-petroleum-unity></evj-petroleum-unity>
 </div>
 <div class="table_operations">
-<!--  <div class="reference_title">-->
-<!--    <ng-container *ngFor="let item of dictionary">-->
-<!--      <div class="title_block">-->
-<!--        <div class="title" >-->
-<!--          <div style="cursor: pointer" (click)="showFilter(item)">-->
-<!--            {{ item.title }}-->
-<!--          </div>-->
-<!--          <div style="position: relative">-->
-<!--            <svg-icon class="filter_icon" [svgStyle]="{ 'width.px':12, 'height.px':12 }" src="assets/icons/SearchFilter.svg"></svg-icon>-->
-<!--            <div *ngIf="item.filter.isActive" class="filter_block">-->
-<!--              <evj-filter-popup></evj-filter-popup>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!--  </div>-->
-<!--  <div class="reference_values_short">-->
-<!--    <ng-container *ngFor="let item of this.petroleumService.transfers$ | async">-->
-<!--      <div-->
-<!--        class="values_block"-->
-<!--        [class.values_block__active]="item.isActive"-->
-<!--        (click)="transferClick(item.uid)"-->
-<!--      >-->
-<!--        <ng-container *ngFor="let key of keys">-->
-<!--          <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">-->
-<!--            <ng-container *ngIf="item[key]">-->
-<!--              <div class="values">-->
-<!--                <div class="value">-->
-<!--                  <div class="date">-->
-<!--                    {{ (key === 'startTime' ? item.startTime : item.endTime) | date:'dd.MM.yyyy | HH:mm:ss' }}-->
-<!--                  </div>-->
-<!--                  <div class="operator">-->
-<!--                    {{ (key === 'startTime' ? item.sourceClient : item.destinationClient) }}-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </ng-container>-->
-<!--            <ng-container *ngIf="!item[key]">-->
-<!--              <div class="values">-->
-<!--                <div class="value">-->
-<!--                  <svg-icon-->
-<!--                    src="assets/icons/widgets/petroleum-products-movement/Voskl.svg"-->
-<!--                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"-->
-<!--                  >-->
-<!--                  </svg-icon>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </ng-container>-->
-<!--          </ng-container>-->
-<!--          <ng-container-->
-<!--            *ngIf="-->
-<!--            (key !== 'endTime') &&-->
-<!--            (key !== 'startTime') &&-->
-<!--            (key !== 'sourceClient') &&-->
-<!--            (key !== 'destinationClient') &&-->
-<!--            (key !== 'uid')"-->
-<!--          >-->
-<!--            <div class="values">-->
-<!--              <div class="value">-->
-<!--                {{ item[key] }}-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </ng-container>-->
-<!--        </ng-container>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!--  </div>-->
-  <evj-transfer-table
-    [transfers]="this.petroleumService.transfers$ | async"
-    [dictionary]="dictionary"
-  >
+  <!--  <div class="reference_title">-->
+  <!--    <ng-container *ngFor="let item of dictionary">-->
+  <!--      <div class="title_block">-->
+  <!--        <div class="title" >-->
+  <!--          <div style="cursor: pointer" (click)="showFilter(item)">-->
+  <!--            {{ item.title }}-->
+  <!--          </div>-->
+  <!--          <div style="position: relative">-->
+  <!--            <svg-icon class="filter_icon" [svgStyle]="{ 'width.px':12, 'height.px':12 }" src="assets/icons/SearchFilter.svg"></svg-icon>-->
+  <!--            <div *ngIf="item.filter.isActive" class="filter_block">-->
+  <!--              <evj-filter-popup></evj-filter-popup>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </ng-container>-->
+  <!--  </div>-->
+  <!--  <div class="reference_values_short">-->
+  <!--    <ng-container *ngFor="let item of this.petroleumService.transfers$ | async">-->
+  <!--      <div-->
+  <!--        class="values_block"-->
+  <!--        [class.values_block__active]="item.isActive"-->
+  <!--        (click)="transferClick(item.uid)"-->
+  <!--      >-->
+  <!--        <ng-container *ngFor="let key of keys">-->
+  <!--          <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">-->
+  <!--            <ng-container *ngIf="item[key]">-->
+  <!--              <div class="values">-->
+  <!--                <div class="value">-->
+  <!--                  <div class="date">-->
+  <!--                    {{ (key === 'startTime' ? item.startTime : item.endTime) | date:'dd.MM.yyyy | HH:mm:ss' }}-->
+  <!--                  </div>-->
+  <!--                  <div class="operator">-->
+  <!--                    {{ (key === 'startTime' ? item.sourceClient : item.destinationClient) }}-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--            </ng-container>-->
+  <!--            <ng-container *ngIf="!item[key]">-->
+  <!--              <div class="values">-->
+  <!--                <div class="value">-->
+  <!--                  <svg-icon-->
+  <!--                    src="assets/icons/widgets/petroleum-products-movement/Voskl.svg"-->
+  <!--                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"-->
+  <!--                  >-->
+  <!--                  </svg-icon>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--            </ng-container>-->
+  <!--          </ng-container>-->
+  <!--          <ng-container-->
+  <!--            *ngIf="-->
+  <!--            (key !== 'endTime') &&-->
+  <!--            (key !== 'startTime') &&-->
+  <!--            (key !== 'sourceClient') &&-->
+  <!--            (key !== 'destinationClient') &&-->
+  <!--            (key !== 'uid')"-->
+  <!--          >-->
+  <!--            <div class="values">-->
+  <!--              <div class="value">-->
+  <!--                {{ item[key] }}-->
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </ng-container>-->
+  <!--        </ng-container>-->
+  <!--      </div>-->
+  <!--    </ng-container>-->
+  <!--  </div>-->
+  <evj-transfer-table [transfers]="this.petroleumService.transfers$ | async" [dictionary]="dictionary">
   </evj-transfer-table>
   <div class="menu">
     <div class="left_button_menu">
-      <div class="all_operation"
-           [class.all_operation__active]="!isOpen"
-           (click)="filterClick(false)">
+      <div class="all_operation" [class.all_operation__active]="!isOpen" (click)="filterClick(false)">
         Все операции за период
       </div>
-      <div class="open_operation"
-           [class.open_operation__active]="isOpen"
-           (click)="filterClick(true)">
+      <div class="open_operation" [class.open_operation__active]="isOpen" (click)="filterClick(true)">
         Только открытые операции
       </div>
     </div>

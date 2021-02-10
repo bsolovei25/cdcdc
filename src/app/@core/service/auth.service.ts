@@ -21,7 +21,6 @@ export interface ITokenData extends IUser {
     providedIn: 'root', // singleton service
 })
 export class AuthService {
-
     private readonly publicKey: string = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDObZtjxfplZYRgo6TKZM9E6b3R
 VQpXTpKTOiqefTKEpT9//ru1x0rHgqpsjcw1BoXFX3SuYRPn3ijCM/C9WHnc2PDj
 EgGu0KezIxvqE7nCjbHed7pff6fov6ZajFsiwcf2r3oOwCjWMW1ChHP0ZYF2Ai1H
@@ -89,7 +88,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         const body = {
             username: this.user$.getValue().login,
             encryptPass,
-            encryptOldPass
+            encryptOldPass,
         };
         return await this.http
             .post<ITokenData>(this.restUrl + `/api/user-management/user/${this.user$.getValue().id}/password`, body)
@@ -106,9 +105,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         // Try get current by token
         try {
             if (this.userSessionToken) {
-                current = await this.http
-                    .get<ITokenData>(this.restUrl + '/api/user-management/current')
-                    .toPromise();
+                current = await this.http.get<ITokenData>(this.restUrl + '/api/user-management/current').toPromise();
                 this.configureUserAuth(current);
                 return current;
             }

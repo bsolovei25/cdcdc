@@ -1,6 +1,6 @@
 <div class="space">
   <div class="space__icon">
-    <img src="assets/icons/widgets/OZSM/ozsm-loading-space/loading-space.svg">
+    <img src="assets/icons/widgets/OZSM/ozsm-loading-space/loading-space.svg" />
   </div>
   <div class="cells">
     <div class="title"><span>Складские помещения</span></div>
@@ -8,14 +8,10 @@
       <ng-container *ngFor="let i of arrayOfCells; index as idx">
         <div class="cell">
           <div class="full" *ngIf="level >= idx+1"></div>
-          <div class="not-full" *ngIf="level >= idx"
-               [ngStyle]="{width: level % 1 * 100 + '%'}"></div>
+          <div class="not-full" *ngIf="level >= idx" [ngStyle]="{width: level % 1 * 100 + '%'}"></div>
         </div>
       </ng-container>
     </div>
   </div>
   <div class="space__percent"><span>{{level * 10 + '%'}}</span></div>
 </div>
-
-
-

@@ -55,7 +55,7 @@ import { WorkerCardComponent } from './components/worker-card/worker-card.compon
         AgGroupWorkerCardComponent,
         SearchWidgetPipe,
         SearchUnitPipe,
-        WorkerCardComponent
+        WorkerCardComponent,
     ],
     imports: [
         CommonModule,

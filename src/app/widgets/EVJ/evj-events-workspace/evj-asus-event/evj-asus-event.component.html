@@ -1,5 +1,9 @@
-<div class="workspace scroll scroll-bar" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
-     [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+<div
+  class="workspace scroll scroll-bar"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
+>
   <div class="workspace__header">
     <div class="workspace__select-container">
       <div class="title">
@@ -35,10 +39,7 @@
               [value]="ewService.event.asusEvent.category"
               [compareWith]="compareFn"
             >
-              <mat-option
-                *ngFor="let category of ewService.asusCategories"
-                [value]="category?.name"
-              >
+              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category?.name">
                 {{ category?.name }}
               </mat-option>
             </mat-select>
@@ -60,10 +61,8 @@
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
             >
-              <mat-option
-                *ngFor="let equipment of ewService.asusEquipments"
-                [value]="equipment.codeSap"
-              >{{ equipment.name }}
+              <mat-option *ngFor="let equipment of ewService.asusEquipments" [value]="equipment.codeSap"
+                >{{ equipment.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -78,12 +77,9 @@
         <div class="event-mat-select">
           <div class="{{ewService.event.priority.name}}">
             <mat-form-field appearance="none">
-              <mat-select
-                [(ngModel)]="ewService.event.priority"
-                [compareWith]="compareFn"
-              >
+              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
                 <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                >{{ ewService.priorities[p.name] }}
+                  >{{ ewService.priorities[p.name] }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -98,9 +94,7 @@
       <div class="title">
         <span>Статус</span>
       </div>
-      <evj-events-workspace-select
-        [dataType]="'status'"
-      ></evj-events-workspace-select>
+      <evj-events-workspace-select [dataType]="'status'"></evj-events-workspace-select>
     </div>
     <div class="workspace__select-container">
       <div class="title">
@@ -115,9 +109,7 @@
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
-              <mat-option *ngFor="let p of ewService.asusUnits$ | async" [value]="p.codeSap"
-              >{{ p.name }}
-              </mat-option>
+              <mat-option *ngFor="let p of ewService.asusUnits$ | async" [value]="p.codeSap">{{ p.name }} </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -129,14 +121,9 @@
       </div>
       <div class="mat-form-category">
         <div class="event-mat-select">
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.asusEvent.eoService"
-          >
-            <mat-option
-              *ngFor="let eoService of ewService.asusEOServices"
-              [value]="eoService.codeSap"
-            >{{ eoService.name }}
+          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.asusEvent.eoService">
+            <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
+              >{{ eoService.name }}
             </mat-option>
           </mat-select>
         </div>
@@ -154,10 +141,8 @@
     </div>
   </div>
 
-
   <div class="workspace__third">
     <div class="workspace__third__right">
-
       <div class="description">
         <div class="title">
           <span>Краткое описание</span>
@@ -187,7 +172,6 @@
     </div>
 
     <div class="workspace__third__right">
-
       <div class="place-date">
         <div class="workspace__select-different">
           <div class="creator">
@@ -195,12 +179,9 @@
               <span>Дата регистрации</span>
             </div>
             <div class="creator__field">
-            <span>
-              {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}
-            </span>
+              <span> {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }} </span>
             </div>
           </div>
-
         </div>
         <div class="workspace__select-container">
           <div class="creator">
@@ -210,14 +191,11 @@
             <div class="creator__field">
               <div class="block">
                 <span>
-                  {{ this.ewService.event.fixedBy?.displayName ?
-                  this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
-                  'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+                  {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName ===
+                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
                 </span>
                 <ng-container *ngIf="this.ewService.event.fixedBy?.positionDescription">
-                  <span class="block__position">
-                    {{this.ewService.event.fixedBy?.positionDescription}}
-                  </span>
+                  <span class="block__position"> {{this.ewService.event.fixedBy?.positionDescription}} </span>
                 </ng-container>
               </div>
             </div>
@@ -225,9 +203,7 @@
         </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select>
-
-        </evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select> </evj-events-workspace-responsible-select>
       </div>
       <div class="decision">
         <div class="title">

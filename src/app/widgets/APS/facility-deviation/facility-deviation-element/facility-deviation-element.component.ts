@@ -4,12 +4,10 @@ import { IFacilityDeviationElement } from '../../../../dashboard/models/APS/faci
 @Component({
     selector: 'evj-facility-deviation-element',
     templateUrl: './facility-deviation-element.component.html',
-    styleUrls: ['./facility-deviation-element.component.scss']
+    styleUrls: ['./facility-deviation-element.component.scss'],
 })
 export class FacilityDeviationElementComponent implements OnInit {
-
     @Input() data: IFacilityDeviationElement = null;
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 }

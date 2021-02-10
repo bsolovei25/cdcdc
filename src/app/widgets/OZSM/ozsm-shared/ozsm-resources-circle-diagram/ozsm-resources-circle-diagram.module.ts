@@ -7,16 +7,8 @@ import { OzsmResourcesCircleDiagramVisualComponent } from './components/ozsm-res
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
-    declarations: [
-        OzsmResourcesCircleDiagramComponent,
-        OzsmResourcesCircleDiagramVisualComponent
-    ],
-    imports: [
-        CommonModule, 
-        HttpClientModule,
-        SharedModule,
-        AngularSvgIconModule.forRoot()
-    ]
+    declarations: [OzsmResourcesCircleDiagramComponent, OzsmResourcesCircleDiagramVisualComponent],
+    imports: [CommonModule, HttpClientModule, SharedModule, AngularSvgIconModule.forRoot()],
 })
 export class OzsmResourcesCircleDiagramModule {
     enterComponent = OzsmResourcesCircleDiagramComponent;

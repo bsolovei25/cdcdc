@@ -9,10 +9,7 @@ import {
     operationTransferStatusNameMap,
     IOilOperationsPassport,
 } from 'src/app/dashboard/models/oil-operations';
-import {
-    IOilOperationsOptions,
-    OilOperationsService
-} from 'src/app/dashboard/services/widgets/oil-operations.service';
+import { IOilOperationsOptions, OilOperationsService } from 'src/app/dashboard/services/widgets/oil-operations.service';
 import { ITableGridFilter } from 'src/app/dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 import { OilTransferService } from './oil-transfer.service';
@@ -34,10 +31,9 @@ export interface IOilOperationsButton {
 @Component({
     selector: 'evj-oil-operations',
     templateUrl: './oil-operations.component.html',
-    styleUrls: ['./oil-operations.component.scss']
+    styleUrls: ['./oil-operations.component.scss'],
 })
 export class OilOperationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public isOpenReceived: boolean = false;
     public isOpenShipment: boolean = false;
 
@@ -62,41 +58,41 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             {
                 id: 1,
                 name: 'Открыть график',
-                type: 'line'
+                type: 'line',
             },
             {
                 id: 2,
                 name: 'Редактировать ёмкости',
-                type: 'filter'
+                type: 'filter',
             },
             {
                 id: 4,
                 name: 'Публикация в БЛПС',
-                type: 'blps'
-            }
+                type: 'blps',
+            },
         ],
         shipment: [
             {
                 id: 1,
                 name: 'Автоматическая привязка отгрузок',
-                type: 'autoAssign'
+                type: 'autoAssign',
             },
             {
                 id: 2,
                 name: 'Свободные отгрузки',
                 value: 0,
-                type: 'free'
+                type: 'free',
             },
             {
                 id: 3,
                 name: 'Привязать отгрузки',
-                type: 'manualAssign'
+                type: 'manualAssign',
             },
             {
                 id: 4,
                 name: 'Создать корректировку',
-                type: 'adjust'
-            }
+                type: 'adjust',
+            },
         ],
         tableRight: [],
         filter: [],
@@ -145,15 +141,13 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this))
-        );
+        this.subscriptions.push(this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this)));
     }
 
     private async getFilterList(filter: 'products' | 'groups'): Promise<void> {
         const values = await this.oilOperationService.getFilterList<IOilFilter[]>(filter);
         console.log(values, filter);
-        this.availableFilters.forEach(availableFilter => {
+        this.availableFilters.forEach((availableFilter) => {
             if (availableFilter.type === filter) {
                 availableFilter.data = values;
             }
@@ -165,7 +159,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         if (!dates) {
             dates = {
                 fromDateTime: new Date(),
-                toDateTime: new Date()
+                toDateTime: new Date(),
             };
             dates.toDateTime.setHours(23, 59, 59);
             dates.fromDateTime.setHours(0, 0, 0);
@@ -180,7 +174,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             }),
             this.getRightTable().then((ref) => {
                 this.data.tableRight = ref;
-            }),
+            })
         );
         await Promise.all(dataLoadQueue);
     }
@@ -221,7 +215,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             dates: {
                 startTime: this.currentDates.fromDateTime,
                 endTime: this.currentDates.toDateTime,
-            }
+            },
         };
         if (this.filterGroup) {
             options.group = this.filterGroup;
@@ -265,10 +259,13 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             msg = 'Операция была опубликована прежде';
         }
         if (this.selectedTransfer && !this.selectedTransfer.published) {
-            const result = await this.oilOperationService.operationToBlbs(this.selectedTransfer.id, this.selectedTransfer.originalId);
+            const result = await this.oilOperationService.operationToBlbs(
+                this.selectedTransfer.id,
+                this.selectedTransfer.originalId
+            );
             msg = result ? 'Успешно' : 'Не отправлено';
             if (result) {
-                this.data.tableLeft.forEach(item => {
+                this.data.tableLeft.forEach((item) => {
                     if (item.id === this.selectedTransfer.id) {
                         item.published = true;
                     }
@@ -326,10 +323,12 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             EndTime: dates?.toDateTime,
         };
         const stat = await this.oilOperationService.getShipmentStatistic(options);
-        this.data.shipment.filter(item => item.type === 'free').forEach(item => {
-            item.value = stat.quantity;
-            this.freeShipmentsQuantity = stat.quantity;
-        });
+        this.data.shipment
+            .filter((item) => item.type === 'free')
+            .forEach((item) => {
+                item.value = stat.quantity;
+                this.freeShipmentsQuantity = stat.quantity;
+            });
     }
 
     public openShipment(name: string): void {
@@ -362,7 +361,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     private async recalcDeviation(): Promise<void> {
         const result = await this.oilOperationService.recalcDeviation<IOilTransfer>(this.selectedTransfer.id);
         if (result) {
-            this.data.tableLeft.find(transfer => {
+            this.data.tableLeft.find((transfer) => {
                 if (transfer.id === this.selectedTransfer.id) {
                     transfer.deviation = result.deviation;
                 }
@@ -393,7 +392,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
                 this.openTankLineChart();
                 break;
             default:
-                Object.keys(this.filter).forEach(key => {
+                Object.keys(this.filter).forEach((key) => {
                     this.filter[key] = key === itemActive;
                 });
                 break;
@@ -401,7 +400,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     }
 
     public disabled(): void {
-        Object.keys(this.filter).forEach(item => {
+        Object.keys(this.filter).forEach((item) => {
             this.filter[item] = false;
         });
     }

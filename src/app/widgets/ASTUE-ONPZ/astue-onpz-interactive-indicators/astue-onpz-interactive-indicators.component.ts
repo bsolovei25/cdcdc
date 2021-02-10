@@ -4,9 +4,9 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IAstueOnpzInteractiveIndicators {
-    labels: { id: number; name: string; icon: string, colorIndex: number }[];
+    labels: { id: number; name: string; icon: string; colorIndex: number }[];
     indicators: { name: string; value: number }[];
-    allIndicators: { id: number; name: string; icon: string, colorIndex: number }[];
+    allIndicators: { id: number; name: string; icon: string; colorIndex: number }[];
 }
 
 interface IAstueOnpzIndicatorData {
@@ -30,11 +30,9 @@ interface IAstueOnpzInteractiveIndicator {
 @Component({
     selector: 'evj-astue-onpz-interactive-indicators',
     templateUrl: './astue-onpz-interactive-indicators.component.html',
-    styleUrls: ['./astue-onpz-interactive-indicators.component.scss']
+    styleUrls: ['./astue-onpz-interactive-indicators.component.scss'],
 })
-export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
-
+export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     private readonly colorIndexCount: number = 6; // доступное количество color index
 
     public data: IAstueOnpzIndicatorData = null;
@@ -91,8 +89,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
                 value: ref.indicators[i],
                 colorIndex,
                 isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
-                isChoosing: !!this.currentIndicators?.find((ind) =>
-                    ind.key === i && ind.isChoosing)
+                isChoosing: !!this.currentIndicators?.find((ind) => ind.key === i && ind.isChoosing),
             } as IAstueOnpzInteractiveIndicator);
             if (++colorIndex > this.colorIndexCount - 1) {
                 colorIndex = 0;
@@ -101,7 +98,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
         ref.indicators = indicators;
         this.data = ref;
         if (!isHasData) {
-            this.data.indicators.forEach(value => {
+            this.data.indicators.forEach((value) => {
                 if (value.key === 'FactValue' || value.key === 'PlanValue') {
                     this.chooseIndicator(value.key);
                 }
@@ -132,8 +129,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
         this.astueOnpzService.updateIndicatorFilter(key, 'delete');
     }
 
-    public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator
-    ): void {
+    public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator): void {
         event?.stopPropagation();
         const indicator = this.data.indicators.find((i) => i.key === item.key);
         if (indicator) {

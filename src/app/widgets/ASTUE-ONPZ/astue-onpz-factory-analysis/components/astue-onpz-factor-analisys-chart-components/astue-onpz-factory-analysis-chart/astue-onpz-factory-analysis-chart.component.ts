@@ -1,10 +1,12 @@
 import {
     Component,
-    ElementRef, EventEmitter,
+    ElementRef,
+    EventEmitter,
     HostListener,
     Input,
     OnChanges,
-    OnInit, Output,
+    OnInit,
+    Output,
     Renderer2,
     SimpleChanges,
 } from '@angular/core';
@@ -37,13 +39,16 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     private scroll: { left: number; right: number } = { left: 0, right: 0 };
 
     @Input()
-    public graphData: { name: string; graph: IMultiChartLine[]; } = { name: '', graph: [], };
+    public graphData: { name: string; graph: IMultiChartLine[] } = { name: '', graph: [] };
 
     @Input()
     public selectedPeriod: IDatesInterval | null = null;
 
     @Output()
-    public planFactValues: EventEmitter<{ fact: number; plan: number }> = new EventEmitter<{ fact: number; plan: number }>();
+    public planFactValues: EventEmitter<{ fact: number; plan: number }> = new EventEmitter<{
+        fact: number;
+        plan: number;
+    }>();
 
     public factDataset: {
         x: Date;
@@ -88,17 +93,14 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
     private eventListenerFn: () => void = null;
 
-    private curves: {type: LineType, curve: Selection}[] = [];
+    private curves: { type: LineType; curve: Selection }[] = [];
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
         this.initSvgDraw();
     }
 
-    constructor(
-        private hostElement: ElementRef,
-        private renderer: Renderer2,
-        ) {}
+    constructor(private hostElement: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.initSvgDraw();
@@ -143,25 +145,31 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             this.lowDataset = DATA_SOURCE_LOWER_BORDER;
             this.highDataset = DATA_SOURCE_HIGHER_BORDER;
         } else {
-            this.graphData?.graph.forEach(item => {
-                const array = item.graph.map(graphItem => {
-                  return { x: new Date(graphItem.timeStamp), y: graphItem.value };
+            this.graphData?.graph.forEach((item) => {
+                const array = item.graph.map((graphItem) => {
+                    return { x: new Date(graphItem.timeStamp), y: graphItem.value };
                 });
-                if (item.graphType === 'plan') { this.planDataset = array; }
-                if (item.graphType === 'fact') { this.factDataset = array; }
-                if (item.graphType === 'lowerBorder') { this.lowDataset = array; }
-                if (item.graphType === 'higherBorder') { this.highDataset = array; }
+                if (item.graphType === 'plan') {
+                    this.planDataset = array;
+                }
+                if (item.graphType === 'fact') {
+                    this.factDataset = array;
+                }
+                if (item.graphType === 'lowerBorder') {
+                    this.lowDataset = array;
+                }
+                if (item.graphType === 'higherBorder') {
+                    this.highDataset = array;
+                }
             });
         }
 
-        const dataArray = [].concat.apply([], [
-            this.factDataset,
-            this.planDataset,
-            this.lowDataset,
-            this.highDataset,
-        ].filter(item => item.length));
+        const dataArray = [].concat.apply(
+            [],
+            [this.factDataset, this.planDataset, this.lowDataset, this.highDataset].filter((item) => item.length)
+        );
 
-        [this.sizeY.min, this.sizeY.max] = d3.extent(dataArray.map(item => item.y));
+        [this.sizeY.min, this.sizeY.max] = d3.extent(dataArray.map((item) => item.y));
         this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
         this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
 
@@ -258,10 +266,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             this.svg = null;
         }
 
-        this.svg = d3
-            .select(this.hostElement.nativeElement)
-            .select('svg')
-            .append('g');
+        this.svg = d3.select(this.hostElement.nativeElement).select('svg').append('g');
         this.svg.attr('viewBox', `0 0 ${this.size.width} ${this.size.height}`);
     }
 
@@ -271,9 +276,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 .append('g')
                 .attr(
                     'transform',
-                    `translate(${this.margin.left},  ${
-                        type === 'x' ? this.size.height - this.margin.bottom : 0
-                    })`
+                    `translate(${this.margin.left},  ${type === 'x' ? this.size.height - this.margin.bottom : 0})`
                 )
                 .attr('class', 'axis')
                 .call(
@@ -286,9 +289,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 .call((g) => g.select('.domain').remove());
             axis.select('path.domain').remove();
             axis.selectAll('g.tick line').remove();
-            axis.selectAll('g.tick')._groups[0][
-                axis.selectAll('g.tick')._groups[0].length - 1
-            ].remove();
+            axis.selectAll('g.tick')._groups[0][axis.selectAll('g.tick')._groups[0].length - 1].remove();
 
             if (type === 'x') {
                 axis.selectAll('g.tick')._groups[0][0].remove();
@@ -305,7 +306,11 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
         drawAxis('x', d3.axisBottom(this.scales.x));
         drawAxis('y', d3.axisLeft(this.scales.y));
 
-        [this.sizeXCoord.min, this.sizeXCoord.max] = d3.extent([...this.factDataset, ...this.planDataset, ...this.lowDataset, ...this.highDataset].map(item => this.scales.x(item.x)));
+        [this.sizeXCoord.min, this.sizeXCoord.max] = d3.extent(
+            [...this.factDataset, ...this.planDataset, ...this.lowDataset, ...this.highDataset].map((item) =>
+                this.scales.x(item.x)
+            )
+        );
     }
 
     private drawGrid(): void {
@@ -320,9 +325,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             .append('g')
             .attr(
                 'transform',
-                `translate(${this.margin.left}, ${this.size.height -
-                    this.margin.top -
-                    this.margin.bottom})`
+                `translate(${this.margin.left}, ${this.size.height - this.margin.top - this.margin.bottom})`
             )
             .call(
                 d3
@@ -399,12 +402,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 if (idx === 0) {
                     return;
                 }
-                this.appendCurveDataCircle(
-                    2,
-                    this.scales.x(d.x),
-                    this.scales.y(d.y),
-                    `circle circle_${type}`
-                );
+                this.appendCurveDataCircle(2, this.scales.x(d.x), this.scales.y(d.y), `circle circle_${type}`);
             });
         }
 
@@ -434,10 +432,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     }
 
     private drawDaysThreshold(): void {
-        const xArr = this.getBorderCoords(
-            this.selectedPeriod.fromDateTime,
-            this.selectedPeriod.toDateTime,
-        );
+        const xArr = this.getBorderCoords(this.selectedPeriod.fromDateTime, this.selectedPeriod.toDateTime);
         const topOffset = this.size.height - this.margin.bottom;
         xArr.forEach((x) => {
             this.svg
@@ -449,10 +444,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 .attr('y2', this.scales.y(this.sizeY.min));
             this.svg
                 .append('path')
-                .attr(
-                    'd',
-                    `M ${x - 4} ${topOffset} L ${x + 4} ${topOffset} L ${x} ${topOffset - 4} z`
-                )
+                .attr('d', `M ${x - 4} ${topOffset} L ${x + 4} ${topOffset} L ${x} ${topOffset - 4} z`)
                 .attr('class', 'month-threshold');
         });
     }
@@ -485,9 +477,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 this.toggleFloatingDayThreshold('enable');
                 const rect: DOMRect = element.getBoundingClientRect();
                 this.positionMouse = event.clientX - rect.left;
-                this.svg.select('.mouse-line')
-                    .attr('x1', this.positionMouse)
-                    .attr('x2', this.positionMouse);
+                this.svg.select('.mouse-line').attr('x1', this.positionMouse).attr('x2', this.positionMouse);
                 const formatDate = d3.timeFormat('%H:%M');
                 if (this.positionMouse >= this.sizeXCoord.min && this.positionMouse <= this.sizeXCoord.max) {
                     this.setChartInfoValues(this.getValuesAtX(this.positionMouse));
@@ -512,7 +502,9 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
         const node = path.node();
         const pathLength = node.getTotalLength();
 
-        if (pathLength <= 0) { return; } // валидация path на пустоту
+        if (pathLength <= 0) {
+            return;
+        } // валидация path на пустоту
 
         let start = 0;
         let end = pathLength;

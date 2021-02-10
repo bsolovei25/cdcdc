@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-kpe-table-header',
-  templateUrl: './kpe-table-header.component.html',
-  styleUrls: ['./kpe-table-header.component.scss']
+    selector: 'evj-kpe-table-header',
+    templateUrl: './kpe-table-header.component.html',
+    styleUrls: ['./kpe-table-header.component.scss'],
 })
 export class KpeTableHeaderComponent implements OnInit {
     @Input() page: 'development' | 'loading' = null;

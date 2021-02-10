@@ -14,8 +14,7 @@ import { map } from 'rxjs/operators';
     templateUrl: './ozsm-line-diagrams.component.html',
     styleUrls: ['./ozsm-line-diagrams.component.scss'],
 })
-export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IOZSMLineDiagram[] = [];
 
     constructor(

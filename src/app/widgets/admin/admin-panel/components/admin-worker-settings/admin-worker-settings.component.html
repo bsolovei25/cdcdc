@@ -4,11 +4,7 @@
   <div class="admin__header">
     <div class="header__search">
       <div class="search">
-        <evj-input
-          class="insert-component"
-          [options]="inputOptions"
-          [(ngModel)]="searchingFieldName"
-        ></evj-input>
+        <evj-input class="insert-component" [options]="inputOptions" [(ngModel)]="searchingFieldName"></evj-input>
       </div>
     </div>
     <div class="header__title">
@@ -38,18 +34,8 @@
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
-        <div
-          class="card"
-          [ngClass]="{'card-active':isClaimsShowing}"
-          (click)="isClaimsShowing=true"
-        >
-          Права
-        </div>
-        <div
-          class="card"
-          [ngClass]="{'card-active':!isClaimsShowing}"
-          (click)="isClaimsShowing=false"
-        >
+        <div class="card" [ngClass]="{'card-active':isClaimsShowing}" (click)="isClaimsShowing=true">Права</div>
+        <div class="card" [ngClass]="{'card-active':!isClaimsShowing}" (click)="isClaimsShowing=false">
           Доступные рабочие области
         </div>
       </div>
@@ -63,11 +49,7 @@
     </div>
     <div class="worker__column worker__main">
       <div class="avatar">
-        <div
-          class="frame"
-          (mouseenter)="isAvatarButtonShowing=true"
-          (mouseleave)="isAvatarButtonShowing=false"
-        >
+        <div class="frame" (mouseenter)="isAvatarButtonShowing=true" (mouseleave)="isAvatarButtonShowing=false">
           <img [src]="returnPhotoPath()" class="photo" />
           <div
             class="photo__add"
@@ -98,7 +80,6 @@
       <div class="title title__special">Специальные права</div>
       <div class="create-special-claim" (click)="createSpecialClaim()"></div>
       <div class="list">
-
         <ng-container *ngFor="let claim of allSpecialClaims">
           <div
             class="list__claim"
@@ -111,11 +92,9 @@
             </div>
             <div class="claim__items" *ngIf="claim?.claimName">
               <ng-container *ngFor="let item of getSelectedSpecialClaims(claim)">
-                <div class="claim__item"> {{ item.description }}
-                  <div
-                    class="claim__button claim__button-delete"
-                    (click)="onRemoveSpecialClaim(item)"
-                  >
+                <div class="claim__item">
+                  {{ item.description }}
+                  <div class="claim__button claim__button-delete" (click)="onRemoveSpecialClaim(item)">
                     <img alt="" src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
                   </div>
                 </div>

@@ -1,12 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    HostListener,
-    Input,
-    OnChanges,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
 
@@ -21,7 +13,7 @@ export interface IDeviationDiagramData {
 @Component({
     selector: 'evj-kpe-deviation-diagram',
     templateUrl: './kpe-deviation-diagram.component.html',
-    styleUrls: ['./kpe-deviation-diagram.component.scss']
+    styleUrls: ['./kpe-deviation-diagram.component.scss'],
 })
 export class KpeDeviationDiagramComponent implements OnChanges {
     @Input()
@@ -53,7 +45,7 @@ export class KpeDeviationDiagramComponent implements OnChanges {
         y: number;
     }[] = [];
 
-    public size: { width: number | null; height: number | null; } = { width: null, height: null };
+    public size: { width: number | null; height: number | null } = { width: null, height: null };
 
     public scales: { x: any; y: any } = { x: null, y: null };
 
@@ -61,8 +53,12 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     public sizeY: { min: number; max: number } = { min: 0, max: 0 };
 
-    private readonly padding: { top: number, right: number, bottom: number, left: number } =
-        { top: 10, right: 5, bottom: 20, left: 27 };
+    private readonly padding: { top: number; right: number; bottom: number; left: number } = {
+        top: 10,
+        right: 5,
+        bottom: 20,
+        left: 27,
+    };
 
     private day: number | null = null;
 
@@ -77,8 +73,11 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     }
 
     private configChartArea(): void {
-        this.sizeX.max =
-            new Date((new Date(this.currentMonth)).getFullYear(), (new Date(this.currentMonth)).getMonth() + 1, 0).getDate();
+        this.sizeX.max = new Date(
+            new Date(this.currentMonth).getFullYear(),
+            new Date(this.currentMonth).getMonth() + 1,
+            0
+        ).getDate();
     }
 
     @AsyncRender
@@ -100,24 +99,27 @@ export class KpeDeviationDiagramComponent implements OnChanges {
         this.factDataset = [];
         this.planDataset = [];
 
-        this.data.forEach(item => {
+        this.data.forEach((item) => {
             if (item.factValue !== 0) {
-                this.factDataset.push({x: item.day, y: item.factValue});
+                this.factDataset.push({ x: item.day, y: item.factValue });
             }
-            this.planDataset.push({x: item.day, y: item.planValue});
+            this.planDataset.push({ x: item.day, y: item.planValue });
         });
 
         if (this.factDataset.length && this.planDataset.length) {
-            [this.sizeY.min, this.sizeY.max] = d3.extent([...this.factDataset, ...this.planDataset].map(item => item.y));
+            [this.sizeY.min, this.sizeY.max] = d3.extent(
+                [...this.factDataset, ...this.planDataset].map((item) => item.y)
+            );
             this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
             this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
-            this.day = d3.max(this.factDataset.map(item => item.x));
+            this.day = d3.max(this.factDataset.map((item) => item.x));
         }
     }
 
     private drawRectLeft(): void {
         if (this.factDataset.length) {
-            this.svg.append('rect')
+            this.svg
+                .append('rect')
                 .attr('x', this.scales.x(this.day))
                 .attr('y', this.scales.y(this.sizeY.max))
                 .attr('width', this.scales.x(this.sizeX.max) - this.scales.x(this.day))
@@ -129,14 +131,16 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     private initScale(): void {
         this.size = {
             width: this.chart.nativeElement.clientWidth,
-            height: this.chart.nativeElement.clientHeight
+            height: this.chart.nativeElement.clientHeight,
         };
 
-        this.scales.x = d3.scaleLinear()
+        this.scales.x = d3
+            .scaleLinear()
             .domain([this.sizeX.min, this.sizeX.max])
             .range([this.padding.left, this.size.width - this.padding.right]);
 
-        this.scales.y = d3.scaleLinear()
+        this.scales.y = d3
+            .scaleLinear()
             .domain([this.sizeY.min, this.sizeY.max])
             .range([this.size.height - this.padding.bottom, this.padding.top]);
     }
@@ -156,54 +160,59 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     private drawAxises(): void {
         // x
-        this.svg.append('g')
+        this.svg
+            .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`) // 5 - дополнительный отступ
             .attr('class', 'x-axis')
             .call(
-                this.bottomCalendarFull ?
-                    d3.axisBottom(this.scales.x)
-                        .tickSize(0)
-                        .ticks(this.sizeX.max)
-                    :
-                    d3.axisBottom(this.scales.x)
-                        .tickSize(0)
-                        .ticks(8)
-                        .tickValues([
-                            1, 5, 10, 15, 20, 25, this.sizeX.max
-                        ])
+                this.bottomCalendarFull
+                    ? d3.axisBottom(this.scales.x).tickSize(0).ticks(this.sizeX.max)
+                    : d3
+                          .axisBottom(this.scales.x)
+                          .tickSize(0)
+                          .ticks(8)
+                          .tickValues([1, 5, 10, 15, 20, 25, this.sizeX.max])
             )
-            .call(g => g.select('.domain').remove());
+            .call((g) => g.select('.domain').remove());
 
         // y
-        this.svg.append('g')
+        this.svg
+            .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
             .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(3))
-            .call(g => g.select('.domain').remove());
+            .call((g) => g.select('.domain').remove());
     }
 
     private drawGrid(): void {
-        this.svg.append('g')
+        this.svg
+            .append('g')
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom})`)
-            .call(d3.axisBottom(this.scales.x)
-                .ticks(31)
-                .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
-                .tickFormat('')
+            .call(
+                d3
+                    .axisBottom(this.scales.x)
+                    .ticks(31)
+                    .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
+                    .tickFormat('')
             )
             .attr('class', 'grid');
 
-        this.svg.append('g')
+        this.svg
+            .append('g')
             .attr('transform', `translate(${this.padding.left}, 0)`)
-            .call(d3.axisLeft(this.scales.y)
-                .ticks(4)
-                .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
-                .tickFormat('')
+            .call(
+                d3
+                    .axisLeft(this.scales.y)
+                    .ticks(4)
+                    .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
+                    .tickFormat('')
             )
             .attr('class', 'grid');
     }
 
     private appendCircle(r: number, x: number, y: number, className: string): void {
-        this.svg.append('circle')
+        this.svg
+            .append('circle')
             .attr('class', className)
             .attr('r', r)
             .attr('cx', this.scales.x(x))
@@ -211,7 +220,8 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     }
 
     private appendLine(x1: number, x2: number, y1: number, y2: number, className: string): void {
-        this.svg.append('line')
+        this.svg
+            .append('line')
             .attr('class', className)
             .attr('x1', this.scales.x(x1))
             .attr('x2', this.scales.x(x2))
@@ -219,16 +229,14 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             .attr('y2', this.scales.y(y2));
     }
 
-    private drawCurve(dataset: {x: number, y: number}[], className: string): void {
-        const line = d3.line()
+    private drawCurve(dataset: { x: number; y: number }[], className: string): void {
+        const line = d3
+            .line()
             .x((d) => this.scales.x(d.x))
             .y((d) => this.scales.y(d.y))
             .curve(d3.curveLinear);
 
-        this.svg.append('path')
-            .datum(dataset)
-            .attr('class', className)
-            .attr('d', line);
+        this.svg.append('path').datum(dataset).attr('class', className).attr('d', line);
     }
 
     private drawDayThreshold(): void {
@@ -237,15 +245,9 @@ export class KpeDeviationDiagramComponent implements OnChanges {
         if (displayedMonth !== currentMonth) {
             return;
         }
-        this.appendLine(
-            this.day,
-            this.day,
-            this.sizeY.max,
-            this.sizeY.min,
-            'day-threshold-line',
-        );
+        this.appendLine(this.day, this.day, this.sizeY.max, this.sizeY.min, 'day-threshold-line');
 
-        const dayFact = this.factDataset.find(item => item.x === this.day);
+        const dayFact = this.factDataset.find((item) => item.x === this.day);
 
         this.appendCircle(8, this.day, dayFact?.y, 'day-circle-1');
         this.appendCircle(4, this.day, dayFact?.y, 'day-circle-2');
@@ -254,15 +256,9 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     }
 
     private drawDeviations(): void {
-        this.data.forEach(item => {
+        this.data.forEach((item) => {
             if (item.factValue !== item.planValue && item.factValue !== 0) {
-                this.appendLine(
-                    item.day,
-                    item.day,
-                    item.planValue,
-                    item.factValue,
-                    'deviation-line',
-                );
+                this.appendLine(item.day, item.day, item.planValue, item.factValue, 'deviation-line');
 
                 this.appendCircle(3, item.day, item.planValue, 'deviation-circle');
                 this.appendCircle(3, item.day, item.factValue, 'deviation-circle');

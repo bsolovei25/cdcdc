@@ -1,24 +1,14 @@
-<div
-  class="container"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="alert">
     <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
     <div class="button-close" (click)="onClose()"></div>
     <div class="alert__search">
-      <evj-input
-        class="insert-component"
-        [options]="inputOptions"
-        [(ngModel)]="searchedWorker"
-      ></evj-input>
+      <evj-input class="insert-component" [options]="inputOptions" [(ngModel)]="searchedWorker"></evj-input>
     </div>
     <div class="alert__table scroll scroll-bar" (scroll)="onScroll($event)">
       <ng-container *ngIf="!workersLdap.length;else ldapUsers">
-        <div class="table__message">
-          Выполните поиск пользователя
-        </div>
+        <div class="table__message">Выполните поиск пользователя</div>
       </ng-container>
       <ng-template #ldapUsers>
         <div class="table">

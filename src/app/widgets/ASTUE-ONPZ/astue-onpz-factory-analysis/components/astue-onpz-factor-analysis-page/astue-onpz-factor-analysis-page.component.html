@@ -6,10 +6,10 @@
     <div class="line"></div>
   </div>
   <div class="legend">
-    <div *ngIf="!isUnit" class="legend__units"> кг ут/ч </div>
+    <div *ngIf="!isUnit" class="legend__units">кг ут/ч</div>
     <ng-container *ngIf="legendValues$ | async">
       <div class="legend__value-wrapper" *ngFor="let value of (legendValues$ | async)">
-        <div class="legend__value"> {{ (value | number: "0.1-1") || 0 }} </div>
+        <div class="legend__value">{{ (value | number: "0.1-1") || 0 }}</div>
       </div>
     </ng-container>
   </div>

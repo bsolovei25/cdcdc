@@ -1,182 +1,194 @@
 <ng-container>
-    <div class="container">
-        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [icon]="widgetIcon"
-            [id]="widgetId" [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
-        <evj-frame-top></evj-frame-top>
-        <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-            <div class="block">
-                <!-- LEFT-SIDE -->
-                <ng-container *ngIf="!filter.line">
-                    <div class='left-side'>
-                        <evj-table-grid
-                          [scrollLeft]="true"
-                          [data]="data.tableLeft"
-                          [activeFilter]="filter.isFilter"
-                          [filters]="availableFilters"
-                          (clickFilter)="openFilter($event)"
-                          (scrollReachedItemId)="appendOperations($event)"
-                          [itemFixed]="true"
-                          [rowBgColorType]="'dark'"
-                          (item)="selectTransfer($event)"
-                        >
-                            <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
-                            <evj-column-grid key="tankNumber" name="Р-р" [width]="7" [template]="tank">
-                              <ng-template #tank let-data="data">
-                                {{ data.tank?.shortName || '-' }}
-                              </ng-template>
-                            </evj-column-grid>
-                            <evj-column-grid key="product" name="Продукт" [width]="20" [template]="product">
-                              <ng-template #product let-data="data">
-                                {{ data.product?.name || '-' }}
-                              </ng-template>
-                            </evj-column-grid>
-                            <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
-                                <ng-template #passport let-data="data">
-                                    <div class="passport">
-                                        <div class="passport__icon" (click)="selectPassport($event, data.passport)">
-                                            <svg-icon
-                                                src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
-                                                [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }">
-                                            </svg-icon>
-                                        </div>
-                                        <div class="passport__name"> {{ data.passport?.name || '-' }} </div>
-                                    </div>
-                                </ng-template>
-                            </evj-column-grid>
-                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="startTime">
-                              <ng-template #startTime let-data="data">
-                                {{ data.startTime | date:"dd.MM.yyyy | HH:mm" }}
-                              </ng-template>
-                            </evj-column-grid>
-                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="endTime">
-                              <ng-template #endTime let-data="data">
-                                {{ data.endTime | date:"dd.MM.yyyy | HH:mm" }}
-                              </ng-template>
-                            </evj-column-grid>
-                            <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
-                            <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
-                            <evj-column-grid key="status" name="Статус" [width]="7" [template]="status">
-                                <ng-template #status let-data="data">
-                                    <div class="status" [matTooltip]="getStatusDescription(data.status)">
-                                        <div class="status__icon">
-                                            <svg-icon
-                                                [src]="'assets/icons/widgets/oil-control-all/oil-operations/libra-' + data.status + '.svg'"
-                                                [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }">
-                                            </svg-icon>
-                                        </div>
-                                      <div class="status__blps" matTooltip="Опубликовано в БЛПС">
-                                        <svg-icon *ngIf="data.published"
-                                          [src]="'assets/icons/widgets/oil-control-all/oil-operations/blps-flag.svg'"
-                                          [svgStyle]="{ 'width.px':12, 'height.px':12 }">
-                                        </svg-icon>
-                                      </div>
-                                    </div>
-                                </ng-template>
-                            </evj-column-grid>
-                        </evj-table-grid>
+  <div class="container">
+    <evj-widget-header
+      [title]="widgetTitle"
+      [units]="widgetUnits"
+      [code]="widgetCode"
+      [icon]="widgetIcon"
+      [id]="widgetId"
+      [uniqId]="widgetUniqId"
+      [widgetType]="widgetType"
+    ></evj-widget-header>
+    <evj-frame-top></evj-frame-top>
+    <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="block">
+        <!-- LEFT-SIDE -->
+        <ng-container *ngIf="!filter.line">
+          <div class="left-side">
+            <evj-table-grid
+              [scrollLeft]="true"
+              [data]="data.tableLeft"
+              [activeFilter]="filter.isFilter"
+              [filters]="availableFilters"
+              (clickFilter)="openFilter($event)"
+              (scrollReachedItemId)="appendOperations($event)"
+              [itemFixed]="true"
+              [rowBgColorType]="'dark'"
+              (item)="selectTransfer($event)"
+            >
+              <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
+              <evj-column-grid key="tankNumber" name="Р-р" [width]="7" [template]="tank">
+                <ng-template #tank let-data="data"> {{ data.tank?.shortName || '-' }} </ng-template>
+              </evj-column-grid>
+              <evj-column-grid key="product" name="Продукт" [width]="20" [template]="product">
+                <ng-template #product let-data="data"> {{ data.product?.name || '-' }} </ng-template>
+              </evj-column-grid>
+              <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
+                <ng-template #passport let-data="data">
+                  <div class="passport">
+                    <div class="passport__icon" (click)="selectPassport($event, data.passport)">
+                      <svg-icon
+                        src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
+                        [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }"
+                      >
+                      </svg-icon>
                     </div>
-                    <div class='middle-side'>
-                        <div class='middle-side__top'>
-                            <evj-oil-operations-received-operations [data]="data.received" [isOpen]="isOpenReceived"
-                                (openItem)="openReceived($event)">
-                            </evj-oil-operations-received-operations>
-                        </div>
-                        <div class='middle-side__bottom'>
-                            <evj-oil-operations-shipment-formation [data]="data.shipment" [isOpen]="isOpenShipment"
-                                (openItem)="openShipment($event)">
-                            </evj-oil-operations-shipment-formation>
-                        </div>
+                    <div class="passport__name">{{ data.passport?.name || '-' }}</div>
+                  </div>
+                </ng-template>
+              </evj-column-grid>
+              <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="startTime">
+                <ng-template #startTime let-data="data"> {{ data.startTime | date:"dd.MM.yyyy | HH:mm" }} </ng-template>
+              </evj-column-grid>
+              <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="endTime">
+                <ng-template #endTime let-data="data"> {{ data.endTime | date:"dd.MM.yyyy | HH:mm" }} </ng-template>
+              </evj-column-grid>
+              <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
+              <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
+              <evj-column-grid key="status" name="Статус" [width]="7" [template]="status">
+                <ng-template #status let-data="data">
+                  <div class="status" [matTooltip]="getStatusDescription(data.status)">
+                    <div class="status__icon">
+                      <svg-icon
+                        [src]="'assets/icons/widgets/oil-control-all/oil-operations/libra-' + data.status + '.svg'"
+                        [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }"
+                      >
+                      </svg-icon>
                     </div>
-                </ng-container>
-
-                <!-- LINE CHART -->
-                <ng-container *ngIf="filter.line">
-                    <div class="line-side">
-                        <evj-oil-operations-line [selectedTank]="selectedTransfer?.tank" (closeLineChart)="closeReceived($event)" [currentDates]="currentDates"></evj-oil-operations-line>
+                    <div class="status__blps" matTooltip="Опубликовано в БЛПС">
+                      <svg-icon
+                        *ngIf="data.published"
+                        [src]="'assets/icons/widgets/oil-control-all/oil-operations/blps-flag.svg'"
+                        [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                      >
+                      </svg-icon>
                     </div>
-                </ng-container>
-
-                <!-- MANUAL SHIPMENT ASSIGN -->
-                <div *ngIf="filter.manualAssign">
-                  <evj-oil-operations-manual-assign (closeFree)="closeManualAssign($event)" [selectedTransfer]="selectedTransfer"></evj-oil-operations-manual-assign>
-                </div>
-
-                <!-- RIGHT-SIDE -->
-                <div class='right-side'>
-                    <evj-table-grid
-                      [data]="data.tableRight"
-                      [itemFixed]="true"
-                      (item)="selectShipment($event)"
-                    >
-                        <evj-column-grid key="direction" name="Направление" [width]="23" [template]="direction">
-                            <ng-template #direction let-data="data">
-                                <div class="direction">
-                                    <div class="direction__icon">
-                                        <svg-icon
-                                            src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-                                            [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }">
-                                        </svg-icon>
-                                        <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + data.direction + '.png'" class="icon-cistern" [class.manual]="data.direction === 'manual'">
-                                    </div>
-                                    <div class="direction__name"> {{ data.shipmentType?.transportType?.name || '-' }} </div>
-                                </div>
-                            </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="tank" name="Р-р/Стояк" [width]="11" [template]="tank">
-                          <ng-template #tank let-data="data">
-                             {{ data.tank?.shortName || '-' }}
-                          </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="dok" name="Док. №" [width]="8" [template]="dok">
-                          <ng-template #dok let-data="data">
-                            {{ data.documentName || '-' }}
-                          </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="mass" name="Масса" [width]="8"></evj-column-grid>
-                        <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
-                            <ng-template #passport let-data="data">
-                                <div class="passport">
-                                    <div class="passport__icon" (click)="selectPassport($event, data.passport)">
-                                        <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
-                                            [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }"></svg-icon>
-                                    </div>
-                                    <div class="passport__name"> {{ data.passport?.name || '-' }} </div>
-                                </div>
-                            </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="shipped" name="Отгружено" [width]="8" [template]="dateFinish">
-                          <ng-template #dateFinish let-data="data">
-                            {{ (data?.dateFinish | date:"dd.MM.yyyy | HH:mm") || '-' }}
-                          </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>
-                    </evj-table-grid>
-                </div>
+                  </div>
+                </ng-template>
+              </evj-column-grid>
+            </evj-table-grid>
+          </div>
+          <div class="middle-side">
+            <div class="middle-side__top">
+              <evj-oil-operations-received-operations
+                [data]="data.received"
+                [isOpen]="isOpenReceived"
+                (openItem)="openReceived($event)"
+              >
+              </evj-oil-operations-received-operations>
             </div>
-
-            <!-- RIGHT-SIDE -->
-            <div *ngIf="filter.filter">
-                <evj-oil-operations-tank-filter (closeFilterTank)="closeReceived($event)">
-                </evj-oil-operations-tank-filter>
+            <div class="middle-side__bottom">
+              <evj-oil-operations-shipment-formation
+                [data]="data.shipment"
+                [isOpen]="isOpenShipment"
+                (openItem)="openShipment($event)"
+              >
+              </evj-oil-operations-shipment-formation>
             </div>
+          </div>
+        </ng-container>
 
-            <!-- RIGHT-SIDE -->
-            <div *ngIf="filter.adjust">
-                <evj-oil-operations-adjustment
-                  (closeAdjust)="closeShipment($event)"
-                ></evj-oil-operations-adjustment>
-            </div>
+        <!-- LINE CHART -->
+        <ng-container *ngIf="filter.line">
+          <div class="line-side">
+            <evj-oil-operations-line
+              [selectedTank]="selectedTransfer?.tank"
+              (closeLineChart)="closeReceived($event)"
+              [currentDates]="currentDates"
+            ></evj-oil-operations-line>
+          </div>
+        </ng-container>
 
-            <!-- RIGHT-SIDE -->
-            <div *ngIf="filter.free">
-                <evj-oil-operations-free-shipment
-                  (closeFree)="closeShipment($event)"
-                  [currentDates]="currentDates"
-                  [freeShipmentsNumber]="freeShipmentsQuantity"
-                >
-                </evj-oil-operations-free-shipment>
-            </div>
+        <!-- MANUAL SHIPMENT ASSIGN -->
+        <div *ngIf="filter.manualAssign">
+          <evj-oil-operations-manual-assign
+            (closeFree)="closeManualAssign($event)"
+            [selectedTransfer]="selectedTransfer"
+          ></evj-oil-operations-manual-assign>
         </div>
-        <evj-frame-bottom></evj-frame-bottom>
+
+        <!-- RIGHT-SIDE -->
+        <div class="right-side">
+          <evj-table-grid [data]="data.tableRight" [itemFixed]="true" (item)="selectShipment($event)">
+            <evj-column-grid key="direction" name="Направление" [width]="23" [template]="direction">
+              <ng-template #direction let-data="data">
+                <div class="direction">
+                  <div class="direction__icon">
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
+                      [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }"
+                    >
+                    </svg-icon>
+                    <img
+                      [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + data.direction + '.png'"
+                      class="icon-cistern"
+                      [class.manual]="data.direction === 'manual'"
+                    />
+                  </div>
+                  <div class="direction__name">{{ data.shipmentType?.transportType?.name || '-' }}</div>
+                </div>
+              </ng-template>
+            </evj-column-grid>
+            <evj-column-grid key="tank" name="Р-р/Стояк" [width]="11" [template]="tank">
+              <ng-template #tank let-data="data"> {{ data.tank?.shortName || '-' }} </ng-template>
+            </evj-column-grid>
+            <evj-column-grid key="dok" name="Док. №" [width]="8" [template]="dok">
+              <ng-template #dok let-data="data"> {{ data.documentName || '-' }} </ng-template>
+            </evj-column-grid>
+            <evj-column-grid key="mass" name="Масса" [width]="8"></evj-column-grid>
+            <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
+              <ng-template #passport let-data="data">
+                <div class="passport">
+                  <div class="passport__icon" (click)="selectPassport($event, data.passport)">
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
+                      [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }"
+                    ></svg-icon>
+                  </div>
+                  <div class="passport__name">{{ data.passport?.name || '-' }}</div>
+                </div>
+              </ng-template>
+            </evj-column-grid>
+            <evj-column-grid key="shipped" name="Отгружено" [width]="8" [template]="dateFinish">
+              <ng-template #dateFinish let-data="data">
+                {{ (data?.dateFinish | date:"dd.MM.yyyy | HH:mm") || '-' }}
+              </ng-template>
+            </evj-column-grid>
+            <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>
+          </evj-table-grid>
+        </div>
+      </div>
+
+      <!-- RIGHT-SIDE -->
+      <div *ngIf="filter.filter">
+        <evj-oil-operations-tank-filter (closeFilterTank)="closeReceived($event)"> </evj-oil-operations-tank-filter>
+      </div>
+
+      <!-- RIGHT-SIDE -->
+      <div *ngIf="filter.adjust">
+        <evj-oil-operations-adjustment (closeAdjust)="closeShipment($event)"></evj-oil-operations-adjustment>
+      </div>
+
+      <!-- RIGHT-SIDE -->
+      <div *ngIf="filter.free">
+        <evj-oil-operations-free-shipment
+          (closeFree)="closeShipment($event)"
+          [currentDates]="currentDates"
+          [freeShipmentsNumber]="freeShipmentsQuantity"
+        >
+        </evj-oil-operations-free-shipment>
+      </div>
     </div>
+    <evj-frame-bottom></evj-frame-bottom>
+  </div>
 </ng-container>

@@ -30,8 +30,8 @@ export class DetailedLineDiagramComponent implements OnInit {
         }
         if (this.data.higherValue < data.maxValue) {
             return (this.data.higherValue / data.maxValue) * 100 + '%';
-        }else{
-            return '98%'
+        } else {
+            return '98%';
         }
     }
 

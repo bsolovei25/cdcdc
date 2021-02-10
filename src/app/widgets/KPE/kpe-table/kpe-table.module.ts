@@ -24,7 +24,7 @@ import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe
         KpeTableHeaderComponent,
         KpeTableDevelopmentComponentComponent,
         KpeTableLoadingComponentComponent,
-        KpeComponentsSearchPipe
+        KpeComponentsSearchPipe,
     ],
     imports: [
         CommonModule,
@@ -37,7 +37,7 @@ import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe
         MatRippleModule,
         FormsModule,
         MatDatepickerModule,
-    ]
+    ],
 })
 export class KpeTableModule {
     enterComponent = KpeTableComponent;

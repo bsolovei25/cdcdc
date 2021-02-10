@@ -1,10 +1,7 @@
 <div class="chat">
   <div class="chat__header">
     {{title}}
-    <div class="button__add"
-         *ngIf="isAdder"
-         (click)="onClickAdd()"
-    ></div>
+    <div class="button__add" *ngIf="isAdder" (click)="onClickAdd()"></div>
   </div>
   <div class="chat__reasons reasons scroll scroll-bar" #scroll>
     <div class="reasons__list">

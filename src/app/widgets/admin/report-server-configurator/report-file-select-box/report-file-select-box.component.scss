@@ -1,84 +1,84 @@
 .container-select {
-    z-index: 999;
-    width: 100%;
-    position: absolute;
-    right: 0px;
-    top: 40px;
-    width: 50%;
+  z-index: 999;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+  width: 50%;
 
-    &__info {
-        height: 200px;
-        background: var(--color-bg-main);
-        overflow: auto;
+  &__info {
+    height: 200px;
+    background: var(--color-bg-main);
+    overflow: auto;
 
-        .item{
-            font-size: 14px;
-            height: 30px;
-            text-align: start;
-            display: flex;
-            align-items: center;
-            padding-left: 15px;
+    .item {
+      font-size: 14px;
+      height: 30px;
+      text-align: start;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
 
-            &:hover{
-                cursor: pointer;
-                background: var(--color-bg-active);
-            }
-        }
+      &:hover {
+        cursor: pointer;
+        background: var(--color-bg-active);
+      }
+    }
+  }
+
+  &__search {
+    height: 40px;
+    background: var(--color-table-secelt-box-search);
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding-left: 15px;
+
+    .search-block {
+      height: 70%;
+      width: 80%;
     }
 
-    &__search {
-        height: 40px;
-        background: var(--color-table-secelt-box-search);
-        display: flex;
-        align-items: center;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        padding-left: 15px;
-
-        .search-block {
-            height: 70%;
-            width: 80%;
-        }
-
-        ::ng-deep{
-            .input-back{
-                background: var(--color-table-secelt-box-search) !important;
-            }
-        }
+    ::ng-deep {
+      .input-back {
+        background: var(--color-table-secelt-box-search) !important;
+      }
     }
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    margin-left: 50px;
-    margin-right: 50px;
+  width: 4px;
+  height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    border-radius: 25px;
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 ::-webkit-resizer {
-    background-color: var(--color-border-active);
+  background-color: var(--color-border-active);
 }

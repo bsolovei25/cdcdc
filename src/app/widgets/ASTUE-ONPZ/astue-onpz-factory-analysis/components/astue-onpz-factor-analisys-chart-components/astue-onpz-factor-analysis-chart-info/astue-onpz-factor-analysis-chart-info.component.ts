@@ -13,9 +13,7 @@ export class AstueOnpzFactorAnalysisChartInfoComponent implements OnInit {
     @Input()
     public value: number = 0;
 
-    constructor(
-    ) {}
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 }

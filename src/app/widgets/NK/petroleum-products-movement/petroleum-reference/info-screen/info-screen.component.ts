@@ -43,9 +43,7 @@ export class InfoScreenComponent implements OnInit {
             text: null,
         };
         if (item.key === currentFilter?.sortFilter?.key) {
-            currentFilter.sortFilter.isUp
-                ? filterSetting.isUp = true
-                : filterSetting.isDown = true;
+            currentFilter.sortFilter.isUp ? (filterSetting.isUp = true) : (filterSetting.isDown = true);
         }
         return filterSetting;
     }

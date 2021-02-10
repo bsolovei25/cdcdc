@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Output,
-    EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ISmpEventsMessageModel } from '@shared/models/smp-events-message.model';
 
 @Component({
@@ -19,8 +11,7 @@ export class EventsChatComponent implements OnInit {
     @Input() public title: string = '';
     @Input() public placeholder: string = '';
     @Input() public displayGraphImage: boolean = false;
-    @Input() public onClickItem: () => void = () => {
-    };
+    @Input() public onClickItem: () => void = () => {};
 
     @Output() private addingMessage: EventEmitter<string> = new EventEmitter<string>();
 
@@ -28,11 +19,9 @@ export class EventsChatComponent implements OnInit {
     @ViewChild('input') input: ElementRef;
     @ViewChild('graph') graph: ElementRef;
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public onEnterPush(event: KeyboardEvent): void {
         if (event.key === 'Enter') {

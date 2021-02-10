@@ -1,10 +1,5 @@
 <div class="container pointer-event">
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId" 
-    [widgetTitle]="widgetTitle" 
-    icon=setting
-    type="astue"
-  >
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="setting" type="astue">
     <div class="header-schedule">
       <div
         class="header-schedule__button"
@@ -18,45 +13,35 @@
         ></svg-icon>
 
         <div class="option-select">
-      <div class="dropdown">
-        <mat-form-field>
-          <mat-select
-            class="dropdown_select"
-            [compareWith]="compareFn"
-            (selectionChange)="onSelected($event)"
-            [(ngModel)]="selectedUnit"
-          >
-            <ng-container>
-              <mat-option *ngFor="let value of allUnits" [value]="value"
-                  [attr.as-platform-testing]="'shiftschedule-dropdown-unit-{' + value.id + '}'"
+          <div class="dropdown">
+            <mat-form-field>
+              <mat-select
+                class="dropdown_select"
+                [compareWith]="compareFn"
+                (selectionChange)="onSelected($event)"
+                [(ngModel)]="selectedUnit"
               >
-                {{value.name}}
-              </mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-      </div>
+                <ng-container>
+                  <mat-option
+                    *ngFor="let value of allUnits"
+                    [value]="value"
+                    [attr.as-platform-testing]="'shiftschedule-dropdown-unit-{' + value.id + '}'"
+                  >
+                    {{value.name}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
       </div>
       <span class="header-schedule__units">{{widgetUnits}}</span>
     </div>
-    <div
-      class="admin-btns"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <div
-        class="admin-btns__item"
-        [class.active]="isSelectMenu === true"
-        (click)="onSelectedMenu(true)"
-      >
+    <div class="admin-btns" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="admin-btns__item" [class.active]="isSelectMenu === true" (click)="onSelectedMenu(true)">
         Назначение дежурства
       </div>
-      <div
-        class="admin-btns__item"
-        [class.active]="isSelectMenu === false"
-        (click)="onSelectedMenu(false)"
-      >
+      <div class="admin-btns__item" [class.active]="isSelectMenu === false" (click)="onSelectedMenu(false)">
         Управление бригадами
       </div>
     </div>
@@ -64,11 +49,7 @@
 
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
     <ng-container *ngIf="isSelectMenu">
       <div class="content__blocks" cdkDropListGroup>
@@ -166,9 +147,7 @@
                   [attr.as-platform-testing]="'shiftschedule-shift-item-{' + shift.id + '}'"
                 >
                   <p>{{ idx + 1 }} смена</p>
-                  <p>
-                    {{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}
-                  </p>
+                  <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
                   <p
                     *ngIf="!shift.brigadeId"
                     class="btn shift-today-item"
@@ -199,11 +178,7 @@
                   </div>
                   <mat-menu #menu2="matMenu" class="customize-menu">
                     <ng-container *ngFor="let b of allBrigade">
-                      <button
-                        *ngIf="b.brigadeId !== 0.1"
-                        mat-menu-item
-                        (click)="onChooseBrigade(b, selectedDay)"
-                      >
+                      <button *ngIf="b.brigadeId !== 0.1" mat-menu-item (click)="onChooseBrigade(b, selectedDay)">
                         {{ b.brigadeNumber }}
                       </button>
                     </ng-container>
@@ -232,9 +207,7 @@
                     </ngx-mat-timepicker>
                     <div class="office-schedule__item__value__overlay__footer">
                       <div class="office-schedule__item__value__overlay__footer__btn">
-                        <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">
-                          done
-                        </mat-icon>
+                        <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color"> done </mat-icon>
                       </div>
                     </div>
                   </div>
@@ -248,9 +221,7 @@
                   <div class="office-schedule__item__title">Длительность смены:</div>
                   <div class="office-schedule__item__value" [matMenuTriggerFor]="menu3">
                     <ng-container *ngFor="let i of timeShift">
-                      <ng-container *ngIf="i.isSelected">
-                        {{ i.value }}
-                      </ng-container>
+                      <ng-container *ngIf="i.isSelected"> {{ i.value }} </ng-container>
                     </ng-container>
                   </div>
                 </div>
@@ -263,12 +234,7 @@
                   <div class="office-schedule__item__title">Применить с:</div>
                   <div class="office-schedule__item__value">
                     <mat-form-field class="form form__picker custom-picker">
-                      <input
-                        autocomplete="off"
-                        matInput
-                        [ngxMatDatetimePicker]="pickerD"
-                        [(ngModel)]="saveIsDate"
-                      />
+                      <input autocomplete="off" matInput [ngxMatDatetimePicker]="pickerD" [(ngModel)]="saveIsDate" />
                       <mat-datepicker-toggle matSuffix [for]="pickerD">
                         <mat-icon matDatepickerToggleIcon>
                           <svg-icon
@@ -290,21 +256,18 @@
                     </mat-form-field>
                   </div>
                   <div class="office-schedule__action">
-                    <div matRipple [matRippleColor]="'white'" class="save-btn" (click)="scheduleManagement()">Сохранить</div>
+                    <div matRipple [matRippleColor]="'white'" class="save-btn" (click)="scheduleManagement()">
+                      Сохранить
+                    </div>
                   </div>
                 </div>
               </section>
               <mat-menu #menu3="matMenu" class="customize-menu">
-                <button mat-menu-item *ngFor="let b of timeShift" (click)="selectTimeShift(b)">
-                  {{ b.value }}
-                </button>
+                <button mat-menu-item *ngFor="let b of timeShift" (click)="selectTimeShift(b)">{{ b.value }}</button>
               </mat-menu>
             </evj-admin-shift-card>
 
-            <evj-admin-shift-card
-              class="additional-team"
-              titleBlock="Дополнительный состав бригады"
-            >
+            <evj-admin-shift-card class="additional-team" titleBlock="Дополнительный состав бригады">
               <section class="additional-team__section">
                 <div class="additional-team__section__container">
                   <div
@@ -353,21 +316,19 @@
             <div class="content-brigade__scroll">
               <div class="content-brigade__left">
                 <div class="content-brigade__block" *ngFor="let item of leftBrigades">
-                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
-                  </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)"> </evj-admin-shift-brigade>
                 </div>
               </div>
               <div class="content-brigade__right">
                 <div class="content-brigade__block" *ngFor="let item of rightBrigades">
-                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
-                  </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)"> </evj-admin-shift-brigade>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="control-block__right-side">
-          <div style="height: calc(100% - 24px);">
+          <div style="height: calc(100% - 24px)">
             <evj-admin-shift-list-employees [data]="allUsersUnit"></evj-admin-shift-list-employees>
           </div>
         </div>

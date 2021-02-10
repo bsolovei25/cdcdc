@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    ISouEnergetic,
-    ISouEnergeticOptions,
-} from '../../../dashboard/models/SOU/sou-energetic.model';
+import { ISouEnergetic, ISouEnergeticOptions } from '../../../dashboard/models/SOU/sou-energetic.model';
 import { BehaviorSubject } from 'rxjs';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 

@@ -250,9 +250,7 @@ export const WIDGETS_LAZY = {
     },
     'indicator-load-deviation': {
         import: async () => {
-            return await import(
-                'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
-            );
+            return await import('src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module');
         },
         module: 'IndicatorLoadDeviationModule',
         itemCols: 12,
@@ -263,9 +261,7 @@ export const WIDGETS_LAZY = {
     },
     'aps-operating-modes': {
         import: async () => {
-            return await import(
-                'src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module'
-            );
+            return await import('src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module');
         },
         module: 'ApsOperatingModesModule',
         itemCols: 25,
@@ -287,9 +283,7 @@ export const WIDGETS_LAZY = {
     },
     'aps-scenario-selection': {
         import: async () => {
-            return await import(
-                'src/app/widgets/APS/aps-scenario-selection/aps-scenario-selection.module'
-            );
+            return await import('src/app/widgets/APS/aps-scenario-selection/aps-scenario-selection.module');
         },
         module: 'ApsScenarioSelectionModule',
         itemCols: 13,
@@ -305,9 +299,7 @@ export const WIDGETS_LAZY = {
 
     'nk-tank-information': {
         import: async () => {
-            return await import(
-                'src/app/widgets/NK/nk-tank-information/nk-tank-information.module'
-            );
+            return await import('src/app/widgets/NK/nk-tank-information/nk-tank-information.module');
         },
         module: 'NkTankInformationModule',
         itemCols: 19,
@@ -351,9 +343,7 @@ export const WIDGETS_LAZY = {
     },
     'tank-calibration-table': {
         import: async () => {
-            return await import(
-                'src/app/widgets/NK/tank-calibration-table/tank-calibration-table.module'
-            );
+            return await import('src/app/widgets/NK/tank-calibration-table/tank-calibration-table.module');
         },
         module: 'TankCalibrationTableModule',
         itemCols: 40,
@@ -364,9 +354,7 @@ export const WIDGETS_LAZY = {
     },
     'petroleum-products-movement': {
         import: async () => {
-            return await import(
-                'src/app/widgets/NK/petroleum-products-movement/petroleum-products-movement.module'
-            );
+            return await import('src/app/widgets/NK/petroleum-products-movement/petroleum-products-movement.module');
         },
         module: 'PetroleumProductsMovementModule',
         itemCols: 64,
@@ -442,9 +430,7 @@ export const WIDGETS_LAZY = {
 
     'key-performance-indicators': {
         import: async () => {
-            return await import(
-                'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
-            );
+            return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
         },
         module: 'KeyPerformanceIndicatorsModule',
         itemCols: 19,
@@ -513,9 +499,7 @@ export const WIDGETS_LAZY = {
 
     'kpe-pasportize-percent': {
         import: async () => {
-            return await import(
-                'src/app/widgets/KPE/kpe-pasportize-percent/kpe-pasportize-percent.module'
-            );
+            return await import('src/app/widgets/KPE/kpe-pasportize-percent/kpe-pasportize-percent.module');
         },
         module: 'KpePasportizePercentModule',
         itemCols: 13,
@@ -537,9 +521,7 @@ export const WIDGETS_LAZY = {
     },
     'kpe-plan-readiness-trend': {
         import: async () => {
-            return await import(
-                'src/app/widgets/KPE/kpe-plan-readiness-trend/kpe-plan-readiness-trend.module'
-            );
+            return await import('src/app/widgets/KPE/kpe-plan-readiness-trend/kpe-plan-readiness-trend.module');
         },
         module: 'KpePlanReadinessTrendModule',
         itemCols: 17,
@@ -551,9 +533,7 @@ export const WIDGETS_LAZY = {
 
     'kpe-plan-enforceability': {
         import: async () => {
-            return await import(
-                'src/app/widgets/KPE/kpe-plan-enforceability/kpe-plan-enforceability.module'
-            );
+            return await import('src/app/widgets/KPE/kpe-plan-enforceability/kpe-plan-enforceability.module');
         },
         module: 'KpePlanEnforceabilityModule',
         itemCols: 21,
@@ -577,9 +557,7 @@ export const WIDGETS_LAZY = {
     },
     'kpe-charts-analytic': {
         import: async () => {
-            return await import(
-                'src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module'
-            );
+            return await import('src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module');
         },
         module: 'KpeChartsAnalyticModule',
         itemCols: 21,
@@ -595,9 +573,7 @@ export const WIDGETS_LAZY = {
 
     'admin-shift-schedule': {
         import: async () => {
-            return await import(
-                'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
-            );
+            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
         },
         module: 'AdminShiftScheduleModule',
         itemCols: 15,
@@ -654,9 +630,7 @@ export const WIDGETS_LAZY = {
     },
     'report-server-configurator': {
         import: async () => {
-            return await import(
-                'src/app/widgets/admin/report-server-configurator/report-server-configurator.module'
-            );
+            return await import('src/app/widgets/admin/report-server-configurator/report-server-configurator.module');
         },
         module: 'ReportServerConfiguratorModule',
         itemCols: 32,
@@ -720,9 +694,7 @@ export const WIDGETS_LAZY = {
 
     'cd-reactor-parameters': {
         import: async () => {
-            return await import(
-                'src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module'
-            );
+            return await import('src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module');
         },
         module: 'CdReactorParametersModule',
         itemCols: 15,
@@ -797,9 +769,7 @@ export const WIDGETS_LAZY = {
     },
     'evj-events-workspace': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module'
-            );
+            return await import('src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module');
         },
         module: 'EvjEventsWorkspaceModule',
         itemCols: 32,
@@ -835,9 +805,7 @@ export const WIDGETS_LAZY = {
     //#region LCO
     'spline-trends-chart': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module'
-            );
+            return await import('src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module');
         },
         module: 'SplineTrendsChartModule',
         itemCols: 21,
@@ -927,9 +895,7 @@ export const WIDGETS_LAZY = {
     },
     'solid-gauge-with-marker': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/solid-gauge-with-marker/solid-gauges/solid-gauges.module'
-            );
+            return await import('src/app/widgets/LCO/solid-gauge-with-marker/solid-gauges/solid-gauges.module');
         },
         module: 'SolidGaugesModule',
         itemCols: 18,
@@ -998,9 +964,7 @@ export const WIDGETS_LAZY = {
     },
     'truncated-diagram-percentage': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/truncated-diagram-percentage/truncated-diagram-percentage.module'
-            );
+            return await import('src/app/widgets/LCO/truncated-diagram-percentage/truncated-diagram-percentage.module');
         },
         module: 'TruncatedDiagramPercentageModule',
         itemCols: 16,
@@ -1011,9 +975,7 @@ export const WIDGETS_LAZY = {
     },
     'truncated-diagram-counter': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/truncated-diagram-counter/truncated-diagram-counter.module'
-            );
+            return await import('src/app/widgets/LCO/truncated-diagram-counter/truncated-diagram-counter.module');
         },
         module: 'TruncatedDiagramCounterModule',
         itemCols: 29,
@@ -1024,9 +986,7 @@ export const WIDGETS_LAZY = {
     },
     'ring-factory-diagram': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.module'
-            );
+            return await import('src/app/widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.module');
         },
         module: 'RingFactoryDiagramsModule',
         itemCols: 35,
@@ -1037,9 +997,7 @@ export const WIDGETS_LAZY = {
     },
     'ring-energy-indicator': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/ring-energy-indicator/ring-energy-indicator.module'
-            );
+            return await import('src/app/widgets/LCO/ring-energy-indicator/ring-energy-indicator.module');
         },
         module: 'RingEnergyIndicatorModule',
         itemCols: 8,
@@ -1085,9 +1043,7 @@ export const WIDGETS_LAZY = {
     },
     'circle-block-diagram': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/circle-block-diagram/circle-block-diagram.module'
-            );
+            return await import('src/app/widgets/LCO/circle-block-diagram/circle-block-diagram.module');
         },
         module: 'CircleBlockDiagramModule',
         itemCols: 10,
@@ -1109,9 +1065,7 @@ export const WIDGETS_LAZY = {
     },
     'circle-factory-diagram': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/circle-factory-diagram/circle-factory-diagram.module'
-            );
+            return await import('src/app/widgets/LCO/circle-factory-diagram/circle-factory-diagram.module');
         },
         module: 'CircleFactoryDiagramModule',
         itemCols: 14,
@@ -1122,9 +1076,7 @@ export const WIDGETS_LAZY = {
     },
     'observation-norm-tr': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/observation-norm-tr/observation-norm-tr.module'
-            );
+            return await import('src/app/widgets/LCO/observation-norm-tr/observation-norm-tr.module');
         },
         module: 'ObservationNormTRModule',
         itemCols: 13,
@@ -1157,9 +1109,7 @@ export const WIDGETS_LAZY = {
     },
     'operation-efficiency': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/operation-efficiency/operation-efficiency.module'
-            );
+            return await import('src/app/widgets/LCO/operation-efficiency/operation-efficiency.module');
         },
         module: 'OperationEfficiencyModule',
         itemCols: 24,
@@ -1203,9 +1153,7 @@ export const WIDGETS_LAZY = {
     },
     'column-chart-stacked': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/column-chart-stacked/column-chart-stacked.module'
-            );
+            return await import('src/app/widgets/LCO/column-chart-stacked/column-chart-stacked.module');
         },
         module: 'ColumnChartStackedModule',
         itemCols: 24,
@@ -1227,9 +1175,7 @@ export const WIDGETS_LAZY = {
     },
     'deviation-circle-diagram': {
         import: async () => {
-            return await import(
-                'src/app/widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.module'
-            );
+            return await import('src/app/widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.module');
         },
         module: 'DeviationCircleDiagramModule',
         itemCols: 12,
@@ -1253,8 +1199,7 @@ export const WIDGETS_LAZY = {
 
     //#region SMP
     'implementation-plan': {
-        import: async () =>
-            await import('src/app/widgets/SMP/implementation-plan/implementation-plan.module'),
+        import: async () => await import('src/app/widgets/SMP/implementation-plan/implementation-plan.module'),
         module: 'ImplementationPlanModule',
         itemCols: 9,
         itemRows: 7,
@@ -1265,9 +1210,7 @@ export const WIDGETS_LAZY = {
 
     'performance-progress-indicators': {
         import: async () =>
-            await import(
-                'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
-            ),
+            await import('src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'),
         module: 'PerformanceProgressIndicatorsModule',
         itemCols: 9,
         itemRows: 7,
@@ -1297,8 +1240,7 @@ export const WIDGETS_LAZY = {
     },
 
     'smp-events-workspace': {
-        import: async () =>
-            await import('src/app/widgets/SMP/smp-events-workspace/smp-events-workspace.module'),
+        import: async () => await import('src/app/widgets/SMP/smp-events-workspace/smp-events-workspace.module'),
         module: 'SmpEventsWorkspaceModule',
         itemCols: 20,
         itemRows: 30,
@@ -1308,8 +1250,7 @@ export const WIDGETS_LAZY = {
     },
 
     'product-groups': {
-        import: async () =>
-            await import('src/app/widgets/SMP/product-groups/product-groups.module'),
+        import: async () => await import('src/app/widgets/SMP/product-groups/product-groups.module'),
         module: 'ProductGroupsModule',
         itemCols: 25,
         itemRows: 20,
@@ -1321,9 +1262,7 @@ export const WIDGETS_LAZY = {
     'production-deviations': {
         import: async () => {
             {
-                return await import(
-                    'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
+                return await import('src/app/widgets/SMP/production-deviations/production-deviations.module');
             }
         },
         module: 'ProductionDeviationsModule',
@@ -1335,8 +1274,7 @@ export const WIDGETS_LAZY = {
     },
 
     'product-groups-short': {
-        import: async () =>
-            await import('src/app/widgets/SMP/product-groups-short/product-groups-short.module'),
+        import: async () => await import('src/app/widgets/SMP/product-groups-short/product-groups-short.module'),
         module: 'ProductGroupsShortModule',
         itemCols: 25,
         itemRows: 20,
@@ -1375,9 +1313,7 @@ export const WIDGETS_LAZY = {
 
     'sou-operational-accounting-system-new': {
         import: async () => {
-            return await import(
-                'src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module'
-            );
+            return await import('src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module');
         },
         module: 'SouMvpMnemonicSchemeModule',
         itemCols: 32,
@@ -1388,9 +1324,7 @@ export const WIDGETS_LAZY = {
     },
     'sou-main-indicators': {
         import: async () => {
-            return await import(
-                'src/app/widgets/SOU/sou-main-indicators/sou-main-indicators.module'
-            );
+            return await import('src/app/widgets/SOU/sou-main-indicators/sou-main-indicators.module');
         },
         module: 'SouMainIndicatorsModule',
         itemCols: 13,
@@ -1441,9 +1375,7 @@ export const WIDGETS_LAZY = {
 
     'astue-efficiency': {
         import: async () =>
-            await import(
-                'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
-            ),
+            await import('src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'),
         module: 'AstueMnpzEfficiencyModule',
         itemCols: 58,
         itemRows: 25,
@@ -1452,8 +1384,7 @@ export const WIDGETS_LAZY = {
         preview: 'astue-efficiency',
     },
     'production-trend': {
-        import: async () =>
-            await import('src/app/widgets/ASTUE-MNPZ/production-trend/production-trend.module'),
+        import: async () => await import('src/app/widgets/ASTUE-MNPZ/production-trend/production-trend.module'),
         module: 'ProductionTrendModule',
         itemCols: 32,
         itemRows: 20,
@@ -1497,9 +1428,7 @@ export const WIDGETS_LAZY = {
 
     'astue-onpz-predictors': {
         import: async () => {
-            return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
-            );
+            return await import('src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module');
         },
         module: 'AstueOnpzPredictorsModule',
         itemCols: 13,
@@ -1634,9 +1563,7 @@ export const WIDGETS_LAZY = {
     },
     'astue-onpz-heat-balance': {
         import: async () => {
-            return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance.module'
-            );
+            return await import('src/app/widgets/ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance.module');
         },
         module: 'AstueOnpzHeatBalanceModule',
         itemCols: 9,
@@ -1662,9 +1589,7 @@ export const WIDGETS_LAZY = {
     },
     'ejco-onpz-unit-sou': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.module'
-            );
+            return await import('src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.module');
         },
         module: 'EjcoOnpzUnitSouModule',
         itemCols: 28,
@@ -1675,9 +1600,7 @@ export const WIDGETS_LAZY = {
     },
     'ejco-onpz-fsb-load': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EJCO-ONPZ/ejco-onpz-fsb-load/ejco-onpz-fsb-load.module'
-            );
+            return await import('src/app/widgets/EJCO-ONPZ/ejco-onpz-fsb-load/ejco-onpz-fsb-load.module');
         },
         module: 'EjcoOnpzFsbLoadModule',
         itemCols: 12,
@@ -1688,9 +1611,7 @@ export const WIDGETS_LAZY = {
     },
     'ejco-onpz-unit-kpe': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-kpe/ejco-onpz-unit-kpe.module'
-            );
+            return await import('src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-kpe/ejco-onpz-unit-kpe.module');
         },
         module: 'EjcoOnpzUnitKpeModule',
         itemCols: 12,
@@ -1706,9 +1627,7 @@ export const WIDGETS_LAZY = {
 
     'ozsm-components': {
         import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-line-diagrams/ozsm-line-diagrams.module'
-            );
+            return await import('src/app/widgets/OZSM/ozsm-line-diagrams/ozsm-line-diagrams.module');
         },
         module: 'OzsmLineDiagramsModule',
         itemCols: 11,
@@ -1719,9 +1638,7 @@ export const WIDGETS_LAZY = {
     },
     'ozsm-diagrams': {
         import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-diagrams-widget/ozsm-diagrams-widget.module'
-            );
+            return await import('src/app/widgets/OZSM/ozsm-diagrams-widget/ozsm-diagrams-widget.module');
         },
         module: 'OzsmDiagramsWidgetModule',
         itemCols: 12,
@@ -1732,9 +1649,7 @@ export const WIDGETS_LAZY = {
     },
     'ozsm-main-indicators': {
         import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
-            );
+            return await import('src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module');
         },
         module: 'OzsmMainIndicatorsModule',
         itemCols: 11,
@@ -1783,9 +1698,7 @@ export const WIDGETS_LAZY = {
 
     'ozsm-monitoring-main': {
         import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module'
-            );
+            return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
         },
         module: 'OzsmMonitoringMainModule',
         itemCols: 38,
@@ -1797,9 +1710,7 @@ export const WIDGETS_LAZY = {
 
     'ozsm-planning-main': {
         import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-planning-main/ozsm-planning-main.module'
-            );
+            return await import('src/app/widgets/OZSM/ozsm-planning-main/ozsm-planning-main.module');
         },
         module: 'OzsmPlanningMainModule',
         itemCols: 38,

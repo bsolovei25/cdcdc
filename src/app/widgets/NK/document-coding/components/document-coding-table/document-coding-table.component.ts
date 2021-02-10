@@ -11,10 +11,11 @@ export type IDocumentCodingFilterType = 'groups' | 'laboratories';
 @Component({
     selector: 'evj-document-coding-table',
     templateUrl: './document-coding-table.component.html',
-    styleUrls: ['./document-coding-table.component.scss']
+    styleUrls: ['./document-coding-table.component.scss'],
 })
 export class DocumentCodingTableComponent implements OnInit {
-    @Output() public selectedProduct: EventEmitter<IOilOperationsProduct | null> = new EventEmitter<IOilOperationsProduct | null>();
+    @Output()
+    public selectedProduct: EventEmitter<IOilOperationsProduct | null> = new EventEmitter<IOilOperationsProduct | null>();
 
     public isFilterGroup: boolean = false;
 
@@ -38,16 +39,15 @@ export class DocumentCodingTableComponent implements OnInit {
             name: 'Группы продуктов',
             type: 'groups',
             data: [],
-        }
+        },
     ];
 
     public data: IOilOperationsProduct[] = [];
 
     constructor(
         private popoverOverlayService: PopoverOverlayService,
-        private documentCodingService: DocumentCodingService,
-    ) {
-    }
+        private documentCodingService: DocumentCodingService
+    ) {}
 
     ngOnInit(): void {
         this.setStyleScroll();
@@ -81,7 +81,7 @@ export class DocumentCodingTableComponent implements OnInit {
 
     private async getFilterList(filter: 'laboratories' | 'groups'): Promise<void> {
         const values = await this.documentCodingService.getFilterList<IDocumentsLaboratory>(filter);
-        this.filters.forEach(availableFilter => {
+        this.filters.forEach((availableFilter) => {
             if (availableFilter.type === filter) {
                 availableFilter.data = values;
             }
@@ -118,7 +118,7 @@ export class DocumentCodingTableComponent implements OnInit {
             this.isFilterGroup = true;
         }
 
-        popoverRef.afterClosed$.subscribe(res => {
+        popoverRef.afterClosed$.subscribe((res) => {
             console.log(res);
             this.isPopoverOpened.set(res?.data?.type, false);
             if (res && res.data && res.type === 'close') {

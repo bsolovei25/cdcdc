@@ -118,12 +118,7 @@
     height: 40px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background: linear-gradient(
-      90deg,
-      transparent 20%,
-      var(--color-smp-standard) 70%,
-      var(--color-standard) 100%
-    );
+    background: linear-gradient(90deg, transparent 20%, var(--color-smp-standard) 70%, var(--color-standard) 100%);
 
     &__text {
       color: white;

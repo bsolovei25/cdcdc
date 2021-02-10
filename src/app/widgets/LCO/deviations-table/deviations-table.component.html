@@ -13,85 +13,50 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <section
-      class="table"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <section class="table" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="table__body scroll-bar">
         <table>
           <thead>
-          <tr class="header__items mb">
-            <th class="header header__icon">
-              <svg-icon class="icon" src="assets/icons/widgets/deviations-table/1.svg">
-              </svg-icon>
-            </th>
-            <th class="header header__icon" colspan="2">
-              <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/10.svg">
-              </svg-icon>
-            </th>
-            <th class="header header__icon" colspan="2">
-              <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/11.svg">
-              </svg-icon>
-            </th>
-            <th class="header header__icon" colspan="2">
-              <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/12.svg">
-              </svg-icon>
-            </th>
-          </tr>
-          <tr class="header__items border">
-            <th class="header header__equipment">
-              Установки
-            </th>
-            <th class="header header__energy">
-              {{energyUnitsOfMeasure}}
-            </th>
-            <th class="header header__energy_procent">
-              %
-            </th>
-            <th class="header header__consumption">
-              {{consumptionUnitsOfMeasure}}
-            </th>
-            <th class="header header__consumption_procent">
-              %
-            </th>
-            <th class="header header__fuel">
-              {{fuelUnitsOfMeasure}}
-            </th>
-            <th class="header header__fuel_procent">
-              %
-            </th>
-          </tr>
+            <tr class="header__items mb">
+              <th class="header header__icon">
+                <svg-icon class="icon" src="assets/icons/widgets/deviations-table/1.svg"> </svg-icon>
+              </th>
+              <th class="header header__icon" colspan="2">
+                <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/10.svg"> </svg-icon>
+              </th>
+              <th class="header header__icon" colspan="2">
+                <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/11.svg"> </svg-icon>
+              </th>
+              <th class="header header__icon" colspan="2">
+                <svg-icon class="icon_svg" src="assets/icons/widgets/deviations-table/12.svg"> </svg-icon>
+              </th>
+            </tr>
+            <tr class="header__items border">
+              <th class="header header__equipment">Установки</th>
+              <th class="header header__energy">{{energyUnitsOfMeasure}}</th>
+              <th class="header header__energy_procent">%</th>
+              <th class="header header__consumption">{{consumptionUnitsOfMeasure}}</th>
+              <th class="header header__consumption_procent">%</th>
+              <th class="header header__fuel">{{fuelUnitsOfMeasure}}</th>
+              <th class="header header__fuel_procent">%</th>
+            </tr>
           </thead>
           <tbody>
-          <tr
-            *ngFor="let item of data"
-            class="table__item"
-            [ngClass]="{'open': item.nonCritical}"
-          >
-            <td class="item item__equipment">{{ item.equipment }}</td>
-            <td class="item item__energy">
-              {{ item.energy }}
-            </td>
-            <td class="item item__energy_procent" [ngClass]="{'open-procent': item.nonCritical}">
-              {{ item.energyPercentage }}
-            </td>
-            <td class="item item__consumption">
-              {{ item.consumption }}
-            </td>
-            <td
-              class="item item__consumption_procent"
-              [ngClass]="{'open-procent': item.nonCritical}"
-            >
-              {{item.consumptionPercentage}}
-            </td>
-            <td class="item item__fuel">
-              {{ item.fuel }}
-            </td>
-            <td class="item item__fuel_procent" [ngClass]="{'open-procent': item.nonCritical}">
-              {{item.fuelPercentage}}
-            </td>
-          </tr>
+            <tr *ngFor="let item of data" class="table__item" [ngClass]="{'open': item.nonCritical}">
+              <td class="item item__equipment">{{ item.equipment }}</td>
+              <td class="item item__energy">{{ item.energy }}</td>
+              <td class="item item__energy_procent" [ngClass]="{'open-procent': item.nonCritical}">
+                {{ item.energyPercentage }}
+              </td>
+              <td class="item item__consumption">{{ item.consumption }}</td>
+              <td class="item item__consumption_procent" [ngClass]="{'open-procent': item.nonCritical}">
+                {{item.consumptionPercentage}}
+              </td>
+              <td class="item item__fuel">{{ item.fuel }}</td>
+              <td class="item item__fuel_procent" [ngClass]="{'open-procent': item.nonCritical}">
+                {{item.fuelPercentage}}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

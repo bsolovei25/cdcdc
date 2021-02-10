@@ -6,15 +6,16 @@
     type="astue"
   >
     <div *ngIf="(viewType$ | async) === 'Furnace'" class="header-container">
-      <evj-astue-onpz-factory-analysis-header [reference]="selectionReference" [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
+      <evj-astue-onpz-factory-analysis-header
+        [reference]="selectionReference"
+        [page]="pageType$ | async"
+        (changePage)="changePage($event)"
+      ></evj-astue-onpz-factory-analysis-header>
     </div>
   </evj-contemporary-widget-header>
 
-  <div class="container"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
-  >
-   <ng-container [ngSwitch]="pageType$ | async">
+  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <ng-container [ngSwitch]="pageType$ | async">
       <evj-astue-onpz-factor-analysis-page
         *ngSwitchCase="'bar'"
         [@rightTrigger]
@@ -23,12 +24,10 @@
         [isUnit]="(viewType$ | async) !== 'Furnace'"
       ></evj-astue-onpz-factor-analysis-page>
       <div *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis">
-       <ng-container *ngIf="selectedChannelId">
-         <ng-container
-           *ngComponentOutlet="chartPageComponent; injector: (widgetId | fn:getInjector );"
-         ></ng-container>
-       </ng-container>
+        <ng-container *ngIf="selectedChannelId">
+          <ng-container *ngComponentOutlet="chartPageComponent; injector: (widgetId | fn:getInjector );"></ng-container>
+        </ng-container>
       </div>
-   </ng-container>
+    </ng-container>
   </div>
 </div>

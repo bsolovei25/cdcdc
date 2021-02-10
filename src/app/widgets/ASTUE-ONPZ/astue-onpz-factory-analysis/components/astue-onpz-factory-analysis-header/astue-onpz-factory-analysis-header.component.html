@@ -22,13 +22,13 @@
     <span> Расчет показателей </span>
   </div>
   <div class="flex-spacer"></div>
-  <div
-    class="option-select"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="dropdown" *ngIf="page === 'chart'">
-      <mat-select class="dropdown__select" (selectionChange)="selectionChange($event.value)" [value]="mnemonicFurnaceService.selectedItem$ | async">
+      <mat-select
+        class="dropdown__select"
+        (selectionChange)="selectionChange($event.value)"
+        [value]="mnemonicFurnaceService.selectedItem$ | async"
+      >
         <mat-option *ngFor="let ref of reference" [value]="ref.id">{{ref.name}}</mat-option>
       </mat-select>
     </div>

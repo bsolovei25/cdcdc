@@ -8,13 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [CdDeviationMatComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatCheckboxModule,
-        FormsModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatCheckboxModule, FormsModule],
 })
 export class CdDeviationMatModule {
     enterComponent = CdDeviationMatComponent;

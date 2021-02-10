@@ -5,16 +5,9 @@ import { ReferenceComponent } from './reference.component';
 import { FormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
-  declarations: [ ReferenceComponent ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        FormsModule,
-        AngularSvgIconModule
-    ]
+    declarations: [ReferenceComponent],
+    imports: [CommonModule, SharedModule, FormsModule, AngularSvgIconModule],
 })
 export class ReferenceModule {
     enterComponent = ReferenceComponent;

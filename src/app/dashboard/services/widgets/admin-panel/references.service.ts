@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns, IReferenceData } from '../../../models/ADMIN/references';
+import {
+    IReferenceTypes,
+    IReferenceColumnsType,
+    IReferenceColumns,
+    IReferenceData,
+} from '../../../models/ADMIN/references';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -14,8 +19,7 @@ export class ReferencesService {
 
     private _reference$: BehaviorSubject<IReferenceTypes[]> = new BehaviorSubject(null);
 
-
-    public reference$: Observable<IReferenceTypes[]> = this._reference$.asObservable().pipe(filter(i => i !== null));
+    public reference$: Observable<IReferenceTypes[]> = this._reference$.asObservable().pipe(filter((i) => i !== null));
 
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -31,7 +35,7 @@ export class ReferencesService {
             },
             (err) => {
                 console.error('error rest', err);
-            },
+            }
         );
     }
 
@@ -74,7 +78,6 @@ export class ReferencesService {
     public pushReferenceData(records: any): Observable<any> {
         return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceData/', records);
     }
-
 
     public orderColumnReference(columns: any): Observable<any> {
         return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', columns);

@@ -4,9 +4,9 @@ import { table, tableHeader, tableLoading } from '../kpe-table-mock';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'evj-kpe-table-loading-component',
-  templateUrl: './kpe-table-loading-component.component.html',
-  styleUrls: ['./kpe-table-loading-component.component.scss']
+    selector: 'evj-kpe-table-loading-component',
+    templateUrl: './kpe-table-loading-component.component.html',
+    styleUrls: ['./kpe-table-loading-component.component.scss'],
 })
 export class KpeTableLoadingComponentComponent implements OnInit {
     data: IKpeTable[] = tableLoading;
@@ -16,10 +16,9 @@ export class KpeTableLoadingComponentComponent implements OnInit {
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     notCriticalCount(element: IKpeTable): number {
         let i = 0;

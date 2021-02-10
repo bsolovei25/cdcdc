@@ -8,10 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { trigger, transition, style, animate } from '@angular/animations';
-import {
-    NGX_MAT_DATE_FORMATS,
-    NgxMatDateFormats,
-} from '@angular-material-components/datetime-picker';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
 import { SelectionModel } from '@angular/cdk/collections';
 
 const moment = _moment;
@@ -63,14 +60,8 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
 };
 
 export const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [
-        style({ opacity: 0, height: 0 }),
-        animate('100ms', style({ opacity: 1, height: 50 })),
-    ]),
-    transition(':leave', [
-        style({ opacity: 1, height: 50 }),
-        animate('100ms', style({ opacity: 0, height: 0 })),
-    ]),
+    transition(':enter', [style({ opacity: 0, height: 0 }), animate('100ms', style({ opacity: 1, height: 50 }))]),
+    transition(':leave', [style({ opacity: 1, height: 50 }), animate('100ms', style({ opacity: 0, height: 0 }))]),
 ]);
 
 @Component({
@@ -114,7 +105,7 @@ export class ReportComponent implements OnInit {
 
     public dateNow: Date = new Date();
 
-    public date = new FormControl({value: moment(), disabled: false});
+    public date = new FormControl({ value: moment(), disabled: false });
 
     constructor(
         private reportsService: ReportsService,
@@ -205,9 +196,7 @@ export class ReportComponent implements OnInit {
 
     dateTimePicker(event: Moment, value: 'day' | 'month' | 'year') {
         if (value === 'month') {
-            this.periodTime.startDateTime = moment(event)
-                .add(1, 'months')
-                .toDate();
+            this.periodTime.startDateTime = moment(event).add(1, 'months').toDate();
         } else {
             this.periodTime.startDateTime = event.toDate();
         }

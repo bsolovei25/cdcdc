@@ -6,21 +6,19 @@ import { WidgetService } from '../../../services/widget.service';
 @Component({
     selector: 'evj-indicator-diagram',
     templateUrl: './indicator-diagram.component.html',
-    styleUrls: ['./indicator-diagram.component.scss']
+    styleUrls: ['./indicator-diagram.component.scss'],
 })
 export class IndicatorDiagramComponent implements OnInit, OnDestroy {
-
     data: {
-        userId: number,
+        userId: number;
         notification: {
             notifications: IEventsWidgetNotification[];
-            notificationsCount: number,
-            responsibleId: number
-        }
+            notificationsCount: number;
+            responsibleId: number;
+        };
         widgetType: string;
     };
     widgetId: string;
-
 
     menu: boolean = false;
 
@@ -28,25 +26,21 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
         this.menu = !this.menu;
     }
 
-
     public subscriptions: Subscription[] = [];
 
-    constructor(protected widgetService: WidgetService) {
-    }
+    constructor(protected widgetService: WidgetService) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.widgetService.widgets.subscribe(widgets => {
+            this.widgetService.widgets.subscribe((widgets) => {
                 if (widgets?.length) {
                     if (!this.widgetId) {
-                        this.widgetId = widgets
-                            .find(value => value.widgetType === 'evj-header')?.id;
+                        this.widgetId = widgets.find((value) => value.widgetType === 'evj-header')?.id;
                     }
                     this.subscriptions.push(
-                        this.widgetService.getWidgetLiveDataFromWS(this.widgetId, 'evj-header')
-                            .subscribe(value => {
-                                this.data = value;
-                            })
+                        this.widgetService.getWidgetLiveDataFromWS(this.widgetId, 'evj-header').subscribe((value) => {
+                            this.data = value;
+                        })
                     );
                 }
             })
@@ -57,12 +51,9 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((el) => {
             try {
                 el?.unsubscribe();
-            } catch {
-            }
+            } catch {}
         });
         this.subscriptions = [];
         this.widgetService.removeWidget(this.widgetId);
     }
-
-
 }

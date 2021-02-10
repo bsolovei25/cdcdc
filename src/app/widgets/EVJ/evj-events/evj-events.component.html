@@ -1,36 +1,18 @@
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
-    icon="letter"
-    type="astue"
-  >
-    <div
-      class="content-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="letter" type="astue">
+    <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div (click)="viewChanger(false)">
-        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
-        </svg-icon>
+        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"> </svg-icon>
       </div>
       <div (click)="viewChanger(true)">
-        <svg-icon
-          [ngClass]="{'blocks': isList}"
-          class="header__icon"
-          src="assets/pic/blocks.svg"
-        ></svg-icon>
+        <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="assets/pic/blocks.svg"></svg-icon>
       </div>
     </div>
   </evj-contemporary-widget-header>
   <evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
   <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
-  <div
-    class="pointer-events"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
     <div class="cd-events">
       <evj-evj-event-filters
@@ -38,7 +20,9 @@
         [inputPriority]="priority"
         (outPriority)="priorityOfFilter($event)"
         (outUnits)="unitsOfFilter($event)"
-        (description)="searchFilter($event)">
+        (description)="searchFilter($event)"
+        [placeNames]="placeNames"
+      >
       </evj-evj-event-filters>
       <div
         class="notifications"
@@ -46,13 +30,12 @@
         [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
-          [itemSize]="isList ? attributes?.IsVideoWall ? 390 : 225 : 111"
           autosize
           class="scroll-bar"
           [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
           (scroll)="scrollHandler($event)"
         >
-          <ng-container *cdkVirtualFor="let n of notificationsGrouped">
+          <div *cdkVirtualFor="let n of notificationsGrouped">
             <evj-evj-event-card
               [cardDataArr]="n"
               [viewType]="isList ? 'block' : 'list'"
@@ -60,11 +43,11 @@
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
               [expandedElement]="expandedElement"
-              (selectionExpandedElement)="toggle($event)"
+              (selectionExpandedElement)="toggle()"
               [isVideoWall]="attributes?.IsVideoWall"
             >
             </evj-evj-event-card>
-          </ng-container>
+          </div>
         </cdk-virtual-scroll-viewport>
       </div>
       <ng-container *ngIf="!attributes?.IsVideoWall">
@@ -79,12 +62,8 @@
               (click)="onFilterClick(f)"
               [class.filter_active]="f?.isActive"
             >
-              <span class="filter__name">
-                {{f?.name}}
-              </span>
-              <span class="filter__count">
-                {{f?.notificationsCount}}
-              </span>
+              <span class="filter__name"> {{f?.name}} </span>
+              <span class="filter__count"> {{f?.notificationsCount}} </span>
             </div>
           </div>
 

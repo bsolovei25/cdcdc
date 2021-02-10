@@ -5,9 +5,9 @@ import { IOZSMMainIndicator } from '../../../dashboard/models/OZSM/ozsm-main-ind
 import { mockData } from './ozsm-main-indicator-mock';
 
 @Component({
-  selector: 'evj-ozsm-main-indicators',
-  templateUrl: './ozsm-main-indicators.component.html',
-  styleUrls: ['./ozsm-main-indicators.component.scss']
+    selector: 'evj-ozsm-main-indicators',
+    templateUrl: './ozsm-main-indicators.component.html',
+    styleUrls: ['./ozsm-main-indicators.component.scss'],
 })
 export class OzsmMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IOZSMMainIndicator[] = mockData;
@@ -29,6 +29,5 @@ export class OzsmMainIndicatorsComponent extends WidgetPlatform<unknown> impleme
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 }

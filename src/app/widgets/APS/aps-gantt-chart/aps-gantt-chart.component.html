@@ -38,21 +38,14 @@
     </div>
   </evj-contemporary-widget-header>
 
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="container">
       <table class="table">
         <thead class="table__header">
           <tr class="table__header__row">
             <th *ngFor="let column of columnsToDisplay" class="table__header__column">
               <ng-container *ngIf="column.name !== 'productName'">{{ column.name }}</ng-container>
-              <ng-container
-                *ngIf="column.name === 'productName'"
-                class="table__header__column__name"
-              >
+              <ng-container *ngIf="column.name === 'productName'" class="table__header__column__name">
                 <svg-icon
                   class="table__header__column__name__gradient"
                   src="assets/icons/widgets/APS/aps-gantt-chart/gradient-header.svg"
@@ -127,9 +120,7 @@
                       >{{ element.productName }}</span
                     >
                     <div class="table__body__column__row-title__value__texts">
-                      <div class="table__body__column__row-title__value__text">
-                        {{ element.productValue }}
-                      </div>
+                      <div class="table__body__column__row-title__value__text">{{ element.productValue }}</div>
                       <div class="table__body__column__row-title__value__text--orange">
                         {{ element.productDeviation }}
                       </div>
@@ -244,9 +235,7 @@
                       >{{ elementChildren.productName }}</span
                     >
                     <div class="table__body__column__row-title__value__texts">
-                      <div class="table__body__column__row-title__value__text">
-                        {{ elementChildren.productValue }}
-                      </div>
+                      <div class="table__body__column__row-title__value__text">{{ elementChildren.productValue }}</div>
                       <div class="table__body__column__row-title__value__text--orange">
                         {{ elementChildren.productDeviation }}
                       </div>
@@ -257,10 +246,7 @@
                     >
                     </svg-icon>
                   </div>
-                  <div
-                    *ngIf="column.name !== 'productName' && column.name !== 'tankName'"
-                    class="line"
-                  >
+                  <div *ngIf="column.name !== 'productName' && column.name !== 'tankName'" class="line">
                     <!-- <ng-container *ngFor="let divGantt of elementChildren">
                       <ng-container *ngFor="let item of divGantt.value">
                         <div

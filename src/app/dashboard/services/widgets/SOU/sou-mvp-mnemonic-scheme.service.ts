@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    ISOUFlowIn,
-    ISOUFlowOut,
-    ISOUObjects,
-} from '../../../models/SOU/sou-operational-accounting-system';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../models/SOU/sou-operational-accounting-system';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 

@@ -117,32 +117,27 @@
 
           &__success {
             background-color: var(--color-shift-status-success);
-            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/success.svg")
-              no-repeat center;
+            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/success.svg") no-repeat center;
             mask-size: contain;
           }
           &__progress {
             background-color: var(--color-shift-status-process);
-            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/progress.svg")
-              no-repeat center;
+            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/progress.svg") no-repeat center;
             mask-size: contain;
           }
           &__absent {
             background-color: var(--color-shift-status-absent);
-            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/absent.svg")
-              no-repeat center;
+            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/absent.svg") no-repeat center;
             mask-size: contain;
           }
           &__missing {
             background-color: var(--color-shift-status-missing);
-            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/missing.svg")
-              no-repeat center;
+            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/missing.svg") no-repeat center;
             mask-size: contain;
           }
           &__init {
             background-color: var(--color-shift-status-init);
-            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/init.svg")
-              no-repeat center;
+            mask: url("../../../../../assets/icons/widgets/change-shift/statuses/init.svg") no-repeat center;
             mask-size: contain;
           }
         }

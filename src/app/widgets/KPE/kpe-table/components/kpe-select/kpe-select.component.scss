@@ -1,5 +1,4 @@
 .default {
-
   color: var(--header-events-color-font-main);
   background-color: var(--color-kpe-table-select);
 
@@ -17,7 +16,6 @@
   height: 32px;
   width: 100%;
   min-width: 50px;
-
 
   .mat-select {
     width: calc(100% - 2px) !important;
@@ -58,7 +56,6 @@
     }
 
     .mat-select-value-text {
-
       margin-left: 10px;
       font-size: 13px;
       color: inherit;

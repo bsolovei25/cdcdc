@@ -14,10 +14,13 @@
             <div class="input__container">
               <p class="input__container__title">Назначьте отвественного:</p>
               <mat-form-field class="input__container__form mat-select-custom">
-                <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn"
-                            [(value)]="info.responsible">
+                <mat-select
+                  value="ewService.event.asusEvent.category"
+                  [compareWith]="compareFn"
+                  [(value)]="info.responsible"
+                >
                   <mat-option *ngFor="let user of info?.users" [value]="user">
-                    {{ user.positionDescription }}  {{ user.middleName }} {{ user.firstName }}
+                    {{ user.positionDescription }} {{ user.middleName }} {{ user.firstName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -28,12 +31,7 @@
               <div class="input__container">
                 <p class="input__container__title">Выберите дату:</p>
                 <mat-form-field class="form form__picker custom-picker">
-                  <input
-                    autocomplete="off"
-                    matInput
-                    [matDatepicker]="pickerTo"
-                    [(ngModel)]="info.date"
-                  />
+                  <input autocomplete="off" matInput [matDatepicker]="pickerTo" [(ngModel)]="info.date" />
                   <mat-datepicker-toggle matSuffix [for]="pickerTo">
                     <span matDatepickerToggleIcon>
                       <svg-icon
@@ -60,11 +58,7 @@
                   >
                   </svg-icon>
                 </div>
-                <div
-                  *ngIf="isOpenStartDate"
-                  class="input__container__overlay"
-                  (mouseleave)="onMouseExit()"
-                >
+                <div *ngIf="isOpenStartDate" class="input__container__overlay" (mouseleave)="onMouseExit()">
                   <ngx-mat-timepicker
                     #menu
                     (click)="$event.stopPropagation()"
@@ -90,9 +84,8 @@
               <div class="input__container">
                 <p class="input__container__title">Установленные факты:</p>
                 <mat-form-field class="input__container__form mat-select-custom">
-                  <mat-select value="ewService.event.asusEvent.category"
-                              [(value)]="info.establishedFacts">
-                    <mat-option *ngFor="let fact of allEstablishedFacts" [value]="fact.name"  [matTooltip]="fact.name">
+                  <mat-select value="ewService.event.asusEvent.category" [(value)]="info.establishedFacts">
+                    <mat-option *ngFor="let fact of allEstablishedFacts" [value]="fact.name" [matTooltip]="fact.name">
                       {{ fact.name }}
                     </mat-option>
                   </mat-select>
@@ -112,10 +105,7 @@
         <div class="window-container__footer__btn" (click)="cancel()">
           <div>Отменить</div>
         </div>
-        <div
-          class="window-container__footer__btn window-container__footer__btn__accept"
-          (click)="accept()"
-        >
+        <div class="window-container__footer__btn window-container__footer__btn__accept" (click)="accept()">
           <svg-icon
             class="table__body__column__row-title__icon__background"
             src="assets/icons/widgets/CD/cd-mat-balance/send.svg"

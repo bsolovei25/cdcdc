@@ -12,20 +12,17 @@ import { FormControl } from '@angular/forms';
 export class EvjTasksEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
-    kpeAdditionalParameter: FormControl = new FormControl(
-        !!this.ewService.event.kpeAdditionalParameter
-    );
+    kpeAdditionalParameter: FormControl = new FormControl(!!this.ewService.event.kpeAdditionalParameter);
 
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
-        this.ewService.event.status = this.ewService.event.status ? this.ewService.event.status : this.ewService.status.find((value) => value.name === 'new');
+        this.ewService.event.status = this.ewService.event.status
+            ? this.ewService.event.status
+            : this.ewService.status.find((value) => value.name === 'new');
         this.ewService.extraOptionsWindow$.subscribe((value) => {
             console.log(value, this.ewService.event.kpeAdditionalParameter);
-            if (
-                value?.type === 'save' ||
-                (value?.type === 'cancel' && this.ewService.event.kpeAdditionalParameter)
-            ) {
+            if (value?.type === 'save' || (value?.type === 'cancel' && this.ewService.event.kpeAdditionalParameter)) {
                 this.kpeAdditionalParameter.setValue(true);
             }
             if (value?.type === 'reset' || (value?.type === 'cancel' && !this.ewService.event.kpeAdditionalParameter)) {
@@ -40,10 +37,7 @@ export class EvjTasksEventComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
-    public onSendMessage(
-        message: IChatMessageWithAttachments,
-        msgType: 'comments' | 'facts'
-    ): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

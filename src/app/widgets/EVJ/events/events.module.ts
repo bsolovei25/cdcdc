@@ -7,9 +7,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {
-    NgxMatDatetimePickerModule
-} from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';

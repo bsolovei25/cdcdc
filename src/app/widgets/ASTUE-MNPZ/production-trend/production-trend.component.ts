@@ -15,7 +15,6 @@ interface IUnit {
     styleUrls: ['./production-trend.component.scss'],
 })
 export class ProductionTrendComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public readonly allUnits: IUnit[] = [
         {
             id: 0,
@@ -31,8 +30,7 @@ export class ProductionTrendComponent extends WidgetPlatform<unknown> implements
         },
     ];
 
-    public graphData$: BehaviorSubject<IProductionTrend[]>
-        = new BehaviorSubject<IProductionTrend[]>(null);
+    public graphData$: BehaviorSubject<IProductionTrend[]> = new BehaviorSubject<IProductionTrend[]>(null);
 
     constructor(
         protected widgetService: WidgetService,

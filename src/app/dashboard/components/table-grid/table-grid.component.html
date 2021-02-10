@@ -2,19 +2,24 @@
   <!--TITLE-->
   <div class="grid-table__title" [class.left-title-footer]="scrollLeft">
     <ng-container *ngFor="let cell of columns">
-      <div class="{{cell.className}}" [style.width.%]="cell.width"> {{ cell.name }} </div>
+      <div class="{{cell.className}}" [style.width.%]="cell.width">{{ cell.name }}</div>
     </ng-container>
   </div>
   <!--TABLE-->
   <div class="grid-table__container" [class.left-container]="scrollLeft">
-    <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" itemSize="54" class="scroll-block" #table [class.left-content]="scrollLeft">
-      <ng-container  *cdkVirtualFor="let item of data">
+    <cdk-virtual-scroll-viewport
+      (scroll)="scrollHandler($event)"
+      itemSize="54"
+      class="scroll-block"
+      #table
+      [class.left-content]="scrollLeft"
+    >
+      <ng-container *cdkVirtualFor="let item of data">
         <div class="item-inline">
           <div class="record-table" (click)="activeItem(item)" [class.active]="activeItemId === item.id">
             <ng-container *ngFor="let cell of columns; trackBy: columnsByKey">
               <div class="{{cell.className}}" [style.width.%]="cell.width">
-                <ng-container *ngTemplateOutlet="cell.template; context: { data: item }">
-                </ng-container>
+                <ng-container *ngTemplateOutlet="cell.template; context: { data: item }"> </ng-container>
               </div>
             </ng-container>
           </div>
@@ -34,19 +39,17 @@
           <!--INPUT-->
           <ng-container *ngIf="search">
             <div class="search__input">
-              <evj-circle-input (searchChange)="searchRecord($event)" style="height: 100%;"></evj-circle-input>
+              <evj-circle-input (searchChange)="searchRecord($event)" style="height: 100%"></evj-circle-input>
             </div>
           </ng-container>
         </div>
         <div class="bottom-block__save-button">
           <ng-container *ngIf="saveButton">
-            <evj-table-grid-save-button (clickSave)="save($event)">
-            </evj-table-grid-save-button>
+            <evj-table-grid-save-button (clickSave)="save($event)"> </evj-table-grid-save-button>
           </ng-container>
         </div>
       </ng-template>
-      <ng-container *ngTemplateOutlet="templateFooter ? templateFooter : defaultFooter">
-      </ng-container>
+      <ng-container *ngTemplateOutlet="templateFooter ? templateFooter : defaultFooter"> </ng-container>
     </div>
   </div>
 </div>

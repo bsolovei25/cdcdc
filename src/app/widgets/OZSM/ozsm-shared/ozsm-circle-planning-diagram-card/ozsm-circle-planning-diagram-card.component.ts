@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-    AfterViewInit,
-    Input
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit, Input } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICircleData } from '../../../../dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
@@ -14,9 +6,8 @@ import { ICircleData } from '../../../../dashboard/models/OZSM/ozsm-circle-plann
 @Component({
     selector: 'evj-ozsm-circle-planning-diagram-card',
     templateUrl: './ozsm-circle-planning-diagram-card.component.html',
-    styleUrls: ['./ozsm-circle-planning-diagram-card.component.scss']
+    styleUrls: ['./ozsm-circle-planning-diagram-card.component.scss'],
 })
-
 export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
     @Input() card: ICircleData;
@@ -25,13 +16,12 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
     private svgBody: any;
     public percentValue: number;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.activeData = this.card;
     }
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
     ngAfterViewInit(): void {
         this.drawWidget();
     }
@@ -43,10 +33,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
     }
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
-        this.svgBody
-            .attr('width', 150)
-            .attr('height', 150)
-            .attr('viewBox', '0 0 200 200');
+        this.svgBody.attr('width', 150).attr('height', 150).attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -59,20 +46,14 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .attr('stroke-width', 1);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg')
             .attr('x', 12)
             .attr('y', 0)
             .attr('width', 188)
             .attr('height', 55);
         indicator
             .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
-            )
+            .attr('xlink:href', 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg')
             .attr('x', 12)
             .attr('y', -200)
             .attr('width', 188)
@@ -124,7 +105,6 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .range([0, 360]); // диапазон угла
 
         const pie = this.definePie(startAngle, endAngle); // функция дуги
-
     }
 
     private drawTextInGaude(block: any): void {
@@ -135,13 +115,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .attr('x', 0)
             .attr('y', 1.5)
             .text(this.activeData.value);
-        block
-            .append('text')
-            .attr('class', 'th')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', -5)
-            .text('ТН');
+        block.append('text').attr('class', 'th').attr('text-anchor', 'middle').attr('x', 0).attr('y', -5).text('ТН');
         block
             .append('text')
             // .attr('class', 'units')
@@ -160,46 +134,19 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .text(this.activeData.name);
     }
 
-    private defineArc(
-        innerRad: number,
-        outerRad: number,
-        padAngle: number = 0,
-        cornerRadius: number = 0
-    ): any {
-        return d3
-            .arc()
-            .innerRadius(innerRad)
-            .outerRadius(outerRad)
-            .cornerRadius(cornerRadius)
-            .padAngle(padAngle);
+    private defineArc(innerRad: number, outerRad: number, padAngle: number = 0, cornerRadius: number = 0): any {
+        return d3.arc().innerRadius(innerRad).outerRadius(outerRad).cornerRadius(cornerRadius).padAngle(padAngle);
     }
 
     private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
-        return d3
-            .pie()
-            .startAngle(startAngle)
-            .endAngle(endAngle)
-            .value(val);
+        return d3.pie().startAngle(startAngle).endAngle(endAngle).value(val);
     }
 
     private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
-        block
-            .selectAll('.arc')
-            .data(dataFn)
-            .enter()
-            .append('path')
-            .attr('class', cls)
-            .attr('d', arcFn);
+        block.selectAll('.arc').data(dataFn).enter().append('path').attr('class', cls).attr('d', arcFn);
     }
 
-    private drawNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
+    private drawNeedle(data: any[], cls: string, classed: string, block: any, needlePos: any, scaleFn: any): any {
         block
             .selectAll(`.needle`)
             .data(data)
@@ -214,6 +161,3 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 }
-
-
-

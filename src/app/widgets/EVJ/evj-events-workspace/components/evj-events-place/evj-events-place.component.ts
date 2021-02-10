@@ -8,7 +8,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-events-place',
     templateUrl: './evj-events-place.component.html',
-    styleUrls: ['./evj-events-place.component.scss']
+    styleUrls: ['./evj-events-place.component.scss'],
 })
 export class EvjEventsPlaceComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
@@ -22,8 +22,7 @@ export class EvjEventsPlaceComponent implements OnInit {
 
     public units: IUnitEvents[];
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
         this.ewService.event$.pipe(takeUntil(this.onDestroy)).subscribe((event) => {
@@ -54,8 +53,6 @@ export class EvjEventsPlaceComponent implements OnInit {
         } else {
             value = value.toLowerCase();
         }
-        this.units = this.ewService.units.filter(
-            (unit) => unit.name.toLowerCase().indexOf(value) > -1
-        );
+        this.units = this.ewService.units.filter((unit) => unit.name.toLowerCase().indexOf(value) > -1);
     }
 }

@@ -36,17 +36,17 @@
     position: absolute;
     left: 8px;
     top: -17px;
-    
+
     .connection-circle {
       height: 8px;
       width: 8px;
-    
+
       display: flex;
       justify-content: center;
       align-items: center;
-    
+
       border-radius: 50%;
-    
+
       background: var(--sou-mvp-color-bg-main);
       border: 1px solid var(--sou-mvp-color-border);
     }
@@ -105,13 +105,13 @@
     .connection-circle {
       height: 8px;
       width: 8px;
-    
+
       display: flex;
       justify-content: center;
       align-items: center;
-    
+
       border-radius: 50%;
-    
+
       background: var(--sou-mvp-color-bg-main);
       border: 1px solid var(--sou-mvp-color-border);
       position: absolute;
@@ -142,13 +142,13 @@
   .connection-circle {
     height: 8px;
     width: 8px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 50%;
-  
+
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border);
     position: absolute;

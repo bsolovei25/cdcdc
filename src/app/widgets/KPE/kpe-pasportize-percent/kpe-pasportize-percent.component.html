@@ -3,12 +3,9 @@
     [uniqId]="uniqId"
     [widgetTitle]="widgetTitle"
     type="astue"
-    icon="sliders"
+    icon="pie"
   ></evj-contemporary-widget-header>
-  <div class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="diagram">
       <span class="diagram__header">
         Каждая &nbsp;<span> {{data?.rate}}-ая </span>&nbsp; паспортизация является некондицией
@@ -21,16 +18,19 @@
         </div>
         <div class="info">
           <div class="info__item">
-            <span class="values values-fact">&bull; {{data?.total}}</span>
+            <span><span class="values values-fact">&bull; </span>{{data?.total}}</span>
             <span class="description">Паспортизаций с первого предъявления</span>
           </div>
           <div class="info__item">
-            <span class="values">&bull; {{data?.first}}</span>
+            <span><span class="values">&bull; </span>{{data?.first}}</span>
             <span class="description">Зафиксированных случаев паспортизации</span>
           </div>
         </div>
       </div>
-      <div class="diagram__footer">Число некондиций по продуктам</div>
+      <div class="diagram__footer">
+        <svg-icon src="assets/icons/widgets/KPE/kpe-pasportize-percent/sort.svg"></svg-icon>
+        Число некондиций по продуктам
+      </div>
     </div>
     <div class="shadow"></div>
     <div class="product-list-container">
@@ -38,7 +38,7 @@
         <evj-kpe-pasportize-percent-product
           *ngFor="let item of data?.products"
           [data]="item"
-          [style.width.%]=100
+          [style.width.%]="100"
         ></evj-kpe-pasportize-percent-product>
       </div>
     </div>

@@ -1,5 +1,4 @@
 <div class="page-container">
-
   <evj-header *ngIf="!fullscreen" class="header">
     <div class="logo-gpn"></div>
     <div class="arrow-gpn"></div>
@@ -15,10 +14,7 @@
   <evj-content class="content">
     <evj-loading-shade [isLoading]="overlayService.dashboardIsLoad$ | async"></evj-loading-shade>
     <evj-alert-window [info]="overlayService.dashboardAlert$ | async"></evj-alert-window>
-    <evj-alert-password
-      [options]="overlayService.dashboardAlertPassword$ | async"
-    ></evj-alert-password>
+    <evj-alert-password [options]="overlayService.dashboardAlertPassword$ | async"></evj-alert-password>
     <evj-widgets-grid></evj-widgets-grid>
   </evj-content>
-
 </div>
