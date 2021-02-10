@@ -63,14 +63,14 @@ export class UserSettingsService {
         });
     }
 
-    public async getIcons(): Promise<string[]> {
+    public async getIcons(): Promise<boolean> {
         try {
             const icons = await this.http.get<string[]>(`${this.restUrl}/api/ref-book/IconGroup`).toPromise();
             this.iconsList$.next(icons);
-            return [];
+            return true;
         } catch (e) {
             console.error(e);
-            return [];
+            return false;
         }
     }
 

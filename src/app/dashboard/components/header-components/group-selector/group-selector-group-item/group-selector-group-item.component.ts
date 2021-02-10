@@ -1,18 +1,27 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UserSettingsService } from '../../../../services/user-settings.service';
 import { SnackBarService } from '../../../../services/snack-bar.service';
 import { Router } from '@angular/router';
-import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
+import {ConnectedPosition, Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSelectorModalComponent } from '../group-selector-modal/group-selector-modal.component';
+import { CdkPortal } from '@angular/cdk/portal';
 
 @Component({
     selector: 'evj-group-selector-group-item',
     templateUrl: './group-selector-group-item.component.html',
-    styleUrls: ['./group-selector-group-item.component.scss'],
+    styleUrls: ['./group-selector-group-item.component.scss']
 })
 export class GroupSelectorGroupItemComponent implements OnInit {
     @Input() set group(data: IGroupScreens) {
@@ -22,7 +31,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
 
         this.switchSubscribe = this.projectForm.get('isEnabled').valueChanges.subscribe((val) => {
             this.switchStatus = val;
-            if (this.groupData.id !== 0) {
+            if (!!this.groupData.id) {
                 this.switchEnable();
             } else if (!val && this.groupData.id === this.userSettingsService.groupId) {
                 const selectableGroup = this.userSettingsService.groupsList$.getValue().find((item) => item.isEnabled);
@@ -30,6 +39,9 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             }
         });
         this.groupData = data;
+        if (!this.groupData.id) {
+            this.onEditName();
+        }
         this.userSettingsService.iconsList$.subscribe((icons) => {
             this.icons = icons;
             this.setIcon();
@@ -37,23 +49,11 @@ export class GroupSelectorGroupItemComponent implements OnInit {
 
         this.setIcon();
     }
-    @Input() set saveNewGroup(data: { flag: boolean; id: number }) {
-        if (data?.id === 0) {
-            if (!data?.flag) {
-                this.onEditName();
-            }
-            if (this.projectForm.valid && data?.flag) {
-                this.onCreateGroup();
-            } else if (!this.projectForm.valid && data?.flag) {
-                this.snackBar.openSnackBar('Неверное название группы', 'snackbar-red');
-                this.nameInput.nativeElement.focus();
-            }
-        }
-    }
-    @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+    @Output() cancelNewProject: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('nameElement', { static: true }) nameInput: ElementRef;
-    @ViewChild(CdkConnectedOverlay, { static: true }) connectedOverlay: CdkConnectedOverlay;
+
+    @ViewChild('originOverlay') originOverlay: CdkPortal;
+    public overlayRef: OverlayRef;
 
     readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
     public editName: boolean = true;
@@ -65,10 +65,11 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     public switchSubscribe: Subscription;
     public positions: ConnectedPosition[] = [
         {
-            originX: 'center',
+            originX: 'start',
             originY: 'bottom',
-            overlayX: 'center',
+            overlayX: 'start',
             overlayY: 'top',
+            offsetX: -30
         },
     ];
 
@@ -81,15 +82,12 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     constructor(
         private userSettingsService: UserSettingsService,
         private snackBar: SnackBarService,
+        private overlay: Overlay,
         private router: Router,
         public dialog: MatDialog
     ) {}
 
-    ngOnInit(): void {
-        this.connectedOverlay.backdropClick.subscribe(() => {
-            this.isEditLogo = false;
-        });
-    }
+    ngOnInit(): void {}
 
     public onEditName(): void {
         if (this.editName) {
@@ -102,18 +100,18 @@ export class GroupSelectorGroupItemComponent implements OnInit {
 
     public async acceptEdit(): Promise<void> {
         if (this.projectForm.get('name').dirty && this.projectForm.get('name').valid) {
-            if (this.groupData.id !== 0) {
-                let group: IGroupScreens;
-                group = { ...this.groupData, name: this.projectForm.get('name').value };
-
+            let group: IGroupScreens;
+            group = { ...this.groupData, name: this.projectForm.get('name').value };
+            if (!!this.groupData.id) {
                 group = await this.userSettingsService.updateGroup(group);
-                this.projectForm.get('name').setValue(group.name);
 
                 this.snackBar.openSnackBar('Новое имя группы сохранено');
 
                 if (this.userSettingsService.groupId === group.id) {
                     this.userSettingsService.groupName = group.name;
                 }
+            } else {
+                await this.onCreateGroup(group);
             }
             this.editName = true;
         } else if (!this.projectForm.get('name').valid) {
@@ -144,25 +142,21 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     }
 
     public openModal(): void {
-        if (this.groupData.id === 0) {
-            this.changed.emit(false);
+        if (!this.groupData.id) {
+            this.cancelNewProject.emit();
             return;
         } else {
             this.dialog.open(GroupSelectorModalComponent, { data: this.groupData.id });
         }
     }
 
-    public async onCreateGroup(): Promise<void> {
-        const newGroup = await this.userSettingsService.addGroup({
-            ...this.projectForm.value,
-            id: 0,
-        });
+    public async onCreateGroup(group: IGroupScreens): Promise<void> {
+        const newGroup = await this.userSettingsService.addGroup(group);
         if (!newGroup) {
             return;
         }
         this.onSelect(newGroup);
         await this.userSettingsService.pushScreen(`Экран группы ${newGroup.name}`);
-        this.changed.emit(false);
     }
 
     public onSelect(group: IGroupScreens): void {
@@ -184,19 +178,35 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             : 'assets/icons/control-group-icons/upload.svg';
     }
 
-    public editLogo(): void {
-        this.isEditLogo = true;
+    public editLogo(event: Event): void {
+        const positionStrategy = this.overlay
+            .position()
+            .flexibleConnectedTo(event.target as Element)
+            .withPositions(this.positions);
+        this.overlayRef = this.overlay.create(
+            new OverlayConfig({
+                positionStrategy,
+                hasBackdrop: true,
+                backdropClass: 'cdk-overlay-transparent-backdrop',
+            })
+        );
+        this.overlayRef.backdropClick().subscribe(() => {
+            this.isEditLogo = false;
+            this.overlayRef.dispose();
+        });
+        this.overlayRef.attach(this.originOverlay);
     }
 
     public onChanged(): void {
         this.isEditLogo = false;
+        this.overlayRef.dispose();
     }
 
     public async onChangeIcon(id: string): Promise<void> {
         this.projectForm.get('iconId').setValue(id);
         this.groupData.iconId = id;
         this.setIcon();
-        if (this.groupData.id !== 0) {
+        if (!!this.groupData.id) {
             let group: IGroupScreens;
             group = { ...this.groupData, iconId: this.projectForm.get('iconId').value };
             group = await this.userSettingsService.updateGroup(group);

@@ -1,6 +1,6 @@
-<form [formGroup]="projectForm" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
+<form [formGroup]="projectForm">
   <div class="container" [class.disabled]="!switchStatus">
-    <div class="logo" (click)="editLogo()" [class.logo-active]="isEditLogo">
+    <div class="logo" (click)="editLogo($event)" [class.logo-active]="isEditLogo">
       <svg-icon [src]="iconSrc" [svgStyle]="!!groupData.iconId? { 'width.px':50, 'height.px':53 } : {}"></svg-icon>
     </div>
     <div class="content">
@@ -30,12 +30,7 @@
   </div>
 </form>
 <ng-template
-  cdkConnectedOverlay
-  cdkConnectedOverlayHasBackdrop
-  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-  [cdkConnectedOverlayPositions]="positions"
-  [cdkConnectedOverlayOrigin]="originOverlay"
-  [cdkConnectedOverlayOpen]="isEditLogo"
+  cdk-portal #originOverlay="cdkPortal"
 >
   <evj-group-selector-overlay
     [iconList]="icons"
