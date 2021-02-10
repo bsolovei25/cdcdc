@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 320px;
+  width: 600px;
+
+  display: flex;
+  color: #606580;
+  background: transparent;
+}
+.content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  // Нужно для того, чтобы просто было место под дни месяца
+  .days {
+    height: 20px;
+    width: 100%;
+  }
+
+  .chart-container {
+    flex: 1;
+
+    display: flex;
+    position: relative;
+
+    .shadow {
+      height: 100%;
+      width: 16px;
+      position: absolute;
+      right: 0;
+
+      background: linear-gradient(-90deg, rgba(0, 0, 0, 0.35) 0.02%, rgba(34, 38, 47, 0) 99.98%);
+      opacity: 0.25;
+    }
+
+    .axis {
+      width: 100%;
+      position: absolute;
+
+      display: flex;
+      align-items: center;
+
+      font-size: 8px;
+      line-height: 10px;
+
+      .value {
+        width: 32px;
+        padding-right: 2px;
+
+        text-align: end;
+      }
+      .line {
+        height: 1px;
+        flex-grow: 1;
+        z-index: 1;
+      }
+      .line-danger {
+        height: 1px;
+        flex-grow: 1;
+        z-index: 1;
+        border-top: 1px dashed var(--color-kpe-danger-dashed-column-diagram);
+      }
+      .line-warning {
+        height: 1px;
+        flex-grow: 1;
+        z-index: 1;
+        border-top: 1px dashed var(--color-kpe-warning-dashed-column-diagram);
+      }
+
+      &_zero {
+        top: calc(50% - 4px);
+        z-index: 1;
+        .line {
+          border-top: 1px solid var(--color-kpe-zero-axis-column-diagram);
+        }
+      }
+    }
+
+    .chart {
+      height: 100%;
+      width: 100%;
+      margin-left: 32px;
+
+      display: flex;
+
+      background: var(--color-kpe-bg-column-diagram);
+      border-left: 1px solid var(--color-kpe-border-axis-column-diagram);
+      border-bottom: 1px solid var(--color-kpe-border-axis-column-diagram);
+
+      &__item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 15px;
+
+        border-right: 1px solid var(--color-kpe-grid-column-diagram);
+        border-top: 2px solid transparent;
+
+        position: relative;
+
+        cursor: pointer;
+
+        .icon {
+          width: 100%;
+          padding-left: 1px;
+          display: none;
+          position: absolute;
+          top: -7px;
+        }
+        &:hover, &_selected {
+          background: var(--color-kpe-select-column-diagram);
+        }
+
+        &_selected {
+          .icon {
+            display: flex;
+            justify-content: center;
+          }
+        }
+        .day {
+          height: 16px;
+          width: 100%;
+          padding-top: 2px;
+
+          font-size: 8px;
+          line-height: 10px;
+
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+
+          position: absolute;
+          bottom: -16px;
+        }
+
+        .chart__top, .chart__bottom {
+          width: 100%;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 1px;
+
+          .value {
+            height: 100%;
+            width: 40%;
+            min-width: 3px;
+            background-image: linear-gradient(180deg,  #FBFBFB,  #FBFBFB 75%, transparent 75%, transparent 100%);
+            background-size: 1px 2px;
+            border: none;
+
+
+          }
+        }
+        .chart__bottom {
+          justify-content: flex-start;
+          position: absolute;
+          top: 50%;
+        }
+        .chart__top {
+          justify-content: flex-start;
+          position: absolute;
+          bottom: 50%;
+        }
+      }
+    }
+  }
+}

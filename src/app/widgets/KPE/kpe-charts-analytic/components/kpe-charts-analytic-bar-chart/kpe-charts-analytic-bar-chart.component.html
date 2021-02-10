@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="content">
+    <div class="chart-container">
+      <div class="axis" [style.top.%]="12.5">
+        <div class="value">300</div>
+        <div class="line-danger"></div>
+      </div>
+      <div class="axis axis_zero">
+        <div class="value">0</div>
+        <div class="line"></div>
+      </div>
+      <div class="axis" [style.bottom.%]="12.5">
+        <div class="value">-300</div>
+        <div class="line-danger"></div>
+      </div>
+      <div class="axis" [style.top.%]="25">
+        <div class="value">200</div>
+        <div class="line-warning"></div>
+      </div>
+      <div class="axis" [style.bottom.%]="25">
+        <div class="value">-200</div>
+        <div class="line-warning"></div>
+      </div>
+      <div class="axis" [style.top.%]="37.5">
+        <div class="value">100</div>
+      </div>
+      <div class="axis" [style.bottom.%]="37.5">
+        <div class="value">-100</div>
+      </div>
+      <div class="chart">
+        <div
+          class="chart__item"
+          *ngFor="let day of days; let d = index"
+          (click)="chooseDay(d)"
+          [ngClass]="{'chart__item_selected':d + 1 === chosenDay}"
+        >
+          <div class="icon">
+            <svg-icon
+              src="assets/icons/widgets/bar-chart/over.svg"
+            ></svg-icon>
+          </div>
+          <div class="chart__top" [ngStyle]="{'height': value*0.125 + '%'}">
+            <ng-container *ngIf="(d + 1)%3  >= 1 ">
+              <div class="value"></div>
+            </ng-container>
+          </div>
+          <div class="chart__bottom" [ngStyle]="{'height': value*0.125 + '%'}">
+            <ng-container *ngIf="(d + 1)%3  < 1">
+              <div class="value"></div>
+            </ng-container>
+          </div>
+          <div class="day" *ngIf="(d + 1) % 2 === 1">{{d + 1}}</div>
+        </div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+    <div class="days"></div>
+  </div>
+</div>
