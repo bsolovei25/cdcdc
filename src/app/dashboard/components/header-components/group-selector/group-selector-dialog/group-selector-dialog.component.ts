@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserSettingsService } from '../../../../services/user-settings.service';
@@ -6,7 +6,7 @@ import { UserSettingsService } from '../../../../services/user-settings.service'
 @Component({
     selector: 'evj-group-selector-dialog',
     templateUrl: './group-selector-dialog.component.html',
-    styleUrls: ['./group-selector-dialog.component.scss']
+    styleUrls: ['./group-selector-dialog.component.scss'],
 })
 export class GroupSelectorDialogComponent implements OnInit {
     @ViewChild('mainContent', { static: true }) mainContent: ElementRef;
@@ -25,7 +25,7 @@ export class GroupSelectorDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.userSettingsService.groupsList$.subscribe((item) => {
-            this.groups = item.filter(group => !!group.id);
+            this.groups = item.filter((group) => !!group.id);
         });
     }
 
@@ -35,13 +35,11 @@ export class GroupSelectorDialogComponent implements OnInit {
     }
 
     public addNewProject(): void {
-        this.onCancelNewProject()
-        this.groups.push({...this.newGroup});
+        this.onCancelNewProject();
+        this.groups.unshift({ ...this.newGroup });
     }
 
     public onCancelNewProject(): void {
-        if (this.groups.find((group) => !!group.id)) {
-            this.groups.pop();
-        }
+        this.groups = this.groups.filter((group) => !!group.id);
     }
 }

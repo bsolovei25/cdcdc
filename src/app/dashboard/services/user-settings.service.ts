@@ -198,7 +198,7 @@ export class UserSettingsService {
                 .toPromise();
             this.snackBar.openSnackBar('Новая группа успешно создана');
             const groups = this.groupsList$.getValue();
-            groups.push(newGroup);
+            groups.unshift(newGroup);
             this.groupsList$.next(groups);
             return newGroup;
         } catch (e) {

@@ -1,19 +1,11 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UserSettingsService } from '../../../../services/user-settings.service';
 import { SnackBarService } from '../../../../services/snack-bar.service';
 import { Router } from '@angular/router';
-import {ConnectedPosition, Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
+import { ConnectedPosition, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSelectorModalComponent } from '../group-selector-modal/group-selector-modal.component';
 import { CdkPortal } from '@angular/cdk/portal';
@@ -21,7 +13,7 @@ import { CdkPortal } from '@angular/cdk/portal';
 @Component({
     selector: 'evj-group-selector-group-item',
     templateUrl: './group-selector-group-item.component.html',
-    styleUrls: ['./group-selector-group-item.component.scss']
+    styleUrls: ['./group-selector-group-item.component.scss'],
 })
 export class GroupSelectorGroupItemComponent implements OnInit {
     @Input() set group(data: IGroupScreens) {
@@ -69,7 +61,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             originY: 'bottom',
             overlayX: 'start',
             overlayY: 'top',
-            offsetX: -30
+            offsetX: -30,
         },
     ];
 
