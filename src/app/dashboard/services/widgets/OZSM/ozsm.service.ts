@@ -24,7 +24,7 @@ export class OzsmService {
     );
 
     constructor(private http: HttpClient, private appConfigService: AppConfigService) {
-        this.restUrl = this.appConfigService.restUrl;
+        this.restUrl = this.appConfigService.ozsmUrl;
     }
 
     public async getScenarios(): Promise<IOzsmScenarioResponse[]> {
