@@ -2,11 +2,10 @@
   <ng-container *ngIf="!isEditing;else input">
     <div class="group">
       <div class="group__icon">
-        <svg-icon
+        <img
           *ngIf="!!group.iconId"
           [src]="baseSrc + group.iconId"
-          [svgStyle]="{ 'width.px':40, 'height.px':43 }"
-        ></svg-icon>
+        />
       </div>
       <div class="group__name">{{group.name}}</div>
     </div>

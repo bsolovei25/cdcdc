@@ -1,7 +1,8 @@
 <form [formGroup]="projectForm">
   <div class="container" [class.disabled]="!switchStatus">
     <div class="logo" (click)="editLogo($event)" [class.logo-active]="isEditLogo">
-      <svg-icon [src]="iconSrc" [svgStyle]="!!groupData.iconId? { 'width.px':50, 'height.px':53 } : {}"></svg-icon>
+      <svg-icon [src]="iconSrc" *ngIf="!groupData.iconId"></svg-icon>
+      <img [src]="iconSrc" *ngIf="!!groupData.iconId">
     </div>
     <div class="content">
       <input
