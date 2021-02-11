@@ -1,9 +1,46 @@
 import { IBarChartDataset } from "./kpe-charts-analytic-bar-chart.component";
 
 export const kpeBarChartData: IBarChartDataset[] = [
+    //2021 год
     {
-        x: new Date(1626208000000),
+        x: new Date(1626210000000), //14.07.2021, 00:00:00
+        y: 200
+    },
+    {
+        x: new Date(1626213600000), //14.07.2021, 01:00:00
+        y: 100
+    },
+    {
+        x: new Date(1626217200000), //14.07.2021, 02:00:00
+        y: 200
+    },
+    {
+        x: new Date(1626224400000), //14.07.2021, 03:00:00
+        y: 300
+    },
+    {
+        x: new Date(1626228000000), //14.07.2021, 04:00:00
+        y: 400
+    },
+    {
+        x: new Date(1626200000000), //14.07.2021, 21:13:20
         y: 900
+    },
+    {
+        x: new Date(1626208000000), //13.07.2021
+        y: -300
+    },
+    {
+        x: new Date(1626294400000), //14.07.2021
+        y: 700
+    },
+    {
+        x: new Date(1626308080000), //15.07.2021
+        y: 800
+    },
+    {
+        x: new Date(1626465200000), //16.07.2021
+        y: 850
     },
     {
         x: new Date(1628294400000),
@@ -103,6 +140,11 @@ export const kpeBarChartData: IBarChartDataset[] = [
     },
     {
         x: new Date(1630368000000),
+        y: 1000
+    },
+    // 2022 год
+    {
+        x: new Date(1643681042000),
         y: 1000
     }
 ];

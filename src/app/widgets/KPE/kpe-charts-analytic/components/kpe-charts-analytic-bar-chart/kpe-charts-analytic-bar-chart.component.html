@@ -34,13 +34,17 @@
           (click)="chooseDay(d)"
           [ngClass]="{'chart__item_selected':d + 1 === chosenDay}"
         >
-          <div class="icon">
-          </div>
-          <div class="chart__top" [ngStyle]="{'height': item.y * 0.0405 + '%'}">
-            <ng-container>
+          <ng-container *ngIf="item.y >= 0 else bottom">
+          <div class="chart__top" [ngStyle]="{'height': item.y * scale + '%'}">
               <div class="value"></div>
-            </ng-container>
           </div>
+          </ng-container>
+
+          <ng-template #bottom>
+          <div class="chart__bottom" [ngStyle]="{'height': (-1) * item.y * scale + '%'}">
+              <div class="value"></div>
+          </div>
+          </ng-template>
           <div class="day" *ngIf="(d+1) % 2 === 1">{{item.x}}</div>
         </div>
       </div>
