@@ -5,13 +5,13 @@
   height: 100%;
   width: 100%;
   padding: 6.7px 11px;
-  background: rgba(#272A38, .2);
+  background: rgba(#272a38, 0.2);
   border-radius: 2px;
   box-sizing: border-box;
 
   .title {
     font-size: 10px;
-    color: #8C99B2
+    color: #8c99b2;
   }
 
   .value {
@@ -21,11 +21,11 @@
     }
 
     &__plan {
-      color: #0089FF;
+      color: #0089ff;
     }
 
     &__deviation {
-      color: #8C99B2;
+      color: #8c99b2;
     }
 
     &__interval {

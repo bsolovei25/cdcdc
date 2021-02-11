@@ -1,183 +1,183 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 .container {
-    width: 385px;
+  width: 385px;
+
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    height: 40px;
+    padding: 0 15px;
+
+    background: var(--color-kpe-gaude-lines);
+    border-radius: 2px 2px 0px 0px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .title {
+      font-size: 14px;
+      line-height: 17px;
+
+      color: var(--color-kpe-white);
+    }
+  }
+
+  .content {
+    padding: 24px;
 
     display: flex;
     flex-direction: column;
 
-    .header {
-        height: 40px;
-        padding: 0 15px;
+    background: var(--color-kpe-line-diagram-bg-sub);
+    border: 1px solid var(--color-kpe-bg-sub);
+    border-radius: 0px 0px 2px 2px;
 
-        background: var(--color-kpe-gaude-lines);
-        border-radius: 2px 2px 0px 0px;
+    .date {
+      display: flex;
+      gap: 25px;
+
+      .title {
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--color-kpe-pasportize-text);
+        user-select: none;
+      }
+
+      .plan-month {
+        .slider {
+          height: 32px;
+          width: 200px;
+          margin-top: 5px;
+          padding: 0 13px;
+
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          background: var(--color-kpe-gaude-lines);
+
+          border: 1px solid var(--color-kpe-gauge-tab-unactive);
+          border-radius: 2px;
+
+          .span {
+            font-size: 13px;
+            line-height: 16px;
+
+            color: var(--color-kpe-gaude-main);
+          }
+
+          .arrow {
+            cursor: pointer;
+            &:last-child {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+      .plan-date {
+        .picker {
+          height: 32px;
+          width: 112px;
+          padding: 8px;
+          margin-top: 5px;
+
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          background: var(--color-kpe-gaude-back);
+
+          border: 1px solid var(--color-kpe-gauge-tab-unactive);
+          border-radius: 2px;
+
+          font-size: 13px;
+          line-height: 16px;
+          color: var(--color-kpe-gaude-main);
+          overflow: hidden;
+
+          input {
+            height: 32px;
+            width: 112px;
+          }
+          mat-form-field {
+            margin-top: -32px;
+            padding-left: 17px;
+            height: 32px;
+            width: 112px;
+          }
+
+          ::ng-deep {
+            button {
+              transform: translate(-97px, -10px);
+            }
+          }
+        }
+      }
+    }
+    .file-area {
+      height: 90px;
+      width: 100%;
+      padding: 16px;
+      margin-top: 16px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      background: var(--color-kpe-gaude-lines);
+      border-radius: 2px;
+      span {
+        font-size: 12px;
+        line-height: 14px;
+
+        color: var(--color-kpe-gaude-additional);
+      }
+    }
+
+    .files-list {
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+    }
+
+    mat-dialog-actions {
+      padding-bottom: 24px;
+    }
+
+    .btns {
+      margin-top: 40px;
+      display: flex;
+      gap: 6px;
+
+      .save,
+      .cancel {
+        height: 32px;
+        padding: 0 16px;
+
+        background: var(--color-kpe-table-select);
 
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 15px;
 
-        .title {
-            font-size: 14px;
-            line-height: 17px;
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--color-kpe-gaude-main);
 
-            color: var(--color-kpe-white);
+        cursor: pointer;
+      }
+      .save {
+        background: var(--color-kpe-gaude-active);
+        color: var(--color-kpe-white);
+
+        svg-icon {
+          margin-right: 10px;
         }
+      }
     }
-
-    .content {
-        padding: 24px;
-
-        display: flex;
-        flex-direction: column;
-
-        background: var(--color-kpe-line-diagram-bg-sub);        
-        border: 1px solid var(--color-kpe-bg-sub);
-        border-radius: 0px 0px 2px 2px;
-
-        .date {
-            display: flex;
-            gap: 25px;
-
-            .title {
-                font-size: 12px;
-                line-height: 14px;
-                color: var(--color-kpe-pasportize-text);
-                user-select: none;
-            }
-
-            .plan-month {
-                .slider {
-                    height: 32px;
-                    width: 200px;
-                    margin-top: 5px;
-                    padding: 0 13px;
-
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    background: var(--color-kpe-gaude-lines);
-
-                    border: 1px solid var(--color-kpe-gauge-tab-unactive);
-                    border-radius: 2px;
-
-                    .span {
-                        font-size: 13px;
-                        line-height: 16px;
-                        
-                        color: var(--color-kpe-gaude-main);
-                    }
-
-                    .arrow {
-                        cursor: pointer;
-                        &:last-child {
-                            transform: rotate(180deg);
-                        }
-                    }
-                }
-            }
-            .plan-date {
-                .picker{
-                    height: 32px;
-                    width: 112px;
-                    padding: 8px;
-                    margin-top: 5px;
-
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    background: var(--color-kpe-gaude-back);
-
-                    border: 1px solid var(--color-kpe-gauge-tab-unactive);
-                    border-radius: 2px;
-
-                    font-size: 13px;
-                    line-height: 16px;
-                    color: var(--color-kpe-gaude-main);
-                    overflow: hidden;
-
-                    input {
-                        height: 32px;
-                        width: 112px;
-                    }
-                    mat-form-field {
-                        margin-top: -32px;
-                        padding-left: 17px;
-                        height: 32px;
-                        width: 112px; 
-                    }
-
-                    ::ng-deep {
-                        button {
-                            transform: translate(-97px, -10px);
-                        }
-                    }
-                }
-            }
-
-        }
-        .file-area {
-            height: 90px;
-            width: 100%;
-            padding: 16px;
-            margin-top: 16px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            background: var(--color-kpe-gaude-lines);
-            border-radius: 2px;
-            span {
-                font-size: 12px;
-                line-height: 14px;
-                
-                color: var(--color-kpe-gaude-additional);
-            }
-        }
-
-        .files-list {
-            margin-top: 8px;
-            display: flex;
-            gap: 10px;
-        }
-
-        mat-dialog-actions {
-            padding-bottom: 24px;
-        }
-
-        .btns {
-            margin-top: 40px;
-            display: flex;
-            gap: 6px;
-
-            .save, .cancel {
-                height: 32px;
-                padding: 0 16px;
-            
-                background: var(--color-kpe-table-select);
-            
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            
-                font-size: 12px;
-                line-height: 14px;
-                color: var(--color-kpe-gaude-main);
-
-                cursor: pointer;
-            }
-            .save {
-                background: var(--color-kpe-gaude-active);
-                color: var(--color-kpe-white);
-
-                svg-icon {
-                    margin-right: 10px;
-                }
-            }
-        }
-    }
+  }
 }

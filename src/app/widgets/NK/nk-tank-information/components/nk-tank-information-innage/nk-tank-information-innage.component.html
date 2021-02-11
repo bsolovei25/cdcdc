@@ -1,45 +1,43 @@
 <div class="innage">
-    <div class="innage__title">
-        <span>Взлив, СМ</span>
-    </div>
-    <div 
-        class="innage__body"
-        [style.color]="!!isRepair? 'var(--nk-color-font-title-sub)' : 'var(--nk-color-font-title-main)'"
-    >
-        <div class="innage-border">
-            <div class="innage-lines">
-                <div class="innage-lines__item" 
-                *ngFor = "let item of innageDiagramCustomization; let i = index" 
-                [ngClass] = "{
+  <div class="innage__title">
+    <span>Взлив, СМ</span>
+  </div>
+  <div
+    class="innage__body"
+    [style.color]="!!isRepair? 'var(--nk-color-font-title-sub)' : 'var(--nk-color-font-title-main)'"
+  >
+    <div class="innage-border">
+      <div class="innage-lines">
+        <div
+          class="innage-lines__item"
+          *ngFor="let item of innageDiagramCustomization; let i = index"
+          [ngClass]="{
                     'innage-lines__item_active':
                     !isRepair && (30 - i <= diagramCustomLinesCount || diagramCustomLinesCount === (innageDiagramCustomization.length - 1))
-                }"></div>
-            </div>
+                }"
+        ></div>
+      </div>
 
-            <span class="innage__higherBorder">
-                {{higher | number:'0.0-1'}}
-            </span>
-            <span class="innage__current"
-                *ngIf="!isRepair" 
-                [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" 
-                [style.height] = "higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'" 
-            >
-                {{current | number:'0.0-1'}}
-            </span>
-            <span class="innage__lowerBorder" *ngIf="!isRepair">
-                {{lower | number:'0.0-1'}}
-            </span>
+      <span class="innage__higherBorder"> {{higher | number:'0.0-1'}} </span>
+      <span
+        class="innage__current"
+        *ngIf="!isRepair"
+        [style.alignItems]="current / higher > 0.5 ? 'flex-start' : 'flex-end'"
+        [style.height]="higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'"
+      >
+        {{current | number:'0.0-1'}}
+      </span>
+      <span class="innage__lowerBorder" *ngIf="!isRepair"> {{lower | number:'0.0-1'}} </span>
 
-            <span class="innage__lowerBorder innage__lowerBorder_repair" *ngIf="isRepair">
-                0
-            </span>
+      <span class="innage__lowerBorder innage__lowerBorder_repair" *ngIf="isRepair"> 0 </span>
 
-            <div class="innage-axis">
-                <div class="innage-axis__value"
-                    *ngIf="!isRepair"
-                    [style.height] = "higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'"
-                ></div>
-            </div>
-        </div>
+      <div class="innage-axis">
+        <div
+          class="innage-axis__value"
+          *ngIf="!isRepair"
+          [style.height]="higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'"
+        ></div>
+      </div>
     </div>
+  </div>
 </div>

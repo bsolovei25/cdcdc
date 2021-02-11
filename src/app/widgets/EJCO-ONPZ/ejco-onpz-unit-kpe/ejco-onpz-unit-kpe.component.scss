@@ -26,7 +26,7 @@
     margin-left: auto;
     cursor: pointer;
     border-radius: 2px;
-    color: #D7E2F2;
+    color: #d7e2f2;
     background: #303549;
   }
 }
@@ -70,8 +70,8 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      border-top: solid 5px var(--color-astue-onpz-widget-bg);;
-      border-bottom: solid 5px var(--color-astue-onpz-widget-bg);;
+      border-top: solid 5px var(--color-astue-onpz-widget-bg);
+      border-bottom: solid 5px var(--color-astue-onpz-widget-bg);
     }
   }
 }

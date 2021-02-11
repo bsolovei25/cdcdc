@@ -1,3 +1,18 @@
+## [1.0.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.1...v1.0.2) (2021-02-11)
+
+
+### Bug Fixes
+
+* select ([74200f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/74200f91ed9a5bd55668d3f72f5b33ab4ae30fc8))
+
+## [1.0.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.0...v1.0.1) (2021-01-31)
+
+
+### Bug Fixes
+
+* **ci:** send correct env var to child pipeline ([96cc06e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/96cc06e5bbd22efe5fdb0572ebac0e1861fe7c83))
+* **ci:** send correct env var to child pipeline ([abc5b86](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/abc5b8611426d7bccc860009cb3cad2ca827dedc))
+
 # 1.0.0 (2021-01-30)
 
 

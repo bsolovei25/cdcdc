@@ -170,9 +170,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             acceptFunction: () => this.deleteScreen(screen.id),
             closeFunction: () => this.overlayService.closeDashboardAlert(),
             cancelFunction: () =>
-                this.snackBar.openSnackBar(
-                    `Экран '${screen.screenName}' не удален и доступен для работы`
-                ),
+                this.snackBar.openSnackBar(`Экран '${screen.screenName}' не удален и доступен для работы`),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -200,9 +198,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             acceptFunction: () => this.updateScreen(screen, newName),
             closeFunction: () => this.overlayService.closeDashboardAlert(),
             cancelFunction: () =>
-                this.snackBar.openSnackBar(
-                    `Внесенные изменения для экрана '${screen.screenName}' не сохранены`
-                ),
+                this.snackBar.openSnackBar(`Внесенные изменения для экрана '${screen.screenName}' не сохранены`),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -246,9 +242,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public isScreenDelete(screen: IScreenSettings): boolean {
         return !!screen.claims.find(
             (claim) =>
-                claim.claimType === 'screenDel' ||
-                claim.claimType === 'screensDel' ||
-                claim.claimType === 'screenAdmin'
+                claim.claimType === 'screenDel' || claim.claimType === 'screensDel' || claim.claimType === 'screenAdmin'
         );
     }
 

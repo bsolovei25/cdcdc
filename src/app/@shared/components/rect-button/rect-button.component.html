@@ -8,9 +8,7 @@
     (mouseleave)="isButtonHover=false"
     (click)="onClick()"
   >
-    <ng-container *ngIf="textButton; else image">
-      {{textButton}}
-    </ng-container>
+    <ng-container *ngIf="textButton; else image"> {{textButton}} </ng-container>
     <ng-template #image>
       <div class="button__icon">
         <img [src]="changeButtonIcon()" alt="" />

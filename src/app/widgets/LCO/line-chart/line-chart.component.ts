@@ -1,12 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    OnDestroy,
-    ViewChild,
-    Inject,
-    HostListener,
-    OnInit,
-} from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, Inject, HostListener, OnInit } from '@angular/core';
 
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -33,10 +25,10 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
     public data: LineChartData;
 
     public paths: {
-        fact: any,
-        plan: any,
-        lowerLimit: any,
-        upperLimit: any,
+        fact: any;
+        plan: any;
+        lowerLimit: any;
+        upperLimit: any;
     } = {
         fact: null,
         plan: null,
@@ -286,9 +278,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
                             const planvalue = plan
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (planvalue && planvalue.value < d.value) {
                                 acc.values.push(d);
                             }
@@ -297,9 +287,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
                             const ul = upperLimit
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (ul && ul.value < d.value) {
                                 acc.values.push(d);
                             }
@@ -307,9 +295,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
                             const li = lowerLimit
                                 .slice()
                                 .reverse()
-                                .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
-                                );
+                                .find((p) => new Date(p.date).getTime() <= new Date(d.date).getTime());
                             if (li && li.value > d.value) {
                                 acc.values.push(d);
                             }
@@ -339,19 +325,9 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
         this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
         if (this.data.graphs.find((d) => d.graphType === 'plan')) {
-            this.x.domain(
-                d3Array.extent(
-                    this.data.graphs.map((v) => v.values.map((v) => v.date))[1],
-                    (d: Date) => d
-                )
-            );
+            this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[1], (d: Date) => d));
         } else {
-            this.x.domain(
-                d3Array.extent(
-                    this.data.graphs.map((v) => v.values.map((v) => v.date))[0],
-                    (d: Date) => d
-                )
-            );
+            this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
         }
 
         const yMin = d3Array.min(this.data.graphs, (c) => d3Array.min(c.values, (d) => d.value));
@@ -409,9 +385,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .append('svg')
             .attr('width', this.width)
             .attr('height', element.offsetHeight);
-        this.g = this.svg
-            .append('g')
-            .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+        this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
     private makeXGridLines() {
@@ -428,15 +402,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             date: '%d.%m.%Y',
             time: '%H:%M:%S',
             periods: ['', ''],
-            days: [
-                'воскресенье',
-                'понедельник',
-                'вторник',
-                'среда',
-                'четверг',
-                'пятница',
-                'суббота',
-            ],
+            days: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
             shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             months: [
                 'Январь',
@@ -452,20 +418,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
                 'Ноябрь',
                 'Декабрь',
             ],
-            shortMonths: [
-                'Янв',
-                'Фев',
-                'Мар',
-                'Апр',
-                'Май',
-                'Июн',
-                'Июл',
-                'Авг',
-                'Сен',
-                'Окт',
-                'Ноя',
-                'Дек',
-            ],
+            shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         });
         let formatMillisecond = locale.format('.%L'),
             formatSecond = locale.format(':%S'),
@@ -480,30 +433,25 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             return (d3.timeSecond(date) < date
                 ? formatMillisecond
                 : d3.timeMinute(date) < date
-                    ? formatSecond
-                    : d3.timeHour(date) < date
-                        ? formatMinute
-                        : d3.timeDay(date) < date
-                            ? formatHour
-                            : d3.timeMonth(date) < date
-                                ? d3.timeWeek(date) < date
-                                    ? formatDay
-                                    : formatWeek
-                                : d3.timeYear(date) < date
-                                    ? formatMonth
-                                    : formatYear)(date);
+                ? formatSecond
+                : d3.timeHour(date) < date
+                ? formatMinute
+                : d3.timeDay(date) < date
+                ? formatHour
+                : d3.timeMonth(date) < date
+                ? d3.timeWeek(date) < date
+                    ? formatDay
+                    : formatWeek
+                : d3.timeYear(date) < date
+                ? formatMonth
+                : formatYear)(date);
         }
         // let RU = d3.timeFormatDefaultLocale(ru_RU);
         this.g
             .append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                d3Axis
-                    .axisBottom(this.x)
-                    .ticks(7)
-                    .tickFormat(multiFormat)
-            );
+            .call(d3Axis.axisBottom(this.x).ticks(7).tickFormat(multiFormat));
 
         this.g
             .append('g')
@@ -524,43 +472,30 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .selectAll('grid')
             .attr('class', 'grid')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(
-                this.makeXGridLines()
-                    .tickSize(-this.height)
-                    .tickFormat('')
-            )
+            .call(this.makeXGridLines().tickSize(-this.height).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(97,101,128, .5)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(97,101,128, .5)').style('stroke-width', '0.5')
             );
 
         this.g
             .append('g')
             .attr('class', 'grid')
-            .call(
-                this.makeYGridLines()
-                    .tickSize(-this.width)
-                    .tickFormat('')
-            )
+            .call(this.makeYGridLines().tickSize(-this.width).tickFormat(''))
             .call((g) => g.select('.domain').remove())
             .call((g) =>
-                g
-                    .selectAll('.tick line')
-                    .style('stroke', 'rgba(220,220,220, .25)')
-                    .style('stroke-width', '0.5')
+                g.selectAll('.tick line').style('stroke', 'rgba(220,220,220, .25)').style('stroke-width', '0.5')
             );
     }
 
     private drawPath(): void {
-        const line = d3.line()
+        const line = d3
+            .line()
             .x((d) => this.x(d.date))
             .y((d) => this.y(d.value))
             .curve(d3.curveLinear);
 
-        this.data.graphs.forEach(graph => {
+        this.data.graphs.forEach((graph) => {
             const path = this.g
                 .append('path')
                 .datum(graph.values)
@@ -607,11 +542,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .y0((d) => 0)
             .y1((d) => this.y(d.value));
 
-        const upperLimitSource = this.g
-            .selectAll('.limit-area')
-            .data([upperLimit])
-            .enter()
-            .append('g');
+        const upperLimitSource = this.g.selectAll('.limit-area').data([upperLimit]).enter().append('g');
 
         upperLimitSource
             .append('path')
@@ -631,15 +562,9 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        upperLimitGradient
-            .append('stop')
-            .attr('offset', '0%')
-            .attr('stop-color', 'transparent');
+        upperLimitGradient.append('stop').attr('offset', '0%').attr('stop-color', 'transparent');
 
-        upperLimitGradient
-            .append('stop')
-            .attr('offset', '50%')
-            .attr('stop-color', 'rgba(255,255,255,0.015');
+        upperLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
 
         const lowerLimitArea = d3Shape
             .area()
@@ -648,11 +573,7 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .y0((d) => this.height)
             .y1((d) => this.y(d.value));
 
-        const lowerLimitSource = this.g
-            .selectAll('.limit-area')
-            .data([lowerLimit])
-            .enter()
-            .append('g');
+        const lowerLimitSource = this.g.selectAll('.limit-area').data([lowerLimit]).enter().append('g');
 
         lowerLimitSource
             .append('path')
@@ -671,24 +592,18 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        lowerLimitGradient
-            .append('stop')
-            .attr('offset', '50%')
-            .attr('stop-color', 'rgba(255,255,255,0.015');
+        lowerLimitGradient.append('stop').attr('offset', '50%').attr('stop-color', 'rgba(255,255,255,0.015');
 
-        lowerLimitGradient
-            .append('stop')
-            .attr('offset', '100%')
-            .attr('stop-color', 'transparent');
+        lowerLimitGradient.append('stop').attr('offset', '100%').attr('stop-color', 'transparent');
     }
 
-    private drawDeviationGradient(fact: {date: Date, value: number}[]): void {
+    private drawDeviationGradient(fact: { date: Date; value: number }[]): void {
         const upperDataset = [];
         const lowerDataset = [];
         let tempUpper = [];
         let tempLower = [];
 
-        fact.forEach(item => {
+        fact.forEach((item) => {
             if (this.paths.upperLimit?.node().getPointAtLength(this.x(item.date)).y > this.y(item.value)) {
                 tempUpper.push({
                     date: this.x(item.date),
@@ -717,67 +632,57 @@ export class LineChartComponent extends WidgetPlatform<unknown> implements OnIni
         });
 
         const upperGradientParams: {
-            id: string,
-            class1: string,
-            class2: string,
+            id: string;
+            class1: string;
+            class2: string;
         } = {
             id: 'line-upper-deviation-gradient',
             class1: 'line-upper-deviation-gradient-stop-1',
             class2: 'line-upper-deviation-gradient-stop-2',
         };
         this.appendGradient(upperGradientParams);
-        upperDataset.forEach(item => {
+        upperDataset.forEach((item) => {
             this.appendArea(item, `fill: url(#${upperGradientParams.id})`);
         });
 
         const lowerGradientParams: {
-            id: string,
-            class1: string,
-            class2: string,
+            id: string;
+            class1: string;
+            class2: string;
         } = {
             id: 'line-lower-deviation-gradient',
             class1: 'line-lower-deviation-gradient-stop-1',
             class2: 'line-lower-deviation-gradient-stop-2',
         };
         this.appendGradient(lowerGradientParams);
-        lowerDataset.forEach(item => {
+        lowerDataset.forEach((item) => {
             this.appendArea(item, `fill: url(#${lowerGradientParams.id})`);
         });
     }
 
-    private appendArea(dataset: {date: Date, y1: number, y0: number}[], style: string): void {
-        const area = d3.area()
-            .x(d => d.date)
-            .y1(d => d.y1)
-            .y0(d => d.y0);
+    private appendArea(dataset: { date: Date; y1: number; y0: number }[], style: string): void {
+        const area = d3
+            .area()
+            .x((d) => d.date)
+            .y1((d) => d.y1)
+            .y0((d) => d.y0);
 
-        this.g.append('path')
-            .datum(dataset)
-            .attr('style', `${style}`)
-            .attr('d', area);
+        this.g.append('path').datum(dataset).attr('style', `${style}`).attr('d', area);
     }
 
-    private appendGradient(
-        params: {
-            id: string,
-            class1: string,
-            class2: string,
-        }
-        ): void {
-        const grad = this.g.append('defs').append('linearGradient')
+    private appendGradient(params: { id: string; class1: string; class2: string }): void {
+        const grad = this.g
+            .append('defs')
+            .append('linearGradient')
             .attr('id', `${params.id}`)
             .attr('x1', '0%')
             .attr('x2', '0%')
             .attr('y1', '0%')
             .attr('y2', '100%');
 
-        grad.append('stop')
-            .attr('offset', `0%`)
-            .attr('class', `${params.class1}`);
+        grad.append('stop').attr('offset', `0%`).attr('class', `${params.class1}`);
 
-        grad.append('stop')
-            .attr('offset', `100%`)
-            .attr('class', `${params.class2}`);
+        grad.append('stop').attr('offset', `100%`).attr('class', `${params.class2}`);
     }
 
     // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {

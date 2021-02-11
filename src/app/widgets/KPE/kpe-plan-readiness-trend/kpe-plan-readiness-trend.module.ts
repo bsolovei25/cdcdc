@@ -7,12 +7,7 @@ import { KpeSharedModule } from '../shared/kpe-shared.module';
 
 @NgModule({
     declarations: [KpePlanReadinessTrendComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        KpeSharedModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, KpeSharedModule],
 })
 export class KpePlanReadinessTrendModule {
     enterComponent = KpePlanReadinessTrendComponent;

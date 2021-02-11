@@ -1,10 +1,12 @@
-<div
-  class="container"
-  (click)="onClickGroup()"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()"
->
-  <ng-container *ngIf="!isEditing;else input">{{group.name}}</ng-container>
+<div class="container" (click)="onClickGroup()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <ng-container *ngIf="!isEditing;else input">
+    <div class="group">
+      <div class="group__icon">
+        <img *ngIf="!!group.iconId" [src]="baseSrc + group.iconId" />
+      </div>
+      <div class="group__name">{{group.name}}</div>
+    </div>
+  </ng-container>
 
   <ng-template #input>
     <input class="container__input input" type="text" [formControl]="formControl" />

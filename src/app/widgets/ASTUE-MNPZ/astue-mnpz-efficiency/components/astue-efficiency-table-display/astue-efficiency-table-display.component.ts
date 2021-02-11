@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Output,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnChanges,
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
 import {
@@ -47,9 +39,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
 
     public isDropdownOpen: boolean = false;
 
-    public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
-        true
-    );
+    public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(true);
     public newBlockSelection: SelectionModel<string> = new SelectionModel<string>(true);
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
@@ -160,28 +150,20 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
         this.dates = this.displayData
             .flatMap((x) => x.rows)
             .sort(
-                (a, b) =>
-                    +(this.dates?.length < b?.values?.length) -
-                    +(this.dates?.length < a?.values?.length)
+                (a, b) => +(this.dates?.length < b?.values?.length) - +(this.dates?.length < a?.values?.length)
             )[0]?.values;
     }
 
     private defineDatesPlanning(): void {
         this.dates = this.deviationsData
             .flatMap((x) => x.children)
-            .sort(
-                (a, b) =>
-                    +(this.dates?.length < b.data.length) - +(this.dates?.length < a.data.length)
-            )[0]?.data;
+            .sort((a, b) => +(this.dates?.length < b.data.length) - +(this.dates?.length < a.data.length))[0]?.data;
     }
 
     private defineSum(): void {
         this.displayData.forEach((item) => {
             if (item.header?.values) {
-                item.header.dataSummary = item.header?.values.reduce(
-                    (acc, val) => acc + val?.value,
-                    0
-                );
+                item.header.dataSummary = item.header?.values.reduce((acc, val) => acc + val?.value, 0);
             }
             item?.rows?.forEach((row) => {
                 if (row?.dataSummary) {
@@ -196,9 +178,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     }
 
     public defineDataSummary(row: IAsEfTableRow): void {
-        const value: number = +(
-            row.data.reduce((acc, item) => (acc += +item.value), 0) / row.data.length
-        ).toFixed(5);
+        const value: number = +(row.data.reduce((acc, item) => (acc += +item.value), 0) / row.data.length).toFixed(5);
         row.dataSummary = value.toString();
     }
 

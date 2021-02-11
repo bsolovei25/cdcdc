@@ -1,11 +1,11 @@
 .normal {
-  color: #5B607D;
-  border-color: #5B607D !important;
-  fill: #5B607D;
-  stroke: #5B607D;
+  color: #5b607d;
+  border-color: #5b607d !important;
+  fill: #5b607d;
+  stroke: #5b607d;
   svg-icon {
-    fill: #5B607D;
-    stroke: #5B607D;
+    fill: #5b607d;
+    stroke: #5b607d;
   }
 }
 
@@ -65,14 +65,14 @@
   margin: auto;
   //margin-left: -35px;
   margin-top: -55px;
-  transform: rotateX(55deg) scale(.85);
+  transform: rotateX(55deg) scale(0.85);
 
-  &_background{
+  &_background {
     width: 100%;
     height: 100%;
   }
 
-  &_circle{
+  &_circle {
     position: absolute;
     left: 93px;
     bottom: 75px;

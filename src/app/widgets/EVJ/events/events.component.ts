@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnDestroy,
-    OnInit,
-    Inject,
-    ViewChild,
-    HostListener,
-    ElementRef,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
@@ -28,11 +20,7 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import {
-    ClaimService,
-    EnumClaimGlobal,
-    EnumClaimWidgets,
-} from '../../../dashboard/services/claim.service';
+import { ClaimService, EnumClaimGlobal, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -44,8 +32,7 @@ export interface IEventSettings {
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss', './cd-events.component.scss'],
 })
-export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
-    implements OnInit, OnDestroy {
+export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: ElementRef;
@@ -65,9 +52,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -255,9 +240,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     public isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<
-        IEventsWidgetNotificationPreview
-    > = new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<IEventsWidgetNotificationPreview>(
+        null
+    );
 
     public isPreviewOpened: boolean = false;
 
@@ -267,9 +252,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     private requestSubscription: { [key: number]: Subscription } = {};
 
     get isClaimDelete(): boolean {
-        return this.claimService.claimGlobal$?.value?.some(
-            (x) => x === EnumClaimGlobal.EventsDelete
-        );
+        return this.claimService.claimGlobal$?.value?.some((x) => x === EnumClaimGlobal.EventsDelete);
     }
 
     constructor(
@@ -341,10 +324,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         );
     }
 
-    protected dataHandler(ref: {
-        notification: IEventsWidgetNotificationPreview;
-        action: string;
-    }): void {
+    protected dataHandler(ref: { notification: IEventsWidgetNotificationPreview; action: string }): void {
         if (
             this.placeNames.length !== 0 &&
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
@@ -422,11 +402,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     }
 
     private setViewTypeSettings(viewType: 'cards' | 'list'): void {
-        if (
-            !viewType ||
-            (viewType === 'cards' && !this.isList) ||
-            (viewType === 'list' && this.isList)
-        ) {
+        if (!viewType || (viewType === 'cards' && !this.isList) || (viewType === 'list' && this.isList)) {
             return;
         }
         if (viewType === 'cards') {
@@ -459,13 +435,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     private countNotificationsDivCapacity(): void {
         const width = !!this.attributes?.IsVideoWall ? 763 : 383;
-        const notificationsDivCapacity = Math.trunc(
-            this.notificationsDiv?.nativeElement?.clientWidth / width
-        );
-        this.notificationsGrouped = this.sortArray(
-            this.notifications,
-            this.isList ? notificationsDivCapacity : 1
-        );
+        const notificationsDivCapacity = Math.trunc(this.notificationsDiv?.nativeElement?.clientWidth / width);
+        this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
     }
 
     private getCurrentOptions(): IEventsWidgetOptions {
@@ -499,8 +470,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 sortIndex: n.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0,
             };
         });
-        const eventSortIndex: number =
-            notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
+        const eventSortIndex: number = notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
         const idx = this.notifications.findIndex((n) => eventSortIndex >= n.sortIndex);
         if (this.notifications.length > 0 && idx === -1) {
             return;
@@ -626,10 +596,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     public deleteClick(id: number): void {
         if (!this.isClaimDelete) {
-            this.snackBarService.openSnackBar(
-                `У вас недостаточно прав для удаления событий`,
-                'snackbar-red'
-            );
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
             return;
         }
         const info: IAlertWindowModel = {
@@ -666,9 +633,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         window.open(url);
     }
 
-    public scrollHandler(event: {
-        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
-    }): void {
+    public scrollHandler(event: { target: { offsetHeight: number; scrollTop: number; scrollHeight: number } }): void {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
@@ -682,10 +647,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         return this.selectedId === id || this.eventOverlayId === id;
     }
 
-    public sortArray(
-        arr: IEventsWidgetNotificationPreview[],
-        n: number
-    ): IEventsWidgetNotificationPreview[][] {
+    public sortArray(arr: IEventsWidgetNotificationPreview[], n: number): IEventsWidgetNotificationPreview[][] {
         let i = 0;
         let j = 0;
         const result = [];
@@ -716,22 +678,20 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             return;
         }
         this.requestSubscription[subKey]?.unsubscribe();
-        this.requestSubscription[subKey] = this.eventService
-            .getBatchDataObserver(lastId, options)
-            .subscribe(
-                (data) => {
-                    const ans = data;
-                    this.appendNotifications(ans);
-                    if (ans?.length > 0) {
-                        this.viewport?.checkViewportSize();
-                    }
-                },
-                (err) => {},
-                () => {
-                    this.isAllowScrollLoading = true;
-                    this.requestSubscription[subKey] = null;
+        this.requestSubscription[subKey] = this.eventService.getBatchDataObserver(lastId, options).subscribe(
+            (data) => {
+                const ans = data;
+                this.appendNotifications(ans);
+                if (ans?.length > 0) {
+                    this.viewport?.checkViewportSize();
                 }
-            );
+            },
+            (err) => {},
+            () => {
+                this.isAllowScrollLoading = true;
+                this.requestSubscription[subKey] = null;
+            }
+        );
     }
 
     private getStats(): void {
@@ -766,27 +726,17 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 this.filters.forEach((f) => {
                     switch (f.code) {
                         case 'all':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3001
-                            ).count;
-                            f.notificationsCount += stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3002
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3001).count;
+                            f.notificationsCount += stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'closed':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3003
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3003).count;
                             break;
                         case 'inWork':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === 3002
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'isNotAcknowledged':
-                            f.notificationsCount = stats.statsByStatus.find(
-                                (sf) => sf.status.id === -100
-                            ).count;
+                            f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === -100).count;
                             break;
                     }
                 });

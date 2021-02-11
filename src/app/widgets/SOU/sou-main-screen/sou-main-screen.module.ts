@@ -6,16 +6,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SouInstallationCardComponent } from './components/sou-installation-card/sou-installation-card.component';
 import { SouMainScreenArrowsComponent } from './components/sou-main-screen-arrows/sou-main-screen-arrows.component';
 
-
-
 @NgModule({
-  declarations: [SouMainScreenComponent, SouInstallationCardComponent, SouMainScreenArrowsComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-  ]
+    declarations: [SouMainScreenComponent, SouInstallationCardComponent, SouMainScreenArrowsComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class SouMainScreenModule {
-  enterComponent = SouMainScreenComponent;
+    enterComponent = SouMainScreenComponent;
 }

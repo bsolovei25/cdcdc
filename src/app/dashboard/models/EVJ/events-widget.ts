@@ -431,7 +431,7 @@ export interface IEventsWidgetOptions {
     sortType?: SortTypeEvents;
     categoriesType?: EventsWidgetOptionsCategoryType;
     priority?: IPriority;
-    units?: IUnits;
+    units?: IUnits[];
     subCategory?: number[];
 }
 

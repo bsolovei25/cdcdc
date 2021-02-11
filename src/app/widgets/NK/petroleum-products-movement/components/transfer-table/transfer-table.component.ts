@@ -5,15 +5,15 @@ import { IFilterSetting } from '../filter-popup/filter-popup.component';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({
-  selector: 'evj-transfer-table',
-  templateUrl: './transfer-table.component.html',
-  styleUrls: ['./transfer-table.component.scss']
+    selector: 'evj-transfer-table',
+    templateUrl: './transfer-table.component.html',
+    styleUrls: ['./transfer-table.component.scss'],
 })
 export class TransferTableComponent {
     @Input() dictionary: IUdTableDict[] = [];
     @Input() transfers: ITransfer[] = [];
 
-    constructor(private petroleumService: PetroleumScreenService) { }
+    constructor(private petroleumService: PetroleumScreenService) {}
 
     public transferClick(uid: string): void {
         this.petroleumService.chooseTransfer(uid, true);
@@ -41,9 +41,7 @@ export class TransferTableComponent {
             text: null,
         };
         if (item.key === currentFilter?.sortFilter?.key) {
-            currentFilter.sortFilter.isUp
-                ? filterSetting.isUp = true
-                : filterSetting.isDown = true;
+            currentFilter.sortFilter.isUp ? (filterSetting.isUp = true) : (filterSetting.isDown = true);
         }
         if (item.key === currentFilter?.textFilter?.key) {
             filterSetting.text = currentFilter.textFilter.value;

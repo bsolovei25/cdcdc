@@ -1,23 +1,15 @@
 <div class="responsible">
   <div *ngIf="responsible?.login" class="choosenUser">
     <div class="name_user">
-      <div class="name_user_responsible">
-        Ответственный
-      </div>
+      <div class="name_user_responsible">Ответственный</div>
       <div class="name_user_info">
-        <div>
-          {{ responsible?.displayName }}
-        </div>
+        <div>{{ responsible?.displayName }}</div>
         <div>{{ responsible?.positionDescription }}</div>
       </div>
     </div>
     <div class="brigade_user">
-      <div class="brigade_user_name">
-        Бригада
-      </div>
-      <div class="brigade_user_text">
-        {{ responsible?.brigade?.number }}
-      </div>
+      <div class="brigade_user_name">Бригада</div>
+      <div class="brigade_user_text">{{ responsible?.brigade?.number }}</div>
     </div>
     <div class="avatar_user">
       <div class="avatar_user_img">

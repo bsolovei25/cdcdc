@@ -5,9 +5,7 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="confirm-container">
-      <div class="confirm-container__body confirm-container-body"
-           *ngIf="!info.input; else input"
-      >
+      <div class="confirm-container__body confirm-container-body" *ngIf="!info.input; else input">
         <div class="confirm-container-body-header">
           <div class="confirm-container-body-header__icon">
             <ng-container [ngSwitch]="info.status">

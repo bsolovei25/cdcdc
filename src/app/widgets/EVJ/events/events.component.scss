@@ -60,8 +60,7 @@
   z-index: 9999; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-  0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -372,7 +371,6 @@
   box-sizing: border-box;
 
   background-color: var(--color-bg-main-dark);
-
 
   &--display-wall {
     border-left: 0.5px dashed var(--color-border-main-transparrent);

@@ -12,11 +12,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
     <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
     <ng-container *ngIf="isTable">
@@ -47,9 +43,7 @@
                   >
                     <div *ngIf="!node.data.openEdit">
                       <!-- <span [class]="node.data.className + 'Index'">Файл-шаблон: </span> -->
-                      <span [class]="node.data.className" [class.title]="true"
-                        >{{ node.data.name }}</span
-                      >
+                      <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
                       <div
                         *ngIf="this.isIdReport === node.data.idTemplate"
                         class="reference-container__button-edit"
@@ -70,24 +64,11 @@
                     </div>
 
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
-                      <div
-                        class="reference-container__add-block-input"
-                        (click)="$event.stopPropagation()"
-                      >
-                        <input
-                          type="text"
-                          [(ngModel)]="newRecord"
-                          placeholder="Новое наименование..."
-                        />
+                      <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
                       </div>
-                      <div
-                        class="reference-container__add-block-icon"
-                        (click)="editReference(node.data)"
-                      >
-                        <svg-icon
-                          src="assets/icons/widgets/reports/accept.svg"
-                          class="add_button_icon"
-                        ></svg-icon>
+                      <div class="reference-container__add-block-icon" (click)="editReference(node.data)">
+                        <svg-icon src="assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
                       </div>
                     </div>
                   </div>
@@ -99,9 +80,7 @@
                     (click)="tree.treeModel.getFocusedNode().toggleExpanded()"
                   >
                     <div *ngIf="!node.data.openEdit" [class.displayOff]="node.data.idFolder === 0">
-                      <div [class]="node.data.className" [class.title]="true">
-                        {{ node.data.name }}
-                      </div>
+                      <div [class]="node.data.className" [class.title]="true">{{ node.data.name }}</div>
                       <div
                         *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
                         class="reference-container__button-edit"
@@ -122,24 +101,11 @@
                     </div>
 
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
-                      <div
-                        class="reference-container__add-block-input"
-                        (click)="$event.stopPropagation()"
-                      >
-                        <input
-                          type="text"
-                          [(ngModel)]="newRecord"
-                          placeholder="Новое наименование..."
-                        />
+                      <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
                       </div>
-                      <div
-                        class="reference-container__add-block-icon"
-                        (click)="editFolder(node.data)"
-                      >
-                        <svg-icon
-                          src="assets/icons/widgets/reports/accept.svg"
-                          class="add_button_icon"
-                        ></svg-icon>
+                      <div class="reference-container__add-block-icon" (click)="editFolder(node.data)">
+                        <svg-icon src="assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
                       </div>
                     </div>
                   </div>
@@ -162,16 +128,10 @@
                       />
                     </div>
                     <div class="reference-container__add-block-icon" (click)="onPushReport()">
-                      <svg-icon
-                        src="assets/icons/widgets/references/accept.svg"
-                        class="add_button_icon"
-                      ></svg-icon>
+                      <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                     </div>
                   </div>
-                  <div
-                    *ngIf="addItem && node.data.id === folderIdActive"
-                    class="reference-container__add-block"
-                  >
+                  <div *ngIf="addItem && node.data.id === folderIdActive" class="reference-container__add-block">
                     <div class="reference-container__add-block-input">
                       <input
                         *ngIf="createReport"
@@ -187,10 +147,7 @@
                       />
                     </div>
                     <div class="reference-container__add-block-icon" (click)="onPushReport()">
-                      <svg-icon
-                        src="assets/icons/widgets/references/accept.svg"
-                        class="add_button_icon"
-                      ></svg-icon>
+                      <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                     </div>
                   </div>
                 </ng-template>
@@ -200,11 +157,7 @@
           <div class="bottom-reference-left">
             <div class="bottom-reference-left__block">
               <div class="bottom-reference-left__button-add" (click)="addMenu()">
-                <svg-icon
-                  src="assets/icons/widgets/references/add_white.svg"
-                  class="add_button_icon"
-                >
-                </svg-icon>
+                <svg-icon src="assets/icons/widgets/references/add_white.svg" class="add_button_icon"> </svg-icon>
               </div>
               <div class="bottom-reference-left__input-block">
                 <div class="bottom-reference-left__button-search">
@@ -219,10 +172,7 @@
                     src="assets/icons/widgets/references/search_blue.svg"
                   ></svg-icon>
                 </div>
-                <div
-                  class="bottom-reference-left__input"
-                  [class.bottom-reference-left__input-active]="isRepInput"
-                >
+                <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
                   <input
                     type="text"
                     (focus)="isRepInput = true"
@@ -248,55 +198,39 @@
         <div class="reference-right">
           <div class="title-reference">
             <div class="title-reference__title-name">
-              <div class="title-reference__title-name-fio">
-                Наименование параметра
-              </div>
+              <div class="title-reference__title-name-fio">Наименование параметра</div>
             </div>
             <div class="title-reference__title-type">
-              <div class="title-reference__title-type-date">
-                Показатель параметров
-              </div>
+              <div class="title-reference__title-type-date">Показатель параметров</div>
             </div>
           </div>
           <div class="references-container-scroll-block">
             <div id="rightScrollReportConfig" class="reference-container-value">
-              <div
-                *ngIf="isIdReport"
-                class="reference-container-value__block"
-                style="height: 40px !important;"
-              >
+              <div *ngIf="isIdReport" class="reference-container-value__block" style="height: 40px !important">
                 <div class="reference-container-value__fio-block">
-                  <div class="reference-container-value__fio" style="line-height: 40px;">
-                    Выбранный файл-шаблон
-                  </div>
+                  <div class="reference-container-value__fio" style="line-height: 40px">Выбранный файл-шаблон</div>
                 </div>
                 <div class="reference-container-value__type" (click)="openSelectBox()">
                   <div class="name-type">{{ selectFile.name }}</div>
                 </div>
                 <div *ngIf="isSelectBox" (mouseleave)="closeSelectBox()">
-                  <evj-report-file-select-box [data]="dataFile" (selectFile)="selectBoxFile($event)"></evj-report-file-select-box>
+                  <evj-report-file-select-box
+                    [data]="dataFile"
+                    (selectFile)="selectBoxFile($event)"
+                  ></evj-report-file-select-box>
                 </div>
               </div>
               <ng-container *ngFor="let item of optionsActive">
                 <div class="reference-container-value__block">
                   <div class="reference-container-value__fio-block">
-                    <div class="reference-container-value__fio">
-                      {{item.templateSystemOption.name}}
-                    </div>
+                    <div class="reference-container-value__fio">{{item.templateSystemOption.name}}</div>
                   </div>
-                  <div
-                    class="reference-container-value__type"
-                    (click)="onClickParamReference(item)"
-                  >
-                    <ng-container
-                      *ngIf="item.templateSystemOption.systemOptionType !== 'customOptions'"
-                    >
+                  <div class="reference-container-value__type" (click)="onClickParamReference(item)">
+                    <ng-container *ngIf="item.templateSystemOption.systemOptionType !== 'customOptions'">
                       <ng-container *ngIf="item.templateSystemOption.type === 'selectBox'">
                         <mat-form-field class="categories_selectbox">
                           <mat-select panelClass="mat-select-custom" [(ngModel)]="item.value">
-                            <mat-option *ngFor="let p of systemOptionType" [value]="p"
-                              >{{ p }}
-                            </mat-option>
+                            <mat-option *ngFor="let p of systemOptionType" [value]="p">{{ p }} </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </ng-container>
@@ -310,21 +244,17 @@
                               [checked]="item.value === 'true'"
                               (click)="changeSwapSystemOptions(item)"
                             />
-                            <div
-                              class="mycheckbox__new"
-                              [class.mycheckbox__checked]="item.value === 'true'"
-                            ></div>
+                            <div class="mycheckbox__new" [class.mycheckbox__checked]="item.value === 'true'"></div>
                           </label>
                         </div>
                       </ng-container>
-                      <ng-container *ngIf="item.templateSystemOption.type === 'comboBox'">
-                      </ng-container>
+                      <ng-container *ngIf="item.templateSystemOption.type === 'comboBox'"> </ng-container>
                       <ng-container *ngIf="item.templateSystemOption.type === 'textBox'">
-                        <input 
+                        <input
                           class="reference-container-value__fio special"
-                          [(ngModel)]="item.value" 
-                          placeholder={{item.value}}
-                        >
+                          [(ngModel)]="item.value"
+                          placeholder="{{item.value}}"
+                        />
                         <div class="reference-container-value__edit-button">
                           <svg-icon
                             class="indicator-selector__collapse"
@@ -336,9 +266,7 @@
                         <div class="reference-container-value__fio">{{item.value}}</div>
                       </ng-container>
                     </ng-container>
-                    <ng-container
-                      *ngIf="item.templateSystemOption.systemOptionType === 'customOptions'"
-                    >
+                    <ng-container *ngIf="item.templateSystemOption.systemOptionType === 'customOptions'">
                       <div class="reference-container-value__fio">{{item.value}}</div>
                     </ng-container>
                   </div>
@@ -348,15 +276,10 @@
             <!---POPUP-CHECK-BLOCK--->
             <div class="references-container-check-block" *ngIf="isOpenCheckBlock">
               <div class="references-container-check-block__title-block">
-                <div class="references-container-check-block__title-param">
-                  Наименование параметра
-                </div>
+                <div class="references-container-check-block__title-param">Наименование параметра</div>
                 <div class="references-container-check-block__title-status">Статус</div>
               </div>
-              <div
-                class="references-container-check-block__content-block"
-                *ngFor="let item of this.options"
-              >
+              <div class="references-container-check-block__content-block" *ngFor="let item of this.options">
                 <div class="references-container-check-block__name-item">{{item.name}}</div>
                 <div class="references-container-check-block__check-item">
                   <label class="mycheckbox">
@@ -403,10 +326,7 @@
         <!---POPUP-BLOCK--->
         <div *ngIf="popupUserOptions" class="popup-user-param">
           <ng-container *ngIf="popupUserCustomOptions">
-            <evj-popup-user-options
-              [data]="optionsCustom"
-              (close)="closeOptions($event)"
-            ></evj-popup-user-options>
+            <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
           </ng-container>
           <ng-container *ngIf="!popupUserCustomOptions">
             <evj-popup-system-options
@@ -421,10 +341,7 @@
     </ng-container>
     <!---ADD-FILE-COMPONENT--->
     <ng-container *ngIf="!isTable">
-      <evj-add-report-file
-        style="width: 100%;"
-        (fileUpload)="updateFiletemplate($event)"
-      ></evj-add-report-file>
+      <evj-add-report-file style="width: 100%" (fileUpload)="updateFiletemplate($event)"></evj-add-report-file>
     </ng-container>
   </div>
 

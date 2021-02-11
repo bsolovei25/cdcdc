@@ -1,12 +1,4 @@
-import {
-    Component,
-    Inject,
-    ElementRef,
-    ViewChild,
-    OnDestroy,
-    OnInit,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
@@ -17,8 +9,7 @@ declare var d3: any;
     templateUrl: './circle-factory-diagram.component.html',
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
-export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown>
-    implements OnInit, AfterViewInit, OnDestroy {
+export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') circleFactory: ElementRef;
 
     public readonly RADIUS: number = 42;
@@ -76,11 +67,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown>
     }
 
     public d3Circle(data, el): void {
-        const mass = [
-            data.improvement,
-            data.deviation - data.improvement,
-            data.value - data.deviation,
-        ];
+        const mass = [data.improvement, data.deviation - data.improvement, data.value - data.deviation];
         let color: any;
 
         if (data.value === 0) {
@@ -89,18 +76,11 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown>
             color = d3.scaleOrdinal().range(['white', 'orange', 'rgba(4,12,33,0.1)']);
         }
 
-        const canvas = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('viewBox', '0 3 300 120');
+        const canvas = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 3 300 120');
 
         let group = canvas.append('g').attr('transform', 'translate(60 ,60)');
 
-        const arc = d3
-            .arc()
-            .innerRadius(44)
-            .outerRadius(this.RADIUS);
+        const arc = d3.arc().innerRadius(44).outerRadius(this.RADIUS);
 
         const pie = d3
             .pie()
@@ -117,12 +97,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown>
             .attr('opacity', '0.3')
             .attr('fill', '#040c21');
 
-        const arcs = group
-            .selectAll('.arc')
-            .data(pie(mass))
-            .enter()
-            .append('g')
-            .attr('class', 'arc');
+        const arcs = group.selectAll('.arc').data(pie(mass)).enter().append('g').attr('class', 'arc');
 
         arcs.append('path')
             .attr('d', arc)

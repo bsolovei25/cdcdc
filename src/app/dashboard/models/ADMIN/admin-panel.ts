@@ -1,4 +1,4 @@
-import { ICategory, IUnitEvents, IUser } from "../EVJ/events-widget";
+import { ICategory, IUnitEvents, IUser } from '../EVJ/events-widget';
 import { IWidget } from '../widget.model';
 import { IWorker } from '../worker';
 import { IBrigade } from '../EVJ/shift.model';

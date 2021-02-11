@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild, TemplateRef, Pipe } from '@angular
 @Component({
     selector: 'evj-column-grid',
     templateUrl: './column-grid.component.html',
-    styleUrls: ['./column-grid.component.scss']
+    styleUrls: ['./column-grid.component.scss'],
 })
 export class ColumnGridComponent implements OnInit {
     @ViewChild('default', { static: true }) default: TemplateRef<any>;
@@ -14,11 +14,9 @@ export class ColumnGridComponent implements OnInit {
     @Input() template: TemplateRef<any>;
     @Input() tooltip: string; //in future
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit(): void {
         this.template = this.template || this.default;
     }
-
 }

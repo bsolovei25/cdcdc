@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon src="assets/icons/control-group-icons/headerIcon.svg"></svg-icon>
+    </div>
+    <span class="header__title">Управление проектами</span>
+    <div class="header__icon header__icon_close">
+      <svg-icon src="assets/icons/control-group-icons/close.svg" (click)="closeDialog()"></svg-icon>
+    </div>
+  </div>
+  <div class="content" #mainContent>
+    <div class="project-list">
+      <evj-group-selector-group-item
+        *ngFor="let group of groups; let i = index"
+        [group]="group"
+        (cancelNewProject)="onCancelNewProject()"
+      ></evj-group-selector-group-item>
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="add-project btn" matRipple [matRippleColor]="'white'" (click)="addNewProject()">Добавить проект</div>
+  </div>
+</div>

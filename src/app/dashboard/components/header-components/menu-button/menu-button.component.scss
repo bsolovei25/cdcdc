@@ -21,8 +21,8 @@
   }
 
   &:hover {
-    cursor: pointer;
     background: var(--color-bg-main);
+    cursor: pointer;
   }
 }
 
@@ -35,6 +35,7 @@
 
   &__item {
     width: 100%;
+    padding-right: 10px;
     height: max-content;
     box-sizing: border-box;
     padding-left: 10px;
@@ -42,9 +43,24 @@
     text-align: left;
     font-size: 15px;
 
+    display: flex;
+    align-items: center;
+    border-left: 2px solid transparent;
+
+    svg-icon {
+      margin-top: 4px;
+      margin-right: 10px;
+      color: var(--color-event-card-font-sub);
+    }
+
     &:hover {
       cursor: pointer;
-      background: var(--color-bg-active);
+      border-color: var(--color-new-header-active);
+      background: var(--color-new-header-active-trans);
+
+      svg-icon {
+        color: var(--color-new-header-active);
+      }
     }
   }
 }

@@ -1,90 +1,85 @@
 <div class="container">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">Автогенерация</div>
+  <div style="height: 100%">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
+      </div>
+      <div class="title__name">Автогенерация</div>
+    </div>
+    <div class="content">
+      <div class="content__check">
+        <div class="activate">
+          <div class="check-item">
+            <label class="mycheckbox">
+              <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap('auto')" />
+              <div class="mycheckbox__new" [class.mycheckbox__checked]="isAutoGen"></div>
+            </label>
+          </div>
+          <div>Включить автогенерацию</div>
         </div>
-        <div class="content">
-            <div class="content__check">
-                <div class="activate">
-                    <div class="check-item">
-                        <label class="mycheckbox">
-                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap('auto')" />
-                            <div class="mycheckbox__new" [class.mycheckbox__checked]="isAutoGen"></div>
-                        </label>
-                    </div>
-                    <div>Включить автогенерацию</div>
-                </div>
-                <div class="activate">
-                    <div class="check-item">
-                        <label class="mycheckbox">
-                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap('interval')" />
-                            <div class="mycheckbox__new" [class.mycheckbox__checked]="isInterval"></div>
-                        </label>
-                    </div>
-                    <div>Использовать интервал шаблона</div>
-                </div>
-            </div>
-            <div class="content__time">
-                <div class="time">
-                    <div class="time__picker">
-                        <mat-form-field>
-                            <label>Начало</label>
-                            <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow"
-                                 >
-                            <mat-datepicker-toggle matSuffix [for]="pickerD">
-                                <mat-icon matDatepickerToggleIcon>
-                                    <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': 0}">
-                                    </svg-icon>
-                                </mat-icon>
-                            </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerD
-                                 >
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="time">
-                    <div class="time__picker">
-                        <mat-form-field>
-                            <label>Интервал</label>
-                            <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow"
-                                >
-                            <mat-datepicker-toggle matSuffix [for]="pickerT">
-                                <mat-icon matDatepickerToggleIcon>
-                                    <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': 0}">
-                                    </svg-icon>
-                                </mat-icon>
-                            </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerT
-                                >
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
+        <div class="activate">
+          <div class="check-item">
+            <label class="mycheckbox">
+              <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap('interval')" />
+              <div class="mycheckbox__new" [class.mycheckbox__checked]="isInterval"></div>
+            </label>
+          </div>
+          <div>Использовать интервал шаблона</div>
         </div>
-        <div class="bottom">
-            <div class="bottom__block-edit">
-                <!-- <div class="bottom__block-add">
+      </div>
+      <div class="content__time">
+        <div class="time">
+          <div class="time__picker">
+            <mat-form-field>
+              <label>Начало</label>
+              <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
+              <mat-datepicker-toggle matSuffix [for]="pickerD">
+                <mat-icon matDatepickerToggleIcon>
+                  <svg-icon
+                    src="assets/icons/widgets/reports/calend.svg"
+                    [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': 0}"
+                  >
+                  </svg-icon>
+                </mat-icon>
+              </mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #pickerD> </ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="time">
+          <div class="time__picker">
+            <mat-form-field>
+              <label>Интервал</label>
+              <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow" />
+              <mat-datepicker-toggle matSuffix [for]="pickerT">
+                <mat-icon matDatepickerToggleIcon>
+                  <svg-icon
+                    src="assets/icons/widgets/reports/calend.svg"
+                    [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': 0}"
+                  >
+                  </svg-icon>
+                </mat-icon>
+              </mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #pickerT> </ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom__block-edit">
+        <!-- <div class="bottom__block-add">
                     <div class="bottom__button-add" (click)="openCustomOptions()">
                         <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon">
                         </svg-icon>
                     </div>
                 </div> -->
-            </div>
-            <div class="bottom__block">
-                <div class="bottom__save-block" (click)="save()">
-                    <div class="bottom__button-save">Сохранить</div>
-                </div>
-            </div>
+      </div>
+      <div class="bottom__block">
+        <div class="bottom__save-block" (click)="save()">
+          <div class="bottom__button-save">Сохранить</div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

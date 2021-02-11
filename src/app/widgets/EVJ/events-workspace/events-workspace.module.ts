@@ -58,7 +58,7 @@ import { EventsPlaceComponent } from './components/events-place/events-place.com
         FileAttachMenuComponent,
         TasksEventComponent,
         ShiftPassComponent,
-        EventsPlaceComponent
+        EventsPlaceComponent,
     ],
     imports: [
         CommonModule,
@@ -70,17 +70,15 @@ import { EventsPlaceComponent } from './components/events-place/events-place.com
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatCheckboxModule
+        MatCheckboxModule,
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] }
+        { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
-    exports: [
-        EventsWorkspaceComponent
-    ]
+    exports: [EventsWorkspaceComponent],
 })
 export class EventsWorkspaceModule {
     enterComponent = EventsWorkspaceComponent;

@@ -45,18 +45,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.passwordOptions.icon.secState,
                     this.passwordOptions.icon.src,
                 ];
-                this.passwordOptions.type =
-                    this.passwordOptions.type === 'text' ? 'password' : 'text';
+                this.passwordOptions.type = this.passwordOptions.type === 'text' ? 'password' : 'text';
             },
             secState: 'assets/icons/login/visibility.svg',
         },
     };
 
-    constructor(
-        public authService: AuthService,
-        private router: Router,
-        private preLoaderService: PreloaderService,
-    ) {
+    constructor(public authService: AuthService, private router: Router, private preLoaderService: PreloaderService) {
         // override the route reuse strategy
         this.router.routeReuseStrategy.shouldReuseRoute = () => {
             return false;
@@ -83,10 +78,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
         // authentication
         try {
-            const auth = await this.authService.authenticate(
-                this.username.value,
-                this.password.value
-            );
+            const auth = await this.authService.authenticate(this.username.value, this.password.value);
             if (auth) {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => {
                     return false;

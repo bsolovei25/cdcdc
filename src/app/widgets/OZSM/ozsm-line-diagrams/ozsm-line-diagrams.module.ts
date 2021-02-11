@@ -5,15 +5,10 @@ import { OzsmLineDiagramComponent } from '../ozsm-shared/ozsm-line-diagram/ozsm-
 import { SharedModule } from '@shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
     declarations: [OzsmLineDiagramsComponent, OzsmLineDiagramComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        HttpClientModule
-    ]
+    imports: [CommonModule, SharedModule, HttpClientModule],
 })
 export class OzsmLineDiagramsModule {
-    enterComponent = OzsmLineDiagramsComponent
+    enterComponent = OzsmLineDiagramsComponent;
 }

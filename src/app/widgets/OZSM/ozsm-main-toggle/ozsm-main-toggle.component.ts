@@ -5,7 +5,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 @Component({
     selector: 'evj-ozsm-main-toggle',
     templateUrl: './ozsm-main-toggle.component.html',
-    styleUrls: ['./ozsm-main-toggle.component.scss']
+    styleUrls: ['./ozsm-main-toggle.component.scss'],
 })
 export class OzsmMainToggleComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public getPlan: any = document.getElementsByClassName('button plan');
@@ -28,8 +28,7 @@ export class OzsmMainToggleComponent extends WidgetPlatform<unknown> implements 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     clicked($event: MouseEvent, type: string): void {
         console.log(`type ${type}`);

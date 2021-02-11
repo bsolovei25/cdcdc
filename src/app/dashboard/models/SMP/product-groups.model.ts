@@ -49,12 +49,11 @@ export interface ITypeProductDay {
     state: string; /// состояние дня. enum - normal, warning, critical, disabled
 }
 
-
 // ------------ Новые модели ------------ //
 export interface IDataProgressGroup {
     data: {
         items: IProductGroups[];
-    }
+    };
 }
 
 export interface IProductGroups {

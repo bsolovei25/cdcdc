@@ -1,31 +1,29 @@
 <div class="container">
   <table border="1" cellpadding="4" cellspacing="0" class="table">
     <tr class="table__title">
-     <td rowspan="2" class="titles" (click)="openAll()">
-      <svg-icon
-        *ngIf="!machineData[historyIdx.machineIdx]?.open"
-        src="assets/icons/widgets/manual-input/arrow_down.svg"
-        [svgStyle]="{
+      <td rowspan="2" class="titles" (click)="openAll()">
+        <svg-icon
+          *ngIf="!machineData[historyIdx.machineIdx]?.open"
+          src="assets/icons/widgets/manual-input/arrow_down.svg"
+          [svgStyle]="{
           'widtd.px':14, 
           'height.px':8, 
           'cursor':'pointer'
         }"
-      ></svg-icon>
+        ></svg-icon>
 
-      <svg-icon
-        *ngIf="machineData[historyIdx.machineIdx]?.open"
-        src="assets/icons/widgets/manual-input/arrow_top.svg"
-        [svgStyle]="{
+        <svg-icon
+          *ngIf="machineData[historyIdx.machineIdx]?.open"
+          src="assets/icons/widgets/manual-input/arrow_top.svg"
+          [svgStyle]="{
           'widtd.px':8, 
           'height.px':14, 
           'cursor':'pointer'
         }"
-      ></svg-icon>
-      <span>Параметры</span>
-     </td>
-     <td rowspan="2" class="units">
-      Единицы измерения
-     </td>
+        ></svg-icon>
+        <span>Параметры</span>
+      </td>
+      <td rowspan="2" class="units">Единицы измерения</td>
       <td *ngFor="let history of paramsData?.historyValues" [attr.colspan]="history.hourValues.length">
         {{history?.day | date: 'dd.MM.yyyy'}}
       </td>
@@ -46,9 +44,9 @@
         ></svg-icon>
 
         <svg-icon
-        *ngIf="machineData[historyIdx.machineIdx]?.open"
-        src="assets/icons/widgets/manual-input/arrow_top.svg"
-        [svgStyle]="{
+          *ngIf="machineData[historyIdx.machineIdx]?.open"
+          src="assets/icons/widgets/manual-input/arrow_top.svg"
+          [svgStyle]="{
           'widtd.px':8, 
           'height.px':14, 
           'cursor':'pointer'
@@ -81,7 +79,8 @@
         <span>{{groupTitle}}</span>
       </td>
     </tr>
-    <tr class="params" 
+    <tr
+      class="params"
       [@Branch]="(machineData[historyIdx.machineIdx]?.open 
       && machineData[historyIdx.machineIdx]?.groups[historyIdx.groupIdx]?.open)?'expanded' : 'collapsed'"
     >
@@ -89,11 +88,12 @@
       <td class="params__unit">{{paramsData?.unit}}</td>
       <td class="hour" *ngFor="let value of this.hoursValue; let i = index" (click)="activateEditMode()">
         <div class="hours__item" *ngIf="!editMode">{{value}}</div>
-        <input 
+        <input
           (change)="onChangeHistoricalValue($event, i, value)"
           class="hours__item"
-          *ngIf="editMode" placeholder={{value}}
-        >
+          *ngIf="editMode"
+          placeholder="{{value}}"
+        />
       </td>
     </tr>
   </table>

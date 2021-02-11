@@ -17,11 +17,7 @@ interface IInjectParameters {
     providedIn: 'root',
 })
 export class LazyService {
-    constructor(
-        private injector: Injector,
-        private compiler: Compiler,
-        private cfr: ComponentFactoryResolver
-    ) {}
+    constructor(private injector: Injector, private compiler: Compiler, private cfr: ComponentFactoryResolver) {}
 
     public async loadWidget(
         widgetType: string,
@@ -29,9 +25,7 @@ export class LazyService {
         injectParams: IInjectParameters
     ): Promise<void> {
         try {
-            const module = (await WIDGETS_LAZY[widgetType].import())[
-                WIDGETS_LAZY[widgetType].module
-            ];
+            const module = (await WIDGETS_LAZY[widgetType].import())[WIDGETS_LAZY[widgetType].module];
 
             const moduleFactory = await this.compiler.compileModuleAsync(module);
 
@@ -44,11 +38,7 @@ export class LazyService {
             const component = moduleRef.instance.enterComponent;
             const componentFactory = this.cfr.resolveComponentFactory(component);
 
-            const { instance } = container.createComponent(
-                componentFactory,
-                null,
-                moduleRef.injector
-            );
+            const { instance } = container.createComponent(componentFactory, null, moduleRef.injector);
         } catch (error) {
             console.error(widgetType, error);
         }

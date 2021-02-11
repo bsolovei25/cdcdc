@@ -5,9 +5,18 @@
       <div class="circle circle__right"></div>
     </div>
     <ng-container [ngSwitch]="element.type">
-      <evj-astue-onpz-mnemonic-furnace-stream [data]="element.data" *ngSwitchCase="'rect'"></evj-astue-onpz-mnemonic-furnace-stream>
-      <evj-astue-onpz-mnemonic-furnace-circle [data]="element.data" *ngSwitchCase="'circle'"></evj-astue-onpz-mnemonic-furnace-circle>
-      <evj-astue-onpz-mnemonic-furnace-quad [data]="element.data" *ngSwitchCase="'quad'"></evj-astue-onpz-mnemonic-furnace-quad>
+      <evj-astue-onpz-mnemonic-furnace-stream
+        [data]="element.data"
+        *ngSwitchCase="'rect'"
+      ></evj-astue-onpz-mnemonic-furnace-stream>
+      <evj-astue-onpz-mnemonic-furnace-circle
+        [data]="element.data"
+        *ngSwitchCase="'circle'"
+      ></evj-astue-onpz-mnemonic-furnace-circle>
+      <evj-astue-onpz-mnemonic-furnace-quad
+        [data]="element.data"
+        *ngSwitchCase="'quad'"
+      ></evj-astue-onpz-mnemonic-furnace-quad>
     </ng-container>
   </ng-container>
 </div>

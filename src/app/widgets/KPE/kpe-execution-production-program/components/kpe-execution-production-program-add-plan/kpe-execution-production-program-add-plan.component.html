@@ -1,60 +1,61 @@
 <div class="container">
-    <div class="header">
-        <img alt="" src="assets/pic/document.svg"/>
-        <div class="title">Добавление плана на месяц</div>
+  <div class="header">
+    <img alt="" src="assets/pic/document.svg" />
+    <div class="title">Добавление плана на месяц</div>
+  </div>
+  <div class="content">
+    <div class="date">
+      <div class="plan-month">
+        <div class="title">Подача плана на месяц:</div>
+        <div class="slider">
+          <svg-icon
+            src="assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg"
+            class="arrow"
+            (click)="prev()"
+          ></svg-icon>
+          <span>{{month[choosenMonth]}} 2020</span>
+          <svg-icon
+            src="assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg"
+            class="arrow"
+            (click)="next()"
+          ></svg-icon>
+        </div>
+      </div>
+      <div class="plan-date">
+        <div class="title">Дата подачи плана:</div>
+        <div class="picker">
+          <mat-form-field>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker" [formControl]="dateControl" />
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
-    <div class="content">
-        <div class="date">
-            <div class="plan-month">
-                <div class="title">Подача плана на месяц:</div>
-                <div class="slider">
-                    <svg-icon
-                        src='assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg'
-                        class="arrow"
-                        (click)="prev()"
-                    ></svg-icon>
-                    <span>{{month[choosenMonth]}} 2020</span>
-                    <svg-icon
-                        src='assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg'
-                        class="arrow"
-                        (click)="next()"
-                    ></svg-icon>
-                </div>
-            </div>
-            <div class="plan-date">
-                <div class="title">Дата подачи плана:</div>
-                <div class="picker">
-                    <mat-form-field>
-                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-                        <input matInput [matDatepicker]="picker" [formControl]="dateControl">
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-        <div class="file-area">
-            <span>1. Перетащите файл в данное окно <br> 2. Нажмите для выбора</span>
-            <span>Не более 500 MB .pdf .doc .xls</span>
-        </div>
-        <div class="files-list">
-            <evj-kpe-execution-production-program-loading-file
-                [data]=80
-            ></evj-kpe-execution-production-program-loading-file>
+    <div class="file-area">
+      <span
+        >1. Перетащите файл в данное окно <br />
+        2. Нажмите для выбора</span
+      >
+      <span>Не более 500 MB .pdf .doc .xls</span>
+    </div>
+    <div class="files-list">
+      <evj-kpe-execution-production-program-loading-file
+        [data]="80"
+      ></evj-kpe-execution-production-program-loading-file>
 
-            <evj-kpe-execution-production-program-loading-file
-                [data]=100
-            ></evj-kpe-execution-production-program-loading-file>
-        </div>
-        <mat-dialog-actions>
-            <div class="btns">
-                <div class="save" matRipple matRippleColor="white" mat-dialog-close>
-                    <svg-icon
-                        src='assets/icons/widgets/KPE/kpe-execution-production-program/save.svg'
-                    ></svg-icon>
-                    Сохранить
-                </div>
-                <div class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</div>
-            </div>
-        </mat-dialog-actions>
+      <evj-kpe-execution-production-program-loading-file
+        [data]="100"
+      ></evj-kpe-execution-production-program-loading-file>
     </div>
+    <mat-dialog-actions>
+      <div class="btns">
+        <div class="save" matRipple matRippleColor="white" mat-dialog-close>
+          <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/save.svg"></svg-icon>
+          Сохранить
+        </div>
+        <div class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</div>
+      </div>
+    </mat-dialog-actions>
+  </div>
 </div>

@@ -13,7 +13,7 @@ export class AdminShiftCardComponent {
     @Output() clickEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     isLeftActive: boolean = true;
-    constructor() { }
+    constructor() {}
 
     onBtnClick(isLeftActive: boolean): void {
         this.isLeftActive = isLeftActive ? true : false;

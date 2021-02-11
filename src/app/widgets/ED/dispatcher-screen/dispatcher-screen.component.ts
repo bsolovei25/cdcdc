@@ -9,7 +9,7 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 @Component({
     selector: 'evj-dispatcher-screen',
     templateUrl: './dispatcher-screen.component.html',
-    styleUrls: ['./dispatcher-screen.component.scss']
+    styleUrls: ['./dispatcher-screen.component.scss'],
 })
 export class DispatcherScreenComponent extends WidgetPlatform<unknown> implements AfterViewInit, OnDestroy {
     private readonly baseUrl: string;
@@ -47,8 +47,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
         setTimeout(() => this.InitUnity(), 100);
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
@@ -80,11 +79,9 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     private wsConnect(): void {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
-            .subscribe((ref) => {
-                this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
-            });
+        this.widgetService.getWidgetLiveDataFromWS(this.id, 'dispatcher-screen').subscribe((ref) => {
+            this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
+        });
     }
 
     private async InitUnity(): Promise<void> {
@@ -99,10 +96,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     private loadProject(path: string): void {
-        this.unityInstance = UnityLoader.instantiate(
-            'unityContainer_unity-dispatcher-screen',
-            path
-        );
+        this.unityInstance = UnityLoader.instantiate('unityContainer_unity-dispatcher-screen', path);
     }
 
     @AsyncRender

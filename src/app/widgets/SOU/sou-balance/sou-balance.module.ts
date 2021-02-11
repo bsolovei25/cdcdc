@@ -6,17 +6,10 @@ import { SharedModule } from '@shared/shared.module';
 import { SouBalanceGroupComponent } from './components/sou-balance-group/sou-balance-group.component';
 import { SouBalanceGroupItemComponent } from './components/sou-balance-group-item/sou-balance-group-item.component';
 
-
-
 @NgModule({
-  declarations: [SouBalanceComponent, SouBalanceGroupComponent, SouBalanceGroupItemComponent],
-  imports: [
-    CommonModule,
-    SharedModule, 
-    AngularSvgIconModule
-  ]
+    declarations: [SouBalanceComponent, SouBalanceGroupComponent, SouBalanceGroupItemComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
-
 export class SouBalanceModule {
-  enterComponent = SouBalanceComponent;
+    enterComponent = SouBalanceComponent;
 }

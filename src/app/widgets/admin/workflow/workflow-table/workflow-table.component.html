@@ -32,7 +32,7 @@
                 <td class="col__name">
                   <div><img class="col__name__avatar" [src]="element.photoPath" /></div>
                   <div class="col__name__body">
-                    <div style="margin-bottom: 5px;">
+                    <div style="margin-bottom: 5px">
                       {{ element.lastName }} {{ element.firstName }} {{ element.middleName }}
                     </div>
                     <div>{{ element.positionDescription }}</div>
@@ -45,9 +45,7 @@
       </div>
       <div class="tank__footer">
         <div class="tank__footer__search-input">
-          <evj-circle-input
-            (searchChange)="searchInput($event)"
-          ></evj-circle-input>
+          <evj-circle-input (searchChange)="searchInput($event)"></evj-circle-input>
         </div>
         <span class="tank__footer__btn" (click)="accept()">Добавить</span>
       </div>

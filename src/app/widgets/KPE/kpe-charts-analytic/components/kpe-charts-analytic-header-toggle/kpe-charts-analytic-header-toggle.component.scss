@@ -6,7 +6,7 @@
 
   .chip {
     padding: 0 10px;
-    color: #D7E2F2;
+    color: #d7e2f2;
     line-height: 21px;
     font-size: 8px;
     box-sizing: border-box;
@@ -22,8 +22,8 @@
     }
 
     &__active {
-      background: rgba(#0089FF, .2);
-      border-color: #0089FF;
+      background: rgba(#0089ff, 0.2);
+      border-color: #0089ff;
     }
   }
 }

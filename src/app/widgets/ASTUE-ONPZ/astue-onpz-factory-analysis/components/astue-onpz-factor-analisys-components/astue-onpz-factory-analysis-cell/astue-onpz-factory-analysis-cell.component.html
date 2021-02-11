@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" [class.container__wide]="data?.type === 'sum'">
   <ng-container *ngIf="data">
     <div class="top" [matTooltip]="data.title">
-      <div class="top__title"> {{ data.title }} </div>
+      <div class="top__title">{{ data.title }}</div>
     </div>
     <div class="main">
       <evj-astue-onpz-factory-analysis-bar [data]="data"></evj-astue-onpz-factory-analysis-bar>

@@ -1,28 +1,21 @@
 <div class="container">
-    <div class="content">
-        <div class="content__header">
-            <svg-icon
-                src="assets/icons/widgets/SOU/sou-balance/{{data?.type}}.svg"
-            ></svg-icon>
-            <div class="title">
-                <span>{{data?.title}}</span>
-            </div>
-            <div class="mass">
-                <span>{{(menu === 0 ? data?.mass : data?.massAgree) | spaceNumber}}</span>
-            </div>
-        </div>
-        <div class="content__diagram">
-            <div class="diagram">
-                <div class="diagram__inner">
-                    <div 
-                        class="diagram__inner_value"
-                        [style.width.%]="(menu === 0 ? data?.percent : data?.percentAgree)"
-                    ></div>
-                </div>
-            </div>
-        </div>
+  <div class="content">
+    <div class="content__header">
+      <svg-icon src="assets/icons/widgets/SOU/sou-balance/{{data?.type}}.svg"></svg-icon>
+      <div class="title">
+        <span>{{data?.title}}</span>
+      </div>
+      <div class="mass">
+        <span>{{(menu === 0 ? data?.mass : data?.massAgree) | spaceNumber}}</span>
+      </div>
     </div>
-    <div class="percent">
-        {{(menu === 0 ? data?.percent : data?.percentAgree) | spaceNumber:2}}&nbsp;%
+    <div class="content__diagram">
+      <div class="diagram">
+        <div class="diagram__inner">
+          <div class="diagram__inner_value" [style.width.%]="(menu === 0 ? data?.percent : data?.percentAgree)"></div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="percent">{{(menu === 0 ? data?.percent : data?.percentAgree) | spaceNumber:2}}&nbsp;%</div>
 </div>

@@ -4,10 +4,11 @@ import {
     Component,
     ElementRef,
     HostListener,
-    Inject, OnDestroy,
+    Inject,
+    OnDestroy,
     OnInit,
-    ViewChild
-} from "@angular/core";
+    ViewChild,
+} from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import {
     AstueOnpzMnemonicFurnaceElementType,
@@ -43,14 +44,8 @@ interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStream
     styleUrls: ['./astue-onpz-mnemonic-furnace.component.scss'],
     animations: [
         trigger('inOutAnimation', [
-            transition(':enter', [
-                style({ opacity: 0 }),
-                animate('.2s ease-out', style({ opacity: 1 })),
-            ]),
-            transition(':leave', [
-                style({ opacity: 1 }),
-                animate('.2s ease-in', style({ opacity: 0 })),
-            ]),
+            transition(':enter', [style({ opacity: 0 }), animate('.2s ease-out', style({ opacity: 1 }))]),
+            transition(':leave', [style({ opacity: 1 }), animate('.2s ease-in', style({ opacity: 0 }))]),
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,9 +58,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     };
     public schemeStyle: string = '';
 
-    public selectReferences: BehaviorSubject<
-        IAstueOnpzMnemonicFurnaceSelectReferences
-    > = new BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences>(null);
+    public selectReferences: BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences> = new BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences>(
+        null
+    );
 
     public selectManufacture: FormControl = new FormControl({ value: '', disabled: false });
     public selectUnit: FormControl = new FormControl({ value: '', disabled: false });
@@ -78,12 +73,10 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.resize();
     }
 
-    public popupData$: BehaviorSubject<IAstueOnpzMnemonicFurnacePopup> = new BehaviorSubject<
-        IAstueOnpzMnemonicFurnacePopup
-    >(null);
-    public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<
-        IAstueOnpzMnemonicFurnace
-    >(null);
+    public popupData$: BehaviorSubject<IAstueOnpzMnemonicFurnacePopup> = new BehaviorSubject<IAstueOnpzMnemonicFurnacePopup>(
+        null
+    );
+    public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<IAstueOnpzMnemonicFurnace>(null);
 
     constructor(
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
@@ -119,25 +112,23 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             this.setOptions(value);
         });
 
-        this.mnemonicFurnaceService.selectedItem$
-            .pipe(takeUntil(this.onDestroy))
-            .subscribe((ref) => {
-                const data = this.data.getValue();
-                if (!data) {
-                    return;
-                }
-                switch (ref) {
-                    case data.dischargeStats?.main?.id ?? -1:
-                        this.popupData$.next({ ...data.dischargeStats, side: 'right' });
-                        break;
-                    case data.gasStats?.main?.id ?? -1:
-                        this.popupData$.next({ ...data.gasStats, side: 'left' });
-                        break;
-                    default:
-                        this.popupData$.next(null);
-                        break;
-                }
-            });
+        this.mnemonicFurnaceService.selectedItem$.pipe(takeUntil(this.onDestroy)).subscribe((ref) => {
+            const data = this.data.getValue();
+            if (!data) {
+                return;
+            }
+            switch (ref) {
+                case data.dischargeStats?.main?.id ?? -1:
+                    this.popupData$.next({ ...data.dischargeStats, side: 'right' });
+                    break;
+                case data.gasStats?.main?.id ?? -1:
+                    this.popupData$.next({ ...data.gasStats, side: 'left' });
+                    break;
+                default:
+                    this.popupData$.next(null);
+                    break;
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -148,19 +139,15 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     @AsyncRender
     private resize(): void {
         const scaleY =
-            (this.schemaContainer?.nativeElement?.offsetHeight ?? this.defaultSchemaSize.y) /
-            this.defaultSchemaSize.y;
+            (this.schemaContainer?.nativeElement?.offsetHeight ?? this.defaultSchemaSize.y) / this.defaultSchemaSize.y;
         const scaleX =
-            (this.schemaContainer?.nativeElement?.offsetWidth ?? this.defaultSchemaSize.x) /
-            this.defaultSchemaSize.x;
+            (this.schemaContainer?.nativeElement?.offsetWidth ?? this.defaultSchemaSize.x) / this.defaultSchemaSize.x;
         const scale: number = scaleX < scaleY ? scaleX : scaleY;
         this.schemeStyle = `transform: translate(-50%, -50%) scale(${scale})`;
         this.changeDetector.detectChanges();
     }
 
-    public manufacturesSelects$: Observable<
-        { id: string; title: string }[]
-    > = this.selectReferences.pipe(
+    public manufacturesSelects$: Observable<{ id: string; title: string }[]> = this.selectReferences.pipe(
         filter((x) => x != null),
         map((x) => x.manufactures?.map((m) => ({ id: m.id, title: m.title })) ?? [])
     );
@@ -175,9 +162,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 return [];
             }
             return (
-                x[0]?.manufactures
-                    .find((m) => m?.id === x[1])
-                    ?.units?.map((u) => ({ id: u.id, title: u.title })) ?? []
+                x[0]?.manufactures.find((m) => m?.id === x[1])?.units?.map((u) => ({ id: u.id, title: u.title })) ?? []
             );
         })
     );
@@ -266,9 +251,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         };
     };
 
-    private ovenMapping(
-        currentData: IAstueOnpzMnemonicFurnaceResponseOven
-    ): IAstueOnpzMnemonicFurnace {
+    private ovenMapping(currentData: IAstueOnpzMnemonicFurnaceResponseOven): IAstueOnpzMnemonicFurnace {
         const lineConstructor = (
             x: IAstueOnpzMnemonicFurnaceResponseGroupData,
             type: 'inputOilBlock' | 'inputGasBlock' | 'inputLiquidBlock' | 'outputBlock',
@@ -373,9 +356,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             'outputRaw',
         ];
         sortedProperty.forEach((x) => {
-            (currentData[x] as IAstueOnpzMnemonicFurnaceResponseGroup).item.sort(
-                (a, b) => +a.code - +b.code
-            );
+            (currentData[x] as IAstueOnpzMnemonicFurnaceResponseGroup).item.sort((a, b) => +a.code - +b.code);
         });
 
         const inputOilBlock: IAstueOnpzMnemonicFurnaceBlock = {

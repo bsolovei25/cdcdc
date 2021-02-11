@@ -1,18 +1,16 @@
 <div class="container-oil-received">
-    <div class="container-oil-received__title">
-        <div class="title-name">
-            Поступившие операции
-        </div>
+  <div class="container-oil-received__title">
+    <div class="title-name">Поступившие операции</div>
+  </div>
+  <div class="container-oil-received__content">
+    <div *ngFor="let item of data" class="block" (click)="active(item)" [class.active]="activeItemId === item.id">
+      <div class="block__icon">
+        <svg-icon
+          src="assets/icons/widgets/oil-control-all/oil-operations/{{item.type}}-operation.svg"
+          [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+        ></svg-icon>
+      </div>
+      <div class="block__info">{{ item.name }}</div>
     </div>
-    <div class="container-oil-received__content">
-        <div *ngFor="let item of data" class="block" (click)="active(item)" [class.active]="activeItemId === item.id">
-            <div class="block__icon">
-                <svg-icon
-                src="assets/icons/widgets/oil-control-all/oil-operations/{{item.type}}-operation.svg"
-                [svgStyle]="{ 'width.px':30, 'height.px':30 }"
-              ></svg-icon>
-            </div>
-            <div class="block__info"> {{ item.name }} </div>
-        </div>
-    </div>
+  </div>
 </div>

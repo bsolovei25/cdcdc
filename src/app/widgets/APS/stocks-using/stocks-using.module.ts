@@ -6,15 +6,10 @@ import { StocksUsingComponent } from './stocks-using.component';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
     declarations: [StocksUsingComponent, StocksUsingElementComponent],
-    imports: [
-        CommonModule, DashboardModule, SharedModule, AngularSvgIconModule
-    ]
+    imports: [CommonModule, DashboardModule, SharedModule, AngularSvgIconModule],
 })
 export class StocksUsingModule {
     enterComponent = StocksUsingComponent;
 }
-

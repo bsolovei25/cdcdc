@@ -4,26 +4,22 @@ import { EventsWidgetCategory, ICategory } from '../../../../../dashboard/models
 @Component({
     selector: 'evj-cd-event-categories',
     templateUrl: './cd-event-categories.component.html',
-    styleUrls: ['./cd-event-categories.component.scss']
+    styleUrls: ['./cd-event-categories.component.scss'],
 })
 export class CdEventCategoriesComponent implements OnInit {
-
     public categoryActive: boolean = false;
 
     @Input() data: EventsWidgetCategory;
 
     @Output()
-    public categoryClick: EventEmitter<EventsWidgetCategory> =
-        new EventEmitter<EventsWidgetCategory>();
+    public categoryClick: EventEmitter<EventsWidgetCategory> = new EventEmitter<EventsWidgetCategory>();
 
     @Output()
     public categoryDeleteClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     onCLickItem(data: EventsWidgetCategory): void {
         this.categoryActive = true;
@@ -35,5 +31,4 @@ export class CdEventCategoriesComponent implements OnInit {
         e.stopPropagation();
         window.open(url);
     }
-
 }

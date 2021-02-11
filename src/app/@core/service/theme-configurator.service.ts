@@ -2,12 +2,12 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ThemeConfiguratorService {
-    public theme: number = 0;
     private readonly renderer: Renderer2;
     private themeConfigurator: ThemeConfigurator;
+    public isDarkTheme: Observable<boolean>;
 
     constructor(private rendererFactory: RendererFactory2) {
         this.renderer = rendererFactory.createRenderer(null, null);
@@ -15,17 +15,16 @@ export class ThemeConfiguratorService {
 
     public setThemeConfiguratorRoot(document: Document): void {
         this.themeConfigurator = new ThemeConfigurator(document, this.renderer);
+        this.isDarkTheme = this.themeConfigurator.isDarkThemeObservable;
         console.log(this.themeConfigurator);
     }
 
     public changeTheme(): void {
-        console.log(this.themeConfigurator);
         this.themeConfigurator.switchTheme();
     }
 }
 
 export class ThemeConfigurator {
-
     private isDarkTheme$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isDarkThemeObservable: Observable<boolean> = this.isDarkTheme$.asObservable();
 

@@ -1,11 +1,4 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    ChangeDetectionStrategy,
-    EventEmitter,
-    Output,
-} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { IAbsent } from '../../admin-shift-schedule.component';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
@@ -96,9 +89,7 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     async postUserResponsible(): Promise<void> {
         try {
             await this.adminShiftScheduleService.postUserResponsible(this.data.id);
-            this.snackBar.openSnackBar(
-                `${this.data.firstName} ${this.data.lastName} главный в бригаде`
-            );
+            this.snackBar.openSnackBar(`${this.data.firstName} ${this.data.lastName} главный в бригаде`);
             this.adminShiftScheduleService.updateBrigades$.next(true);
         } catch (error) {
             console.error(error);

@@ -1,8 +1,5 @@
 <div class="container">
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
-    icon="gantt">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
     <div class="content-container">
       <div class="header">
         <ul class="header__info">
@@ -28,34 +25,37 @@
       <div class="line-diagram__body">
         <table>
           <tbody>
-          <tr class="line-diagram__item" *ngFor="let item of data">
-            <td class="item__name">{{ item.name }}</td>
-            <td class="item__count">
-              <span class="item__count__text"> {{ item.lowerLimit | number: "1.0-0" }} {{ item.units }}</span>
-            </td>
-            <td class="item__graph">
-              <div class="item__graph__line">
-                <svg-icon src="assets/icons/widgets/KPE/kpe-line-diagram/circle.svg"
-                          class="line__circle"
-                          [style.left.%]="item.percentFact - 4"
-                          [svgStyle]="{ 'width.px': 25, 'height.px': 25}">
-                </svg-icon>
-                <div class="line__accept" [style.width.%]="percentPlan"></div>
-                <div class="line__divided" [style.left.%]="percentPlan"></div>
-                <div class="line__warning"
-                     [style.left.%]="percentPlan"
-                     [style.width.%]="percentDeviation"
-                ></div>
-                <div class="line__value line__value_warning" [style.left.%]="percentPlan + 2">{{ item.upperBound.toFixed() }} {{ item.units }}</div>
-                <div class="line__value" [style.left.%]="item.percentFact - 9">{{ item.value.toFixed() }} {{ item.units }}</div>
-              </div>
-            </td>
-            <td class="item__value">
-              <div class="item__max-graph">
-                <span class="item__count__text">{{ item.upperLimit.toFixed() }} {{ item.units }}</span>
-              </div>
-            </td>
-          </tr>
+            <tr class="line-diagram__item" *ngFor="let item of data">
+              <td class="item__name">{{ item.name }}</td>
+              <td class="item__count">
+                <span class="item__count__text"> {{ item.lowerLimit | number: "1.0-0" }} {{ item.units }}</span>
+              </td>
+              <td class="item__graph">
+                <div class="item__graph__line">
+                  <svg-icon
+                    src="assets/icons/widgets/KPE/kpe-line-diagram/circle.svg"
+                    class="line__circle"
+                    [style.left.%]="item.percentFact - 4"
+                    [svgStyle]="{ 'width.px': 25, 'height.px': 25}"
+                  >
+                  </svg-icon>
+                  <div class="line__accept" [style.width.%]="percentPlan"></div>
+                  <div class="line__divided" [style.left.%]="percentPlan"></div>
+                  <div class="line__warning" [style.left.%]="percentPlan" [style.width.%]="percentDeviation"></div>
+                  <div class="line__value line__value_warning" [style.left.%]="percentPlan + 2">
+                    {{ item.upperBound.toFixed() }} {{ item.units }}
+                  </div>
+                  <div class="line__value" [style.left.%]="item.percentFact - 9">
+                    {{ item.value.toFixed() }} {{ item.units }}
+                  </div>
+                </div>
+              </td>
+              <td class="item__value">
+                <div class="item__max-graph">
+                  <span class="item__count__text">{{ item.upperLimit.toFixed() }} {{ item.units }}</span>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

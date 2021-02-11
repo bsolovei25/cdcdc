@@ -38,15 +38,10 @@ export interface IClaimAll {
     providedIn: 'root',
 })
 export class ClaimService {
-    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> =
-        new BehaviorSubject<EnumClaimWidgets[]
-    >([]);
-    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> =
-        new BehaviorSubject<EnumClaimScreens[]
-    >([]);
+    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> = new BehaviorSubject<EnumClaimWidgets[]>([]);
+    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> = new BehaviorSubject<EnumClaimScreens[]>([]);
 
-    public claimGlobal$: BehaviorSubject<EnumClaimGlobal[]> =
-        new BehaviorSubject<EnumClaimGlobal[]>([]);
+    public claimGlobal$: BehaviorSubject<EnumClaimGlobal[]> = new BehaviorSubject<EnumClaimGlobal[]>([]);
 
     private readonly restUrl: string;
 
@@ -113,9 +108,7 @@ export class ClaimService {
 
     async getClaimAll(): Promise<{ data: IClaim[] }> {
         try {
-            return await this.http
-                .get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`)
-                .toPromise();
+            return await this.http.get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`).toPromise();
         } catch (error) {
             return { data: [] };
         }
@@ -123,9 +116,7 @@ export class ClaimService {
 
     async getUnits(): Promise<IUnits[]> {
         try {
-            return this.http
-                .get<IUnits[]>(this.restUrl + `/api/user-management/units/all`)
-                .toPromise();
+            return this.http.get<IUnits[]>(this.restUrl + `/api/user-management/units/all`).toPromise();
         } catch (error) {
             console.error(error);
         }

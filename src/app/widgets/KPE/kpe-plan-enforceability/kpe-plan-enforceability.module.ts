@@ -4,16 +4,10 @@ import { KpePlanEnforceabilityComponent } from './kpe-plan-enforceability.compon
 import { SharedModule } from '../../../@shared/shared.module';
 import { KpeSharedModule } from '../shared/kpe-shared.module';
 
-
-
 @NgModule({
-  declarations: [KpePlanEnforceabilityComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    KpeSharedModule
-  ]
+    declarations: [KpePlanEnforceabilityComponent],
+    imports: [CommonModule, SharedModule, KpeSharedModule],
 })
 export class KpePlanEnforceabilityModule {
-  enterComponent = KpePlanEnforceabilityComponent;
+    enterComponent = KpePlanEnforceabilityComponent;
 }

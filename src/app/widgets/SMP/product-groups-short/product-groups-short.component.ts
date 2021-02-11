@@ -41,8 +41,7 @@ export class ProductGroupsShortComponent extends WidgetPlatform<unknown> impleme
         this.data = (await this.smpService.getDataProgressGroup())?.data.items;
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     ngOnDestroy(): void {
         super.ngOnDestroy();

@@ -1,113 +1,102 @@
-<evj-contemporary-widget-header
-  [uniqId]="widgetUniqId"
-  [widgetTitle]="widgetTitle"
-  icon="parameter"
-  type="astue"
->
+<evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="parameter" type="astue">
   <div class="header-container">
-    <div class="header-chips"
-         (mousedown)="$event.stopPropagation()"
-         (touchstart)="$event.stopPropagation()">
-      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'oven'" (click)="changeDataType('oven')"> Печи </div>
-      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'section'" (click)="changeDataType('section')"> Секции </div>
+    <div class="header-chips" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'oven'" (click)="changeDataType('oven')">
+        Печи
+      </div>
+      <div
+        class="chip"
+        [class.chip__active]="(selectedType$ | async) === 'section'"
+        (click)="changeDataType('section')"
+      >
+        Секции
+      </div>
     </div>
   </div>
 </evj-contemporary-widget-header>
 <div class="container">
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <table class="table">
       <thead class="table__header">
-      <tr>
-        <ng-container *ngFor="let column of columnsToDisplay">
+        <tr>
+          <ng-container *ngFor="let column of columnsToDisplay">
             <th>
               <span>{{ column.name }}</span>
             </th>
-        </ng-container>
-      </tr>
+          </ng-container>
+        </tr>
       </thead>
       <tbody class="table__body">
-      <ng-container *ngFor="let element of dataFilter(this.selectedType$ | async) | async">
-        <tr
-          class="table__body__row"
-        >
-          <td
-            class="table__body__column"
-            (click)="onClickTr($event, element)"
-            colspan="3"
-          >
-            <div
-              (click)="onClickTr($event, element)"
-              class="table__body__column__row-title"
-            >
-              <svg-icon
-                *ngIf="!!element.items?.length"
-                class="table__body__column__row-title__icon"
-                (click)="onClickTr($event, element)"
-                [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.name)"
-                src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-              >
-              </svg-icon>
-              <div class="table__body__column__row-title">
-                <div class="table__body__column__row-title__text__name">
-                  <span>{{ element.name }}</span>
-                </div>
-                <div class="table__body__column__row-title__text__val">
-                  <span> {{ element.absoluteValue | number: "0.0" }} </span>
-                  <span> {{ element.relativeValue | number: "0.0" }} </span>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <ng-container *ngFor="let elementChildren of element.items;  index as i;">
-          <tr
-            *ngIf="expandedElement.isSelected(element.name)"
-            class="table__body__row expanded-row"
-            (click)="onClickRow($event, elementChildren)"
-          >
-            <td
-              *ngFor="let column of columnsToDisplay"
-              class="expanded-column table__body__column table__body__column__children"
-              [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
-              [matTooltip]="elementChildren?.description"
-            >
-              <div
-                *ngIf="column.id === 0"
-                class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedProduct$(elementChildren) | async"
-              >
+        <ng-container *ngFor="let element of dataFilter(this.selectedType$ | async) | async">
+          <tr class="table__body__row">
+            <td class="table__body__column" (click)="onClickTr($event, element)" colspan="3">
+              <div (click)="onClickTr($event, element)" class="table__body__column__row-title">
                 <svg-icon
-                  [svgStyle]="{'height.px':'43', 'width.px': '21'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  [ngClass]="'table__body__column__row-title-children__left-block--first__' +
-                    ((selectedProduct$(elementChildren) | async) ? 'active' : 'default')"
-                  [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
+                  *ngIf="!!element.items?.length"
+                  class="table__body__column__row-title__icon"
+                  (click)="onClickTr($event, element)"
+                  [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.name)"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
-                <div
-                  class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedProduct$(elementChildren) | async">
-                  <span>{{ elementChildren.name }}</span>
+                <div class="table__body__column__row-title">
+                  <div class="table__body__column__row-title__text__name">
+                    <span>{{ element.name }}</span>
+                  </div>
+                  <div class="table__body__column__row-title__text__val">
+                    <span> {{ element.absoluteValue | number: "0.0" }} </span>
+                    <span> {{ element.relativeValue | number: "0.0" }} </span>
+                  </div>
                 </div>
               </div>
-              <ng-container *ngIf="column.id === 1">
-                <div class="value">
-                  <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="column.id === 2">
-                <div class="value">
-                  <span>{{elementChildren.relativeValue | number: "0.0" }}</span>
-                </div>
-              </ng-container>
             </td>
           </tr>
+          <ng-container *ngFor="let elementChildren of element.items;  index as i;">
+            <tr
+              *ngIf="expandedElement.isSelected(element.name)"
+              class="table__body__row expanded-row"
+              (click)="onClickRow($event, elementChildren)"
+            >
+              <td
+                *ngFor="let column of columnsToDisplay"
+                class="expanded-column table__body__column table__body__column__children"
+                [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
+                [matTooltip]="elementChildren?.description"
+              >
+                <div
+                  *ngIf="column.id === 0"
+                  class="table__body__column__row-title table__body__column__row-title-children"
+                  [class.opacity]="selectedProduct$(elementChildren) | async"
+                >
+                  <svg-icon
+                    [svgStyle]="{'height.px':'43', 'width.px': '21'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    [ngClass]="'table__body__column__row-title-children__left-block--first__' +
+                    ((selectedProduct$(elementChildren) | async) ? 'active' : 'default')"
+                    [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
+                  >
+                  </svg-icon>
+                  <div
+                    class="table__body__column__row-title__text__subname"
+                    [class.table__body__column__row-title--no-active]="selectedProduct$(elementChildren) | async"
+                  >
+                    <span>{{ elementChildren.name }}</span>
+                  </div>
+                </div>
+                <ng-container *ngIf="column.id === 1">
+                  <div class="value">
+                    <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="column.id === 2">
+                  <div class="value">
+                    <span>{{elementChildren.relativeValue | number: "0.0" }}</span>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
         </ng-container>
-      </ng-container>
       </tbody>
     </table>
   </div>

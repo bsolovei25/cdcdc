@@ -6,9 +6,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ApsGanttChartRowComponent } from './components/aps-gantt-chart-row/aps-gantt-chart-row.component';
 
 @NgModule({
-  declarations: [ApsGanttChartComponent, ApsGanttChartRowComponent],
-  imports: [CommonModule, SharedModule, AngularSvgIconModule],
+    declarations: [ApsGanttChartComponent, ApsGanttChartRowComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
 })
 export class ApsGanttChartModule {
-  enterComponent = ApsGanttChartComponent;
+    enterComponent = ApsGanttChartComponent;
 }

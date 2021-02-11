@@ -1,12 +1,8 @@
-<div style="height: 100%; width: 100%;" class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
+<div style="height: 100%; width: 100%" class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
   <evj-widget-header-smp [uniqId]="widgetUniqId" *ngIf="isHover"></evj-widget-header-smp>
 
   <ng-container>
-    <div
-      class="content_block"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="blocks">
         <div class="container_oils" id="test" [class.container_oils_short]="checkWidth">
           <div class="container_oil" [class.container_oil_short]="checkWidth">
@@ -20,7 +16,7 @@
                 x="0px"
                 y="0px"
                 viewBox="0 180 600 530"
-                style="enable-background:new 0 0 595.3 841.9;"
+                style="enable-background: new 0 0 595.3 841.9"
                 class="svg-circle"
                 [class.svg-circle-short]="checkWidth"
               >
@@ -32,8 +28,8 @@
                   x2="587.8844"
                   y2="444.0312"
                 >
-                  <stop offset="0" style="stop-color:#22252F; stop-opacity:0" />
-                  <stop offset="1" style="stop-color:#22252F" />
+                  <stop offset="0" style="stop-color: #22252f; stop-opacity: 0" />
+                  <stop offset="1" style="stop-color: #22252f" />
                 </linearGradient>
                 <g id="3">
                   <path
@@ -51,8 +47,8 @@
                   x2="517.949"
                   y2="684.8049"
                 >
-                  <stop offset="0" style="stop-color:#22252F;" />
-                  <stop offset="1" style="stop-color:#22252F" />
+                  <stop offset="0" style="stop-color: #22252f" />
+                  <stop offset="1" style="stop-color: #22252f" />
                 </linearGradient>
                 <g id="5">
                   <path
@@ -70,8 +66,8 @@
                   x2="564.9169"
                   y2="604.1593"
                 >
-                  <stop offset="0" style="stop-color:#22252F;" />
-                  <stop offset="1" style="stop-color:#22252F" />
+                  <stop offset="0" style="stop-color: #22252f" />
+                  <stop offset="1" style="stop-color: #22252f" />
                 </linearGradient>
                 <g id="4">
                   <path
@@ -90,8 +86,8 @@
                   x2="562.569"
                   y2="283.9031"
                 >
-                  <stop offset="0" style="stop-color:#22252F;" />
-                  <stop offset="1" style="stop-color:#22252F" />
+                  <stop offset="0" style="stop-color: #22252f" />
+                  <stop offset="1" style="stop-color: #22252f" />
                 </linearGradient>
                 <g id="2">
                   <path
@@ -109,8 +105,8 @@
                   x2="513.3126"
                   y2="203.2574"
                 >
-                  <stop offset="0" style="stop-color:#22252F;" />
-                  <stop offset="1" style="stop-color:#22252F" />
+                  <stop offset="0" style="stop-color: #22252f" />
+                  <stop offset="1" style="stop-color: #22252f" />
                 </linearGradient>
                 <g id="1" class="st4">
                   <path
@@ -386,7 +382,10 @@
             </div>
             <div class="oil_info">
               <div id="start" class="oil_block_info" [class.oil_block_info_short]="checkWidth">
-                <evj-oil-control-table [(activeOperation)]="saveCurrentPage" [data]="activeStorage"></evj-oil-control-table>
+                <evj-oil-control-table
+                  [(activeOperation)]="saveCurrentPage"
+                  [data]="activeStorage"
+                ></evj-oil-control-table>
                 <div class="frame frame-left"></div>
                 <div class="frame frame-right"></div>
               </div>
@@ -403,7 +402,7 @@
                     x="0px"
                     y="0px"
                     viewBox="0 -200 595.3 841.9"
-                    style="enable-background:new 0 -200 595.3 841.9;"
+                    style="enable-background: new 0 -200 595.3 841.9"
                     xml:space="preserve"
                   >
                     <g id="XMLID_2_">

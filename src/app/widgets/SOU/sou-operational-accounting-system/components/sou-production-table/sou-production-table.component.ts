@@ -4,16 +4,12 @@ import { ISOUProduct } from '../../../../../dashboard/models/SOU/sou-operational
 @Component({
     selector: 'evj-sou-production-table',
     templateUrl: './sou-production-table.component.html',
-    styleUrls: ['./sou-production-table.component.scss']
+    styleUrls: ['./sou-production-table.component.scss'],
 })
 export class SouProductionTableComponent implements OnInit {
-
     @Input() products: ISOUProduct[] = [];
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
-
+    ngOnInit(): void {}
 }

@@ -16,7 +16,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     /* Приблизительная структура, получаемая с бека */
 
     public data: IEnergeticsGraph = {
@@ -225,10 +224,7 @@ export class EnergeticsComponent extends WidgetPlatform<unknown> implements OnIn
         if (percent < this.energyCircleDiagram.lowerLimit) {
             return this.colorDeviation;
         }
-        if (
-            percent >= this.energyCircleDiagram.lowerLimit &&
-            percent < this.energyCircleDiagram.upperLimit
-        ) {
+        if (percent >= this.energyCircleDiagram.lowerLimit && percent < this.energyCircleDiagram.upperLimit) {
             return this.colorNormal;
         }
         if (percent === this.energyCircleDiagram.upperLimit) {

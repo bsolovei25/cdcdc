@@ -1,4 +1,4 @@
-<div style="height: 100%; width: 100%;">
+<div style="height: 100%; width: 100%">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -11,11 +11,7 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <div
-      class="content_block"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+    <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="blocks">
         <div class="contant">
           <div *ngFor="let data of datas;" class="block">

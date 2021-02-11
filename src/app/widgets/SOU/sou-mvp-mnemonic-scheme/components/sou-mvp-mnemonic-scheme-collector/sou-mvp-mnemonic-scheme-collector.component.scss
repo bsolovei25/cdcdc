@@ -20,8 +20,8 @@
     font-size: 12px;
     line-height: 14px;
 
-    -webkit-writing-mode: vertical-rl; 
-    writing-mode:tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: tb-rl;
 
     color: var(--sou-mvp-color-text-diagram-main);
     white-space: nowrap;
@@ -33,20 +33,20 @@
     transform: rotate(-180deg);
   }
 
-  .connection__left, .connection__right {
+  .connection__left,
+  .connection__right {
     height: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    
+
     position: absolute;
   }
-  
-  .connection {
 
+  .connection {
     &__left {
-      left: -4px
+      left: -4px;
     }
     &__right {
       right: -4px;
@@ -56,13 +56,13 @@
   .connection-circle {
     height: 8px;
     width: 8px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 50%;
-  
+
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border);
   }
@@ -75,7 +75,7 @@
   span {
     color: var(--sou-mvp-color-white);
   }
-  
+
   .connection-circle {
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-warning);
@@ -84,7 +84,7 @@
 
 .main-container {
   height: 100%;
-  
+
   display: flex;
   align-items: center;
 
@@ -104,14 +104,14 @@
   justify-content: space-around;
 }
 
-.off{
+.off {
   background: var(--sou-mvp-color-bg-main);
   border: 1px solid var(--sou-mvp-color-border-unactive);
 
   span {
     color: var(--sou-mvp-color-text-diagram-sub);
   }
-  
+
   .connection-circle {
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border-unactive);

@@ -1,17 +1,10 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ChangeDetectionStrategy,
-    OnChanges,
-    ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, ChangeDetectorRef } from '@angular/core';
 import {
     ISearchRetrievalWindow,
     IEventsWidgetNotification,
     IRetrievalEventDto,
     IEventsWidgetOptions,
-    IEventsWidgetNotificationPreview
+    IEventsWidgetNotificationPreview,
 } from 'src/app/dashboard/models/EVJ/events-widget';
 import { EventService } from 'src/app/dashboard/services/widgets/EVJ/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -23,7 +16,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
     selector: 'evj-event-search-window',
     templateUrl: './event-search-window.component.html',
     styleUrls: ['./event-search-window.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventSearchWindowComponent implements OnInit, OnChanges {
     @Input() public info: ISearchRetrievalWindow;
@@ -38,17 +31,13 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
         private cdRef: ChangeDetectorRef,
         public eventService: EventService,
         public ewService: EventsWorkspaceService
-    ) {
-    }
+    ) {}
 
     public results: IRetrievalEventDto[] = [];
     public searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     ngOnInit(): void {
-        this.searchTerm$.pipe(
-            debounceTime(450),
-            distinctUntilChanged()
-        ).subscribe((search) => {
+        this.searchTerm$.pipe(debounceTime(450), distinctUntilChanged()).subscribe((search) => {
             this.search(search);
         });
     }
@@ -109,7 +98,7 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
         }
         const options: IEventsWidgetOptions = {
             description: searchString,
-            categories: this.getAvailableRetrievalCategories()
+            categories: this.getAvailableRetrievalCategories(),
         };
         const tempEvents = await this.eventService.getBatchData(0, options);
         if (tempEvents?.length < 1) {
@@ -124,7 +113,7 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
                 status: eventPreview.status,
                 deadline: eventPreview.eventDateTime,
                 fixedByName: eventPreview.responsibleOperator?.displayName ?? 'Нет информации',
-                timerPercentage: null
+                timerPercentage: null,
             };
         });
         console.log(tempEvents);

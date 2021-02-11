@@ -21,11 +21,11 @@
   flex-grow: 1;
   gap: 22px;
 
-  .tabs-container{
+  .tabs-container {
     display: flex;
     height: 30px;
     margin-left: auto;
-    border: 1px solid #4B5169;
+    border: 1px solid #4b5169;
     box-sizing: border-box;
     border-radius: 2px;
 
@@ -37,7 +37,7 @@
 
       &__active {
         background: rgba(0, 137, 255, 0.2);
-        border: 1px solid #0089FF;
+        border: 1px solid #0089ff;
         box-sizing: border-box;
         border-radius: 2px;
       }
@@ -51,7 +51,7 @@
     font-size: 13px;
     cursor: pointer;
     border-radius: 2px;
-    color: #D7E2F2;
+    color: #d7e2f2;
     background: #303549;
   }
 }

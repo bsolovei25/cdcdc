@@ -1,10 +1,6 @@
-<evj-widget-preview
-  [title]="widgetTitle"
-  [previewTitle]="widgetType"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
-<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+<div style="height: 100%; width: 100%" *ngIf="!isMock">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -12,16 +8,12 @@
     [id]="widgetId"
     [uniqId]="widgetUniqId"
   ></evj-widget-header>
-  <div style="height: 100%; width: 100%;">
+  <div style="height: 100%; width: 100%">
     <evj-frame-top></evj-frame-top>
     <ng-container>
-      <div
-        class="content_block"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+      <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div class="blocks">
-          <div style="display:flex; height: 100%;">
+          <div style="display: flex; height: 100%">
             <div class="cb">
               <div #polar class="item-b"></div>
             </div>

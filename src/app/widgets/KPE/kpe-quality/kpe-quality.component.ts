@@ -105,9 +105,7 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
         } else {
             cards.forEach((cardsSetNew) => {
                 this.cards.forEach((cardsSetExist) => {
-                    if (
-                        this.kpeHelperService.compare<IKpeQualityCard>(cardsSetNew, cardsSetExist)
-                    ) {
+                    if (this.kpeHelperService.compare<IKpeQualityCard>(cardsSetNew, cardsSetExist)) {
                         this.cards.push(this.prepareEqualizerData(cardsSetNew));
                     }
                 });

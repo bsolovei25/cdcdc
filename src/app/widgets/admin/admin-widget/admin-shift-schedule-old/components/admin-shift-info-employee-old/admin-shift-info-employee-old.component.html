@@ -45,14 +45,10 @@
       [svgStyle]="{ 'width.px':12, 'height.px':20 }"
     ></svg-icon>
     <mat-menu #menu="matMenu" class="customize-menu">
-      <button mat-menu-item *ngFor="let status of allStatus" (click)="onChooseStatus(status)">
-        {{ status.name }}
-      </button>
+      <button mat-menu-item *ngFor="let status of allStatus" (click)="onChooseStatus(status)">{{ status.name }}</button>
     </mat-menu>
     <mat-menu #menuDelete="matMenu" class="customize-menu">
-      <button mat-menu-item (click)="onDeleteStatus()">
-        Вернуть на смену
-      </button>
+      <button mat-menu-item (click)="onDeleteStatus()">Вернуть на смену</button>
     </mat-menu>
   </div>
 

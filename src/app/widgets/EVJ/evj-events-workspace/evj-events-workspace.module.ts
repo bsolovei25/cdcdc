@@ -81,18 +81,15 @@ import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events
         MatSelectModule,
         MatTooltipModule,
         MatCheckboxModule,
-        MatRippleModule
+        MatRippleModule,
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] }
+        { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
-  exports: [
-    EvjEventsWorkspaceComponent,
-    EvjEventsWorkspaceSelectComponent
-  ]
+    exports: [EvjEventsWorkspaceComponent, EvjEventsWorkspaceSelectComponent],
 })
 export class EvjEventsWorkspaceModule {
     enterComponent = EvjEventsWorkspaceComponent;

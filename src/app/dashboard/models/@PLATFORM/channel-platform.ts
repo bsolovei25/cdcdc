@@ -33,10 +33,7 @@ export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy 
 
     protected abstract dataHandler(ref: T): void;
 
-    protected connectWs(
-        channelId: string = this.channelId,
-        widgetId: string = this.widgetId
-    ): void {
+    protected connectWs(channelId: string = this.channelId, widgetId: string = this.widgetId): void {
         this.channelId = this.channelId !== channelId ? channelId : this.channelId;
         this.wsSubscription = this.widgetService
             .getChannelLiveDataFromWs(channelId, widgetId)

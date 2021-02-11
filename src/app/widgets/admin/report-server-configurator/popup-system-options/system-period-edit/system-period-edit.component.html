@@ -1,43 +1,47 @@
 <div class="container">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">Редактирование временного периода</div>
-        </div>
-        <div class="content">
-            <div class="content__title">Выбор предустановленного временного режима</div>
-            <div class="content__check">
-                <ng-container *ngFor="let item of data">
-                    <div class="item">
-                        <div class="check-item">
-                            <div class="radio-button">
-                                <input type="radio" id="{{ item.name }}" name="title" value="{{ item.name }}" [checked]="item.isActive"
-                                (click)="changeSwap(item)"/>
-                              <label for="{{ item.name }}" class="cyan"></label>
-                              </div>
-                        </div>
-                        <div class="item-name">{{item.name}}</div>
-                    </div>
-                </ng-container>
-            </div>
-            <div class="content__title">Итоговый временной период</div>
-            <div class="content__time">
-                <evj-system-period-date [timeCheck]="timeCheck" (timeChoose)="setValueTime($event)"></evj-system-period-date>
-            </div>
-        </div>
-        <div class="bottom">
-            <div class="bottom__block-edit">
-                <div class="bottom__block-add">
-                </div>
-            </div>
-            <div class="bottom__block">
-                <div class="bottom__save-block" (click)="save()">
-                    <div class="bottom__button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>
+  <div style="height: 100%">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon"> </svg-icon>
+      </div>
+      <div class="title__name">Редактирование временного периода</div>
     </div>
+    <div class="content">
+      <div class="content__title">Выбор предустановленного временного режима</div>
+      <div class="content__check">
+        <ng-container *ngFor="let item of data">
+          <div class="item">
+            <div class="check-item">
+              <div class="radio-button">
+                <input
+                  type="radio"
+                  id="{{ item.name }}"
+                  name="title"
+                  value="{{ item.name }}"
+                  [checked]="item.isActive"
+                  (click)="changeSwap(item)"
+                />
+                <label for="{{ item.name }}" class="cyan"></label>
+              </div>
+            </div>
+            <div class="item-name">{{item.name}}</div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="content__title">Итоговый временной период</div>
+      <div class="content__time">
+        <evj-system-period-date [timeCheck]="timeCheck" (timeChoose)="setValueTime($event)"></evj-system-period-date>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom__block-edit">
+        <div class="bottom__block-add"></div>
+      </div>
+      <div class="bottom__block">
+        <div class="bottom__save-block" (click)="save()">
+          <div class="bottom__button-save">Сохранить</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

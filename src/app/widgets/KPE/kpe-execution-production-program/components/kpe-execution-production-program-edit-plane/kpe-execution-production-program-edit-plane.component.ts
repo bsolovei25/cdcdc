@@ -2,16 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'evj-kpe-execution-production-program-edit-plane',
-  templateUrl: './kpe-execution-production-program-edit-plane.component.html',
-  styleUrls: ['./kpe-execution-production-program-edit-plane.component.scss']
+    selector: 'evj-kpe-execution-production-program-edit-plane',
+    templateUrl: './kpe-execution-production-program-edit-plane.component.html',
+    styleUrls: ['./kpe-execution-production-program-edit-plane.component.scss'],
 })
 export class KpeExecutionProductionProgramEditPlaneComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
+    ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  public dateControl: FormControl = new FormControl({value: new Date(), disabled: false});
+    public dateControl: FormControl = new FormControl({ value: new Date(), disabled: false });
 }

@@ -11,10 +11,7 @@ import { IInstallation } from '../../../../../dashboard/models/SOU/sou-main-scre
 export class SouInstallationCardComponent implements OnInit {
     @Input() installation: IInstallation;
 
-    constructor(
-        private userSettingsService: UserSettingsService,
-        private mvpService: SouMvpMnemonicSchemeService
-    ) {}
+    constructor(private userSettingsService: UserSettingsService, private mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
 

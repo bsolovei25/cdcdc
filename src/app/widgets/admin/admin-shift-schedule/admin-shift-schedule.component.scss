@@ -13,7 +13,7 @@ $color-bg-active-gradient: "2d3f51";
   align-items: center;
   justify-content: flex-end;
 
-  &__item{
+  &__item {
     height: 24px;
     padding: 0 12px;
 
@@ -617,7 +617,7 @@ p {
         .save-btn {
           height: 32px;
           width: 136px;
-          
+
           box-sizing: border-box;
           display: flex;
           align-items: center;
@@ -625,7 +625,7 @@ p {
 
           font-size: 13px;
           line-height: 16px;
-          
+
           color: var(--color-admin-shift-text-sub);
 
           background: var(--evj-events-workspace-button);
@@ -736,7 +736,7 @@ p {
   box-sizing: border-box;
   height: 40px;
   width: 140px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;

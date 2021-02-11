@@ -26,7 +26,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 
 export interface IEventsFilter {
-    unitNames?: string;
+    unitNames?: string[];
     description?: string;
     categoryIds?: number[];
     priority: string;
@@ -69,11 +69,7 @@ export class EventService {
     ): Observable<IEventsWidgetNotificationPreview[]> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         return this.http.get<IEventsWidgetNotificationPreview[]>(
-            this.restUrl +
-                `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(
-                    lastId,
-                    options
-                )}`
+            this.restUrl + `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
         );
     }
 
@@ -88,16 +84,13 @@ export class EventService {
     public getStatsObserver(options: IEventsWidgetOptions): Observable<EventsWidgetsStats> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         return this.http.get<EventsWidgetsStats>(
-            this.restUrl +
-                `/api/notifications/stats${routeAdder}?${this.getOptionString(0, options)}`
+            this.restUrl + `/api/notifications/stats${routeAdder}?${this.getOptionString(0, options)}`
         );
     }
 
     public async getPlaces(widgetId: string): Promise<string[]> {
         try {
-            return this.http
-                .get<string[]>(`${this.restUrl}/api/notifications/widget/places/${widgetId}`)
-                .toPromise();
+            return this.http.get<string[]>(`${this.restUrl}/api/notifications/widget/places/${widgetId}`).toPromise();
         } catch (error) {
             console.error(error);
             return [];
@@ -135,9 +128,7 @@ export class EventService {
     }
 
     async postEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        return this.http
-            .post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options)
-            .toPromise();
+        return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
     }
 
     async postEventRetrieval(body: IEventsWidgetNotification): Promise<IEventsWidgetNotification> {
@@ -161,26 +152,19 @@ export class EventService {
 
     async addLink(idEvent: number, idRetrieval: number): Promise<any> {
         return this.http
-            .post(
-                `${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`,
-                null
-            )
+            .post(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`, null)
             .toPromise();
     }
 
     async deleteLink(idEvent: number, idRetrieval: number): Promise<any> {
         return this.http
-            .delete(
-                `${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`
-            )
+            .delete(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`)
             .toPromise();
     }
 
     async getStatus(): Promise<IStatus[]> {
         try {
-            return this.http
-                .get<IStatus[]>(this.restUrl + '/api/notification-reference/status')
-                .toPromise();
+            return this.http.get<IStatus[]>(this.restUrl + '/api/notification-reference/status').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -198,9 +182,7 @@ export class EventService {
 
     async getPriority(): Promise<IPriority[]> {
         try {
-            return this.http
-                .get<IPriority[]>(this.restUrl + '/api/notification-reference/priority')
-                .toPromise();
+            return this.http.get<IPriority[]>(this.restUrl + '/api/notification-reference/priority').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -208,9 +190,7 @@ export class EventService {
 
     async getCategory(): Promise<ICategory[]> {
         try {
-            return this.http
-                .get<ICategory[]>(this.restUrl + '/api/notification-reference/category')
-                .toPromise();
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/category').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -218,9 +198,7 @@ export class EventService {
 
     async getEventType(): Promise<ICategory[]> {
         try {
-            return this.http
-                .get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype')
-                .toPromise();
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -228,9 +206,7 @@ export class EventService {
 
     async getPlace(): Promise<any> {
         try {
-            return this.http
-                .get<any>(this.restUrl + '/api/notification-reference/place')
-                .toPromise();
+            return this.http.get<any>(this.restUrl + '/api/notification-reference/place').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -238,9 +214,7 @@ export class EventService {
 
     async getUnits(): Promise<IUnitEvents[]> {
         try {
-            return this.http
-                .get<IUnitEvents[]>(this.restUrl + '/api/notification-reference/units')
-                .toPromise();
+            return this.http.get<IUnitEvents[]>(this.restUrl + '/api/notification-reference/units').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -267,15 +241,10 @@ export class EventService {
     async getAsusCategories(saveMethod: ISaveMethodEvent): Promise<IAsusCategories[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json')
-                    .toPromise();
+                return this.http.get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json').toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(
-                    saveMethod.data.url + '/api/references/category',
-                    saveMethod.options
-                )
+                .get<IAsusCategories[]>(saveMethod.data.url + '/api/references/category', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -285,15 +254,10 @@ export class EventService {
     async getAsusWorkgroup(saveMethod: ISaveMethodEvent): Promise<IAsusWorkgroup[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusWorkgroup[]>('assets/mock/AsusEventsMock/workgroup.json')
-                    .toPromise();
+                return this.http.get<IAsusWorkgroup[]>('assets/mock/AsusEventsMock/workgroup.json').toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(
-                    saveMethod.data.url + '/api/references/workgroup',
-                    saveMethod.options
-                )
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/references/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -303,15 +267,10 @@ export class EventService {
     async getAsusServices(saveMethod: ISaveMethodEvent): Promise<IAsusService[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusService[]>('assets/mock/AsusEventsMock/services.json')
-                    .toPromise();
+                return this.http.get<IAsusService[]>('assets/mock/AsusEventsMock/services.json').toPromise();
             }
             return this.http
-                .get<IAsusService[]>(
-                    saveMethod.data.url + '/api/references/services',
-                    saveMethod.options
-                )
+                .get<IAsusService[]>(saveMethod.data.url + '/api/references/services', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -321,30 +280,20 @@ export class EventService {
     async getAsusUnits(saveMethod: ISaveMethodEvent): Promise<IAsusTmPlace[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json')
-                    .toPromise();
+                return this.http.get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json').toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(
-                    saveMethod.data.url + '/api/references/tmplaces',
-                    saveMethod.options
-                )
+                .get<IAsusTmPlace[]>(saveMethod.data.url + '/api/references/tmplaces', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEquipments(
-        codeSap: string,
-        saveMethod: ISaveMethodEvent
-    ): Promise<IAsusTpPlace[]> {
+    async getAsusEquipments(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusTpPlace[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusTpPlace[]>('assets/mock/AsusEventsMock/tpplace.json')
-                    .toPromise();
+                return this.http.get<IAsusTpPlace[]>('assets/mock/AsusEventsMock/tpplace.json').toPromise();
             }
             return this.http
                 .get<IAsusTpPlace[]>(
@@ -357,15 +306,10 @@ export class EventService {
         }
     }
 
-    async getAsusEOServices(
-        codeSap: string,
-        saveMethod: ISaveMethodEvent
-    ): Promise<IAsusEOService[]> {
+    async getAsusEOServices(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusEOService[]> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoplace.json')
-                    .toPromise();
+                return this.http.get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoplace.json').toPromise();
             }
             return this.http
                 .get<IAsusEOService[]>(
@@ -397,10 +341,7 @@ export class EventService {
     async addRetrievalEvents(idEvent: number, body): Promise<any> {
         try {
             return this.http
-                .post<any>(
-                    this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`,
-                    body
-                )
+                .post<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`, body)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -410,20 +351,14 @@ export class EventService {
     async deleteRetrievalEvents(idEvent: number, idRetr: number): Promise<any> {
         try {
             return await this.http
-                .delete<any>(
-                    this.restUrl +
-                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
-                )
+                .delete<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    public async escalateSmotrEvent(
-        saveMethod: ISaveMethodEvent,
-        body: IEventsWidgetNotification
-    ): Promise<any> {
+    public async escalateSmotrEvent(saveMethod: ISaveMethodEvent, body: IEventsWidgetNotification): Promise<any> {
         const options = {
             headers: new HttpHeaders({
                 AuthenticationType: saveMethod.data.authenticationType,
@@ -433,10 +368,7 @@ export class EventService {
         return await this.http.post(url, body, options).toPromise();
     }
 
-    public async closeSmotrEvent(
-        saveMethod: ISaveMethodEvent,
-        body: IEventsWidgetNotification
-    ): Promise<any> {
+    public async closeSmotrEvent(saveMethod: ISaveMethodEvent, body: IEventsWidgetNotification): Promise<any> {
         const options = {
             headers: new HttpHeaders({
                 AuthenticationType: saveMethod.data.authenticationType,
@@ -461,11 +393,11 @@ export class EventService {
     }
 
     private getOptionString(lastId: number, options: IEventsWidgetOptions): string {
-        let res = `take=${this.batchSize}&lastId=${lastId}&`;
+        let res = `take=${this.batchSize}&lastId=${lastId}`;
         if (options.dates) {
             res +=
-                `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
-                `toDateTime=${options.dates?.toDateTime.toISOString()}`;
+                `&fromDateTime=${options.dates?.fromDateTime.toISOString()}` +
+                `&toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         if (options.categories?.length > 0 && options.categoriesType === 'default') {
             for (const category of options.categories) {
@@ -508,7 +440,9 @@ export class EventService {
             res += `&sortType=${options.sortType}`;
         }
         if (options.units) {
-            res += `&unitNames=${options.units.name}`;
+            options.units.forEach((value) => {
+                res += `&unitNames=${value.name}`;
+            });
         }
         if (options.priority) {
             res += `&priorityIds=${options.priority.id}`;
@@ -533,14 +467,16 @@ export class EventService {
     }
 
     async getEventsFilter(
-        unitNames?: string,
+        unitNames?: string[],
         categoryIds?: number[],
         statusIds?: number[],
         description?: string
     ): Promise<IUnitEvents[]> {
         let searchString: string = '';
         if (this.filterEvent.unitNames) {
-            searchString += `UnitName=${this.filterEvent.unitNames}`;
+            this.filterEvent.unitNames.forEach((value) => {
+                searchString += `UnitName=${value}`;
+            });
         }
         if (categoryIds) {
             categoryIds.forEach((value) => {
@@ -568,7 +504,7 @@ export class EventService {
         this.filterEvent.priority = priority;
     }
 
-    setEventUnit(unit: string): void {
-        this.filterEvent.unitNames = unit;
+    setEventUnit(units: string[]): void {
+        this.filterEvent.unitNames = units;
     }
 }

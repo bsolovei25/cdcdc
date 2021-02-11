@@ -104,17 +104,16 @@ span {
 
   ::ng-deep {
     svg {
-        .diagram-inner {
-          fill: var(--sou-mvp-color-border);
-        }
+      .diagram-inner {
+        fill: var(--sou-mvp-color-border);
+      }
 
-        .diagram-value {
-          fill: var(--sou-mvp-color-white);
-        }
+      .diagram-value {
+        fill: var(--sou-mvp-color-white);
+      }
     }
   }
 }
-
 
 .off {
   border: 1px solid var(--sou-mvp-color-border-unactive);
@@ -135,7 +134,6 @@ span {
   }
 
   .weight {
-
     color: var(--sou-mvp-color-text-diagram-sub);
     background: var(--sou-mvp-color-bg-main);
   }
@@ -199,7 +197,6 @@ span {
       }
     }
   }
-
 }
 
 .selected {

@@ -21,12 +21,8 @@ export class AstueEfficiencyService {
     public selectionFlow$: BehaviorSubject<IAsEfFlow[]> = new BehaviorSubject<IAsEfFlow[]>(null);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
-    public selectionUnit$: BehaviorSubject<IAsEfUnitNew[]> = new BehaviorSubject<IAsEfUnitNew[]>(
-        null
-    );
-    public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<
-        IAsPlanningTable[]
-    >(null);
+    public selectionUnit$: BehaviorSubject<IAsEfUnitNew[]> = new BehaviorSubject<IAsEfUnitNew[]>(null);
+    public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<IAsPlanningTable[]>(null);
 
     private readonly restUrl: string;
 
@@ -49,11 +45,7 @@ export class AstueEfficiencyService {
     private openedUnits: { [key: string]: true } = {};
     private unitsFlowsMap: { [key: string]: string[] } = {};
 
-    constructor(
-        private snackbar: SnackBarService,
-        public http: HttpClient,
-        configService: AppConfigService
-    ) {
+    constructor(private snackbar: SnackBarService, public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
 
@@ -153,9 +145,7 @@ export class AstueEfficiencyService {
 
     async getPlanningTableFile(unitId: string): Promise<IAsPlanningTableServer> {
         return this.http
-            .get<IAsPlanningTableServer>(
-                this.restUrl + `/api/astue-service/Astue/unit/${unitId}/export`
-            )
+            .get<IAsPlanningTableServer>(this.restUrl + `/api/astue-service/Astue/unit/${unitId}/export`)
             .toPromise();
     }
 

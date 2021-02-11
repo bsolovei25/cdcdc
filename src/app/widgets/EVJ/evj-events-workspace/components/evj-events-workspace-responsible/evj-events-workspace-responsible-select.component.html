@@ -13,28 +13,24 @@
     </div>
     <div class="name_user">
       <div class="name_user_info">
-        <div class="name_user_info__name">
-          {{ responsible?.displayName }}
-        </div>
+        <div class="name_user_info__name">{{ responsible?.displayName }}</div>
         <div class="name_user_info__position">{{ responsible?.positionDescription }}</div>
       </div>
     </div>
     <div class="brigade_user">
-      <div class="brigade_user_name">
-        Бригада
-      </div>
-      <div class="brigade_user_text">
-        {{ responsible?.brigade?.number }}
-      </div>
+      <div class="brigade_user_name">Бригада</div>
+      <div class="brigade_user_text">{{ responsible?.brigade?.number }}</div>
     </div>
   </div>
 
   <div class="responsible-item" (click)="clearFilter()">
     <mat-form-field>
-      <mat-select panelClass="mat-select-custom"
-                  [disabled]="disabled"
-                  [(ngModel)]="responsible" disableOptionCentering
-                  placeholder="Выберите ответственного"
+      <mat-select
+        panelClass="mat-select-custom"
+        [disabled]="disabled"
+        [(ngModel)]="responsible"
+        disableOptionCentering
+        placeholder="Выберите ответственного"
       >
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let p of users">

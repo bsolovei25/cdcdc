@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    IApsProgressBarSettings
-} from '@shared/components/aps-progress-bar/aps-progress-bar.component';
+import { IApsProgressBarSettings } from '@shared/components/aps-progress-bar/aps-progress-bar.component';
 
 export interface IDeviation {
     name: string;
@@ -18,7 +16,6 @@ export interface IDeviation {
     styleUrls: ['./deviation-details.component.scss'],
 })
 export class DeviationDetailsComponent extends WidgetPlatform<unknown> implements OnInit {
-
     public deviations: IDeviation[] = [
         {
             name: 'АВТ-6',
@@ -90,7 +87,6 @@ export class DeviationDetailsComponent extends WidgetPlatform<unknown> implement
         },
     ];
 
-
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -113,7 +109,9 @@ export class DeviationDetailsComponent extends WidgetPlatform<unknown> implement
     private countProgressBarValue(deviation: IDeviation): IDeviation {
         const newProgressBar = deviation.progressBar ? deviation.progressBar : {};
         if (deviation.valueNegative) {
-            newProgressBar.value = Math.round((1 - Math.abs(deviation.valueNegative) * 100 / deviation.valuePositive) * 100);
+            newProgressBar.value = Math.round(
+                (1 - (Math.abs(deviation.valueNegative) * 100) / deviation.valuePositive) * 100
+            );
         } else {
             newProgressBar.value = 100;
         }
@@ -121,8 +119,7 @@ export class DeviationDetailsComponent extends WidgetPlatform<unknown> implement
         return deviation;
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public onClick(): void {
         console.log('click');

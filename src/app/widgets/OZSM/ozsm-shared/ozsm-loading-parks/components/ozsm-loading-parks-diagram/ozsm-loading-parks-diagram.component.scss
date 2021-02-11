@@ -1,116 +1,116 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .diagram {
-    transform: translateY(-18px);
+  transform: translateY(-18px);
 }
 
 .diagram__custom {
-    height: 74px;
-    width: 72px;
+  height: 74px;
+  width: 72px;
 
-    border-bottom: 1px solid var(--ozsm-color-border);
-    border-radius: 4px;
+  border-bottom: 1px solid var(--ozsm-color-border);
+  border-radius: 4px;
 
-    background: var(--ozsm-color-bg-dark-no-opacity);
+  background: var(--ozsm-color-bg-dark-no-opacity);
 
-    transform: translateY(10px);
+  transform: translateY(10px);
 }
 
 .diagram__main {
-    height: 72px;
-    width: 72px;
-    padding: 1px;
+  height: 72px;
+  width: 72px;
+  padding: 1px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: var(--ozsm-color-bg-dark-no-opacity);
+
+  border: 1px solid var(--ozsm-color-border-no-opacity);
+  border-radius: 4px;
+
+  position: relative;
+
+  .lower-value {
+    height: 8px;
+    width: 68px;
+
+    background: var(--ozsm-color-circle-arc-bg);
+
+    border-radius: 0 0 2px 2px;
+  }
+
+  .due-value {
+    height: 1px;
+    width: 100%;
+    border-top: 1px dashed var(--ozsm-color-border-due);
+
+    position: absolute;
+    top: 11px;
+  }
+
+  .current-value {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 1px;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-end;
 
-    background: var(--ozsm-color-bg-dark-no-opacity);
-
-    border: 1px solid var(--ozsm-color-border-no-opacity);
-    border-radius: 4px;
+    flex-shrink: 1;
 
     position: relative;
 
-    .lower-value {
-        height: 8px;
-        width: 68px;
+    span {
+      width: 100%;
 
-        background: var(--ozsm-color-circle-arc-bg);
+      text-align: center;
+      font-size: 14px;
+      line-height: 17px;
+      color: var(--ozsm-color-white);
 
-        border-radius: 0 0 2px 2px;
+      position: absolute;
+      bottom: 2px;
     }
 
-    .due-value {
-        height: 1px;
-        width: 100%;
-        border-top: 1px dashed var(--ozsm-color-border-due);
+    &__inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-        position: absolute;
-        top: 11px;
+      background: var(--ozsm-color-active);
     }
-
-    .current-value {
-        height: 100%;
-        width: 100%;
-        margin-bottom: 1px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-
-        flex-shrink: 1;
-
-        position: relative;
-
-        span {
-          width: 100%;
-
-          text-align: center;
-          font-size: 14px;
-          line-height: 17px;
-          color: var(--ozsm-color-white);
-
-          position: absolute;
-          bottom: 2px;
-        }
-
-        &__inner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            background: var(--ozsm-color-active);
-        }
-    }
+  }
 }
 
 .diagram-information {
-    height: 40px;
-    width: 72px;
-    padding-top: 10px;
+  height: 40px;
+  width: 72px;
+  padding-top: 10px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    background: var(--ozsm-color-line-bg);
-    border: 1px solid var(--ozsm-color-border);
-    border-top: none;
+  background: var(--ozsm-color-line-bg);
+  border: 1px solid var(--ozsm-color-border);
+  border-top: none;
 
-    &__title {
-        font-size: 8px;
-        line-height: 10px;
+  &__title {
+    font-size: 8px;
+    line-height: 10px;
 
-        color:var(--ozsm-color-font-loading-parks-information);
-    }
+    color: var(--ozsm-color-font-loading-parks-information);
+  }
 
-    &__value {
-        font-size: 10px;
-        line-height: 12px;
-        color: var(--ozsm-color-white);
-    }
+  &__value {
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--ozsm-color-white);
+  }
 }

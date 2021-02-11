@@ -1,8 +1,8 @@
 $border-radius: 21px;
 $font-size: 18px;
-$alert-color: #E7292B;
-$question-color: #D7E2F2;
-$input-color: #8A98B3;
+$alert-color: #e7292b;
+$question-color: #d7e2f2;
+$input-color: #8a98b3;
 
 .loading-shade {
   position: absolute;
@@ -31,16 +31,16 @@ $input-color: #8A98B3;
   border-radius: 29px;
 }
 .active {
-  background-color: #0089FF;
+  background-color: #0089ff;
 }
 .success {
-  background-color: #0D9E3F;
+  background-color: #0d9e3f;
 }
 .warning {
-  background-color: #F28B4A;
+  background-color: #f28b4a;
 }
 .danger {
-  background-color: #E7292B;
+  background-color: #e7292b;
 }
 .edit-line {
   z-index: 9999;

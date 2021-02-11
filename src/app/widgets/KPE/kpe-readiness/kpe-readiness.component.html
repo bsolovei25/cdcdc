@@ -15,55 +15,48 @@
       </div>
     </div>
   </evj-contemporary-widget-header>
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="readiness">
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)" *ngIf="!!diagram">
-          <evj-kpe-gauge-chart isPercent="true"
-                               [background]="'dark'"
-                               [fact]="diagram?.fact"
-                               [plan]="diagram?.plan"
-                               [deviation]="diagram?.deviation"
+          <evj-kpe-gauge-chart
+            isPercent="true"
+            [background]="'dark'"
+            [fact]="diagram?.fact"
+            [plan]="diagram?.plan"
+            [deviation]="diagram?.deviation"
           ></evj-kpe-gauge-chart>
         </div>
         <div class="readiness__header__chart">
-          <evj-kpe-deviation-diagram [data]="deviationChartData"
-                                     [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram
+            [data]="deviationChartData"
+            [currentMonth]="displayedMonth"
+          ></evj-kpe-deviation-diagram>
         </div>
       </div>
       <div class="readiness__middle" [style]="rowHeight(gauge)" *ngIf="displayMode === 'tiled'">
-        <div
-          class="readiness__middle__gauges-container"
-          [ngClass]="{none:(gaugeCards.length < 1)}"
-        >
+        <div class="readiness__middle__gauges-container" [ngClass]="{none:(gaugeCards.length < 1)}">
           <div class="container">
             <div class="readiness__middle__gauge element-container" *ngFor="let cardsItem of gaugeCards">
               <div class="gauge-card">
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="cardsItem?.unit"
-                    >
-                      {{ cardsItem?.unit || 'ед.изм'}}</div>
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="!cardsItem?.unit"
-                    >%
+                    <div class="gauge-card__units__unit" [class.gauge-card__units__unit_active]="cardsItem?.unit">
+                      {{ cardsItem?.unit || 'ед.изм'}}
+                    </div>
+                    <div class="gauge-card__units__unit" [class.gauge-card__units__unit_active]="!cardsItem?.unit">
+                      %
                     </div>
                   </div>
                   <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="lite"
-                                         [fact]="cardsItem?.fact"
-                                         [plan]="cardsItem?.plan"
-                                         [deviation]="cardsItem?.deviation"
+                    <evj-kpe-gauge-chart
+                      background="lite"
+                      [fact]="cardsItem?.fact"
+                      [plan]="cardsItem?.plan"
+                      [deviation]="cardsItem?.deviation"
                     ></evj-kpe-gauge-chart>
                   </div>
-                  <div class="gauge-card__title">
-                    {{ cardsItem?.title }}
-                  </div>
+                  <div class="gauge-card__title">{{ cardsItem?.title }}</div>
                 </div>
               </div>
             </div>
@@ -75,18 +68,18 @@
               <div class="chart-card__title">
                 <span class="label">{{ chartCard?.progressChart.title }}</span>
                 <div class="units">
-                  <div class="units__unit"
-                       [class.units__unit_active]="chartCard?.progressChart.unit"
-                  >{{ chartCard?.progressChart.unit || 'ед.изм'}}</div>
-                  <div class="units__unit"
-                       [class.units__unit_active]="!chartCard?.progressChart.unit"
-                  >%
+                  <div class="units__unit" [class.units__unit_active]="chartCard?.progressChart.unit">
+                    {{ chartCard?.progressChart.unit || 'ед.изм'}}
                   </div>
+                  <div class="units__unit" [class.units__unit_active]="!chartCard?.progressChart.unit">%</div>
                 </div>
               </div>
               <div class="chart-card__diagram">
-                <evj-kpe-line-diagram [fact]="chartCard?.progressChart.fact" [plan]="chartCard?.progressChart.plan"
-                                      [deviation]="chartCard?.progressChart.deviation"></evj-kpe-line-diagram>
+                <evj-kpe-line-diagram
+                  [fact]="chartCard?.progressChart.fact"
+                  [plan]="chartCard?.progressChart.plan"
+                  [deviation]="chartCard?.progressChart.deviation"
+                ></evj-kpe-line-diagram>
               </div>
               <div class="chart-card__chart">
                 <evj-kpe-line-chart [data]="prepareTrendData(chartCard?.trendChart)"></evj-kpe-line-chart>
@@ -105,18 +98,18 @@
                     <div class="chart-card__title">
                       <span class="label">{{ card?.progressChart.title }}</span>
                       <div class="units">
-                        <div class="units__unit"
-                             [class.units__unit_active]="card?.progressChart.unit"
-                        >{{ card?.progressChart.unit || 'ед.изм' }}</div>
-                        <div class="units__unit"
-                             [class.units__unit_active]="!card?.progressChart.unit"
-                        >%
+                        <div class="units__unit" [class.units__unit_active]="card?.progressChart.unit">
+                          {{ card?.progressChart.unit || 'ед.изм' }}
                         </div>
+                        <div class="units__unit" [class.units__unit_active]="!card?.progressChart.unit">%</div>
                       </div>
                     </div>
                     <div class="chart-card__diagram">
-                      <evj-kpe-line-diagram [fact]="card?.progressChart.fact" [plan]="card?.progressChart.plan"
-                                            [deviation]="card?.progressChart.deviation"></evj-kpe-line-diagram>
+                      <evj-kpe-line-diagram
+                        [fact]="card?.progressChart.fact"
+                        [plan]="card?.progressChart.plan"
+                        [deviation]="card?.progressChart.deviation"
+                      ></evj-kpe-line-diagram>
                     </div>
                     <div class="chart-card__chart">
                       <evj-kpe-line-chart [data]="prepareTrendData(card?.trendChart)"></evj-kpe-line-chart>
@@ -134,18 +127,18 @@
                     <div class="chart-card__title">
                       <span class="label">{{ card?.progressChart.title }}</span>
                       <div class="units">
-                        <div class="units__unit"
-                             [class.units__unit_active]="card?.progressChart.unit"
-                        >{{ card?.progressChart.unit || 'ед.изм' }}</div>
-                        <div class="units__unit"
-                             [class.units__unit_active]="!card?.progressChart.unit"
-                        >%
+                        <div class="units__unit" [class.units__unit_active]="card?.progressChart.unit">
+                          {{ card?.progressChart.unit || 'ед.изм' }}
                         </div>
+                        <div class="units__unit" [class.units__unit_active]="!card?.progressChart.unit">%</div>
                       </div>
                     </div>
                     <div class="chart-card__diagram">
-                      <evj-kpe-line-diagram [fact]="card?.progressChart.fact" [plan]="card?.progressChart.plan"
-                                            [deviation]="card?.progressChart.deviation"></evj-kpe-line-diagram>
+                      <evj-kpe-line-diagram
+                        [fact]="card?.progressChart.fact"
+                        [plan]="card?.progressChart.plan"
+                        [deviation]="card?.progressChart.deviation"
+                      ></evj-kpe-line-diagram>
                     </div>
                     <div class="chart-card__chart">
                       <evj-kpe-line-chart [data]="prepareTrendData(card?.trendChart)"></evj-kpe-line-chart>
@@ -155,7 +148,6 @@
               </div>
             </div>
           </ng-container>
-
         </ng-container>
       </div>
     </div>

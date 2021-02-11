@@ -76,14 +76,13 @@
             height: 4px;
             width: 4px;
 
-            border-radius:50%;
-  
+            border-radius: 50%;
+
             background: var(--color-smp-white);
             position: absolute;
           }
         }
       }
-
     }
   }
 
@@ -95,16 +94,16 @@
     .line {
       box-sizing: border-box;
       height: 1px;
-  
+
       flex: 1;
-  
+
       border-top: 1px solid var(--color-smp-checkbox);
     }
 
     .arrow {
       width: 0;
       height: 0;
-      border-top :3px solid transparent;
+      border-top: 3px solid transparent;
       border-bottom: 3px solid transparent;
       border-left: 3px solid var(--color-smp-checkbox);
     }
@@ -117,7 +116,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
+
     .circle {
       width: 4px;
       height: 4px;
@@ -133,7 +132,6 @@
       flex: 1;
       border-right: 1px solid var(--color-smp-checkbox);
     }
-
   }
 
   .block-pie {

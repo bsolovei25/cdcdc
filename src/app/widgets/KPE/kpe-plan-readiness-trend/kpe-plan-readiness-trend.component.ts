@@ -15,10 +15,9 @@ export interface IKpePlanReadinessTrendData<T> {
 @Component({
     selector: 'evj-kpe-plan-readiness-trend',
     templateUrl: './kpe-plan-readiness-trend.component.html',
-    styleUrls: ['./kpe-plan-readiness-trend.component.scss']
+    styleUrls: ['./kpe-plan-readiness-trend.component.scss'],
 })
 export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> implements OnInit {
-
     public data: IKpePlanReadinessTrendData<IDeviationDiagramData>[] = [];
 
     public displayedMonth: Date;
@@ -29,7 +28,7 @@ export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> impl
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private http: HttpClient,
-        private kpeHelperService: KpeHelperService,
+        private kpeHelperService: KpeHelperService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -44,7 +43,7 @@ export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> impl
                 name: item.name,
                 measurement: item.measurement,
                 value: item.value,
-                data: this.kpeHelperService.prepareKpeLineChartData(item.data)
+                data: this.kpeHelperService.prepareKpeLineChartData(item.data),
             });
 
             item.data.forEach((data) => {

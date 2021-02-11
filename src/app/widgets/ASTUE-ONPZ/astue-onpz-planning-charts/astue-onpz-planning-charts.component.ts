@@ -9,7 +9,7 @@ import {
     IAstueOnpzConventionalFuelSelectOptions,
 } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 import { combineLatest } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 export interface IPlanningChart {
     tag: string;
@@ -25,8 +25,7 @@ export interface IPlanningChart {
     templateUrl: './astue-onpz-planning-charts.component.html',
     styleUrls: ['./astue-onpz-planning-charts.component.scss'],
 })
-export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
     colors: Map<string, number>;
 
@@ -53,10 +52,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown>
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            combineLatest([
-                this.astueOnpzService.predictorsOptions$,
-                this.conventionalFuelService.selectedOptions$,
-            ])
+            combineLatest([this.astueOnpzService.predictorsOptions$, this.conventionalFuelService.selectedOptions$])
                 .pipe(
                     filter((x) => !!x[0] && !!x[1]),
                     map((x) => {
@@ -64,7 +60,9 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown>
                             predictor: x[0],
                             select: x[1],
                         };
-                    })
+                    }),
+                    debounceTime(700),
+                    distinctUntilChanged()
                 )
                 .subscribe((ref) => {
                     console.warn(ref);

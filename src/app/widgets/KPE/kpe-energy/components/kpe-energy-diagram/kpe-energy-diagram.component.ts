@@ -6,10 +6,9 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 @Component({
     selector: 'evj-kpe-energy-diagram',
     templateUrl: './kpe-energy-diagram.component.html',
-    styleUrls: ['./kpe-energy-diagram.component.scss']
+    styleUrls: ['./kpe-energy-diagram.component.scss'],
 })
 export class KpeEnergyDiagramComponent implements OnInit {
-
     private readonly defaultImg: string = '';
     private readonly diagramCounter: number = 133.33;
     private readonly tickDensity: number = 90 / this.diagramCounter;
@@ -23,11 +22,9 @@ export class KpeEnergyDiagramComponent implements OnInit {
 
     public ngOnInit(): void {
         this.dataHandler();
-        const mainValue = this.fact > this.plan
-            ? this.plan / this.fact * 100
-            : this.fact / this.plan * 100;
+        const mainValue = this.fact > this.plan ? (this.plan / this.fact) * 100 : (this.fact / this.plan) * 100;
         const subValue = Math.abs(this.fact - this.plan);
-        this.bindChart(mainValue, subValue)
+        this.bindChart(mainValue, subValue);
     }
 
     private dataHandler(): void {
@@ -51,21 +48,17 @@ export class KpeEnergyDiagramComponent implements OnInit {
         const innerRadius = outerRadius - diagramWidth;
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie()
-                .startAngle(startAngel)
-                .endAngle(endAngel)
-                .value(1);
+            return d3.pie().startAngle(startAngel).endAngle(endAngel).value(1);
         }
 
-        const mainPie = createPie(-Math.PI, 2 * Math.PI * mainValue / this.diagramCounter - Math.PI);
-        const subPie = createPie(2 * Math.PI * mainValue / this.diagramCounter - Math.PI, Math.PI / 2);
+        const mainPie = createPie(-Math.PI, (2 * Math.PI * mainValue) / this.diagramCounter - Math.PI);
+        const subPie = createPie((2 * Math.PI * mainValue) / this.diagramCounter - Math.PI, Math.PI / 2);
 
-        const arc: d3.Arc = d3.arc()
-            .outerRadius(outerRadius)
-            .innerRadius(innerRadius)
-            .padAngle(0.025);
+        const arc: d3.Arc = d3.arc().outerRadius(outerRadius).innerRadius(innerRadius).padAngle(0.025);
 
-        const svg = d3.select(this.chart.nativeElement).append('svg')
+        const svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
             .attr('width', width)
             .attr('height', height)
             .append('g')
@@ -102,19 +95,22 @@ export class KpeEnergyDiagramComponent implements OnInit {
         }
 
         addSerif(Math.PI / 2, 'serif-active');
-        addSerif(0, this.fact > this. plan ?  'serif-warning' : 'serif-active');
+        addSerif(0, this.fact > this.plan ? 'serif-warning' : 'serif-active');
 
-        addSerif(2 * Math.PI * mainValue / this.diagramCounter + Math.PI / 2, this.fact >= this. plan ? 'serif-active' : 'serif-warning');
+        addSerif(
+            (2 * Math.PI * mainValue) / this.diagramCounter + Math.PI / 2,
+            this.fact >= this.plan ? 'serif-active' : 'serif-warning'
+        );
 
         function drawCircle(r: number, className: string): void {
-            svg.append('circle')
-                .attr('r', r)
-                .attr('class', className);
+            svg.append('circle').attr('r', r).attr('class', className);
         }
 
         const circleRad = 18;
 
-        const shadowGradient = svg.append('defs').append('linearGradient')
+        const shadowGradient = svg
+            .append('defs')
+            .append('linearGradient')
             .attr('id', 'kpe-energy-gradient')
             .attr('x1', '0%')
             .attr('x2', '0%')
@@ -122,24 +118,19 @@ export class KpeEnergyDiagramComponent implements OnInit {
             .attr('y2', '100%')
             .attr('spreadMethod', 'pad');
 
-        shadowGradient.append('svg:stop')
-            .attr('offset', '0%')
-            .attr('class', 'needle-shadow-gradient-1');
+        shadowGradient.append('svg:stop').attr('offset', '0%').attr('class', 'needle-shadow-gradient-1');
 
-        shadowGradient.append('svg:stop')
-            .attr('offset', '100%')
-            .attr('class', 'needle-shadow-gradient-2');
+        shadowGradient.append('svg:stop').attr('offset', '100%').attr('class', 'needle-shadow-gradient-2');
 
-        const shadow = d3.arc()
+        const shadow = d3
+            .arc()
             .innerRadius(circleRad)
             .outerRadius(innerRadius - 2)
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
         // const arrowAngle = (-180 + 270 * mainValue / this.diagramCounter);
-        const arrowAngle = this.fact > this.plan
-            ? 90
-            : (-180 + 360 * mainValue / this.diagramCounter);
+        const arrowAngle = this.fact > this.plan ? 90 : -180 + (360 * mainValue) / this.diagramCounter;
 
         const needleShadow = svg
             .append('path')
@@ -147,7 +138,8 @@ export class KpeEnergyDiagramComponent implements OnInit {
             .attr(`transform`, `rotate(${arrowAngle})`)
             .style('fill', 'url(#kpe-energy-gradient)');
 
-        const hideDownSector = d3.arc()
+        const hideDownSector = d3
+            .arc()
             .innerRadius(circleRad)
             .outerRadius(outerRadius)
             .startAngle(-0.49 * Math.PI)

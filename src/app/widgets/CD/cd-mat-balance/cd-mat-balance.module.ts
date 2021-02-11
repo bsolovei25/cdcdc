@@ -34,11 +34,9 @@ import { MatRippleModule } from '@angular/material/core';
         AngularSvgIconModule,
         ScenariosModule,
         FormsModule,
-        MatRippleModule
+        MatRippleModule,
     ],
-    providers: [
-        ApsContextMenuDirective
-    ]
+    providers: [ApsContextMenuDirective],
 })
 export class CdMatBalanceModule {
     enterComponent = CdMatBalanceComponent;

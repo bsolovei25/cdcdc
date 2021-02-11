@@ -1,11 +1,14 @@
 <div class="main-container">
-  <div class="line"
-  [ngClass]="{
+  <div
+    class="line"
+    [ngClass]="{
     selectedLine:flowData?.code === mvpService.selectedCode
-  }">
+  }"
+  >
     <div class="connection-circle"></div>
   </div>
-  <div class="container"
+  <div
+    class="container"
     [ngClass]="{
       off:!flowData?.isEnable,
       warning:flowData?.isExceedingConfInterval && !!flowData?.isEnable,
@@ -32,4 +35,3 @@
     }"
   ></div>
 </div>
-

@@ -20,21 +20,13 @@
   </div>
 </evj-contemporary-widget-header>
 <div class="container">
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="quality">
       <ng-container *ngIf="displayMode === 'planFeasibility'">
         <ng-container *ngFor="let main of cards | slice:0:1; trackBy: trackByFuncMain">
           <ng-container *ngFor="let card of main | slice:0:2; trackBy: trackByFuncCard">
             <div class="diagram-item">
-              <div
-                class="gauge"
-                #gauge
-                [style]="chartWidth(gauge)"
-              >
+              <div class="gauge" #gauge [style]="chartWidth(gauge)">
                 <evj-kpe-gauge-chart
                   [fact]="card.gaugeChart.fact"
                   [plan]="card.gaugeChart.plan"
@@ -44,13 +36,9 @@
                 ></evj-kpe-gauge-chart>
               </div>
               <div class="graph">
-                <div class="graph__title">
-                  {{ card.description || 'Нет описания' }}
-                </div>
+                <div class="graph__title">{{ card.description || 'Нет описания' }}</div>
                 <div class="graph__chart">
-                  <evj-kpe-equalizer-chart
-                    [data]="card.equalizerChartConverted"
-                  ></evj-kpe-equalizer-chart>
+                  <evj-kpe-equalizer-chart [data]="card.equalizerChartConverted"></evj-kpe-equalizer-chart>
                 </div>
               </div>
             </div>
@@ -70,8 +58,10 @@
             ></evj-kpe-gauge-chart>
           </div>
           <div class="quality__header__chart">
-            <evj-kpe-deviation-diagram [data]="deviationChartData"
-                                       [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+            <evj-kpe-deviation-diagram
+              [data]="deviationChartData"
+              [currentMonth]="displayedMonth"
+            ></evj-kpe-deviation-diagram>
           </div>
         </div>
         <ng-container *ngFor="let main of cards; trackBy: trackByFuncMain">
@@ -88,13 +78,10 @@
                           [deviation]="card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit"
-                               [class.units__unit_active]="card?.gaugeChart?.unit"
-                          >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
-                          <div class="units__unit"
-                               [class.units__unit_active]="!card?.gaugeChart?.unit"
-                          >%
+                          <div class="units__unit" [class.units__unit_active]="card?.gaugeChart?.unit">
+                            {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
+                          <div class="units__unit" [class.units__unit_active]="!card?.gaugeChart?.unit">%</div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">
@@ -125,13 +112,10 @@
                           [deviation]="card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit"
-                               [class.units__unit_active]="card?.gaugeChart?.unit"
-                          >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
-                          <div class="units__unit"
-                               [class.units__unit_active]="!card?.gaugeChart?.unit"
-                          >%
+                          <div class="units__unit" [class.units__unit_active]="card?.gaugeChart?.unit">
+                            {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
+                          <div class="units__unit" [class.units__unit_active]="!card?.gaugeChart?.unit">%</div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">

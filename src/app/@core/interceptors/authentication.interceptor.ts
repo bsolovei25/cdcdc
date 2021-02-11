@@ -64,7 +64,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             }
         }
 
-        if (req.url.includes('api/Monitoring/')) {
+        if (req.url.toLowerCase().includes('api/monitoring/') || req.url.toLowerCase().includes('api/ozsm/')) {
             req = req.clone({
                 withCredentials: true,
             });
@@ -72,18 +72,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         }
 
         req = req.clone({
-            headers: req.headers.append(
-                this.authorizationHeader,
-                `Bearer ${this.authService.userSessionToken}`
-            ),
+            headers: req.headers.append(this.authorizationHeader, `Bearer ${this.authService.userSessionToken}`),
         });
 
         if (this.authService.keycloakToken) {
             req = req.clone({
-                headers: req.headers.append(
-                    'Authorization',
-                    `Bearer ${this.authService.keycloakToken}`
-                ),
+                headers: req.headers.append('Authorization', `Bearer ${this.authService.keycloakToken}`),
             });
         }
 

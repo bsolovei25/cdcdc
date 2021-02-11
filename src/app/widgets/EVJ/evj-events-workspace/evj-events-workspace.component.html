@@ -4,12 +4,7 @@
   <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
   <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
 
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
-    icon="document"
-    type="astue"
-  >
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="document" type="astue">
   </evj-contemporary-widget-header>
 
   <ng-container *ngIf="ewService?.event?.category?.code !== '0' && ewService?.event?.category?.code !== '6'">
@@ -50,8 +45,7 @@
           *ngIf="!ewService?.event?.productionTasks?.subCategory?.id else shiftPass"
         ></evj-usual-event>
         <ng-template #shiftPass>
-          <evj-shift-pass
-            *ngIf="ewService?.event?.productionTasks?.subCategory?.id === 1010 else tasks">
+          <evj-shift-pass *ngIf="ewService?.event?.productionTasks?.subCategory?.id === 1010 else tasks">
           </evj-shift-pass>
         </ng-template>
         <ng-template #tasks>
@@ -59,10 +53,12 @@
         </ng-template>
       </ng-container>
       <evj-asus-event *ngSwitchCase="5" [noOverflow]="displayContainer"></evj-asus-event>
-      <evj-ejs-event *ngSwitchCase="6" [noOverflow]="displayContainer"
-                     (eventCreated)="createdEvent($event)"
-                     [isEventOpen]="!ewService.isEditEvent"
-                     [blockWorkspaceButton]="canShowSaveButton()"
+      <evj-ejs-event
+        *ngSwitchCase="6"
+        [noOverflow]="displayContainer"
+        (eventCreated)="createdEvent($event)"
+        [isEventOpen]="!ewService.isEditEvent"
+        [blockWorkspaceButton]="canShowSaveButton()"
       ></evj-ejs-event>
       <evj-cdcp-event *ngSwitchCase="7" [noOverflow]="displayContainer"></evj-cdcp-event>
       <evj-usual-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-usual-event>
@@ -70,17 +66,13 @@
 
     <!--       NO-SELECTED EVENT -->
     <ng-container *ngIf="!ewService.event">
-      <div
-        class="workspace__mock"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
+      <div class="workspace__mock" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div class="workspace__submit">
           {{ displayContainer ? 'Создайте или выберите событие' : 'Выберите событие' }}
         </div>
       </div>
     </ng-container>
-<!--    <div class="no-edit-shield" *ngIf="!displayContainer"></div>-->
+    <!--    <div class="no-edit-shield" *ngIf="!displayContainer"></div>-->
   </div>
 </div>
 
@@ -91,13 +83,7 @@
   *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
   (click)="overlayChartClose()"
 >
-  <div
-    class="overlay-chart__body"
-    (click)="$event.stopPropagation()"
-    *ngIf="ewService.event.graphValues"
-  >
-    <evj-line-chart-workspace
-      [dataChartAttribute]="ewService.event.graphValues"
-    ></evj-line-chart-workspace>
+  <div class="overlay-chart__body" (click)="$event.stopPropagation()" *ngIf="ewService.event.graphValues">
+    <evj-line-chart-workspace [dataChartAttribute]="ewService.event.graphValues"></evj-line-chart-workspace>
   </div>
 </div>

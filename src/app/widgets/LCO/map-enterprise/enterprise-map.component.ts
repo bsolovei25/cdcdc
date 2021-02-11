@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    AfterViewInit,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 import { IEnterpriseMap } from 'src/app/dashboard/models/LCO/enterprise-map';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
@@ -258,8 +250,7 @@ const bulds: IBuilding[] = [
     templateUrl: './enterprise-map.component.html',
     styleUrls: ['./enterprise-map.component.scss'],
 })
-export class EnterpriseMapComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy, AfterViewInit {
+export class EnterpriseMapComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     values: IValue[] = [];
     data: IEnterpriseMap = {
         build: [
@@ -341,8 +332,7 @@ export class EnterpriseMapComponent extends WidgetPlatform<unknown>
                 options = this.data.build[idx].options;
             }
             if (options) {
-                const allOptions: number =
-                    options.diagnostics + options.nonCritical + options.prognosis;
+                const allOptions: number = options.diagnostics + options.nonCritical + options.prognosis;
                 const widthNumber: number = allOptions.toString().length;
                 if (b.tagName === 'polygon' || b.tagName === 'polyline') {
                     const id = b.getAttribute('data-id');

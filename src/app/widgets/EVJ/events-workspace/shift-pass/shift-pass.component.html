@@ -21,14 +21,8 @@
     <evj-ui-block status="{{ewService.event.priority.name}}" class="selects__item">
       <mat-form-field class="{{ewService.event.priority.name}}">
         <mat-label>Приоритет</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.priority"
-          [compareWith]="compareFn"
-        >
-          <mat-option *ngFor="let p of ewService.priority" [value]="p"
-          >{{ ewService.priorities[p.name] }}
-          </mat-option>
+        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+          <mat-option *ngFor="let p of ewService.priority" [value]="p">{{ ewService.priorities[p.name] }} </mat-option>
         </mat-select>
       </mat-form-field>
     </evj-ui-block>
@@ -37,12 +31,8 @@
         <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
           <mat-label> Ознакомление </mat-label>
           <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
-            <mat-option [value]="true">
-              Ознакомлен
-            </mat-option>
-            <mat-option [value]="false">
-              Не ознакомлен
-            </mat-option>
+            <mat-option [value]="true"> Ознакомлен </mat-option>
+            <mat-option [value]="false"> Не ознакомлен </mat-option>
           </mat-select>
         </mat-form-field>
       </evj-ui-block>
@@ -53,13 +43,11 @@
       <evj-ui-block status="normal">
         <mat-form-field class="status">
           <mat-label>Статус</mat-label>
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.status"
-            [compareWith]="compareFn"
-          >
-            <mat-option *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent" [value]="p"
-            >{{ ewService.statuses[p.name] }}
+          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.status" [compareWith]="compareFn">
+            <mat-option
+              *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+              [value]="p"
+              >{{ ewService.statuses[p.name] }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -76,7 +64,7 @@
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
             <mat-option *ngFor="let p of ewService.subCategoryFilter | async" [value]="p"
-            >{{ p.description }}
+              >{{ p.description }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -86,12 +74,8 @@
       <evj-events-place></evj-events-place>
     </div>
     <div class="creator" *ngIf="!ewService.isEditEvent">
-      <div class="creator_title">
-        Место
-      </div>
-      <div class="creator_body">
-        {{ ewService.event.unit.name }}
-      </div>
+      <div class="creator_title">Место</div>
+      <div class="creator_body">{{ ewService.event.unit.name }}</div>
     </div>
     <div class="selects__item">
       <evj-ui-block status="normal">

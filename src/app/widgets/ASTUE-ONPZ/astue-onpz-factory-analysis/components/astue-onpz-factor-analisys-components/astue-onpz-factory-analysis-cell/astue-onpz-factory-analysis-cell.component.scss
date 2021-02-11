@@ -3,8 +3,12 @@
 .container {
   display: flex;
   flex-flow: column;
-  width: 72px;
+  width: 65px;
   height: 100%;
+
+  &__wide {
+    width: 72px;
+  }
 
   .top {
     display: flex;

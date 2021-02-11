@@ -4,17 +4,9 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DetailedLineDiagramComponent } from './detailed-line-diagram/detailed-line-diagram.component';
 
-
-
 @NgModule({
-  declarations: [ DetailedLineDiagramComponent ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule
-  ],
-  exports: [
-    DetailedLineDiagramComponent
-  ]  
+    declarations: [DetailedLineDiagramComponent],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule],
+    exports: [DetailedLineDiagramComponent],
 })
-export class LcoSharedModule { }
+export class LcoSharedModule {}

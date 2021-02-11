@@ -1,4 +1,4 @@
-<div style="height: 100%;">
+<div style="height: 100%">
   <div class="title">
     <div class="title__name">Работа с графиком</div>
   </div>
@@ -7,31 +7,27 @@
       <div class="scroll-block__date">
         <mat-form-field>
           <label>Начало</label>
-          <input matInput [ngxMatDatetimePicker]="pickerD" [formControl]="dateFrom">
+          <input matInput [ngxMatDatetimePicker]="pickerD" [formControl]="dateFrom" />
           <mat-datepicker-toggle matSuffix [for]="pickerD">
             <mat-icon matDatepickerToggleIcon>
-              <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
               </svg-icon>
             </mat-icon>
           </mat-datepicker-toggle>
-          <ngx-mat-datetime-picker #pickerD>
-          </ngx-mat-datetime-picker>
+          <ngx-mat-datetime-picker #pickerD> </ngx-mat-datetime-picker>
         </mat-form-field>
       </div>
       <div class="scroll-block__date">
         <mat-form-field>
           <label>Окончание</label>
-          <input matInput [ngxMatDatetimePicker]="pickerT" [formControl]="dateTo">
+          <input matInput [ngxMatDatetimePicker]="pickerT" [formControl]="dateTo" />
           <mat-datepicker-toggle matSuffix [for]="pickerT">
             <mat-icon matDatepickerToggleIcon>
-              <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              <svg-icon src="assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
               </svg-icon>
             </mat-icon>
           </mat-datepicker-toggle>
-          <ngx-mat-datetime-picker #pickerT>
-          </ngx-mat-datetime-picker>
+          <ngx-mat-datetime-picker #pickerT> </ngx-mat-datetime-picker>
         </mat-form-field>
       </div>
       <!-- TODO нет понимания, какие файлы должны быть размещены -->
@@ -50,8 +46,11 @@
   </div>
   <div class="bottom">
     <div class="bottom__block">
-      <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/full-screen.svg"
-                class="add_button_icon" [svgStyle]="{ 'width.px':20, 'height.px':20 }">
+      <svg-icon
+        src="assets/icons/widgets/oil-control-all/oil-operations/full-screen.svg"
+        class="add_button_icon"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      >
       </svg-icon>
     </div>
   </div>

@@ -6,17 +6,10 @@ import { DocumentViewerFullscreenComponent } from './document-viewer-fullscreen/
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
-  declarations: [ DocumentViewerComponent, DocumentViewerFullscreenComponent ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    PdfViewerModule,
-    AngularSvgIconModule
-  ]
+    declarations: [DocumentViewerComponent, DocumentViewerFullscreenComponent],
+    imports: [CommonModule, SharedModule, PdfViewerModule, AngularSvgIconModule],
 })
 export class DocumentViewerModule {
-  enterComponent = DocumentViewerComponent;
+    enterComponent = DocumentViewerComponent;
 }

@@ -5,16 +5,15 @@ import {
     ITankInformation,
     ITankInformationDtoFn,
     ITankFilter,
-    ITankResaultFilter
+    ITankResaultFilter,
 } from '../../../dashboard/models/NK/tank-information';
 
 @Component({
     selector: 'evj-tank-information',
     templateUrl: './tank-information.component.html',
-    styleUrls: ['./tank-information.component.scss']
+    styleUrls: ['./tank-information.component.scss'],
 })
 export class TankInformationComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public data: ITankInformation[];
 
     public dataSave: ITankInformation[];
@@ -47,7 +46,7 @@ export class TankInformationComponent extends WidgetPlatform<unknown> implements
         if (this.temp) {
             return;
         }
-        this.dataSave = ref.items.map(e => ITankInformationDtoFn(e));
+        this.dataSave = ref.items.map((e) => ITankInformationDtoFn(e));
         this.mapData(this.dataSave);
         this.temp = true;
     }
@@ -75,16 +74,16 @@ export class TankInformationComponent extends WidgetPlatform<unknown> implements
 
     mapNameData(data: ITankInformation[]): ITankFilter[] {
         const array = [];
-        this.type.forEach(sType => {
+        this.type.forEach((sType) => {
             const arrayNameInType = [];
-            data.forEach(item => {
+            data.forEach((item) => {
                 if (item.type === sType && !arrayNameInType.includes(item.name)) {
                     arrayNameInType.push(item.name);
                 }
             });
             const obj = {
                 type: sType,
-                tanks: arrayNameInType
+                tanks: arrayNameInType,
             };
             array.push(obj);
         });
@@ -96,7 +95,7 @@ export class TankInformationComponent extends WidgetPlatform<unknown> implements
 
         for (const item of data) {
             if (this.type.includes(item.type)) {
-                const resultFind = this.filterData.find(i => item.type === i.type);
+                const resultFind = this.filterData.find((i) => item.type === i.type);
                 if (!resultFind) {
                     continue;
                 }

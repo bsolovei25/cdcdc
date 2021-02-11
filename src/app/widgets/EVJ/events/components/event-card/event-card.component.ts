@@ -5,7 +5,7 @@ import { EventService } from '../../../../../dashboard/services/widgets/EVJ/even
 @Component({
     selector: 'evj-event-card',
     templateUrl: './event-card.component.html',
-    styleUrls: ['./event-card.component.scss']
+    styleUrls: ['./event-card.component.scss'],
 })
 export class EventCardComponent implements OnInit, OnDestroy {
     @Input()
@@ -32,15 +32,13 @@ export class EventCardComponent implements OnInit, OnDestroy {
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(private eventService: EventService) {
-    }
+    constructor(private eventService: EventService) {}
 
     public ngOnInit(): void {
         console.log(this.isCdEvents);
     }
 
-    public ngOnDestroy(): void {
-    }
+    public ngOnDestroy(): void {}
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -55,10 +53,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
         event.stopPropagation();
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
-            const a = await this.eventService.changeEventIsAcknowledged(
-                eventCard.id,
-                eventCard.isAcknowledged
-            );
+            const a = await this.eventService.changeEventIsAcknowledged(eventCard.id, eventCard.isAcknowledged);
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }

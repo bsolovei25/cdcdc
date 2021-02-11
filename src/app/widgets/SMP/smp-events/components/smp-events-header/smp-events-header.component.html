@@ -1,10 +1,6 @@
 <div class="menu">
   <ng-container *ngFor="let item of stats">
-    <div
-      class="menu_item"
-      [class.menu_item__active]="select.isSelected(item)"
-      (click)="select.select(item)"
-    >
+    <div class="menu_item" [class.menu_item__active]="select.isSelected(item)" (click)="select.select(item)">
       <div class="menu_item__container">
         <div class="menu_item__title-text">
           {{item?.status?.description ? item.status.description : item.status.name}}

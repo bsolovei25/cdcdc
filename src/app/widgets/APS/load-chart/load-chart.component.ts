@@ -1,13 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    HostListener,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, Renderer2, HostListener, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IApsLoadChart, IApsLoad } from '../../../dashboard/models/APS/load-chart.model';
@@ -90,11 +81,7 @@ export class LoadChartComponent extends WidgetPlatform<unknown> implements OnIni
         let date = null;
         let dateArr = null;
         this.data.chart.forEach((item) => {
-            if (
-                date &&
-                item.date.getDate() === date.getDate() &&
-                item.date.getMonth() === date.getMonth()
-            ) {
+            if (date && item.date.getDate() === date.getDate() && item.date.getMonth() === date.getMonth()) {
                 dateArr.push(item);
             } else if (date && dateArr) {
                 arr.push(dateArr);

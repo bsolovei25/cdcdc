@@ -5,11 +5,7 @@
     [uniqId]="widgetUniqId"
   ></evj-contemporary-widget-header>
 
-  <div
-    class="content_block"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="wrapper">
       <div class="chart-container">
         <div class="gauge-card">
@@ -22,9 +18,7 @@
                 [deviation]="data?.chartData?.deviation"
               ></evj-ejco-gauge-chart>
             </div>
-            <div class="gauge-card__label">
-              {{ data?.chartData?.title }}
-            </div>
+            <div class="gauge-card__label">{{ data?.chartData?.title }}</div>
           </div>
         </div>
       </div>
@@ -32,7 +26,7 @@
         <ng-container *ngFor="let row of data.data">
           <div class="table-container__row">
             <div class="table-container__col title-col" [matTooltip]="row.title">
-               <span>{{ row.title }}</span>
+              <span>{{ row.title }}</span>
             </div>
             <div class="table-container__col value-col">
               <ng-container *ngFor="let value of row.values">

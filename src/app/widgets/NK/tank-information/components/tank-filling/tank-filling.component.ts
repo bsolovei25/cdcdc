@@ -5,7 +5,7 @@ declare var d3: any;
 @Component({
     selector: 'evj-tank-filling',
     templateUrl: './tank-filling.component.html',
-    styleUrls: ['./tank-filling.component.scss']
+    styleUrls: ['./tank-filling.component.scss'],
 })
 export class TankFillingComponent implements OnInit, AfterViewInit {
     @ViewChild('oilBak') oilBak: ElementRef;
@@ -15,11 +15,9 @@ export class TankFillingComponent implements OnInit, AfterViewInit {
 
     public rectYHeight: number = 370;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         this.drawBak(this.oilBak.nativeElement);
@@ -64,5 +62,4 @@ export class TankFillingComponent implements OnInit, AfterViewInit {
             .attr('class', 'textProduct')
             .attr('y', this.rectYHeight - this.data * 2.2 + 10);
     }
-
 }

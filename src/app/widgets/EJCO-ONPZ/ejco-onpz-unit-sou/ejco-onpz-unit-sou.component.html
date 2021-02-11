@@ -1,27 +1,29 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header
-    type="astue"
-    [widgetTitle]="widgetTitle"
-    [uniqId]="widgetUniqId"
-  >
+  <evj-contemporary-widget-header type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
     <div class="header-container">
       <div class="tabs-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div
           *ngFor="let tab of tabs"
-          class="tab" [class.tab__active]="tab.caption === currentTab"
+          class="tab"
+          [class.tab__active]="tab.caption === currentTab"
           (click)="toggleTab(tab.caption)"
-        >{{ tab.caption }}</div>
+        >
+          {{ tab.caption }}
+        </div>
       </div>
-      <div (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
-           class="button" (click)="handleTabClick()" matRipple matRippleColor="white"> В источник </div>
+      <div
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        class="button"
+        (click)="handleTabClick()"
+        matRipple
+        matRippleColor="white"
+      >
+        В источник
+      </div>
     </div>
   </evj-contemporary-widget-header>
-  <div
-    class="content_block"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="wrapper">
       <div class="chart-container">
         <ng-container *ngFor="let chart of data?.chartData">
@@ -35,9 +37,7 @@
                   displayType="limited"
                 ></evj-ejco-gauge-chart>
               </div>
-              <div class="gauge-card__label">
-                {{ chart.title }}
-              </div>
+              <div class="gauge-card__label">{{ chart.title }}</div>
             </div>
           </div>
         </ng-container>

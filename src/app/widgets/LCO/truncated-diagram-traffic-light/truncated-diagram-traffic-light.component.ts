@@ -14,14 +14,12 @@ export interface ITruncatedDiagramInputData {
     templateUrl: './truncated-diagram-traffic-light.component.html',
     styleUrls: ['./truncated-diagram-traffic-light.component.scss'],
     animations: [
-        trigger(
-            'expandCollapse', [
+        trigger('expandCollapse', [
             state('true', style({ minHeight: '45px', height: '45px' })),
             state('false', style({ minHeight: '165px' })),
             transition('1 => 0', animate('200ms')),
-            transition('0 => 1', animate('200ms'))
-        ]
-        )
+            transition('0 => 1', animate('200ms')),
+        ]),
     ],
 })
 export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
@@ -51,8 +49,8 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform<unknow
     }
 
     private processData(): void {
-        this.data.forEach(item => {
-            item.items.forEach(chart => {
+        this.data.forEach((item) => {
+            item.items.forEach((chart) => {
                 chart = this.countHighlightSector(chart);
             });
         });
@@ -67,26 +65,16 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform<unknow
 
     private countHighlightSector(data: IPieChartInputData): IPieChartInputData {
         const countedData = data;
-        if (
-            countedData.value < data.yellowUpperBounds
-        ) {
+        if (countedData.value < data.yellowUpperBounds) {
             countedData.highLightSector = 0;
         }
-        if (
-            countedData.value >= data.yellowUpperBounds &&
-            countedData.value <= data.greenUpperBounds
-        ) {
+        if (countedData.value >= data.yellowUpperBounds && countedData.value <= data.greenUpperBounds) {
             countedData.highLightSector = 1;
         }
-        if (
-            countedData.value > data.greenUpperBounds &&
-            countedData.value <= data.redUpperBounds
-        ) {
+        if (countedData.value > data.greenUpperBounds && countedData.value <= data.redUpperBounds) {
             countedData.highLightSector = 2;
         }
-        if (
-            countedData.value > data.redUpperBounds
-        ) {
+        if (countedData.value > data.redUpperBounds) {
             countedData.highLightSector = 2;
         }
         return countedData;

@@ -1,9 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    IAsEfFlow,
-    IAsEfUnitNew,
-} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { IAsEfFlow, IAsEfUnitNew } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 
 @Component({

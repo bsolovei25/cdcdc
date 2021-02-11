@@ -15,7 +15,7 @@ import { SouBalanceCardComponent } from './components/sou-balance-card/sou-balan
 import { SouFacilityInfoComponent } from './components/sou-facility-info/sou-facility-info.component';
 import { SouDetailTableComponent } from './components/sou-detail-table/sou-detail-table.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [

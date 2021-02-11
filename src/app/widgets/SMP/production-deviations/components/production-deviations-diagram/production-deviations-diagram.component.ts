@@ -14,17 +14,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class ProductionDeviationsDiagramComponent implements OnChanges {
     @Input() public data: IProductionDeviationsGraph = null;
 
-    public readonly iconUrl: string =
-        'assets/icons/widgets/SMP/production-deviations/warning-deviation.svg';
+    public readonly iconUrl: string = 'assets/icons/widgets/SMP/production-deviations/warning-deviation.svg';
 
     public limits: { up: string; down: string } = {
         up: '0%',
         down: '0%',
     };
 
-    public selection: SelectionModel<IProductionDeviationsColumn> = new SelectionModel<
-        IProductionDeviationsColumn
-    >();
+    public selection: SelectionModel<IProductionDeviationsColumn> = new SelectionModel<IProductionDeviationsColumn>();
 
     constructor() {}
 

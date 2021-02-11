@@ -6,16 +6,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
     declarations: [AstueOnpzPredictorsComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatSlideToggleModule,
-        FormsModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSlideToggleModule, FormsModule],
 })
 export class AstueOnpzPredictorsModule {
     enterComponent = AstueOnpzPredictorsComponent;

@@ -1,19 +1,15 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header
-    type="astue"
-    [widgetTitle]="widgetTitle"
-    [uniqId]="widgetUniqId"
-  >
+  <evj-contemporary-widget-header type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
     <div class="header-container">
       <evj-kpe-charts-analytic-header-select [formGroup]="entryStates"></evj-kpe-charts-analytic-header-select>
       <evj-kpe-charts-analytic-header-toggle [formGroup]="entryStates"></evj-kpe-charts-analytic-header-toggle>
     </div>
   </evj-contemporary-widget-header>
 
-  <div class="container"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
-    <div class="area area__chart"></div>
+  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="area area__chart">
+      <evj-kpe-charts-analytic-main-chart> </evj-kpe-charts-analytic-main-chart>
+    </div>
 
     <div class="area area__stats">
       <div class="selects" [formGroup]="entryStates">
@@ -23,13 +19,13 @@
           </mat-select>
         </div>
         <div class="dropdown">
-          <div class="dropdown__label"> <span> Y </span> </div>
+          <div class="dropdown__label"><span> Y </span></div>
           <mat-select class="dropdown__select" placeholder="Ед. измерения" formControlName="engUnit">
             <mat-option> Не выбрано </mat-option>
           </mat-select>
         </div>
         <div class="dropdown">
-          <div class="dropdown__label"> <span> X </span> </div>
+          <div class="dropdown__label"><span> X </span></div>
           <mat-select class="dropdown__select" placeholder="Временной интервал" formControlName="dateInterval">
             <mat-option> Не выбрано </mat-option>
           </mat-select>

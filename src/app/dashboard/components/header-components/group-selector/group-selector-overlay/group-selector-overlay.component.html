@@ -1,0 +1,39 @@
+<form>
+  <div class="container">
+    <div class="header">
+      <span class="header__title">Выберите иконку для проекта</span>
+      <div class="header__icon" (click)="closeOverlay()">
+        <svg-icon src="assets/icons/control-group-icons/close.svg"></svg-icon>
+      </div>
+    </div>
+    <div class="content">
+      <div class="add-icon">
+        <svg-icon src="assets/icons/control-group-icons/plus.svg"></svg-icon>
+        <input
+          type="file"
+          (change)="getFile($event.target.files)"
+          writeFile="true"
+          accept="svg/image/jpeg,image/png,image/gif"
+        />
+      </div>
+      <div
+        class="icons"
+        [ngClass]="{
+          'icons__current': item === currentIconId,
+          'icons__choose': item !== currentIconId
+        }"
+        *ngFor="let item of iconList; let i = index"
+      >
+        <img [src]="baseSrc + item" />
+        <div class="btns-list">
+          <div class="btn btn__accept" (click)="acceptEdit(item)">
+            <svg-icon src="assets/icons/control-group-icons/accept.svg"></svg-icon>
+          </div>
+          <div class="btn btn__delete" (click)="onDelete(item)">
+            <svg-icon src="assets/icons/control-group-icons/delete.svg"></svg-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

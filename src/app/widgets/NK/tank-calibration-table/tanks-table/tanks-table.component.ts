@@ -26,7 +26,6 @@ interface IDataSource extends ICalibrationTable {
     styleUrls: ['./tanks-table.component.scss'],
 })
 export class TanksTableComponent implements OnInit {
-
     dataSource: IDataSource[] = [];
     dataSourceTanks: IDataSource[] = [];
     data: IDataSource[] = [];
@@ -43,8 +42,7 @@ export class TanksTableComponent implements OnInit {
         private chDet: ChangeDetectorRef,
         private calibrationService: TankCalibrationTableService,
         @Inject(MAT_DIALOG_DATA) public dataRef: IDataSource[]
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.loadItem();
@@ -63,32 +61,32 @@ export class TanksTableComponent implements OnInit {
     }
 
     getChildrenRows(element: ICalibrationTable): ICalibrationTable[] {
-        return this.data.filter(val => element?.uid === val?.parentUid);
+        return this.data.filter((val) => element?.uid === val?.parentUid);
     }
 
     searchInput(event): void {
         this.dataSource?.map((val) => {
             let isLenChild: boolean = false;
-            val.childredTanks.map(element => {
-                if (element.name.toLowerCase()
-                    .includes(event?.target?.value.toLowerCase())) {
+            val.childredTanks.map((element) => {
+                if (element.name.toLowerCase().includes(event?.target?.value.toLowerCase())) {
                     element.isInvisible = false; // показывать
                     this.expandedElement.select(val);
                     isLenChild = true;
                 } else {
-                    element.isInvisible = true;  // скрыть
+                    element.isInvisible = true; // скрыть
                 }
             });
-            if (val.name.toLowerCase()
-                .includes(event?.target?.value.toLowerCase()) || isLenChild) {
+            if (val.name.toLowerCase().includes(event?.target?.value.toLowerCase()) || isLenChild) {
                 val.isInvisible = false;
             } else {
                 val.isInvisible = true;
                 this.expandedElement.deselect(val);
             }
         });
-        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
+        this.dataSourceTanks = this.data?.filter(
+            (val) =>
+                val.name.toLowerCase().includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup
+        );
         if (event?.target?.value.trim().toLowerCase() === '') {
             this.expandedElement.clear();
         }
@@ -100,13 +98,11 @@ export class TanksTableComponent implements OnInit {
         dataLoadQueue.push(
             this.calibrationService.getTankAvailable().then((data) => {
                 this.data = data;
-                this.dataSource = this.data
-                    .filter(val => val.isGroup);
+                this.dataSource = this.data.filter((val) => val.isGroup);
                 this.dataSource.map((value) => {
                     value.childredTanks = this.getChildrenRows(value);
                 });
-                this.dataSourceTanks = [...this.data
-                    .filter(val => !val.parentUid && !val.isGroup)];
+                this.dataSourceTanks = [...this.data.filter((val) => !val.parentUid && !val.isGroup)];
                 this.isLoading = false;
             })
         );
@@ -120,5 +116,4 @@ export class TanksTableComponent implements OnInit {
             }
         }
     }
-
 }

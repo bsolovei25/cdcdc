@@ -1,4 +1,5 @@
-export interface IOilOperations { /// ALL DATA
+export interface IOilOperations {
+    /// ALL DATA
     tableLeft: IOilTransfer[]; // operation
     received: IOilRowActions[];
     shipment: IOilRowActions[];
@@ -43,17 +44,18 @@ export interface IOilOperationsTank {
 }
 
 export enum operationTransferStatus {
-    opened= 'opened',
-    closedNoShipment= 'closedNoShipment',
-    closed= 'closed',
-    closedWithDebalance= 'closedWithDebalance',
+    opened = 'opened',
+    closedNoShipment = 'closedNoShipment',
+    closed = 'closed',
+    closedWithDebalance = 'closedWithDebalance',
 }
 
-export const operationTransferStatusNameMap: {[key: string]: string} = {
+export const operationTransferStatusNameMap: { [key: string]: string } = {
     [operationTransferStatus.opened]: 'Операция не завершена',
     [operationTransferStatus.closedNoShipment]: 'Операция завершена, отгрузки не привязаны',
     [operationTransferStatus.closed]: 'Операция завершена, дебаланс в пределах норм рассчитанных погрешностей',
-    [operationTransferStatus.closedWithDebalance]: 'Операция завершена, дебаланс превышает нормы рассчитанных погрешностей. Величина указана в поле Отклонение',
+    [operationTransferStatus.closedWithDebalance]:
+        'Операция завершена, дебаланс превышает нормы рассчитанных погрешностей. Величина указана в поле Отклонение',
 };
 
 export interface IOilTransfer {
@@ -106,7 +108,7 @@ export interface IOilShipment {
     };
     shippingComplex?: {
         id: number;
-        name: string,
+        name: string;
     };
     transferPrevId?: number;
 }

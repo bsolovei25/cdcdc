@@ -5,14 +5,15 @@
     type="astue"
     icon="sliders"
   ></evj-contemporary-widget-header>
-  <div class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngFor="let row of data">
       <div class="content__row">
         <div class="chart-container">
-          <evj-kpe-deviation-diagram [currentMonth]="displayedMonth" [data]="row?.data" [bottomCalendarFull]="true"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram
+            [currentMonth]="displayedMonth"
+            [data]="row?.data"
+            [bottomCalendarFull]="true"
+          ></evj-kpe-deviation-diagram>
         </div>
         <div class="value-container">
           <span>{{ row?.name }}</span>

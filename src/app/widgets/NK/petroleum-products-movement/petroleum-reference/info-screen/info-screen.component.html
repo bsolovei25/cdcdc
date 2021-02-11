@@ -1,8 +1,4 @@
 <div class="table-info-container">
-  <evj-transfer-table
-    [transfers]="this.petroleumService.transfers$ | async"
-    [dictionary]="dictionary"
-  >
+  <evj-transfer-table [transfers]="this.petroleumService.transfers$ | async" [dictionary]="dictionary">
   </evj-transfer-table>
 </div>
-

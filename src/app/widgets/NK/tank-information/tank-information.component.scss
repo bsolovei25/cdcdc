@@ -1,26 +1,26 @@
 $container-padding: 5px;
 
 .container {
-    position: relative;
-    width: 100%;
-    height: calc(100% - 1px);
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    line-height: 24px;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 1px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 24px;
 }
 
 .content {
-    height: calc(100% - 60px);
-    border-left: dashed 1px var(--color-border-main);
-    border-right: dashed 1px var(--color-border-main);
-    overflow: auto;
-    overflow-y: hidden;
+  height: calc(100% - 60px);
+  border-left: dashed 1px var(--color-border-main);
+  border-right: dashed 1px var(--color-border-main);
+  overflow: auto;
+  overflow-y: hidden;
 }
 
-.scroll-container{
+.scroll-container {
   height: 100%;
   direction: rtl;
   width: calc(100% - 10px);
@@ -30,41 +30,41 @@ $container-padding: 5px;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
+  width: 4px;
+  height: 4px;
+}
 
-  ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 25px;
-  }
+::-webkit-scrollbar-track:vertical {
+  width: 4px;
+  height: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+}
 
-  :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
-  }
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
 
-  :hover::-webkit-scrollbar-track-piece {
+:hover::-webkit-scrollbar-track-piece {
   //  border: solid 1px var(--color-border-active);
-  }
+}
 
-  ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
-  }
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
 
-  ::-webkit-scrollbar-track {
-    border-radius: 25px;
-  }
-  ::-webkit-scrollbar-track-piece {
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
   //  border: solid 1px var(--color-border-main);
-    border-radius: 25px;
-  }
+  border-radius: 25px;
+}
 
-  ::-webkit-resizer {
-    background-color: var(--color-border-active);
-  }
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}

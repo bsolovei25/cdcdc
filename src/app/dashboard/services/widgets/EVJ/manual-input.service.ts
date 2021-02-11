@@ -58,11 +58,7 @@ export class ManualInputService {
             el.comment = el.curComment;
 
             el.openInput = false;
-            if (
-                tempData[i].comment !== undefined &&
-                tempData[i].comment !== null &&
-                tempData[i].isSave === undefined
-            ) {
+            if (tempData[i].comment !== undefined && tempData[i].comment !== null && tempData[i].isSave === undefined) {
                 el.isEdit = true;
                 el.comment = tempData[i].comment;
                 el.openInput = true;
@@ -116,9 +112,7 @@ export class ManualInputService {
     }
 
     async PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): Promise<IMachine_MI[]> {
-        const ans = await this.http
-            .post<MI_DataGet>(this.restUrl + '/api/manualinput/post', Params)
-            .toPromise();
+        const ans = await this.http.post<MI_DataGet>(this.restUrl + '/api/manualinput/post', Params).toPromise();
         this.saveBar('Не корректный ввод', false);
         return this.SaveHistoryValues(ans, data);
     }
@@ -129,9 +123,7 @@ export class ManualInputService {
                 let el: Param_MI = this.GetElementById(item.id, data);
                 el.historyValues.forEach((day) => {
                     if (day.hourValues.find((hour) => hour.hour === item.timeCode)) {
-                        day.hourValues.find(
-                            (hour) => hour.hour === item.timeCode
-                        ).value = +item.value;
+                        day.hourValues.find((hour) => hour.hour === item.timeCode).value = +item.value;
                     }
                 });
             });
@@ -168,12 +160,10 @@ export class ManualInputService {
     }
 
     PostData(Params: MI_DataSend, data: IMachine_MI[]): void {
-        this.http
-            .post(this.restUrl + '/api/manualinput/post', Params)
-            .subscribe((ans: MI_DataGet) => {
-                this.saveBar('Пустой ввод', false);
-                this.SaveValues(ans, data);
-            });
+        this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
+            this.saveBar('Пустой ввод', false);
+            this.SaveValues(ans, data);
+        });
     }
 
     SaveValues(ids: MI_DataGet, data: IMachine_MI[]): void {
@@ -230,16 +220,14 @@ export class ManualInputService {
             snackBar.innerText = text;
         } else {
             snackBar.innerText = text;
-            setTimeout(function() {
+            setTimeout(function () {
                 snackBar.className = snackBar.className.replace('show', '');
             }, durection);
             snackBarBlock.className = snackBarBlock.className.replace('show', '');
         }
     }
 
-    async getManualInput(
-        id: string
-    ): Promise<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean }> {
+    async getManualInput(id: string): Promise<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean }> {
         return await this.http
             .get<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean }>(
                 this.restUrl + '/api/manualinput/ManualInputData/' + id

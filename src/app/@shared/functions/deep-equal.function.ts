@@ -16,7 +16,7 @@ export function ObjectDeepEqual<T>(x: T, y: T): boolean {
             if (x[p] === y[p]) {
                 continue;
             }
-            if (typeof (x[p]) !== 'object') {
+            if (typeof x[p] !== 'object') {
                 return false;
             }
             if (!ObjectDeepEqual(x[p], y[p])) {

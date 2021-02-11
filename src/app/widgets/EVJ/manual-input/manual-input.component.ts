@@ -1,13 +1,4 @@
-import {
-    Component,
-    Output,
-    Inject,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, Output, Inject, ViewChild, ElementRef, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
 import { ManualInputService } from '../../../dashboard/services/widgets/EVJ/manual-input.service';
@@ -44,8 +35,7 @@ import { AppConfigService } from '@core/service/app-config.service';
         ]),
     ],
 })
-export class ManualInputComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy, AfterViewInit {
+export class ManualInputComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
 
@@ -108,7 +98,7 @@ export class ManualInputComponent extends WidgetPlatform<unknown>
         this.setInitData();
     }
 
-    protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): void {
+    protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean }): void {
         this.loadSaveData(ref);
     }
 
@@ -119,7 +109,10 @@ export class ManualInputComponent extends WidgetPlatform<unknown>
 
     async setInitData(): Promise<void> {
         try {
-            const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
+            const data: {
+                machines: IMachine_MI[];
+                isUserHasWriteClaims: boolean;
+            } = await this.manualInputService.getManualInput(this.id);
             this.loadSaveData(data);
         } catch (error) {
             console.log(error);
@@ -141,7 +134,7 @@ export class ManualInputComponent extends WidgetPlatform<unknown>
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
+    async loadSaveData(data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean }): Promise<void> {
         this.isUserHasWriteClaims = data.isUserHasWriteClaims;
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
@@ -165,12 +158,12 @@ export class ManualInputComponent extends WidgetPlatform<unknown>
 
     onAllSettings(): void {
         this.allSettings = !this.allSettings;
-        this.data?.forEach((el) => el.active = false);
+        this.data?.forEach((el) => (el.active = false));
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onSettings(item: IMachine_MI): void {
-        this.data?.forEach((el) => el.active = false);
+        this.data?.forEach((el) => (el.active = false));
         item.active = !item.active;
         this.chooseSetting = item;
         this.allSettings = false;
@@ -180,12 +173,13 @@ export class ManualInputComponent extends WidgetPlatform<unknown>
     onShowAllSettings(): void {
         if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
-            this.data?.forEach((item) => item.open = this.openAllSettings);
+            this.data?.forEach((item) => (item.open = this.openAllSettings));
             this.OnManualInputSendSettings(this.saveDataObj());
         } else {
             this.openAllMachine = !this.openAllMachine;
-            this.data.find((el) => el.name === this.chooseSetting.name)
-                ?.groups.forEach((item) => item.open = this.openAllMachine);
+            this.data
+                .find((el) => el.name === this.chooseSetting.name)
+                ?.groups.forEach((item) => (item.open = this.openAllMachine));
             this.OnManualInputSendSettings(this.saveDataObj());
         }
     }

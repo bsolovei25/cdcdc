@@ -30,7 +30,7 @@ export class OperationParkScreenLeftComponent implements OnInit {
         if (!object) {
             object = this.data[0];
         }
-        this.currentObject = this.data.find(el => el.objectName === object.objectName);
+        this.currentObject = this.data.find((el) => el.objectName === object.objectName);
         this.petroleumService.setTankParam(object.objectName);
     }
 }

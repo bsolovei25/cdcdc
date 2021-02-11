@@ -1,46 +1,46 @@
-.container-bar{
-    width: 55px;
-    height: 80%;
-    border: 1px solid var(--color-smp-border);
-    border-radius: 5px;
-    background-color: var(--color-bg-main);
-    position: relative;
-    margin-top: 20px;
-    box-shadow: 0px 0px 5px 0px var(--color-bg-main);
+.container-bar {
+  width: 55px;
+  height: 80%;
+  border: 1px solid var(--color-smp-border);
+  border-radius: 5px;
+  background-color: var(--color-bg-main);
+  position: relative;
+  margin-top: 20px;
+  box-shadow: 0px 0px 5px 0px var(--color-bg-main);
 
-    &__top-line{
-        position: absolute;
-        width: 100%;
-        border-top: 0.5px dashed var(--color-smp-border);
-        top: 10px;
-        z-index: 999;
-    }
+  &__top-line {
+    position: absolute;
+    width: 100%;
+    border-top: 0.5px dashed var(--color-smp-border);
+    top: 10px;
+    z-index: 999;
+  }
 
-    &__footer{
-        width: calc(100% - 2px);
-        position: absolute;
-        background-color: var(--color-smp-tank-plan);
-        height: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        bottom: 2px;
-        left: 1px;
-    }
+  &__footer {
+    width: calc(100% - 2px);
+    position: absolute;
+    background-color: var(--color-smp-tank-plan);
+    height: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    bottom: 2px;
+    left: 1px;
+  }
 
-    &__fact{
-        position: absolute;
-        width: calc(100% - 2px);
-        left: 1px;
-        bottom: 7px;
-        background-color: var(--color-smp-tank-fact);
-        z-index: 100;
-    }
+  &__fact {
+    position: absolute;
+    width: calc(100% - 2px);
+    left: 1px;
+    bottom: 7px;
+    background-color: var(--color-smp-tank-fact);
+    z-index: 100;
+  }
 
-    &__plan{
-        position: absolute;
-        width: calc(100% - 2px);
-        left: 1px;
-        background-color: var(--color-smp-tank-plan);
-        bottom: 7px;
-    }
+  &__plan {
+    position: absolute;
+    width: calc(100% - 2px);
+    left: 1px;
+    background-color: var(--color-smp-tank-plan);
+    bottom: 7px;
+  }
 }

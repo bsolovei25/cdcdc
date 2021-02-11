@@ -1,21 +1,11 @@
 <div class="container pointer-event">
-  <evj-contemporary-widget-header
-    [uniqId]="widgetUniqId"
-    [widgetTitle]="widgetTitle"
-    icon="parameter"
-  >
+  <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="parameter">
   </evj-contemporary-widget-header>
-  <div
-    class="container-body"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <table class="table">
       <thead class="table__header">
         <tr class="table__header__row">
-          <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-            {{ column.name }}
-          </th>
+          <th *ngFor="let column of columnsToDisplay" class="table__header__column">{{ column.name }}</th>
         </tr>
       </thead>
       <tbody class="table__body">
@@ -52,9 +42,7 @@
                   >
                   </svg-icon>
                   <span class="table__body__column__row-title">
-                    <span class="table__body__column__row-title__text__name"
-                      >{{ element.unit.name }}
-                    </span>
+                    <span class="table__body__column__row-title__text__name">{{ element.unit.name }} </span>
                     <span class="table__body__column__row-title__text__name__value-right"
                       >Отклонений {{ deviationCount(element) }}
                     </span>

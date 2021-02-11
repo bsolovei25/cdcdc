@@ -6,16 +6,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRippleModule } from '@angular/material/core';
 
-
 @NgModule({
     declarations: [AstueOnpzMainIndicatorsComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatSlideToggleModule,
-        MatRippleModule,
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSlideToggleModule, MatRippleModule],
 })
 export class AstueOnpzMainIndicatorsModule {
     enterComponent = AstueOnpzMainIndicatorsComponent;

@@ -1,13 +1,4 @@
-import {
-    Component,
-    OnDestroy,
-    OnInit,
-    Inject,
-    ViewChild,
-    ElementRef,
-    AfterViewInit,
-    Renderer2,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
@@ -24,9 +15,7 @@ export interface IProductStocks {
     templateUrl: './product-stocks.component.html',
     styleUrls: ['./product-stocks.component.scss'],
 })
-export class ProductStocksComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy, AfterViewInit {
-
+export class ProductStocksComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     data: IProductStocks = {
         stocks: 1667,
         passportization: 7.6,
@@ -84,10 +73,7 @@ export class ProductStocksComponent extends WidgetPlatform<unknown>
     }
 
     dataSvgSize(): void {
-        const passportizationHeight = (
-            (this.data.passportization / this.data.stocks) *
-            100
-        ).toFixed(2);
+        const passportizationHeight = ((this.data.passportization / this.data.stocks) * 100).toFixed(2);
         const shipmentHeight = ((this.data.shipment / this.data.stocks) * 100).toFixed(2);
     }
 

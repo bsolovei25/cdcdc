@@ -1,13 +1,13 @@
-import {Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import {
     IOilShipment,
     IOilShipmentStatistics,
     IOilTransfer,
-    OilOperationsShipmentType
+    OilOperationsShipmentType,
 } from '../../../../../dashboard/models/oil-operations';
 import {
     IOilOperationsOptions,
-    OilOperationsService
+    OilOperationsService,
 } from '../../../../../dashboard/services/widgets/oil-operations.service';
 import { FormControl } from '@angular/forms';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
@@ -15,7 +15,7 @@ import { SnackBarService } from '../../../../../dashboard/services/snack-bar.ser
 @Component({
     selector: 'evj-oil-operations-manual-assign',
     templateUrl: './oil-operations-manual-assign.component.html',
-    styleUrls: ['./oil-operations-manual-assign.component.scss']
+    styleUrls: ['./oil-operations-manual-assign.component.scss'],
 })
 export class OilOperationsManualAssignComponent implements OnInit {
     @Input() public selectedTransfer: IOilTransfer;
@@ -24,21 +24,24 @@ export class OilOperationsManualAssignComponent implements OnInit {
 
     @ViewChild('tableLeft') public tableLeft: ElementRef;
 
-    public data: { leftTable: IOilShipment[]; rightTable: IOilShipment[] } = { leftTable: [], rightTable: []};
+    public data: { leftTable: IOilShipment[]; rightTable: IOilShipment[] } = { leftTable: [], rightTable: [] };
 
     public activeItemId: number;
 
-    public statistics: { leftTable: IOilShipmentStatistics | null; rightTable: IOilShipmentStatistics | null } = { leftTable: null, rightTable: null };
+    public statistics: { leftTable: IOilShipmentStatistics | null; rightTable: IOilShipmentStatistics | null } = {
+        leftTable: null,
+        rightTable: null,
+    };
 
-    public productFormControl: FormControl = new FormControl({value: '', disabled: false});
+    public productFormControl: FormControl = new FormControl({ value: '', disabled: false });
 
-    public passportFormControl: FormControl = new FormControl({value: '', disabled: false});
+    public passportFormControl: FormControl = new FormControl({ value: '', disabled: false });
 
-    public tankFormControl: FormControl = new FormControl({value: '', disabled: false});
+    public tankFormControl: FormControl = new FormControl({ value: '', disabled: false });
 
-    public typeFiltersCheckboxFormControl: FormControl = new FormControl({value: true, disabled: false});
+    public typeFiltersCheckboxFormControl: FormControl = new FormControl({ value: true, disabled: false });
 
-    public fieldFiltersCheckboxFormControl: FormControl = new FormControl({value: false, disabled: false});
+    public fieldFiltersCheckboxFormControl: FormControl = new FormControl({ value: false, disabled: false });
 
     public typeFilters: {
         type: OilOperationsShipmentType;
@@ -66,34 +69,33 @@ export class OilOperationsManualAssignComponent implements OnInit {
         },
     ];
 
-    constructor(
-        private oilOperationService: OilOperationsService,
-        public snackBar: SnackBarService,
-    ) {
-    }
+    constructor(private oilOperationService: OilOperationsService, public snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
         this.getLeftData();
         this.getRightData();
-        this.fieldFiltersCheckboxFormControl.valueChanges.subscribe(change => this.getLeftData());
+        this.fieldFiltersCheckboxFormControl.valueChanges.subscribe((change) => this.getLeftData());
     }
 
-    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
+    public async scrollHandler(event: {
+        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
+    }): Promise<void> {
         if (
-            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
-            && this.data.leftTable.length
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
+            this.data.leftTable.length
         ) {
             await this.appendLeftTable(this.data.leftTable[this.data?.leftTable?.length - 1]?.id);
         }
     }
 
     public getStatisticsWeightByTransferType(typeParam: OilOperationsShipmentType): number | 0 {
-        const weight = this.statistics.rightTable?.transportTypeStatistics.find(item => item.type === typeParam)?.weight;
+        const weight = this.statistics.rightTable?.transportTypeStatistics.find((item) => item.type === typeParam)
+            ?.weight;
         return weight ? weight : 0;
     }
 
     public handleTypeFilter(type: OilOperationsShipmentType): void {
-        this.typeFilters.find(item => {
+        this.typeFilters.find((item) => {
             if (item.type === type) {
                 item.isActive = !item.isActive;
             }
@@ -102,12 +104,14 @@ export class OilOperationsManualAssignComponent implements OnInit {
     }
 
     public keyupHandler(): void {
-        if (!this.fieldFiltersCheckboxFormControl.value) { return; }
+        if (!this.fieldFiltersCheckboxFormControl.value) {
+            return;
+        }
         this.getLeftData();
     }
 
     public getDirectionCount(typeParam: OilOperationsShipmentType): number {
-        const direction = this.statistics?.leftTable?.transportTypeStatistics.find(item => item.type === typeParam);
+        const direction = this.statistics?.leftTable?.transportTypeStatistics.find((item) => item.type === typeParam);
         return direction ? direction.quantity : 0;
     }
 
@@ -120,7 +124,7 @@ export class OilOperationsManualAssignComponent implements OnInit {
 
     public async massRelationAdd(): Promise<void> {
         const idList: number[] = [];
-        this.data.leftTable.forEach(item => idList.push(item.id));
+        this.data.leftTable.forEach((item) => idList.push(item.id));
         const result = await this.oilOperationService.addShipmentsRelationsFromList(idList, this.selectedTransfer.id);
         if (result) {
             this.reCallData();
@@ -133,7 +137,10 @@ export class OilOperationsManualAssignComponent implements OnInit {
         this.snackBar.openSnackBar('Действие выполнено');
     }
 
-    public async handleRelation(shipmentParam: IOilShipment, action: 'add-relation' | 'remove-relation' | 'recovery-relation'): Promise<void> {
+    public async handleRelation(
+        shipmentParam: IOilShipment,
+        action: 'add-relation' | 'remove-relation' | 'recovery-relation'
+    ): Promise<void> {
         const transferId = action === 'recovery-relation' ? shipmentParam.transferPrevId : this.selectedTransfer.id;
         const shipment = await this.oilOperationService.handleRelation(shipmentParam.id, transferId, action);
         if (shipment) {
@@ -205,7 +212,7 @@ export class OilOperationsManualAssignComponent implements OnInit {
             options.TankName = this.tankFormControl.value;
         }
         if (this.typeFiltersCheckboxFormControl) {
-            this.typeFilters.forEach(item => {
+            this.typeFilters.forEach((item) => {
                 if (item.isActive) {
                     options.Directions.push(item.type);
                 }

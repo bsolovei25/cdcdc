@@ -6,25 +6,23 @@ import { OzsmTripleDiagramCardComponent } from './ozsm-triple-diagram-card/ozsm-
 import { OzsmCircleDiagramComponent } from './ozsm-circle-diagram/ozsm-circle-diagram.component';
 import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storage-tank/ozsm-storage-tank.component';
 import { OzsmEqualizerChartComponent } from './ozsm-equalizer-chart/ozsm-equalizer-chart.component';
-import { OzsmLoadingParksComponent } from "./ozsm-loading-parks/ozsm-loading-parks.component";
-import { OzsmLoadingParksBodyComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-body/ozsm-loading-parks-body.component";
-import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-diagram/ozsm-loading-parks-diagram.component";
-import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
+import { OzsmLoadingParksComponent } from './ozsm-loading-parks/ozsm-loading-parks.component';
+import { OzsmLoadingParksBodyComponent } from './ozsm-loading-parks/components/ozsm-loading-parks-body/ozsm-loading-parks-body.component';
+import { OzsmLoadingParksDiagramComponent } from './ozsm-loading-parks/components/ozsm-loading-parks-diagram/ozsm-loading-parks-diagram.component';
+import { OzsmLoadingParksHeaderComponent } from './ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmCirclePlanningDiagramPlanComponent } from './ozsm-circle-planning-diagram-plan/ozsm-circle-planning-diagram-plan.component';
 import { OzsmCirclePlanningDiagramCardComponent } from './ozsm-circle-planning-diagram-card/ozsm-circle-planning-diagram-card.component';
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
-import { MatRippleModule } from "@angular/material/core";
+import { MatRippleModule } from '@angular/material/core';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
 import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
-import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
+import { OzsmGraphCircleDiagramComponent } from './ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component';
 import { OzsmSimpleCircleDiagramComponent } from './ozsm-simple-circle-diagram/ozsm-simple-circle-diagram.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmDiagramsCardComponent } from '../ozsm-diagrams-widget/ozsm-diagrams-card/ozsm-diagrams-card.component';
-
-
 
 @NgModule({
     declarations: [
@@ -50,7 +48,7 @@ import { OzsmDiagramsCardComponent } from '../ozsm-diagrams-widget/ozsm-diagrams
         OzsmGraphCircleDiagramComponent,
         OzsmSimpleCircleDiagramComponent,
         OzsmMainIndicatorComponent,
-        OzsmDiagramsCardComponent
+        OzsmDiagramsCardComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -75,14 +73,8 @@ import { OzsmDiagramsCardComponent } from '../ozsm-diagrams-widget/ozsm-diagrams
         OzsmGraphCircleDiagramComponent,
         OzsmSimpleCircleDiagramComponent,
         OzsmMainIndicatorComponent,
-        OzsmDiagramsCardComponent
+        OzsmDiagramsCardComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatRippleModule
-    ]
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule],
 })
-export class OzsmSharedModule {
-}
+export class OzsmSharedModule {}

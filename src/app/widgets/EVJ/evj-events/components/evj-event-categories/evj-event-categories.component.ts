@@ -1,12 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewContainerRef
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { EventsWidgetCategory, ISubcategory } from '../../../../../dashboard/models/EVJ/events-widget';
 import { CdkOverlayOrigin, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { CdkPortal } from '@angular/cdk/portal';
@@ -15,10 +7,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'evj-evj-event-categories',
     templateUrl: './evj-event-categories.component.html',
-    styleUrls: ['./evj-event-categories.component.scss']
+    styleUrls: ['./evj-event-categories.component.scss'],
 })
 export class EvjEventCategoriesComponent implements OnInit {
-
     public categoryActive: boolean = false;
     private timerHwnd: number;
 
@@ -31,18 +22,13 @@ export class EvjEventCategoriesComponent implements OnInit {
     @Input() subCategoriesSelected: SelectionModel<number>;
 
     @Output()
-    public categoryClick: EventEmitter<EventsWidgetCategory> =
-        new EventEmitter<EventsWidgetCategory>();
+    public categoryClick: EventEmitter<EventsWidgetCategory> = new EventEmitter<EventsWidgetCategory>();
     @Output()
     public toggleSubCategory: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(public overlay: Overlay,
-                public viewContainerRef: ViewContainerRef
-    ) {
-    }
+    constructor(public overlay: Overlay, public viewContainerRef: ViewContainerRef) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     onCLickItem(data: EventsWidgetCategory): void {
         this.categoryClick.emit(data);
@@ -84,15 +70,17 @@ export class EvjEventCategoriesComponent implements OnInit {
             .position()
             .flexibleConnectedTo(this.overlayOrigin.elementRef)
             .withFlexibleDimensions(true)
-            .withPositions([{
-                originX: 'center',
-                originY: 'top',
-                overlayX: 'center',
-                overlayY: 'bottom',
-                offsetY: -10
-            }]);
+            .withPositions([
+                {
+                    originX: 'center',
+                    originY: 'top',
+                    overlayX: 'center',
+                    overlayY: 'bottom',
+                    offsetY: -10,
+                },
+            ]);
         const overlayConfig = new OverlayConfig({
-            positionStrategy
+            positionStrategy,
         });
         this.overlayRef = this.overlay.create(overlayConfig);
         this.overlayRef.backdropClick().subscribe(() => {
@@ -108,5 +96,4 @@ export class EvjEventCategoriesComponent implements OnInit {
             this.categoryClick.emit(this.data);
         }
     }
-
 }

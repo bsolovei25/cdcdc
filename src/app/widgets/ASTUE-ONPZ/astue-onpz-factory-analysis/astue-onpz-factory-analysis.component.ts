@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnDestroy, OnInit } from "@angular/core";
+import { Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -37,10 +37,7 @@ type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
             ]),
             transition('* => void', [
                 style({ opacity: 1 }),
-                animate(
-                    '300ms',
-                    style({ position: 'absolute', opacity: 0.5, transform: 'translateX(100%)' })
-                ),
+                animate('300ms', style({ position: 'absolute', opacity: 0.5, transform: 'translateX(100%)' })),
             ]),
         ]),
         trigger('rightTrigger', [
@@ -56,21 +53,16 @@ type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
             ]),
             transition('* => void', [
                 style({ opacity: 1 }),
-                animate(
-                    '300ms',
-                    style({ position: 'absolute', opacity: 0.5, transform: 'translateX(-100%)' })
-                ),
+                animate('300ms', style({ position: 'absolute', opacity: 0.5, transform: 'translateX(-100%)' })),
             ]),
         ]),
     ],
 })
 export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
-        'bar'
+    public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>('bar');
+    public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<AstueOnpzFactoryAnalysisType>(
+        null
     );
-    public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<
-        AstueOnpzFactoryAnalysisType
-    >(null);
 
     public data: IAstueOnpzFactoryAnalysis | null = null;
 
@@ -176,15 +168,10 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         this.barData = astueOnpzFactoryAnalysisBarMapper(sourceData);
     }
 
-    private optionsMapper(
-        ref: IAstueOnpzMnemonicFurnaceOptions
-    ): IAstueOnpzFactoryAnalysisWsOptions {
+    private optionsMapper(ref: IAstueOnpzMnemonicFurnaceOptions): IAstueOnpzFactoryAnalysisWsOptions {
         const reference = this.mnemonicFurnaceService.furnaceOptionsReferences.getValue();
-        const manufactureName = reference.manufactures.find((x) => x.id === ref.manufactureId)
-            ?.title;
-        const unitName = reference.manufactures
-            .flatMap((x) => x.units)
-            .find((x) => x.id === ref.unitId)?.title;
+        const manufactureName = reference.manufactures.find((x) => x.id === ref.manufactureId)?.title;
+        const unitName = reference.manufactures.flatMap((x) => x.units).find((x) => x.id === ref.unitId)?.title;
         const ovenName = reference.manufactures
             .flatMap((x) => x.units)
             .flatMap((x) => x.ovens)

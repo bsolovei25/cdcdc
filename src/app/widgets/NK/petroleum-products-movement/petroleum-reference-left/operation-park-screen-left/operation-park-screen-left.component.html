@@ -3,11 +3,7 @@
 </div>
 <div class="bottom_block_middle">
   <ng-container *ngFor="let item of petroleumService.objectsAll$ | async">
-    <div
-      class="click_button"
-      (click)="setObjectActive(item)"
-      [class.click_button__active]="item === currentObject"
-    >
+    <div class="click_button" (click)="setObjectActive(item)" [class.click_button__active]="item === currentObject">
       <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon

@@ -21,13 +21,14 @@ import { OzsmService } from '../../../../dashboard/services/widgets/OZSM/ozsm.se
     templateUrl: './ozsm-resources-circle-diagram.component.html',
     styleUrls: ['./ozsm-resources-circle-diagram.component.scss'],
 })
-export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform<unknown>
+export class OzsmResourcesCircleDiagramComponent
+    extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     listen: any;
 
-    public data$: BehaviorSubject<IOzsmResourcesCircleDiagram[]> = new BehaviorSubject<
-        IOzsmResourcesCircleDiagram[]
-    >([]);
+    public data$: BehaviorSubject<IOzsmResourcesCircleDiagram[]> = new BehaviorSubject<IOzsmResourcesCircleDiagram[]>(
+        []
+    );
     @ViewChild('scrollContainer') scrollContainer: ElementRef;
 
     constructor(

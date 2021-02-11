@@ -26,10 +26,9 @@ export interface IOilReasonsDeviations {
 @Component({
     selector: 'evj-reasons-deviations',
     templateUrl: './reasons-deviations.component.html',
-    styleUrls: ['./reasons-deviations.component.scss']
+    styleUrls: ['./reasons-deviations.component.scss'],
 })
 export class ReasonsDeviationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public data: IOilReasonsDeviations | null = null;
 
     public selectedTransfer: IOilTransfer | null = null;
@@ -49,7 +48,7 @@ export class ReasonsDeviationsComponent extends WidgetPlatform<unknown> implemen
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.oilTransferService.currentTransfer.subscribe(transfer => {
+        this.oilTransferService.currentTransfer.subscribe((transfer) => {
             if (transfer) {
                 this.getData(transfer.id);
                 this.selectedTransfer = transfer;

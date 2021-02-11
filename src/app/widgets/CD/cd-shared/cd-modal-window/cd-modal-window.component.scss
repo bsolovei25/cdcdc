@@ -17,7 +17,6 @@
   }
 }
 
-
 .window-container {
   background-color: var(--color-aps-bg-window);
   padding: 40px 50px;
@@ -36,7 +35,6 @@
     &__title {
       color: var(--color-kpe-eq-chart-title);
     }
-
   }
 
   &__body {
@@ -56,7 +54,6 @@
       display: flex;
       justify-content: space-between;
     }
-
   }
 
   &__footer {
@@ -169,9 +166,7 @@ textarea[type="text"]:focus {
     background-color: var(--color-aps-bg);
     border: 1px solid var(--color-cd-new-border);
   }
-
 }
-
 
 ::ng-deep {
   .mat-select-custom {
@@ -229,8 +224,4 @@ textarea[type="text"]:focus {
       right: 5px;
     }
   }
-
-
 }
-
-

@@ -22,17 +22,11 @@
       >
       </svg-icon>
     </div>
-    <div
-      class="tree__header__title"
-      [class.tree__header__title-selected]="selectedFolders?.isSelected(data.id)"
-    >
+    <div class="tree__header__title" [class.tree__header__title-selected]="selectedFolders?.isSelected(data.id)">
       {{ data?.name }}
     </div>
   </div>
-  <div
-    class="tree__body"
-    *ngIf="selectedFolders?.isSelected(data.id) && data?.templates.length > 0"
-  >
+  <div class="tree__body" *ngIf="selectedFolders?.isSelected(data.id) && data?.templates.length > 0">
     <evj-report
       *ngFor="let template of data?.templates"
       [activeElements]="activeElements"

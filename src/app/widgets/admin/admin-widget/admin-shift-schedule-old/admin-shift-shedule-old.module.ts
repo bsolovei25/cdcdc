@@ -10,7 +10,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NgxMatTimepickerModule, NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
@@ -24,46 +28,44 @@ import { AdminShiftCardOldComponent } from './components/admin-shift-card-old/ad
 import { AdminShiftListEmployeesOldComponent } from './components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 
-
-
 @NgModule({
-  declarations: [
-    AdminShiftScheduleOldComponent,
-    AdminShiftBrigadeOldComponent,
-    AdminShiftInfoEmployeeOldComponent,
-    AdminShiftCardOldComponent,
-    AdminShiftListEmployeesOldComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    MatTooltipModule,
-    DragDropModule,
-    MatMenuModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    NgxMatMomentModule,
-    MatFormFieldModule,
-    MatIconModule,
-    DashboardModule,
-    FormsModule,
-    MatInputModule,
-    OverlayModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'ru-RU' },
-    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-    { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: [] },
-  ],
+    declarations: [
+        AdminShiftScheduleOldComponent,
+        AdminShiftBrigadeOldComponent,
+        AdminShiftInfoEmployeeOldComponent,
+        AdminShiftCardOldComponent,
+        AdminShiftListEmployeesOldComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatTooltipModule,
+        DragDropModule,
+        MatMenuModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
+        MatFormFieldModule,
+        MatIconModule,
+        DashboardModule,
+        FormsModule,
+        MatInputModule,
+        OverlayModule,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'ru-RU' },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
+    ],
 })
 export class AdminShiftSheduleOldModule {
-  enterComponent = AdminShiftScheduleOldComponent;
+    enterComponent = AdminShiftScheduleOldComponent;
 }

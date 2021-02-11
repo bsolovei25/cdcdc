@@ -145,10 +145,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
     }
 
     private drawMouseInfoGroup(): void {
-        const infoG = this.svg
-            .select('g.mouse-over')
-            .append('g')
-            .attr('class', 'mouse-info');
+        const infoG = this.svg.select('g.mouse-over').append('g').attr('class', 'mouse-info');
 
         infoG
             .append('clipPath')
@@ -300,10 +297,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
             return;
         }
 
-        this.svg
-            .select('.mouse-line')
-            .attr('x1', x)
-            .attr('x2', x);
+        this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
 
         this.svg.selectAll('.mouse-line-circle').attr('cx', x);
 
@@ -319,10 +313,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
         let offsetX: number = 10;
         let coordX: number = 0;
 
-        if (
-            this.graphMaxX - this.padding.right - this.padding.left <
-            x + offsetX + this.card.width
-        ) {
+        if (this.graphMaxX - this.padding.right - this.padding.left < x + offsetX + this.card.width) {
             coordX -= this.card.width;
             offsetX *= -1;
         }
@@ -331,9 +322,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
         cardG.selectAll('.card').attr('x', coordX);
         cardG.selectAll('.card-tank-image').attr('x', this.card.width * 0.05 + coordX);
-        cardG
-            .selectAll('.card-tank-text')
-            .attr('x', this.card.width * 0.05 + this.tank.width / 2 + coordX);
+        cardG.selectAll('.card-tank-text').attr('x', this.card.width * 0.05 + this.tank.width / 2 + coordX);
         cardG.selectAll('.card-circle').attr('cx', (this.card.width / 4) * 3.3 + coordX);
         cardG.selectAll('.card-circle-text').attr('x', (this.card.width / 4) * 3.3 + coordX);
     }
@@ -351,8 +340,6 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
         const cardG = this.svg.select('g.mouse-over g.mouse-info');
         cardG.select('.card-circle-text').text(`${factY.toFixed(0)}т`);
-        cardG
-            .select('#value-clip rect')
-            .attr('y', this.card.offsetY + this.card.height * (1 - percent));
+        cardG.select('#value-clip rect').attr('y', this.card.offsetY + this.card.height * (1 - percent));
     }
 }

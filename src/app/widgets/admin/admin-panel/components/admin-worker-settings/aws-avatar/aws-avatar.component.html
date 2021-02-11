@@ -2,15 +2,8 @@
   <div class="cropper">
     <div class="button-close" (click)="onClose()"></div>
     <div class="cropper__settings">
-      <input
-        type="file"
-        id="file"
-        (change)="fileChangeEvent($event)"
-        accept="image/jpeg,image/png,image/gif"
-      />
-      <label for="file" class="button-inputfile">
-        Выбрать фото
-      </label>
+      <input type="file" id="file" (change)="fileChangeEvent($event)" accept="image/jpeg,image/png,image/gif" />
+      <label for="file" class="button-inputfile"> Выбрать фото </label>
       <img [src]="croppedImage" *ngIf="isImageChosen" />
       <div class="button-inputfile" *ngIf="isImageChosen" (click)="onSavePhoto()">Сохранить</div>
     </div>

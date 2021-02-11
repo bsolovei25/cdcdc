@@ -39,7 +39,9 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> i
     public setActiveIndicator(indicator?: KeyPerformanceIndicatorType): void {
         indicator = indicator ? indicator : this.activeIndicatorType ? this.activeIndicatorType : 'pimsPlan';
         this.activeIndicatorType = indicator;
-        if (this.sourceData) { this.diagramData = this.sourceData[indicator]; }
+        if (this.sourceData) {
+            this.diagramData = this.sourceData[indicator];
+        }
     }
 
     protected dataHandler(ref: any): void {

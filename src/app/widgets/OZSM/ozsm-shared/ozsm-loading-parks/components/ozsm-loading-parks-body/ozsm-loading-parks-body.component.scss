@@ -3,56 +3,55 @@
 }
 
 .body {
-    height: 138px;
-    width: 411px;
+  height: 138px;
+  width: 411px;
 
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    background: var(--ozsm--color-bg-loading-parks-title);
+  background: var(--ozsm--color-bg-loading-parks-title);
 
-    border: 1px solid var(--ozsm-color-border);
-    border-top: none;
-    border-radius: 0 0 2px 2px;
+  border: 1px solid var(--ozsm-color-border);
+  border-top: none;
+  border-radius: 0 0 2px 2px;
 
-    position: relative;
+  position: relative;
 }
 
 .info-container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 }
 
 .info {
-    height: 40px;
-    width: 185px;
-    padding-left: 5px;
+  height: 40px;
+  width: 185px;
+  padding-left: 5px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
+  &__title {
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--ozsm-color-marker-diagram);
+  }
 
-    &__title {
-        font-size: 10px;
-        line-height: 12px;
-        color: var(--ozsm-color-marker-diagram);
-    }
-
-    &__value {
-        margin-left: 25px;
-        font-size: 14px;
-        line-height: 17px;
-        color: var(--ozsm-color-text-main);
-    }
+  &__value {
+    margin-left: 25px;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--ozsm-color-text-main);
+  }
 }
 
 .parks-list {
-    width: 100%;
-    padding: 0 18px;
+  width: 100%;
+  padding: 0 18px;
 
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }

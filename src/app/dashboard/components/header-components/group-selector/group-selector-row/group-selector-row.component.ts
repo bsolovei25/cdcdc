@@ -14,10 +14,12 @@ export class GroupSelectorRowComponent implements OnInit {
     @Output() private deleteGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() private editGroup: EventEmitter<string> = new EventEmitter<string>();
 
+    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+
     public isShowButtons: boolean = false;
     public isEditing: boolean = false;
 
-    public formControl: FormControl = new FormControl({value: '', disabled: false});
+    public formControl: FormControl = new FormControl({ value: '', disabled: false });
 
     constructor() {}
 

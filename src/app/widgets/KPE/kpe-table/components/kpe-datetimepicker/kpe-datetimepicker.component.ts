@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-kpe-datetimepicker',
-  templateUrl: './kpe-datetimepicker.component.html',
-  styleUrls: ['./kpe-datetimepicker.component.scss']
+    selector: 'evj-kpe-datetimepicker',
+    templateUrl: './kpe-datetimepicker.component.html',
+    styleUrls: ['./kpe-datetimepicker.component.scss'],
 })
 export class KpeDatetimepickerComponent implements OnInit {
-
     @Input()
     public date: Date = new Date();
 
@@ -14,17 +13,13 @@ export class KpeDatetimepickerComponent implements OnInit {
     public disabled: boolean = false;
 
     @Output()
-    public onValueChange: EventEmitter<string | Date>
-        = new EventEmitter<string | Date>();
+    public onValueChange: EventEmitter<string | Date> = new EventEmitter<string | Date>();
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public onClick(): void {
-    }
+    public onClick(): void {}
 
     public dateTimePickerInputStart(value: string | Date): void {
         this.onValueChange.emit(value);

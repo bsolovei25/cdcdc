@@ -12,26 +12,19 @@ import { ProductionTrendPanelComponent } from './components/production-trend-pan
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 
-
-
 @NgModule({
-  declarations: [
-    ProductionTrendComponent,
-    FacilityComponent,
-    MainIconComponent,
-    ProductionTrendCardInfoComponent,
-    ProductionTrendFacilitiesComponent,
-    ProductionTrendGraphComponent,
-    ProductionTrendInstallationsComponent,
-    ProductionTrendPanelComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    DashboardModule
-  ]
+    declarations: [
+        ProductionTrendComponent,
+        FacilityComponent,
+        MainIconComponent,
+        ProductionTrendCardInfoComponent,
+        ProductionTrendFacilitiesComponent,
+        ProductionTrendGraphComponent,
+        ProductionTrendInstallationsComponent,
+        ProductionTrendPanelComponent,
+    ],
+    imports: [CommonModule, SharedModule, AngularSvgIconModule, DashboardModule],
 })
 export class ProductionTrendModule {
-  enterComponent = ProductionTrendComponent
+    enterComponent = ProductionTrendComponent;
 }

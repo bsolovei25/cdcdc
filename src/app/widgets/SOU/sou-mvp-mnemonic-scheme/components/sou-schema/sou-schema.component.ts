@@ -1,25 +1,20 @@
-import { AfterViewChecked, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    QueryList,
+    ViewChildren,
+} from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
     ISOUFlowIn,
     ISOUFlowOut,
     ISOUObjects,
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
-
-interface IDataSou {
-    id: number;
-    deviation?: boolean;
-    text: string;
-    value?: number;
-    active: boolean;
-    percent?: number;
-}
-
-interface IDataMetaFile {
-    elementId: number;
-    id: number;
-    related: number[];
-}
 
 interface IElementFull {
     metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects;
@@ -38,76 +33,65 @@ interface IElementFullAndUI {
     elementFull: IElementFull;
 }
 
+type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
+
 @Component({
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     fullElement: Map<number, IElementFullAndUI> = new Map();
-    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
+    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Данные с бэка
     localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+    countTypesElement: number = 11;
+
+    srcNameElement: string = 'ng-reflect-src';
 
     @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
     @Input() chosenSetting: number = 1;
     @Input() chosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+
+    @ViewChildren('svg_sou') svg: QueryList<ElementRef>;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
+        console.log(this.chosenInstall, this.chosenSetting);
         if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+            // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.localChosenInstall = this.chosenInstall;
             this.flag = true;
-            this.dataPark = [];
-            this.elementsNode = [];
-            this.dataAttribute.clear();
-            this.fullElement.clear();
-
-            setTimeout((value) => {
-                this.loadSchema();
-                if (this.dataPark.length) {
-                    this.loadData(false);
-                }
-            }, 1000);
+            this.resetComponent();
         }
+
         if (this.dataPark?.length) {
-            const newArray = [];
-            this.sectionsDataPark?.forEach((value) => {
-                const element = this.dataPark.find((park) => value?.code === park?.code);
-                if (element) {
-                    element.isExceedingConfInterval = value?.isExceedingConfInterval;
-                    element.isEnable = value?.isEnable;
-                    element.related = value?.related;
-                    if ('productName' in value && 'productName' in element) {
-                        element.productName = value?.productName;
-                        element.valueTank = value?.valueTank;
-                        element.valueMoment = value?.valueMoment;
-                        element.valueByHour = value?.valueByHour;
-                    }
-                    if ('name' in value && 'name' in element) {
-                        element.name = value?.name;
-                    }
-                } else {
-                    newArray.push(value);
-                }
-            });
-            this.dataPark.push(...newArray);
+            // Если есть старые данные с бэка
+            // 1. Изменяем и дополняем
+            this.dataPark.push(...this.setNewDataToSchema());
+            // 2. Отрисовываем
             this.loadData(true);
-        } else {
-            if (this.dataAttribute?.size) {
-                this.dataPark = this.sectionsDataPark;
-                this.loadData(false);
-            }
+        } else if (this.dataAttribute?.size) {
+            // Если данных с бэка небыло, то заполняем
+            this.dataPark = this.sectionsDataPark;
+            this.loadData(false);
         }
     }
 
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1`) && this.flag) {
+        const element: Element = document.getElementById('svg_elements')?.firstElementChild;
+        const src = element?.getAttribute(this.srcNameElement);
+        if (
+            document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) &&
+            src?.includes(this.getSvgName(this.localChosenInstall)) &&
+            this.flag
+        ) {
             this.flag = false;
             this.loadSchema();
             if (this.dataPark.length) {
@@ -116,8 +100,39 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    loadData(reload: boolean): void {
-        // tests
+    setNewDataToSchema(): (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] {
+        // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
+        const newArray = [];
+        this.sectionsDataPark?.forEach((value) => {
+            const element = this.dataPark.find((park) => value?.code === park?.code);
+            if (element) {
+                element.isExceedingConfInterval = value?.isExceedingConfInterval;
+                element.isEnable = value?.isEnable;
+                element.related = value?.related;
+                if ('productName' in value && 'productName' in element) {
+                    element.productName = value?.productName;
+                    element.valueTank = value?.valueTank;
+                    element.valueMoment = value?.valueMoment;
+                    element.valueByHour = value?.valueByHour;
+                }
+                if ('name' in value && 'name' in element) {
+                    element.name = value?.name;
+                }
+            } else {
+                newArray.push(value);
+            }
+        });
+        return newArray;
+    }
+
+    resetComponent(): void {
+        this.dataPark = [];
+        this.elementsNode = [];
+        this.dataAttribute.clear();
+        this.fullElement.clear();
+    }
+
+    testsToLogPanel(): void {
         const countZeroId = this.dataPark?.filter((value) => value?.code === 0)?.length;
         const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
         let countRepeat: number = 0;
@@ -138,33 +153,54 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         console.log(`Данных (code = 0) - ${countZeroId}`);
         console.log(`Данных (isActive = true) - ${countIsActive}`);
         console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
-        // end tests
+    }
 
+    loadData(reload: boolean): void {
+        // tests
+        this.testsToLogPanel();
+        //
         this.dataPark?.forEach((data) => {
-            data.related =
-                typeof data?.related === 'string'
-                    ? data?.related
-                          .split(';')
-                          .map((value) => +value)
-                          .filter((value) => !isNaN(value))
-                    : data?.related;
-            const element = reload
-                ? this.fullElement.get(data.code)?.element
-                : this.dataAttribute.get(data?.code);
-            if (element) {
-                const mode = data?.isExceedingConfInterval
-                    ? 'deviation'
-                    : data?.isEnable
-                    ? 'standard'
-                    : 'disabled';
-                this.elementEdit(reload, mode, element, data, data.code);
+            data.related = this.relatedArray(data?.related);
+            if (reload) {
+                this.reloadOldData(data);
+            } else {
+                this.loadNewData(data);
             }
         });
     }
 
+    reloadOldData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+        const element = this.fullElement.get(data.code)?.element;
+        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        // this.elementEdit(true, mode, element, data);
+        if (element?.children) {
+            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, '', 0, 0);
+        }
+    }
+
+    loadNewData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+        const element = this.dataAttribute.get(data?.code);
+        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        this.elementEdit(false, mode, element, data);
+    }
+
+    modeToElement(isExceedingConfInterval: boolean, isEnable: boolean): TypeMode {
+        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    }
+
+    relatedArray(related: number[] | string): number[] {
+        // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
+        return typeof related === 'string'
+            ? related
+                  .split(';')
+                  .map((value) => +value)
+                  .filter((value) => !isNaN(value))
+            : related;
+    }
+
     loadSchema(): void {
         let i: number = 1;
-        while (i <= 10) {
+        while (i <= this.countTypesElement) {
             const elements = this.searchElements(i);
             if (elements) {
                 this.elementsNode?.push(...elements);
@@ -176,52 +212,40 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     elementEdit(
         reload: boolean,
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
+        mode: TypeMode,
         element: Element,
         metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects,
-        idBack?: number,
         percent: number = 0,
         value: number = 0,
         text: string = ''
     ): void {
         if (element?.children) {
-            if (reload) {
-                this.addClassAndTextToElement(
+            let elementFull: IElementFull = {
+                metaFile,
+                rects: [],
+                points: [],
+                arrows: [],
+                texts: [],
+                circle: null,
+                textValue: null,
+                textPercent: null,
+                flag: true,
+            };
+            const elements = Array.from(element?.children);
+            // Search
+            elements?.forEach((elem) => {
+                elementFull = this.searchElementsInElement(elem, elementFull);
+            });
+            // add class and text to element
+            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+            // Event
+            if (metaFile) {
+                this.eventClick(element, elementFull);
+                const elementFullAndUI: IElementFullAndUI = {
                     element,
-                    this.fullElement?.get(metaFile?.code)?.elementFull,
-                    mode,
-                    text,
-                    percent,
-                    value
-                );
-            } else {
-                let elementFull: IElementFull = {
-                    metaFile,
-                    rects: [],
-                    points: [],
-                    arrows: [],
-                    texts: [],
-                    circle: null,
-                    textValue: null,
-                    textPercent: null,
-                    flag: true,
+                    elementFull,
                 };
-                const elements = Array.from(element?.children);
-                // Search
-                elements?.forEach((elem) => {
-                    elementFull = this.searchElementsInElement(elem, elementFull);
-                });
-                // add class and text to element
-                this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
-                // Event
-                if (metaFile) {
-                    this.eventClick(element, elementFull);
-                    const elementFullAndUI: IElementFullAndUI = {
-                        element,
-                        elementFull,
-                    };
-                    this.fullElement.set(metaFile?.code, elementFullAndUI);
-                }
+                this.fullElement.set(metaFile?.code, elementFullAndUI);
             }
         }
     }
@@ -229,7 +253,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
+        mode: TypeMode,
         text: string,
         percent: number,
         value: number
@@ -245,6 +269,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         elementFull?.texts?.forEach((item) => {
             item.classList.add(`${mode}-text`);
             if (elementFull?.metaFile) {
+                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
+                if (element4.id.includes('-4_')) {
+                    item.classList.add(`text-anchor`);
+                }
                 if ('productName' in elementFull?.metaFile) {
                     this.addTextToTspan(item, String(elementFull?.metaFile?.productName));
                 } else {
@@ -252,6 +280,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 }
             } else {
                 this.addTextToTspan(item, String(name));
+                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+                if (element4?.id.includes('-4_')) {
+                    item.classList.add(`text-anchor`);
+                }
             }
         });
         elementFull?.arrows?.forEach((item) => {
@@ -264,10 +296,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         // Percent
         if (elementFull?.metaFile) {
             if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(
-                    elementFull.textPercent,
-                    `${String(elementFull?.metaFile?.valueMomentPercent)}%`
-                );
+                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.valueMomentPercent)}%`);
                 elementFull?.textPercent?.classList.remove(
                     'standard-text',
                     'deviation-text',
@@ -298,23 +327,28 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 }
                 this.addTextToTspan(elementFull?.textValue, `${String(valueMet)} тн`);
                 elementFull?.textValue?.classList.add(`${mode}-text`);
+                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+                if (element4?.id.includes('-4_')) {
+                    elementFull?.textValue.classList.add(`text-anchor`);
+                }
             }
             if ('value' in elementFull?.metaFile) {
-                this.addTextToTspan(
-                    elementFull?.textValue,
-                    `${String(elementFull?.metaFile?.value)} т`
-                );
+                this.addTextToTspan(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
+                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
+                if (element4.id.includes('-4_')) {
+                    elementFull?.textValue.classList.add(`text-anchor`);
+                }
             }
         } else {
             this.addTextToTspan(elementFull?.textValue, `${String(value)} тн`);
-            elementFull?.textValue?.classList.remove(
-                'standard-text',
-                'deviation-text',
-                'disabled-text',
-                'reset-text'
-            );
+            elementFull?.textValue?.classList.remove('standard-text', 'deviation-text', 'disabled-text', 'reset-text');
             elementFull?.textValue?.classList.add(`${mode}-text`);
+            const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+            if (element4?.id.includes('-4_')) {
+                elementFull?.textValue.classList.add(`text-anchor`);
+            }
         }
+
         // related elements
         if (typeof elementFull?.metaFile?.related === 'object') {
             elementFull?.metaFile?.related.forEach((id) => {
@@ -361,12 +395,15 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
-        if (name.includes('rect')) {
+        if (name?.includes('rect')) {
             if (element?.children?.length) {
                 let path: Element;
                 Array.from(element?.children).forEach((value) => {
                     if (value?.tagName === 'path') {
                         path = path ?? value;
+                    }
+                    if (value?.tagName === 'rect') {
+                        elementFull?.rects.push(value);
                     }
                 });
                 if (path) {
@@ -376,10 +413,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 elementFull?.rects.push(element);
             }
         }
-        if (name.includes('point')) {
+        if (name?.includes('point')) {
             elementFull?.points.push(element);
         }
-        if (name.includes('text')) {
+        if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
             } else if (name.includes('text_percent')) {
@@ -388,10 +425,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 elementFull.texts.push(element);
             }
         }
-        if (name.includes('arrow-group')) {
+        if (name?.includes('arrow-group')) {
             elementFull?.arrows.push(...this.searchArrow(element?.children));
         }
-        if (name.includes('circle')) {
+        if (name?.includes('circle')) {
             elementFull.circle = element;
         }
         return elementFull;
@@ -411,29 +448,34 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     eventListenerClick(elementFull: IElementFull): () => void {
         return () => {
             this.elementActive(elementFull);
+            console.log(elementFull);
             if (typeof elementFull.metaFile.related === 'object') {
                 elementFull.metaFile?.related?.forEach((value) => {
-                    const line = this.dataAttribute.get(value);
-                    if (line && line.getAttribute('id')?.includes('line')) {
-                        if (!line?.classList.contains(`${elementFull.metaFile.code}`)) {
-                            line?.classList.add(`${elementFull.metaFile.code}`, 'active');
-                        } else {
-                            const count = this.countElementsInClassList(line);
-                            if (count > 1) {
-                                line?.classList.remove(`${elementFull.metaFile.code}`);
-                            } else {
-                                line?.classList.remove(`${elementFull.metaFile.code}`, 'active');
-                            }
-                        }
+                    const element = this.dataAttribute.get(value);
+                    if (element && element.getAttribute('id')?.includes('line')) {
+                        this.lineActive(element, elementFull);
                     } else {
                         const el = this.fullElement.get(value);
                         if (el) {
-                            this.elementActive(el?.elementFull);
+                            this.elementActive(el?.elementFull, elementFull);
                         }
                     }
                 });
             }
         };
+    }
+
+    lineActive(line: Element, elementFull: IElementFull): void {
+        if (!line?.classList.contains(`${elementFull.metaFile.code}`)) {
+            line?.classList.add(`${elementFull.metaFile.code}`, 'active');
+        } else {
+            const count = this.countElementsInClassList(line);
+            if (count > 1) {
+                line?.classList.remove(`${elementFull.metaFile.code}`);
+            } else {
+                line?.classList.remove(`${elementFull.metaFile.code}`, 'active');
+            }
+        }
     }
 
     countElementsInClassList(element: Element): number {
@@ -446,23 +488,28 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         return count;
     }
 
-    elementActive(elementFull: IElementFull): void {
-        const name = 'active';
+    addClassList(item: Element, element: IElementFull, name: string): void {
+        item?.classList.add(`${element.metaFile.code}`);
+        item?.classList.add(name);
+    }
+
+    elementActive(elementFull: IElementFull, element?: IElementFull): void {
+        const active = 'active';
+        const relatedOrNormal = element ? element : elementFull;
         elementFull.rects.forEach((item) => {
-            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
-                item?.classList.add(`${elementFull.metaFile.code}`);
-                item?.classList.add(name);
-                if ('productName' in elementFull.metaFile) {
-                    this.mvpService.openPopup(this.dataPark, elementFull?.metaFile?.code);
+            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
+                this.addClassList(item, relatedOrNormal, active);
+                if ('productName' in relatedOrNormal.metaFile && !element) {
+                    this.mvpService.openPopup(this.dataPark, relatedOrNormal?.metaFile?.code);
                 }
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
                 } else {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`, name);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
                 }
-                if ('productName' in elementFull?.metaFile) {
+                if ('productName' in relatedOrNormal?.metaFile && !element) {
                     if (this.mvpService?.isOpenPopup) {
                         this.mvpService?.closePopup();
                     }
@@ -470,54 +517,50 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             }
         });
         elementFull.points.forEach((item) => {
-            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
-                item?.classList.add(`${elementFull.metaFile.code}`);
-                item?.classList.add(name);
+            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
+                this.addClassList(item, relatedOrNormal, active);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
                 } else {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`, name);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
                 }
             }
         });
         elementFull.texts.forEach((item) => {
-            if (!item?.classList.contains(`${elementFull?.metaFile?.code}`)) {
-                item?.classList.add(`${elementFull?.metaFile?.code}`);
-                item?.classList.add(`${name}-text`);
+            if (!item?.classList.contains(`${relatedOrNormal?.metaFile?.code}`)) {
+                this.addClassList(item, relatedOrNormal, `${active}-text`);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
                 } else {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`, `${name}-text`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, `${active}-text`);
                 }
             }
         });
         elementFull.arrows.forEach((item) => {
-            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
-                item?.classList.add(`${elementFull.metaFile.code}`);
-                item?.classList.add(`${name}-arrow`);
+            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
+                this.addClassList(item, relatedOrNormal, `${active}-arrow`);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
                 } else {
-                    item?.classList.remove(`${elementFull?.metaFile?.code}`, `${name}-arrow`);
+                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, `${active}-arrow`);
                 }
             }
         });
 
-        if (!elementFull.circle?.classList.contains(`${elementFull?.metaFile?.code}`)) {
-            elementFull.circle?.classList.add(`${elementFull?.metaFile?.code}`);
-            elementFull.circle?.classList.add(name);
+        if (!elementFull.circle?.classList.contains(`${relatedOrNormal?.metaFile?.code}`)) {
+            this.addClassList(elementFull.circle, relatedOrNormal, active);
         } else {
             const count = this.countElementsInClassList(elementFull?.circle);
             if (count > 1) {
-                elementFull.circle?.classList.remove(`${elementFull?.metaFile?.code}`);
+                elementFull.circle?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
             } else {
-                elementFull.circle?.classList.remove(`${elementFull?.metaFile?.code}`, name);
+                elementFull.circle?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
             }
         }
         elementFull.textPercent?.classList.toggle('active-text');
@@ -549,11 +592,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         const arrow: Element[] = [];
         Array.from(elements).forEach((element) => {
             const name = element.getAttribute('id');
-            if (
-                name?.includes('arrow') &&
-                !name?.includes('arrow_double') &&
-                !name?.includes('arrow_right_simple')
-            ) {
+            if (name?.includes('arrow') && !name?.includes('arrow_double') && !name?.includes('arrow_right_simple')) {
                 arrow.push(element);
                 if (element?.children.length) {
                     arrow.push(...this.searchArrow(element?.children));
@@ -569,13 +608,18 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElements(elementIndex: number): Element[] {
         let i = 1; // счетчик элементов
-
         const localElements: Element[] = [];
-
         while (i < 300) {
             // поиск по id  - id=element-1_2
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
+            const elementFirst = document.querySelector(
+                `#element-${elementIndex}_${i}__${this.getSvgName(this.localChosenInstall)}`
+            );
             const line = document.querySelector(`#line_${i}`);
+            if (elementFirst) {
+                this.elementEdit(false, 'reset', elementFirst);
+                this.dataAttribute.set(i, elementFirst);
+            }
             if (element) {
                 this.elementEdit(false, 'reset', element);
                 this.dataAttribute.set(i, element);
@@ -591,17 +635,21 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     getSvgName(chosenInstall: string): string {
         switch (chosenInstall) {
             case 'АССБ Авиасмеси':
-                return chosenInstall;
+                return 'ASSB-AviaSmesi';
             case 'АССБ А-95':
-                return chosenInstall;
+                return 'ASSB-A-95';
             case 'АССБ А-98':
-                return chosenInstall;
+                return 'ASSB-A-98';
             case 'Насосная т.1163-1164 парк БГС':
-                return 'Насосная-парк-БГС';
+                return 'Nasosnaya-park-BGS';
             case 'Насосная т.1163-1164 парк А-95':
-                return 'Насосная-парк-А-95';
+                return 'Nasosnaya-park-A-95';
             case 'Насосная т.1163-1164 парк А-92':
-                return 'Насосная-парк-А-92';
+                return 'Nasosnaya-park-A-92';
+            case 'ТСБ-1 Узел смешения нефти и КГС':
+                return 'TSB-1-Usel';
+            case 'АВТ-10':
+                return 'ABT-10-ELOU';
         }
     }
 }
