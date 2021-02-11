@@ -15,7 +15,7 @@ export class UserEventsComponent implements OnInit {
 
     constructor(private userSettings: UserSettingsService, private ewService: EventsWorkspaceService) {}
 
-    public async eventClick(id: number): Promise<void> {
+    public async eventClick(eventId: number): Promise<void> {
         let screenId;
         try {
             screenId = await this.userSettings.getScreenByWidgetType('evj-events-workspace');
@@ -25,13 +25,13 @@ export class UserEventsComponent implements OnInit {
         if (!screenId) {
             throwError('wrong screen id');
         } else {
-            await this.openWorkspace(screenId);
+            await this.openWorkspace(screenId, eventId);
         }
     }
 
-    private async openWorkspace(id: number): Promise<void> {
-        await this.userSettings.loadScreen(id);
-        this.ewService.editEvent(+id);
+    private async openWorkspace(screenId: number, eventId: number): Promise<void> {
+        await this.userSettings.loadScreen(screenId);
+        this.ewService.editEvent(+eventId);
     }
 
     ngOnInit(): void {}
