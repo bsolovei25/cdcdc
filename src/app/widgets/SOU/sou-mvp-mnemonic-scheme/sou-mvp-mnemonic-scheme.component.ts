@@ -10,6 +10,7 @@ import {
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { DATASOURCE } from './mock';
+import { DATASOURCE2 } from './mock2';
 
 interface ISouSectionUI {
     manufacture: string;
@@ -174,7 +175,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 this.manufacture[this.selectedManufacture] === 'Товарное производство' ||
                 this.selectedSection === 'ЭЛОУ'
             ) {
-                console.log('зашед');
                 if (this.flag) {
                     this.sectionsDataPark = [];
                     this.flag = false;
@@ -247,7 +247,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     findSection(selected: number): ISouSectionUI[] {
         let array: ISouSectionUI[];
-
         this.sections.forEach((value) => {
             value.find((el) => {
                 if (el.manufacture === this.manufacture[selected]) {
