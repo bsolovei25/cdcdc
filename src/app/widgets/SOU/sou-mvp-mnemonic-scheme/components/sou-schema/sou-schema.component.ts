@@ -157,7 +157,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     loadData(reload: boolean): void {
         // tests
-        // this.testsToLogPanel();
+        this.testsToLogPanel();
         //
         this.dataPark?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
