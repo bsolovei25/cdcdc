@@ -184,7 +184,6 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             return counter;
         }
         this.sizeY.max = Math.ceil(this.sizeY.max / getRoundStep(this.sizeY.max)) * getRoundStep(this.sizeY.max);
-        this.sizeY.min = this.sizeY.min < 0 ? 0 : this.sizeY.min;
     }
 
     private configChartArea(): void {
