@@ -1,3 +1,10 @@
+## [1.0.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.1...v1.0.2) (2021-02-11)
+
+
+### Bug Fixes
+
+* select ([74200f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/74200f91ed9a5bd55668d3f72f5b33ab4ae30fc8))
+
 ## [1.0.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.0...v1.0.1) (2021-01-31)
 
 
