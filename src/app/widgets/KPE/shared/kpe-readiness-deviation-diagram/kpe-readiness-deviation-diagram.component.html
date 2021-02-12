@@ -1,0 +1,25 @@
+<div class="chart" [attr.id]="attrId"></div>
+
+<div class="popover" [attr.id]="attrId + '-popover'">
+  <span class="popover__date">{{ deviationDiagramPopoverData.date | dateFormat: 'D.MM.YYYY' }}</span>
+  <div class="popover__divider"></div>
+  <div class="popover__row">
+    <span class="value">{{ deviationDiagramPopoverData.planValue }}</span>
+    <div class="dash fact-average"></div>
+    <span class="param-name">Ср. факта</span>
+  </div>
+  <div class="popover__row">
+    <span class="value">{{ deviationDiagramPopoverData.factValue }}</span>
+    <div class="dash fact"></div>
+    <span class="param-name">Факт</span>
+  </div>
+  <div class="popover__row">
+    <span class="value">{{ deviationDiagramPopoverData.deviationValue }}</span>
+    <div class="dash deviation"></div>
+    <span class="param-name">Откл</span>
+  </div>
+  <div class="popover__divider"></div>
+  <div class="popover__button" matRipple matRippleColor="white">
+    Подробнее
+  </div>
+</div>
