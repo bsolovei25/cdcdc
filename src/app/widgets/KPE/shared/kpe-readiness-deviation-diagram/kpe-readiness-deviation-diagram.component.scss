@@ -1,0 +1,170 @@
+@import "../../../../../mixins";
+
+:host {
+  width: 100%;
+  height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep {
+  .grid {
+    color: var(--color-kpe-line-diagram-bg);
+    stroke-width: 1;
+    fill: var(--color-sou-bg);
+
+    path {
+      fill: var(--color-sou-bg);
+    }
+  }
+
+  .y-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+
+  .x-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+
+  .fact-curve,
+  .plan-curve {
+    stroke-width: 2px;
+    fill: none;
+  }
+
+  .fact-curve {
+    stroke: var(--color-text-main);
+  }
+
+  .plan-curve {
+    stroke: var(--color-kpe-gaude-active);
+  }
+
+  .day-threshold-line {
+    stroke: var(--color-marker-diagram);
+    stroke-width: 1px;
+  }
+
+  .deviation-circle {
+    stroke: var(--color-astue-onpz-warning);
+    fill: var(--color-kpe-deviation-diagram-circle-bg);
+    cursor: pointer;
+  }
+
+  .day-circle-1,
+  .day-circle-2,
+  .day-circle-3,
+  .day-circle-4 {
+    fill: var(--color-text-main);
+  }
+
+  .day-circle-1 {
+    opacity: 0.05;
+  }
+
+  .day-circle-2 {
+    opacity: 0.2;
+  }
+
+  .day-circle-3 {
+    opacity: 0.5;
+  }
+
+  .day-circle-4 {
+    opacity: 1;
+  }
+
+  .rect-left {
+    fill: var(--color-sou-bg);
+  }
+}
+
+.popover {
+  width: 129px;
+  height: 152px;
+  position: absolute;
+  display: none;
+
+  padding: 9px;
+
+  background: var(--color-kpe-bg);
+  border: 1px solid var(--color-kpe-border);
+  box-shadow: 0 0 8px var(--color-aw-container-shadow-transparent);
+  border-radius: 2px;
+
+  &__date {
+    font-size: 13px;
+    color: var(--color-kpe-text-main);
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+
+    .param-name {
+      font-size: 12px;
+      color: var(--color-kpe-pasportize-text);
+    }
+
+    .value {
+      font-size: 11px;
+      width: 40px;
+      color: var(--color-kpe-pasportize-text);
+      -webkit-line-clamp: 1;
+      @include text-overflow;
+    }
+
+    .dash {
+      width: 14px;
+      height: 2px;
+    }
+
+    .fact-average {
+      background-color: var(--evj-color-active);
+    }
+
+    .fact {
+      background-color: var(--evj-color-white);
+    }
+
+    .deviation {
+      background-color: var(--ozsm-color-warning);
+    }
+  }
+
+  &__button {
+    width: 90px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #303549;
+    border-radius: 2px;
+    font-size: 13px;
+    color: var(--color-kpe-text-main);
+    cursor: pointer;
+  }
+
+  &__divider {
+    background: var(--color-kpe-bg-sub);
+    width: 100%;
+    height: 1px;
+    margin: 9px 0;
+  }
+}
