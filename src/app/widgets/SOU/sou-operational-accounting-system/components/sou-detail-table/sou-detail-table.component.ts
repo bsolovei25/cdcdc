@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { ISOUIdent } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUIdent } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

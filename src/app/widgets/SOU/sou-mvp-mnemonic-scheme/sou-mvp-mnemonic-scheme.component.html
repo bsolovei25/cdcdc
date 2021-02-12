@@ -1,7 +1,12 @@
 <div class="container">
   <div>
     <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="drop" type="astue">
-      <div class="header" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div
+        class="header"
+        [formGroup]="optionsGroup"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
         <svg-icon
           class="arrow-circle"
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
@@ -11,8 +16,11 @@
         <div class="option-select">
           <div class="dropdown">
             <div class="dropdown__marker"></div>
-            <mat-select class="dropdown__select" [(ngModel)]="selectedManufacture">
-              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i"> {{manufuct}} </mat-option>
+            <mat-select placeholder="Производство" class="dropdown__select" formControlName="manufacture">
+              <mat-option> Не выбрано </mat-option>
+              <mat-option *ngFor="let manufacture of selectionOptions.manufactures$ | async" [value]="manufacture.name">
+                {{manufacture.name}}
+              </mat-option>
             </mat-select>
           </div>
         </div>
@@ -26,9 +34,10 @@
         <div class="option-select">
           <div class="dropdown">
             <div class="dropdown__marker"></div>
-            <mat-select class="dropdown__select" [value]="0">
-              <mat-option [value]="0" *ngFor="let install of unit[selectedManufacture]" (click)="changeUnit(install)"
-                >{{install}}</mat-option
+            <mat-select placeholder="Установка" class="dropdown__select" formControlName="unit">
+              <mat-option> Не выбрано </mat-option>
+              <mat-option [value]="unit.id" *ngFor="let unit of selectionOptions.units$ | async"
+                >{{ unit.name }}</mat-option
               >
             </mat-select>
           </div>
@@ -38,14 +47,12 @@
           <div class="custom-border"></div>
           <div
             class="section-select__item"
-            *ngFor="let section of findSection(selectedManufacture); let i = index"
-            [ngClass]="{active: i === chosenSection}"
-            (click)="changeSection(i)"
+            *ngFor="let section of (selectionOptions.sections$ | async)"
+            [ngClass]="{ active: section.id === (optionsGroup.get('section').value) }"
+            (click)="optionsGroup.get('section').setValue(section.id)"
           >
-            <ng-container>
-              <span class="title" *ngIf="!!section?.title">{{section?.title}}</span>
-              <div class="value" [ngClass]="{noTrust: section?.value > 0}">{{section.value}}</div>
-            </ng-container>
+            <span class="title" *ngIf="!!section?.name">{{ section?.name }}</span>
+            <div class="value" [ngClass]="{noTrust: false}">{{ 0 }}</div>
           </div>
         </div>
 
@@ -65,8 +72,8 @@
           <div
             class="filter-btn__item"
             *ngFor="let setting of settings; let i = index"
-            [ngClass]="{ active: i === chosenSetting }"
-            (click)="changeSetting(i)"
+            [ngClass]="{ active: i === (chosenSetting$ | async) }"
+            (click)="chosenSetting$.next(i);"
           >
             {{setting}}
           </div>
@@ -76,187 +83,26 @@
   </div>
 
   <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <div class="main-content-container">
-      <evj-sou-mvp-mnemonic-scheme-ab-left
-        *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 0"
-        [sections]="sectionsData"
-        [choosenSetting]="chosenSetting"
-        [flowIn]="flowInAb"
-      ></evj-sou-mvp-mnemonic-scheme-ab-left>
-
-      <evj-sou-mvp-mnemonic-scheme-vb-left
-        *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 1"
-        [sections]="sectionsData"
-        [choosenSetting]="chosenSetting"
-        [flowIn]="flowInVb"
-      ></evj-sou-mvp-mnemonic-scheme-vb-left>
-
-      <evj-sou-mvp-mnemonic-scheme-izomalk-left
-        *ngIf="chosenUnit === 'Изомалк-2'"
-        [sections]="sectionsDataIzo"
-        [choosenSetting]="chosenSetting"
-      ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
-
-      <div class="streams-groups">
-        <div
-          class="streams-container"
-          [class.streams-container_park]="manufacture[selectedManufacture] === 'Товарное производство'"
-          (mousedown)="$event.stopPropagation()"
-          (touchstart)="$event.stopPropagation()"
-        >
-          <div
-            class="main-collector"
-            *ngIf="chosenUnit === 'АВТ-10' && this.selectedSection !== 'ЭЛОУ' || chosenUnit === 'Изомалк-2'"
-          >
-            <div class="main-collector-title">
-              <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br /></span>
-              <span *ngIf="chosenSection !== 0"> {{ findSection(selectedManufacture)[chosenSection]?.title }}</span>
-            </div>
-          </div>
-          <evj-sou-mvp-mnemonic-scheme-section
-            *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 0"
-            [choosenSetting]="chosenSetting"
-            [sections]="sectionsData"
-          ></evj-sou-mvp-mnemonic-scheme-section>
-
-          <evj-sou-mvp-mnemonic-scheme-section-vb
-            *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 1"
-            [choosenSetting]="chosenSetting"
-            [sections]="sectionsData"
-          ></evj-sou-mvp-mnemonic-scheme-section-vb>
-
-          <evj-sou-mvp-mnemonic-scheme-section-izomalk
-            *ngIf="chosenUnit === 'Изомалк-2'"
-            [choosenSetting]="chosenSetting"
-            [sections]="sectionsDataIzo"
-          ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
-
-          <evj-sou-schema
-            *ngIf="manufacture[selectedManufacture] === 'Товарное производство' || this.selectedSection === 'ЭЛОУ'"
-            [sectionsDataPark]="sectionsDataPark"
-            [chosenSetting]="chosenSetting"
-            [chosenInstall]="chosenUnit"
-          >
-          </evj-sou-schema>
-        </div>
-      </div>
+    <div class="view" *ngIf="!!(sectionSubchannel$ | async) && !!(schemeView$ | async)">
+      <ng-container
+        *ngComponentOutlet="viewComponent; injector: (widgetId | fn:getInjector : (sectionSubchannel$ | async) : (schemeView$ | async));"
+      ></ng-container>
     </div>
   </div>
 
   <div class="popup-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <div class="popup" [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'">
-      <div class="popup__header" (click)="mvpService.closePopup()">
-        <div class="close-btn">
-          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg" />
-        </div>
-      </div>
-      <div class="popup__content">
-        <div class="title">
-          <div class="marker"></div>
-          <span class="source-name">{{mvpService.popupData?.tag}}</span>
-          <span class="product-name">{{mvpService.popupData?.productName}}</span>
-        </div>
-        <div class="information">
-          Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span> Измеренное:&nbsp;<span
-            [ngSwitch]="chosenSetting"
-          >
-            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour}}</ng-template>
-            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank}}</ng-template>
-            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment}}</ng-template>
-            т</span
-          >
-          Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span> Согласованное:&nbsp;<span
-            >{{mvpService.popupData?.valueCalculate}} т</span
-          >
-          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
-        </div>
-      </div>
-    </div>
+    <evj-sou-mvp-mnemonic-scheme-stats
+      [popupData]="mvpService.popupData"
+      [chosenSetting]="chosenSetting$ | async"
+      [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
+      (closeWindow)="mvpService.closePopup()"
+      style="width: 100%"
+    >
+    </evj-sou-mvp-mnemonic-scheme-stats>
   </div>
-
-  <div class="footer">
-    <div class="footer__item">
-      <div class="row-container">
-        <svg-icon
-          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryIn.svg"
-          [ngStyle]="{ 'width.px':16, 'height.px':17 }"
-        ></svg-icon>
-        <span class="title">Сумма входа, тн</span>
-      </div>
-      <div class="row-container">
-        <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span> За час:&nbsp;<span
-            class="information__sub"
-            >{{mainData?.sumInByHour}}</span
-          >
-        </div>
-      </div>
-    </div>
-    <div class="footer__item">
-      <div class="row-container">
-        <svg-icon
-          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryOut.svg"
-          [ngStyle]="{ 'width.px':16, 'height.px':11 }"
-        ></svg-icon>
-        <span class="title">Сумма выхода, тн</span>
-      </div>
-      <div class="row-container">
-        <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span> За час:&nbsp;<span
-            class="information__sub"
-            >{{mainData?.sumOutByHour}}</span
-          >
-        </div>
-      </div>
-    </div>
-    <div class="footer__item">
-      <div class="row-container">
-        <svg-icon
-          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/delta.svg"
-          [ngStyle]="{ 'width.px':14, 'height.px':15 }"
-        ></svg-icon>
-        <span class="title">Дельта</span>
-      </div>
-      <div class="row-container">
-        <div class="information">
-          Накопленное:&nbsp;<span
-            class="information__sub"
-            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
-            >{{mainData?.delta}}т</span
-          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span> За час:&nbsp;<span
-            class="information__sub"
-            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
-            >{{mainData?.deltaHour}}т</span
-          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
-        </div>
-        <!--        <div class="information">-->
-        <!--        <span class="information__main"-->
-        <!--              [style.color]="mainData?.lampOn ?'var(&#45;&#45;sou-mvp-color-warning)':'var(&#45;&#45;sou-mvp-color-text-diagram-main)'"-->
-        <!--        >{{mainData?.delta}} тн</span>-->
-        <!--          <span class="information__sub">{{mainData?.deltaByPersent}}%</span>-->
-        <!--        </div>-->
-      </div>
-    </div>
-    <div class="footer__item">
-      <div class="row-container">
-        <svg-icon
-          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
-          [ngStyle]="{ 'width.px':16, 'height.px':17 }"
-        ></svg-icon>
-        <span class="title">Допустимый дебаланс</span>
-      </div>
-      <div class="row-container">
-        <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span
-            class="information__main"
-            >{{mainData?.balanceAllowByPercent}}%</span
-          >
-          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span
-            class="information__main"
-            >{{mainData?.balanceAllowHourByPercent}}%</span
-          >
-        </div>
-      </div>
-    </div>
-  </div>
+  <ng-container *ngIf="!!(unitSubchannel$ | async)"
+    ><ng-container
+      *ngComponentOutlet="footerComponent; injector: (widgetId | fn:getInjector : (unitSubchannel$ | async));"
+    ></ng-container
+  ></ng-container>
 </div>
