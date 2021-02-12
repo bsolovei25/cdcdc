@@ -4,7 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ISOUOperationalAccountingSystem,
     ISOUSection,
-} from '../../../dashboard/models/SOU/sou-operational-accounting-system';
+} from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-operational-accounting-system',

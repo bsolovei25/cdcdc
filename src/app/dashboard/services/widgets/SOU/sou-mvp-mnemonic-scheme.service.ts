@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../models/SOU/sou-operational-accounting-system';
+import { ISouFlowIn, ISouFlowOut, ISouObjects } from '../../../models/SOU/sou-operational-accounting-system.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
@@ -17,12 +17,12 @@ export class SouMvpMnemonicSchemeService {
     }>(null);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
-    popupData: ISOUFlowOut;
+    popupData: ISouFlowOut;
 
     constructor(private http: HttpClient) {}
 
-    openPopup(sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[], code: number): void {
-        this.popupData = this.getElementByCode(sections, code) as ISOUFlowOut;
+    openPopup(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
+        this.popupData = this.getElementByCode(sections, code) as ISouFlowOut;
         this.selectElement(sections, code);
         this.isPopupOpen = true;
     }
@@ -38,18 +38,18 @@ export class SouMvpMnemonicSchemeService {
 
     // Ищет элемент по коду в массиве всех элементов
     getElementByCode(
-        sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
+        sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[],
         code: number
-    ): ISOUFlowOut | ISOUFlowIn | ISOUObjects {
+    ): ISouFlowOut | ISouFlowIn | ISouObjects {
         if (sections?.length > 0) {
             return sections.find((item) => item.code === code);
         }
     }
 
     selectElement(
-        sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
+        sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[],
         code: number
-    ): ISOUFlowOut | ISOUFlowIn | ISOUObjects {
+    ): ISouFlowOut | ISouFlowIn | ISouObjects {
         this.selectedCode = code;
         return sections.find((item) => item.code === code);
     }

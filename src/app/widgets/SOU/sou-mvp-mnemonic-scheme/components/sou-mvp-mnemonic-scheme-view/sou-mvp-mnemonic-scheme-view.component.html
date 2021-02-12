@@ -1,0 +1,63 @@
+<div class="main-content-container" *ngIf="!!(data$ | async)">
+  <evj-sou-mvp-mnemonic-scheme-ab-left
+    *ngIf="viewType === 'ab'"
+    [sections]="(data$ | async).sectionsData"
+    [choosenSetting]="chosenSetting"
+    [flowIn]="(data$ | async).flowIn"
+  ></evj-sou-mvp-mnemonic-scheme-ab-left>
+
+  <evj-sou-mvp-mnemonic-scheme-vb-left
+    *ngIf="viewType === 'vb'"
+    [sections]="(data$ | async).sectionsData"
+    [choosenSetting]="chosenSetting"
+    [flowIn]="(data$ | async).flowIn"
+  ></evj-sou-mvp-mnemonic-scheme-vb-left>
+
+  <evj-sou-mvp-mnemonic-scheme-izomalk-left
+    *ngIf="viewType === 'izomalk'"
+    [sections]="(data$ | async).sectionsData"
+    [choosenSetting]="chosenSetting"
+  ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
+
+  <div class="streams-groups">
+    <div
+      class="streams-container"
+      [class.streams-container_park]="viewType === 'svg'"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="main-collector" *ngIf="viewType === 'ab' || viewType === 'vb' || viewType === 'izomalk'">
+        <div class="main-collector-title">
+          <span> asd </span>
+          <!--          <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br /></span>-->
+          <!--          <span *ngIf="chosenSection !== 0"> {{ findSection(selectedManufacture)[chosenSection]?.title }}</span>-->
+        </div>
+      </div>
+      <evj-sou-mvp-mnemonic-scheme-section
+        *ngIf="viewType === 'ab'"
+        [choosenSetting]="chosenSetting"
+        [sections]="(data$ | async).sectionsData"
+      ></evj-sou-mvp-mnemonic-scheme-section>
+
+      <evj-sou-mvp-mnemonic-scheme-section-vb
+        *ngIf="viewType === 'vb'"
+        [chosenSetting]="chosenSetting"
+        [sections]="(data$ | async).sectionsData"
+      ></evj-sou-mvp-mnemonic-scheme-section-vb>
+
+      <evj-sou-mvp-mnemonic-scheme-section-izomalk
+        *ngIf="viewType === 'izomalk'"
+        [choosenSetting]="chosenSetting"
+        [sections]="(data$ | async).sectionsData"
+      ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
+
+      <evj-sou-schema
+        *ngIf="viewType === 'svg'"
+        [chosenSetting]="chosenSetting"
+        [sectionsDataPark]="(data$ | async).sectionsData"
+        [chosenInstall]="unitName"
+      >
+      </evj-sou-schema>
+    </div>
+  </div>
+</div>

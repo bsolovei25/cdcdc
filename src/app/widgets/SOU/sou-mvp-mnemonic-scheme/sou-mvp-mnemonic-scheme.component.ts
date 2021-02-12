@@ -1,120 +1,95 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import {
-    ISOUFlowIn,
-    ISOUFlowOut,
-    ISOUObjects,
-    ISOUOperationalAccountingSystem,
-} from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+    ISouFlowIn,
+    ISouFlowOut,
+    ISouManufacture,
+    ISouObjects,
+    ISouOptions,
+    ISouSection,
+    ISouUnit,
+} from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { DATASOURCE } from './mock';
-import { DATASOURCE2 } from './mock2';
+import { FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { animationsArray } from './sou-mvp-mnemonic-scheme.animations';
+import { SouMvpMnemonicSchemeFooterComponent } from './components/sou-mvp-mnemonic-scheme-footer/sou-mvp-mnemonic-scheme-footer.component';
+import { SouMvpMnemonicSchemeViewComponent } from './components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component';
 
-interface ISouSectionUI {
+interface ISouSelectionOptionsForm {
     manufacture: string;
-    title: string;
-    value: number;
+    unit: string;
+    section: string;
 }
+
+interface ISouSelectionOptions {
+    manufactures$: Observable<ISouManufacture[]>;
+    units$: Observable<ISouUnit[]>;
+    sections$: Observable<ISouSection[]>;
+}
+
+interface ISouSubchannel {
+    id: string;
+    name: SouSubchannelType;
+    manufactureName: string;
+    unitName: string;
+    sectionName?: string;
+}
+
+type SouSubchannelType = 'sou-section' | 'sou-operational-accounting-system';
+type SouMvpMnemonicSchemeView = 'ab' | 'vb' | 'izomalk' | 'svg' | null;
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
     templateUrl: './sou-mvp-mnemonic-scheme.component.html',
     styleUrls: ['./sou-mvp-mnemonic-scheme.component.scss'],
-    animations: [
-        trigger('Branch', [
-            state(
-                'closed',
-                style({
-                    height: 0,
-                    opacity: 0,
-                    overflow: 'hidden',
-                })
-            ),
-            state(
-                'opened',
-                style({
-                    height: '110px',
-                    opacity: 1,
-                })
-            ),
-            transition('closed => opened', animate('200ms ease-in')),
-            transition('opened => closed', animate('200ms ease-out')),
-        ]),
-    ],
+    animations: animationsArray,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    flowInAb: ISOUFlowIn[];
-    flowInVb: ISOUFlowIn[];
+    public readonly footerComponent: typeof SouMvpMnemonicSchemeFooterComponent = SouMvpMnemonicSchemeFooterComponent;
+    public readonly viewComponent: typeof SouMvpMnemonicSchemeViewComponent = SouMvpMnemonicSchemeViewComponent;
 
-    mainData: ISOUOperationalAccountingSystem;
+    public readonly settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
 
-    settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
+    subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
+    sectionSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    unitSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    optionsGroup: FormGroup = new FormGroup({
+        manufacture: new FormControl(null),
+        unit: new FormControl(null),
+        section: new FormControl(null),
+    });
+    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] });
+    selectionOptions: ISouSelectionOptions = {
+        manufactures$: this.options$.pipe(map((x) => x.manufactures)),
+        units$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
+            map(([options, group]) => options.manufactures.find((x) => x.name === group?.manufacture)?.units ?? [])
+        ),
+        sections$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
+            map(
+                ([options, group]) =>
+                    options.manufactures
+                        .find((x) => x.name === group?.manufacture)
+                        ?.units?.find((x) => x.id === group?.unit)?.section ?? []
+            )
+        ),
+    };
+    chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    schemeView$: BehaviorSubject<SouMvpMnemonicSchemeView> = new BehaviorSubject<SouMvpMnemonicSchemeView>(null);
 
-    sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
-    sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
-    sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
-
-    twoSelection: string[] = [];
-
-    set selectedManufacture(index: number) {
-        if (index !== undefined) {
-            this.stateController().save({ manufacture: index });
-            this.mvpService.selectedManufactures$.next({ name: this.manufacture[index], index });
-            if (this.unit.length) {
-                this.changeUnit(this.unit[index][0]);
-            }
-        }
-    }
-
-    get selectedManufacture(): number {
-        return this.mvpService.selectedManufactures$.getValue()?.index;
-    }
-
-    get selectedSection(): string {
-        return this.findSection(this.selectedManufacture)?.[this.chosenSection]?.title;
-    }
-
-    sections: ISouSectionUI[][] = [
-        [
-            {
-                manufacture: 'Производство №1',
-                title: 'АБ',
-                value: 0,
-            },
-            {
-                manufacture: 'Производство №1',
-                title: 'ВБ',
-                value: 0,
-            },
-            {
-                manufacture: 'Производство №1',
-                title: 'ЭЛОУ',
-                value: 0,
-            },
-        ],
-        [
-            {
-                manufacture: 'Производство №4',
-                title: '',
-                value: 0,
-            },
-        ],
-    ];
-
-    manufacture: string[] = [];
-    unit: string[][] = [];
-
-    chosenSetting: number = 1;
-    chosenSection: number = 0;
-    chosenUnit: string = '';
-
-    flag: boolean = true;
+    flowInAb: ISouFlowIn[];
+    flowInVb: ISouFlowIn[];
+    sectionsData: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Массив всех элементов
+    sectionsDataIzo: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Массив всех элементов Изомалка
+    sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = [];
 
     constructor(
         public widgetService: WidgetService,
         public mvpService: SouMvpMnemonicSchemeService,
+        private injector: Injector,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -126,110 +101,98 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.mvpService.selectedManufactures$.asObservable().subscribe((ref) => {
+            this.optionsGroup.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe((x) => {
                 this.mvpService.closePopup();
-            })
+                this.setSubchannelBySelection(x.section, x.unit);
+                this.schemeView$.next(this.getViewType(x));
+                this.mvpService.selectedOptions$.next(this.getWsOptions(x));
+                this.stateController().save(x);
+            }),
+            this.optionsGroup
+                .get('manufacture')
+                .valueChanges.subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
+            this.optionsGroup.get('unit').valueChanges.subscribe((x) => this.optionsGroup.get('section').setValue(null))
         );
-    }
-
-    resetData(): void {
-        this.mainData = null;
-        this.flowInAb = null;
-        this.flowInVb = null;
-        this.sectionsData = [];
-        this.sectionsDataIzo = [];
     }
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.widgetService.getWidgetSubchannels<ISouSubchannel>(this.widgetId).then((x) => this.subChannels$.next(x));
         this.loadState();
     }
 
-    protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
-        this.mainData = ref;
-        if (this.manufacture.length === 0) {
-            this.manufacture = ref.referenceBook.manufacture;
-            this.unit = ref.referenceBook.unit;
-            this.loadState();
-            if (this.selectedManufacture === undefined) {
-                this.selectedManufacture = 0;
-            }
-        }
+    protected dataHandler(ref: ISouOptions): void {
+        this.options$.next({ ...ref });
+    }
 
-        if (ref?.section?.[0]?.name === 'АВТ-10-АБ' || ref?.section?.[0]?.name === 'АВТ-10-ВБ') {
-            this.flowInAb = ref?.section[0]?.flowIn;
-            this.flowInVb = ref?.section[1]?.flowIn;
-        }
-        this.sectionsData = [];
-        this.sectionsDataIzo = [];
-        this.flag = true;
-        ref?.section?.forEach((item, i) => {
-            if (item.name !== 'Изомалк-2') {
-                this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
-            } else {
-                if (this.sectionsDataIzo && item?.flowIn && item?.flowOut && item?.objects) {
-                    this.sectionsDataIzo = [...this.sectionsDataIzo, ...item.flowIn, ...item.flowOut, ...item.objects];
-                }
-            }
-            if (
-                this.manufacture[this.selectedManufacture] === 'Товарное производство' ||
-                this.selectedSection === 'ЭЛОУ'
-            ) {
-                if (this.flag) {
-                    this.sectionsDataPark = [];
-                    this.flag = false;
-                }
-                this.sectionsDataPark = [...this.sectionsDataPark, ...item?.flowIn, ...item?.flowOut, ...item?.objects];
-            }
-
-            this.sections.forEach((section) => {
-                const sec = section.find((sectionItem) => item.name.indexOf(sectionItem.title) !== -1);
-
-                if (!!sec) {
-                    sec.value = item.countFlowExceedingConfInterval;
-                }
-            });
+    public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: channelId },
+                { provide: 'viewType', useValue: viewType },
+                { provide: 'unitName', useValue: this.getUnitNameById(this.optionsGroup.get('unit').value) },
+            ],
+            parent: this.injector,
         });
-    }
+    };
 
-    changeSetting(i: number): void {
-        this.chosenSetting = i;
-    }
-
-    changeSection(i: number): void {
-        this.chosenSection = i;
-    }
-
-    changeUnit(value: string): void {
-        this.resetData();
-        this.chosenUnit = value;
-        let a = {
-            manufacture: 'Производство №1',
-            name: 'АВТ-10',
-        };
-        if (value) {
-            a = {
-                manufacture: this.manufacture[this.selectedManufacture],
-                name: value,
-            };
+    private getViewType(form: ISouSelectionOptionsForm): SouMvpMnemonicSchemeView {
+        if (!form) {
+            return null;
         }
-        this.setWsOptions(a);
-        this.mvpService.selectedOptions$.next({
-            manufacture: a.manufacture,
-            unit: a.name,
-        });
+        const manufactureName = form.manufacture?.toLowerCase();
+        const unitName = this.options$.value.manufactures
+            ?.flatMap((x) => x.units)
+            ?.find((x) => x.id === form.unit)
+            ?.name?.toLowerCase();
+        const sectionName = this.options$.value.manufactures
+            ?.flatMap((x) => x.units)
+            ?.flatMap((x) => x.section)
+            ?.find((x) => x.id === form.section)
+            ?.name?.toLowerCase();
+        if (!manufactureName || !unitName || !sectionName) {
+            return null;
+        }
+        if (manufactureName.includes('товарное')) {
+            return 'svg';
+        } else if (unitName.includes('изомалк')) {
+            return 'izomalk';
+        } else if (sectionName.includes('аб')) {
+            return 'ab';
+        } else if (sectionName.includes('вб')) {
+            return 'vb';
+        }
     }
 
-    stateController(): { save; load } {
-        const key: string = 'sou-scheme-state';
+    private setSubchannelBySelection(sectionId: string, unitId: string): void {
+        const subchannels = this.subChannels$.getValue();
+        const subchannelSection = subchannels.find((x) => x.id === sectionId);
+        const unitName = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId)?.name;
+        const subchannelUnit = subchannels.find((x) => x.unitName === unitName);
+        this.sectionSubchannel$.next(subchannelSection?.id);
+        this.unitSubchannel$.next(subchannelUnit?.id);
+    }
+
+    private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string } {
+        const manufacture = form.manufacture;
+        const unit = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === form.unit)?.name;
+        return { manufacture, unit };
+    }
+
+    private getUnitNameById(unitId: string): string {
+        return this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId)?.name ?? null;
+    }
+
+    private stateController(): { save; load } {
+        const key: string = 'sou-scheme-options';
         // tslint:disable-next-line:no-shadowed-variable
-        const saveState = (state: { manufacture: number }): void => {
+        const saveState = (state: ISouSelectionOptionsForm): void => {
             const saveValue = JSON.stringify(state);
             localStorage.setItem(key, saveValue);
         };
-        const loadState = (): { manufacture: number } => {
-            const loadData = JSON.parse(localStorage.getItem(key));
-            return loadData;
+        const loadState = (): ISouSelectionOptionsForm => {
+            return JSON.parse(localStorage.getItem(key));
         };
         return {
             save: saveState,
@@ -238,22 +201,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     private loadState(): void {
-        const res = this.stateController().load();
+        const res = this.stateController().load() as ISouSelectionOptionsForm;
         if (!res) {
             return;
         }
-        this.selectedManufacture = res.manufacture;
-    }
-
-    findSection(selected: number): ISouSectionUI[] {
-        let array: ISouSectionUI[];
-        this.sections.forEach((value) => {
-            value.find((el) => {
-                if (el.manufacture === this.manufacture[selected]) {
-                    array = value;
-                }
-            });
-        });
-        return array;
+        this.optionsGroup.get('manufacture').setValue(res.manufacture);
+        this.optionsGroup.get('unit').setValue(res.unit);
+        this.optionsGroup.get('section').setValue(res.section);
     }
 }

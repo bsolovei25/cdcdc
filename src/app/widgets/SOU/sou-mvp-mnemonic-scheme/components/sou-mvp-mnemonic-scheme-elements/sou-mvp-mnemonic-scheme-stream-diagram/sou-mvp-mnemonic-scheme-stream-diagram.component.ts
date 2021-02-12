@@ -1,30 +1,32 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { MatHint } from '@angular/material/form-field';
 import * as d3 from 'd3';
-import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { AsyncRender } from '@shared/functions/async-render.function';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
-import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+} from '../../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouMvpMnemonicSchemeService } from '../../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
-    selector: 'evj-sou-mvp-mnemonic-scheme-circle-diagram',
-    templateUrl: './sou-mvp-mnemonic-scheme-circle-diagram.component.html',
-    styleUrls: ['./sou-mvp-mnemonic-scheme-circle-diagram.component.scss'],
+    selector: 'evj-sou-mvp-mnemonic-scheme-stream-diagram',
+    templateUrl: './sou-mvp-mnemonic-scheme-stream-diagram.component.html',
+    styleUrls: ['./sou-mvp-mnemonic-scheme-stream-diagram.component.scss'],
 })
-export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
+export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, AfterViewInit {
     @ViewChild('chart') chart: ElementRef;
-    @Input() noConnection: false;
     @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
         if (data.sections) {
+            this.sections = data.sections;
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
             this.drawSvg();
         }
     }
+    @Input() noPoint: boolean = false;
+    @Input() choosenSetting: number;
 
     flowData: ISouFlowOut;
+    sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
 
     public svg: any;
 
@@ -34,14 +36,14 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
 
     @AsyncRender
     drawSvg(): void {
-        const innerR = 16;
-        const outerR = 17;
+        const innerR = 7;
+        const outerR = 8;
 
         if (this.svg) {
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '40px').attr('height', '40px');
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '22px').attr('height', '22px');
 
         const arc = d3
             .arc()
@@ -59,7 +61,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
             .startAngle(0)
             .endAngle(2 * Math.PI);
 
-        const g: any = this.svg.append('g').style('transform', 'translate(20px, 20px)');
+        const g: any = this.svg.append('g').style('transform', 'translate(11px, 11px)');
 
         g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
 

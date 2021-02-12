@@ -404,6 +404,10 @@ export class WidgetService {
         return this.openedWsChannels[widgetId]?.options?.timeStamp === incoming;
     }
 
+    public getWidgetSubchannels<T>(widgetId: string): Promise<T[]> {
+        return this.http.get<T[]>(`${this.restUrl}/api/Widget-Data/${widgetId}/sub-channels`).toPromise();
+    }
+
     private reconnectWs(): void {
         // if (this.reconnectWsTimer) {
         //     console.warn('reconnect уже создан');

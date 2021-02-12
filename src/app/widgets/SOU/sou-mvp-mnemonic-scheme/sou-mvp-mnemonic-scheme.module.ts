@@ -6,20 +6,23 @@ import { SharedModule } from '../../../@shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SouMvpMnemonicSchemeCircleDiagramComponent } from './components/sou-mvp-mnemonic-scheme-circle-diagram/sou-mvp-mnemonic-scheme-circle-diagram.component';
-import { SouMvpMnemonicSchemeInfoComponent } from './components/sou-mvp-mnemonic-scheme-info/sou-mvp-mnemonic-scheme-info.component';
-import { SouMvpMnemonicSchemeStreamDiagramComponent } from './components/sou-mvp-mnemonic-scheme-stream-diagram/sou-mvp-mnemonic-scheme-stream-diagram.component';
-import { SouMvpMnemonicSchemeCollectorComponent } from './components/sou-mvp-mnemonic-scheme-collector/sou-mvp-mnemonic-scheme-collector.component';
-import { SouMvpMnemonicSchemeOutputComponent } from './components/sou-mvp-mnemonic-scheme-output/sou-mvp-mnemonic-scheme-output.component';
-import { SouMvpMnemonicSchemeSectionComponent } from './components/sou-mvp-mnemonic-scheme-section/sou-mvp-mnemonic-scheme-section.component';
-import { SouMvpMnemonicSchemeSectionVbComponent } from './components/sou-mvp-mnemonic-scheme-section-vb/sou-mvp-mnemonic-scheme-section-vb.component';
-import { SouMvpMnemonicSchemeAbLeftComponent } from './components/sou-mvp-mnemonic-scheme-ab-left/sou-mvp-mnemonic-scheme-ab-left.component';
-import { SouMvpMnemonicSchemeVbLeftComponent } from './components/sou-mvp-mnemonic-scheme-vb-left/sou-mvp-mnemonic-scheme-vb-left.component';
-import { SouMvpMnemonicSchemeIzomalkLeftComponent } from './components/sou-mvp-mnemonic-scheme-izomalk-left/sou-mvp-mnemonic-scheme-izomalk-left.component';
-import { SouMvpMnemonicSchemeSectionIzomalkComponent } from './components/sou-mvp-mnemonic-scheme-section-izomalk/sou-mvp-mnemonic-scheme-section-izomalk.component';
-import { SouMvpMnemonicSchemeSimpleInputComponent } from './components/sou-mvp-mnemonic-scheme-simple-input/sou-mvp-mnemonic-scheme-simple-input.component';
-import { SouMvpMnemonicSchemeSimpleOutputComponent } from './components/sou-mvp-mnemonic-scheme-simple-output/sou-mvp-mnemonic-scheme-simple-output.component';
-import { FormsModule } from '@angular/forms';
+import { SouMvpMnemonicSchemeInfoComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-info/sou-mvp-mnemonic-scheme-info.component';
+import { SouMvpMnemonicSchemeStreamDiagramComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-stream-diagram/sou-mvp-mnemonic-scheme-stream-diagram.component';
+import { SouMvpMnemonicSchemeCollectorComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-collector/sou-mvp-mnemonic-scheme-collector.component';
+import { SouMvpMnemonicSchemeOutputComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-output/sou-mvp-mnemonic-scheme-output.component';
+import { SouMvpMnemonicSchemeSectionComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-section/sou-mvp-mnemonic-scheme-section.component';
+import { SouMvpMnemonicSchemeSectionVbComponent } from './components/sou-mvp-mnemonic-scheme-vb/sou-mvp-mnemonic-scheme-section-vb/sou-mvp-mnemonic-scheme-section-vb.component';
+import { SouMvpMnemonicSchemeAbLeftComponent } from './components/sou-mvp-mnemonic-scheme-ab/sou-mvp-mnemonic-scheme-ab-left/sou-mvp-mnemonic-scheme-ab-left.component';
+import { SouMvpMnemonicSchemeVbLeftComponent } from './components/sou-mvp-mnemonic-scheme-vb/sou-mvp-mnemonic-scheme-vb-left/sou-mvp-mnemonic-scheme-vb-left.component';
+import { SouMvpMnemonicSchemeIzomalkLeftComponent } from './components/sou-mvp-mnemonic-scheme-izomalk/sou-mvp-mnemonic-scheme-izomalk-left/sou-mvp-mnemonic-scheme-izomalk-left.component';
+import { SouMvpMnemonicSchemeSectionIzomalkComponent } from './components/sou-mvp-mnemonic-scheme-izomalk/sou-mvp-mnemonic-scheme-section-izomalk/sou-mvp-mnemonic-scheme-section-izomalk.component';
+import { SouMvpMnemonicSchemeSimpleInputComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-simple-input/sou-mvp-mnemonic-scheme-simple-input.component';
+import { SouMvpMnemonicSchemeSimpleOutputComponent } from './components/sou-mvp-mnemonic-scheme-elements/sou-mvp-mnemonic-scheme-simple-output/sou-mvp-mnemonic-scheme-simple-output.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SouSchemaComponent } from './components/sou-schema/sou-schema.component';
+import { SouMvpMnemonicSchemeStatsComponent } from './components/sou-mvp-mnemonic-scheme-stats/sou-mvp-mnemonic-scheme-stats.component';
+import { SouMvpMnemonicSchemeFooterComponent } from './components/sou-mvp-mnemonic-scheme-footer/sou-mvp-mnemonic-scheme-footer.component';
+import { SouMvpMnemonicSchemeViewComponent } from './components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component';
 
 @NgModule({
     declarations: [
@@ -38,8 +41,19 @@ import { SouSchemaComponent } from './components/sou-schema/sou-schema.component
         SouMvpMnemonicSchemeSimpleInputComponent,
         SouMvpMnemonicSchemeSimpleOutputComponent,
         SouSchemaComponent,
+        SouMvpMnemonicSchemeStatsComponent,
+        SouMvpMnemonicSchemeFooterComponent,
+        SouMvpMnemonicSchemeViewComponent,
     ],
-    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule, MatSelectModule, FormsModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatRippleModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
 })
 export class SouMvpMnemonicSchemeModule {
     enterComponent = SouMvpMnemonicSchemeComponent;
