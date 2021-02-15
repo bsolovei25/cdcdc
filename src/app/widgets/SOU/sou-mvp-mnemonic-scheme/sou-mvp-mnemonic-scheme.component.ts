@@ -107,6 +107,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 this.schemeView$.next(this.getViewType(x));
                 this.mvpService.selectedOptions$.next(this.getWsOptions(x));
                 this.stateController().save(x);
+                this.setDefaultSection(x);
             }),
             this.optionsGroup
                 .get('manufacture')
@@ -154,14 +155,14 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         if (!manufactureName || !unitName || !sectionName) {
             return null;
         }
-        if (manufactureName.includes('товарное')) {
-            return 'svg';
-        } else if (unitName.includes('изомалк')) {
+        if (unitName.includes('изомалк')) {
             return 'izomalk';
         } else if (sectionName.includes('аб')) {
             return 'ab';
         } else if (sectionName.includes('вб')) {
             return 'vb';
+        } else {
+            return 'svg';
         }
     }
 
@@ -178,6 +179,17 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         const manufacture = form.manufacture;
         const unit = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === form.unit)?.name;
         return { manufacture, unit };
+    }
+
+    private setDefaultSection(form: ISouSelectionOptionsForm): void {
+        if (!!form.section) {
+            return;
+        }
+        const reference = this.options$.getValue();
+        const sections = reference?.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === form.unit)?.section;
+        if (sections?.length === 1) {
+            this.optionsGroup.get('section').setValue(sections[0].id);
+        }
     }
 
     private getUnitNameById(unitId: string): string {
