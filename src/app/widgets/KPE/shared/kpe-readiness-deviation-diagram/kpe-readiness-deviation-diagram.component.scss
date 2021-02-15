@@ -104,6 +104,7 @@
   border: 1px solid var(--color-kpe-border);
   box-shadow: 0 0 8px var(--color-aw-container-shadow-transparent);
   border-radius: 2px;
+  z-index: 1000;
 
   &__date {
     font-size: 13px;

@@ -1,6 +1,6 @@
-<div class="chart" [attr.id]="attrId"></div>
+<div class="chart" #chart></div>
 
-<div class="popover" [attr.id]="attrId + '-popover'">
+<div class="popover" #popover>
   <span class="popover__date">{{ deviationDiagramPopoverData.date | dateFormat: 'D.MM.YYYY' }}</span>
   <div class="popover__divider"></div>
   <div class="popover__row">
