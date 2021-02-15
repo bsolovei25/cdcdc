@@ -4,7 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';
-import {ArrayOfObjectsDeepEqual} from "@shared/functions/deep-equal.function";
+import { ArrayOfObjectsDeepEqual } from '@shared/functions/deep-equal.function';
 
 export interface IKpePlanReadinessTrendData<T> {
     name: string;

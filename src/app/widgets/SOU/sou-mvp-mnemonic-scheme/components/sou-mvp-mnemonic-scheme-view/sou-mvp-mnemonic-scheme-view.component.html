@@ -28,9 +28,7 @@
     >
       <div class="main-collector" *ngIf="viewType === 'ab' || viewType === 'vb' || viewType === 'izomalk'">
         <div class="main-collector-title">
-          <span> asd </span>
-          <!--          <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br /></span>-->
-          <!--          <span *ngIf="chosenSection !== 0"> {{ findSection(selectedManufacture)[chosenSection]?.title }}</span>-->
+          <span> {{ (this.data$ | async)?.name }} </span>
         </div>
       </div>
       <evj-sou-mvp-mnemonic-scheme-section

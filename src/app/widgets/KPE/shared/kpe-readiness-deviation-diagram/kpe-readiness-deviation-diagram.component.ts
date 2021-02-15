@@ -6,7 +6,7 @@ import {
     Input,
     OnChanges,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
@@ -55,10 +55,7 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
         this.drawSvg();
     }
 
-    constructor(
-        private changeDetectorRef: ChangeDetectorRef,
-    ) {
-    }
+    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     public factDataset: {
         x: number;
@@ -307,7 +304,7 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
                         this.deviationDiagramPopoverData.date = new Date(
                             new Date(this.currentMonth).getFullYear(),
                             new Date(this.currentMonth).getMonth(),
-                            item.day,
+                            item.day
                         );
                         this.deviationDiagramPopoverData.factValue = item.factValue;
                         this.deviationDiagramPopoverData.planValue = item.planValue;
@@ -316,8 +313,8 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
                         const xOffset = this.hostElement.getBoundingClientRect().x;
                         const yOffset = this.hostElement.getBoundingClientRect().y;
 
-                        this.popover.nativeElement.style.left = (d3.event.x - xOffset + 10) + 'px';
-                        this.popover.nativeElement.style.top = (d3.event.y - yOffset + 40) + 'px';
+                        this.popover.nativeElement.style.left = d3.event.x - xOffset + 10 + 'px';
+                        this.popover.nativeElement.style.top = d3.event.y - yOffset + 40 + 'px';
 
                         this.changeDetectorRef.detectChanges();
                     });
