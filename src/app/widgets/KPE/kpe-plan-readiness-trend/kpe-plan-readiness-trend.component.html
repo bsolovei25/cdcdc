@@ -6,7 +6,7 @@
     icon="sliders"
   ></evj-contemporary-widget-header>
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" #kpePlanReadinessHostElement>
-    <ng-container *ngFor="let row of data; let i = index">
+    <ng-container *ngFor="let row of data">
       <div class="content__column">
         <div class="value-container">
           <span>
@@ -19,7 +19,6 @@
             [currentMonth]="displayedMonth"
             [data]="row?.data"
             [bottomCalendarFull]="true"
-            [attrId]="'chart-' + i"
             [hostElement]="kpePlanReadinessHostElement"
           ></evj-kpe-readiness-deviation-diagram>
         </div>

@@ -42,10 +42,13 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
     public bottomCalendarFull: boolean = false;
 
     @Input()
-    public attrId: string = 'container';
-
-    @Input()
     public hostElement: HTMLDivElement;
+
+    @ViewChild('chart')
+    public chart: ElementRef;
+
+    @ViewChild('popover')
+    public popover: ElementRef;
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
@@ -97,10 +100,6 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
 
     private readonly DELTA: number = 0.05;
 
-    private chart: HTMLElement;
-
-    private popover: HTMLElement;
-
     public factValue: number = 0;
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -117,9 +116,7 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
 
     @AsyncRender
     private drawSvg(): void {
-        this.chart = document.getElementById(this.attrId);
-        this.popover = document.getElementById(this.attrId + '-popover');
-        this.popover.style.display = 'none';
+        this.popover.nativeElement.style.display = 'none';
 
         this.prepareData();
         this.configChartArea();
@@ -169,8 +166,8 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
 
     private initScale(): void {
         this.size = {
-            width: this.chart.getBoundingClientRect().width,
-            height: this.chart.getBoundingClientRect().height,
+            width: this.chart.nativeElement.clientWidth,
+            height: this.chart.nativeElement.clientHeight,
         };
 
         this.scales.x = d3
@@ -190,7 +187,7 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
             this.svg = undefined;
         }
 
-        this.svg = d3.select(this.chart).append('svg');
+        this.svg = d3.select(this.chart.nativeElement).append('svg');
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
@@ -305,7 +302,7 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
                     .attr('cy', this.scales.y(item.factValue))
                     .on('click', () => {
                         this.isPopoverOpened = !this.isPopoverOpened;
-                        this.popover.style.display = this.isPopoverOpened ? 'block' : 'none';
+                        this.popover.nativeElement.style.display = this.isPopoverOpened ? 'block' : 'none';
 
                         this.deviationDiagramPopoverData.date = new Date(
                             new Date(this.currentMonth).getFullYear(),
@@ -319,8 +316,8 @@ export class KpeReadinessDeviationDiagramComponent implements OnChanges {
                         const xOffset = this.hostElement.getBoundingClientRect().x;
                         const yOffset = this.hostElement.getBoundingClientRect().y;
 
-                        this.popover.style.left = (d3.event.x - xOffset + 10) + 'px';
-                        this.popover.style.top = (d3.event.y - yOffset + 40) + 'px';
+                        this.popover.nativeElement.style.left = (d3.event.x - xOffset + 10) + 'px';
+                        this.popover.nativeElement.style.top = (d3.event.y - yOffset + 40) + 'px';
 
                         this.changeDetectorRef.detectChanges();
                     });
