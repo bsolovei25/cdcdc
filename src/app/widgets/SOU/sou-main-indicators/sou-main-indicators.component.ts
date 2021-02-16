@@ -9,7 +9,7 @@ import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic
 import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SouDetailTableComponent } from '../sou-operational-accounting-system/components/sou-detail-table/sou-detail-table.component';
-import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -17,7 +17,7 @@ import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-account
     styleUrls: ['./sou-main-indicators.component.scss'],
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
-    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>({});
+    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(null);
 
     private set data(value: ISouMainIndicators) {
         if (!!value) {
@@ -33,20 +33,6 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     @ViewChild('chart') chart: ElementRef;
 
     public svg: any;
-    private readonly options: ISouEnergeticOptions[] = [
-        {
-            manufacture: 'Производство №1',
-            unit: 'АВТ-10',
-        },
-        {
-            manufacture: 'Производство №4',
-            unit: 'Изомалк-2',
-        },
-        {
-            manufacture: 'Товарное производство',
-            unit: 'АССБ Авиасмеси',
-        },
-    ];
 
     constructor(
         protected widgetService: WidgetService,
@@ -62,7 +48,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     @AsyncRender
     drawSvg(plan: number, fact: number): void {
         const value = (fact / plan) * 2;
-        let dev: number = value === 2 || value === 0 ? 0 : (4 * Math.PI) / 180;
+        const dev: number = value === 2 || value === 0 ? 0 : (4 * Math.PI) / 180;
 
         const innerR = 50;
         const outerR = 42;
@@ -124,10 +110,12 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
-                this.data = {};
-                const el = this.options.find((value) => value.manufacture === ref?.name);
-                this.setWsOptions(el);
+            this.mnemonicSchemeService.selectedOptions$.asObservable().subscribe((ref) => {
+                this.data = null;
+                if (!ref?.manufacture || !ref?.unit) {
+                    return;
+                }
+                this.setWsOptions(ref);
             })
         );
     }
