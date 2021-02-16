@@ -3,10 +3,10 @@ import { MatHint } from '@angular/material/form-field';
 import * as d3 from 'd3';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 import {
-    ISOUFlowIn,
-    ISOUFlowOut,
-    ISOUObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+    ISouFlowIn,
+    ISouFlowOut,
+    ISouObjects,
+} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
@@ -17,14 +17,14 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
     @ViewChild('chart') chart: ElementRef;
     @Input() noConnection: false;
-    @Input() set data(data: { sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[]; code: number }) {
+    @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
         if (data.sections) {
-            this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
+            this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
             this.drawSvg();
         }
     }
 
-    flowData: ISOUFlowOut;
+    flowData: ISouFlowOut;
 
     public svg: any;
 

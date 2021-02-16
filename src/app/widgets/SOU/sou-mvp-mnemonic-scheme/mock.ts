@@ -1,3 +1,45 @@
+import { ISouOptions } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+
+export const OPTIONS: ISouOptions = {
+    manufactures: [
+        {
+            id: 'm1',
+            name: 'Производство 1',
+            units: [],
+        },
+        {
+            id: 'm',
+            name: 'Производство 2',
+            units: [
+                {
+                    id: 'u1',
+                    name: 'АВТ-10',
+                    section: [
+                        {
+                            id: 's1',
+                            name: 'AB',
+                        },
+                        {
+                            id: 's2',
+                            name: 'VB',
+                        },
+                    ],
+                },
+                {
+                    id: 'u2',
+                    name: 'Изомалк-2',
+                    section: [
+                        {
+                            id: 's3',
+                            name: 'IZO',
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
+};
+
 export const DATASOURCE = {
     sumInByDay: 0,
     sumInByHour: 0,

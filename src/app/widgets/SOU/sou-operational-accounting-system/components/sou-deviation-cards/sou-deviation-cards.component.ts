@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISOUNotificationCards } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUNotificationCards } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 type SouDeviationCardStatus = 'Новое';
 

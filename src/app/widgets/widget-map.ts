@@ -50,6 +50,7 @@ export const WIDGETS = {
     'sou-operational-accounting-system': WidgetContainerComponent,
     'sou-operational-accounting-system-new': WidgetContainerComponent,
     'sou-operational-accounting-system-old': WidgetContainerComponent,
+    'sou-operational-accounting-system-main': WidgetContainerComponent,
     'sou-main-indicators': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
@@ -1304,6 +1305,18 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'SouOperationalAccountingSystemModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system',
+    },
+
+    'sou-operational-accounting-system-main': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module');
+        },
+        module: 'SouMvpMnemonicSchemeModule',
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,

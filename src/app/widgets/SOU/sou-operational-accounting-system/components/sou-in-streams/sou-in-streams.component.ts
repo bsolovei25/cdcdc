@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ISOUFlowIn } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISouFlowIn } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 export interface ISOUInStream {
     name: string;
@@ -26,7 +26,7 @@ interface ISOUValue {
     styleUrls: ['./sou-in-streams.component.scss'],
 })
 export class SouInStreamsComponent implements OnInit {
-    @Input() flowIn: ISOUFlowIn[] = [];
+    @Input() flowIn: ISouFlowIn[] = [];
 
     constructor() {}
 

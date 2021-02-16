@@ -16,21 +16,6 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
         this.data$.next(value);
     }
 
-    private readonly options: ISouEnergeticOptions[] = [
-        {
-            manufacture: 'Производство №1',
-            unit: 'АВТ-10',
-        },
-        {
-            manufacture: 'Производство №4',
-            unit: 'Изомалк-2',
-        },
-        {
-            manufacture: 'Товарное производство',
-            unit: 'АССБ Авиасмеси',
-        },
-    ];
-
     constructor(
         private mnemonicSchemeService: SouMvpMnemonicSchemeService,
         protected widgetService: WidgetService,
@@ -49,7 +34,6 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
         super.dataConnect();
         this.subscriptions.push(
             this.mnemonicSchemeService.selectedOptions$.asObservable().subscribe((ref) => {
-                console.log('o', ref);
                 this.data = null;
                 if (!ref) {
                     return;

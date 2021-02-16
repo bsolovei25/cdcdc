@@ -1,3 +1,11 @@
+## [1.0.3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.2...v1.0.3) (2021-02-15)
+
+
+### Bug Fixes
+
+* **kpe-readiness-deviation:** changed HTMLElement to ElementRef references ([3f124eb](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3f124eb17ccae397d9f48ea90dc2c551b327ee31))
+* **sou-mvp-mnemonic-scheme:** remake subchannels dataHandler, default choosing, unit title ([835a1fc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/835a1fc60bb92613a285de0a305f15f1ee6e2e12))
+
 ## [1.0.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.1...v1.0.2) (2021-02-11)
 
 

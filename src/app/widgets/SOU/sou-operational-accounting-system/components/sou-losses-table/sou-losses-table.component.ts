@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { ISOULosses } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOULosses } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 export interface ISouLossesTable {
     rows: {

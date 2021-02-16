@@ -65,7 +65,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         top: 10,
         right: 5,
         bottom: 20,
-        left: 27,
+        left: 37,
     };
 
     private day: Date | null = new Date(1629849600000); // День с которого факт становится пунктирным

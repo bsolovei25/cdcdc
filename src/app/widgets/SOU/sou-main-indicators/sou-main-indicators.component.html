@@ -6,161 +6,165 @@
     icon="pie"
   ></evj-contemporary-widget-header>
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <div *ngIf="!!(data$ | async)" class="block">
-      <div class="block__header">
-        <div class="title">
-          <span class="title__item"> {{ (data$ | async).reductionSpeed?.title + ',' }} </span>
-          <span class="title__item"> {{ (data$ | async).reductionSpeed?.units }} </span>
+    <ng-container *ngIf="!!(data$ | async)">
+      <div class="block">
+        <div class="block__header">
+          <div class="title">
+            <span class="title__item"> {{ (data$ | async).reductionSpeed?.title + ',' }} </span>
+            <span class="title__item"> {{ (data$ | async).reductionSpeed?.units }} </span>
+          </div>
         </div>
-      </div>
-      <div class="block__body">
-        <div class="main main_gauge">
-          <evj-kpe-gauge-chart
-            [fact]="(data$ | async).reductionSpeed?.diagram?.fact || 0"
-            [plan]="(data$ | async).reductionSpeed?.diagram?.plan || 0"
-            background="sou"
-            [style.width.%]="100"
-          ></evj-kpe-gauge-chart>
-        </div>
-        <div class="props-list">
-          <div *ngFor="let card of (data$ | async).reductionSpeed?.elements || []" class="property">
-            <span class="property__name">{{getFormattedData(card.date)}}</span>
-            <div class="property__value">
-              <svg-icon
-                [src]="'assets/icons/widgets/SOU/sou-main-indicators/' + (card.value < 0 ? 'dec' : 'inc') + '.svg'"
-              ></svg-icon>
-              <span [class]="card.value < 0 ? 'dec' : 'inc'"> {{card.value > 0 ? card.value : -1 * card.value}} </span>
+        <div class="block__body">
+          <div class="main main_gauge">
+            <evj-kpe-gauge-chart
+              [fact]="(data$ | async).reductionSpeed?.diagram?.fact || 0"
+              [plan]="(data$ | async).reductionSpeed?.diagram?.plan || 0"
+              background="sou"
+              [style.width.%]="100"
+            ></evj-kpe-gauge-chart>
+          </div>
+          <div class="props-list">
+            <div *ngFor="let card of (data$ | async).reductionSpeed?.elements || []" class="property">
+              <span class="property__name">{{getFormattedData(card.date)}}</span>
+              <div class="property__value">
+                <svg-icon
+                  [src]="'assets/icons/widgets/SOU/sou-main-indicators/' + (card.value < 0 ? 'dec' : 'inc') + '.svg'"
+                ></svg-icon>
+                <span [class]="card.value < 0 ? 'dec' : 'inc'">
+                  {{card.value > 0 ? card.value : -1 * card.value}}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="block">
-      <div class="block__header">
-        <div class="title">
-          <span class="title__item">{{(data$ | async)?.reductionQuality?.title}}</span>
-          <span class="title__item">{{(data$ | async)?.reductionQuality?.units}}</span>
+      <div class="block">
+        <div class="block__header">
+          <div class="title">
+            <span class="title__item">{{(data$ | async)?.reductionQuality?.title}}</span>
+            <span class="title__item">{{(data$ | async)?.reductionQuality?.units}}</span>
+          </div>
+          <div class="menu">
+            <div
+              class="menu__item"
+              *ngFor="let item of menu; let i = index"
+              [ngClass]="{'menu__item_active': i === choosenItem}"
+              (click)="changeMenuItem(i)"
+            >
+              {{item}}
+            </div>
+          </div>
         </div>
-        <div class="menu">
-          <div
-            class="menu__item"
-            *ngFor="let item of menu; let i = index"
-            [ngClass]="{'menu__item_active': i === choosenItem}"
-            (click)="changeMenuItem(i)"
-          >
-            {{item}}
+        <div class="block__body">
+          <div class="main">
+            <span>{{(data$ | async)?.reductionQuality?.value}}</span>
+          </div>
+          <div class="props-list">
+            <div *ngFor="let card of (data$ | async)?.reductionQuality?.elements || []" class="property">
+              <ng-container *ngIf="card">
+                <span class="property__name">{{getFormattedData(card?.date)}}</span>
+                <div class="property__value">
+                  <span>{{card?.value}}</span>
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>
-      <div class="block__body">
-        <div class="main">
-          <span>{{(data$ | async)?.reductionQuality?.value}}</span>
+      <div class="block">
+        <div class="block__header">
+          <div class="title">
+            <span class="title__item">{{(data$ | async)?.formationSpeed?.title + ','}}</span>
+            <span class="title__item">{{(data$ | async)?.formationSpeed?.units}}</span>
+          </div>
         </div>
-        <div class="props-list">
-          <div *ngFor="let card of (data$ | async)?.reductionQuality?.elements || []" class="property">
-            <ng-container *ngIf="card">
+        <div class="block__body">
+          <div class="main main_gauge">
+            <evj-kpe-gauge-chart
+              [fact]="(data$ | async)?.formationSpeed?.diagram?.fact || 0"
+              [plan]="(data$ | async)?.formationSpeed?.diagram?.plan || 0"
+              background="sou"
+              [style.width.%]="100"
+            ></evj-kpe-gauge-chart>
+          </div>
+          <div class="props-list">
+            <div *ngFor="let card of (data$ | async)?.formationSpeed?.elements || []" class="property">
               <span class="property__name">{{getFormattedData(card?.date)}}</span>
               <div class="property__value">
                 <span>{{card?.value}}</span>
               </div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block__header">
-        <div class="title">
-          <span class="title__item">{{(data$ | async)?.formationSpeed?.title + ','}}</span>
-          <span class="title__item">{{(data$ | async)?.formationSpeed?.units}}</span>
-        </div>
-      </div>
-      <div class="block__body">
-        <div class="main main_gauge">
-          <evj-kpe-gauge-chart
-            [fact]="(data$ | async)?.formationSpeed?.diagram?.fact || 0"
-            [plan]="(data$ | async)?.formationSpeed?.diagram?.plan || 0"
-            background="sou"
-            [style.width.%]="100"
-          ></evj-kpe-gauge-chart>
-        </div>
-        <div class="props-list">
-          <div *ngFor="let card of (data$ | async)?.formationSpeed?.elements || []" class="property">
-            <span class="property__name">{{getFormattedData(card?.date)}}</span>
-            <div class="property__value">
-              <span>{{card?.value}}</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="split">
-      <div class="block">
+      <div class="split">
+        <div class="block">
+          <div class="block__header">
+            <div class="title">
+              <span class="title__item"
+                >{{(data$ | async)?.errorsOperations?.title + ','}}
+                <span class="unit">{{(data$ | async)?.errorsOperations?.units}}</span>
+              </span>
+            </div>
+          </div>
+          <div class="block__body">
+            <div class="main">
+              <span
+                ><span>{{(data$ | async)?.errorsOperations?.value}}</span>/{{(data$ |
+                async)?.errorsOperations?.maxValue}}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block__header">
+            <div class="title">
+              <span class="title__item"
+                >{{(data$ | async)?.errorsRude?.title + ','}}
+                <span class="unit">{{(data$ | async)?.errorsRude?.units}}</span>
+              </span>
+            </div>
+          </div>
+          <div class="block__body">
+            <div class="main">
+              <span>{{(data$ | async)?.errorsRude?.value}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block" (click)="openTable(5)" [class.block_active]="active === 5">
         <div class="block__header">
           <div class="title">
-            <span class="title__item"
-              >{{(data$ | async)?.errorsOperations?.title + ','}}
-              <span class="unit">{{(data$ | async)?.errorsOperations?.units}}</span>
-            </span>
+            <span class="title__item">{{(data$ | async)?.losses?.title}},</span>
+            <span class="title__item">{{(data$ | async)?.losses?.units}}</span>
           </div>
         </div>
         <div class="block__body">
-          <div class="main">
-            <span
-              ><span>{{(data$ | async)?.errorsOperations?.value}}</span>/{{(data$ |
-              async)?.errorsOperations?.maxValue}}</span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="block">
-        <div class="block__header">
-          <div class="title">
-            <span class="title__item"
-              >{{(data$ | async)?.errorsRude?.title + ','}}
-              <span class="unit">{{(data$ | async)?.errorsRude?.units}}</span>
-            </span>
-          </div>
-        </div>
-        <div class="block__body">
-          <div class="main">
-            <span>{{(data$ | async)?.errorsRude?.value}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="block" (click)="openTable(5)" [class.block_active]="active === 5">
-      <div class="block__header">
-        <div class="title">
-          <span class="title__item">{{(data$ | async)?.losses?.title}},</span>
-          <span class="title__item">{{(data$ | async)?.losses?.units}}</span>
-        </div>
-      </div>
-      <div class="block__body">
-        <div class="main main_gauge" #chart>
-          <div class="diagram-info">
-            <div class="title">Суммарные</div>
-            <div class="count">{{(data$ | async)?.losses?.sum?.value}}</div>
-            <div class="percent">{{(data$ | async)?.losses?.sum?.percentage}}%</div>
-          </div>
-        </div>
-        <div class="props-list">
-          <div class="property-custom">
-            <div class="title">Неидентифицированные</div>
-            <div class="info-block">
-              <div class="count">{{(data$ | async)?.losses?.unidentified?.value}}</div>
-              <div class="percent">{{(data$ | async)?.losses?.unidentified?.percentage}}%</div>
+          <div class="main main_gauge" #chart>
+            <div class="diagram-info">
+              <div class="title">Суммарные</div>
+              <div class="count">{{(data$ | async)?.losses?.sum?.value}}</div>
+              <div class="percent">{{(data$ | async)?.losses?.sum?.percentage}}%</div>
             </div>
           </div>
-          <div class="property-custom">
-            <div class="title">Идентифицированные</div>
-            <div class="info-block">
-              <div class="count">{{(data$ | async)?.losses?.identified?.value}}</div>
-              <div class="percent">{{(data$ | async)?.losses?.identified?.percentage}}%</div>
+          <div class="props-list">
+            <div class="property-custom">
+              <div class="title">Неидентифицированные</div>
+              <div class="info-block">
+                <div class="count">{{(data$ | async)?.losses?.unidentified?.value}}</div>
+                <div class="percent">{{(data$ | async)?.losses?.unidentified?.percentage}}%</div>
+              </div>
+            </div>
+            <div class="property-custom">
+              <div class="title">Идентифицированные</div>
+              <div class="info-block">
+                <div class="count">{{(data$ | async)?.losses?.identified?.value}}</div>
+                <div class="percent">{{(data$ | async)?.losses?.identified?.percentage}}%</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>
