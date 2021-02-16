@@ -7,7 +7,7 @@ export interface IBarChartDataset {
     y: number;
 }
 
-export interface Interval {
+export interface IInterval {
     min: Date | null;
     max: Date | null
 }
@@ -20,14 +20,21 @@ export interface Interval {
 
 export class KpeChartsAnalyticBarChartComponent implements OnInit {
     @Input() public data: IBarChartDataset[] = kpeBarChartData;
-    @Input() public interval: Interval = {
+    @Input() public interval: IInterval = {
         min: new Date(1626208000000),
         max: new Date(1626308080000)
     };
 
     public dataToDisplay: IBarChartDataset[];
     public chosenDay: number = 0;
-    public scale: number = 0.0405
+    public scale: number = 0.0405;
+    public scaleY: number = 0;
+
+    private readonly day: number =  86401000;
+    private readonly month: number =  3110400000;
+    private readonly year: number =  31556926000;
+
+    public maxValue: number = 0;
 
     constructor() {
     }
@@ -35,12 +42,27 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
     public ngOnInit(): void {
         this.intervalHandler(this.data, this.interval);
         this.dataInInteval(this.data, this.interval);
+
+        this.maxValue = this.getMaxValue(this.dataToDisplay)
+        this.scaleY = this.maxValue * this.scale / 2;
+        console.log(this.intervalHandler(this.data, this.interval));
+        console.log(this.maxValue);
+    }
+
+    public getMaxValue(data: IBarChartDataset[]): number {
+        let max: number = 0;
+        data.forEach((value) => {
+            if (value.y > max) {
+                max = value.y;
+            }
+        })
+        return max;
     }
 
     // Приводим графики к заданному интервалу
     private dataInInteval(
         dataset: IBarChartDataset[],
-        interval: Interval
+        interval: IInterval
     ): IBarChartDataset[] {
         if (
             dataset.length === 0 ||
@@ -70,10 +92,10 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
     // Дискретизация
     public intervalHandler(
         dataset: IBarChartDataset[],
-        interval: Interval
+        interval: IInterval
     ): IBarChartDataset[] {
         const delta: number = +interval.max - +interval.min;
-        let result = [];
+        const result: {y: number, x: number }[] = [];
         let sum: number = 0;
 
         if (delta < 86401000) {
@@ -83,14 +105,14 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
                     x: value.x.getHours()
                 });
             });
-        } else if (delta > 86401000 && delta <= 3110400000) {
+        } else if (delta > this.day && delta <= this.month) {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
                     x: value.x.getDate()
                 });
             });
-        } else if (delta > 3110400000 && delta < 31556926000) {
+        } else if (delta > this.month && delta < this.year) {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
@@ -126,7 +148,7 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
 
     // группирока данных по нужной дискретности
     public groupBy(array, property) {
-        return array.reduce(function(memo, x) {
+        return array.reduce((memo, x) => {
             if (!memo[x[property]]) {
                 memo[x[property]] = [];
             }
