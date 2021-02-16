@@ -1,3 +1,10 @@
+## [1.0.4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.3...v1.0.4) (2021-02-16)
+
+
+### Bug Fixes
+
+* **ci:** refresh builds ([520311e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/520311eb917b2fe0b613b7f74f7700eb6db7d331))
+
 ## [1.0.3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.2...v1.0.3) (2021-02-15)
 
 

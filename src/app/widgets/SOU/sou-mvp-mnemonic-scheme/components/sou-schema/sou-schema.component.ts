@@ -50,8 +50,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     localChosenInstall: string;
     countTypesElement: number = 11;
 
-    srcNameElement: string = 'ng-reflect-src';
-
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
     @Input() chosenInstall: string;
@@ -84,13 +82,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     ngAfterViewChecked(): void {
-        const element: Element = document.getElementById('svg_elements')?.firstElementChild;
-        const src = element?.getAttribute(this.srcNameElement);
-        if (
-            document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) &&
-            src?.includes(this.getSvgName(this.localChosenInstall)) &&
-            this.flag
-        ) {
+        if (document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) && this.flag) {
             this.flag = false;
             this.loadSchema();
             if (this.sectionsDataPark.length) {
