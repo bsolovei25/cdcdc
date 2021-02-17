@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { KpeEngUnitsComparator } from '../../../shared/kpe-eng-units-comparator';
 
 export interface IKpeEnergyTab {
     title: string;
@@ -7,6 +8,8 @@ export interface IKpeEnergyTab {
     fact: number;
     plan: number;
     deviation?: number;
+    percentage?: number;
+    deviationPercentage?: number;
 }
 
 @Component({
@@ -16,6 +19,7 @@ export interface IKpeEnergyTab {
 })
 export class KpeEnergyTabComponent implements OnInit {
     @Input() data: IKpeEnergyTab = null;
+    @Input() comparator: KpeEngUnitsComparator;
 
     constructor() {}
 

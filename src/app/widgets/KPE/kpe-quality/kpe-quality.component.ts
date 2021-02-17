@@ -7,6 +7,7 @@ import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-devia
 import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
+import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 
 type DisplayModeType = 'tiled' | 'line' | 'planFeasibility';
 
@@ -48,6 +49,8 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     public displayedMonth: Date;
 
     public displayMode: DisplayModeType;
+
+    public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
 
     constructor(
         private hostElement: ElementRef,
@@ -94,6 +97,7 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     protected dataHandler(ref: IKpeQualityData): void {
+        ref.cards.forEach((x) => (x.gaugeChart.deviationPercentage = 100 - x.gaugeChart.percentage));
         this.displayMode = ref.displayMode;
         this.deviationDiagram = ref.deviationDiagram;
         this.deviationChartData = this.formatData(ref.deviationChart);
@@ -111,9 +115,9 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
                 });
             });
         }
-        ref.deviationChart.forEach((data) => {
+        ref.deviationChart?.forEach((data) => {
             if (data.graphType === 'fact') {
-                this.displayedMonth = new Date(data.graph[0].timeStamp);
+                this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
     }
@@ -126,6 +130,9 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     private formatData(data: IKpeLineChartData[]): IBarDiagramData[] {
+        if (!data?.length) {
+            return [];
+        }
         return this.kpeHelperService.prepareKpeLineChartData(data);
     }
 }

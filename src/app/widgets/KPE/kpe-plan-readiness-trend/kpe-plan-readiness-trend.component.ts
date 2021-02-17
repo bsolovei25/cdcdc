@@ -51,7 +51,7 @@ export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> impl
 
                 item.data.forEach((data) => {
                     if (data.graphType === 'fact') {
-                        this.displayedMonth = new Date(data.graph[0].timeStamp);
+                        this.displayedMonth = new Date(data?.graph?.[0]?.timeStamp);
                     }
                 });
             }

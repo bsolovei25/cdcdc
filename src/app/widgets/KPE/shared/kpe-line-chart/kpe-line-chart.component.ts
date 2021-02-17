@@ -185,8 +185,8 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
 
                 if (
-                    (areaFn === areaBottom && chart.graph.find((item) => item.x === lastPoint.x)?.y < lastPoint.y) ||
-                    (areaFn === areaTop && chart.graph.find((item) => item.x === lastPoint.x)?.y >= lastPoint.y)
+                    (areaFn === areaBottom && chart.graph.find((item) => item?.x === lastPoint?.x)?.y < lastPoint?.y) ||
+                    (areaFn === areaTop && chart.graph.find((item) => item?.x === lastPoint?.x)?.y >= lastPoint?.y)
                 ) {
                     className = 'graph-area-border graph-area_warning';
                     this.lastPointColor = 'graph-area_warning';
@@ -203,6 +203,10 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
         const plan = this.chartData.find((chart) => chart.graphType === 'plan')?.graph ?? [];
+
+        if (!fact?.length) {
+            return;
+        }
 
         const x = fact[fact.length - 1].x;
         const y = plan.find((corrdinate) => corrdinate.x === x)?.y;
@@ -315,6 +319,9 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
     private drawFutureRect(): void {
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+        if (!fact?.length) {
+            return;
+        }
         const x = fact[fact.length - 1].x;
         const y = this.padding.top;
         const y2 = this.graphMaxY - this.padding.bottom;
