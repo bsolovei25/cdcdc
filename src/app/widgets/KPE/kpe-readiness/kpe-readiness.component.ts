@@ -5,6 +5,7 @@ import { IProductionTrend } from '../../../dashboard/models/LCO/production-trend
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
+import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 
 export interface IKpeReadinessData {
     chartCards: IKpeReadinessChartCard[] | null;
@@ -25,6 +26,8 @@ export interface IKpeReadinessGauge {
     deviation?: number;
     fact: number;
     plan: number;
+    percentage: number;
+    deviationPercentage: number;
 }
 
 @Component({
@@ -54,6 +57,8 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
 
     displayMode: 'tiled' | 'line';
 
+    public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+
     constructor(
         protected widgetService: WidgetService,
         private kpeHelperService: KpeHelperService,
@@ -74,11 +79,16 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
 
     protected dataHandler(ref: IKpeReadinessData): void {
         this.displayMode = ref.displayMode;
-        this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
+        if (!!ref?.deviationChart) {
+            this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
+        }
         if (this.kpeHelperService.compare<IKpeGaugeChartData>(this.gaugeCards, ref.gaugeCards)) {
             this.gaugeCards = ref.gaugeCards;
+            this.gaugeCards.forEach((x) => (x.deviationPercentage = 100 - x.percentage));
         }
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
+        // TODO get from back
+        this.chartCards.forEach((x) => (x.progressChart.deviationPercentage = 100 - x.progressChart.percentage));
 
         if (this.chartCards.length > 0) {
             if (this.displayMode === 'line') {
@@ -94,7 +104,7 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
         this.diagram = ref.deviationDiagram;
         ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
-                this.displayedMonth = new Date(data.graph[0].timeStamp);
+                this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
     }

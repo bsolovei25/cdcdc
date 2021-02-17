@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartPage } from './components/gauge-diagram/gauge-diagram.component';
+import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 
 export type KeyPerformanceIndicatorType = 'pimsPlan' | 'normPlan' | 'operPlan';
 
@@ -21,6 +22,7 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> i
     public diagramData: IKpeGaugeChartPage;
 
     public activeIndicatorType: KeyPerformanceIndicatorType;
+    public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
 
     constructor(
         public widgetService: WidgetService,
@@ -45,6 +47,7 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: any): void {
+        console.log('ref', ref);
         this.sourceData = ref;
         this.setActiveIndicator();
     }

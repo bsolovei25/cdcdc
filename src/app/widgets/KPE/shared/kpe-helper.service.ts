@@ -47,8 +47,11 @@ export class KpeHelperService {
     }
 
     private fillArrayTimestamp(array: { value: number; timeStamp: Date }[]): { value: number; timeStamp: Date }[] {
-        const firstDate = new Date(array[0].timeStamp);
-        const lastDate = new Date(array[array.length - 1].timeStamp);
+        if (!array?.length) {
+            return [];
+        }
+        const firstDate = new Date(array?.[0]?.timeStamp);
+        const lastDate = new Date(array?.[array.length - 1]?.timeStamp);
         const firstValue = array[0].value;
         const lastValue = array[array.length - 1].value;
         let result: { value: number; timeStamp: Date }[] = [];
@@ -80,12 +83,17 @@ export class KpeHelperService {
         if (!data) {
             return;
         }
+        data.forEach((x) => {
+            if (!x?.graph?.length) {
+                x.graph = [];
+            }
+        });
         function fieldHandler(field: { value: number; timeStamp: string }[]): { x: number; y: number }[][] {
             let tempArr = [];
             const resultArr = [];
-            let month: number = new Date(field[0].timeStamp).getMonth();
+            let month: number = new Date(field?.[0]?.timeStamp).getMonth();
             let day = 0;
-            for (let i = 0; i <= field.length; i++) {
+            for (let i = 0; i <= field?.length; i++) {
                 const itemMonth = new Date(field[i]?.timeStamp).getMonth();
                 const nextDay = new Date(field[i]?.timeStamp).getDate();
                 if (field[i]?.timeStamp && (field[i]?.value || field[i]?.value === 0) && day < nextDay) {
@@ -114,7 +122,7 @@ export class KpeHelperService {
         let displayedMonth = new Date();
         data.forEach((item) => {
             if (item.graphType === 'fact') {
-                displayedMonth = new Date(item.graph[0].timeStamp);
+                displayedMonth = new Date(item.graph?.[0]?.timeStamp);
             }
         });
 
@@ -143,9 +151,12 @@ export class KpeHelperService {
 
     public prepareKpeTrendChartData(data: IProductionTrend[]): IProductionTrend[] {
         function fieldHandler(field: { value: number; timeStamp: Date }[]): { value: number; timeStamp: any }[][] {
+            if (!field) {
+                return [];
+            }
             let tempArr = [];
             const resultArr = [];
-            let month: number = new Date(field[0].timeStamp).getMonth();
+            let month: number = new Date(field?.[0]?.timeStamp).getMonth();
             let day = 0;
             for (let i = 0; i <= field.length; i++) {
                 const itemMonth = new Date(field[i]?.timeStamp).getMonth();
@@ -167,7 +178,7 @@ export class KpeHelperService {
         }
 
         function distinct(array: { value: number; timeStamp: Date }[]): { value: number; timeStamp: Date }[] {
-            return [...new Map(array.map((item) => [item.timeStamp, item])).values()];
+            return [...new Map(array?.map((item) => [item.timeStamp, item]) ?? [])?.values()];
         }
 
         const resultData: IProductionTrend[] = [];

@@ -26,10 +26,16 @@
 
 <div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="unit-selector">
-    <div class="unit-selector__unit">
+    <div
+      [ngClass]="engUnitsComparator.isEngUnitsPercent('key') ? 'unit-selector__unit' : 'unit-selector__sign'"
+      (click)="engUnitsComparator.setEngUnits('key', 'units')"
+    >
       <span>ед.изм</span>
     </div>
-    <div class="unit-selector__sign">
+    <div
+      [ngClass]="!engUnitsComparator.isEngUnitsPercent('key') ? 'unit-selector__unit' : 'unit-selector__sign'"
+      (click)="engUnitsComparator.setEngUnits('key', 'percent')"
+    >
       <span>%</span>
     </div>
   </div>
