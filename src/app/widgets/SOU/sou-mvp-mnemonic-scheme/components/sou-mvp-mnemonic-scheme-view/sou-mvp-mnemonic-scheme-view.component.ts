@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { BehaviorSubject } from 'rxjs';
@@ -22,6 +22,7 @@ export interface ISouMvpMnemonicSchemeView {
 export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> implements OnInit, OnDestroy {
     public data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
     public chosenSetting: number = 1;
+    @ViewChild('schema') public schemaContainer: ElementRef;
 
     constructor(
         protected widgetService: WidgetService,

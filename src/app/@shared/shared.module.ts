@@ -58,6 +58,7 @@ import { RectangleInputComponent } from './components/rectangle-input/rectangle-
 import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
 import { CheckerComponent } from './components/checker/checker.component';
 import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
+import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer.directive';
 
 @NgModule({
     declarations: [
@@ -105,6 +106,7 @@ import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components
         RectangleInputComponent,
         RectButtonComponent,
         CheckerComponent,
+        SchemaScrollResizerDirective,
     ],
     exports: [
         HeaderComponent,
@@ -146,6 +148,7 @@ import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components
         RectangleInputComponent,
         RectButtonComponent,
         CheckerComponent,
+        SchemaScrollResizerDirective,
     ],
     imports: [
         CommonModule,
