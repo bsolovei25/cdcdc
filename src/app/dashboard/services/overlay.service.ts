@@ -15,6 +15,7 @@ export class OverlayService {
         null
     );
     public dashboardIsLoad$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+    public aboutAlert$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     public closeDashboardAlert(): void {
         this.dashboardAlert$.next(null);

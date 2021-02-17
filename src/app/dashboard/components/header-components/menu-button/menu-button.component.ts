@@ -6,6 +6,8 @@ import { IAlertPasswordModel } from '@shared/models/alert-password.model';
 import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
 import { ThemeConfiguratorService } from '@core/service/theme-configurator.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { AppConfigService } from '@core/service/app-config.service';
 
 interface IMenuItem {
     name: string;
@@ -31,7 +33,8 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         public overlayService: OverlayService,
         private router: Router,
         private authService: AuthService,
-        private themeService: ThemeConfiguratorService
+        private themeService: ThemeConfiguratorService,
+        private configService: AppConfigService
     ) {}
 
     public ngOnInit(): void {
@@ -71,6 +74,11 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
                 name: 'Изменение темы',
                 action: this.themeService.changeTheme.bind(this.themeService),
                 icon: this.isDarkTheme ? 'lightTheme' : 'darkTheme',
+            },
+            {
+                name: 'О приложении',
+                action: this.aboutApp.bind(this),
+                icon: 'list',
             },
             {
                 name: 'Выйти',
@@ -114,5 +122,17 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
                 }
             })
         );
+    }
+
+    private aboutApp(): void {
+        const alertAbout: IAlertWindowModel = {
+            isShow: true,
+            questionText: this.configService.hash,
+            acceptText: 'Подтвердить',
+            cancelText: 'Вернуться',
+            closeFunction: () => this.overlayService.aboutAlert$.next(null),
+        };
+        this.overlayService.aboutAlert$.next(alertAbout);
+        console.log('alert');
     }
 }
