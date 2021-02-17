@@ -35,15 +35,15 @@
           [ngClass]="{'chart__item_selected':d + 1 === chosenDay}"
         >
           <ng-container *ngIf="item.y >= 0 else bottom">
-          <div class="chart__top" [ngStyle]="{'height': item.y * scale + '%'}">
+            <div class="chart__top" [ngStyle]="{'height': item.y * scale * getExponent() + '%'}">
               <div class="value"></div>
-          </div>
+            </div>
           </ng-container>
 
           <ng-template #bottom>
-          <div class="chart__bottom" [ngStyle]="{'height': (-1) * item.y * scale + '%'}">
+            <div class="chart__bottom" [ngStyle]="{'height': (-1) * item.y * scale * getExponent()+ '%'}">
               <div class="value"></div>
-          </div>
+            </div>
           </ng-template>
           <div class="day" *ngIf="(d+1) % 2 === 1">{{item.x}}</div>
         </div>

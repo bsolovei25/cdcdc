@@ -117,7 +117,8 @@
           position: absolute;
           top: -7px;
         }
-        &:hover, &_selected {
+        &:hover,
+        &_selected {
           background: var(--color-kpe-select-column-diagram);
         }
 
@@ -143,7 +144,8 @@
           bottom: -16px;
         }
 
-        .chart__top, .chart__bottom {
+        .chart__top,
+        .chart__bottom {
           width: 100%;
 
           display: flex;
@@ -156,11 +158,9 @@
             height: 100%;
             width: 40%;
             min-width: 3px;
-            background-image: linear-gradient(180deg,  #FBFBFB,  #FBFBFB 75%, transparent 75%, transparent 100%);
+            background-image: linear-gradient(180deg, #fbfbfb, #fbfbfb 75%, transparent 75%, transparent 100%);
             background-size: 1px 2px;
             border: none;
-
-
           }
         }
         .chart__bottom {
