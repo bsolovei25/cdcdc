@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { kpeBarChartData } from "./kpe-charts-analytic-bar-chart.mock";
-import { IChartsAnalyticDataset } from "../kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component";
+import { Component, Input, OnInit } from '@angular/core';
+import { kpeBarChartData } from './kpe-charts-analytic-bar-chart.mock';
+import { IChartsAnalyticDataset } from '../kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component';
 
 export interface IBarChartDataset {
     x: Date;
@@ -9,44 +9,40 @@ export interface IBarChartDataset {
 
 export interface IInterval {
     min: Date | null;
-    max: Date | null
+    max: Date | null;
 }
 
 @Component({
-    selector: "evj-kpe-charts-analytic-bar-chart",
-    templateUrl: "./kpe-charts-analytic-bar-chart.component.html",
-    styleUrls: ["./kpe-charts-analytic-bar-chart.component.scss"]
+    selector: 'evj-kpe-charts-analytic-bar-chart',
+    templateUrl: './kpe-charts-analytic-bar-chart.component.html',
+    styleUrls: ['./kpe-charts-analytic-bar-chart.component.scss'],
 })
-
 export class KpeChartsAnalyticBarChartComponent implements OnInit {
     @Input() public data: IBarChartDataset[] = kpeBarChartData;
     @Input() public interval: IInterval = {
         min: new Date(1626208000000),
-        max: new Date(1626308080000)
+        max: new Date(1626465200000),
     };
 
     public dataToDisplay: IBarChartDataset[];
     public chosenDay: number = 0;
-    public scale: number = 0.0405;
+    public scale: number = 40.5;
     public scaleY: number = 0;
-
-    private readonly day: number =  86401000;
-    private readonly month: number =  3110400000;
-    private readonly year: number =  31556926000;
-
     public maxValue: number = 0;
 
-    constructor() {
-    }
+    public allMonths: string[] = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+
+    private readonly day: number = 86401000;
+    private readonly month: number = 3110400000;
+    private readonly year: number = 31556926000;
+
+    constructor() {}
 
     public ngOnInit(): void {
         this.intervalHandler(this.data, this.interval);
         this.dataInInteval(this.data, this.interval);
-
-        this.maxValue = this.getMaxValue(this.dataToDisplay)
-        this.scaleY = this.maxValue * this.scale / 2;
-        console.log(this.intervalHandler(this.data, this.interval));
-        console.log(this.maxValue);
+        this.maxValue = this.getMaxValue(this.dataToDisplay);
+        this.scaleY = ((this.maxValue * this.scale) / 2) * this.getExponent();
     }
 
     public getMaxValue(data: IBarChartDataset[]): number {
@@ -55,15 +51,21 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
             if (value.y > max) {
                 max = value.y;
             }
-        })
+        });
         return max;
     }
 
+    public getExponent(): number {
+        let count: number = 1;
+        const max: number[] = this.maxValue.toString().split('').map(Number);
+        max.forEach((value) => {
+            count = count / 10;
+        });
+        return count;
+    }
+
     // Приводим графики к заданному интервалу
-    private dataInInteval(
-        dataset: IBarChartDataset[],
-        interval: IInterval
-    ): IBarChartDataset[] {
+    private dataInInteval(dataset: IBarChartDataset[], interval: IInterval): IBarChartDataset[] {
         if (
             dataset.length === 0 ||
             +dataset[0] > +interval.max ||
@@ -90,53 +92,50 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
     }
 
     // Дискретизация
-    public intervalHandler(
-        dataset: IBarChartDataset[],
-        interval: IInterval
-    ): IBarChartDataset[] {
+    public intervalHandler(dataset: IBarChartDataset[], interval: IInterval): IBarChartDataset[] {
         const delta: number = +interval.max - +interval.min;
-        const result: {y: number, x: number }[] = [];
+        const result: { y: number; x: number }[] = [];
         let sum: number = 0;
 
         if (delta < 86401000) {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
-                    x: value.x.getHours()
+                    x: value.x.getHours(),
                 });
             });
         } else if (delta > this.day && delta <= this.month) {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
-                    x: value.x.getDate()
+                    x: value.x.getDate(),
                 });
             });
         } else if (delta > this.month && delta < this.year) {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
-                    x: value.x.getMonth()
+                    x: value.x.getMonth(),
                 });
             });
         } else {
             this.dataInInteval(dataset, interval).forEach((value) => {
                 result.push({
                     y: value.y,
-                    x: value.x.getFullYear()
+                    x: value.x.getFullYear(),
                 });
             });
         }
 
         this.dataToDisplay = [];
-        this.groupBy(result, "x").forEach((value) => {
+        this.groupBy(result, 'x').forEach((value) => {
             sum = 0;
-            value.forEach(v => {
+            value.forEach((v) => {
                 sum += v.y;
             });
             this.dataToDisplay.push({
-                x: value[0].x,
-                y: sum / value.length
+                x: delta > this.month && delta < this.year ? this.allMonths[value[0].x] : value[0].x,
+                y: sum / value.length,
             });
         });
         return this.dataToDisplay;
@@ -157,4 +156,3 @@ export class KpeChartsAnalyticBarChartComponent implements OnInit {
         }, []);
     }
 }
-
