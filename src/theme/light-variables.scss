@@ -340,6 +340,15 @@
   --color-kpe-total-reserve-border-product: #272a38;
   --color-kpe-total-reserve-text-product: #d7e2f2;
 
+  //KPE column diagram
+  --color-kpe-bg-column-diagram: #12151e;
+  --color-kpe-danger-dashed-column-diagram: rgba(255, 29, 37, 0.2);
+  --color-kpe-warning-dashed-column-diagram: rgba(247, 147, 30, 0.2);
+  --color-kpe-zero-axis-column-diagram: #0089ff;
+  --color-kpe-border-axis-column-diagram: #606580;
+  --color-kpe-grid-column-diagram: #272a38;
+  --color-kpe-select-column-diagram: rgba(0, 137, 255, 0.2);
+
   // CD
   --color-cd-bg-component: #151a29;
   --color-cd-bg-border: #2a2e41;
