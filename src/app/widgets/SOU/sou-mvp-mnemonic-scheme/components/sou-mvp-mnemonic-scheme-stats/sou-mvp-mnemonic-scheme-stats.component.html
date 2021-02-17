@@ -1,0 +1,31 @@
+<div class="popup">
+  <div class="popup__header">
+    <div class="close-btn" (click)="closeWindow.emit()">
+      <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg" />
+    </div>
+  </div>
+  <div class="popup__content">
+    <div class="title">
+      <div class="marker"></div>
+      <span class="source-name">{{popupData?.tag}}</span>
+      <span class="product-name">{{popupData?.productName}}</span>
+    </div>
+    <div class="information">
+      Уровень доверия:&nbsp;
+      <span> {{popupData?.tolerance}} </span>
+      Измеренное:&nbsp;
+      <span [ngSwitch]="chosenSetting">
+        <ng-template ngSwitchCase="1">{{popupData?.valueByHour}}</ng-template>
+        <ng-template ngSwitchCase="2">{{popupData?.valueTank}}</ng-template>
+        <ng-template ngSwitchDefault>{{popupData?.valueMoment}}</ng-template>
+        т
+      </span>
+      Скорректированное:&nbsp;
+      <span> {{popupData?.valueEdit}} т </span>
+      Согласованное:&nbsp;
+      <span> {{popupData?.valueCalculate}} т </span>
+      Погрешность:&nbsp;
+      <span> {{popupData?.error}} % </span>
+    </div>
+  </div>
+</div>

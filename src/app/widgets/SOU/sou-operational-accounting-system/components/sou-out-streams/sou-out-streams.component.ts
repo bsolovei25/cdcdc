@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISOUFlowOut, ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISouFlowOut, ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-out-streams',
@@ -7,7 +7,7 @@ import { ISOUFlowOut, ISOUSection } from '../../../../../dashboard/models/SOU/so
     styleUrls: ['./sou-out-streams.component.scss'],
 })
 export class SouOutStreamsComponent implements OnInit {
-    @Input() flowOut: ISOUFlowOut[] = [];
+    @Input() flowOut: ISouFlowOut[] = [];
     @Input() sections: ISOUSection;
     @Output() changeSection: EventEmitter<ISOUSection> = new EventEmitter<ISOUSection>();
 

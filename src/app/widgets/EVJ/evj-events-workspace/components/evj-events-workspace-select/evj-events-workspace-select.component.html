@@ -21,6 +21,7 @@
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.status"
         [compareWith]="compareFn"
+        [disabled]="disabled"
       >
         <mat-option
           *ngFor="let item of (ewService.status | formatStatus:ewService.event.status:ewService.isCreateNewEvent); i as index"

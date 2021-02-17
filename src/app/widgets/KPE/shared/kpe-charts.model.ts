@@ -10,4 +10,6 @@ export interface IKpeGaugeChartData {
     deviation?: number;
     title?: string;
     unit?: string;
+    percentage?: number;
+    deviationPercentage?: number;
 }

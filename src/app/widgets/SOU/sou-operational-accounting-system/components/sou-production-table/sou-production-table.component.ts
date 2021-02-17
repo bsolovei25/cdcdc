@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { ISOUProduct } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUProduct } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-production-table',

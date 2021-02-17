@@ -14,63 +14,52 @@
     display: flex;
     flex-direction: column;
 
-    background: var(--color-kpe-line-diagram-bg-sub);
-
-    border: 1px solid var(--color-kpe-bg-sub);
+    background: var(--color-kpe-bg);
+    padding: 16px 16px 0;
+    border: 1px solid var(--color-kpe-border);
     border-radius: 0 0 2px 2px;
 
-    &__row {
+    &__column {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       height: 50%;
       width: 100%;
+      padding: 5px;
+      background-color: var(--color-kpe-bg-dark);
+      border-bottom: 16px var(--color-kpe-bg) solid;
 
       .chart-container,
       .value-container {
-        height: 100%;
         width: 100%;
         display: flex;
         align-items: center;
       }
 
       .chart-container {
-        flex: 8 8;
+        height: calc(100% - 32px);
         justify-content: center;
-        flex-grow: 8;
-        height: 100%;
-        padding: 18px;
+        padding: 5px;
       }
 
       .value-container {
-        flex: 1 1;
         display: flex;
-        flex-direction: column;
-        padding: 27px 27px 27px 0;
-
-        &__value {
-          width: 126px;
-          height: 82px;
-          background-color: var(--color-lines-bg-dia);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          margin-top: 25%;
-
-          span.value {
-            color: var(--color-text-main);
-            font-size: 36px;
-          }
-
-          span.measurement {
-            color: var(--color-marker-diagram);
-            font-size: 10px;
-          }
-        }
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 5px 0px;
 
         span {
-          font-size: 14px;
-          color: var(--color-border-unactive);
+          font-size: 13px;
+          color: var(--nk-color-white);
+        }
+
+        span.value {
+          color: var(--color-text-main);
+          font-size: 21px;
+        }
+
+        span.measurement {
+          color: var(--color-marker-diagram);
+          font-size: 13px;
         }
       }
     }

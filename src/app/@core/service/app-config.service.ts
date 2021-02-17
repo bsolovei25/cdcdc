@@ -98,4 +98,11 @@ export class AppConfigService {
         }
         return this.appConfig.projectName;
     }
+
+    get hash(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.hash;
+    }
 }

@@ -15,6 +15,7 @@
     <evj-loading-shade [isLoading]="overlayService.dashboardIsLoad$ | async"></evj-loading-shade>
     <evj-alert-window [info]="overlayService.dashboardAlert$ | async"></evj-alert-window>
     <evj-alert-password [options]="overlayService.dashboardAlertPassword$ | async"></evj-alert-password>
+    <evj-alert-window [info]="overlayService.aboutAlert$ | async"></evj-alert-window>
     <evj-widgets-grid></evj-widgets-grid>
   </evj-content>
 </div>

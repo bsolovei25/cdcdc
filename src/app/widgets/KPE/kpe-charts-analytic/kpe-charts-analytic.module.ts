@@ -13,6 +13,7 @@ import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-a
 import { MatNativeDateModule } from '@angular/material/core';
 import { KpeChartsAnalyticMainChartComponent } from './components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component';
 import { KpeSharedModule } from '../shared/kpe-shared.module';
+import { KpeChartsAnalyticBarChartComponent } from './components/kpe-charts-analytic-bar-chart/kpe-charts-analytic-bar-chart.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { KpeSharedModule } from '../shared/kpe-shared.module';
         KpeChartsAnalyticCardComponent,
         KpeChartsAnalyticDatesPickerComponent,
         KpeChartsAnalyticMainChartComponent,
+        KpeChartsAnalyticBarChartComponent,
     ],
     imports: [
         CommonModule,

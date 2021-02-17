@@ -4,6 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';
+import { ArrayOfObjectsDeepEqual } from '@shared/functions/deep-equal.function';
 
 export interface IKpePlanReadinessTrendData<T> {
     name: string;
@@ -38,19 +39,22 @@ export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> impl
     }
 
     protected dataHandler(ref: any): void {
-        for (const item of ref.data ?? []) {
-            this.data.push({
-                name: item.name,
-                measurement: item.measurement,
-                value: item.value,
-                data: this.kpeHelperService.prepareKpeLineChartData(item.data),
-            });
+        if (!ArrayOfObjectsDeepEqual(this.data, ref.data)) {
+            this.data = [];
+            for (const item of ref.data ?? []) {
+                this.data.push({
+                    name: item.name,
+                    measurement: item.measurement,
+                    value: item.value,
+                    data: this.kpeHelperService.prepareKpeLineChartData(item.data),
+                });
 
-            item.data.forEach((data) => {
-                if (data.graphType === 'fact') {
-                    this.displayedMonth = new Date(data.graph[0].timeStamp);
-                }
-            });
+                item.data.forEach((data) => {
+                    if (data.graphType === 'fact') {
+                        this.displayedMonth = new Date(data?.graph?.[0]?.timeStamp);
+                    }
+                });
+            }
         }
     }
 }

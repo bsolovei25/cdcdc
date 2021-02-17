@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-facility-info',

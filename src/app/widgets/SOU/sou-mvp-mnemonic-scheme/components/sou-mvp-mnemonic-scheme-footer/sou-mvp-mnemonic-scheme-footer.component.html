@@ -1,0 +1,79 @@
+<div class="footer">
+  <div class="footer__item">
+    <div class="row-container">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryIn.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+      ></svg-icon>
+      <span class="title">Сумма входа, тн</span>
+    </div>
+    <div class="row-container">
+      <div class="information">
+        Накопленное:&nbsp;<span class="information__main">{{(data$ | async)?.sumInByDay}}</span> За час:&nbsp;<span
+          class="information__sub"
+          >{{(data$ | async)?.sumInByHour}}</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="footer__item">
+    <div class="row-container">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryOut.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':11 }"
+      ></svg-icon>
+      <span class="title">Сумма выхода, тн</span>
+    </div>
+    <div class="row-container">
+      <div class="information">
+        Накопленное:&nbsp;<span class="information__main">{{(data$ | async)?.sumOutByDay}}</span> За час:&nbsp;<span
+          class="information__sub"
+          >{{(data$ | async)?.sumOutByHour}}</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="footer__item">
+    <div class="row-container">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/delta.svg"
+        [ngStyle]="{ 'width.px':14, 'height.px':15 }"
+      ></svg-icon>
+      <span class="title">Дельта</span>
+    </div>
+    <div class="row-container">
+      <div class="information">
+        Накопленное:&nbsp;<span
+          class="information__sub"
+          [style.color]="(data$ | async)?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+          >{{(data$ | async)?.delta}}т</span
+        >&nbsp;|&nbsp;<span class="information__main">{{(data$ | async)?.deltaByPersent}}%</span> За час:&nbsp;<span
+          class="information__sub"
+          [style.color]="(data$ | async)?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+          >{{(data$ | async)?.deltaHour}}т</span
+        >&nbsp;|&nbsp;<span class="information__main">{{(data$ | async)?.deltaHourByPercent}}%</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer__item">
+    <div class="row-container">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+      ></svg-icon>
+      <span class="title">Допустимый дебаланс</span>
+    </div>
+    <div class="row-container">
+      <div class="information">
+        Накопленное:&nbsp;<span class="information__sub">{{(data$ | async)?.balanceAllow}}т</span>&nbsp;|&nbsp;<span
+          class="information__main"
+          >{{(data$ | async)?.balanceAllowByPercent}}%</span
+        >
+        За час:&nbsp;<span class="information__sub">{{(data$ | async)?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span
+          class="information__main"
+          >{{(data$ | async)?.balanceAllowHourByPercent}}%</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

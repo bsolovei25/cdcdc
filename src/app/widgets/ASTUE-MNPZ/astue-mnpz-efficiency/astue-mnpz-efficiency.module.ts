@@ -14,6 +14,7 @@ import { AstueEfficiencyUnitsComponent } from './components/astue-efficiency-uni
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,7 @@ import { MatRippleModule } from '@angular/material/core';
         AstueEfficiencyUnitsComponent,
         AstueEfficiencyUnitCardComponent,
     ],
-    imports: [CommonModule, SharedModule, AngularSvgIconModule, FormsModule, ReactiveFormsModule, MatRippleModule],
+  imports: [CommonModule, SharedModule, AngularSvgIconModule, FormsModule, ReactiveFormsModule, MatRippleModule, MatTooltipModule]
 })
 export class AstueMnpzEfficiencyModule {
     enterComponent = AstueMnpzEfficiencyComponent;

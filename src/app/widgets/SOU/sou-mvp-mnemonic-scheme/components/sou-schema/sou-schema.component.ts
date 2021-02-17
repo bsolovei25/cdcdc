@@ -11,13 +11,13 @@ import {
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
-    ISOUFlowIn,
-    ISOUFlowOut,
-    ISOUObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+    ISouFlowIn,
+    ISouFlowOut,
+    ISouObjects,
+} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
-    metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects;
+    metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects;
     rects: Element[];
     points: Element[];
     arrows: Element[];
@@ -46,15 +46,13 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     fullElement: Map<number, IElementFullAndUI> = new Map();
-    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Данные с бэка
-    localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+    dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
+    localChosenInstall: string;
     countTypesElement: number = 11;
 
-    srcNameElement: string = 'ng-reflect-src';
-
-    @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
+    @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
+    @Input() chosenInstall: string;
 
     @ViewChildren('svg_sou') svg: QueryList<ElementRef>;
 
@@ -63,7 +61,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     ngOnInit(): void {}
 
     ngOnChanges(): void {
-        console.log(this.chosenInstall, this.chosenSetting);
         if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.localChosenInstall = this.chosenInstall;
@@ -85,22 +82,17 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     ngAfterViewChecked(): void {
-        const element: Element = document.getElementById('svg_elements')?.firstElementChild;
-        const src = element?.getAttribute(this.srcNameElement);
-        if (
-            document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) &&
-            src?.includes(this.getSvgName(this.localChosenInstall)) &&
-            this.flag
-        ) {
+        if (document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) && this.flag) {
             this.flag = false;
             this.loadSchema();
-            if (this.dataPark.length) {
+            if (this.sectionsDataPark.length) {
+                this.dataPark = this.sectionsDataPark;
                 this.loadData(false);
             }
         }
     }
 
-    setNewDataToSchema(): (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] {
+    setNewDataToSchema(): (ISouFlowOut | ISouFlowIn | ISouObjects)[] {
         // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
         const newArray = [];
         this.sectionsDataPark?.forEach((value) => {
@@ -126,7 +118,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     resetComponent(): void {
-        this.dataPark = [];
         this.elementsNode = [];
         this.dataAttribute.clear();
         this.fullElement.clear();
@@ -157,7 +148,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     loadData(reload: boolean): void {
         // tests
-        // this.testsToLogPanel();
+        this.testsToLogPanel();
         //
         this.dataPark?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
@@ -169,7 +160,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         });
     }
 
-    reloadOldData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+    reloadOldData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.fullElement.get(data.code)?.element;
         const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
         // this.elementEdit(true, mode, element, data);
@@ -178,7 +169,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    loadNewData(data: ISOUFlowOut | ISOUFlowIn | ISOUObjects): void {
+    loadNewData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.dataAttribute.get(data?.code);
         const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
         this.elementEdit(false, mode, element, data);
@@ -214,7 +205,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         reload: boolean,
         mode: TypeMode,
         element: Element,
-        metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects,
+        metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects,
         percent: number = 0,
         value: number = 0,
         text: string = ''

@@ -30,6 +30,11 @@ input {
       color: var(--color-group-control-bg-icons);
     }
 
+    img {
+      height: 53px;
+      width: 50px;
+    }
+
     &-active,
     &:hover {
       background: var(--color-group-control-bg-active);

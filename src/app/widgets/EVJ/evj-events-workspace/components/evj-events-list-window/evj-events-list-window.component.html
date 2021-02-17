@@ -1,26 +1,34 @@
 <div class="window">
-  <div class="window__header header">
-    <div class="button-icon button-icon__close" (click)="onClose()">
-      <svg-icon [src]="closeIconSrc" [svgStyle]="{ 'width.px':27, 'height.px':27 }"></svg-icon>
+  <div class="header">
+    <img alt="" src="assets/icons/widgets/workspace/smotr/reasons/list.svg" />
+    <div class="header__title">{{title}}</div>
+    <div class="header__icon" (click)="onClose()">
+      <svg-icon src="assets/icons/widgets/workspace/smotr/reasons/round-close.svg"></svg-icon>
     </div>
-    <div class="title">{{title}}</div>
+    <div class="header__line"></div>
   </div>
   <div class="window__body list scroll scroll-bar">
     <div class="list__reasons">
       <ng-container *ngFor="let reason of reasonsList">
-        <div class="row" (click)="setReason(reason)" *ngIf="reason.isActive">
+        <div
+          class="row"
+          (click)="setReason(reason)"
+          *ngIf="reason.isActive"
+          [class.row_active]="isActiveCompare(reason)"
+        >
           <div class="row__title">{{ reason.name }}</div>
-          <div class="row__radio">
-            <div class="radio" [class.radio_active]="isActiveCompare(reason)"></div>
-          </div>
         </div>
       </ng-container>
     </div>
   </div>
-  <div class="window__footer footer">
+  <div class="window__footer">
     <div class="search">
-      <input class="search__input" type="text" (keyup)="onSearchValue($event?.target?.value)" />
+      <div class="search__icon">
+        <svg-icon src="assets/icons/widgets/workspace/smotr/reasons/search.svg"></svg-icon>
+      </div>
+      <input class="search__input" type="text" placeholder="Поиск" (keyup)="onSearchValue($event?.target?.value)" />
     </div>
     <div class="button" (click)="onSave()">{{buttonText}}</div>
+    <div class="window__footter__line"></div>
   </div>
 </div>

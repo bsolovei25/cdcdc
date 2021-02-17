@@ -24,7 +24,7 @@
   --color-border-main-transparrent: rgba(91, 96, 125, 0.9);
   --color-border-active: #3fa9f5;
   --color-border-unactive: #8c99b2;
-  --color-border-search: rgba(142, 151, 175, 0.8);
+  --color-border-search: rgba(142, 151, 175, 0.9);
   --color-border-search-line: rgba(142, 151, 175, 1);
   --color-border-box-shadow: rgba(91, 96, 125, 0.5);
 
@@ -298,6 +298,9 @@
 
   // KPE readiness
   --color-kpe-deviation-diagram-circle-bg: rgb(20, 22, 33);
+  --color-kpe-bg: #1c1f2b;
+  --color-kpe-border: #272a38;
+  --color-kpe-bg-dark: #12151e;
 
   // KPE pasportize
   --color-kpe-shadow-1: rgba(0, 0, 0, 0.5);
@@ -311,6 +314,15 @@
   --color-kpe-total-reserve-bg-main: #1c1f2b;
   --color-kpe-total-reserve-border-product: #272a38;
   --color-kpe-total-reserve-text-product: #d7e2f2;
+
+  //KPE column diagram
+  --color-kpe-bg-column-diagram: #12151e;
+  --color-kpe-danger-dashed-column-diagram: rgba(255, 29, 37, 0.2);
+  --color-kpe-warning-dashed-column-diagram: rgba(247, 147, 30, 0.2);
+  --color-kpe-zero-axis-column-diagram: #0089ff;
+  --color-kpe-border-axis-column-diagram: #606580;
+  --color-kpe-grid-column-diagram: #272a38;
+  --color-kpe-select-column-diagram: rgba(0, 137, 255, 0.2);
 
   // CD
   --color-cd-bg-component: #151a29;
@@ -674,7 +686,10 @@
   --evj-events-workspace-item-title: #8a98b3;
   --evj-events-workspace-color-button-extra: rgba(48, 53, 73, 0.5);
   --evj-events-workspace-color-border-extra: rgba(92, 101, 133, 0.25);
+  --evj-events-workspace-color-active-select: rgba(0, 137, 255, 0.2);
+  --evj-events-workspace-bg-component: #1c1f2b;
 }
+
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;
 $--color-warning: #f4a321;

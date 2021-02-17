@@ -49,15 +49,17 @@
 
   .y-axis {
     text {
-      fill: var(--color-marker-diagram);
-      font-size: 10px;
+      font-family: Tahoma;
+      fill: var(--color-text-sub);
+      font-size: 12px;
     }
   }
 
   .x-axis {
     text {
-      fill: var(--color-marker-diagram);
-      font-size: 10px;
+      font-family: Tahoma;
+      fill: var(--color-text-sub);
+      font-size: 12px;
     }
   }
 

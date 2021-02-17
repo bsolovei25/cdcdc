@@ -7,9 +7,8 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-
+  justify-content: space-between;
   overflow: hidden;
-
   background: var(--sou-mvp-color-bg-main);
 }
 
@@ -173,13 +172,6 @@
   }
 }
 
-.main-content-container {
-  height: 100%;
-  padding-left: 15px;
-
-  display: flex;
-}
-
 .line {
   height: 1px;
   width: 23px;
@@ -204,218 +196,18 @@
   z-index: 1;
 }
 
-.streams-groups {
-  width: 100%;
-  padding-top: 14px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .streams-container {
-    min-height: 100%;
-    padding: 10px 0;
-    padding-left: 90px;
-
-    position: relative;
-
-    &_park {
-      padding: 0px;
-      padding-left: 0px;
-    }
-  }
-
-  .main-collector {
-    height: 100%;
-    width: 90px;
-    padding: 0 20px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 2px solid var(--sou-mvp-color-border);
-    background: var(--sou-mvp-color-bg-title);
-    border-radius: 100px;
-
-    float: left;
-    position: absolute;
-    left: 0;
-
-    .main-collector-title {
-      position: fixed;
-      top: 52%;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  .stream {
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
-  }
-}
-
 .popup-container {
   width: 98%;
-
   box-shadow: 0 14px 28px var(--sou-mvp-color-popup-shadow), 0 10px 10px var(--sou-mvp-color-popup-shadow);
-
   display: flex;
-
   position: absolute;
   bottom: 60px;
   left: 1%;
   z-index: 9999;
-
   overflow: hidden;
-
-  .popup {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-
-    background: var(--sou-mvp-color-bg-title);
-
-    &__header {
-      height: 30px;
-      width: 100%;
-      padding: 0 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      .close-btn {
-        height: 19px;
-        width: 19px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        border-radius: 50%;
-        border: 1px solid var(--sou-mvp-color-white);
-
-        cursor: pointer;
-        transform: translate(0px, 7px);
-      }
-    }
-
-    &__content {
-      padding: 0 20px;
-      flex: 1;
-
-      display: flex;
-      flex-direction: column;
-
-      .title {
-        display: flex;
-        align-items: center;
-
-        font-size: 18px;
-        line-height: 22px;
-
-        .marker {
-          height: 12px;
-          width: 12px;
-          margin: 0 10px;
-
-          border-radius: 50%;
-          background: var(--sou-mvp-color-active);
-        }
-
-        .source-name {
-          color: var(--sou-mvp-color-white);
-        }
-
-        .product-name {
-          margin: 0 18px;
-          color: var(--sou-mvp-color-text-diagram-main);
-        }
-      }
-
-      .information {
-        display: flex;
-        padding: 10px;
-
-        font-size: 16px;
-        line-height: 19px;
-        color: var(--sou-mvp-color-text-info);
-
-        white-space: nowrap;
-        overflow: hidden;
-
-        span {
-          margin-right: 30px;
-          color: var(--sou-mvp-color-white);
-
-          &:last-child {
-            margin: 0;
-          }
-        }
-      }
-    }
-  }
 }
 
-.footer {
-  height: 60px;
-  display: flex;
-
-  border-top: 1px solid var(--sou-mvp-color-border);
-  font-size: 12px;
-  line-height: 14px;
-  color: var(--sou-mvp-color-text-diagram-sub);
-
-  &__item {
-    flex: 1;
-    padding: 0 15px;
-
-    border-right: 1px solid var(--sou-mvp-color-border);
-    background: var(--sou-mvp-color-bg-title);
-
-    display: flex;
-    flex-flow: column;
-    justify-content: space-evenly;
-
-    white-space: nowrap;
-
-    .row-container {
-      display: flex;
-    }
-
-    .title {
-      margin-left: 10px;
-    }
-
-    .information {
-      flex: 1;
-      display: flex;
-      align-items: baseline;
-
-      span {
-        font-size: 14px;
-        line-height: 16px;
-        color: var(--sou-mvp-color-text-diagram-main);
-      }
-
-      &__main {
-        margin-right: 15px;
-      }
-
-      &__divider {
-        font-size: 12px !important;
-        line-height: 14px !important;
-        color: var(--sou-mvp-color-text-diagram-sub) !important;
-        margin: 0 5px;
-      }
-    }
-
-    &:last-child {
-      border: none;
-    }
-  }
+.view {
+  height: 100%;
+  overflow: hidden;
 }
