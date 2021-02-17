@@ -3,13 +3,13 @@
   padding-left: 15px;
 
   display: flex;
+  cursor: grab;
+  user-select: none;
 }
 
 .streams-groups {
   width: 100%;
   padding-top: 14px;
-  overflow-y: auto;
-  overflow-x: hidden;
 
   .streams-container {
     min-height: 100%;
