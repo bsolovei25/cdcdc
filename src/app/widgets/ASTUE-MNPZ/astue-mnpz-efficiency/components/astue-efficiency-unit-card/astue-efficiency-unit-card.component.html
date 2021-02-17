@@ -7,7 +7,7 @@
       src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
     />
     <img class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg" />
-    {{unit.name}}
+    <span class="unit-name" (click)="onToggleCard()" [matTooltip]="unit.name">{{unit.name}}</span>
     <div class="header__button button" [ngClass]="{'button_active':isSelected}" (click)="onSelectUnit()">
       <img class="icon icon-unactive" src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg" />
       <img class="icon icon-active" src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg" />
