@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../../dashboard/models/oil-control';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { HttpClient } from '@angular/common/http';
@@ -164,10 +163,22 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
     ngOnInit(): void {
         super.widgetInit();
+        // setTimeout(() => this.mockDataHelper(), 1000);
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    private async mockDataHelper(): Promise<void> {
+        const req = await this.http.get('assets/mock/LCO/oil-control.mock.json').toPromise();
+        const ref = (req as any).data as any;
+        console.log(ref);
+        this.drawOilControlSocket(ref);
+        if (!this.toggleIntervalTimer) {
+            const updateTimeInSec = (ref?.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
+            this.toggleIntervalTimer = setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+        }
     }
 
     // protected async dataConnect(): Promise<void> {
@@ -184,9 +195,13 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     protected dataHandler(ref: any): void {
+        console.log(this.widgetId, ref);
+        if (ref?.products?.length) {
+            return;
+        }
         this.drawOilControlSocket(ref);
         if (!this.toggleIntervalTimer) {
-            const updateTimeInSec = (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
+            const updateTimeInSec = (ref?.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
             this.toggleIntervalTimer = setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
         }
     }
@@ -475,7 +490,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.tempData.find((x) => x.name === this.savePositionProduct).operations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct)?.operations);
 
             let critical = svgMenu
                 .append('text')
@@ -497,7 +512,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(this.tempData.find((x) => x.name === this.savePositionProduct).criticalOperations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct)?.criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -532,7 +547,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.tempData.find((x) => x.name === this.savePositionProduct).operations);
+                .text(this.tempData.find((x) => x.name === this.savePositionProduct)?.operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');
@@ -1004,7 +1019,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             idx = 2;
         }
 
-        if (!this.savePositionProduct) {
+        if (!this.savePositionProduct || data.findIndex((x) => x.name === this.savePositionProduct) === -1) {
             this.savePositionProduct = data[idx].name;
         }
 
@@ -1021,7 +1036,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
     public countStorage(data): number {
         let count = 0;
-        for (let item of data.storages) {
+        for (const item of data.storages) {
             count++;
         }
         return count - 1;
