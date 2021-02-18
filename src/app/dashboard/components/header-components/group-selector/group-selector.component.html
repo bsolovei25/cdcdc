@@ -4,24 +4,20 @@
       <img *ngIf="!!userSettingsService.groupIconId" [src]="baseSrc + userSettingsService.groupIconId" />
     </div>
     <span>{{userSettingsService.groupName}}</span>
+    <svg-icon class="group-selector__collapse" src="assets/icons/collapse.svg"></svg-icon>
   </div>
-  <ng-container *ngIf="isDropdownShowing">
-    <div class="group-selector__dropdown dropdown" #group>
-      <ng-container *ngFor="let group of groups | filterGroups ">
-        <div class="dropdown__row">
-          <evj-group-selector-row
-            [isClaimsAvailable]="getClaims(group?.id)"
-            [group]="group"
-            (selectGroup)="onSelect(group)"
-          ></evj-group-selector-row>
-        </div>
-      </ng-container>
+  <div class="main-dropdown" *ngIf="isDropdownShowing">
+    <div class="group-list">
+      <div class="group-list__row" *ngFor="let group of groups | filterGroups">
+        <evj-group-selector-row
+          [isClaimsAvailable]="getClaims(group?.id)"
+          [group]="group"
+          (selectGroup)="onSelect(group)"
+        ></evj-group-selector-row>
+      </div>
     </div>
-    <div class="dropdown__row create">
-      <button class="control__bnt" [class.control__bnt_active]="true" mat-raised-button (click)="openDialog()">
-        Управление проектами
-      </button>
+    <div class="btn-container">
+      <button class="control__bnt" mat-raised-button (click)="openDialog()">Управление проектами</button>
     </div>
-  </ng-container>
-  <svg-icon class="group-selector__collapse" src="assets/icons/collapse.svg"></svg-icon>
+  </div>
 </div>
