@@ -145,6 +145,7 @@ export const WIDGETS = {
     'sou-balance': WidgetContainerComponent,
     sou_general: WidgetContainerComponent,
     'sou-main-screen': WidgetContainerComponent,
+    'kpe-redesign-accuracy-timelines-data': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -550,6 +551,19 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'KpeExecutionProductionProgramModule',
+        itemCols: 21,
+        itemRows: 19,
+        minItemCols: 19,
+        minItemRows: 14,
+        preview: 'kpe-execution-production-program',
+    },
+    'kpe-redesign-accuracy-timelines-data': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-accuracy-timelines-data/kpe-accuracy-timelines-data.module'
+                );
+        },
+        module: 'KpeAccuracyTimelinesDataModule',
         itemCols: 21,
         itemRows: 19,
         minItemCols: 19,

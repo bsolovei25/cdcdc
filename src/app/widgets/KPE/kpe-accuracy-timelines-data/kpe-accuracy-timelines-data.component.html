@@ -1,0 +1,36 @@
+<div class="container">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" type="astue" icon="shedule">
+    <div class="btn-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="btn" matRipple matRippleColor="white" (click)="openAdd()">
+        <svg-icon
+          src="assets/icons/widgets/KPE/kpe-accuracy-timelines-data/plus.svg"
+        ></svg-icon>
+        <span>Добавить событие</span>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="plan">
+      <div class="plan__value">
+        <div class="plan__value__info">
+          Декабрь 2020
+            <svg-icon
+              src="assets/icons/widgets/KPE/kpe-accuracy-timelines-data/plus.svg"
+              (click)="openEdit()"
+              class="plan__value__info__plus"
+            ></svg-icon>
+        </div>
+        <span>{{percent | number:'0.0-0'}} <span class="unit">%</span> </span>
+      </div>
+      <div class="plan__diagram">
+        <div class="plan__diagram__lines" [ngStyle]="{'width': percent + '%'}">
+        </div>
+      </div>
+      <div class="plan__influence">Влияние 3%</div>
+    </div>
+    <div class="main-content">
+      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
+      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
+      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
+    </div>
+</div>

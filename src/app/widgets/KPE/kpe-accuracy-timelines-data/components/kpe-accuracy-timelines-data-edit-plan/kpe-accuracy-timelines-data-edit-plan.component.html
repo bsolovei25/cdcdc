@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header">
+    <img alt="" src="assets/pic/pen.svg" />
+    <div class="title">Корректировка плана на Январь 2020</div>
+  </div>
+  <div class="content">
+    <textarea class="comment-input" type="text" placeholder="Введедите данные..."></textarea>
+    <div class="date">
+      <div class="plan-date">
+        <div class="title">Дата корректировки:</div>
+        <div class="picker">
+          <mat-form-field>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker" [formControl]="dateControl" />
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions>
+      <div class="btns">
+        <div class="save" matRipple matRippleColor="white" mat-dialog-close>
+          <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/save.svg"></svg-icon>
+          Сохранить
+        </div>
+        <div class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</div>
+      </div>
+    </mat-dialog-actions>
+  </div>
+</div>
