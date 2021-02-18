@@ -48,7 +48,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     fullElement: Map<number, IElementFullAndUI> = new Map();
     dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
     localChosenInstall: string;
-    countTypesElement: number = 11;
+    countTypesElement: number = 12;
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
@@ -641,6 +641,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 return 'TSB-1-Usel';
             case 'АВТ-10':
                 return 'ABT-10-ELOU';
+            case 'ГФУ-2':
+                return 'gfu-2';
+            case 'Коллектор Рефлюкса':
+                return 'collector-ref';
         }
     }
 }
