@@ -4,6 +4,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
+import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 
 export interface IKpeSafetyData {
     gaugeCards: IKpeSafetyCard[] | null;
@@ -17,6 +18,8 @@ export interface IKpeSafetyCard {
     deviation?: number;
     fact: number;
     plan: number;
+    percentage?: number;
+    deviationPercentage?: number;
 }
 
 @Component({
@@ -37,6 +40,8 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
     private isRendered: boolean = false;
 
     public displayedMonth: Date;
+
+    public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
 
     constructor(
         protected widgetService: WidgetService,
@@ -75,11 +80,12 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
         this.gaugeCards.forEach((card) => {
             this.cardsList = [...this.cardsList, ...card];
         });
+        this.cardsList?.forEach((x) => (x.deviationPercentage = 100 - x.percentage));
 
         this.deviationDiagramData = ref.deviationDiagram;
         ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
-                this.displayedMonth = new Date(data.graph[0].timeStamp);
+                this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
     }

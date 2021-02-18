@@ -9,7 +9,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EvjEventsListWindowComponent implements OnInit, OnChanges {
     @Input() public title: string = '';
     @Input() public placeholder: string = 'Введите свой комментарий...';
-    @Input() public buttonText: string = 'Сохранить';
+    @Input() public buttonText: string = 'Применить';
     @Input() public reasonsList: { id: string; name: string; isActive?: boolean }[] = [];
 
     public searchText: string = '';
@@ -19,8 +19,6 @@ export class EvjEventsListWindowComponent implements OnInit, OnChanges {
         id: string;
         name: string;
     }>();
-
-    public readonly closeIconSrc: string = 'assets/icons/widgets/workspace/smotr/close-icon.svg';
 
     constructor(private ewService: EventsWorkspaceService) {}
 

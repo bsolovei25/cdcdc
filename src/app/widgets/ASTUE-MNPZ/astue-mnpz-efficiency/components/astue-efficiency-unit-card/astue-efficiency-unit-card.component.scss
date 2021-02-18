@@ -80,6 +80,7 @@
       &:hover {
         cursor: pointer;
       }
+
     }
 
     .arrow {
@@ -106,6 +107,14 @@
 
     &:hover {
       cursor: pointer;
+    }
+
+    .unit-name {
+      width: 135px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 2;
     }
   }
 

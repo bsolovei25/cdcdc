@@ -15,7 +15,7 @@
       </div>
     </div>
   </evj-contemporary-widget-header>
-  <div class="container">
+  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="scroll-container">
       <div #gauge class="chart-container" [style]="chartWidth">
         <evj-kpe-gauge-chart
@@ -40,7 +40,7 @@
           [currentMonth]="displayedMonth"
         ></evj-kpe-deviation-diagram>
       </ng-container>
-      <evj-kpe-energy-tab *ngFor="let tab of data?.tabs" [data]="tab"></evj-kpe-energy-tab>
+      <evj-kpe-energy-tab *ngFor="let tab of data?.tabs" [comparator]="engUnitsComparator" [data]="tab"></evj-kpe-energy-tab>
     </div>
   </div>
 </div>

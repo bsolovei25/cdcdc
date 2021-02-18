@@ -482,4 +482,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             oxygenStats,
         };
     }
+
+    public scaleOnScroll(e: any): void {}
 }

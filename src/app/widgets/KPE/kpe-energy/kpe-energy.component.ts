@@ -6,6 +6,7 @@ import { IKpeEnergyTab } from './components/kpe-energy-tab/kpe-energy-tab.compon
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
+import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 
 export interface IKpeEnergy {
     tabs: IKpeEnergyTab[] | null;
@@ -30,6 +31,8 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
 
     public displayedMonth: Date;
 
+    public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+
     displayMode: 'tiled' | 'line';
 
     constructor(
@@ -49,6 +52,7 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
 
     protected dataHandler(ref: IKpeEnergy): void {
         this.data = ref;
+        this.data.tabs.forEach((x) => (x.deviationPercentage = 100 - x.percentage));
         this.displayMode = ref.displayMode;
         if (this.kpeHelperService.compare<IKpeEnergyTab>(this.data.tabs, ref.tabs)) {
             this.data.tabs = ref.tabs;
@@ -60,7 +64,7 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(this.data.chart);
         ref.chart.forEach((data) => {
             if (data.graphType === 'fact') {
-                this.displayedMonth = new Date(data.graph[0].timeStamp);
+                this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
     }

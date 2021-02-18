@@ -69,7 +69,7 @@
     }
 
     &__unit {
-      width: 41px;
+      padding: 0 4px;
       height: 18px;
       background: var(--color-sou-border);
       border-radius: 2px 0 0 2px;
@@ -80,11 +80,12 @@
     }
 
     &__sign {
-      width: 20px;
-      height: 16px;
+      padding: 0 4px;
+      height: 18px;
       background: rgba(0, 137, 255, 0.2);
-      border: 0.75px solid var(--color-aps-active);
+      border: 1px solid var(--color-aps-active);
       border-radius: 0 2px 2px 0;
+      box-sizing: border-box;
 
       span {
         color: var(--color-kpe-eq-chart-title);

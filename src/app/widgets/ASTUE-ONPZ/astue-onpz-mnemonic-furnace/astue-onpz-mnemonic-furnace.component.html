@@ -59,7 +59,13 @@
     </div>
   </evj-contemporary-widget-header>
 
-  <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="container">
+  <div
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+    evjSchemaScrollResizer
+    class="container"
+    [scaleElement]="schemaContainer"
+  >
     <div #schema class="scale-container" *ngIf="data | async">
       <div [style]="schemeStyle" class="abs-container">
         <div class="schema">

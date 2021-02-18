@@ -73,15 +73,21 @@
                     <div class="card__content">
                       <div class="card__gauge-diagram">
                         <evj-kpe-gauge-chart
-                          [fact]="card.gaugeChart?.fact"
-                          [plan]="card.gaugeChart?.plan"
-                          [deviation]="card.gaugeChart?.deviation"
+                          [fact]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact"
+                          [plan]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? 100 : card.gaugeChart?.plan"
+                          [deviation]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit" [class.units__unit_active]="card?.gaugeChart?.unit">
+                          <div class="units__unit"
+                               [class.units__unit_active]="!engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
+                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
+                          >
                             {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
-                          <div class="units__unit" [class.units__unit_active]="!card?.gaugeChart?.unit">%</div>
+                          <div class="units__unit"
+                               [class.units__unit_active]="engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
+                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
+                          >%</div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">
@@ -107,15 +113,21 @@
                     <div class="card__content">
                       <div class="card__gauge-diagram">
                         <evj-kpe-gauge-chart
-                          [fact]="card.gaugeChart?.fact"
-                          [plan]="card.gaugeChart?.plan"
-                          [deviation]="card.gaugeChart?.deviation"
+                          [fact]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact"
+                          [plan]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? 100 : card.gaugeChart?.plan"
+                          [deviation]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit" [class.units__unit_active]="card?.gaugeChart?.unit">
+                          <div class="units__unit"
+                               [class.units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
+                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
+                          >
                             {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
-                          <div class="units__unit" [class.units__unit_active]="!card?.gaugeChart?.unit">%</div>
+                          <div class="units__unit"
+                               [class.units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
+                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
+                          >%</div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">

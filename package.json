@@ -14,10 +14,6 @@
         "prettier:fix:json": "prettier --write *.json",
         "postinstall": "ngcc"
     },
-    "husky": {
-        "hooks": {
-        }
-    },
     "private": true,
     "dependencies": {
         "@angular-material-components/datetime-picker": "^4.0.5",

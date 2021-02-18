@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="content">
+    <div class="chart-container">
+      <div class="axis" [style.top.%]="scaleY">
+        <div class="value">{{maxValue | number: '1.1'}}</div>
+        <div class="line-danger"></div>
+      </div>
+      <div class="axis axis_zero">
+        <div class="value">0</div>
+        <div class="line"></div>
+      </div>
+      <div class="axis" [style.bottom.%]="scaleY">
+        <div class="value">{{-maxValue | number: '1.1'}}</div>
+        <div class="line-danger"></div>
+      </div>
+      <div class="axis" [style.top.%]="scaleY * 3/2">
+        <div class="value">{{maxValue * 3/4 | number: '1.1'}}</div>
+        <div class="line-warning"></div>
+      </div>
+      <div class="axis" [style.bottom.%]="scaleY * 3/2">
+        <div class="value">{{-maxValue * 3/4 | number: '1.1'}}</div>
+        <div class="line-warning"></div>
+      </div>
+      <div class="axis" [style.top.%]="scaleY * 2">
+        <div class="value">{{maxValue / 2 | number: '1.1'}}</div>
+      </div>
+      <div class="axis" [style.bottom.%]="scaleY * 2">
+        <div class="value">{{-maxValue / 2 | number: '1.1'}}</div>
+      </div>
+      <div class="chart">
+        <div
+          class="chart__item"
+          *ngFor="let item of dataToDisplay; let d = index"
+          (click)="chooseDay(d)"
+          [ngClass]="{'chart__item_selected':d + 1 === chosenDay}"
+        >
+          <ng-container *ngIf="item.y >= 0 else bottom">
+            <div class="chart__top" [ngStyle]="{'height': item.y * scale * getExponent() + '%'}">
+              <div class="value"></div>
+            </div>
+          </ng-container>
+
+          <ng-template #bottom>
+            <div class="chart__bottom" [ngStyle]="{'height': (-1) * item.y * scale * getExponent()+ '%'}">
+              <div class="value"></div>
+            </div>
+          </ng-template>
+          <div class="day" *ngIf="(d+1) % 2 === 1">{{item.x}}</div>
+        </div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+    <div class="days"></div>
+  </div>
+</div>
