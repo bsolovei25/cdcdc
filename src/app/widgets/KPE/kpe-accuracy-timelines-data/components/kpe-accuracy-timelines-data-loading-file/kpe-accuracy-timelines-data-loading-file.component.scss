@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  height: 75px;
+  width: 125px;
+  padding: 8px;
+
+  display: flex;
+  background: var(--color-kpe-gaude-lines);
+  border-radius: 2px;
+
+  position: relative;
+
+  .file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .file-title {
+      height: 28px;
+      width: 60px;
+
+      font-size: 12px;
+      line-height: 14px;
+      color: var(--color-kpe-gaude-main);
+    }
+
+    .file-loading {
+      display: flex;
+      align-items: center;
+
+      .chart {
+        height: 16px;
+        width: 16px;
+        position: relative;
+
+        svg-icon {
+          position: absolute;
+        }
+
+        .loaded {
+          left: 4px;
+          top: -3px;
+        }
+      }
+
+      .weight {
+        margin-left: 9px;
+
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--color-kpe-gaude-additional);
+      }
+    }
+  }
+  .file-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+
+    cursor: pointer;
+  }
+}
