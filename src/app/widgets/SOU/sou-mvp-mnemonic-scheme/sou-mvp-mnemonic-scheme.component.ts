@@ -77,7 +77,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             )
         ),
     };
-    chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    chosenSetting$: Observable<number>;
     schemeView$: BehaviorSubject<SouMvpMnemonicSchemeView> = new BehaviorSubject<SouMvpMnemonicSchemeView>(null);
 
     flowInAb: ISouFlowIn[];
@@ -114,6 +114,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 .valueChanges.subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
             this.optionsGroup.get('unit').valueChanges.subscribe((x) => this.optionsGroup.get('section').setValue(null))
         );
+        this.chosenSetting$ = this.mvpService.chosenSetting$;
     }
 
     protected dataConnect(): void {
@@ -126,7 +127,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.options$.next({ ...ref });
     }
 
-    public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
+    public getInjector = (
+        widgetId: string,
+        channelId: string,
+        viewType: SouMvpMnemonicSchemeView = null,
+    ): Injector => {
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: widgetId },
@@ -220,5 +225,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.optionsGroup.get('manufacture').setValue(res.manufacture);
         this.optionsGroup.get('unit').setValue(res.unit);
         this.optionsGroup.get('section').setValue(res.section);
+    }
+
+    public changeSettings(index: number): void {
+        this.mvpService.chosenSetting$.next(index);
     }
 }

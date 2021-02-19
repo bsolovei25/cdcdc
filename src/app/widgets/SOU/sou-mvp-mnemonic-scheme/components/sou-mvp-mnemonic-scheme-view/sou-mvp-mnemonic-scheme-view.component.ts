@@ -1,12 +1,13 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 export interface ISouMvpMnemonicSchemeView {
     name: string;
@@ -21,11 +22,12 @@ export interface ISouMvpMnemonicSchemeView {
 })
 export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> implements OnInit, OnDestroy {
     public data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
-    public chosenSetting: number = 1;
+    chosenSetting$: Observable<number>;
     @ViewChild('schema') public schemaContainer: ElementRef;
 
     constructor(
         protected widgetService: WidgetService,
+        private mvpService: SouMvpMnemonicSchemeService,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
         @Inject('viewType') public viewType: string,
@@ -37,10 +39,7 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
     ngOnInit(): void {
         super.ngOnInit();
         console.log('inject', { channelId: this.channelId, view: this.viewType });
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
+        this.chosenSetting$ = this.mvpService.chosenSetting$;
     }
 
     protected dataHandler(ref: { section: { flowIn: any[]; flowOut: any[]; objects: any[]; name: string }[] }): void {
