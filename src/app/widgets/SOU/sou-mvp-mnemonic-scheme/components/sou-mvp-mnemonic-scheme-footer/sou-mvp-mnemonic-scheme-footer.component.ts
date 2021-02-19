@@ -3,6 +3,7 @@ import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/chann
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { ISOUOperationalAccountingSystem } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { BehaviorSubject } from 'rxjs';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme-footer',
@@ -17,6 +18,7 @@ export class SouMvpMnemonicSchemeFooterComponent
     );
 
     constructor(
+        private mvpService: SouMvpMnemonicSchemeService,
         protected widgetService: WidgetService,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string
@@ -25,6 +27,16 @@ export class SouMvpMnemonicSchemeFooterComponent
     }
 
     ngOnInit(): void {
+        if (this.channelId === 'section') {
+            this.subscriptions.push(
+                this.mvpService.currentSection$.subscribe((x) => {
+                    console.log('section data', x);
+                    this.data$.next({ ...(x as ISOUOperationalAccountingSystem) });
+                })
+            );
+            return;
+        }
+        console.log('footer', this.channelId);
         super.ngOnInit();
     }
 

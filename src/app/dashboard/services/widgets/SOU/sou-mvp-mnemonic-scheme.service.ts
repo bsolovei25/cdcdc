@@ -15,6 +15,7 @@ export class SouMvpMnemonicSchemeService {
         index: number;
         name: string;
     }>(null);
+    currentSection$: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);
     chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
