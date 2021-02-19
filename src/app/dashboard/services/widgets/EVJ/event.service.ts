@@ -364,7 +364,7 @@ export class EventService {
                 AuthenticationType: saveMethod.data.authenticationType,
             }),
         };
-        const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
+        const url: string = `${saveMethod.data.url}/monitoring/escalatedeviation`;
         return await this.http.post(url, body, options).toPromise();
     }
 
