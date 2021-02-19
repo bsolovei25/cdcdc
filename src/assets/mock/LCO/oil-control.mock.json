@@ -1,0 +1,79 @@
+{
+  "channelId": "0a3f700a-de32-11ea-80d1-005056b46597",
+  "data": {
+    "updateTimeInSec": 1000,
+    "products": [
+      {
+        "name": "Мазут",
+        "operations": 0,
+        "criticalOperations": 0,
+        "value": 0,
+        "critical": 0,
+        "storages": [
+          {
+            "id": 0,
+            "nameStorage": " ",
+            "status": "normal",
+            "valueStorage": 0,
+            "tankLevel": 0,
+            "operations": [],
+            "tankers": [
+              {
+                "nameTanker": "shipAvto",
+                "shipped": false,
+                "value": 0
+              },
+              {
+                "nameTanker": "shipTrain",
+                "shipped": false,
+                "value": 0
+              },
+              {
+                "nameTanker": "shipTube",
+                "shipped": false,
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Фр.420",
+        "operations": 0,
+        "criticalOperations": 0,
+        "value": 0,
+        "critical": 0,
+        "storages": [
+          {
+            "id": 0,
+            "nameStorage": " ",
+            "status": "normal",
+            "valueStorage": 0,
+            "tankLevel": 0,
+            "operations": [],
+            "tankers": [
+              {
+                "nameTanker": "shipAvto",
+                "shipped": false,
+                "value": 0
+              },
+              {
+                "nameTanker": "shipTrain",
+                "shipped": false,
+                "value": 0
+              },
+              {
+                "nameTanker": "shipTube",
+                "shipped": false,
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "title": "Темные",
+    "widgetType": "oil-control",
+    "isHistoricalDataSupported": true
+  }
+}

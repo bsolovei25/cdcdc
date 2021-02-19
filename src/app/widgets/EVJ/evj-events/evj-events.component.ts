@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -273,6 +273,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
+        private cdRef: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -488,10 +489,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         const width = !!this.attributes?.IsVideoWall ? 763 : 383;
         const notificationsDivCapacity = Math.trunc(this.notificationsDiv?.nativeElement?.clientWidth / width);
         this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
+        this.cdRef.detectChanges();
+        this.viewport.checkViewportSize();
     }
 
     private onResize(): void {
-        this.viewport.checkViewportSize();
         this.countNotificationsDivCapacity();
     }
 

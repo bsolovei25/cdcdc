@@ -38,7 +38,7 @@ interface ISouSubchannel {
     sectionName?: string;
 }
 
-type SouSubchannelType = 'sou-section' | 'sou-operational-accounting-system';
+type SouSubchannelType = 'sou-section' | 'sou-operational-accounting-system' | 'sou_tank_group' | 'sou_tank';
 type SouMvpMnemonicSchemeView = 'ab' | 'vb' | 'izomalk' | 'svg' | null;
 
 @Component({
@@ -56,7 +56,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
     sectionSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-    unitSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    footerSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     optionsGroup: FormGroup = new FormGroup({
         manufacture: new FormControl(null),
         unit: new FormControl(null),
@@ -77,7 +77,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             )
         ),
     };
-    chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    chosenSetting$: Observable<number>;
     schemeView$: BehaviorSubject<SouMvpMnemonicSchemeView> = new BehaviorSubject<SouMvpMnemonicSchemeView>(null);
 
     flowInAb: ISouFlowIn[];
@@ -114,11 +114,15 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 .valueChanges.subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
             this.optionsGroup.get('unit').valueChanges.subscribe((x) => this.optionsGroup.get('section').setValue(null))
         );
+        this.chosenSetting$ = this.mvpService.chosenSetting$;
     }
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.widgetService.getWidgetSubchannels<ISouSubchannel>(this.widgetId).then((x) => this.subChannels$.next(x));
+        this.widgetService.getWidgetSubchannels<ISouSubchannel>(this.widgetId).then((x) => {
+            this.subChannels$.next(x);
+            console.log('subchannels', x);
+        });
         this.loadState();
     }
 
@@ -126,7 +130,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.options$.next({ ...ref });
     }
 
-    public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
+    public getInjector = (
+        widgetId: string,
+        channelId: string,
+        viewType: SouMvpMnemonicSchemeView = null,
+    ): Injector => {
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: widgetId },
@@ -169,10 +177,16 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     private setSubchannelBySelection(sectionId: string, unitId: string): void {
         const subchannels = this.subChannels$.getValue();
         const subchannelSection = subchannels.find((x) => x.id === sectionId);
-        const unitName = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId)?.name;
-        const subchannelUnit = subchannels.find((x) => x.unitName === unitName);
+        const unit = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId);
         this.sectionSubchannel$.next(subchannelSection?.id);
-        this.unitSubchannel$.next(subchannelUnit?.id);
+        if (unit?.balance === 'main') {
+            const subchannel = subchannels.find((x) => x.unitName === unit?.name);
+            console.log('subchannel', subchannel);
+            console.log('unit', unit?.name);
+            this.footerSubchannel$.next(subchannel?.id);
+        } else if (unit?.balance === 'section') {
+            this.footerSubchannel$.next('section');
+        }
     }
 
     private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string } {
@@ -220,5 +234,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.optionsGroup.get('manufacture').setValue(res.manufacture);
         this.optionsGroup.get('unit').setValue(res.unit);
         this.optionsGroup.get('section').setValue(res.section);
+    }
+
+    public changeSettings(index: number): void {
+        this.mvpService.chosenSetting$.next(index);
     }
 }

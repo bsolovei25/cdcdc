@@ -1,3 +1,15 @@
+# [1.1.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.4...v1.1.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* **evj-group-selector:** fix group dropdown size ([45e39cf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/45e39cfe1663d90e9f724877d9b5813b360be947))
+
+
+### Features
+
+* **front#1157:** add resize and mousemove feature ([c884a86](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c884a86d269e83e2aa69ce718f6920a3b4c68cd0)), closes [front#1157](https://gitlab.funcoff.club/front/issues/1157)
+
 ## [1.0.4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.3...v1.0.4) (2021-02-16)
 
 

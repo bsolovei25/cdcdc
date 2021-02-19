@@ -3,21 +3,21 @@
     <evj-sou-mvp-mnemonic-scheme-ab-left
       *ngIf="viewType === 'ab'"
       [sections]="(data$ | async).sectionsData"
-      [choosenSetting]="chosenSetting"
+      [choosenSetting]="chosenSetting$ | async"
       [flowIn]="(data$ | async).flowIn"
     ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
     <evj-sou-mvp-mnemonic-scheme-vb-left
       *ngIf="viewType === 'vb'"
       [sections]="(data$ | async).sectionsData"
-      [choosenSetting]="chosenSetting"
+      [choosenSetting]="chosenSetting$ | async"
       [flowIn]="(data$ | async).flowIn"
     ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
     <evj-sou-mvp-mnemonic-scheme-izomalk-left
       *ngIf="viewType === 'izomalk'"
       [sections]="(data$ | async).sectionsData"
-      [choosenSetting]="chosenSetting"
+      [choosenSetting]="chosenSetting$ | async"
     ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
     <div class="streams-groups">
@@ -33,25 +33,25 @@
         </div>
         <evj-sou-mvp-mnemonic-scheme-section
           *ngIf="viewType === 'ab'"
-          [choosenSetting]="chosenSetting"
+          [choosenSetting]="chosenSetting$ | async"
           [sections]="(data$ | async).sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section>
 
         <evj-sou-mvp-mnemonic-scheme-section-vb
           *ngIf="viewType === 'vb'"
-          [chosenSetting]="chosenSetting"
+          [chosenSetting]="chosenSetting$ | async"
           [sections]="(data$ | async).sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-vb>
 
         <evj-sou-mvp-mnemonic-scheme-section-izomalk
           *ngIf="viewType === 'izomalk'"
-          [choosenSetting]="chosenSetting"
+          [choosenSetting]="chosenSetting$ | async"
           [sections]="(data$ | async).sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
         <evj-sou-schema
           *ngIf="viewType === 'svg'"
-          [chosenSetting]="chosenSetting"
+          [chosenSetting]="chosenSetting$ | async"
           [sectionsDataPark]="(data$ | async).sectionsData"
           [chosenInstall]="unitName"
         >

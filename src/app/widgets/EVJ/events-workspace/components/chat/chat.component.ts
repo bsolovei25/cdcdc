@@ -4,6 +4,7 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
 import { FileAttachMenuComponent } from '../file-attach-menu/file-attach-menu.component';
 import { IMessageFileAttachment } from '@shared/models/message.model';
 import { AppConfigService } from '@core/service/app-config.service';
+import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
 
 export interface IChatMessageWithAttachments {
     msg: string;
@@ -39,9 +40,24 @@ export class ChatComponent implements OnInit {
 
     public isFilePopoverOpened: boolean = false;
 
-    constructor(private popoverOverlayService: PopoverOverlayService, private appConfigService: AppConfigService) {}
+    constructor(
+        private popoverOverlayService: PopoverOverlayService,
+        private appConfigService: AppConfigService,
+        private ewService: EventsWorkspaceService
+    ) {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.addEstablishedFactsToChat();
+    }
+
+    public addEstablishedFactsToChat(): void {
+        if (this.ewService?.event?.establishedFacts
+            && this.messages === this.ewService.event.facts) {
+            this.messages.push({
+                comment: this.ewService?.event?.establishedFacts
+            } as IMessage)
+        }
+    }
 
     public onEnterPush(event: KeyboardEvent): void {
         if (event.key === 'Enter') {

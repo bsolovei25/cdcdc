@@ -12,6 +12,7 @@ export interface ISouUnit {
     id: string;
     name: string;
     section: ISouSection[];
+    balance: 'main' | 'section';
 }
 
 export interface ISouSection {

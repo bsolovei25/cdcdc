@@ -17,7 +17,7 @@
           <div class="dropdown">
             <div class="dropdown__marker"></div>
             <mat-select placeholder="Производство" class="dropdown__select" formControlName="manufacture">
-              <mat-option> Не выбрано </mat-option>
+              <mat-option> Не выбрано</mat-option>
               <mat-option *ngFor="let manufacture of selectionOptions.manufactures$ | async" [value]="manufacture.name">
                 {{manufacture.name}}
               </mat-option>
@@ -35,9 +35,9 @@
           <div class="dropdown">
             <div class="dropdown__marker"></div>
             <mat-select placeholder="Установка" class="dropdown__select" formControlName="unit">
-              <mat-option> Не выбрано </mat-option>
+              <mat-option> Не выбрано</mat-option>
               <mat-option [value]="unit.id" *ngFor="let unit of selectionOptions.units$ | async"
-                >{{ unit.name }}</mat-option
+              >{{ unit.name }}</mat-option
               >
             </mat-select>
           </div>
@@ -62,7 +62,7 @@
             <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [value]="'измеренные'">
               <ng-container>
-                <mat-option [value]="'измеренные'"> измеренные </mat-option>
+                <mat-option [value]="'измеренные'"> измеренные</mat-option>
               </ng-container>
             </mat-select>
           </div>
@@ -73,7 +73,7 @@
             class="filter-btn__item"
             *ngFor="let setting of settings; let i = index"
             [ngClass]="{ active: i === (chosenSetting$ | async) }"
-            (click)="chosenSetting$.next(i);"
+            (click)="changeSettings(i)"
           >
             {{setting}}
           </div>
@@ -100,9 +100,10 @@
     >
     </evj-sou-mvp-mnemonic-scheme-stats>
   </div>
-  <ng-container *ngIf="!!(unitSubchannel$ | async)"
+  <ng-container *ngIf="!!(footerSubchannel$ | async)"
     ><ng-container
-      *ngComponentOutlet="footerComponent; injector: (widgetId | fn:getInjector : (unitSubchannel$ | async));"
+      *ngComponentOutlet="footerComponent; injector: (widgetId | fn:getInjector : (footerSubchannel$ | async));"
     ></ng-container
-  ></ng-container>
+    >
+  </ng-container>
 </div>
