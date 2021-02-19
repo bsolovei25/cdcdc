@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { IRetrievalEventDto, EventsWidgetNotificationStatus } from '../../../../../dashboard/models/EVJ/events-widget';
+import {
+    IRetrievalEventDto,
+    EventsWidgetNotificationStatus,
+    IUser,
+} from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
@@ -11,6 +15,8 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EvjEventsCorrectCardComponent implements OnInit {
     @Input() public event: IRetrievalEventDto = null;
     @Input() public isClickable: boolean = true;
+
+    public responsible: IUser = null;
 
     public readonly statusesColors: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'standart',

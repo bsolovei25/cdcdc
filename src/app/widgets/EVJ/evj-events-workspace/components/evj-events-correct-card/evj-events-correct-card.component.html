@@ -1,42 +1,40 @@
-<evj-ui-block status="normal">
-  <div class="card" (click)="onClickCard()">
-    <div class="card__header" *ngIf="event?.responsibleName">
-      <div class="header__text">{{event?.responsibleName}}</div>
-      <div class="header__progress">
-        <div class="status" *ngIf="event?.status?.description">
-          <span>{{event?.status?.description}}</span>
-        </div>
-        <div class="header__clock">
-          <div class="image">
-            <img src="assets/icons/widgets/workspace/clock.svg" />
-          </div>
-        </div>
+<div class="card" (click)="onClickCard()">
+  <div class="card__header" *ngIf="event?.responsibleName">
+    <div class="header__name">{{event?.responsibleName}}</div>
+    <div class="header__progress">
+      <div class="status" *ngIf="event?.status?.description">
+        <span>{{event?.status?.description}}</span>
       </div>
-    </div>
-    <div class="card__info">
-      <div class="description__text">{{event?.description}}</div>
-    </div>
-    <div class="card__period" *ngIf="event?.deadline">
-      <div class="period__text">
-        <span>Срок исполнения: {{event?.deadline|date:'dd.MM.yyyy | HH:mm'}}</span>
-      </div>
-      <div class="period__buttons">
-        <div class="button button__link" (click)="onClickUnlink($event)">
-          <svg-icon src="assets/icons/chain-break.svg" [svgStyle]="{ 'width.px':18, 'height.px':18}"> </svg-icon>
-        </div>
-        <div class="button button__delete" (click)="onClickDelete($event)">
-          <svg-icon
-            src="assets/icons/widgets/workspace/delete.svg"
-            [svgStyle]="{ 'width.px':18, 'height.px':18 }"
-          ></svg-icon>
-        </div>
-        <div class="button button__edit" (click)="onClickEdit($event)">
-          <svg-icon
-            src="assets/icons/widgets/workspace/edit.svg"
-            [svgStyle]="{ 'position': 'absolute', 'width.px':25, 'height.px':25, 'left.px':-3, 'top.px':-3 }"
-          ></svg-icon>
+      <div class="header__clock">
+        <div class="image">
+          <img src="assets/icons/widgets/workspace/clock.svg" />
         </div>
       </div>
     </div>
   </div>
-</evj-ui-block>
+  <div class="card__info">
+    <div class="description__text">{{event?.description}}</div>
+  </div>
+  <div class="card__period" *ngIf="event?.deadline">
+    <div class="period__text">
+      <span>Срок исполнения: {{event?.deadline|date:'dd.MM.yyyy HH:mm'}}</span>
+    </div>
+    <div class="period__buttons">
+      <div class="button button__link" (click)="onClickUnlink($event)">
+        <svg-icon
+          src="assets/icons//widgets/EVJ/evj-events-workspace/link.svg"
+          [svgStyle]="{ 'width.px':18, 'height.px':18}"
+        ></svg-icon>
+      </div>
+      <div class="button button__delete" (click)="onClickDelete($event)">
+        <svg-icon
+          src="assets/icons//widgets/EVJ/evj-events-workspace/trash.svg"
+          [svgStyle]="{ 'width.px':18, 'height.px':18 }"
+        ></svg-icon>
+      </div>
+      <div class="button button__edit" (click)="onClickEdit($event)">
+        <svg-icon src="assets/icons//widgets/EVJ/evj-events-workspace/pencil.svg"></svg-icon>
+      </div>
+    </div>
+  </div>
+</div>
