@@ -29,7 +29,7 @@ export class EvjEventFiltersComponent implements OnInit, OnChanges {
         if (!!this.unitsSelect.value) {
             return;
         }
-        const preselectedValues = values.map((item) => item.id);
+        const preselectedValues = values?.map((item) => item.id);
         this.unitsSelect.setValue(preselectedValues);
     }
     @Input() set inputPriority(value: IPriority) {
