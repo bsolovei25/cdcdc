@@ -100,10 +100,9 @@
     >
     </evj-sou-mvp-mnemonic-scheme-stats>
   </div>
-  <ng-container *ngIf="!!(unitSubchannel$ | async)"
-  >
-    <ng-container
-      *ngComponentOutlet="footerComponent; injector: (widgetId | fn:getInjector : (unitSubchannel$ | async));"
+  <ng-container *ngIf="!!(footerSubchannel$ | async)"
+    ><ng-container
+      *ngComponentOutlet="footerComponent; injector: (widgetId | fn:getInjector : (footerSubchannel$ | async));"
     ></ng-container
     >
   </ng-container>

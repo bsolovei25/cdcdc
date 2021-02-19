@@ -26,8 +26,8 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
     @ViewChild('schema') public schemaContainer: ElementRef;
 
     constructor(
-        protected widgetService: WidgetService,
         private mvpService: SouMvpMnemonicSchemeService,
+        protected widgetService: WidgetService,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
         @Inject('viewType') public viewType: string,
@@ -43,34 +43,6 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
     }
 
     protected dataHandler(ref: { section: { flowIn: any[]; flowOut: any[]; objects: any[]; name: string }[] }): void {
-        // let flowIn = this.data$.getValue()?.flowIn ?? [];
-        // ref?.section?.flowIn?.forEach((x) => {
-        //     const idx = flowIn.findIndex((s) => s.code === x.code);
-        //     if (idx !== -1) {
-        //         flowIn.splice(idx, 1);
-        //     }
-        // });
-        // flowIn = [...flowIn, ...(ref?.section?.flowIn ?? [])];
-        //
-        // let sectionsData = this.data$.getValue()?.sectionsData ?? [];
-        // const sectionsUnited = [
-        //     ...(ref.section?.flowIn ?? []),
-        //     ...(ref.section?.flowOut ?? []),
-        //     ...(ref.section?.objects ?? []),
-        // ];
-        // sectionsUnited?.forEach((x) => {
-        //     const idx = sectionsData.findIndex((s) => s.code === x.code);
-        //     if (idx !== -1) {
-        //         sectionsData.splice(idx, 1);
-        //     }
-        // });
-        // sectionsData = [...sectionsData, ...sectionsUnited];
-        // this.data$.next({
-        //     name: ref?.section?.name ?? '',
-        //     flowIn,
-        //     sectionsData,
-        // });
-
         const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
         const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
         this.data$.next({
@@ -78,5 +50,6 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
             flowIn,
             sectionsData,
         });
+        this.mvpService.currentSection$.next(ref.section?.[0]);
     }
 }
