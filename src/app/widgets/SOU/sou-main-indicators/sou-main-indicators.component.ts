@@ -9,7 +9,8 @@ import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic
 import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SouDetailTableComponent } from '../sou-operational-accounting-system/components/sou-detail-table/sou-detail-table.component';
-import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+import { ISouIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+import { table } from './mock';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -28,7 +29,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
     active: number = 0;
-    identifiedList: ISOUIdent[] = [];
+    identifiedList: ISouIdent[] = [];
 
     @ViewChild('chart') chart: ElementRef;
 
@@ -131,7 +132,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     openTable(value: number): void {
         this.active = value;
         const dialogRef = this.dialog.open(SouDetailTableComponent, {
-            data: [...this.identifiedList] as ISOUIdent[],
+            data: [...this.identifiedList] as ISouIdent[],
         });
 
         dialogRef.afterClosed().subscribe((result) => {
