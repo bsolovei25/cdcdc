@@ -115,15 +115,17 @@ export interface ISouObjects {
     value: number;
 }
 
-export interface ISOUIdent {
+export interface ISouIdent {
     title: string;
     value: number;
     percentage: number;
+    isHighlighted?: boolean;
+    className?: string;
 }
 
 export interface ISOULosses {
-    ident: ISOUIdent[];
-    identifiedList: ISOUIdent[];
+    ident: ISouIdent[];
+    identifiedList: ISouIdent[];
     lossesType: {
         name: string;
         persent: number;

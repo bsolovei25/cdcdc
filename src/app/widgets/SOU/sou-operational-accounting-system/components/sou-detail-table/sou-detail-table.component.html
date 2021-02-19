@@ -23,7 +23,7 @@
 </div>
 
 <ng-template #tableRow let-row="row">
-  <div class="row">
+  <div class="row" [className]="'row ' + row.className">
     <div class="label">
       <span>{{row.title}}</span>
     </div>
