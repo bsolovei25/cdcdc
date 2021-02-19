@@ -51,7 +51,8 @@ export class ChatComponent implements OnInit {
     }
 
     public addEstablishedFactsToChat(): void {
-        if (this.ewService?.event?.establishedFacts) {
+        if (this.ewService?.event?.establishedFacts
+            && this.messages === this.ewService.event.facts) {
             this.messages.push({
                 comment: this.ewService?.event?.establishedFacts
             } as IMessage)
