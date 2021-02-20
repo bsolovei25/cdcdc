@@ -6,11 +6,12 @@ export interface IKpeAllDependentParameters {
     id?: number;
     name: string;
     unit?: string;
-    parentId?: string;
     dependentParameterId?: number;
     numericValue?: number;
     createdAt?: Date;
     createdBy?: number;
+    modifitedAt?: Date;
+    modifitedBY: number
 }
 
 export interface IKpeNotification {

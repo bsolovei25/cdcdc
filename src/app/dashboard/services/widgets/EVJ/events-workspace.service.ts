@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPriority,
@@ -12,7 +12,7 @@ import {
     ICategory,
     IEventsWidgetAttributes,
     IEventsWidgetNotification,
-    IExtraOptionsWindow,
+    IExtraOptionsWindow, IKpeAdditionalParameter,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -21,23 +21,25 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser,
-} from '../../../models/EVJ/events-widget';
-import { EventService } from './event.service';
-import { SnackBarService } from '../../snack-bar.service';
-import { fillDataShape } from '@shared/functions/common-functions';
-import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { filter, map } from 'rxjs/operators';
-import { error } from '@angular/compiler/src/util';
-import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
-import { FileAttachMenuService } from '../../file-attach-menu.service';
-import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
-import { ClaimService, EnumClaimGlobal } from '../../claim.service';
+    IUser
+} from "../../../models/EVJ/events-widget";
+import { EventService } from "./event.service";
+import { SnackBarService } from "../../snack-bar.service";
+import { fillDataShape } from "@shared/functions/common-functions";
+import { AvatarConfiguratorService } from "@core/service/avatar-configurator.service";
+import { BehaviorSubject, Observable } from "rxjs";
+import { IAlertWindowModel } from "@shared/models/alert-window.model";
+import { filter, map } from "rxjs/operators";
+import { error } from "@angular/compiler/src/util";
+import { IMessage, IMessageFileAttachment } from "@shared/models/message.model";
+import { FileAttachMenuService } from "../../file-attach-menu.service";
+import { IChatMessageWithAttachments } from "../../../../widgets/EVJ/events-workspace/components/chat/chat.component";
+import { ClaimService, EnumClaimGlobal } from "../../claim.service";
+import { KpeWorkspaceService } from "./kpe-workspace.service";
+import { IKpeNotification } from "../../../models/EVJ/kpe-workspace.model";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root"
 })
 export class EventsWorkspaceService {
     public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
@@ -90,17 +92,17 @@ export class EventsWorkspaceService {
             cats.filter((cat) => {
                 if (this.isCreateNewEvent) {
                     switch (cat.name) {
-                        case 'smotr':
+                        case "smotr":
                             return false;
                         default:
                             return true;
                     }
                 }
                 switch (cat.name) {
-                    case 'asus':
-                    case 'smotr':
-                    case 'ejs':
-                    case 'modelCalculations':
+                    case "asus":
+                    case "smotr":
+                    case "ejs":
+                    case "modelCalculations":
                         return false;
                     default:
                         return true;
@@ -113,33 +115,33 @@ export class EventsWorkspaceService {
     public currentAuthUser: IUser = null;
 
     public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
-        new: 'Новое',
-        inWork: 'В работе',
-        closed: 'Завершено',
+        new: "Новое",
+        inWork: "В работе",
+        closed: "Завершено"
     };
 
     public readonly subCategories: { [id in number]: string } = {
-        0: 'Распоряжения',
-        1: 'Прием/передача смены',
+        0: "Распоряжения",
+        1: "Прием/передача смены"
     };
 
     public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
-        danger: 'Высокий',
-        warning: 'Средний',
-        standard: 'Стандартный',
+        danger: "Высокий",
+        warning: "Средний",
+        standard: "Стандартный"
     };
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
-        smotr: 'СМОТР',
-        safety: 'Безопасность',
-        tasks: 'Производственные задания',
-        equipmentStatus: 'Состояния оборудования',
-        drops: 'Сбросы',
-        asus: 'АСУС (КИП и АСУТП)',
-        ejs: 'Электронный журнал событий',
-        indicators: 'Производственные показатели',
-        resources: 'Вспомогательные ресурсы',
-        modelCalculations: 'ЦД',
+        smotr: "СМОТР",
+        safety: "Безопасность",
+        tasks: "Производственные задания",
+        equipmentStatus: "Состояния оборудования",
+        drops: "Сбросы",
+        asus: "АСУС (КИП и АСУТП)",
+        ejs: "Электронный журнал событий",
+        indicators: "Производственные показатели",
+        resources: "Вспомогательные ресурсы",
+        modelCalculations: "ЦД"
     };
 
     private defaultEvent: IEventsWidgetNotification = null;
@@ -147,6 +149,8 @@ export class EventsWorkspaceService {
     public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
     public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
     public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<IExtraOptionsWindow>(null);
+    public acceptButton$: BehaviorSubject<IKpeNotification> = new BehaviorSubject<IKpeNotification>(null);
+
 
     get isCategoryEdit(): boolean {
         return (
@@ -168,8 +172,10 @@ export class EventsWorkspaceService {
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private fileAttachMenuService: FileAttachMenuService,
-        private claimService: ClaimService
-    ) {}
+        private claimService: ClaimService,
+        private kpeWorkspaceService: KpeWorkspaceService
+    ) {
+    }
 
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
@@ -193,7 +199,7 @@ export class EventsWorkspaceService {
         this.event.comments = await this.processAttachments(this.event.comments);
         this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
-        if (this.event.category.name === 'asus') {
+        if (this.event.category.name === "asus") {
             await this.asusReferencesLoad();
         }
     }
@@ -232,7 +238,7 @@ export class EventsWorkspaceService {
     public async createEvent(idParent: number = null): Promise<void> {
         this.isEditEvent = true;
         if (this.isCreateNewEvent) {
-            this.snackBarService.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
+            this.snackBarService.openSnackBar("Для создания нового события, сохраните текущее!", "snackbar-red");
             return;
         }
         if (!this.checkParentRetrievalCategory(idParent)) {
@@ -247,7 +253,7 @@ export class EventsWorkspaceService {
             this.event.category = {
                 id: null,
                 name: null,
-                code: null,
+                code: null
             };
         }
         this.originalEvent = { ...this.event };
@@ -263,11 +269,11 @@ export class EventsWorkspaceService {
 
     public checkRetrievalCategory(): boolean {
         switch (this.event.category.name) {
-            case 'smotr':
-            case 'asus':
+            case "smotr":
+            case "asus":
                 this.snackBarService.openSnackBar(
-                    'Данное действие пока не доступно для данных категорий событий! Ждите в ближайшем обновлении :)',
-                    'snackbar-red'
+                    "Данное действие пока не доступно для данных категорий событий! Ждите в ближайшем обновлении :)",
+                    "snackbar-red"
                 );
                 return false;
         }
@@ -276,10 +282,10 @@ export class EventsWorkspaceService {
 
     public async createRetrievalLink(idRetrieval: number): Promise<void> {
         const idEvent = this.event.id;
-        console.log('add retrieval: ' + idEvent + idRetrieval);
+        console.log("add retrieval: " + idEvent + idRetrieval);
         try {
             await this.eventService.addLink(idEvent, idRetrieval);
-            this.snackBarService.openSnackBar('События успешно связаны!');
+            this.snackBarService.openSnackBar("События успешно связаны!");
         } catch (err) {
             console.log(err);
         } finally {
@@ -289,10 +295,10 @@ export class EventsWorkspaceService {
 
     public async deleteRetrievalLink(idRetrieval: number): Promise<void> {
         const idEvent = this.event.id;
-        console.log('delete retrieval: ' + idEvent + idRetrieval);
+        console.log("delete retrieval: " + idEvent + idRetrieval);
         try {
             await this.eventService.deleteLink(idEvent, idRetrieval);
-            this.snackBarService.openSnackBar('Связь между событиями успешно удалена!');
+            this.snackBarService.openSnackBar("Связь между событиями успешно удалена!");
         } catch (err) {
             console.log(err);
         } finally {
@@ -315,9 +321,31 @@ export class EventsWorkspaceService {
                 this.event.id = event.id;
             }
             this.isCreateNewEvent = false;
-            this.snackBarService.openSnackBar('Сохранено');
+
+            if (this.event.kpeAdditionalParameter) {
+                await this.accept(this.acceptButton$.getValue());
+            }
+
+            this.snackBarService.openSnackBar("Сохранено");
         } catch (err) {
             console.error(err);
+        }
+    }
+
+    public async accept(data: IKpeNotification): Promise<void> {
+        try {
+            const res = await this.kpeWorkspaceService.postKpeNotificationParameters(
+                this.event,
+                data
+            );
+            this.event.kpeAdditionalParameter = {
+                selectedParameterId: res.selectedParameter.id,
+                dependentParameters: res.dependentParameters,
+                createdAt: res.createdAt,
+                createdBy: res.createdBy
+            };
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -326,7 +354,7 @@ export class EventsWorkspaceService {
         try {
             const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
             if (!saveMethod) {
-                throw error('no save method');
+                throw error("no save method");
             }
             if (this.isCreateNewEvent) {
                 await this.saveCreatedEvent(saveMethod);
@@ -340,12 +368,12 @@ export class EventsWorkspaceService {
     }
 
     private async saveEditedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
-        if (this.event.category.name === 'asus') {
-            this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
+        if (this.event.category.name === "asus") {
+            this.snackBarService.openSnackBar("Данное действие не допустимо для выбранного события!", "snackbar-red");
         } else {
             try {
                 await this.eventService.putEvent(this.event, saveMethod);
-                this.snackBarService.openSnackBar('Изменения сохранены');
+                this.snackBarService.openSnackBar("Изменения сохранены");
             } catch (err) {
                 console.error(err);
             }
@@ -359,14 +387,14 @@ export class EventsWorkspaceService {
                 (item) => item.innerNotificationId === retrieval.innerNotificationId
             );
             this.event.retrievalEvents.splice(index, 1);
-            this.snackBarService.openSnackBar('Мероприятие удалено');
+            this.snackBarService.openSnackBar("Мероприятие удалено");
         } catch (err) {
             console.error(err);
-            this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+            this.snackBarService.openSnackBar("Ошибка", "snackbar-red");
         }
     }
 
-    public async sendMessageToEvent(msg: IChatMessageWithAttachments, category: 'comments' | 'facts'): Promise<void> {
+    public async sendMessageToEvent(msg: IChatMessageWithAttachments, category: "comments" | "facts"): Promise<void> {
         this.isLoading = true;
         console.log(msg);
         await this.uploadNewlyAddedAttachments(msg.attachments).then((attachments) => {
@@ -374,7 +402,7 @@ export class EventsWorkspaceService {
                 comment: msg?.msg ? msg?.msg : msg.toString(),
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: attachments,
+                attachedFiles: attachments
             };
             this.event[category].push(fullComment);
             this.isLoading = false;
@@ -400,7 +428,7 @@ export class EventsWorkspaceService {
                 comment: message,
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: null,
+                attachedFiles: null
             };
             this.event.comments.push(fullComment);
             const saveMethod = await this.eventService.getSaveMethod(this.event);
@@ -423,12 +451,12 @@ export class EventsWorkspaceService {
                 comment: message,
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: null,
+                attachedFiles: null
             };
             this.event.comments.push(fullComment);
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             await this.eventService.closeSmotrEvent(saveMethod, this.event);
-            this.event.status = this.status.find((el) => el.name === 'closed');
+            this.event.status = this.status.find((el) => el.name === "closed");
         } catch (e) {
             console.log(e);
             this.event.comments.pop();
@@ -450,32 +478,32 @@ export class EventsWorkspaceService {
         this.defaultEvent = {
             isUserCanEdit: true,
             itemNumber: 0,
-            branch: 'Производство',
+            branch: "Производство",
             category: {
                 id: 0,
                 name: null,
-                code: null,
+                code: null
             },
-            description: '',
-            deviationReason: '',
-            directReasons: '',
-            establishedFacts: '',
+            description: "",
+            deviationReason: "",
+            directReasons: "",
+            establishedFacts: "",
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: null,
-            organization: 'АО Газпромнефть',
+            organization: "АО Газпромнефть",
             priority: this.priority ? (this.priority[2] ? this.priority[2] : this.priority[0]) : undefined,
             responsibleOperator: null,
             retrievalEvents: [],
-            severity: 'Critical',
+            severity: "Critical",
             status: this.status
                 ? this.status[0]
                 : {
-                      id: 0,
-                      name: null,
-                      code: null,
-                      description: null,
-                  },
+                    id: 0,
+                    name: null,
+                    code: null,
+                    description: null
+                },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
@@ -486,35 +514,35 @@ export class EventsWorkspaceService {
             comments: [],
             shiftPassEvent: {
                 id: 0,
-                notes: '',
-                shiftMembers: '',
-                compressorsInWork: '',
-                equipmentAtRepair: '',
-                equipmentReserved: '',
-                fireExtinguishingEquipmentStatus: '',
-                pressureGaugesStatus: '',
-                shiftComments: '',
-                shiftDangerWorks: '',
-                shiftEstablishedFacts: '',
-                shiftInstruction: '',
-                shiftOtherEvents: '',
-                shiftPropertyNotes: '',
-                shiftRepairWorks: '',
-                ventilationStatus: '',
-                safetyAndEmergencyProtectionStatus: '',
+                notes: "",
+                shiftMembers: "",
+                compressorsInWork: "",
+                equipmentAtRepair: "",
+                equipmentReserved: "",
+                fireExtinguishingEquipmentStatus: "",
+                pressureGaugesStatus: "",
+                shiftComments: "",
+                shiftDangerWorks: "",
+                shiftEstablishedFacts: "",
+                shiftInstruction: "",
+                shiftOtherEvents: "",
+                shiftPropertyNotes: "",
+                shiftRepairWorks: "",
+                ventilationStatus: "",
+                safetyAndEmergencyProtectionStatus: ""
             },
             asusEvent: {
-                category: '',
-                workGroup: '',
-                service: '',
+                category: "",
+                workGroup: "",
+                service: "",
                 eoService: null,
                 equipment: null,
-                tmPlace: null,
+                tmPlace: null
             },
             productionTasks: {
-                subCategory: null,
+                subCategory: null
             },
-            eventEndDateTime: null,
+            eventEndDateTime: null
         };
     }
 
@@ -524,7 +552,7 @@ export class EventsWorkspaceService {
             this.eventService.getCategory().then((data) => {
                 this.category = data;
                 // TODO Здесь костыль с ЦД
-                const idx = this.category.findIndex((value) => value.name === 'modelCalculations');
+                const idx = this.category.findIndex((value) => value.name === "modelCalculations");
                 this.category.splice(idx, 1);
                 this.category$.next(this.category);
             }),
@@ -557,13 +585,14 @@ export class EventsWorkspaceService {
         try {
             await Promise.all(dataLoadQueue);
         } catch {
-            console.warn('Promise.allSettled');
+            console.warn("Promise.allSettled");
         }
     }
 
     public closeSearchWindow(): void {
         this.searchWindow$.next(null);
     }
+
     public closeExtraOptionsWindow(): void {
         this.extraOptionsWindow$.next(null);
     }
@@ -588,15 +617,15 @@ export class EventsWorkspaceService {
         try {
             await Promise.all(dataLoadQueue);
         } catch {
-            console.warn('Promise.allSettled');
+            console.warn("Promise.allSettled");
         }
     }
 
     public async changeCategory(): Promise<void> {
-        if (this.event.category.name === 'tasks') {
-            this.event.productionTasks.subCategory = this.subCategory?.find((value) => value.code === '0');
+        if (this.event.category.name === "tasks") {
+            this.event.productionTasks.subCategory = this.subCategory?.find((value) => value.code === "0");
         }
-        if (this.event.category.name === 'asus') {
+        if (this.event.category.name === "asus") {
             await this.asusReferencesLoad();
         }
     }
@@ -620,7 +649,7 @@ export class EventsWorkspaceService {
         messages.map(async (message) => {
             message.attachedFiles.map(async (file) => {
                 // 00000000-0000-0000-0000-000000000000 - handle corrupted fileId uid
-                if (file.fileId && file.fileId !== '00000000-0000-0000-0000-000000000000') {
+                if (file.fileId && file.fileId !== "00000000-0000-0000-0000-000000000000") {
                     const fileInfo = await this.getFileInfoById(file);
                     file.size = this.fileAttachMenuService.convertBytes(fileInfo.length);
                     file.name = fileInfo.fileName;

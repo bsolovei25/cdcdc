@@ -15,6 +15,7 @@ import { OverlayService } from '../../../../../dashboard/services/overlay.servic
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../../../../dashboard/services/claim.service';
+import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
 
 @Component({
     selector: 'evj-evj-main-toggle',
@@ -72,7 +73,7 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService,
-        private chDet: ChangeDetectorRef
+        private chDet: ChangeDetectorRef,
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
