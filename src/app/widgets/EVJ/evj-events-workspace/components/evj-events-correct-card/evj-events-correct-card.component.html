@@ -1,5 +1,5 @@
 <div class="card" (click)="onClickCard()">
-  <div class="card__header" *ngIf="event?.responsibleName">
+  <div class="card__header">
     <div class="header__name">{{event?.responsibleName}}</div>
     <div class="header__progress">
       <div class="status" *ngIf="event?.status?.description">
@@ -15,7 +15,7 @@
   <div class="card__info">
     <div class="description__text">{{event?.description}}</div>
   </div>
-  <div class="card__period" *ngIf="event?.deadline">
+  <div class="card__period">
     <div class="period__text">
       <span>Срок исполнения: {{event?.deadline|date:'dd.MM.yyyy HH:mm'}}</span>
     </div>
