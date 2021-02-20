@@ -6,6 +6,7 @@ import { IDatesInterval, WidgetService } from '../../../../../dashboard/services
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
+import { IChartMini } from "@shared/models/smart-scroll.model";
 
 interface ILabels {
     currentDeviation: IAsEfLabel;
@@ -39,7 +40,15 @@ export class AstueEfficiencyGraphDisplayComponent
         toDateTime: new Date(2020, 2, 7, 20),
     };
 
+    public selectedPeriod: IDatesInterval = { fromDateTime: null, toDateTime: null };
+
+    public scrollData: IChartMini[] = [];
+
     private subs: Subscription[] = [];
+
+    public sbLeft: number = 0;
+
+    public sbWidth: number = 100;
 
     private readonly restUrl: string = null;
 
@@ -65,6 +74,7 @@ export class AstueEfficiencyGraphDisplayComponent
     }
 
     public ngOnInit(): void {
+        super.ngOnInit();
         this.subs.push(
             this.AsEfService.selectionFlow$.subscribe((value) => {
                 let arr = [];
@@ -72,6 +82,7 @@ export class AstueEfficiencyGraphDisplayComponent
                     arr = [...arr, ...this.chartDataMap(flow?.astueFlowGraphs)];
                 });
                 this.data = arr;
+                this.scrollData = this.data.find(item => item.graphType === 'fact')?.graph;
             }),
             this.AsEfService.selectionUnit$.subscribe((units) => {
                 this.resetLabel();
@@ -89,7 +100,20 @@ export class AstueEfficiencyGraphDisplayComponent
                 } else {
                     this.resetLabel();
                 }
-            })
+            }),
+            this.widgetService.currentDates$.subscribe((ref) => {
+                this.selectedPeriod = ref;
+                if (!this.selectedPeriod) {
+                    const now = new Date();
+                    this.selectedPeriod = {
+                        fromDateTime: new Date(now.setHours(0, 0, 0, 0)),
+                        toDateTime: new Date(now.setHours(23, 59, 59, 999)),
+                    };
+                } else {
+                    this.selectedPeriod.fromDateTime = new Date(this.selectedPeriod.fromDateTime);
+                    this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
+                }
+            }),
         );
     }
 
