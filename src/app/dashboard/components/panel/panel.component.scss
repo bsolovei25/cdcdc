@@ -134,7 +134,7 @@ gridster-item {
   &_active {
     width: 500px;
     padding: 20px 10px 20px 20px;
-    box-shadow: -4px 20px 13px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: -4px 20px 13px 4px var(--color-header-shadow);
     border-color: var(--color-border-active);
     border-right: 1px;
     z-index: 100;
@@ -167,7 +167,7 @@ gridster-item {
     background-color: var(--color-bg-main);
     border: 1px solid var(--color-border-active);
     border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: -13px 0px 13px 1px var(--color-header-shadow);
 
     cursor: pointer;
   }
@@ -188,7 +188,7 @@ gridster-item {
     background-color: var(--color-bg-main);
     border: 1px solid var(--color-border-active);
     border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: -13px 0px 13px 1px var(--color-header-shadow);
 
     cursor: pointer;
   }

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid var(--color-border-header);
+  border-right: 1px solid transparent;
   min-height: 60px;
   padding-left: 10px;
   padding-right: 10px;
@@ -19,14 +19,16 @@
   width: 75px;
   height: 19px;
 
-  padding: 3px 3px 4.5px 11px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
   box-sizing: border-box;
 
   border: 1px solid transparent;
 
-  font-size: 0.5625rem;
-  color: var(--color-text-sub);
-  background-color: var(--color-bg-disable);
+  font-size: 11px;
+  color: var(--color-header-text-period-selector);
+  background-color: var(--color-header-bg-period-selector);
   cursor: pointer;
 
   &:before {
@@ -39,8 +41,8 @@
     box-sizing: border-box;
     transform-origin: 43% 0;
 
-    background: var(--color-new-header-bg);
-    border-color: var(--color-new-header-bg);
+    background: var(--color-header-bg);
+    border-color: var(--color-header-bg);
   }
 
   &:first-child {
@@ -60,8 +62,8 @@
   }
 
   &_active {
-    color: var(--color-text-main);
-    background-color: var(--color-new-header-active-trans);
+    color: var(--color-header-text-period-selector-active);
+    background-color: var(--color-header-active-trans);
     border-color: var(--color-new-header-active);
 
     &:before {
@@ -76,11 +78,10 @@
   display: flex;
   align-items: center;
   height: 43px;
-  padding: 4px 10px 20.8px 7.5px;
-  font-size: 0.625rem;
-  background-color: var(--color-bg-disable);
-  border: 0.5px solid transparent;
-
+  padding: 4px 10px 20px 8px;
+  font-size: 11px;
+  background-color: var(--color-header-bg-period-selector);
+  border: 1px solid transparent;
   box-sizing: border-box;
 
   &__body {
@@ -88,14 +89,14 @@
   }
 
   &__heading {
-    margin-bottom: 6.6px;
+    margin-bottom: 6px;
     color: var(--color-text-sub-heading);
   }
 
   &__dates {
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
   }
 
   &__date {
@@ -116,7 +117,6 @@
   }
 
   &__label {
-    margin-top: 5px;
     margin-right: 5px;
   }
 
@@ -130,7 +130,7 @@
     right: -10px;
     z-index: 999;
     position: absolute;
-    background-color: var(--color-new-header-bg);
+    background-color: var(--color-header-bg);
     padding-left: 5px;
     padding-right: 5px;
     width: 140px;
@@ -176,7 +176,7 @@
         font-size: 12px;
         input {
           width: 90% !important;
-          background-color: var(--color-new-header-bg) !important;
+          background-color: var(--color-header-bg) !important;
         }
       }
 
@@ -191,14 +191,15 @@
     min-width: 85px;
     margin-right: 5px;
     cursor: pointer;
+    color: var(--color-header-text-sub);
 
     &:hover {
-      color: white;
+      color: var(--color-header-text-datetime-current);
     }
 
     &__disabled {
       pointer-events: none;
-      color: var(--color-text-sub-heading);
+      color: var(--color-header-text-sub);
     }
 
     ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
@@ -234,45 +235,45 @@
     z-index: 1;
     content: "";
     position: absolute;
-    right: -1px;
-    top: -1px;
+    right: -2px;
+    top: -3px;
 
-    height: 7px;
-    width: 7px;
+    height: 8px;
+    width: 8px;
 
     box-sizing: border-box;
     transform-origin: 43% 0;
     transform: rotate(-45deg);
 
-    background: var(--color-new-header-bg);
-    border-color: var(--color-new-header-bg);
+    background: var(--color-header-bg);
+    border-color: var(--color-header-bg);
   }
 
   &:after {
     z-index: 1;
     content: "";
     position: absolute;
-    bottom: -5px;
-    right: 0px;
+    bottom: -6px;
+    right: -2px;
 
-    height: 7px;
-    width: 7px;
+    height: 8px;
+    width: 8px;
     box-sizing: border-box;
-    transform-origin: 43% 0;
+    transform-origin: 50% 0;
     transform: rotate(-45deg);
 
-    background: var(--color-new-header-bg);
-    border-color: var(--color-new-header-bg);
+    background: var(--color-header-bg);
+    border-color: var(--color-header-bg);
   }
 
   &_active {
-    border: 0.5px solid var(--color-new-header-active);
+    border: 1px solid var(--color-new-header-active);
     color: var(--color-text-sub);
     &:before {
-      border-left: 0.5px solid var(--color-new-header-active);
+      border-left: 1px solid var(--color-new-header-active);
     }
     &:after {
-      border-top: 0.5px solid var(--color-new-header-active);
+      border-top: 1px solid var(--color-new-header-active);
     }
   }
 }
