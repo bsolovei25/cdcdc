@@ -69,4 +69,10 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     }
 
     ngAfterViewInit(): void {}
+
+    elementClick(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
+        this.mvpService.openPopup(sections, code);
+        const link = this.mvpService.getElementByCode(sections, code)?.linkId;
+        this.mvpService.redirectMnemonic(link);
+    }
 }

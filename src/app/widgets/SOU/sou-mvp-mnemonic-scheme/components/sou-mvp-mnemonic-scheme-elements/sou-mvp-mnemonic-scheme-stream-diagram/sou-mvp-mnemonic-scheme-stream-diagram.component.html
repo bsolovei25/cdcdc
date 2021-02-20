@@ -5,7 +5,7 @@
     warning: flowData?.isExceedingConfInterval && !!flowData?.isEnable,
     selected: flowData?.code === mvpService.selectedCode
   }"
-  (click)="mvpService.openPopup(sections, flowData?.code)"
+  (click)="elementClick(sections, flowData?.code)"
 >
   <div class="diagram-container">
     <div class="diagram" #chart></div>

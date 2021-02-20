@@ -37,4 +37,10 @@ export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
+
+    elementClick(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
+        this.mvpService.openPopup(sections, code);
+        const link = this.mvpService.getElementByCode(sections, code)?.linkId;
+        this.mvpService.redirectMnemonic(link);
+    }
 }
