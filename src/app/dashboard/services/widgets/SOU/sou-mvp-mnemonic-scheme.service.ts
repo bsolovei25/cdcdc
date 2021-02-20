@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ISouFlowIn, ISouFlowOut, ISouObjects } from '../../../models/SOU/sou-operational-accounting-system.model';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -17,14 +17,24 @@ export class SouMvpMnemonicSchemeService {
     }>(null);
     currentSection$: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);
     chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    redirectId$: Subject<string> = new Subject<string>();
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISouFlowOut;
 
     constructor(private http: HttpClient) {}
 
+    redirectMnemonic(linkId: string): void {
+        console.log('redirect', linkId);
+        if (!linkId) {
+            return;
+        }
+        this.redirectId$.next(linkId);
+    }
+
     openPopup(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
         this.popupData = this.getElementByCode(sections, code) as ISouFlowOut;
+        console.log(this.popupData);
         this.selectElement(sections, code);
         this.isPopupOpen = true;
     }

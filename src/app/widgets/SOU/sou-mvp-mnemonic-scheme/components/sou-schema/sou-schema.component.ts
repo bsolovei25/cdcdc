@@ -428,7 +428,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     eventClick(element: Element, elementFull: IElementFull): void {
         if (elementFull?.flag) {
             elementFull.flag = false;
-            if ('productName' in elementFull.metaFile) {
+            if ('productName' in elementFull.metaFile || 'linkId' in elementFull.metaFile) {
                 const handler = this.eventListenerClick(elementFull);
                 element.removeEventListener('click', handler);
                 element.addEventListener('click', handler);
@@ -438,8 +438,9 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     eventListenerClick(elementFull: IElementFull): () => void {
         return () => {
+            console.log('click', elementFull);
+            this.mvpService.redirectMnemonic(elementFull.metaFile.linkId);
             this.elementActive(elementFull);
-            console.log(elementFull);
             if (typeof elementFull.metaFile.related === 'object') {
                 elementFull.metaFile?.related?.forEach((value) => {
                     const element = this.dataAttribute.get(value);

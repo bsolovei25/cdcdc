@@ -101,6 +101,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
+            this.mvpService.redirectId$.subscribe(this.redirect.bind(this)),
             this.optionsGroup.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe((x) => {
                 this.mvpService.closePopup();
                 this.setSubchannelBySelection(x.section, x.unit);
@@ -130,11 +131,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.options$.next({ ...ref });
     }
 
-    public getInjector = (
-        widgetId: string,
-        channelId: string,
-        viewType: SouMvpMnemonicSchemeView = null,
-    ): Injector => {
+    public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: widgetId },
@@ -208,6 +205,22 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     private getUnitNameById(unitId: string): string {
         return this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId)?.name ?? null;
+    }
+
+    private redirect(id: string): void {
+        const section: string = id;
+        const unit: string = this.options$?.value?.manufactures
+            ?.flatMap((x) => x.units)
+            ?.find((x) => x?.section?.findIndex((s) => s.id === id) !== -1)?.id;
+        const manufacture: string = this.options$?.value?.manufactures?.find(
+            (x) => x.units?.findIndex((u) => u?.id === unit) !== -1
+        )?.name;
+        if (!manufacture || !unit || !section) {
+            return;
+        }
+        this.optionsGroup.get('manufacture').setValue(manufacture);
+        this.optionsGroup.get('unit').setValue(unit);
+        this.optionsGroup.get('section').setValue(section);
     }
 
     private stateController(): { save; load } {
