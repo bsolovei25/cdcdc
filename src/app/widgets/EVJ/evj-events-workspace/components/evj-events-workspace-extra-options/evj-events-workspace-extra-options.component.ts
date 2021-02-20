@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnDestroy, OnChanges } from '@angular/core';
-import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
+import { IExtraOptionsWindow, IKpeAdditionalParameter } from "../../../../../dashboard/models/EVJ/events-widget";
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -9,9 +9,9 @@ import {
     IKpeNotification,
     IKpeWorkspaceParameter,
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from 'rxjs';
-import { log } from 'util';
+
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
@@ -54,7 +54,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             }),
             this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
                 if (res) {
-                    this.getExtraParameters(res.id);
+                    this.getExtraParameters();
                 }
             })
         );
@@ -63,8 +63,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     ngOnChanges(): void {
         if (this.info?.data) {
             this.loadData();
-            this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameter);
-            this.form.get('parameters').setValue(this.info.data?.selectedParameter);
+            this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameterId);
+            this.form.get('parameters').setValue(this.info.data?.selectedParameterId);
             this.setDependentParameters(this.info.data?.dependentParameters);
         }
     }
@@ -111,8 +111,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     // Список с Зависимыми параметтрами
-    private async getExtraParameters(id: number): Promise<void> {
-        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(id);
+    private async getExtraParameters(): Promise<void> {
+        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters();
         this.kpeWorkspaceService.showSelectParameters$.next(dependentParametersData);
     }
 
@@ -132,13 +132,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             return;
         }
         this.notificationParametersData = data;
-        // this.form = this.formBuild.group({
-        //     parameters: this.formBuild.control(data.selectedParameter),
-        //     dependentParameters: this.formBuild.array(data.dependentParameters),
-        // });
     }
 
-    private async deleteParametersByNotification(checkbox: boolean): Promise<void> {
+    private async deleteParametersByNotification(): Promise<void> {
         try {
             await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
             this.ewService.event.kpeAdditionalParameter = null;
@@ -196,11 +192,26 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             createdBy: this.authService.user$.getValue().id,
         };
         try {
-            const res = await this.kpeWorkspaceService.postKpeNotificationParameters(
-                this.ewService.event,
-                this.notificationParametersData
-            );
-            this.ewService.event.kpeAdditionalParameter = res;
+            if (this.ewService.event.id) {
+                const res = await this.kpeWorkspaceService.postKpeNotificationParameters(
+                    this.ewService.event,
+                    this.notificationParametersData
+                );
+                this.ewService.event.kpeAdditionalParameter = {
+                    selectedParameterId: res.selectedParameter.id,
+                    dependentParameters: res.dependentParameters,
+                    createdAt: res.createdAt,
+                    createdBy: res.createdBy
+                };
+            } else {
+                this.ewService.event.kpeAdditionalParameter = {
+                    selectedParameterId: this.notificationParametersData.selectedParameter.id,
+                    dependentParameters: this.notificationParametersData.dependentParameters,
+                    createdAt: this.notificationParametersData.createdAt,
+                    createdBy: this.notificationParametersData.createdBy
+                }
+                this.ewService.acceptButton$.next(this.notificationParametersData)
+            }
         } catch (error) {
             console.error(error);
         }
@@ -209,6 +220,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
+        console.log(this.ewService.event.kpeAdditionalParameter);
     }
 
     //  DELETE Удалить данные
@@ -218,7 +230,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             questionText: 'Вы уверены что хотите удалить Дополнительные параметры?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.deleteParametersByNotification(false),
+            acceptFunction: () => this.deleteParametersByNotification(),
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(alertWindow);

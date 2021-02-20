@@ -473,5 +473,5 @@ export interface IKpeAdditionalParameter {
     createdAt: Date;
     createdBy: number;
     dependentParameters: IKpeAllDependentParameters[];
-    selectedParameter: IKpeWorkspaceParameter;
+    selectedParameterId: number;
 }
