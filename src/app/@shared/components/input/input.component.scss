@@ -8,13 +8,13 @@
 
   &.ng-dirty {
     .input-container_focus:not(.input-container_warning):not(.input-container_danger) {
-      --input-text-color: var(--color-text-main);
-      --input-additional-color: var(--color-active);
+      --input-text-color: var(--color-header-text-main);
+      --input-additional-color: var(--color-header-bg-active);
     }
 
     &.ng-touched.ng-invalid {
       .input-container:not(.input-container_warning):not(.input-container_danger) {
-        --input-text-color: var(--color-text-main);
+        --input-text-color: var(--color-header-text-main);
         --input-additional-color: var(--color-danger);
       }
     }
@@ -24,8 +24,8 @@
 .input-container {
   // VARIABLES
   --padding-sides: 5px;
-  --input-text-color: var(--color-text-main);
-  --input-additional-color: var(--color-text-sub);
+  --input-text-color: var(--color-header-text-main);
+  --input-additional-color: var(--color-header-text-sub);
 
   position: relative;
   z-index: 2;
@@ -63,21 +63,21 @@
   // STATES
   &_normal {
     &.input-container {
-      --input-text-color: var(--color-text-main);
+      --input-text-color: var(--color-header-text-main);
       --input-additional-color: var(--color-text-sub);
     }
   }
 
   &_warning {
     &.input-container {
-      --input-text-color: var(--color-text-main);
+      --input-text-color: var(--color-header-text-main);
       --input-additional-color: var(--color-warning);
     }
   }
 
   &_danger {
     &.input-container {
-      --input-text-color: var(--color-text-main);
+      --input-text-color: var(--color-header-text-main);
       --input-additional-color: var(--color-danger);
     }
   }

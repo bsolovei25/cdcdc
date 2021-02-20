@@ -5,16 +5,16 @@
       <span class="header__title">{{cardData.unit? cardData.unit.name : 'Не известно'}}</span>
       <span class="header__data">{{cardData.eventDateTime | date:"dd.MM.yyyy HH:MM"}}</span>
       <div class="header__indicators">
-        <span class="indicator-text" [style.color]="'var(--header-events-color-font-' + cardData.priority.name + ')'"
+        <span class="indicator-text" [style.color]="'var(--color-user-events-priority-' + cardData.priority.name + ')'"
           >{{cardData.status.description}}</span
         >
         <svg-icon
           [src]="status(cardData.status.name)"
-          [style.fill]="'var(--header-events-color-font-' + cardData.priority.name + ')'"
+          [style.fill]="'var(--color-user-events-priority-' + cardData.priority.name + ')'"
         ></svg-icon>
         <svg-icon
           src="assets/icons/widgets/events/{{icon2}}.svg"
-          [style.fill]="'var(--header-events-color-bg-active)'"
+          [style.fill]="'var(--color-header-bg-active)'"
         ></svg-icon>
       </div>
     </div>

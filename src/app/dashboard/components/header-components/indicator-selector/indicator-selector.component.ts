@@ -157,6 +157,11 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         screen.isActive = true;
     }
 
+    public screenCardClick(screen: IScreenSettings): void {
+        this.setActiveScreen(screen);
+        this.loadScreen(screen.id);
+    }
+
     onChangeAdder(): void {
         this.isReadyAdd = this.tempScreen !== '';
     }

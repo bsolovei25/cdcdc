@@ -20,47 +20,54 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   }
 
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transform: translateY(100%);
+    background: var(--color-header-item-bg-hover);
+
+    &__item {
+      width: 100%;
+      padding-right: 10px;
+      height: max-content;
+      box-sizing: border-box;
+      padding-left: 10px;
+      line-height: 300%;
+      color: var(--color-header-text-period-selector);
+      text-align: left;
+      font-size: 15px;
+
+      display: flex;
+      align-items: center;
+      border-top: 1px solid var(--color-header-bg-dark);
+      border-left: 2px solid transparent;
+
+      background: var(--color-header-item-bg-hover);
+
+      svg-icon {
+        margin-top: 4px;
+        margin-right: 10px;
+        color: var(--color-header-bg-icons);
+      }
+
+      &:hover {
+        cursor: pointer;
+        border-left-color: var(--color-new-header-active);
+        background: var(--color-header-active-trans);
+        color: var(--color-header-text-period-selector-active);
+
+        svg-icon {
+          color: var(--color-header-bg-active);
+        }
+      }
+    }
+  }
+
   &:hover {
-    background: var(--color-bg-main);
+    background: var(--color-header-item-bg-hover);
     cursor: pointer;
   }
 }
 
-.dropdown {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  transform: translateY(100%);
-
-  &__item {
-    width: 100%;
-    padding-right: 10px;
-    height: max-content;
-    box-sizing: border-box;
-    padding-left: 10px;
-    line-height: 300%;
-    text-align: left;
-    font-size: 15px;
-
-    display: flex;
-    align-items: center;
-    border-left: 2px solid transparent;
-
-    svg-icon {
-      margin-top: 4px;
-      margin-right: 10px;
-      color: var(--color-event-card-font-sub);
-    }
-
-    &:hover {
-      cursor: pointer;
-      border-color: var(--color-new-header-active);
-      background: var(--color-new-header-active-trans);
-
-      svg-icon {
-        color: var(--color-new-header-active);
-      }
-    }
-  }
-}

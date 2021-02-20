@@ -41,7 +41,7 @@
   justify-content: space-around;
   height: 40px;
   font-size: 10px;
-  color: var(--color-text-sub);
+  color: var(--color-header-text-sub);
   border-bottom: 1px solid var(--color-bg-main);
 
   &:before {
@@ -176,7 +176,7 @@
 
 .left_button_menu {
   line-height: 24px;
-  color: var(--color-text-sub);
+  color: var(--color-header-text-sub);
   font-size: 10px;
   display: flex;
 }
@@ -215,14 +215,14 @@
 
 .right_button_menu {
   line-height: 24px;
-  color: var(--color-text-sub);
+  color: var(--color-header-text-sub);
   font-size: 10px;
   display: flex;
 }
 
 .menu_text {
   margin-top: 5px;
-  color: var(--color-text-sub-heading);
+  color: var(--color-header-text-sub-heading);
   width: 108px;
   height: 24px;
 }
@@ -513,7 +513,7 @@
     padding-top: 5px;
     padding-left: 25px;
     font-size: 10px;
-    color: var(--color-text-sub-heading);
+    color: var(--color-header-text-sub-heading);
   }
 
   &__unity {
@@ -537,7 +537,7 @@
 }
 
 .dates-selector {
-  color: var(--color-text-sub-heading);
+  color: var(--color-header-text-sub-heading);
   position: relative;
   display: flex;
   align-items: center;
@@ -555,7 +555,7 @@
 
   &__heading {
     margin-bottom: 6.6px;
-    color: var(--color-text-sub-heading);
+    color: var(--color-header-text-sub-heading);
   }
 
   &__dates {
@@ -565,12 +565,12 @@
   }
 
   &__date {
-    color: var(--color-text-sub);
+    color: var(--color-header-text-sub);
   }
 
   &__date-input {
     margin-top: 5px;
-    color: var(--color-text-sub);
+    color: var(--color-header-text-sub);
     border: none;
     background: transparent;
     width: 100px;
@@ -622,7 +622,7 @@
       }
 
       .mat-option:hover {
-        background: var(--color-text-sub);
+        background: var(--color-header-text-sub);
       }
 
       .ng-tns-c39-2 {
@@ -663,7 +663,7 @@
 
     &__disabled {
       pointer-events: none;
-      //color: var(--color-text-sub-heading);
+      //color: var(--color-header-text-sub-heading);
     }
 
     ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
@@ -732,7 +732,7 @@
 
   &_active {
     border: 0.5px solid var(--color-border-active);
-    color: var(--color-text-sub);
+    color: var(--color-header-text-sub);
     &:before {
       border-left: 0.5px solid var(--color-border-active);
     }
@@ -749,7 +749,7 @@
   display: none;
 }
 ::-webkit-calendar-picker-indicator {
-  color: var(--color-text-sub);
+  color: var(--color-header-text-sub);
   padding: 0;
   padding-left: 3px;
   &:hover {
@@ -782,7 +782,7 @@ input.data {
     border-bottom: solid 1px var(--color-active);
   }
   &::placeholder {
-    color: var(--color-text-sub);
+    color: var(--color-header-text-sub);
   }
   &:focus {
     outline: none;

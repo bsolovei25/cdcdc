@@ -1,4 +1,60 @@
 @mixin variables-light() {
+  // Header colors
+  --color-header-bg: #FFFFFF;
+  --color-header-bg-white: #FFFFFF;
+  --color-header-bg-dark: #F5F8FD;
+  --color-header-item-bg-hover: #F5F8FD;
+  --color-header-bg-active: #0089ff;
+  --color-header-bg-logo: #0089FF;
+  --color-header-bg-icons: #8C99B2;
+  --color-header-bg-linedate: #ffffff;
+  --color-header-text-main: #303549;
+  --color-header-text-sub: #8C99B2;
+  --color-header-text-datetime-current: #303549;
+  --color-header-bg-period-selector: #F5F8FD;
+  --color-header-text-period-selector: #606580;
+  --color-header-text-period-selector-active: #12151E;
+  --color-header-active-trans: rgba(0, 137, 255, 0.2);
+  --color-header-bg-calendar: #ffffff;
+  --color-header-bg-calendar-divider: #C4D3E9;
+  --color-header-shadow: rgba(0, 0, 0, 0.05);
+
+  // Header colors group-selector
+  --color-group-selector-text: #8C99B2;
+  --color-group-selector-bg-btn: #EBF1F9;
+
+  // Header colors indicator
+  --color-indicator-main: #8C99B2;
+  --color-indicator-bg: #ffffff;
+
+  // Управление группами (Светлая тема)
+  --color-group-control-bg-main: #ffffff;
+  --color-group-control-border-main: #D7E2F2;
+  --color-group-control-bg-active: #0089FF;
+  --color-group-control-bg-active-light: rgba(0, 137, 255, 0.1);
+  --color-group-control-bg-icons: #8C99B2;
+  --color-group-control-bg-icons-active: #ffffff;
+  --color-group-control-text: #303549;
+  --color-group-control-bg-switch: #EBF1F9;
+  --color-group-control-bg-switch-circle: #EBF1F9;
+  --color-group-control-border-switch-circle: #D7E2F2;
+  --color-group-control-border-switch-circle-active: #0089FF;
+  --color-group-control-border-switch: #D7E2F2;
+  --color-group-control-bg-switch-active: #EBF1F9;
+  --color-group-control-border-switch-active: #D7E2F2;
+  --color-group-control-item-bg: #EBF1F9;
+  --color-group-control-icon-upload-bg: #D7E2F2;
+  --color-group-control-bg-shadow: rgba(0, 0, 0, 0.2);
+
+  // Header colors user-events
+  --color-user-events-priority-standard: #8C99B2;
+  --color-user-events-priority-warning: #F7931E;
+  --color-user-events-priority-danger: #FF1D25;
+
+  // user-events
+  --color-user-events-bg-hover: #D7E2F2;
+
+  --color-platform-bg-main: #F5F8FD;
   --color-bg-main: #1b1e27;
   --color-bg-main-opacity: rgba(27, 30, 39, 0.4);
   --color-bg-main-dark: #181b23;
@@ -39,17 +95,11 @@
 
   --color-bg-btn: #232735;
 
-  // Стандартный скролл для светлой темы (Events-workspace)
-  //--color-scroll-thumb: #D7E2F2;
-  //--color-scroll-track: #ffffff;
-  //--color-scroll-track-piece: #ffffff;
-  //--color-scroll-corner: #12151E;
-
-  // Стандартный скролл для темной темы (Events-workspace)
-  --color-scroll-thumb: rgba(91, 96, 125, 0.2);
-  --color-scroll-track: #999;
-  --color-scroll-track-piece: rgb(27, 30, 39);
-  --color-scroll-corner: #12151e;
+   // Стандартный скролл для светлой темы (Events-workspace)
+  --color-scroll-thumb: #D7E2F2;
+  --color-scroll-track: transparent;
+  --color-scroll-track-piece: transparent;
+  --color-scroll-corner: #12151E;
 
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
@@ -130,44 +180,6 @@
 
   // UI
   --table-border-radius: 15px;
-
-  // Управление группами (Светлая тема)
-  //--color-group-control-bg-main: #ffffff;
-  //--color-group-control-border-main: #D7E2F2;
-  //--color-group-control-bg-active: #0089FF;
-  //--color-group-control-bg-active-light: rgba(0, 137, 255, 0.1);
-  //--color-group-control-bg-icons: #8C99B2;
-  //--color-group-control-bg-icons-active: #ffffff;
-  //--color-group-control-text: #303549;
-  //--color-group-control-bg-switch: #EBF1F9;
-  //--color-group-control-bg-switch-circle: #EBF1F9;
-  //--color-group-control-border-switch-circle: #D7E2F2;
-  //--color-group-control-border-switch-circle-active: #0089FF;
-  //--color-group-control-border-switch: #D7E2F2;
-  //--color-group-control-bg-switch-active: #EBF1F9;
-  //--color-group-control-border-switch-active: #D7E2F2;
-  //--color-group-control-item-bg: #EBF1F9;
-  //--color-group-control-icon-upload-bg: #D7E2F2;
-  //--color-group-control-bg-shadow: rgba(0, 0, 0, 0.2);
-
-  // Управление группами(Темная тема)
-  --color-group-control-bg-main: #1c1f2b;
-  --color-group-control-border-main: #272a38;
-  --color-group-control-bg-active: #0089ff;
-  --color-group-control-bg-active-light: rgba(0, 137, 255, 0.1);
-  --color-group-control-bg-icons: #606580;
-  --color-group-control-bg-icons-active: #ffffff;
-  --color-group-control-text: #d7e2f2;
-  --color-group-control-bg-switch: #12151e;
-  --color-group-control-bg-switch-circle: #ffffff;
-  --color-group-control-border-switch-circle: #ffffff;
-  --color-group-control-border-switch-circle-active: #ffffff;
-  --color-group-control-border-switch: #4b5169;
-  --color-group-control-bg-switch-active: #0089ff;
-  --color-group-control-border-switch-active: #0f62fe;
-  --color-group-control-item-bg: #272a38;
-  --color-group-control-icon-upload-bg: #303549;
-  --color-group-control-bg-shadow: rgba(0, 0, 0, 0.5);
 
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);
@@ -557,7 +569,6 @@
   --color-border-header: #191c2a;
   --color-new-header-active: #0089ff;
   --color-new-header-active-trans: rgba(0, 137, 255, 0.1);
-  --color-new-header-linedate: #191c2a;
 
   // ejco
   --color-ejco-sub-border: #3c4053;

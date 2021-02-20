@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  margin-right: -10px;
+}
+
 .group-selector {
   display: flex;
   justify-content: center;
@@ -11,21 +15,12 @@
 
   cursor: pointer;
 
-  &:hover {
-    background: #1C1F2B;
-  }
-
-  &__collapse {
-    margin-left: auto;
-    justify-self: flex-end;
-    margin-top: 3px;
-  }
-
   &__name {
     font-size: 14px;
     display: flex;
     align-items: center;
     flex: 1;
+    color: var(--color-group-selector-text);
 
     .logo {
       height: 40px;
@@ -46,8 +41,23 @@
     }
   }
 
+  &:hover {
+    background: var(--color-header-item-bg-hover);
+
+    .group-selector__name {
+      color: var(--color-header-text-main);
+    }
+  }
+
+  &__collapse {
+    margin-left: auto;
+    justify-self: flex-end;
+    margin-top: 3px;
+  }
+
   .main-dropdown {
     width: 100%;
+    background: var(--color-group-control-bg-main);
 
     z-index: 1;
     position: absolute;
@@ -55,22 +65,23 @@
     left: 0;
 
     .group-list{
+      margin-right: 3px;
       max-height: 40vh;
 
-      background: #12151E;
+      background: var(--color-header-bg-dark);
 
+      overflow: overlay;
       overflow-x: hidden;
-      overflow-y: auto;
 
       &__row{
         margin-top: 1px;
-        background: #1C1F2B;
+        background: var(--color-header-item-bg-hover);
       }
     }
 
     .btn-container{
       padding: 4px;
-      background: #272A38;
+      background: var(--color-group-selector-bg-btn);
       border-radius: 3px 3px 0px 0px;
 
       .control__bnt {
@@ -85,18 +96,18 @@
         align-items: center;
         justify-content: center;
 
-        background: var(--color-kpe-table-select);
+        background: var(--color-group-control-icon-upload-bg);
 
         border-radius: 2px;
         font-size: 13px;
         line-height: 16px;
 
-        color: var(--color-kpe-text-main);
+        color: var(--color-header-text-main);
 
         &:hover,
         &_active {
-          background: var(--color-new-header-active);
-          color: var(--color-kpe-white);
+          background: var(--color-header-bg-active);
+          color: var(--color-header-bg-white);
         }
       }
     }

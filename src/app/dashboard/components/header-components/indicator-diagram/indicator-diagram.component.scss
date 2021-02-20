@@ -1,15 +1,13 @@
 .indicator-diagram {
   width: 60px;
-  min-height: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   box-sizing: border-box;
   position: relative;
-  border-left: 1px solid var(--color-border-header);
-  border-right: 1px solid var(--color-border-header);
-
-  background-image: url(../../../../../assets/icons/indicator-diagram.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-
   cursor: pointer;
 }
 
@@ -31,4 +29,20 @@
     height: 18px;
     line-height: 18px;
   }
+}
+
+.diagram {
+  position: absolute;
+  top: 1px;
+  left: -2px;
+  color: var(--color-indicator-main);
+  ::ng-deep {
+    .diagram-main {
+      stroke: var(--color-indicator-bg);
+    }
+  }
+}
+
+.warning {
+  color: var(--color-header-bg-icons);
 }

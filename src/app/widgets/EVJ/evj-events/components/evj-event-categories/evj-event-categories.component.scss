@@ -36,7 +36,7 @@
     &__footer {
       display: flex;
       justify-content: space-between;
-      overflow: auto;
+      overflow: hidden;
       font-size: 14px;
 
       &__icon {

@@ -16,6 +16,7 @@
   line-height: 16px;
   font-size: 14px;
   border-left: 2px solid transparent;
+  background: var(--color-group-control-bg-main);
 
   &:hover {
     cursor: pointer;
@@ -49,6 +50,7 @@
       padding: 0 10px;
       display: flex;
       align-items: center;
+      color: var(--color-group-control-text);
     }
   }
 }
