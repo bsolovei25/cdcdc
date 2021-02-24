@@ -67,7 +67,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             this.flag = true;
             this.resetComponent();
         }
-
         if (this.dataPark?.length) {
             // Если есть старые данные с бэка
             // 1. Изменяем и дополняем
@@ -428,7 +427,11 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     eventClick(element: Element, elementFull: IElementFull): void {
         if (elementFull?.flag) {
             elementFull.flag = false;
-            if ('productName' in elementFull.metaFile || 'linkId' in elementFull.metaFile) {
+            if (
+                'name' in elementFull.metaFile ||
+                'productName' in elementFull.metaFile ||
+                'linkId' in elementFull.metaFile
+            ) {
                 const handler = this.eventListenerClick(elementFull);
                 element.removeEventListener('click', handler);
                 element.addEventListener('click', handler);
