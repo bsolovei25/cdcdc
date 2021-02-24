@@ -77,12 +77,12 @@
                 </div>
                 <ng-container *ngIf="column.name === 'Модель'">
                   <div class="value">
-                    <span>{{elementChildren.plan.toFixed(0) }}</span>
+                    <span>{{elementChildren.plan.toFixed(1)}}</span>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="column.name === 'Факт'">
                   <div class="value">
-                    <span>{{elementChildren.fact.toFixed(0) }}</span>
+                    <span>{{elementChildren.fact.toFixed(1) }}</span>
                   </div>
                 </ng-container>
               </td>
