@@ -196,7 +196,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
 
     protected dataHandler(ref: any): void {
         console.log(this.widgetId, ref);
-        if (ref?.products?.length) {
+        if (!ref?.products?.length) {
             return;
         }
         this.drawOilControlSocket(ref);
