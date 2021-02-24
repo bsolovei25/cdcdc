@@ -18,7 +18,6 @@
 </g>
 <rect x="32" y="554" width="200" height="24" rx="2" stroke="#606580"/>
 </g>
-<g id="Group 22749">
 <g id="element-1_8">
 <rect x="561" y="299" width="32" height="194" rx="2" fill="#272A38"/>
 <circle id="circle" cx="577" cy="315" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -36,7 +35,6 @@
 <text id="text_2" transform="translate(569 489) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="52.4668" y="13.1606">PL3903.1</tspan></text>
 <rect x="561" y="299" width="32" height="194" rx="2" stroke="#606580"/>
 </g>
-</g>
 <g id="line_29">
 <g id=".template arrow">
 <path id="line_29_2" d="M594 395L953 395" stroke="#606580" stroke-linecap="round"/>
@@ -52,7 +50,7 @@
 </g>
 </g>
 <g id="element-1_1__ABT-10-ELOU">
-<g id="element-1_1">
+<g id="rect">
 <rect x="34" y="346" width="200" height="36" rx="2" fill="#272A38"/>
 <rect x="34" y="346" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
@@ -83,7 +81,7 @@
 </g>
 </g>
 <g id="element-1_2">
-<g id="element-1_1_2">
+<g id="rect_2">
 <rect x="32" y="431" width="200" height="36" rx="2" fill="#272A38"/>
 <rect x="32" y="431" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
@@ -142,9 +140,9 @@
 </g>
 </g>
 <g id="element-1_13">
-<rect id="rect" x="958" y="183" width="60" height="522" rx="30" fill="#272A38" stroke="#606580"/>
-<path id="rect_2" d="M1018 218H958" stroke="#606580"/>
-<path id="rect_3" d="M1018 675H958" stroke="#606580"/>
+<rect id="rect_3" x="958" y="183" width="60" height="522" rx="30" fill="#272A38" stroke="#606580"/>
+<path id="rect_4" d="M1018 218H958" stroke="#606580"/>
+<path id="rect_5" d="M1018 675H958" stroke="#606580"/>
 <text id="text_5" transform="translate(972 477) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="0.112793" y="13.1606">&#x411;&#x43b;&#x43e;&#x43a; &#x42d;&#x41b;&#x41e;&#x423;&#10;</tspan><tspan x="9.9834" y="29.1606"> &#x410;&#x412;&#x422;-10</tspan></text>
 </g>
 <g id="line_30">
@@ -217,7 +215,7 @@
 </g>
 </g>
 <g id="element-3_5">
-<g id="rect_4">
+<g id="rect_6">
 <rect x="264.5" y="427.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="264.5" y="427.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -494,7 +492,7 @@
 <rect x="1361" y="547" width="200" height="24" rx="2" stroke="#606580"/>
 </g>
 <g id="element-1_24">
-<g id="rect_5">
+<g id="rect_7">
 <rect x="1361" y="465" width="200" height="36" rx="2" fill="#272A38"/>
 <rect x="1361" y="465" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
@@ -525,7 +523,7 @@
 </g>
 </g>
 <g id="element-1_22">
-<g id="rect_6">
+<g id="rect_8">
 <rect x="1361" y="313" width="200" height="36" rx="2" fill="#272A38"/>
 <rect x="1361" y="313" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
@@ -554,7 +552,7 @@
 <text id="text_19" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1396" y="329.161">&#x412; &#x422;&#x41f; &#x41d;&#x435;&#x444;&#x442;&#x44c; &#x43e;&#x431;&#x435;&#x441;&#x441;&#x43e;&#x43b;&#x435;&#x43d;.&#10;</tspan><tspan x="1396" y="343.161">&#x43d;&#x430; &#x410;&#x411; &#x410;&#x412;&#x422;-10</tspan></text>
 </g>
 <g id="element-3_4">
-<g id="rect_7">
+<g id="rect_9">
 <rect x="264.5" y="342.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="264.5" y="342.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -563,7 +561,7 @@
 <text id="text_percent_7" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="326" y="379.161">12.85%</tspan></text>
 </g>
 <g id="element-3_18">
-<g id="rect_8">
+<g id="rect_10">
 <rect x="1138.5" y="309.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="1138.5" y="309.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -572,7 +570,7 @@
 <text id="text_percent_8" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1200" y="346.161">12.85%</tspan></text>
 </g>
 <g id="element-3_12">
-<g id="rect_9">
+<g id="rect_11">
 <rect x="758.5" y="373.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="758.5" y="373.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -581,7 +579,7 @@
 <text id="text_percent_9" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="820" y="410.161">12.85%</tspan></text>
 </g>
 <g id="element-3_19">
-<g id="rect_10">
+<g id="rect_12">
 <rect x="1138.5" y="387.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="1138.5" y="387.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -590,7 +588,7 @@
 <text id="text_percent_10" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1200" y="424.161">12.85%</tspan></text>
 </g>
 <g id="element-3_20">
-<g id="rect_11">
+<g id="rect_13">
 <rect x="1138.5" y="461.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="1138.5" y="461.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
@@ -599,7 +597,7 @@
 <text id="text_percent_11" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1200" y="498.161">12.85%</tspan></text>
 </g>
 <g id="element-3_21">
-<g id="rect_12">
+<g id="rect_14">
 <rect x="1138.5" y="537.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="1138.5" y="537.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
