@@ -94,7 +94,7 @@
     </div>
 
     <div class="workspace__select-container-right">
-      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"> </evj-events-workspace-select>
+      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"></evj-events-workspace-select>
     </div>
   </div>
 
@@ -171,8 +171,8 @@
               <span>Дата закрытия</span>
             </div>
             <div class="creator__field">
-              {{this.ewService.event?.eventEndDateTime ? (this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy |
-              HH:mm") : '-'}}
+              {{this.ewService.event?.eventEndDateTime
+              ? (this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm") : '-'}}
             </div>
           </div>
         </div>
@@ -184,7 +184,11 @@
             <div class="creator__title">
               <span>Производство</span>
             </div>
-            <div class="creator__field">{{this.ewService.event?.branch ? this.ewService.event.branch : ''}}</div>
+            <div class="creator__field"
+               [matTooltip]="ewService.event?.branch ? this.ewService.event.branch : ''"
+            >
+              {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+            </div>
           </div>
         </div>
         <div class="workspace__select-container">
