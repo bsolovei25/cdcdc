@@ -14,8 +14,9 @@ import { IEventsWidgetNotification, IExtraOptionsWindow } from "../../../models/
 })
 export class KpeWorkspaceService {
     private readonly restUrl: string;
-    selectParameter$: BehaviorSubject<number>
-        = new BehaviorSubject<number>(null);
+
+    selectParameter$: BehaviorSubject<IKpeWorkspaceParameter>
+        = new BehaviorSubject<IKpeWorkspaceParameter>(null);
     showSelectParameters$: BehaviorSubject<IKpeAllDependentParameters[]> = new BehaviorSubject<
         IKpeAllDependentParameters[]
     >(null);

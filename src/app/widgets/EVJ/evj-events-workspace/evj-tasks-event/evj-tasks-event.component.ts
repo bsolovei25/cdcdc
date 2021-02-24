@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 export class EvjTasksEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
-    kpeAdditionalParameter: FormControl = new FormControl(!!this.ewService.event.kpeAdditionalParameter);
+    kpeAdditionalParameter: FormControl = new FormControl(!!this.ewService.acceptButton$.getValue());
 
     constructor(public ewService: EventsWorkspaceService) {}
 
@@ -61,7 +61,7 @@ export class EvjTasksEventComponent implements OnInit {
     openExtraOptions(): void {
         console.log(this.ewService.event.kpeAdditionalParameter);
         const popupWindow: IExtraOptionsWindow = {
-            data: this.ewService.event?.kpeAdditionalParameter,
+            data: this.ewService.acceptButton$.getValue(),
             isShow: true,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
