@@ -3,5 +3,15 @@
   [matBadge]="data?.notification?.notificationsCount"
   [matBadgeHidden]="data?.notification?.notificationsCount === 0"
   (click)="toggleMenu()"
-></div>
+>
+  <svg-icon
+    src="assets/icons/header/indicator-diagram.svg"
+    [svgStyle]="{ 'width.px':60, 'height.px':60 }"
+    class="diagram"
+  ></svg-icon>
+  <svg-icon
+    src="assets/icons/header/warning.svg"
+    class="warning"
+  ></svg-icon>
+</div>
 <evj-user-events *ngIf="menu" (onClose)="toggleMenu()" [data]="data.notification.notifications"></evj-user-events>

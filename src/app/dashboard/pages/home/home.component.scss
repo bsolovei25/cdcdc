@@ -49,20 +49,21 @@
   width: 100%;
 }
 
+.logo-gpn, .arrow-gpn {
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 .logo-gpn {
-  margin: 10px 15px 14px 20px;
-  min-width: 73px;
-  height: calc(100% - 15px);
-  background: url("../../../../assets/icons/logo.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  padding: 0 18px 8px;
+  svg-icon{
+    color: var(--color-header-bg-logo);
+  }
 }
 .arrow-gpn {
-  min-width: 24px;
-  height: 100%;
-  background: url("../../../../assets/icons/logo-arrow.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  svg-icon{
+    opacity: 0.5;
+    color: var(--color-header-bg-icons);
+  }
 }

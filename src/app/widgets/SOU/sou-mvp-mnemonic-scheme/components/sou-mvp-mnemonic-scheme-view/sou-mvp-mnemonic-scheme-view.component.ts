@@ -21,6 +21,8 @@ export interface ISouMvpMnemonicSchemeView {
     styleUrls: ['./sou-mvp-mnemonic-scheme-view.component.scss'],
 })
 export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> implements OnInit, OnDestroy {
+    private readonly emptyGuid: string = '00000000-0000-0000-0000-000000000000';
+
     public data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
     chosenSetting$: Observable<number>;
     @ViewChild('schema') public schemaContainer: ElementRef;
@@ -45,6 +47,11 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
     protected dataHandler(ref: { section: { flowIn: any[]; flowOut: any[]; objects: any[]; name: string }[] }): void {
         const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
         const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
+        sectionsData.forEach((x) => {
+            if (x.linkId === this.emptyGuid) {
+                delete x.linkId;
+            }
+        });
         this.data$.next({
             name: ref?.section?.[0]?.name ?? '',
             flowIn,

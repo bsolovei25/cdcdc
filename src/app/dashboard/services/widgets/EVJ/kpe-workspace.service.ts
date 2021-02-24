@@ -7,14 +7,16 @@ import {
     IKpeNotification,
 } from '../../../models/EVJ/kpe-workspace.model';
 import { BehaviorSubject } from 'rxjs';
-import { IEventsWidgetNotification } from '../../../models/EVJ/events-widget';
+import { IEventsWidgetNotification, IExtraOptionsWindow } from "../../../models/EVJ/events-widget";
 
 @Injectable({
     providedIn: 'root',
 })
 export class KpeWorkspaceService {
     private readonly restUrl: string;
-    selectParameter$: BehaviorSubject<IKpeWorkspaceParameter> = new BehaviorSubject<IKpeWorkspaceParameter>(null);
+
+    selectParameter$: BehaviorSubject<IKpeWorkspaceParameter>
+        = new BehaviorSubject<IKpeWorkspaceParameter>(null);
     showSelectParameters$: BehaviorSubject<IKpeAllDependentParameters[]> = new BehaviorSubject<
         IKpeAllDependentParameters[]
     >(null);
@@ -29,10 +31,10 @@ export class KpeWorkspaceService {
             .toPromise();
     }
 
-    async getKpeAllDependentParameters(parameterId: number): Promise<IKpeAllDependentParameters[]> {
+    async getKpeAllDependentParameters(): Promise<IKpeAllDependentParameters[]> {
         return this.http
             .get<IKpeAllDependentParameters[]>(
-                this.restUrl + `/api/notification-kpe/parameters/${parameterId}/dependent-parameters`
+                this.restUrl + `/api/notification-kpe/parameters/dependent-parameters`
             )
             .toPromise();
     }

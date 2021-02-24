@@ -6,12 +6,14 @@
   width: 100%;
   margin-bottom: 8px;
 
+  color: var(--color-header-text-period-selector-active);
+
   cursor: pointer;
 
   &:hover {
     .header,
     .information {
-      background: var(--header-events-color-bg-hover);
+      background: var(--color-group-control-icon-upload-bg);
     }
   }
 }
@@ -24,7 +26,7 @@
   align-items: center;
   justify-content: space-between;
 
-  background: var(--header-events-color-bg-item-main);
+  background: var(--color-group-selector-bg-btn);
   border-radius: 2px 2px 0px 0px;
 
   &__number {
@@ -68,7 +70,7 @@
   align-items: center;
   justify-content: flex-start;
 
-  background: var(--header-events-color-bg-item-main);
+  background: var(--color-group-selector-bg-btn);
   border-radius: 0px 0px 2px 2px;
 
   span {

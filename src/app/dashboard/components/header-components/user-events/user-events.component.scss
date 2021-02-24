@@ -7,7 +7,7 @@
   width: 26px;
 
   border-radius: 2px;
-  background: var(--header-events-color-bg-main);
+  background: var(--color-header-bg-linedate);
 
   position: absolute;
   z-index: 2;
@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  background: var(--header-events-color-bg-main);
+  background: var(--color-header-bg-linedate);
 
   position: absolute;
   top: 70px;
@@ -44,7 +44,7 @@
   align-items: center;
 
   &__icon {
-    fill: var(--header-events-color-font-standard);
+    fill: var(--color-header-bg-icons);
   }
 
   &__text {
@@ -54,14 +54,14 @@
     font-size: 12px;
     line-height: 14px;
 
-    color: var(--header-events-color-font-main);
+    color: var(--color-header-text-main);
   }
 }
 
 .close-btn {
   cursor: pointer;
 
-  fill: var(--header-events-color-font-standard);
+  fill: var(--color-header-bg-icons);
 }
 
 .body-container {
@@ -73,32 +73,6 @@
 
   &::-webkit-scrollbar {
     width: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--header-events-color-bg-thumb);
-    border-radius: 0;
-  }
-
-  margin: 8px 5px;
-  padding: 0 8px;
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--header-events-color-bg-thumb);
-    border-radius: 0;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--color-scroll-thumb);
-  }
-
-  &::-webkit-scrollbar-track-piece {
-    background: var(--header-events-color-bg-main);
   }
 }
 

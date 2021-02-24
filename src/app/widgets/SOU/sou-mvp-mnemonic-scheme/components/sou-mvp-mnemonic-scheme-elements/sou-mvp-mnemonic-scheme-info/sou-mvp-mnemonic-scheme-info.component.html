@@ -5,7 +5,7 @@
     selected:flowData?.code === mvpService.selectedCode
   }"
 >
-  <div class="container" (click)="mvpService.openPopup(sections, flowData?.code)">
+  <div class="container" (click)="elementClick(sections, flowData?.code)">
     <div class="connection__left">
       <div class="connection-circle" *ngFor="let j of inputArr"></div>
     </div>

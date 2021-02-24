@@ -1,7 +1,11 @@
 <div class="page-container">
   <evj-header *ngIf="!fullscreen" class="header">
-    <div class="logo-gpn"></div>
-    <div class="arrow-gpn"></div>
+    <div class="logo-gpn">
+      <svg-icon src="assets/icons/header/gpnLogo.svg"></svg-icon>
+    </div>
+    <div class="arrow-gpn">
+      <svg-icon src="assets/icons/header/arrowRight.svg"></svg-icon>
+    </div>
     <evj-group-selector class="header__group-selector"></evj-group-selector>
     <evj-indicator-selector class="header__indicator-selector"></evj-indicator-selector>
     <evj-line-datetime class="header__line-datetime"></evj-line-datetime>

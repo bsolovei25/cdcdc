@@ -77,6 +77,20 @@
         box-sizing: border-box;
         box-shadow: inset 5px 0 12px -10px black;
       }
+
+      &__active {
+        background: rgba(#0089FF, 0.2);
+        border: 1px #0089FF;
+        border-style: none solid none solid;
+
+        &-top {
+          border-top-style: solid;
+        }
+
+        &-bottom {
+          border-bottom-style: solid;
+        }
+      }
     }
   }
 }

@@ -44,6 +44,7 @@ export interface ISouFlowIn {
     error?: number;
     codeIn?: string;
     codeOut?: string;
+    linkId?: string;
 }
 
 export interface ISouFlowOut {
@@ -74,6 +75,8 @@ export interface ISouFlowOut {
     selected?: boolean;
     codeIn?: string;
     codeOut?: string;
+
+    linkId?: string;
 }
 
 export interface ISOUSection {
@@ -114,17 +117,20 @@ export interface ISouObjects {
     type: 'internal' | 'out';
     selected?: boolean;
     value: number;
+    linkId?: string;
 }
 
-export interface ISOUIdent {
+export interface ISouIdent {
     title: string;
     value: number;
     percentage: number;
+    isHighlighted?: boolean;
+    className?: string;
 }
 
 export interface ISOULosses {
-    ident: ISOUIdent[];
-    identifiedList: ISOUIdent[];
+    ident: ISouIdent[];
+    identifiedList: ISouIdent[];
     lossesType: {
         name: string;
         persent: number;
