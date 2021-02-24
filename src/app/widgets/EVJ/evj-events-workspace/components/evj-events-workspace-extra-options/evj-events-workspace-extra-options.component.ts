@@ -63,8 +63,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     ngOnChanges(): void {
         if (this.info?.data) {
             this.loadData();
-            this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameterId);
-            this.form.get('parameters').setValue(this.info.data?.selectedParameterId);
+            this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameter);
+            this.form.get('parameters').setValue(this.info.data?.selectedParameter);
             this.setDependentParameters(this.info.data?.dependentParameters);
         }
     }
