@@ -30,7 +30,12 @@ export class ThemeConfigurator {
 
     constructor(private document: Document, private renderer: Renderer2) {
         this.isDarkThemeObservable.subscribe((ref) => this.setTheme(ref));
-        this.theme = localStorage.getItem('theme') === 'true';
+        const theme = localStorage.getItem('theme');
+        if (!theme) {
+            this.theme = true;
+        } else {
+            this.theme = localStorage.getItem('theme') === 'true';
+        }
     }
 
     public set theme(value: boolean) {
