@@ -980,7 +980,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                     this.emailPropActionUI.emailCopy.setValue(null);
                 }
             } else {
-                this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
+                this.snackBar.openSnackBar('Некорректно введен email', 'error');
             }
         }
     }

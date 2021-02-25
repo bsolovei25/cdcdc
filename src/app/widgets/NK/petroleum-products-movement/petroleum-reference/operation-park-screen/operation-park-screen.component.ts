@@ -104,7 +104,7 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
         if (date.getTime() > Date.now()) {
             this.snackBarService.openSnackBar(
                 'Некорректно установлено время (установите время не превышающее текущее)',
-                'snackbar-red'
+                'error'
             );
             item.paramDateTime = new Date(item.paramSaveDateTime);
             return;

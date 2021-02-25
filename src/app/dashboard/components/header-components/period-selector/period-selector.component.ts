@@ -94,7 +94,7 @@ export class PeriodSelectorComponent implements OnInit {
             this.fromDate = new Date(this.fromDate);
             this.snackBar.openSnackBar(
                 'Установлено неверное время! Время начала периода должно быть меньше времени конца периода',
-                'snackbar-red'
+                'error'
             );
             console.error('wrong time!');
             return;
@@ -102,7 +102,7 @@ export class PeriodSelectorComponent implements OnInit {
             this.toDate = new Date(this.toDate);
             this.snackBar.openSnackBar(
                 'Установлено неверное время! Время конца периода должно быть больше времени начала периода',
-                'snackbar-red'
+                'error'
             );
             console.error('wrong time!');
             return;

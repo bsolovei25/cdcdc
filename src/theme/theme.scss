@@ -78,8 +78,20 @@ select:-webkit-autofill:focus {
 }
 
 .snackbar {
-  &-red {
+  &-error {
     background-color: var(--color-danger) !important;
+  }
+
+  &-warning {
+    background-color: var(--color-warning) !important;
+  }
+
+  &-info {
+    background-color: var(--color-active) !important;
+  }
+
+  &-message {
+    background-color: var(--color-standard) !important;
   }
 }
 

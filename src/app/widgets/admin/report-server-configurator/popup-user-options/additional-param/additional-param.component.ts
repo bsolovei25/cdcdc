@@ -82,7 +82,7 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
                 this.close.emit(true);
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }

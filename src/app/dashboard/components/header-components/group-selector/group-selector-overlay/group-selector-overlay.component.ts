@@ -29,7 +29,7 @@ export class GroupSelectorOverlayComponent implements OnInit {
         if (res) {
             this.snackBar.openSnackBar('Новая иконка добавлена');
         } else {
-            this.snackBar.openSnackBar('Не удалось добавить иконку', 'snackbar-red');
+            this.snackBar.openSnackBar('Не удалось добавить иконку', 'error');
         }
     }
 
@@ -55,7 +55,7 @@ export class GroupSelectorOverlayComponent implements OnInit {
             }
             this.snackBar.openSnackBar('Иконка удалена');
         } catch (e) {
-            this.snackBar.openSnackBar('Не удалось удалить иконку', 'snackbar-red');
+            this.snackBar.openSnackBar('Не удалось удалить иконку', 'error');
         }
     }
 }

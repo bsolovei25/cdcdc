@@ -107,7 +107,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
             }
             this.editName = true;
         } else if (!this.projectForm.get('name').valid) {
-            this.snackBar.openSnackBar('Неверное название группы', 'snackbar-red');
+            this.snackBar.openSnackBar('Неверное название группы', 'error');
         }
     }
 
@@ -122,7 +122,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
                 this.onSelect(selectableGroup);
             }
         } catch (e) {
-            this.snackBar.openSnackBar('Ошибка смены статуса', 'snackbar-red');
+            this.snackBar.openSnackBar('Ошибка смены статуса', 'error');
             this.switchStatus = !this.switchStatus;
             this.switchSubscribe.unsubscribe();
             this.projectForm.get('isEnabled').setValue(this.switchStatus);

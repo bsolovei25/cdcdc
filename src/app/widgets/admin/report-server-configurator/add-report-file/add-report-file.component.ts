@@ -93,12 +93,12 @@ export class AddReportFileComponent implements OnInit {
                         this.fileUpload.emit(true);
                     },
                     (error) => {
-                        this.snackBar.openSnackBar('Ошибка загрузки', 'snackbar-red');
+                        this.snackBar.openSnackBar('Ошибка загрузки', 'error');
                     }
                 );
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -127,7 +127,7 @@ export class AddReportFileComponent implements OnInit {
                 this.setStyleScroll();
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -136,7 +136,7 @@ export class AddReportFileComponent implements OnInit {
         this.reportService.postReportTemplate(template).subscribe(
             (ans) => {},
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -153,7 +153,7 @@ export class AddReportFileComponent implements OnInit {
                         this.getRecord();
                     },
                     (error) => {
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                     }
                 ),
             closeFunction: () => {
@@ -195,7 +195,7 @@ export class AddReportFileComponent implements OnInit {
                 this.reportService.putReportFileTemplate(updFileTemplate).subscribe(
                     (ans) => {},
                     (error) => {
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                     }
                 );
                 item.name = this.newName;
@@ -217,7 +217,7 @@ export class AddReportFileComponent implements OnInit {
                 this.blockNeed();
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }

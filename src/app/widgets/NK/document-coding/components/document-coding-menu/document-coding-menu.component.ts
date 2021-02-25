@@ -69,7 +69,7 @@ export class DocumentCodingMenuComponent implements OnInit, OnChanges {
                 };
                 const result = this.documentCodingService.passportSave(file);
                 result.catch((error) => {
-                    this.snackBar.openSnackBar('Ошибка ' + error.code, 'snackbar-red');
+                    this.snackBar.openSnackBar('Ошибка ' + error.code, 'error');
                 });
                 result.then((response) => {
                     this.snackBar.openSnackBar('Файл сохранен');

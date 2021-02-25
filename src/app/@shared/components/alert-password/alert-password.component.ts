@@ -167,7 +167,7 @@ export class AlertPasswordComponent implements OnInit {
             this.options.closeFunction();
             this.formGroup.reset();
         } catch (err) {
-            this.snackBar.openSnackBar('Пароль не изменен', 'snackbar-red');
+            this.snackBar.openSnackBar('Пароль не изменен', 'error');
             if (err.status === 477) {
                 const control = this.formGroup.get('oldPassword');
                 control.setErrors({ notOldPassword: true });

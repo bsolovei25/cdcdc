@@ -33,18 +33,17 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 403:
                         this.materialController.openSnackBar(
                             'У Вас недостаточно прав для выполнения этой операции!',
-                            'snackbar-red'
+                            'error'
                         );
                         break;
                     case 500:
                         break;
                     case 0:
-                        this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.materialController.openSnackBar('Сервер не отвечает', 'error');
                         break;
                     case 477:
-                        this.materialController.openSnackBar(err.error.messages[0].message, 'snackbar-red');
+                        this.materialController.openSnackBar(err.error.message.message, 'error');
                         console.error(err);
-                        console.error(err.error.messages[0].message);
                         break;
                     case 475:
                         if (err?.error) {

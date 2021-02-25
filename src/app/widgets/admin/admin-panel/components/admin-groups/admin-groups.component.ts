@@ -421,7 +421,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.allWorkspaces = screens;
 
             this.isDataChanged = false;
-            this.snackBar.openSnackBar('Данные сохранены', 'blue');
+            this.snackBar.openSnackBar('Данные сохранены', 'info');
         } catch (error) {
             console.error(error);
         } finally {
