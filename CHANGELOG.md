@@ -1,3 +1,17 @@
+# [1.2.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.1.0...v1.2.0) (2021-02-25)
+
+
+### Bug Fixes
+
+* **#1269:** "Нефтеконтроль. Не выводятся данные на виджет" ([610cd8d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/610cd8d09d3e73c474015eacc63cfec910d3de5a)), closes [#1269](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1269)
+* **front#1211:** "События. Некорректная работа фильтра событий на ленте событий ГФУ-2" ([ef1e391](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ef1e391582e7d25e3b460116424591b21656550c)), closes [front#1211](https://gitlab.funcoff.club/front/issues/1211)
+
+
+### Features
+
+* **footer-support:** add support footer differnet sources ([3ef40b1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3ef40b16da4c63ac7cb16ddcb22aa1b2313e0c34))
+* **header:** all header components get light theme ([f4de243](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f4de243f9632760603ceb212d395411e0b652576))
+
 # [1.1.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.0.4...v1.1.0) (2021-02-19)
 
 
