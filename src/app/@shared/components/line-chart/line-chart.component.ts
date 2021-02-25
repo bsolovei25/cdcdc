@@ -20,6 +20,9 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' = 'production-trend';
 
+    @Input()
+    private scroll: { left: number; right: number } = { left: 0, right: 0 };
+
     @ViewChild('chart') private chart: ElementRef;
 
     private DELTA_CF: number = 0.1;
@@ -118,6 +121,11 @@ export class LineChartComponent implements OnChanges, OnInit {
             domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
         } else {
             domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
+            const deltaDomainDates = domainDates[1]?.getTime() - domainDates[0]?.getTime();
+            domainDates = [
+                new Date(domainDates[0]?.getTime() + (this.scroll.left / 100) * deltaDomainDates),
+                new Date(domainDates[1]?.getTime() - (this.scroll.right / 100) * deltaDomainDates),
+            ];
         }
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
