@@ -299,18 +299,20 @@ $border-color: rgba(63, 169, 245, 0.05);
     height: 36px;
     width: inherit;
     padding-left: 14px;
+    padding-right: 14px;
     color: white;
     border: 1px solid var(--color-astue-mat-select-border);
     border-radius: 2px;
 
     font-size: 13px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -415,6 +417,12 @@ evj-rect-button {
   &:hover {
     background-color: var(--color-bg-sub-workflow);
   }
+}
+.production {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ::ng-deep .mat-tooltip {
   font-size: 12px;
