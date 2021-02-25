@@ -596,7 +596,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
 
     public deleteClick(id: number): void {
         if (!this.isClaimDelete) {
-            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'error');
             return;
         }
         const info: IAlertWindowModel = {

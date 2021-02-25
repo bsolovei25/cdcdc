@@ -249,7 +249,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             } catch (err) {
                 this.materialController.openSnackBar(
                     `Запрос на удаление пользователя ${this.worker.displayName} не был обработан`,
-                    'snackbar-red'
+                    'error'
                 );
             }
         };
@@ -312,7 +312,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         if (snackbarMessage) {
-            this.materialController.openSnackBar(`Обязательные поля: ${snackbarMessage}`, 'snackbar-red');
+            this.materialController.openSnackBar(`Обязательные поля: ${snackbarMessage}`, 'error');
         }
 
         return !!this.worker.firstName && !!this.worker.lastName && !!this.worker.login && !!this.worker.email;

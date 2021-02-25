@@ -52,7 +52,7 @@ export class CdcpEventComponent implements OnInit {
             this.cdMatBalanceService.isOpenEvent$.next(this.ewService.event);
             this.userService.loadScreenByWidget('cd-mat-balance');
         } else {
-            this.snackBar.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
+            this.snackBar.openSnackBar('Для создания нового события, сохраните текущее!', 'error');
         }
     }
 }

@@ -356,7 +356,7 @@ export class WidgetService {
             (msg) => {
                 console.log('message received');
                 if (msg?.error) {
-                    this.materialController.openSnackBar(msg.error.message.message, 'snackbar-red');
+                    this.materialController.openSnackBar(msg.error.message.message, 'error');
                 }
                 if (this.reconnectWsTimer) {
                     clearTimeout(this.reconnectWsTimer);

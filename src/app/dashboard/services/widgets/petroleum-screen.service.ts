@@ -138,10 +138,7 @@ export class PetroleumScreenService {
     public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
         const currentTransfer = this.currentTransfer$.getValue();
         if (currentTransfer.operationType === 'Exist') {
-            this.materialController.openSnackBar(
-                'Для изменения объектов операции, создайте новую операцию!',
-                'snackbar-red'
-            );
+            this.materialController.openSnackBar('Для изменения объектов операции, создайте новую операцию!', 'error');
             return;
         }
         if (
@@ -152,7 +149,7 @@ export class PetroleumScreenService {
         ) {
             this.materialController.openSnackBar(
                 'Для изменения объектов операции, сбросьте текущую операцию!',
-                'snackbar-red'
+                'error'
             );
             return;
         }
@@ -291,7 +288,7 @@ export class PetroleumScreenService {
             this.materialController.openSnackBar('Сохранено');
         } catch (err) {
             if (err.status !== 477 && err.status !== 403) {
-                this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+                this.materialController.openSnackBar('Ошибка валидации!', 'error');
             }
         }
     }
@@ -353,7 +350,7 @@ export class PetroleumScreenService {
             const objects = await this.getObjects(this.client);
             this.objectsAll$.next(objects);
         } catch {
-            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
+            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'error');
         }
         this.isLoad$.next(false);
     }

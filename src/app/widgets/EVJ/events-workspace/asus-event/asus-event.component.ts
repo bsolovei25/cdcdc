@@ -131,10 +131,10 @@ export class AsusEventComponent implements OnInit {
         }
         switch (type) {
             case 'equipment':
-                this.snackBarService.openSnackBar('Заполните поле Установка!', 'snackbar-red');
+                this.snackBarService.openSnackBar('Заполните поле Установка!', 'error');
                 break;
             case 'eoService':
-                this.snackBarService.openSnackBar('Заполните поля Установка и Оборудование!', 'snackbar-red');
+                this.snackBarService.openSnackBar('Заполните поля Установка и Оборудование!', 'error');
                 break;
         }
     }

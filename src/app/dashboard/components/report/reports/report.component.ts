@@ -182,7 +182,7 @@ export class ReportComponent implements OnInit {
             window.open(`${this.restUrl}/api/file-storage/${a.data.fileId}`);
             this.isLoading = false;
         } catch (error) {
-            this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
+            this.snackBar.openSnackBar('Файл не сформирован', 'error');
             this.isLoading = false;
         }
     }

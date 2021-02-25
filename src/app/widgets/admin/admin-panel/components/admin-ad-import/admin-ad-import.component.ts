@@ -91,7 +91,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
         if (regexp.test(this.searchedWorker)) {
             this.getLdapWorkersList(this.searchedWorker);
         } else {
-            this.snackBar.openSnackBar('Поисковый запрос должен содержать не менее двух символов', 'snackbar-red');
+            this.snackBar.openSnackBar('Поисковый запрос должен содержать не менее двух символов', 'error');
         }
     }
 
