@@ -8,15 +8,40 @@
 
   <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="area area__chart">
-<!--      <evj-kpe-charts-analytic-main-chart> </evj-kpe-charts-analytic-main-chart>-->
-      <evj-kpe-charts-analytic-bar-chart></evj-kpe-charts-analytic-bar-chart>
+      <div class="area__chart-container">
+        <ng-container [ngSwitch]="selectedChartType$ | async">
+          <div *ngSwitchCase="'limited-line-chart'">
+            <evj-kpe-charts-analytic-main-chart></evj-kpe-charts-analytic-main-chart>
+          </div>
+          <div *ngSwitchCase="'line-chart'">
+            <evj-kpe-charts-analytic-main-chart [showBorders]="false"></evj-kpe-charts-analytic-main-chart>
+          </div>
+          <div *ngSwitchCase="'bar-chart-1'">
+            <evj-kpe-charts-analytic-bar-chart></evj-kpe-charts-analytic-bar-chart>
+          </div>
+          <div *ngSwitchCase="'bar-chart-2'">
+            <evj-kpe-charts-analytic-bar-chart-2 [data]="barChart2Data"></evj-kpe-charts-analytic-bar-chart-2>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="area__smart-scroll">
+        <evj-smart-scroll
+          [limits]="selectedPeriod"
+          [data]="scrollData"
+          [(sbThumbLeft)]="sbLeft"
+          [(sbThumbWidth)]="sbWidth"
+        ></evj-smart-scroll>
+      </div>
     </div>
 
     <div class="area area__stats">
       <div class="selects" [formGroup]="entryStates">
         <div class="dropdown">
-          <mat-select class="dropdown__select" placeholder="График" formControlName="chartType">
-            <mat-option> Не выбрано </mat-option>
+          <mat-select class="dropdown__select" formControlName="chartType">
+            <ng-container *ngFor="let option of chartTypeOptions">
+              <mat-option [value]="option.type"> {{ option.name }} </mat-option>
+            </ng-container>
           </mat-select>
         </div>
         <div class="dropdown">
@@ -27,8 +52,10 @@
         </div>
         <div class="dropdown">
           <div class="dropdown__label"><span> X </span></div>
-          <mat-select class="dropdown__select" placeholder="Временной интервал" formControlName="dateInterval">
-            <mat-option> Не выбрано </mat-option>
+          <mat-select class="dropdown__select" formControlName="dateInterval">
+            <ng-container *ngFor="let option of timePeriodOptions">
+              <mat-option [value]="option.type"> {{ option.name }} </mat-option>
+            </ng-container>
           </mat-select>
         </div>
       </div>
@@ -38,8 +65,12 @@
         <evj-kpe-charts-analytic-card type="plan" value="76.009"></evj-kpe-charts-analytic-card>
         <evj-kpe-charts-analytic-card type="interval" value="0.3"></evj-kpe-charts-analytic-card>
       </div>
-      <evj-checker (changeValue)="syncChange($event)" class="checker"></evj-checker>
-      <evj-kpe-charts-analytic-dates-picker [formGroup]="sharedStates"></evj-kpe-charts-analytic-dates-picker>
+      <evj-checker
+        (changeValue)="syncChange($event)"
+        [value]="entryStates.get('isSync').value"
+        class="checker"
+      ></evj-checker>
+      <evj-kpe-charts-analytic-dates-picker [formGroup]="sharedStates" [disabled]="!isDateRangePickerEnabled"></evj-kpe-charts-analytic-dates-picker>
     </div>
   </div>
 </div>
