@@ -1,0 +1,78 @@
+:host {
+  width: 100%;
+  height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+$column-width: 9px;
+
+::ng-deep {
+  .grid {
+    color: var(--color-kpe-line-diagram-bg);
+    stroke-width: 1;
+    fill: var(--color-sou-bg);
+
+    path {
+      fill: var(--color-sou-bg);
+    }
+  }
+
+  .line-active {
+    stroke: var(--color-kpe-eq-chart-day-active);
+    stroke-width: $column-width * 2;
+  }
+
+  .rect {
+    height: 1px;
+    width: $column-width;
+    border-radius: 0.5px;
+  }
+
+  .rect-normal {
+    fill: var(--color-kpe-gaude-active);
+  }
+
+  .rect-white {
+    fill: white;
+  }
+
+  .rect-orange {
+    fill: var(--color-astue-onpz-warning);
+  }
+
+  .active {
+    color: var(--color-kpe-eq-chart-day-active);
+  }
+
+  .normal {
+    color: var(--color-kpe-eq-chart-day-normal);
+  }
+
+  .step-line {
+    stroke: var(--color-kpe-gaude-active);
+    fill: transparent;
+    stroke-width: 0.75px;
+  }
+
+  .y-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+
+  .x-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+}

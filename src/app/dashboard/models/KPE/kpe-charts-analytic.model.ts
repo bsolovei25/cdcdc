@@ -10,6 +10,8 @@ export interface IKpeChartsAnalyticEntryStates {
 }
 
 export interface IKpeChartsAnalyticSharedStates {
-    dateStart: Date;
-    dateEnd: Date;
+    uniqueId: string;
+    value: boolean;
+    dateStart: Date | null;
+    dateEnd: Date | null;
 }
