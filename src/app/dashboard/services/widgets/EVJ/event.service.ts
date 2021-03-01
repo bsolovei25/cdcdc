@@ -142,7 +142,7 @@ export class EventService {
 
     async putEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http
-            .put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options)
+            .put(`${saveMethod.data.url}/notifications/${body.id}`, body, saveMethod.options)
             .toPromise();
     }
 
@@ -364,7 +364,7 @@ export class EventService {
                 AuthenticationType: saveMethod.data.authenticationType,
             }),
         };
-        const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
+        const url: string = `${saveMethod.data.url}/monitoring/escalatedeviation`;
         return await this.http.post(url, body, options).toPromise();
     }
 
