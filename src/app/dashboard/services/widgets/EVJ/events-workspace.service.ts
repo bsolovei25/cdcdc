@@ -428,6 +428,7 @@ export class EventsWorkspaceService {
             };
             this.event.comments.push(fullComment);
             const saveMethod = await this.eventService.getSaveMethod(this.event);
+            this.event.deviationData.escalateLevelNumber++;
             await this.eventService.escalateSmotrEvent(saveMethod, this.event);
         } catch (e) {
             console.log(e);
