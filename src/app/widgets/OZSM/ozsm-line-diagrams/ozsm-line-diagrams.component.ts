@@ -38,9 +38,7 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implement
 
     protected dataConnect(): void {
         super.dataConnect();
-        const type: IOzsmLineDiagramType = 'blendProducts';
-        // TODO: uncomment to release
-        // const type: IOzsmLineDiagramType = (this.attributes as any).DataUrl;
+        const type: IOzsmLineDiagramType = (this.attributes as any).DataUrl;
         this.ozsmService.scenarioIdFilter$.subscribe((res) => this.getData(res, type));
     }
 
