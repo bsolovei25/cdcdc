@@ -52,6 +52,11 @@
         </div>
       </div>
 
+      <div
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        (click)="takeScreenshot()" class="label">Сделать скриншот</div>
+
       <div class="header-buttons" *ngIf="!isPredictors">
         <div
           (mousedown)="$event.stopPropagation()"
@@ -82,6 +87,7 @@
       </div>
     </evj-contemporary-widget-header>
     <div
+      #chart
       class="content"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseExit()"

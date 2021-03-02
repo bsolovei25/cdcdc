@@ -60,4 +60,11 @@ export class ReportsService {
     public closeAlert(): void {
         this.alertWindow$.next(null);
     }
+
+    public async sendScreenshot(screenshot: File): Promise<any> {
+        const body: FormData = new FormData();
+        body.append('file', screenshot);
+        // return await this.http.post<any>(`${this.restUrl}/api/reporting/image`, body).toPromise();
+        return await this.http.post<any>(`https://reporting.funcoff.club/api/image`, body).toPromise();
+    }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -13,6 +13,8 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { ScreenshotMaker } from '@core/classes/screenshot.class';
+import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -20,6 +22,8 @@ import { map } from 'rxjs/operators';
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
 export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    @ViewChild('chart') chartComponent: ElementRef;
+
     public data: IMultiChartLine[] = [];
     public colors: Map<string, number>;
     public unitName: string = '';
@@ -53,6 +57,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     );
 
     constructor(
+        private reportService: ReportsService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -86,6 +91,13 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
             })
         );
         this.selectFuel.setValue(this.astueOnpzConventionalFuelService.selectFuelReference[0]);
+    }
+
+    async takeScreenshot(): Promise<void> {
+        const screenshotHelper = new ScreenshotMaker();
+        const screenshot = await screenshotHelper.takeScreenshot(this.chartComponent.nativeElement);
+        const res = await this.reportService.sendScreenshot(screenshot);
+        console.log('screenshot', res);
     }
 
     protected dataConnect(): void {
