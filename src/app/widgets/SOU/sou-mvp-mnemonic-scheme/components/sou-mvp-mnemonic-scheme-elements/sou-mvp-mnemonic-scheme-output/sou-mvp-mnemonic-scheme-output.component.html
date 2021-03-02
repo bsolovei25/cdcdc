@@ -1,4 +1,5 @@
 <div
+  (click)="mvpService.redirectMnemonic(flowData?.linkId)"
   class="container"
   [ngClass]="{
     disable:!flowData?.isEnable

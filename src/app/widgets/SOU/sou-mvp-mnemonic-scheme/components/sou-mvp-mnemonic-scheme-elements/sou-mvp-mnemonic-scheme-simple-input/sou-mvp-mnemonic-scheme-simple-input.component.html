@@ -1,4 +1,6 @@
-<div class="container" [ngClass]="{off:!flowData?.isEnable}">
+<div
+  (click)="mvpService.redirectMnemonic(flowData?.linkId)"
+  class="container" [ngClass]="{off:!flowData?.isEnable}">
   <div class="circle">
     <svg-icon
       src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/simpleArrow.svg"
