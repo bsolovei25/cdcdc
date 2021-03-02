@@ -96,8 +96,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     async takeScreenshot(): Promise<void> {
         const screenshotHelper = new ScreenshotMaker();
         const screenshot = await screenshotHelper.takeScreenshot(this.chartComponent.nativeElement);
-        const res = await this.reportService.sendScreenshot(screenshot);
-        console.log('screenshot', res);
+        await this.reportService.sendScreenshot(screenshot);
     }
 
     protected dataConnect(): void {
