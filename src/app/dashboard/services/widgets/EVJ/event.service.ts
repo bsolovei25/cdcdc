@@ -142,7 +142,7 @@ export class EventService {
 
     async putEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http
-            .put(`${saveMethod.data.url}/notifications/${body.id}`, body, saveMethod.options)
+            .put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options)
             .toPromise();
     }
 
