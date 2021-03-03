@@ -1,190 +1,653 @@
 [
-    {
-        "graphType": "plan",
-        "graph": [
-            {
-                "value": 1000,
-                "timeStamp": "2020-01-31T21:00:00.000Z"
-            },
-            {
-                "value": 800,
-                "timeStamp": "2020-01-31T22:00:00.000Z"
-            },
-            {
-                "value": 1200,
-                "timeStamp": "2020-01-31T23:00:00.000Z"
-            },
-            {
-                "value": 1400,
-                "timeStamp": "2020-02-01T00:00:00.000Z"
-            },
-            {
-                "value": 900,
-                "timeStamp": "2020-02-01T01:00:00.000Z"
-            },
-            {
-                "value": 1200,
-                "timeStamp": "2020-02-01T02:00:00.000Z"
-            },
-            {
-                "value": 1300,
-                "timeStamp": "2020-02-01T03:00:00.000Z"
-            },
-            {
-                "value": 600,
-                "timeStamp": "2020-02-01T04:00:00.000Z"
-            }
-        ]
-    },
-    {
-        "graphType": "fact",
-        "graph": [
-            {
-                "value": 700,
-                "timeStamp": "2020-01-31T21:00:00.000Z"
-            },
-            {
-                "value": 900,
-                "timeStamp": "2020-01-31T22:00:00.000Z"
-            },
-            {
-                "value": 1500,
-                "timeStamp": "2020-01-31T23:00:00.000Z"
-            },
-            {
-                "value": 1100,
-                "timeStamp": "2020-02-01T00:00:00.000Z"
-            },
-            {
-                "value": 1200,
-                "timeStamp": "2020-02-01T01:00:00.000Z"
-            },
-            {
-                "value": 800,
-                "timeStamp": "2020-02-01T02:00:00.000Z"
-            },
-            {
-                "value": 700,
-                "timeStamp": "2020-02-01T03:00:00.000Z"
-            },
-            {
-                "value": 900,
-                "timeStamp": "2020-02-01T04:00:00.000Z"
-            }
-        ]
-    },
-    {
-        "graphType": "temperature",
-        "units": "oC",
-        "graph": [
-            {
-                "value": 1100,
-                "timeStamp": "2020-01-31T21:00:00.000Z"
-            },
-            {
-                "value": 1440,
-                "timeStamp": "2020-01-31T22:00:00.000Z"
-            },
-            {
-                "value": 1300,
-                "timeStamp": "2020-01-31T23:00:00.000Z"
-            },
-            {
-                "value": 600,
-                "timeStamp": "2020-02-01T00:00:00.000Z"
-            },
-            {
-                "value": 1100,
-                "timeStamp": "2020-02-01T01:00:00.000Z"
-            },
-            {
-                "value": 900,
-                "timeStamp": "2020-02-01T02:00:00.000Z"
-            },
-            {
-                "value": 800,
-                "timeStamp": "2020-02-01T03:00:00.000Z"
-            },
-            {
-                "value": 1300,
-                "timeStamp": "2020-02-01T04:00:00.000Z"
-            }
-        ]
-    },
-    {
-        "graphType": "heatExchanger",
-        "units": "Па",
-        "graph": [
-            {
-                "value": 500,
-                "timeStamp": "2020-01-31T21:00:00.000Z"
-            },
-            {
-                "value": 440,
-                "timeStamp": "2020-01-31T22:00:00.000Z"
-            },
-            {
-                "value": 700,
-                "timeStamp": "2020-01-31T23:00:00.000Z"
-            },
-            {
-                "value": 600,
-                "timeStamp": "2020-02-01T00:00:00.000Z"
-            },
-            {
-                "value": 800,
-                "timeStamp": "2020-02-01T01:00:00.000Z"
-            },
-            {
-                "value": 700,
-                "timeStamp": "2020-02-01T02:00:00.000Z"
-            },
-            {
-                "value": 1000,
-                "timeStamp": "2020-02-01T03:00:00.000Z"
-            },
-            {
-                "value": 900,
-                "timeStamp": "2020-02-01T04:00:00.000Z"
-            }
-        ]
-    },
-    {
-        "graphType": "pressure",
-        "units": "Па",
-        "graph": [
-            {
-                "value": 400,
-                "timeStamp": "2020-01-31T21:00:00.000Z"
-            },
-            {
-                "value": 240,
-                "timeStamp": "2020-01-31T22:00:00.000Z"
-            },
-            {
-                "value": 500,
-                "timeStamp": "2020-01-31T23:00:00.000Z"
-            },
-            {
-                "value": 450,
-                "timeStamp": "2020-02-01T00:00:00.000Z"
-            },
-            {
-                "value": 600,
-                "timeStamp": "2020-02-01T01:00:00.000Z"
-            },
-            {
-                "value": 300,
-                "timeStamp": "2020-02-01T02:00:00.000Z"
-            },
-            {
-                "value": 430,
-                "timeStamp": "2020-02-01T03:00:00.000Z"
-            },
-            {
-                "value": 500,
-                "timeStamp": "2020-02-01T04:00:00.000Z"
-            }
-        ]
-    }
+  {
+    "graph": [
+      {
+        "value": 26.38,
+        "timeStamp": "2020-12-01T09:59:24Z"
+      },
+      {
+        "value": 25.28,
+        "timeStamp": "2020-12-01T10:01:15Z"
+      },
+      {
+        "value": 24.81,
+        "timeStamp": "2020-12-01T10:25:19Z"
+      },
+      {
+        "value": 26.92,
+        "timeStamp": "2020-12-01T10:36:33Z"
+      },
+      {
+        "value": 26.92,
+        "timeStamp": "2020-12-01T10:57:35Z"
+      },
+      {
+        "value": 27.13,
+        "timeStamp": "2020-12-01T10:59:27Z"
+      },
+      {
+        "value": 24.59,
+        "timeStamp": "2020-12-01T11:23:13Z"
+      },
+      {
+        "value": 26.09,
+        "timeStamp": "2020-12-01T11:59:13Z"
+      },
+      {
+        "value": 27.38,
+        "timeStamp": "2020-12-01T12:01:29Z"
+      },
+      {
+        "value": 24.48,
+        "timeStamp": "2020-12-01T12:25:33Z"
+      },
+      {
+        "value": 26.47,
+        "timeStamp": "2020-12-01T12:59:24Z"
+      },
+      {
+        "value": 25.52,
+        "timeStamp": "2020-12-01T13:00:42Z"
+      },
+      {
+        "value": 26.88,
+        "timeStamp": "2020-12-01T13:01:08Z"
+      },
+      {
+        "value": 24.42,
+        "timeStamp": "2020-12-01T13:55:05Z"
+      },
+      {
+        "value": 25.54,
+        "timeStamp": "2020-12-01T13:59:15Z"
+      },
+      {
+        "value": 25.47,
+        "timeStamp": "2020-12-01T14:01:13Z"
+      },
+      {
+        "value": 24.55,
+        "timeStamp": "2020-12-01T14:09:02Z"
+      },
+      {
+        "value": 27.02,
+        "timeStamp": "2020-12-01T14:44:54Z"
+      },
+      {
+        "value": 25.55,
+        "timeStamp": "2020-12-01T14:59:04Z"
+      },
+      {
+        "value": 25.55,
+        "timeStamp": "2020-12-01T14:59:26Z"
+      },
+      {
+        "value": 26.85,
+        "timeStamp": "2020-12-01T15:13:03Z"
+      },
+      {
+        "value": 24.73,
+        "timeStamp": "2020-12-01T15:39:26Z"
+      },
+      {
+        "value": 25.39,
+        "timeStamp": "2020-12-01T15:57:26Z"
+      },
+      {
+        "value": 26.68,
+        "timeStamp": "2020-12-01T15:59:33Z"
+      },
+      {
+        "value": 27.21,
+        "timeStamp": "2020-12-01T16:25:04Z"
+      },
+      {
+        "value": 24.62,
+        "timeStamp": "2020-12-01T16:29:29Z"
+      },
+      {
+        "value": 26.03,
+        "timeStamp": "2020-12-01T16:57:13Z"
+      },
+      {
+        "value": 26.09,
+        "timeStamp": "2020-12-01T16:59:29Z"
+      },
+      {
+        "value": 24.9,
+        "timeStamp": "2020-12-01T17:17:13Z"
+      },
+      {
+        "value": 26.73,
+        "timeStamp": "2020-12-01T17:55:23Z"
+      },
+      {
+        "value": 25.96,
+        "timeStamp": "2020-12-01T17:57:30Z"
+      },
+      {
+        "value": 25.94,
+        "timeStamp": "2020-12-01T17:59:27Z"
+      },
+      {
+        "value": 26.99,
+        "timeStamp": "2020-12-01T18:39:27Z"
+      },
+      {
+        "value": 24.17,
+        "timeStamp": "2020-12-01T18:50:03Z"
+      },
+      {
+        "value": 25.18,
+        "timeStamp": "2020-12-01T18:57:26Z"
+      },
+      {
+        "value": 26.31,
+        "timeStamp": "2020-12-01T18:59:53Z"
+      },
+      {
+        "value": 24.99,
+        "timeStamp": "2020-12-01T19:21:33Z"
+      },
+      {
+        "value": 27.09,
+        "timeStamp": "2020-12-01T19:45:44Z"
+      },
+      {
+        "value": 25.95,
+        "timeStamp": "2020-12-01T19:57:39Z"
+      },
+      {
+        "value": 26.46,
+        "timeStamp": "2020-12-01T19:59:43Z"
+      },
+      {
+        "value": 27.27,
+        "timeStamp": "2020-12-01T20:39:18Z"
+      },
+      {
+        "value": 24.85,
+        "timeStamp": "2020-12-01T20:59:18Z"
+      },
+      {
+        "value": 24.85,
+        "timeStamp": "2020-12-01T20:59:37Z"
+      },
+      {
+        "value": 27.15,
+        "timeStamp": "2020-12-01T21:43:33Z"
+      },
+      {
+        "value": 23.96,
+        "timeStamp": "2020-12-01T21:45:33Z"
+      },
+      {
+        "value": 25.93,
+        "timeStamp": "2020-12-01T21:57:37Z"
+      },
+      {
+        "value": 25.37,
+        "timeStamp": "2020-12-01T21:59:37Z"
+      },
+      {
+        "value": 26.96,
+        "timeStamp": "2020-12-01T22:17:22Z"
+      },
+      {
+        "value": 24.41,
+        "timeStamp": "2020-12-01T22:35:25Z"
+      },
+      {
+        "value": 26,
+        "timeStamp": "2020-12-01T22:59:21Z"
+      },
+      {
+        "value": 26,
+        "timeStamp": "2020-12-01T22:59:36Z"
+      },
+      {
+        "value": 24.34,
+        "timeStamp": "2020-12-01T23:27:09Z"
+      },
+      {
+        "value": 26.67,
+        "timeStamp": "2020-12-01T23:35:19Z"
+      },
+      {
+        "value": 25.91,
+        "timeStamp": "2020-12-01T23:59:11Z"
+      },
+      {
+        "value": 25.15,
+        "timeStamp": "2020-12-01T23:59:38Z"
+      },
+      {
+        "value": 24.73,
+        "timeStamp": "2020-12-02T00:19:38Z"
+      },
+      {
+        "value": 26.88,
+        "timeStamp": "2020-12-02T00:25:40Z"
+      },
+      {
+        "value": 25.89,
+        "timeStamp": "2020-12-02T00:57:34Z"
+      },
+      {
+        "value": 24.81,
+        "timeStamp": "2020-12-02T00:59:43Z"
+      },
+      {
+        "value": 24.49,
+        "timeStamp": "2020-12-02T01:23:35Z"
+      },
+      {
+        "value": 27.16,
+        "timeStamp": "2020-12-02T01:47:24Z"
+      },
+      {
+        "value": 26.35,
+        "timeStamp": "2020-12-02T01:57:33Z"
+      },
+      {
+        "value": 26.06,
+        "timeStamp": "2020-12-02T01:59:44Z"
+      },
+      {
+        "value": 26.89,
+        "timeStamp": "2020-12-02T02:19:44Z"
+      },
+      {
+        "value": 23.72,
+        "timeStamp": "2020-12-02T02:21:40Z"
+      },
+      {
+        "value": 25.27,
+        "timeStamp": "2020-12-02T02:57:46Z"
+      },
+      {
+        "value": 25.75,
+        "timeStamp": "2020-12-02T02:59:53Z"
+      },
+      {
+        "value": 24.15,
+        "timeStamp": "2020-12-02T03:03:39Z"
+      },
+      {
+        "value": 27.12,
+        "timeStamp": "2020-12-02T03:51:36Z"
+      },
+      {
+        "value": 25.21,
+        "timeStamp": "2020-12-02T03:57:25Z"
+      },
+      {
+        "value": 25.16,
+        "timeStamp": "2020-12-02T03:59:53Z"
+      },
+      {
+        "value": 26.4,
+        "timeStamp": "2020-12-02T04:21:41Z"
+      },
+      {
+        "value": 24.47,
+        "timeStamp": "2020-12-02T04:37:36Z"
+      },
+      {
+        "value": 25.36,
+        "timeStamp": "2020-12-02T04:57:44Z"
+      },
+      {
+        "value": 25.04,
+        "timeStamp": "2020-12-02T04:59:31Z"
+      },
+      {
+        "value": 26.86,
+        "timeStamp": "2020-12-02T05:01:35Z"
+      },
+      {
+        "value": 24.38,
+        "timeStamp": "2020-12-02T05:49:44Z"
+      },
+      {
+        "value": 25.88,
+        "timeStamp": "2020-12-02T05:59:20Z"
+      },
+      {
+        "value": 25.43,
+        "timeStamp": "2020-12-02T05:59:44Z"
+      },
+      {
+        "value": 24.42,
+        "timeStamp": "2020-12-02T06:23:31Z"
+      },
+      {
+        "value": 26.69,
+        "timeStamp": "2020-12-02T06:53:25Z"
+      },
+      {
+        "value": 24.92,
+        "timeStamp": "2020-12-02T06:58:00Z"
+      },
+      {
+        "value": 25.14,
+        "timeStamp": "2020-12-02T06:59:47Z"
+      },
+      {
+        "value": 24.14,
+        "timeStamp": "2020-12-02T07:01:38Z"
+      },
+      {
+        "value": 27.1,
+        "timeStamp": "2020-12-02T07:39:14Z"
+      },
+      {
+        "value": 26.35,
+        "timeStamp": "2020-12-02T07:59:14Z"
+      },
+      {
+        "value": 25.04,
+        "timeStamp": "2020-12-02T08:01:21Z"
+      },
+      {
+        "value": 24.39,
+        "timeStamp": "2020-12-02T08:48:02Z"
+      },
+      {
+        "value": 26.69,
+        "timeStamp": "2020-12-02T08:56:17Z"
+      },
+      {
+        "value": 25.57,
+        "timeStamp": "2020-12-02T08:58:43Z"
+      },
+      {
+        "value": 25.57,
+        "timeStamp": "2020-12-02T08:59:44Z"
+      },
+      {
+        "value": 24.33,
+        "timeStamp": "2020-12-02T09:21:39Z"
+      },
+      {
+        "value": 27.16,
+        "timeStamp": "2020-12-02T09:26:17Z"
+      },
+      {
+        "value": 25.47,
+        "timeStamp": "2020-12-02T09:58:45Z"
+      },
+      {
+        "value": 24.87,
+        "timeStamp": "2020-12-02T10:02:13Z"
+      },
+      {
+        "value": 24.01,
+        "timeStamp": "2020-12-02T10:17:34Z"
+      },
+      {
+        "value": 26.6,
+        "timeStamp": "2020-12-02T10:25:02Z"
+      },
+      {
+        "value": 25.02,
+        "timeStamp": "2020-12-02T10:57:58Z"
+      },
+      {
+        "value": 25.44,
+        "timeStamp": "2020-12-02T11:00:43Z"
+      },
+      {
+        "value": 24.47,
+        "timeStamp": "2020-12-02T11:17:36Z"
+      },
+      {
+        "value": 27.05,
+        "timeStamp": "2020-12-02T11:37:58Z"
+      },
+      {
+        "value": 26.11,
+        "timeStamp": "2020-12-02T11:47:58Z"
+      },
+      {
+        "value": 26.11,
+        "timeStamp": "2020-12-03T11:59:24Z"
+      }
+    ],
+    "units": "т усл.топл/ч",
+    "multiChartTypes": "fact",
+    "type": "FactValue",
+    "tagName": "08b6b750-e927-11ea-b1f8-c9ac10bf4ef0-FactValue"
+  },
+  {
+    "graph": [
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T09:59:24Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T10:01:15Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T10:57:35Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T10:59:27Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T11:59:14Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T12:01:29Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T12:59:24Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T13:00:42Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T13:59:15Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T14:01:13Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T14:59:05Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T14:59:26Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T15:57:26Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T15:59:34Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T16:57:13Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T16:59:29Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T17:57:30Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T17:59:27Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T18:57:27Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T18:59:53Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T19:57:39Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T19:59:43Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T20:59:18Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T20:59:38Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T21:57:37Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T21:59:38Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T22:59:21Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T22:59:36Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T23:59:12Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-01T23:59:38Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T00:57:35Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T00:59:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T01:57:33Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T01:59:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T02:57:47Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T02:59:53Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T03:57:25Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T03:59:53Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T04:57:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T04:59:32Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T05:59:20Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T05:59:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T06:58:00Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T06:59:47Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T07:59:15Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T08:01:22Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T08:58:43Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T08:59:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T09:58:45Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T10:02:14Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T10:57:58Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T11:00:44Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-02T11:47:58Z"
+      },
+      {
+        "value": 22.27,
+        "timeStamp": "2020-12-03T11:59:24Z"
+      }
+    ],
+    "units": "т усл.топл/ч",
+    "multiChartTypes": "plan",
+    "type": "PlanValue",
+    "tagName": "08b6b750-e927-11ea-b1f8-c9ac10bf4ef0-PlanValue"
+  },
+  {
+    "graph": [],
+    "units": "т усл.топл/ч",
+    "multiChartTypes": "forecast",
+    "type": "ForeCastValue",
+    "tagName": "08b6b750-e927-11ea-b1f8-c9ac10bf4ef0-ForeCastValue"
+  }
 ]
