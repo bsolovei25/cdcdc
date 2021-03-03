@@ -94,6 +94,10 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         this.shiftService.resultVerify(this.id, ref, this.unitId);
     }
 
+    public getIconType(iconType: string): string {
+        return `assets/icons/widgets/change-shift/${iconType}.svg`
+    }
+
     private async verifyHandler(obj: IVerifyWindow): Promise<void> {
         console.log(obj);
         if (obj.action === 'close') {

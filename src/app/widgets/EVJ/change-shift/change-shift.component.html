@@ -37,21 +37,15 @@
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
               <div class="mainWorker__name">
-                {{ getMain().employee.lastName }} {{ getMain().employee.firstName.charAt(0).toUpperCase() }}.
+                <span>{{ getMain().employee.lastName }} {{ getMain().employee.firstName.charAt(0).toUpperCase() }}.</span>
+                <div class="mainWorker__name__icon">
+                    <svg-icon src="{{getIconType(getMain().status)}}"></svg-icon>
+                </div>
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
                 {{ this.getDisplayPosition(getMain().position) }}
               </div>
             </div>
-            <div
-              class="mainWorker__row_colIcon"
-              *ngIf="getMain()"
-              [class.mainWorker__row_colIcon__success]="(getMain().status === 'passed' || getMain().status === 'accepted')"
-              [class.mainWorker__row_colIcon__progress]="(getMain().status === 'inProgressPassed' || getMain().status === 'inProgressAccepted')"
-              [class.mainWorker__row_colIcon__absent]="(getMain().status === 'absent')"
-              [class.mainWorker__row_colIcon__missing]="(getMain().status === 'missing')"
-              [class.mainWorker__row_colIcon__init]="(getMain().status === 'initialization')"
-            ></div>
           </div>
           <div class="mainWorker__row">
             <div class="mainWorker__squad">
