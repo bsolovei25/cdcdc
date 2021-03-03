@@ -193,7 +193,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.dataFolder = this.mapData(ans);
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -207,7 +207,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.isLoading = false;
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                 this.isLoading = false;
             }
         );
@@ -220,7 +220,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.mapOptions(data);
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -240,7 +240,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.setStyleScroll();
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -253,7 +253,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.isLoading = false;
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                 this.isLoading = false;
             }
         );
@@ -267,7 +267,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 this.isLoading = false;
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                 this.isLoading = false;
             }
         );
@@ -279,7 +279,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                 console.log(ans);
             },
             (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.snackBar.openSnackBar('Сервер не отвечает', 'error');
             }
         );
     }
@@ -299,7 +299,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                         this.getReportFolder();
                     },
                     (error) => {
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                         this.isLoading = false;
                     }
                 ),
@@ -325,7 +325,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                     },
                     (error) => {
                         this.isLoading = false;
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                     }
                 ),
             closeFunction: () => {
@@ -601,7 +601,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                         this.getReportFolder();
                     },
                     (error) => {
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                     }
                 );
             }
@@ -618,7 +618,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
                         this.getReportFolder();
                     },
                     (error) => {
-                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'error');
                     }
                 );
             }

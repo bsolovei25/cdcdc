@@ -10,6 +10,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class KpeChartsAnalyticDatesPickerComponent implements OnInit {
     @Input() public formGroup: FormGroup;
 
+    @Input() public disabled: boolean = false;
+
     constructor() {}
 
     ngOnInit(): void {}

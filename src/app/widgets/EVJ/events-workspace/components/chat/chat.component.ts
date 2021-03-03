@@ -43,20 +43,10 @@ export class ChatComponent implements OnInit {
     constructor(
         private popoverOverlayService: PopoverOverlayService,
         private appConfigService: AppConfigService,
-        private ewService: EventsWorkspaceService
+        public ewService: EventsWorkspaceService
     ) {}
 
     public ngOnInit(): void {
-        this.addEstablishedFactsToChat();
-    }
-
-    public addEstablishedFactsToChat(): void {
-        if (this.ewService?.event?.establishedFacts
-            && this.messages === this.ewService.event.facts) {
-            this.messages.push({
-                comment: this.ewService?.event?.establishedFacts
-            } as IMessage)
-        }
     }
 
     public onEnterPush(event: KeyboardEvent): void {

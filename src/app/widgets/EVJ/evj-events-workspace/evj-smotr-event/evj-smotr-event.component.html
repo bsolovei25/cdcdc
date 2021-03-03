@@ -187,7 +187,9 @@
             <div class="creator__field"
                [matTooltip]="ewService.event?.branch ? this.ewService.event.branch : ''"
             >
-              {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+              <div class="production">
+                {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+              </div>
             </div>
           </div>
         </div>

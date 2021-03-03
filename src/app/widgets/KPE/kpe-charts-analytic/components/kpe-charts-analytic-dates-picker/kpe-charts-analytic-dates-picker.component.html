@@ -1,7 +1,7 @@
 <div class="container">
   <mat-form-field class="date-range-picker" appearance="none">
     <mat-label></mat-label>
-    <mat-date-range-input [formGroup]="formGroup" [rangePicker]="picker">
+    <mat-date-range-input [formGroup]="formGroup" [rangePicker]="picker" [disabled]="disabled">
       <input matStartDate formControlName="dateStart" />
       <input matEndDate formControlName="dateEnd" />
     </mat-date-range-input>

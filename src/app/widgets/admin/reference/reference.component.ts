@@ -263,7 +263,7 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
 
     searchRecords(event: any) {
         if (this.checkTitle === null) {
-            this.snackBar.openSnackBar('Выберите колонку для поиска', 'snackbar-red');
+            this.snackBar.openSnackBar('Выберите колонку для поиска', 'error');
         } else {
             if (event.key === 'Backspace') {
                 this.getTable(this.idReferenceClick);

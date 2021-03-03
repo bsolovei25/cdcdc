@@ -86,7 +86,7 @@ export class AstueEfficiencyService {
     public toggleFlow(unitName: string, flowName: string): boolean {
         if (!this.unitsFlowsMap[unitName]) {
             const msg = `Сначала выберите установку ${unitName} для выбора потока ${flowName}`;
-            this.snackbar.openSnackBar(msg, 'snackbar-red');
+            this.snackbar.openSnackBar(msg, 'error');
             return false;
         }
 

@@ -16,7 +16,7 @@
         ></evj-group-selector-row>
       </div>
     </div>
-    <div class="btn-container">
+    <div class="btn-container" *ngIf="isProjectManagementAvailable()">
       <button class="control__bnt" mat-raised-button (click)="openDialog()">Управление проектами</button>
     </div>
   </div>

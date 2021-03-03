@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import * as d3Selection from 'd3-selection';
 import { AsyncRender } from '@shared/functions/async-render.function';
@@ -27,9 +27,12 @@ export interface IChartsAnalyticDataset {
     templateUrl: './kpe-charts-analytic-main-chart.component.html',
     styleUrls: ['./kpe-charts-analytic-main-chart.component.scss'],
 })
-export class KpeChartsAnalyticMainChartComponent implements OnChanges {
+export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
     @Input()
     public data: IChartsAnalyticMainChart[] = analyticChartData;
+
+    @Input()
+    public showBorders: boolean = true;
 
     @ViewChild('chart')
     private chart: ElementRef;
@@ -84,6 +87,10 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         }
     }
 
+    public ngOnInit(): void {
+        this.drawSvg();
+    }
+
     @AsyncRender
     private drawSvg(): void {
         this.prepareData();
@@ -93,15 +100,16 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges {
         this.drawGrid();
         this.drawRectLeft();
         this.drawDayThreshold();
+        /*Отрисовка графиков факта и плана*/
+        this.drawCurve(this.planDataset, 'plan-curve');
+        this.drawCurve(this.factDataset, 'fact-curve');
+        if (!this.showBorders) { return; }
         /*Отрисовка области границ*/
         this.drawBorder(this.lowerBorderDataset, 'lowerBorder');
         this.drawBorder(this.higherBorderDataset, 'higherBorder');
         /*Отрисовка самих границ пунктиром*/
         this.drawCurve(this.lowerBorderDataset, 'lowerBorder');
         this.drawCurve(this.higherBorderDataset, 'higherBorder');
-        /*Отрисовка графиков факта и плана*/
-        this.drawCurve(this.planDataset, 'plan-curve');
-        this.drawCurve(this.factDataset, 'fact-curve');
         /*Поиск и отрисовка областей в которых факт выходит за пределы границы*/
         this.customizeAreas('lower');
         this.customizeAreas('higher');

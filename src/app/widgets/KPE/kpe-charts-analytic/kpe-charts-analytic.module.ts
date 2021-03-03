@@ -12,8 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-analytic-dates-picker/kpe-charts-analytic-dates-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { KpeChartsAnalyticMainChartComponent } from './components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component';
+import { KpeChartsAnalyticBarChart2Component } from './components/kpe-charts-analytic-bar-chart-2/kpe-charts-analytic-bar-chart-2.component';
 import { KpeSharedModule } from '../shared/kpe-shared.module';
 import { KpeChartsAnalyticBarChartComponent } from './components/kpe-charts-analytic-bar-chart/kpe-charts-analytic-bar-chart.component';
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
     declarations: [
@@ -23,6 +25,7 @@ import { KpeChartsAnalyticBarChartComponent } from './components/kpe-charts-anal
         KpeChartsAnalyticCardComponent,
         KpeChartsAnalyticDatesPickerComponent,
         KpeChartsAnalyticMainChartComponent,
+        KpeChartsAnalyticBarChart2Component,
         KpeChartsAnalyticBarChartComponent,
     ],
     imports: [
@@ -34,8 +37,9 @@ import { KpeChartsAnalyticBarChartComponent } from './components/kpe-charts-anal
         MatDatepickerModule,
         ReactiveFormsModule,
         MatNativeDateModule,
+        MatCheckboxModule,
     ],
-    exports: [KpeChartsAnalyticComponent],
+    exports: [KpeChartsAnalyticComponent, KpeChartsAnalyticBarChart2Component],
 })
 export class KpeChartsAnalyticModule {
     enterComponent = KpeChartsAnalyticComponent;

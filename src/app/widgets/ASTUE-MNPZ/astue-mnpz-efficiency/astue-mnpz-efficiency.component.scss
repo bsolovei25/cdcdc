@@ -81,3 +81,29 @@
   max-height: 90px;
   margin: 0 6px 0 0;
 }
+
+::ng-deep mat-tooltip-component {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    background-color: var(--color-astue-tag-5);
+    clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+    left: 16px;
+    width: 7px;
+    height: 5px;
+    top: 9px;
+
+    transition: 1s;
+  }
+
+  .mat-tooltip {
+    font-size: 12px;
+    background-color: var(--color-astue-onpz-widget-bg);
+    border: 1px solid var(--color-astue-tag-5);
+    border-radius: 2px;
+  }
+}

@@ -66,7 +66,7 @@ export class UploadDropZoneComponent {
                 this.fileLoad = false;
             }, 1500);
         } else {
-            this.snackBar.openSnackBar('Неверный формат файла', 'snackbar-red');
+            this.snackBar.openSnackBar('Неверный формат файла', 'error');
         }
     }
 }

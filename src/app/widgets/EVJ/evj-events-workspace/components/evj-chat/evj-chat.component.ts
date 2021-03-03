@@ -4,6 +4,7 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
 import { EvjFileAttachMenuComponent } from '../evj-file-attach-menu/evj-file-attach-menu.component';
 import { IMessageFileAttachment } from '@shared/models/message.model';
 import { AppConfigService } from '@core/service/app-config.service';
+import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
 
 export interface IChatMessageWithAttachments {
     msg: string;
@@ -38,8 +39,11 @@ export class EvjChatComponent implements OnInit {
 
     public isFilePopoverOpened: boolean = false;
 
-    constructor(private popoverOverlayService: PopoverOverlayService, private appConfigService: AppConfigService) {}
-
+    constructor(
+        private popoverOverlayService: PopoverOverlayService,
+        private appConfigService: AppConfigService,
+        public ewService: EventsWorkspaceService
+    ) {}
     public ngOnInit(): void {}
 
     public onEnterPush(event: KeyboardEvent): void {
