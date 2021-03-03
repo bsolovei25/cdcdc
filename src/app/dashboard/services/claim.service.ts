@@ -42,7 +42,6 @@ export class ClaimService {
     public claimScreens$: BehaviorSubject<EnumClaimScreens[]> = new BehaviorSubject<EnumClaimScreens[]>([]);
 
     public claimGlobal$: BehaviorSubject<EnumClaimGlobal[]> = new BehaviorSubject<EnumClaimGlobal[]>([]);
-    public getUsersClaim$: BehaviorSubject<IClaim[]> = new BehaviorSubject<IClaim[]>([]);
 
     private readonly restUrl: string;
 
@@ -83,7 +82,6 @@ export class ClaimService {
     public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
         console.log('allUserClaims', allUserClaims);
-        this.getUsersClaim$.next(allUserClaims.data);
         const claimsScreen: EnumClaimScreens[] = [];
         const claimsGlobal: EnumClaimGlobal[] = [];
         allUserClaims.data.forEach((claim) => {
