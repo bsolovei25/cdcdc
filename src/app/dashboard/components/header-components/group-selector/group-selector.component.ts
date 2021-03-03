@@ -104,8 +104,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     }
 
     public isProjectManagementAvailable(): boolean {
-        return this.claimService.getUsersClaim$.getValue()
-            .some((value) => value.claimType === 'screensAdmin');
+        return this.claimService.claimScreens$.getValue().some((value) => value === 'add');
     }
 
     public openDialog(): void {
