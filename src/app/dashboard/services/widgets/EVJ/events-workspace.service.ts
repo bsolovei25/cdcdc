@@ -597,8 +597,9 @@ export class EventsWorkspaceService {
     private async asusReferencesLoad(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
         const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+        const referenceMethod: ISaveMethodEvent = await this.eventService.getReferenceMethod(this.event);
         dataLoadQueue.push(
-            this.eventService.getAsusCategories(saveMethod).then((data) => {
+            this.eventService.getAsusCategories(referenceMethod).then((data) => {
                 this.asusCategories = data;
             }),
             this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
@@ -607,7 +608,7 @@ export class EventsWorkspaceService {
             this.eventService.getAsusServices(saveMethod).then((data) => {
                 this.asusServices = data;
             }),
-            this.eventService.getAsusUnits(saveMethod).then((data) => {
+            this.eventService.getAsusUnits(referenceMethod).then((data) => {
                 this.asusUnits$.next(data);
             })
         );
