@@ -649,6 +649,8 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 return 'gfu-2';
             case 'Коллектор Рефлюкса':
                 return 'collector-ref';
+            case 'КПА С100':
+                return 'kpa-c100';
         }
     }
 }
