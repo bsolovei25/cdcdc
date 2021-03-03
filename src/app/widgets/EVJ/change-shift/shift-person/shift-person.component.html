@@ -31,12 +31,9 @@
       </div>
       <div
         class="status__icon"
-        [class.status__icon__success]="(person.status === 'passed' || person.status === 'accepted')"
-        [class.status__icon__progress]="(person.status === 'inProgressPassed' || person.status === 'inProgressAccepted')"
-        [class.status__icon__absent]="(person.status === 'absent')"
-        [class.status__icon__missing]="(person.status === 'missing')"
-        [class.status__icon__init]="(person.status === 'initialization')"
-      ></div>
+      >
+        <svg-icon src="{{getIconType(person.status)}}"></svg-icon>
+      </div>
     </div>
   </div>
   <div *ngIf="onShift">
