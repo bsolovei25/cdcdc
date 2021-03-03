@@ -127,6 +127,23 @@ export class EventService {
         }
     }
 
+    async getReferenceMethod(event: IEventsWidgetNotification): Promise<ISaveMethodEvent> {
+        try {
+            const saveMethod: ISaveMethodEvent = await this.http
+                .post<ISaveMethodEvent>(`${this.restUrl}/api/Notifications/reference-method`, event)
+                .toPromise();
+            saveMethod.options = {
+                headers: new HttpHeaders({
+                    AuthenticationType: saveMethod.data.authenticationType,
+                }),
+            };
+            return saveMethod;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
     async postEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
     }
