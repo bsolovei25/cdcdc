@@ -11,6 +11,8 @@ export class AstueEfficiencyInintialDataBlockComponent implements OnInit {
     @Input() public isOpen: boolean = false;
     @Output() private clicked: EventEmitter<void> = new EventEmitter<void>();
 
+    public readonly unit: string = 'тонн';
+
     constructor() {}
 
     public ngOnInit(): void {}

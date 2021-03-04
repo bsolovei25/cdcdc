@@ -31,7 +31,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div
-        class="content__card card"
+        class="content__value value"
         *ngFor="let unit of units"
         [ngClass]="{'card_active':unitSelection.isSelected(unit)}"
         (click)="onSelectUnitPlanning(unit)"

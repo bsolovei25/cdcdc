@@ -13,6 +13,7 @@ export class AstueEfficiencyItemCardComponent implements OnInit {
     };
     @Input() public isListItem: boolean = false;
     @Input() public isActive: boolean = false;
+    @Input() public background: boolean = false;
 
     constructor() {}
 
