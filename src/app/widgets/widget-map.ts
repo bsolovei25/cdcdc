@@ -146,6 +146,7 @@ export const WIDGETS = {
     sou_general: WidgetContainerComponent,
     'sou-main-screen': WidgetContainerComponent,
     'kpe-redesign-accuracy-timelines-data': WidgetContainerComponent,
+    'kpe-quality-reserve-table' : WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -579,6 +580,17 @@ export const WIDGETS_LAZY = {
         itemRows: 19,
         minItemCols: 19,
         minItemRows: 14,
+        preview: 'default',
+    },
+    'kpe-quality-reserve-table': {
+    import: async () => {
+        return await import('src/app/widgets/KPE/kpe-quality-reserve-table/kpe-quality-reserve-table.module');
+    },
+        module: 'KpeQualityReserveTableModule',
+        itemCols: 62,
+        itemRows: 29,
+        minItemCols: 62,
+        minItemRows: 29,
         preview: 'default',
     },
 
