@@ -52,6 +52,8 @@ export class AstueEfficiencyGraphDisplayComponent
 
     private readonly restUrl: string = null;
 
+    public readonly unit: string = 'тонн';
+
     get flowUnits(): string {
         return this.AsEfService.currentFlow?.engUnits;
     }
