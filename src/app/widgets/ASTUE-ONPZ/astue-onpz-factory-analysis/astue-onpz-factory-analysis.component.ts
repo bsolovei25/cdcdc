@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -16,6 +16,8 @@ import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 import { AstueOnpzConventionalFuelService } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 import { HttpClient } from '@angular/common/http';
+import { ScreenshotMaker } from '@core/classes/screenshot.class';
+import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
 
 type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
@@ -59,6 +61,8 @@ type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
     ],
 })
 export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+    @ViewChild('chart') chartContainer: ElementRef;
+
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>('bar');
     public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<AstueOnpzFactoryAnalysisType>(
         null
@@ -76,6 +80,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     constructor(
         private http: HttpClient,
+        private reportService: ReportsService,
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
@@ -184,5 +189,14 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
             unitId: ref.unitId,
             ovenId: ref.ovenId,
         };
+    }
+
+    public async takeScreenshot(): Promise<void> {
+        if (!this.chartContainer?.nativeElement) {
+            return;
+        }
+        const screenshotHelper = new ScreenshotMaker();
+        const screenshot = await screenshotHelper.takeScreenshot(this.chartContainer.nativeElement);
+        await this.reportService.sendScreenshot(screenshot);
     }
 }

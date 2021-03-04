@@ -80,8 +80,17 @@
           <div class="label">Главный экран</div>
         </div>
       </div>
+      <div style="flex-grow: 1"></div>
+      <svg-icon
+        style="cursor: pointer;"
+        src="assets/icons/print.svg"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        (click)="takeScreenshot()"
+      ></svg-icon>
     </evj-contemporary-widget-header>
     <div
+      #chart
       class="content"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseExit()"
