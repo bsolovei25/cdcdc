@@ -33,6 +33,8 @@ import { FormControl } from '@angular/forms';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { AstueOnpzMnemonicFurnaceService } from './astue-onpz-mnemonic-furnace.service';
 import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
+import { ScreenshotMaker } from '@core/classes/screenshot.class';
+import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
 
 interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStreamStats {
     side: 'left' | 'right' | 'center';
@@ -79,6 +81,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<IAstueOnpzMnemonicFurnace>(null);
 
     constructor(
+        private reportService: ReportsService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         private changeDetector: ChangeDetectorRef,
         public widgetService: WidgetService,
@@ -483,5 +486,12 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         };
     }
 
-    public scaleOnScroll(e: any): void {}
+    public async takeScreenshot(): Promise<void> {
+        if (!this.schemaContainer?.nativeElement) {
+            return;
+        }
+        const screenshotHelper = new ScreenshotMaker();
+        const screenshot = await screenshotHelper.takeScreenshot(this.schemaContainer.nativeElement);
+        await this.reportService.sendScreenshot(screenshot);
+    }
 }
