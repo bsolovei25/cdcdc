@@ -1,0 +1,51 @@
+<div class="container">
+  <evj-contemporary-widget-header icon="calculator" widgetTitle=" " type="astue">
+    <div class="header">
+      <div class="tabs" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div
+          class="tabs__item"
+          [class.tabs__item_active]="currentTab === i"
+          *ngFor="let tab of tabsList; let i = index"
+          (click)="changeTab(i)"
+        >
+          {{tab}}
+        </div>
+      </div>
+      <div class="unit" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="unit__value">%</div>
+        <div class="unit__description">ед.изм</div>
+      </div>
+      <div class="btn-list" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="btn">
+          <svg-icon src="assets/icons/widgets/KPE/kpe-quality-reserve-table/doc.svg"></svg-icon>
+        </div>
+
+        <div class="btn">
+          <svg-icon src="assets/icons/widgets/KPE/kpe-quality-reserve-table/sort.svg"></svg-icon>
+        </div>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+    *ngIf="currentTab === 1"
+  >
+    <div class="shadow"></div>
+    <div class="table-container">
+      <table mat-table [dataSource]="data" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <th mat-header-cell *matHeaderCellDef>{{header[column].name}} <span>{{header[column]?.unit}}</span></th>
+          <td mat-cell *matCellDef="let element" [class.warning]="element[column]['isWarning']">
+            {{element[column].value}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
