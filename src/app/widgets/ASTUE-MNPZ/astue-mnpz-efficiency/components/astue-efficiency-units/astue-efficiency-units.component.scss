@@ -24,14 +24,18 @@
 
   .header {
     position: relative;
-    border-radius: 12px;
+    border-radius: 2px;
     margin-bottom: 7px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--color-aw-header-bg);
+    background: var(--color-new-header-bg);
     overflow: hidden;
+
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--color-header-text-main);
 
     &__button {
       position: absolute;
@@ -97,17 +101,17 @@
       }
     }
 
-    &__card {
+    &__value {
       width: 100%;
       min-height: 45px;
 
-      &.card {
+      &.value {
         position: relative;
         padding-left: 19px;
         margin: 1px 0px;
         display: flex;
         align-items: center;
-        background: var(--color-bg-sub);
+        background: var(--color-new-header-bg);
         user-select: none;
 
         &:hover {

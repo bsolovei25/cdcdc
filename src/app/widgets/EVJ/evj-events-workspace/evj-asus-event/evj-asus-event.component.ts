@@ -82,7 +82,7 @@ export class EvjAsusEventComponent implements OnInit {
         }
         this.ewService.isLoading = true;
         try {
-            const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
+            const saveMethod = await this.eventService.getReferenceMethod(this.ewService.event);
             this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event, saveMethod);
             // this.ewService.event.asusEvent.equipment = null;
             // this.ewService.event.asusEvent.eoService = null;
@@ -102,7 +102,7 @@ export class EvjAsusEventComponent implements OnInit {
         }
         this.ewService.isLoading = true;
         try {
-            const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
+            const saveMethod = await this.eventService.getReferenceMethod(this.ewService.event);
             this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event, saveMethod);
             // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {

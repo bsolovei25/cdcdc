@@ -44,7 +44,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     protected dataConnect(): void {
-        setTimeout(() => this.InitUnity(), 100);
+        setTimeout(() => this.initUnity(), 100);
     }
 
     protected dataHandler(ref: any): void {}
@@ -55,7 +55,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    public async OnUnityStart(event: any, param1: string): Promise<void> {
+    public async OnUnityStart(event: unknown, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -70,7 +70,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
-    public async OnUnitySendSettings(event: any, param1: string): Promise<void> {
+    public async OnUnitySendSettings(event: unknown, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -84,7 +84,8 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
         });
     }
 
-    private async InitUnity(): Promise<void> {
+    private initUnity(): void {
+        console.log('unity', 'init');
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
     }

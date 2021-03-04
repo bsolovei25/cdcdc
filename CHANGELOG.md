@@ -1,3 +1,23 @@
+# [1.4.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.3.0...v1.4.0) (2021-03-04)
+
+
+### Features
+
+* ** #1237:** add kpe-quality-reserve-table ([b9a4875](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b9a4875a74f52e34a666e7d409dfb5014b29306f)), closes [#1237](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1237)
+
+# [1.3.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.2.0...v1.3.0) (2021-03-03)
+
+
+### Bug Fixes
+
+* **default-theme:** set dark theme as default ([785bc55](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/785bc55b6694e35d9748b8ff3bdbd9d1bfd75b70))
+
+
+### Features
+
+* **front#1072:** "Разработка виджета универсального мониторинга" ([50b40c4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/50b40c45261a07fa7314e7ecf54c7b3aeb5ab006)), closes [front#1072](https://gitlab.funcoff.club/front/issues/1072)
+* **ozsm:** add DataUrl type ([5a70ba4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5a70ba4546c38fcb4fa8ab03d3f4f1cf6357f846))
+
 # [1.2.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.1.0...v1.2.0) (2021-02-25)
 
 

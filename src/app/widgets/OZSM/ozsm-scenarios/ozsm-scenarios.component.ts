@@ -33,6 +33,8 @@ export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements O
             if (!!this.currentScenario$.getValue() && !res?.length) {
                 return;
             }
+            const fake = { ...res[0] };
+            res.push(fake);
             this.currentScenario$.next(res[0]);
         });
         this.currentScenario$.subscribe((res) => this.ozsmService.scenarioId$.next(res?.scenarioId));
@@ -42,7 +44,11 @@ export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements O
         super.ngOnDestroy();
     }
 
-    public scenarioChange(scenario: IOzsmScenario): void {
+    public scenarioChange(id: string): void {
+        const scenario = this.scenarios$.value.find((x) => x.scenarioId === id);
+        if (!scenario) {
+            return;
+        }
         this.currentScenario$.next(scenario);
     }
 

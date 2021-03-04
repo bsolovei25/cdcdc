@@ -30,7 +30,7 @@
     <div class="select-menu">
       <div class="dropdown">
         <div class="dropdown__marker"></div>
-        <mat-select class="dropdown__select" [value]="(currentScenario$ | async)?.scenarioId">
+        <mat-select class="dropdown__select" [value]="(currentScenario$ | async)?.scenarioId" (selectionChange)="scenarioChange($event.value)">
           <ng-container *ngFor="let scenario of scenarios$ | async">
             <mat-option [value]="scenario.scenarioId">{{ scenario.name }}</mat-option>
           </ng-container>

@@ -4,6 +4,7 @@ import { UserSettingsService } from '../../../services/user-settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSelectorDialogComponent } from './group-selector-dialog/group-selector-dialog.component';
+import { ClaimService } from "../../../services/claim.service";
 
 export interface IGroupScreens {
     id: number;
@@ -35,7 +36,8 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
         public userSettingsService: UserSettingsService,
         private router: Router,
         private route: ActivatedRoute,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private claimService: ClaimService
     ) {}
 
     public ngOnInit(): void {
@@ -99,6 +101,10 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     public getClaims(groupId: number): boolean {
         return !!groupId;
+    }
+
+    public isProjectManagementAvailable(): boolean {
+        return this.claimService.claimScreens$.getValue().some((value) => value === 'add');
     }
 
     public openDialog(): void {

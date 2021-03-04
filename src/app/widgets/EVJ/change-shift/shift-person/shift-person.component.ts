@@ -283,4 +283,8 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
 
         return true;
     }
+
+    public getIconType(iconType: string): string {
+        return `assets/icons/widgets/change-shift/${iconType}.svg`
+    }
 }
