@@ -1,3 +1,10 @@
+# [1.4.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.3.0...v1.4.0) (2021-03-04)
+
+
+### Features
+
+* ** #1237:** add kpe-quality-reserve-table ([b9a4875](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b9a4875a74f52e34a666e7d409dfb5014b29306f)), closes [#1237](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1237)
+
 # [1.3.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.2.0...v1.3.0) (2021-03-03)
 
 
