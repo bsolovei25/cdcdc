@@ -13,4 +13,14 @@
     stroke: var(--color-text-sub);
     stroke-width: 2px;
   }
+
+  ::ng-deep {
+    .longer-rect {
+      fill: var(--color-aw-container-body-transparent);
+    }
+
+    .longer-rect-default {
+      fill: none;
+    }
+  }
 }
