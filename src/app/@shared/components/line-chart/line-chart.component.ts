@@ -18,7 +18,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' = 'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' = 'production-trend';
 
     @Input()
     private scroll: { left: number; right: number } = { left: 0, right: 0 };
@@ -75,8 +75,9 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.findMinMax();
         this.initGraph();
         this.transformData();
-        this.drawAxis();
         this.drawGraph();
+        this.drawMask();
+        this.drawAxis();
     }
 
     @HostListener('document:resize', ['$event'])
@@ -179,6 +180,38 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .style('stroke-width', lineWidth)
                 .style('stroke-dasharray', chartStyle.drawLineType(graphStyle));
         });
+    }
+
+    private drawMask(): void {
+        const mask = this.svg
+            .append('mask')
+            .attr('width', this.graphMaxX)
+            .attr('height', this.graphMaxY)
+            .attr('id', 'border-mask');
+
+        mask.append('rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', this.graphMaxX)
+            .attr('height', this.graphMaxY)
+            .style('fill', 'white')
+            .style('opacity', 1);
+
+        mask.append('rect')
+            .attr('x', this.padding.left)
+            .attr('y', this.padding.top)
+            .attr('width', this.graphMaxX - this.padding.right - this.padding.left)
+            .attr('height', this.graphMaxY - this.padding.bottom - this.padding.top)
+            .style('fill', 'black');
+
+        this.svg
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', this.graphMaxX)
+            .attr('height', this.graphMaxY)
+            .attr('mask', 'url(#border-mask)')
+            .attr('class', this.chartType === 'astue-efficiency' ? 'longer-rect' : 'longer-rect-default');
     }
 
     private drawLegend(): void {
