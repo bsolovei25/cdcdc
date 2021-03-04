@@ -1,3 +1,10 @@
+## [1.4.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.0...v1.4.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* **front#1233:** "АСТУЭ МНПЗ. Сделать работоспособным умный скрол для области графика" ([1bce968](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1bce96868aa72c9ebc2bfaf9f699663d71c6a018)), closes [front#1233](https://gitlab.funcoff.club/front/issues/1233)
+
 # [1.4.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.3.0...v1.4.0) (2021-03-04)
 
 
