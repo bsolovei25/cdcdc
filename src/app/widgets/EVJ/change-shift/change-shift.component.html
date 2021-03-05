@@ -38,7 +38,10 @@
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
               <div class="mainWorker__name">
                 <span>{{ getMain().employee.lastName }} {{ getMain().employee.firstName.charAt(0).toUpperCase() }}.</span>
-                <div class="mainWorker__name__icon">
+                <div
+                  class="mainWorker__name__icon"
+                  [matTooltip]="getStatusTooltip(getMain().status)"
+                >
                     <svg-icon src="{{getIconType(getMain().status)}}"></svg-icon>
                 </div>
               </div>
