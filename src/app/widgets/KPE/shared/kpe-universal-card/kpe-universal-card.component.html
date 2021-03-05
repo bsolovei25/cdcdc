@@ -1,0 +1,22 @@
+<div class="container" [ngClass]="{'container_warning': contentData.percentStatus === 'warning'}">
+  <div class="gauge" [style.width.%]="cardConfig[currentType].gaugeWidth">
+    <evj-kpe-gauge-chart [style.width.%]="100"></evj-kpe-gauge-chart>
+  </div>
+  <div class="content" [style.width.%]="100 - cardConfig[currentType].gaugeWidth">
+    <span class="title">{{contentData.title}}</span>
+    <span class="subtitle">{{contentData.subtitle}}</span>
+    <div class="percent-info" [ngClass]="['percent-info', contentData.percentStatus]">{{contentData.percent}}%</div>
+    <div class="line-diagram" *ngIf="cardConfig[currentType].haveLineChart">
+      <evj-kpe-universal-card-line-chart
+        [data]="contentData.lineChart"
+      ></evj-kpe-universal-card-line-chart>
+    </div>
+    <div class="month-indicators">
+      <div
+        class="dash"
+        *ngFor="let day of currentMonth;"
+        [style.background]="'var(--color-kpe-universal-card-month-' + day.status + ')'"
+      ></div>
+    </div>
+  </div>
+</div>
