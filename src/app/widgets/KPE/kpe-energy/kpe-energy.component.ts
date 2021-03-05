@@ -7,6 +7,7 @@ import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-devia
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
 
 export interface IKpeEnergy {
     tabs: IKpeEnergyTab[] | null;
@@ -20,7 +21,7 @@ export interface IKpeEnergy {
     templateUrl: './kpe-energy.component.html',
     styleUrls: ['./kpe-energy.component.scss'],
 })
-export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnInit {
+export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit {
     // static true fix expression has been checked
     @ViewChild('gauge', { static: true })
     public gaugeElement: ElementRef;
@@ -34,6 +35,8 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
     public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
 
     displayMode: 'tiled' | 'line';
+
+    public displayNewDesign: boolean;
 
     constructor(
         private http: HttpClient,
@@ -67,6 +70,11 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
                 this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.displayNewDesign = this.attributes.IsDesign;
     }
 
     get chartWidth(): string {

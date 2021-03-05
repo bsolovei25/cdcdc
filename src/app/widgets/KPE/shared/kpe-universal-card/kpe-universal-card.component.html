@@ -1,6 +1,11 @@
 <div class="container" [ngClass]="{'container_warning': contentData.percentStatus === 'warning'}">
   <div class="gauge" [style.width.%]="cardConfig[currentType].gaugeWidth">
-    <evj-kpe-gauge-chart [style.width.%]="100"></evj-kpe-gauge-chart>
+    <evj-kpe-gauge-chart
+      [style.width.%]="100"
+      [fact]="gaugeChart.fact"
+      [plan]="gaugeChart.plan"
+      [deviation]="gaugeChart.deviation"
+    ></evj-kpe-gauge-chart>
   </div>
   <div class="content" [style.width.%]="100 - cardConfig[currentType].gaugeWidth">
     <span class="title">{{contentData.title}}</span>

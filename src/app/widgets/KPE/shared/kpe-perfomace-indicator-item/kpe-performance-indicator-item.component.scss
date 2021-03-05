@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background: #1C1F2B;
+
+  .gauge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-kpe-gaude-back);
+    border-radius: 50%;
+
+    position: relative;
+
+    &__chart {
+      width: 80%;
+      position: absolute;
+    }
+  }
+}

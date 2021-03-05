@@ -43,7 +43,7 @@ export const CONTENT_DATA: IKpeUniversalCardContentData = {
         },
         {
             day: 8,
-            status: 'good'
+            status: 'bad'
         },
         {
             day: 9,

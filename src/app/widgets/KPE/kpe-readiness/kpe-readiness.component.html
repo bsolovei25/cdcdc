@@ -34,7 +34,7 @@
           ></evj-kpe-deviation-diagram>
         </div>
       </div>
-      <div class="readiness__middle" [style]="rowHeight(gauge)" *ngIf="displayMode === 'tiled'">
+      <div class="readiness__middle" [style]="rowHeight(gauge)" *ngIf="displayMode === 'tiled' && !displayNewDesign">
         <div class="readiness__middle__gauges-container" [ngClass]="{none:(gaugeCards.length < 1)}">
           <div class="container">
             <div class="readiness__middle__gauge element-container" *ngFor="let cardsItem of gaugeCards">
@@ -104,7 +104,7 @@
         <ng-container *ngFor="let row of chartCards">
           <div class="readiness__main__row" *ngIf="displayMode === 'tiled'">
             <ng-container *ngFor="let card of row">
-              <div class="readiness__main__chart element-container">
+              <div *ngIf="!displayNewDesign" class="readiness__main__chart element-container">
                 <div class="chart-card">
                   <div class="chart-card__content">
                     <div class="chart-card__title">
@@ -134,11 +134,19 @@
                   </div>
                 </div>
               </div>
+              <evj-kpe-universal-card
+                *ngIf="displayNewDesign"
+                [gaugeChart]="{
+                    fact: diagram?.fact,
+                    plan: diagram?.plan,
+                    deviation: diagram?.deviation
+                  }"
+              ></evj-kpe-universal-card>
             </ng-container>
           </div>
           <ng-container *ngFor="let card of row">
             <div class="readiness__main__row readiness__main__row-line" *ngIf="displayMode === 'line'">
-              <div class="readiness__main__chart element-container-line">
+              <div *ngIf="!displayNewDesign" class="readiness__main__chart element-container-line">
                 <div class="chart-card">
                   <div class="chart-card__content">
                     <div class="chart-card__title">
@@ -163,6 +171,15 @@
                   </div>
                 </div>
               </div>
+              <evj-kpe-universal-card
+                *ngIf="displayNewDesign"
+                [type]="0"
+                [gaugeChart]="{
+                    fact: diagram?.fact,
+                    plan: diagram?.plan,
+                    deviation: diagram?.deviation
+                  }"
+              ></evj-kpe-universal-card>
             </div>
           </ng-container>
         </ng-container>

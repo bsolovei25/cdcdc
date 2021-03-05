@@ -6,6 +6,7 @@ import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-devia
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
 
 export interface IKpeReadinessData {
     chartCards: IKpeReadinessChartCard[] | null;
@@ -35,7 +36,7 @@ export interface IKpeReadinessGauge {
     templateUrl: './kpe-readiness.component.html',
     styleUrls: ['./kpe-readiness.component.scss'],
 })
-export class KpeReadinessComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, OnDestroy {
     @ViewChildren('gauges')
     public gaugesElements: QueryList<HTMLDivElement>;
 
@@ -58,6 +59,8 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
     displayMode: 'tiled' | 'line';
 
     public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+
+    public displayNewDesign: boolean;
 
     constructor(
         protected widgetService: WidgetService,
@@ -107,6 +110,11 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
                 this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.displayNewDesign = this.attributes.IsDesign;
     }
 
     public gaugeWidth(container: HTMLDivElement): string {

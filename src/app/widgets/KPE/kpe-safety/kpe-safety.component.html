@@ -37,20 +37,28 @@
       </div>
       <div class="readiness__main">
         <ng-container *ngFor="let card of cardsList">
-          <div class="readiness__main__gauge element-container">
+          <div class="readiness__main__gauge element-container" [ngClass]="{'element-container_warning': displayNewDesign}">
             <div class="gauge-card">
               <div class="gauge-card__content">
-                <div class="gauge-card__units">
-                  <div class="gauge-card__units__unit"
-                       [class.gauge-card__units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.title)"
-                       (click)="engUnitsComparator.setEngUnits(card.title, 'units')"
+                <div class="gauge-card__units" [ngClass]="{unitsNewDesign: displayNewDesign}">
+                  <div
+                    class="gauge-card__units__unit"
+                    [class.gauge-card__units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.title)"
+                    (click)="engUnitsComparator.setEngUnits(card.title, 'units')"
                   >
-                    {{ card?.unit || 'ед.изм'}}
+                    {{ (card?.unit || 'ед.изм')}}
                   </div>
-                  <div class="gauge-card__units__unit"
-                       [class.gauge-card__units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.title)"
-                       (click)="engUnitsComparator.setEngUnits(card.title, 'percent')"
-                  >%</div>
+                  <div
+                    class="gauge-card__units__unit"
+                    [class.gauge-card__units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.title)"
+                    (click)="engUnitsComparator.setEngUnits(card.title, 'percent')"
+                  >
+                    %
+                  </div>
+                  <!--Новый дизайн-->
+                  <div class="percent-info"  *ngIf="displayNewDesign" [ngClass]="['percent-info', percentData.percentStatus]">
+                    {{percentData.percent}}%
+                  </div>
                 </div>
                 <div class="gauge-card__diagram">
                   <evj-kpe-gauge-chart

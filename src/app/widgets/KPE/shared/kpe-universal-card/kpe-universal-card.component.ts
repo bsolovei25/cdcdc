@@ -6,7 +6,7 @@ interface IKpeUniversalCardConfig {
     haveLineChart: boolean;
 }
 
-interface IKpeUniversalCardMonthData {
+export interface IKpeUniversalCardMonthData {
     day: number;
     status: 'default' | 'bad' | 'good' | 'great';
 }
@@ -38,11 +38,17 @@ export class KpeUniversalCardComponent implements OnInit {
         this.currentType = currentType;
     }
     @Input() contentData: IKpeUniversalCardContentData = CONTENT_DATA;
+    @Input() gaugeChart: {
+        fact: number;
+        plan: number;
+        deviation: number;
+    };
 
     readonly cardConfig: IKpeUniversalCardConfig[] = [
         {
             gaugeWidth: 30,
             haveLineChart: true,
+
         },
         {
             gaugeWidth: 30,

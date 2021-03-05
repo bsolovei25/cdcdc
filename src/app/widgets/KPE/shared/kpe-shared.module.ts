@@ -12,6 +12,7 @@ import { SharedModule } from '@shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
 import { KpeUniversalCardComponent } from './kpe-universal-card/kpe-universal-card.component';
 import { KpeUniversalCardLineChartComponent } from './kpe-universal-card/components/kpe-universal-card-line-chart/kpe-universal-card-line-chart.component';
+import { KpePerformanceIndicatorItemComponent } from './kpe-perfomace-indicator-item/kpe-performance-indicator-item.component';
 
 @NgModule({
     declarations: [
@@ -23,16 +24,18 @@ import { KpeUniversalCardLineChartComponent } from './kpe-universal-card/compone
         KpeEqualizerChartComponent,
         KpeUniversalCardComponent,
         KpeUniversalCardLineChartComponent,
+        KpePerformanceIndicatorItemComponent,
     ],
-    exports: [
-        KpeLineDiagramComponent,
-        KpeLineChartComponent,
-        KpeGaugeChartComponent,
-        KpeDeviationDiagramComponent,
-        KpeReadinessDeviationDiagramComponent,
-        KpeEqualizerChartComponent,
-        KpeUniversalCardComponent
-    ],
+  exports: [
+    KpeLineDiagramComponent,
+    KpeLineChartComponent,
+    KpeGaugeChartComponent,
+    KpeDeviationDiagramComponent,
+    KpeReadinessDeviationDiagramComponent,
+    KpeEqualizerChartComponent,
+    KpeUniversalCardComponent,
+    KpePerformanceIndicatorItemComponent
+  ],
     imports: [CommonModule, AngularSvgIconModule, SharedModule, MatRippleModule],
     providers: [KpeHelperService],
 })

@@ -11,31 +11,7 @@ export class KpeUniversalCardLineChartComponent implements OnInit {
         this.chartValues = item;
     }
     public chartData: {
-        blueBold: {
-            percent: number;
-            left: number;
-        },
-        blueLightBold: {
-            percent: number;
-            left: number;
-        },
-        greenBold: {
-            percent: number;
-            left: number;
-        },
-        orangeBold: {
-            percent: number;
-            left: number;
-        },
-        orangeThin: {
-            percent: number;
-            left: number;
-        },
-        greenThin: {
-            percent: number;
-            left: number;
-        },
-        lightThin: {
+        [key: string] : {
             percent: number;
             left: number;
         }
