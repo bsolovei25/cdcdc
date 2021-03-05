@@ -68,7 +68,7 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implement
             },
             items: planningItems.map((x, i) => ({
                 id: i + 1,
-                plan: (100 * x.value) / x.percent,
+                plan: x.percent ? (100 * x.value) / x.percent : 0,
                 ...x,
             })),
         });
