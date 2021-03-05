@@ -20,7 +20,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
     @Input() deviation: number = 0;
     @Input() noDeviation: boolean = false;
     @Input() img: string = this.defaultImg;
-    @Input() background: 'lite' | 'dark' | 'sou' = 'lite';
+    @Input() background: 'lite' | 'dark' | 'sou' | 'performance' = 'lite';
     @Input() isPercent: boolean = false;
 
     public ngOnInit(): void {
@@ -174,28 +174,14 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         svg.append('path')
             .attr('d', hideDownSector)
             .attr(`transform`, `rotate(180)`)
-            .attr(
-                'class',
-                this.background === 'lite'
-                    ? 'kpe-gauge-hide-down-sector'
-                    : this.background === 'dark'
-                    ? 'kpe-gauge-hide-down-sector-d'
-                    : 'kpe-gauge-hide-down-sector-sou'
-            );
+            .attr('class', `kpe-gauge-hide-down-sector-${this.background}`);
 
         svg.append('path')
             .attr('class', 'needle')
             .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
             .attr(`transform`, `rotate(${isNaN(arrowAngle) ? 0 : arrowAngle}) scale(0.87)`);
 
-        drawCircle(
-            circleRad,
-            this.background === 'lite'
-                ? 'needle-hover-circle-back'
-                : this.background === 'dark'
-                ? 'needle-hover-circle-back-d'
-                : 'needle-hover-circle-back-sou'
-        );
+        drawCircle(circleRad, `needle-hover-circle-back-${this.background}`);
 
         const g = svg.append('g').attr('class', 'text');
 

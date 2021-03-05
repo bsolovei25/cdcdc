@@ -93,6 +93,44 @@
     }
   }
 
+  // Для нового дизайна
+  .unitsNewDesign {
+    justify-content: flex-end;
+
+    .gauge-card__units__unit {
+        display: none;
+    }
+
+    .percent-info {
+      height: 16px;
+      padding: 0 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 2px;
+
+      font-size: 11px;
+      line-height: 16px;
+
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .warning {
+      color: var(--color-kpe-universal-card-warning);
+      background: var(--color-kpe-universal-card-bg-warning);
+    }
+
+    .default {
+      color: var(--color-kpe-universal-card-default);
+      background: var(--color-kpe-universal-card-bg-default);
+    }
+  }
+
   &__diagram {
     flex-grow: 1;
     width: 85px;
@@ -114,6 +152,11 @@
   border-radius: 2px;
   background: var(--color-lines-bg-dia);
   box-sizing: border-box;
+  border: 1px solid var(--color-lines-bg-dia);
+
+  &_warning {
+    border-color: var(--color-kpe-universal-card-warning);
+  }
 }
 
 .content-container {

@@ -1,0 +1,18 @@
+<div class="container" #container>
+  <div
+    class="gauge"
+    #chart
+    [ngStyle]="{
+      'height': size + 'px',
+      'width': size + 'px'
+    }"
+  >
+    <evj-kpe-gauge-chart
+      background="performance"
+      [fact]="100"
+      [plan]="80"
+      [deviation]="20"
+      class="gauge__chart"
+    ></evj-kpe-gauge-chart>
+  </div>
+</div>
