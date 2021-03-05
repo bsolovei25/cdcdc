@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 40px;
+
+  display: flex;
+  flex-direction: column;
+
+  font-size: 13px;
+  line-height: 16px;
+
+  .info-top, .info-bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .current {
+    display: flex;
+    color: var(--color-kpe-universal-card-font-main);
+  }
+
+  .plan {
+    color: var(--color-kpe-universal-card-active);
+  }
+
+  .predict {
+    color: var(--color-kpe-universal-card-predict);
+  }
+
+  .dev {
+    margin-left: 5px;
+    font-size: 9px;
+    line-height: 12px;
+
+    &_great {
+      color: var(--color-kpe-universal-card-month-great);
+      &:before {
+        content: '+';
+      }
+    }
+
+    &_bad {
+      color: var(--color-kpe-universal-card-month-bad);
+    }
+  }
+
+  .diagram {
+    height: 7px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    border-left: 1px solid var(--color-kpe-universal-card-active);
+
+    position: relative;
+
+    &__blueLightBold{
+      height: 5px;
+      background: var(--color-kpe-universal-card-month-default);
+
+      position: absolute;
+
+      &_risk {
+        height: 7px;
+        width: 1px;
+
+        border-left: 1px solid var(--color-kpe-universal-card-active);
+        position: absolute;
+      }
+    }
+
+    &__blueBold {
+      height: 5px;
+      background: var(--color-kpe-universal-card-active);
+
+      position: absolute;
+    }
+
+    &__greenThin{
+      height: 1px;
+      background: var(--color-kpe-universal-card-month-great);
+
+      position: absolute;
+    }
+
+    &__lightThin {
+      height: 1px;
+      background: var(--color-kpe-universal-card-predict);
+
+      position: absolute;
+
+
+      &_risk {
+        height: 7px;
+        width: 2px;
+
+        background: var(--color-kpe-universal-card-predict);
+        border-radius: 1px;
+
+        position: absolute;
+      }
+    }
+
+    &__greenBold {
+      height: 5px;
+      background: var(--color-kpe-universal-card-month-great);
+
+      position: absolute;
+    }
+
+    &__orangeBold {
+      height: 5px;
+      background: var(--color-kpe-universal-card-month-bad);
+
+      position: absolute;
+    }
+
+    &__orangeThin {
+      height: 1px;
+      background: var(--color-kpe-universal-card-month-bad);
+
+      position: absolute;
+    }
+  }
+}

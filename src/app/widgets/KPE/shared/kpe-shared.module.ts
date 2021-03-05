@@ -10,6 +10,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { KpeHelperService } from './kpe-helper.service';
 import { SharedModule } from '@shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
+import { KpeUniversalCardComponent } from './kpe-universal-card/kpe-universal-card.component';
+import { KpeUniversalCardLineChartComponent } from './kpe-universal-card/components/kpe-universal-card-line-chart/kpe-universal-card-line-chart.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +21,8 @@ import { MatRippleModule } from '@angular/material/core';
         KpeDeviationDiagramComponent,
         KpeReadinessDeviationDiagramComponent,
         KpeEqualizerChartComponent,
+        KpeUniversalCardComponent,
+        KpeUniversalCardLineChartComponent,
     ],
     exports: [
         KpeLineDiagramComponent,
@@ -27,6 +31,7 @@ import { MatRippleModule } from '@angular/material/core';
         KpeDeviationDiagramComponent,
         KpeReadinessDeviationDiagramComponent,
         KpeEqualizerChartComponent,
+        KpeUniversalCardComponent
     ],
     imports: [CommonModule, AngularSvgIconModule, SharedModule, MatRippleModule],
     providers: [KpeHelperService],

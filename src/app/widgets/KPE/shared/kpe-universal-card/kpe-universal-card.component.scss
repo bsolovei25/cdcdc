@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+.container{
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+
+  background: var(--color-kpe-universal-card_bg-main);
+  border: 1px solid var(--color-kpe-universal-card_bg-main);
+  border-radius: 2px;
+
+  .content, .gauge {
+    height: 100%;
+    padding: 5px;
+  }
+
+  .gauge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    span {
+      width: 100%;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .title {
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--color-kpe-universal-card-font-main);
+    }
+
+    .subtitle {
+      font-size: 11px;
+      line-height: 16px;
+
+      color: var(--color-kpe-universal-card-font-sub);
+    }
+
+    .percent-info {
+      height: 16px;
+      padding: 0 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 2px;
+
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    .line-diagram {
+      width: 100%;
+    }
+
+    .month-indicators {
+      height: 2px;
+      width: 100%;
+      margin-top: 8px;
+
+      display: flex;
+      justify-content: space-between;
+
+      gap: 2px;
+
+      .dash {
+        flex: 1;
+        height: 2px;
+
+        border-radius: 1px;
+
+        background: red;
+      }
+    }
+  }
+}
+
+.container_warning {
+  border-color: var(--color-kpe-universal-card-warning);
+}
+
+.warning {
+  color: var(--color-kpe-universal-card-warning);
+  background: var(--color-kpe-universal-card-bg-warning);
+}
+
+.default {
+  color: var(--color-kpe-universal-card-default);
+  background: var(--color-kpe-universal-card-bg-default);
+}
