@@ -66,12 +66,11 @@ export class ReportsService {
         const body: FormData = new FormData();
         body.append('file', screenshot);
         const result = await this.http
-            .post(`https://reporting.funcoff.club/api/image`, body, {
+            .post(`${this.restUrl}/api/report-image`, body, {
                 responseType: 'blob' as 'json',
                 observe: 'response',
             })
             .toPromise();
-        console.log(result);
         const filename =
             (result as any)?.headers?.get('Content-Disposition')?.split(';')[1]?.trim()?.split('=')[1] ?? 'report.xlsx';
         saveAs((result as any).body, filename);

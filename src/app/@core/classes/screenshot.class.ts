@@ -8,7 +8,6 @@ export class ScreenshotMaker {
         this.prepareSvg();
         const canvas = await html2canvas(element, { foreignObjectRendering: false });
         const dataUrl = canvas.toDataURL();
-        console.log(dataUrl);
         return this.dataURLtoFile(dataUrl);
     }
 
