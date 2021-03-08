@@ -16,6 +16,7 @@ export class EventsCorrectCardComponent implements OnInit {
         new: 'standart',
         inWork: 'warning',
         closed: 'danger',
+        wasted: 'standart'
     };
 
     constructor(public ewService: EventsWorkspaceService) {}

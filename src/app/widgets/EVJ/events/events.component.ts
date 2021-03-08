@@ -236,6 +236,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     public isCDEvents: boolean = false;
