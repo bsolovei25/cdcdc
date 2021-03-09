@@ -466,7 +466,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.categories?.forEach((x) => (x.isActive = options.categories.some((o) => o === x.id)));
         this.filters?.forEach((x) => (x.isActive = options.filter === x.code));
         this.priority = options.priority;
-        this.units = options.units;
+        if (!this.placeNames?.length) {
+            this.units = options.units;
+        }
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
