@@ -12,10 +12,21 @@
         <div class="item__text" [class.item__text_disabled]="!subCategoriesSelected.isSelected(item.id)">
           {{ item.description }}
         </div>
-        <div class="item__btn">
-          <button>В систему источник</button>
+          <ng-container *ngIf="item.description !== 'Показать все события'; else limitationsCheckbox">
+            <div class="item__btn">
+              <button>В систему источник</button>
+            </div>
+          </ng-container>
+          <ng-template #limitationsCheckbox>
+            <div class="item__ckb">
+              <mat-checkbox
+                class="checkbox"
+                color="primary"
+              ></mat-checkbox>
+              <span>Ограничения</span>
+            </div>
+          </ng-template>
         </div>
-      </div>
     </ng-container>
   </div>
 </ng-template>

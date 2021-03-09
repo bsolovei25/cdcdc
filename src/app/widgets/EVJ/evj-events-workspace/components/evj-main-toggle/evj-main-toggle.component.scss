@@ -37,6 +37,20 @@
       outline: none;
     }
   }
+
+  &__checkbox {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid var(--header-events-color-bg-main);
+
+    span {
+      font-size: 13px;
+      color: var(--color-text-main);
+      margin: 2px 8px 0px;
+    }
+  }
 }
 .right-side {
   display: flex;

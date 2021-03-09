@@ -13,8 +13,9 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
     @Input() public disabled: boolean = false;
+    @Input() public smallView: boolean = false;
 
-    filter: FormControl = new FormControl({ value: '', disabled: true });
+    public filter: FormControl = new FormControl({ value: '', disabled: true });
 
     public responsible: IUser = null;
 
@@ -36,7 +37,7 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
         this.clearFilter();
     }
 
-    public chooseRespons(data: IUser): void {
+    public chooseResponse(data: IUser): void {
         this.ewService.event.responsibleOperator = data;
     }
 

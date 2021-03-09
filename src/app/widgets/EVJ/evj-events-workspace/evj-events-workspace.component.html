@@ -16,6 +16,7 @@
         [blockWorkspaceButton]="canShowSaveButton()"
         [eventProdTask]="eventProdButton"
         (eventProdTaskChange)="onChangeStatus()"
+        (limitationCheckbox)="openDialog($event)"
       >
       </evj-evj-main-toggle>
     </ng-container>

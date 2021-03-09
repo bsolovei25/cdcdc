@@ -86,6 +86,7 @@ export interface IEventsWidgetNotification {
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
+    limitationsEnabled?: boolean;
 }
 
 export interface IEventsEjs {

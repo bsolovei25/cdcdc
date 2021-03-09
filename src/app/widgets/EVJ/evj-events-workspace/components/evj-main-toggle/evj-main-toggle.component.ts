@@ -16,6 +16,8 @@ import { WidgetService } from '../../../../../dashboard/services/widget.service'
 import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../../../../dashboard/services/claim.service';
 import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
+import { FormControl } from '@angular/forms';
+import {SnackBarService} from "../../../../../dashboard/services/snack-bar.service";
 
 @Component({
     selector: 'evj-evj-main-toggle',
@@ -54,6 +56,7 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() public ejcoTabClicked?: EventEmitter<string | null> = new EventEmitter<string | null>();
+    @Output() public limitationCheckbox: EventEmitter<boolean> = new EventEmitter<boolean>();
     public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
@@ -68,12 +71,16 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
 
     public ejcoActiveTab: string | null = null;
 
+    public limitationFormControl: FormControl = new FormControl();
+
     constructor(
         public overlayService: OverlayService,
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService,
         private chDet: ChangeDetectorRef,
+        public ewService: EventsWorkspaceService,
+        private snackBar: SnackBarService,
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -155,4 +162,20 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
         this.ejcoActiveTab = caption;
         this.ejcoTabClicked.emit(caption);
     }
+
+    public isLimitationAvailable(): boolean {
+        const categoryId = this.ewService.event?.category?.id;
+        const subCategoryId = this.ewService.event?.productionTasks?.subCategory?.id;
+        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010);
+    }
+
+    public emitAction(event: Event): void {
+        event.preventDefault();
+        if (this.ewService.event) {
+            this.limitationCheckbox.emit(true);
+        } else {
+            this.snackBar.openSnackBar('Выберите или создайте Новое событие');
+        }
+    }
 }
+

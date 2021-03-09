@@ -108,6 +108,7 @@
             [description]="ewService.event.description"
             [isRetrievalEvent]="false"
             (changedDescription)="onChangeEventDescription($event)"
+            [disabled]="ewService.event.limitationsEnabled"
           ></evj-event-description>
         </div>
 
@@ -242,9 +243,16 @@
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
-      <div class="responsible">
-        <evj-events-workspace-responsible-select> </evj-events-workspace-responsible-select>
+      <div class="place-date">
+        <div class="select-container-left">
+          <evj-events-workspace-responsible-select [smallView]="true"></evj-events-workspace-responsible-select>
+        </div>
+        <div class="select-container-right">
+          <evj-events-workspace-datetimepicker [label]="'Продолжительность'" [date]="countDifference()" [disabled]="true">
+          </evj-events-workspace-datetimepicker>
+        </div>
       </div>
+      <br>
       <div class="events-correct">
         <div class="title">
           <span>Корректирующие мероприятия</span>
