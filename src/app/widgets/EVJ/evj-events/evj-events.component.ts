@@ -246,6 +246,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     isCDEvents: boolean = false;

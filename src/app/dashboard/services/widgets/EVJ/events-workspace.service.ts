@@ -119,6 +119,7 @@ export class EventsWorkspaceService {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     public readonly subCategories: { [id in number]: string } = {

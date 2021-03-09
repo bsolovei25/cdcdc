@@ -22,6 +22,7 @@ export class EvjEventsCorrectCardComponent implements OnInit {
         new: 'standart',
         inWork: 'warning',
         closed: 'danger',
+        wasted: 'standart'
     };
 
     constructor(public ewService: EventsWorkspaceService) {}
