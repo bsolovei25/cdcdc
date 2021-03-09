@@ -21,6 +21,17 @@
     </div>
 
     <div class="right-side">
+      <ng-container *ngIf="isLimitationAvailable()">
+        <div class="header-workspace__checkbox">
+          <mat-checkbox
+            class="checkbox"
+            color="primary"
+            [checked]="ewService.event?.limitationsEnabled"
+            (click)="emitAction($event)"
+          ></mat-checkbox>
+          <span>Ограничения</span>
+        </div>
+      </ng-container>
       <div class="header-workspace__container hover-effect" matRipple [matRippleColor]="'white'" (click)="backEvent()">
         <div class="title">Вернуться к событию</div>
         <div class="icon-wrapper"></div>

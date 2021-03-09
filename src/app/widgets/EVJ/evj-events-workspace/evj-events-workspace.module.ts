@@ -27,7 +27,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import { EvjTasksEventComponent } from './evj-tasks-event/evj-tasks-event.component';
 import { EvjShiftPassComponent } from './evj-shift-pass/evj-shift-pass.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -38,6 +38,7 @@ import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-works
 import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-events-workspace-responsible/evj-events-workspace-responsible-select.component';
 import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-events-place.component';
 import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events-workspace-extra-options/evj-events-workspace-extra-options.component';
+import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-workspace-limitations/evj-events-workspace-limitations.component';
 
 @NgModule({
     declarations: [
@@ -69,6 +70,7 @@ import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
         EvjEventsWorkspaceExtraOptionsComponent,
+        EvjEventsWorkspaceLimitationsComponent,
     ],
     imports: [
         CommonModule,
@@ -82,6 +84,7 @@ import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events
         MatTooltipModule,
         MatCheckboxModule,
         MatRippleModule,
+        MatDialogModule,
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },

@@ -1,4 +1,13 @@
-import { Component, OnInit, OnDestroy, Inject, HostListener, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    Inject,
+    HostListener,
+    Input,
+    Renderer2,
+    ElementRef, ChangeDetectorRef
+} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
@@ -13,6 +22,8 @@ import {
 } from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-workspace-limitations/evj-events-workspace-limitations.component';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -46,9 +57,13 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
+        private popoverOverlayService: PopoverOverlayService,
+        private renderer: Renderer2,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private hostElement: ElementRef,
+        private changeDetectorRef: ChangeDetectorRef,
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'document';
@@ -114,7 +129,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
     }
 
     // нажатие на кнопку в хэдере
-    createdEvent(isEdit: boolean): void {
+    public createdEvent(isEdit: boolean): void {
         if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
             if (this.ewService.isCreateNewEvent) {
                 this.ewService.refreshEvent();
@@ -164,7 +179,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
-    canShowSaveButton(): boolean {
+    public canShowSaveButton(): boolean {
         return this.ewService.event?.isUserCanEdit ?? false;
     }
 
@@ -193,5 +208,40 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
             };
             this.ewService.ewAlertInfo$.next(tempInfo);
         }
+    }
+
+    public openDialog(limitationCheckbox: boolean): void {
+        const widthPx = 590;
+        const heightPx = 587;
+
+        const limitationWindowTarget = this.createOverlayTarget(heightPx);
+
+        const popoverRef = this.popoverOverlayService.open({
+            origin: limitationWindowTarget,
+            content: EvjEventsWorkspaceLimitationsComponent,
+            data: {
+                users: this.ewService.users,
+            },
+            width: widthPx,
+            height: heightPx,
+        });
+
+        popoverRef.afterClosed$.subscribe((response) => {
+            this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
+            if (response && response.data) {
+                console.log(response, 'response');
+            } else {
+                this.ewService.event.limitationsEnabled = true;
+            }
+        });
+    }
+
+    private createOverlayTarget(height: number): HTMLElement {
+        const limitationWindowTarget = this.renderer.createElement('div');
+        this.renderer.setStyle(limitationWindowTarget, 'position', `absolute`);
+        this.renderer.setStyle(limitationWindowTarget, 'right', `50%`);
+        this.renderer.setStyle(limitationWindowTarget, 'top', `calc(50% + ${height}px / 2)`);
+        this.renderer.appendChild(this.hostElement.nativeElement, limitationWindowTarget);
+        return limitationWindowTarget;
     }
 }

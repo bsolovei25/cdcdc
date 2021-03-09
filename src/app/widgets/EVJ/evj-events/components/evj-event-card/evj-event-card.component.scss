@@ -139,8 +139,24 @@
       margin-right: 10px;
     }
 
+    &__limitation {
+      width: 18px;
+      height: 18px;
+      justify-content: center;
+      margin-right: 3px;
+    }
+
     &__unit {
       font-size: 10px;
+      gap: 2px;
+      padding: 2px 5px;
+    }
+
+    &__limitation,
+    &__unit {
+      background-color: #1C1F2B;
+      display: flex;
+      align-items: center;
     }
 
     &__line {

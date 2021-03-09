@@ -56,6 +56,10 @@ export class EvjUsualEventComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
+    public countDifference(): Date {
+        return new Date(new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate());
+    }
+
     // TODO
     public progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;

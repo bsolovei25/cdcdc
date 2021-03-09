@@ -13,7 +13,6 @@ import {
     IEventsWidgetAttributes,
     IEventsWidgetNotification,
     IExtraOptionsWindow,
-    IKpeAdditionalParameter,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,

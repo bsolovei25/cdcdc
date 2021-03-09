@@ -39,7 +39,13 @@
       <div class="notification__header__line--unit">
         <div></div>
       </div>
-      <span class="notification__header__unit"> {{ cardData?.unit?.name || '-' }} </span>
+      <span class="notification__header__limitation" *ngIf="false">
+        <svg-icon src="assets/icons/widgets/EVJ/event-card/notification-header-limitation.svg"></svg-icon>
+      </span>
+      <span class="notification__header__unit">
+        <svg-icon src="assets/icons/widgets/EVJ/event-card/notification-header-unit-icon.svg"></svg-icon>
+        {{ cardData?.unit?.name || '-' }}
+      </span>
       <div class="notification__header__line">
         <div></div>
       </div>
