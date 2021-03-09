@@ -4,15 +4,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ScreenshotMaker {
     constructor() {}
 
-    async takeScreenshot(element: HTMLElement): Promise<File> {
-        this.prepareSvg();
+    async takeScreenshot(element: HTMLElement, isPrepareSvg: boolean = true): Promise<File> {
+        if (isPrepareSvg) {
+            this.prepareSvg(element);
+        }
         const canvas = await html2canvas(element, { foreignObjectRendering: false });
         const dataUrl = canvas.toDataURL();
         return this.dataURLtoFile(dataUrl);
     }
 
-    private prepareSvg = (): void => {
-        const svgElements = document.body.querySelectorAll('svg');
+    private prepareSvg = (element: HTMLElement): void => {
+        const svgElements = element.querySelectorAll('svg');
         svgElements.forEach((item) => {
             item.setAttribute('width', item?.getBoundingClientRect().width?.toString());
             item.setAttribute('height', item?.getBoundingClientRect().height?.toString());

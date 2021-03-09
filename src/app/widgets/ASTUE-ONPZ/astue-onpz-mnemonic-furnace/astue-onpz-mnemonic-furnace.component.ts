@@ -491,7 +491,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             return;
         }
         const screenshotHelper = new ScreenshotMaker();
-        const screenshot = await screenshotHelper.takeScreenshot(this.schemaContainer.nativeElement);
+        const screenshot = await screenshotHelper.takeScreenshot(this.schemaContainer.nativeElement, false);
         await this.reportService.sendScreenshot(screenshot);
     }
 }
