@@ -524,4 +524,15 @@ export class EventService {
     setEventUnit(units: string[]): void {
         this.filterEvent.unitNames = units;
     }
+
+    public async getResponsible(unitId: number): Promise<IUser> {
+        try {
+            return this.http
+
+                .get<IUser>(this.restUrl + `/api/notifications/${unitId}/responsible`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }

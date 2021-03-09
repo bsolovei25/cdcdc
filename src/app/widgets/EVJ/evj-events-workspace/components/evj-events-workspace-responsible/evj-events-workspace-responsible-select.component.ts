@@ -26,6 +26,10 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
+        this.ewService.getResponsible$.subscribe((resp) => {
+            this.responsible = resp;
+        })
+
         this.ewService.event$.pipe(takeUntil(this.onDestroy)).subscribe((event) => {
             if (event) {
                 this.responsible = event.responsibleOperator;
