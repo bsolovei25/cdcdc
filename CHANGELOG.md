@@ -1,3 +1,11 @@
+# [1.5.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.1...v1.5.0) (2021-03-09)
+
+
+### Features
+
+* ** #1324:** add kpe-universal-card ([22c2ff3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/22c2ff3add95218fa3bee7f61b188be408a76c68)), closes [#1324](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1324)
+* **#1256, #1255,  #1338:** kpe new design ([361a38c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/361a38cbb3e81afea5e6189fc914640d61b45b35)), closes [#1256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1256) [#1255](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1255) [#1338](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1338)
+
 ## [1.4.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.0...v1.4.1) (2021-03-04)
 
 
