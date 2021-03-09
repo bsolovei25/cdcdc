@@ -4,6 +4,7 @@
       <mat-select
         panelClass="mat-select-custom"
         [disabled]="disabled || !ewService.isCreateNewEvent"
+        (selectionChange)="onSelectPlace($event)"
         [(ngModel)]="unit"
         disableOptionCentering
       >

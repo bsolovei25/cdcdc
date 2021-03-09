@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IUnitEvents, IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { MatSelectChange } from "@angular/material/select";
 
 @Component({
     selector: 'evj-events-place',
@@ -41,6 +42,13 @@ export class EvjEventsPlaceComponent implements OnInit {
     public clearFilter(): void {
         this.filter.setValue('');
     }
+
+    public onSelectPlace(event: MatSelectChange): void {
+        console.log(event);
+        this.ewService.getAutoResponsible(event.value);
+        console.log(this.ewService.getResponsible$.getValue());
+    }
+
 
     private filterPlace(): void {
         if (!this.ewService.units) {
