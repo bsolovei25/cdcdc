@@ -39,20 +39,19 @@
           <div class="circle">
             <evj-ozsm-graph-circle-diagram [data]="itemData$(5) | async"></evj-ozsm-graph-circle-diagram>
           </div>
-          <div class="circle">
+          <div class="circle" [style.marginRight.px]="40">
             <evj-ozsm-graph-circle-diagram [data]="itemData$(19) | async"></evj-ozsm-graph-circle-diagram>
           </div>
           <div class="circle">
             <evj-ozsm-graph-circle-diagram [data]="itemData$(6) | async"></evj-ozsm-graph-circle-diagram>
           </div>
-          <div class="circle">
-            <!--            <evj-ozsm-graph-circle-diagram-->
-            <!--              [data] = "{-->
-            <!--                                    'current': 39227,-->
-            <!--                                    'max': 39227,-->
-            <!--                                    'title': 'ПЛП'-->
-            <!--                                }"-->
-            <!--            ></evj-ozsm-graph-circle-diagram>-->
+          <div class="circle-twins">
+            <div class="circle__small">
+              <evj-ozsm-graph-circle-diagram [data]="itemData$(7) | async"></evj-ozsm-graph-circle-diagram>
+            </div>
+            <div class="circle__small">
+              <evj-ozsm-graph-circle-diagram [data]="itemData$(8) | async"></evj-ozsm-graph-circle-diagram>
+            </div>
           </div>
         </div>
         <div class="line-card-container line-card-container__group-clear">
@@ -74,9 +73,25 @@
               icon="railway"
             ></evj-ozsm-card-line-diagram>
           </div>
+
+          <div class="line-card line-card__icon">
+            <evj-ozsm-card-line-diagram
+              [data]="itemData$(16) | async"
+              type="icon"
+              icon="railway"
+            ></evj-ozsm-card-line-diagram>
+          </div>
           <div class="line-card line-card__icon">
             <evj-ozsm-card-line-diagram
               [data]="itemData$(17) | async"
+              type="icon"
+              icon="automobile"
+            ></evj-ozsm-card-line-diagram>
+          </div>
+
+          <div class="line-card line-card__icon">
+            <evj-ozsm-card-line-diagram
+              [data]="itemData$(18) | async"
               type="icon"
               icon="automobile"
             ></evj-ozsm-card-line-diagram>
@@ -135,15 +150,6 @@
               [data]="itemData$(27) | async"
               innerIcon="canister"
             ></evj-ozsm-cirle-diagram-icon>
-          </div>
-          <div class="diagram-card">
-            <!--            <evj-ozsm-cirle-diagram-icon-->
-            <!--              diagramValue = 120-->
-            <!--              deviation = 23772-->
-            <!--              innerValue = 35658-->
-            <!--              titleText = 'Производство сжат. воздуха'-->
-            <!--              innerIcon='oxygen'-->
-            <!--            ></evj-ozsm-cirle-diagram-icon>-->
           </div>
         </div>
         <div class="arrow-container">
