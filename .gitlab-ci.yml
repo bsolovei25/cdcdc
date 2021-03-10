@@ -144,6 +144,8 @@ release-notes-maker:
   needs: []
   dependencies: []
   rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
+      when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
 
@@ -162,6 +164,7 @@ export-to-ftp:
     - if: $SEMVER_EXPORT_ON == "false"
       when: never
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
+      when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
     - if: $CI_COMMIT_BRANCH == "develop"
@@ -184,6 +187,8 @@ export-to-ftp-no-build:
         file: "/pipelines/semantic-release.yml"
   rules:
     - if: $SEMVER_EXPORT_ON == "false"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
@@ -208,6 +213,8 @@ semantic-release:
         file: "/pipelines/semantic-release.yml"
   rules:
     - if: $SEMVER_EXPORT_ON == "false"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
