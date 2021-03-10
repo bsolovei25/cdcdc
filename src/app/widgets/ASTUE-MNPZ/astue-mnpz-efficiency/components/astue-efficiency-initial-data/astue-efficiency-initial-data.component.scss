@@ -33,9 +33,9 @@
 
   .header {
     position: relative;
-    border-radius: 12px;
+    border-radius: 2px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background: var(--color-aw-header-bg);
+    background: var(--color-new-header-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
   .table {
     position: relative;
     padding: 40px 0px 0px;
-    border-radius: 12px;
+    border-radius: 2px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: var(--color-aw-container-body-transparent);
     display: flex;

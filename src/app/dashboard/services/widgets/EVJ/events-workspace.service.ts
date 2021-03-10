@@ -13,7 +13,6 @@ import {
     IEventsWidgetAttributes,
     IEventsWidgetNotification,
     IExtraOptionsWindow,
-    IKpeAdditionalParameter,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -119,6 +118,7 @@ export class EventsWorkspaceService {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     public readonly subCategories: { [id in number]: string } = {
@@ -151,6 +151,7 @@ export class EventsWorkspaceService {
     public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
     public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<IExtraOptionsWindow>(null);
     public acceptButton$: BehaviorSubject<IKpeNotification> = new BehaviorSubject<IKpeNotification>(null);
+    public getResponsible$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
     get isCategoryEdit(): boolean {
         return (
@@ -490,7 +491,7 @@ export class EventsWorkspaceService {
             fixedBy: null,
             organization: 'АО Газпромнефть',
             priority: this.priority ? (this.priority[2] ? this.priority[2] : this.priority[0]) : undefined,
-            responsibleOperator: null,
+            responsibleOperator: this.getResponsible$.getValue() ?? null,
             retrievalEvents: [],
             severity: 'Critical',
             status: this.status
@@ -676,5 +677,15 @@ export class EventsWorkspaceService {
             console.log(error);
         }
         this.isLoading = false;
+    }
+
+    public async getAutoResponsible(unitId: number): Promise<void> {
+        try {
+            const data = await this.eventService.getResponsible(unitId);
+            this.getResponsible$.next(data);
+        } catch (e) {
+            console.error(e)
+            this.getResponsible$.next(null);
+        }
     }
 }

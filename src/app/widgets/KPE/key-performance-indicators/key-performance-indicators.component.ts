@@ -3,6 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartPage } from './components/gauge-diagram/gauge-diagram.component';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
 
 export type KeyPerformanceIndicatorType = 'pimsPlan' | 'normPlan' | 'operPlan';
 
@@ -17,12 +18,13 @@ export interface IKpeGaugeChartData {
     templateUrl: './key-performance-indicators.component.html',
     styleUrls: ['./key-performance-indicators.component.scss'],
 })
-export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, OnDestroy {
     public sourceData: IKpeGaugeChartData;
     public diagramData: IKpeGaugeChartPage;
 
     public activeIndicatorType: KeyPerformanceIndicatorType;
     public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+    public displayNewDesign: boolean;
 
     constructor(
         public widgetService: WidgetService,
@@ -50,6 +52,11 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> i
         console.log('ref', ref);
         this.sourceData = ref;
         this.setActiveIndicator();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.displayNewDesign = this.attributes.IsDesign;
     }
 
     ngOnDestroy(): void {

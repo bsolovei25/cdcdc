@@ -1,6 +1,10 @@
 <div class="main-groups">
   <div class="main-groups__item">
-    <div class="title">
+    <div
+      style="cursor: pointer"
+      class="title"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 151)?.linkId)"
+    >
       <div class="arrow-btn">
         <svg-icon
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
@@ -26,7 +30,11 @@
   </div>
 
   <div class="main-groups__item">
-    <div class="title">
+    <div
+      style="cursor: pointer"
+      class="title"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 148)?.linkId)"
+    >
       <div class="arrow-btn">
         <svg-icon
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
@@ -52,7 +60,11 @@
   </div>
 
   <div class="main-groups__item">
-    <div class="title">
+    <div
+      style="cursor: pointer"
+      class="title"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 147)?.linkId)"
+    >
       <div class="arrow-btn">
         <svg-icon
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"

@@ -17,7 +17,11 @@
   padding-left: 24px;
   display: flex;
   align-items: center;
-  background: var(--color-bg-sub);
+  background: var(--color-indicator-bg);
+
+  &_bc {
+    background-color: var(--color-new-header-bg);
+  }
 
   &_list-item {
     padding: 0px 60px 0px 19px;

@@ -5,6 +5,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
 
 export interface IKpeSafetyData {
     gaugeCards: IKpeSafetyCard[] | null;
@@ -27,7 +28,7 @@ export interface IKpeSafetyCard {
     templateUrl: './kpe-safety.component.html',
     styleUrls: ['./kpe-safety.component.scss'],
 })
-export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
+export class KpeSafetyComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, AfterViewInit {
     @ViewChild('mainGauge') public gaugeChart: ElementRef;
 
     public deviationChartData: IDeviationDiagramData[] = [];
@@ -42,6 +43,17 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
     public displayedMonth: Date;
 
     public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+
+    public displayNewDesign: boolean;
+
+    // Новый дизайн
+    public percentData: {
+        percent: number;
+        percentStatus: 'default' | 'warning';
+    } = {
+        percent: 2,
+        percentStatus: 'warning'
+    }
 
     constructor(
         protected widgetService: WidgetService,
@@ -88,5 +100,10 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
                 this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.displayNewDesign = this.attributes.IsDesign;
     }
 }

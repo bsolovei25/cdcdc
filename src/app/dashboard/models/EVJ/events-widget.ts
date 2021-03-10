@@ -86,6 +86,7 @@ export interface IEventsWidgetNotification {
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
+    limitationsEnabled?: boolean;
 }
 
 export interface IEventsEjs {
@@ -271,7 +272,7 @@ export type WorkerPositionType = 'common' | 'responsible';
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
 
-export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed';
+export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed' | 'wasted';
 
 export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed' | 'isNotAcknowledged';
 

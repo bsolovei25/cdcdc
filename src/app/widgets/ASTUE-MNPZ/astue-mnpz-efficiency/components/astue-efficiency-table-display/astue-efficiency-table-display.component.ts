@@ -49,6 +49,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     private subscriptions: Subscription[] = [];
 
     public restUrl: string;
+    public readonly unit: string = 'Тонны';
 
     constructor(
         public AsEfService: AstueEfficiencyService,

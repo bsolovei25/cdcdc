@@ -25,6 +25,7 @@
         *ngIf="card.direction === direction"
         [isActive]="cardSelection.isSelected(card)"
         [card]="card"
+        [background]="true"
         (click)="onSelectProduct(card)"
       ></evj-astue-efficiency-item-card>
     </ng-container>

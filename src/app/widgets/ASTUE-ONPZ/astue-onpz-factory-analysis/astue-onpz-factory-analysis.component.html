@@ -12,9 +12,19 @@
         (changePage)="changePage($event)"
       ></evj-astue-onpz-factory-analysis-header>
     </div>
+    <ng-container *ngIf="(pageType$ | async) === 'chart'" class="header-container">
+      <div style="flex-grow: 1"></div>
+      <svg-icon
+        style="cursor: pointer; margin-left: 10px"
+        src="assets/icons/print.svg"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        (click)="takeScreenshot()"
+      ></svg-icon>
+    </ng-container>
   </evj-contemporary-widget-header>
 
-  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div #chart class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container [ngSwitch]="pageType$ | async">
       <evj-astue-onpz-factor-analysis-page
         *ngSwitchCase="'bar'"

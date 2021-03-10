@@ -2,7 +2,14 @@
   <div class="card-block__header header header-size">
     <div class="header__left-block">
       <div class="header__id header-size__id">{{ data?.id }}</div>
-      <div class="header__unit header-size__unit">{{ data?.unit?.name }}</div>
+      <div class="header__unit header-size__unit">
+        {{ data?.unit?.name }}
+        <ng-container *ngIf="false">
+          <svg-icon
+            class="icon"
+            src="assets/icons/widgets/EVJ/event-card/notification-header-limitation.svg"></svg-icon>
+        </ng-container>
+      </div>
     </div>
     <div class="header__right-block">
       <div class="header__status header-size__status" [ngClass]="'header__status_' + data?.priority?.name">

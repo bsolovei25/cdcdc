@@ -61,11 +61,11 @@
     fill: var(--color-kpe-text-main);
   }
 
-  .needle-hover-circle-back-d {
+  .needle-hover-circle-back-d, .needle-hover-circle-back-dark {
     fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
-  .kpe-gauge-hide-down-sector-d {
+  .kpe-gauge-hide-down-sector-d,  .kpe-gauge-hide-down-sector-dark{
     fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
@@ -73,15 +73,23 @@
     fill: var(--color-astue-onpz-widget-border);
   }
 
+  .needle-hover-circle-back-performance {
+    fill: var(--color-kpe-gaude-back);
+  }
+
+  .kpe-gauge-hide-down-sector-performance {
+    fill: var(--color-kpe-gaude-back);
+  }
+
   .kpe-gauge-hide-down-sector-sou {
     fill: var(--color-astue-onpz-widget-border);
   }
 
-  .needle-hover-circle-back {
+  .needle-hover-circle-back, .needle-hover-circle-back-lite{
     fill: var(--color-kpe-gaude-lines);
   }
 
-  .kpe-gauge-hide-down-sector {
+  .kpe-gauge-hide-down-sector, .kpe-gauge-hide-down-sector-lite{
     fill: var(--color-kpe-gaude-lines);
   }
 

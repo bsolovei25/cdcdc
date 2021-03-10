@@ -1,17 +1,17 @@
 <div class="description">
   <div class="description__content">
     <div class="description__content_text">
-      <textarea
-        required
-        class="gridster-item-content"
-        minlength="3"
-        [(ngModel)]="description"
-        [disabled]="disabled"
-        (input)="onChangeTextarea()"
-        (blur)="disableTextarea()"
-        #textarea
-      >
-      </textarea>
+        <textarea
+          required
+          class="gridster-item-content"
+          minlength="3"
+          [(ngModel)]="description"
+          (input)="onChangeTextarea()"
+          (blur)="disableTextarea()"
+          [ngClass]="disabled || ewService.event.limitationsEnabled ? 'disabled' : ''"
+          [disabled]="disabled || ewService.event.limitationsEnabled"
+          #textarea
+        ></textarea>
     </div>
   </div>
 </div>

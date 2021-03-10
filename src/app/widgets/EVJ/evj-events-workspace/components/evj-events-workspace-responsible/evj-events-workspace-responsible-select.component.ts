@@ -13,8 +13,9 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
     @Input() public disabled: boolean = false;
+    @Input() public smallView: boolean = false;
 
-    filter: FormControl = new FormControl({ value: '', disabled: true });
+    public filter: FormControl = new FormControl({ value: '', disabled: true });
 
     public responsible: IUser = null;
 
@@ -25,6 +26,10 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
+        this.ewService.getResponsible$.subscribe((resp) => {
+            this.responsible = resp;
+        })
+
         this.ewService.event$.pipe(takeUntil(this.onDestroy)).subscribe((event) => {
             if (event) {
                 this.responsible = event.responsibleOperator;
@@ -36,7 +41,7 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
         this.clearFilter();
     }
 
-    public chooseRespons(data: IUser): void {
+    public chooseResponse(data: IUser): void {
         this.ewService.event.responsibleOperator = data;
     }
 

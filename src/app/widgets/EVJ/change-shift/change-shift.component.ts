@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, HostListener, OnDestroy } from "@angular/core";
 import { ShiftService } from '../../../dashboard/services/widgets/EVJ/shift.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
@@ -6,33 +6,45 @@ import {
     IVerifyWindow,
     Shift,
     ShiftComment,
-    ShiftMember,
+    ShiftMember
 } from '../../../dashboard/models/EVJ/shift.model';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
+export type responsibleStatusType = 'accepted' | 'inProgressAccepted' | 'inProgressPassed'
+    | 'initialization' | 'passed' | 'absent';
+
 @Component({
     selector: 'evj-change-shift',
     templateUrl: './change-shift.component.html',
-    styleUrls: ['./change-shift.component.scss'],
+    styleUrls: ['./change-shift.component.scss']
 })
 export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    @ViewChild('input') input: ElementRef;
-    @ViewChild('scroll') scroll: ElementRef;
-    @ViewChild('allPeople') allPeople: ElementRef;
-    @ViewChild('addShift') addShift: ElementRef;
+    @ViewChild("input") input: ElementRef;
+    @ViewChild("scroll") scroll: ElementRef;
+    @ViewChild("allPeople") allPeople: ElementRef;
+    @ViewChild("addShift") addShift: ElementRef;
 
     public mapPosition: { code: string; name: string }[] = [
         {
             code: 'responsible',
-            name: 'Старший оператор',
+            name: 'Старший оператор'
         },
         {
             code: 'common',
-            name: 'Оператор',
-        },
+            name: 'Оператор'
+        }
     ];
+
+    public readonly responsibleStatus: { [key in responsibleStatusType]: string } = {
+        accepted: "Принята",
+        inProgressAccepted: "Готова к приёму",
+        inProgressPassed: "Готова к передаче",
+        initialization: "Сформирована",
+        passed: "Сдана",
+        absent: "Отсутствует"
+    };
 
     public comments: ShiftComment[] = [];
     public currentShift: Shift = null;
@@ -95,18 +107,22 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
     }
 
     public getIconType(iconType: string): string {
-        return `assets/icons/widgets/change-shift/${iconType}.svg`
+        return `assets/icons/widgets/change-shift/${iconType}.svg`;
+    }
+
+    public getStatusTooltip(iconType: string): string {
+        return this.responsibleStatus[iconType];
     }
 
     private async verifyHandler(obj: IVerifyWindow): Promise<void> {
         console.log(obj);
-        if (obj.action === 'close') {
+        if (obj.action === "close") {
             switch (obj.type) {
-                case 'card':
+                case "card":
                     // TODO close card request
                     await this.shiftService.cancelCardAction(obj.verifyId);
                     break;
-                case 'usb':
+                case "usb":
                     // TODO close usb request
                     await this.shiftService.cancelUsbAction(obj.verifyId);
                     break;
@@ -172,11 +188,9 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         }
 
         this.presentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
-        );
+            (el) => el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'        );
         this.absentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
-        );
+            (el) => el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'        );
     }
 
     public getDisplayPosition(code): string {
@@ -204,8 +218,9 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         this.comments.push(comment);
         this.setRequireComment(comment.comment);
         try {
-            this.input.nativeElement.value = '';
-        } catch {}
+            this.input.nativeElement.value = "";
+        } catch {
+        }
     }
 
     onEnterPush(event?: any): void {
@@ -301,7 +316,7 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         const requiredComment: ICommentRequired = {
             idShift: this.currentShift.id,
             comment: ref,
-            result: true,
+            result: true
         };
         this.shiftService.continueWithComment.next(requiredComment);
     }
@@ -310,7 +325,7 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         const requiredComment: ICommentRequired = {
             idShift: this.currentShift.id,
             comment: null,
-            result: false,
+            result: false
         };
         this.shiftService.continueWithComment.next(requiredComment);
     }

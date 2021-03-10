@@ -8,6 +8,7 @@ import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-cha
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { SortTypeEvents } from "../../../dashboard/models/EVJ/events-widget";
 
 type DisplayModeType = 'tiled' | 'line' | 'planFeasibility';
 
@@ -25,12 +26,16 @@ export interface IKpeQualityCard {
     gaugeChart: IKpeGaugeChartData;
 }
 
+export interface IKpeWidgetAttributes {
+    IsDesign: boolean;
+}
+
 @Component({
     selector: 'evj-kpe-quality',
     templateUrl: './kpe-quality.component.html',
     styleUrls: ['./kpe-quality.component.scss'],
 })
-export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, OnDestroy {
     public lineChartData: IProductionTrend[] = [];
 
     public margin: { top: number; right: number; bottom: number; left: number } = {
@@ -51,6 +56,8 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     public displayMode: DisplayModeType;
 
     public engUnitsComparator: KpeEngUnitsComparator = new KpeEngUnitsComparator();
+
+    public displayNewDesign: boolean;
 
     constructor(
         private hostElement: ElementRef,
@@ -120,6 +127,11 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
                 this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
             }
         });
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.displayNewDesign = this.attributes.IsDesign;
     }
 
     private prepareEqualizerData(cardSet: IKpeQualityCard[]): IKpeQualityCard[] {

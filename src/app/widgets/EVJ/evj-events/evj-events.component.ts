@@ -246,6 +246,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     isCDEvents: boolean = false;
@@ -352,6 +353,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                 .subscribe(this.getStats.bind(this))
         );
         this.ewService.attributes$.next(this.attributes);
+        await this.ewService.getAutoResponsible(this.attributes.UnitId);
     }
 
     protected dataHandler(ref: {
@@ -466,7 +468,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.categories?.forEach((x) => (x.isActive = options.categories.some((o) => o === x.id)));
         this.filters?.forEach((x) => (x.isActive = options.filter === x.code));
         this.priority = options.priority;
-        this.units = options.units;
+        if (!this.placeNames?.length) {
+            this.units = options.units;
+        }
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {

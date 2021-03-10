@@ -68,7 +68,7 @@
           <ng-container *ngIf="displayMode === 'tiled'">
             <div class="quality__main">
               <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
-                <div class="quality__main__gauge element-container">
+                <div *ngIf="!displayNewDesign" class="quality__main__gauge element-container">
                   <div class="card">
                     <div class="card__content">
                       <div class="card__gauge-diagram">
@@ -78,16 +78,20 @@
                           [deviation]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit"
-                               [class.units__unit_active]="!engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
-                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
+                          <div
+                            class="units__unit"
+                            [class.units__unit_active]="!engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
+                            (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
                           >
                             {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
-                          <div class="units__unit"
-                               [class.units__unit_active]="engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
-                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
-                          >%</div>
+                          <div
+                            class="units__unit"
+                            [class.units__unit_active]="engUnitsComparator?.isEngUnitsPercent(card?.gaugeChart?.title)"
+                            (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
+                          >
+                            %
+                          </div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">
@@ -102,13 +106,22 @@
                     </div>
                   </div>
                 </div>
+                <evj-kpe-universal-card
+                  *ngIf="displayNewDesign"
+                  [type]="1"
+                  [gaugeChart]="{
+                    fact: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact,
+                    plan:engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? 100 : card.gaugeChart?.plan,
+                    deviation: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation
+                  }"
+                ></evj-kpe-universal-card>
               </ng-container>
             </div>
           </ng-container>
           <ng-container *ngIf="displayMode === 'line'">
             <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
               <div class="quality__main">
-                <div class="quality__main__gauge__line element-container">
+                <div *ngIf="!displayNewDesign" class="quality__main__gauge__line element-container">
                   <div class="card">
                     <div class="card__content">
                       <div class="card__gauge-diagram">
@@ -118,16 +131,20 @@
                           [deviation]="engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation"
                         ></evj-kpe-gauge-chart>
                         <div class="units">
-                          <div class="units__unit"
-                               [class.units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
-                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
+                          <div
+                            class="units__unit"
+                            [class.units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
+                            (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'units')"
                           >
                             {{ card?.gaugeChart?.unit || 'ед.изм' }}
                           </div>
-                          <div class="units__unit"
-                               [class.units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
-                               (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
-                          >%</div>
+                          <div
+                            class="units__unit"
+                            [class.units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.gaugeChart?.title)"
+                            (click)="engUnitsComparator.setEngUnits(card?.gaugeChart?.title, 'percent')"
+                          >
+                            %
+                          </div>
                         </div>
                       </div>
                       <div class="card__eq-diagram">
@@ -142,6 +159,15 @@
                     </div>
                   </div>
                 </div>
+                <evj-kpe-universal-card
+                  *ngIf="displayNewDesign"
+                  [type]="1"
+                  [gaugeChart]="{
+                    fact: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact,
+                    plan:engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? 100 : card.gaugeChart?.plan,
+                    deviation: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation
+                  }"
+                ></evj-kpe-universal-card>
               </div>
             </ng-container>
           </ng-container>

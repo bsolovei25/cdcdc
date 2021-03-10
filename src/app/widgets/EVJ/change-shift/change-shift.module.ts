@@ -7,10 +7,11 @@ import { UsbVerifierComponent } from './usb-verifier/usb-verifier.component';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [ChangeShiftComponent, CardVerifierComponent, ShiftPersonComponent, UsbVerifierComponent],
-    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule],
+  imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule, MatTooltipModule]
 })
 export class ChangeShiftModule {
     enterComponent = ChangeShiftComponent;

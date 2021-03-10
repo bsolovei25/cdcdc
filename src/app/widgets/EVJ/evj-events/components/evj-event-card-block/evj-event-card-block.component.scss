@@ -34,6 +34,14 @@
       &__unit {
         margin-left: 15px;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        .icon {
+          margin-top: 3px;
+        }
       }
 
       &__status {

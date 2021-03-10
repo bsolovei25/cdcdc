@@ -236,9 +236,11 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     public isCDEvents: boolean = false;
+    public isEDEvents: boolean = false;
 
     public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> = new BehaviorSubject<IEventsWidgetNotificationPreview>(
         null
@@ -290,6 +292,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         switch (this.widgetType) {
             case 'events-ed':
                 filterCondition = 'ed';
+                this.isEDEvents = true;
                 break;
             case 'cd-events':
                 this.isCDEvents = true;
@@ -338,7 +341,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         let filtersIds: number[] = [];
         switch (this.filters.find((x) => x.isActive).code) {
             case 'all':
-                filtersIds = [3001, 3002];
+                filtersIds = this.isEDEvents ? [3001, 3002] : [3001];
                 break;
             case 'closed':
                 filtersIds = [3003];
@@ -727,7 +730,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                     switch (f.code) {
                         case 'all':
                             f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3001).count;
-                            f.notificationsCount += stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
+                            f.notificationsCount += this.isEDEvents ? 0 : stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'closed':
                             f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3003).count;

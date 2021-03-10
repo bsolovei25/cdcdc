@@ -1,3 +1,25 @@
+# [1.5.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.1...v1.5.0) (2021-03-09)
+
+
+### Features
+
+* ** #1324:** add kpe-universal-card ([22c2ff3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/22c2ff3add95218fa3bee7f61b188be408a76c68)), closes [#1324](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1324)
+* **#1256, #1255,  #1338:** kpe new design ([361a38c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/361a38cbb3e81afea5e6189fc914640d61b45b35)), closes [#1256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1256) [#1255](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1255) [#1338](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1338)
+
+## [1.4.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.0...v1.4.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* **front#1233:** "АСТУЭ МНПЗ. Сделать работоспособным умный скрол для области графика" ([1bce968](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1bce96868aa72c9ebc2bfaf9f699663d71c6a018)), closes [front#1233](https://gitlab.funcoff.club/front/issues/1233)
+
+# [1.4.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.3.0...v1.4.0) (2021-03-04)
+
+
+### Features
+
+* ** #1237:** add kpe-quality-reserve-table ([b9a4875](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b9a4875a74f52e34a666e7d409dfb5014b29306f)), closes [#1237](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1237)
+
 # [1.3.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.2.0...v1.3.0) (2021-03-03)
 
 

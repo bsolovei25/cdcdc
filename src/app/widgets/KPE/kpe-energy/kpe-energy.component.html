@@ -40,7 +40,24 @@
           [currentMonth]="displayedMonth"
         ></evj-kpe-deviation-diagram>
       </ng-container>
-      <evj-kpe-energy-tab *ngFor="let tab of data?.tabs" [comparator]="engUnitsComparator" [data]="tab"></evj-kpe-energy-tab>
+      <ng-container *ngIf="!displayNewDesign">
+        <evj-kpe-energy-tab
+          *ngFor="let tab of data?.tabs"
+          [comparator]="engUnitsComparator"
+          [data]="tab"
+        ></evj-kpe-energy-tab>
+      </ng-container>
+      <ng-container *ngIf="displayNewDesign">
+        <evj-kpe-universal-card
+          *ngFor="let tab of data?.tabs"
+          type="2"
+          [gaugeChart]="{
+            fact: data?.diagram?.fact,
+            plan: data?.diagram?.plan,
+            deviation: data?.diagram?.deviation
+          }"
+        ></evj-kpe-universal-card
+      ></ng-container>
     </div>
   </div>
 </div>

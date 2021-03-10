@@ -26,6 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { EvjEventCardBlockComponent } from './components/evj-event-card-block/evj-event-card-block.component';
 import { EvjEventPreviewComponent } from './components/evj-event-preview/evj-event-preview.component';
 import { EventsWorkspaceModule } from '../events-workspace/events-workspace.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { EventsWorkspaceModule } from '../events-workspace/events-workspace.modu
         MatSlideToggleModule,
         MatRippleModule,
         EventsWorkspaceModule,
+        MatCheckboxModule,
     ],
     providers: [],
 })

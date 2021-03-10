@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="info-top">
+    <span class="current"
+      >{{chartValues.currentValue | spaceNumber}}<span
+        class="dev"
+        [ngClass]="{
+          'dev_great': chartValues.devPC > 0,
+          'dev_bad': chartValues.devPC < 0
+         }"
+        >{{chartValues.devPC}}</span
+      ></span
+    >
+    <span class="predict">{{chartValues.predictValue | spaceNumber}}</span>
+  </div>
+  <div class="diagram">
+    <div
+      class="diagram__orangeBold"
+      [style.left.%]="chartData.orangeBold.left"
+      [style.width.%]="chartData.orangeBold.percent"
+    ></div>
+    <div
+      class="diagram__orangeThin"
+      [style.left.%]="chartData.orangeThin.left"
+      [style.width.%]="chartData.orangeThin.percent"
+    ></div>
+    <div
+      class="diagram__greenThin"
+      [style.left.%]="chartData.greenThin.left"
+      [style.width.%]="chartData.greenThin.percent"
+    ></div>
+    <div
+      class="diagram__lightThin"
+      [style.left.%]="chartData.lightThin.left"
+      [style.width.%]="chartData.lightThin.percent"
+    ></div>
+    <div
+      class="diagram__blueLightBold"
+      [style.left.%]="chartData.blueLightBold.left"
+      [style.width.%]="chartData.blueLightBold.percent"
+    ></div>
+    <div
+      class="diagram__greenBold"
+      [style.left.%]="chartData.greenBold.left"
+      [style.width.%]="chartData.greenBold.percent"
+    ></div>
+    <div
+      class="diagram__blueBold"
+      [style.left.%]="chartData.blueBold.left"
+      [style.width.%]="chartData.blueBold.percent"
+    ></div>
+    <div
+      class="diagram__blueLightBold_risk"
+      [style.left.%]="chartData.blueLightBold.left + chartData.blueLightBold.percent"
+    ></div>
+    <div
+      class="diagram__lightThin_risk"
+      [style.left.%]="chartData.blueBold.percent + chartData.greenBold.percent"
+    ></div>
+  </div>
+  <div class="info-bottom">
+    <span class="plan">{{chartValues.planValue | spaceNumber}}</span>
+    <span
+      class="dev"
+      [ngClass]="{
+      'dev_great': chartValues.devPP > 0,
+      'dev_bad': chartValues.devPP < 0
+      }"
+      >{{chartValues.devPP}}</span
+    >
+  </div>
+</div>

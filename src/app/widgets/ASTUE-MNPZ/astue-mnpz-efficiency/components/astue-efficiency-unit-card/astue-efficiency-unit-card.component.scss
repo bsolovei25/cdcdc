@@ -12,12 +12,10 @@
 .card {
   width: 100%;
   height: auto;
-  min-height: 52px;
-  border-radius: 12px;
-  padding-bottom: 12px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  min-height: 40px;
+  border-radius: 2px;
   overflow: hidden;
-  background: var(--color-aw-container-body-transparent);
+  background: var(--color-indicator-bg);
 
   &__header {
     width: 100%;
@@ -31,7 +29,7 @@
     display: flex;
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background: var(--color-aw-header-bg);
+    background: var(--color-new-header-bg);
 
     .click-area {
       position: absolute;

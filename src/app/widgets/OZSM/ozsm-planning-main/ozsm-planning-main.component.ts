@@ -58,6 +58,7 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implement
     private async getData(scenarioId: string): Promise<void> {
         const storageStats = await this.ozsmService.getStorageStats(scenarioId);
         const planningItems = await this.ozsmService.getProductionAllocation(scenarioId);
+
         console.log('planningItems', planningItems);
         this.data$.next({
             storagePercent: storageStats.storagePercent,
@@ -68,7 +69,7 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implement
             },
             items: planningItems.map((x, i) => ({
                 id: i + 1,
-                plan: (100 * x.value) / x.percent,
+                plan: !!x.percent && x.value ? (100 * x.value) / x.percent : 0,
                 ...x,
             })),
         });

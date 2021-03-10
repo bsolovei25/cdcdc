@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IFolderReport } from '../../../components/report/reports.component';
+import { saveAs } from 'file-saver';
 
 @Injectable({
     providedIn: 'root',
@@ -59,5 +60,19 @@ export class ReportsService {
 
     public closeAlert(): void {
         this.alertWindow$.next(null);
+    }
+
+    public async sendScreenshot(screenshot: File): Promise<any> {
+        const body: FormData = new FormData();
+        body.append('file', screenshot);
+        const result = await this.http
+            .post(`${this.restUrl}/api/report-image`, body, {
+                responseType: 'blob' as 'json',
+                observe: 'response',
+            })
+            .toPromise();
+        const filename =
+            (result as any)?.headers?.get('Content-Disposition')?.split(';')[1]?.trim()?.split('=')[1] ?? 'report.xlsx';
+        saveAs((result as any).body, filename);
     }
 }

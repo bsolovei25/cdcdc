@@ -22,6 +22,7 @@ export class EvjEventCardComponent implements OnInit {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+        wasted: 'Отработано'
     };
 
     @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);

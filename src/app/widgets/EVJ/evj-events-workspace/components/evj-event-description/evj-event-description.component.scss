@@ -97,3 +97,8 @@ textarea {
   border-radius: 5px;
   // border: 1px solid #ccc;
 }
+
+.disabled {
+  point-events: none;
+  cursor: not-allowed;
+}
