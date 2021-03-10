@@ -67,6 +67,7 @@
     }
 
     .mat-select-arrow {
+      z-index: 2;
       margin-right: -5px !important;
       background: var(--evj-events-workspace-white);
     }

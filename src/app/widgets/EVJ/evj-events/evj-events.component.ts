@@ -353,6 +353,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                 .subscribe(this.getStats.bind(this))
         );
         this.ewService.attributes$.next(this.attributes);
+        await this.ewService.getAutoResponsible(this.attributes.UnitId);
     }
 
     protected dataHandler(ref: {
