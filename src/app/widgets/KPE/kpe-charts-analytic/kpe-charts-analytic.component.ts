@@ -6,7 +6,7 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import {
     IKpeChartsAnalyticSharedStates,
 } from '../../../dashboard/models/KPE/kpe-charts-analytic.model';
-import { debounceTime, distinctUntilChanged, map, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { KpeChartsAnalyticService } from '../../../dashboard/services/widgets/KPE/kpe-charts-analytic.service';
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { KpeEqualizerChartComponent } from "../shared/kpe-equalizer-chart/kpe-equalizer-chart.component";
