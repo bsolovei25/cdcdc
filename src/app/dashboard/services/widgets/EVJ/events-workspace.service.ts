@@ -491,8 +491,7 @@ export class EventsWorkspaceService {
             fixedBy: null,
             organization: 'АО Газпромнефть',
             priority: this.priority ? (this.priority[2] ? this.priority[2] : this.priority[0]) : undefined,
-            responsibleOperator: this.users.find((u) =>
-                u.unitId === this.attributes$?.getValue()?.UnitId) ?? null,
+            responsibleOperator: this.getResponsible$.getValue() ?? null,
             retrievalEvents: [],
             severity: 'Critical',
             status: this.status
@@ -686,6 +685,7 @@ export class EventsWorkspaceService {
             this.getResponsible$.next(data);
         } catch (e) {
             console.error(e)
+            this.getResponsible$.next(null);
         }
     }
 }
