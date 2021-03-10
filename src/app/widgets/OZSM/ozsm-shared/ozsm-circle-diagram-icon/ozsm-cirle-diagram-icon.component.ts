@@ -14,6 +14,8 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
     @Input() innerIcon: ozsmDiagramInnerIcon = 'cap';
     @Input() data: IOzsmPlanningMainItem = null;
 
+    svg: any;
+
     ngOnInit(): void {}
 
     ngOnChanges(): void {
@@ -25,17 +27,20 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
 
     @AsyncRender
     draw(percent: number): void {
+        if (this.svg) {
+           this.svg.remove();
+        }
         const diagramValue = 3.6 * percent;
-        const svg = d3.select(this.chart.nativeElement).append('svg').attr('width', 66).attr('height', 66);
+        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', 66).attr('height', 66);
 
-        svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 32).attr('class', 'big-circle');
+        this.svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 32).attr('class', 'big-circle');
 
-        svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 26).attr('class', 'small-circle');
+        this.svg.append('circle').attr('cx', 33).attr('cy', 33).attr('r', 26).attr('class', 'small-circle');
 
         // Круговая шкала
         for (let i = 0; i <= 360; i += 5) {
             if (i === 0) {
-                svg.append('rect')
+                this.svg.append('rect')
                     .attr('x', 32.5)
                     .attr('y', 60)
                     .style('transform-origin', 'center center')
@@ -44,7 +49,7 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
                     .attr('height', 4)
                     .attr('class', 'active');
             } else {
-                svg.append('rect')
+                this.svg.append('rect')
                     .attr('x', 32.5)
                     .attr('y', 60)
                     .style('transform-origin', 'center center')
@@ -56,7 +61,7 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
         }
 
         // Указатель
-        svg.append('rect')
+        this.svg.append('rect')
             .attr('x', 32.5)
             .attr('y', 1)
             .style('transform-origin', 'center center')
