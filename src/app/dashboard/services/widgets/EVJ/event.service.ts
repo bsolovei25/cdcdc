@@ -145,7 +145,7 @@ export class EventService {
     }
 
     async postEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
+        return this.http.post(`${saveMethod.data.url}/notifications`, body, saveMethod.options).toPromise();
     }
 
     async postEventRetrieval(body: IEventsWidgetNotification): Promise<IEventsWidgetNotification> {
@@ -159,7 +159,7 @@ export class EventService {
 
     async putEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http
-            .put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options)
+            .put(`${saveMethod.data.url}/notifications/${body.id}`, body, saveMethod.options)
             .toPromise();
     }
 
@@ -261,7 +261,7 @@ export class EventService {
                 return this.http.get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json').toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(saveMethod.data.url + '/api/references/category', saveMethod.options)
+                .get<IAsusCategories[]>(saveMethod.data.url + '/references/category', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -274,7 +274,7 @@ export class EventService {
                 return this.http.get<IAsusWorkgroup[]>('assets/mock/AsusEventsMock/workgroup.json').toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/references/workgroup', saveMethod.options)
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/references/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -287,7 +287,7 @@ export class EventService {
                 return this.http.get<IAsusService[]>('assets/mock/AsusEventsMock/services.json').toPromise();
             }
             return this.http
-                .get<IAsusService[]>(saveMethod.data.url + '/api/references/services', saveMethod.options)
+                .get<IAsusService[]>(saveMethod.data.url + '/references/services', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -300,7 +300,7 @@ export class EventService {
                 return this.http.get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json').toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(saveMethod.data.url + '/api/references/tmplaces', saveMethod.options)
+                .get<IAsusTmPlace[]>(saveMethod.data.url + '/references/tmplaces', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -314,7 +314,7 @@ export class EventService {
             }
             return this.http
                 .get<IAsusTpPlace[]>(
-                    saveMethod.data.url + `/api/references/tplaces?tmSapCode=${codeSap}`,
+                    saveMethod.data.url + `/references/tplaces?tmSapCode=${codeSap}`,
                     saveMethod.options
                 )
                 .toPromise();
@@ -330,7 +330,7 @@ export class EventService {
             }
             return this.http
                 .get<IAsusEOService[]>(
-                    saveMethod.data.url + `/api/references/eoservice?tpSapCode=${codeSap}`,
+                    saveMethod.data.url + `/references/eoservice?tpSapCode=${codeSap}`,
                     saveMethod.options
                 )
                 .toPromise();
@@ -391,7 +391,7 @@ export class EventService {
                 AuthenticationType: saveMethod.data.authenticationType,
             }),
         };
-        const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
+        const url: string = `${saveMethod.data.url}/monitoring/closedeviation`;
         return await this.http.post(url, body, options).toPromise();
     }
 
