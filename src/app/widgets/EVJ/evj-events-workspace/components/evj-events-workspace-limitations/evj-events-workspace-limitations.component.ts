@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    Component,
+    OnInit 
+} from '@angular/core';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+    FormControl,
+    FormGroup
+} from '@angular/forms';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
@@ -57,7 +63,7 @@ export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
 
     private readonly DISPLAY_NAME: string = 'Ограничение';
 
-    private readonly SEPARATOR: string = '\0';
+    private readonly SEPARATOR: string = '***';
 
     constructor(
         private ewService: EventsWorkspaceService,
