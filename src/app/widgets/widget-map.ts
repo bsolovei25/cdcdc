@@ -576,10 +576,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module');
         },
         module: 'KpeChartsAnalyticModule',
-        itemCols: 21,
-        itemRows: 19,
-        minItemCols: 19,
-        minItemRows: 14,
+        itemCols: 32,
+        itemRows: 13,
+        minItemCols: 32,
+        minItemRows: 13,
         preview: 'default',
     },
     'kpe-quality-reserve-table': {

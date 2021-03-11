@@ -1,6 +1,6 @@
 .selects {
   display: flex;
-  gap: 15px;
+  gap: 2%;
   margin-left: 15px;
 
   & > * {
@@ -8,14 +8,13 @@
   }
 
   .option-select {
-    height: 40px;
     display: flex;
     align-items: center;
     margin-left: 2px;
 
     .dropdown {
       height: 24px;
-      width: 150px;
+      width: 140px;
 
       display: flex;
       align-items: center;
