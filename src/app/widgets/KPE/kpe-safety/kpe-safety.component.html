@@ -20,6 +20,7 @@
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart
+            *ngIf="!displayNewDesign"
             #gaugeChart
             isPercent="true"
             [background]="'dark'"
@@ -27,6 +28,11 @@
             [plan]="deviationDiagramData?.plan"
             [deviation]="deviationDiagramData?.deviation"
           ></evj-kpe-gauge-chart>
+          <evj-kpe-gauge-chart-multi-color
+            #gaugeChart
+            [type]="1"
+            *ngIf="displayNewDesign"
+          ></evj-kpe-gauge-chart-multi-color>
         </div>
         <div class="readiness__header__chart">
           <evj-kpe-deviation-diagram
@@ -62,10 +68,16 @@
                 </div>
                 <div class="gauge-card__diagram">
                   <evj-kpe-gauge-chart
+                    *ngIf="!displayNewDesign"
                     [fact]="engUnitsComparator.isEngUnitsPercent(card?.title) ? card?.percentage : card?.fact"
                     [plan]="engUnitsComparator.isEngUnitsPercent(card?.title) ? 100 : card?.plan"
                     [deviation]="engUnitsComparator.isEngUnitsPercent(card?.title) ? card?.deviationPercentage : card?.deviation"
                   ></evj-kpe-gauge-chart>
+
+                  <evj-kpe-gauge-chart-multi-color
+                    [type]="3"
+                    *ngIf="displayNewDesign"
+                  ></evj-kpe-gauge-chart-multi-color>
                 </div>
                 <div class="gauge-card__label">{{ card?.title }}</div>
               </div>
