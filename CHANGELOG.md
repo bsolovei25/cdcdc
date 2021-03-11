@@ -1,3 +1,15 @@
+# [1.6.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.5.0...v1.6.0) (2021-03-11)
+
+
+### Bug Fixes
+
+* **front#1160:** "Доработка БП по рабочей области событий Ограничения" ([597d063](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/597d063d18cf46a6037b15b9f0986b5bd5e59955)), closes [front#1160](https://gitlab.funcoff.club/front/issues/1160)
+
+
+### Features
+
+* **front#1160:** "Доработка БП по рабочей области событий Ограничения" ([0c15997](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0c15997ffb7a40e84fd0973e8a5f1606afa10040)), closes [front#1160](https://gitlab.funcoff.club/front/issues/1160)
+
 # [1.5.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.4.1...v1.5.0) (2021-03-09)
 
 
