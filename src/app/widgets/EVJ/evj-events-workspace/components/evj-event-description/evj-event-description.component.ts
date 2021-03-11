@@ -21,7 +21,8 @@ export class EvjEventDescriptionComponent implements OnInit, AfterViewInit {
 
     constructor(public ewService: EventsWorkspaceService) {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+    }
 
     public ngAfterViewInit(): void {
         this.disableTextarea();
