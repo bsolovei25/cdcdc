@@ -335,12 +335,7 @@ export class EventsWorkspaceService {
     public async accept(data: IKpeNotification): Promise<void> {
         try {
             const res = await this.kpeWorkspaceService.postKpeNotificationParameters(this.event, data);
-            this.event.kpeAdditionalParameter = {
-                selectedParameterId: res.selectedParameter.id,
-                dependentParameters: res.dependentParameters,
-                createdAt: res.createdAt,
-                createdBy: res.createdBy,
-            };
+            this.event.kpeAdditionalParameter = res;
         } catch (error) {
             console.error(error);
         }

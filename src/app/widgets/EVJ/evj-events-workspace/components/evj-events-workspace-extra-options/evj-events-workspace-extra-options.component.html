@@ -83,7 +83,7 @@
                     <div class="event-mat-select">
                       <mat-form-field class="example-full-width">
                         <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
-                          <mat-option *ngFor="let p of dependentParameters" [value]="p">{{p?.name}}</mat-option>
+                          <mat-option *ngFor="let p of dependentParameters" [value]="p.id">{{p?.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
