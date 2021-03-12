@@ -9,21 +9,21 @@ import {
     IKpeNotification,
     IKpeWorkspaceParameter,
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IMessage } from '@shared/models/message.model';
 
 @Component({
-    selector: "evj-evj-events-workspace-extra-options",
-    templateUrl: "./evj-events-workspace-extra-options.component.html",
-    styleUrls: ["./evj-events-workspace-extra-options.component.scss"]
+    selector: 'evj-evj-events-workspace-extra-options',
+    templateUrl: './evj-events-workspace-extra-options.component.html',
+    styleUrls: ['./evj-events-workspace-extra-options.component.scss'],
 })
 export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public info: IExtraOptionsWindow = {
         data: null,
         isShow: false,
         acceptFunction: () => null,
-        closeFunction: () => null
+        closeFunction: () => null,
     };
     @Output() checked: any = new EventEmitter<boolean>();
 
@@ -42,8 +42,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         private kpeWorkspaceService: KpeWorkspaceService,
         private authService: AuthService,
         private formBuild: FormBuilder
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.loadData();
@@ -81,27 +80,28 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             this.getParametersByNotification();
             this.oldMessage = this.notificationDataToDescription(this.ewService.event.kpeAdditionalParameter);
         } else {
-            this.oldMessage = this.notificationDataToDescription(this.notificationParametersData)
+            this.oldMessage = this.notificationDataToDescription(this.notificationParametersData);
         }
         this.getParameters();
         this.getExtraParameters();
         if (this.ewService.event.id && this.ewService.event.kpeAdditionalParameter) {
             const controls = [];
             this.ewService.event.kpeAdditionalParameter.dependentParameters.forEach((value) => {
-                controls.push(new FormGroup({
+                controls.push(
+                    new FormGroup({
                         dependentParameterId: new FormControl(value.dependentParameterId),
-                        numericValue: new FormControl(value.numericValue)
-                    }
-                ));
+                        numericValue: new FormControl(value.numericValue),
+                    })
+                );
             });
             this.form = new FormGroup({
                 parameters: new FormControl(this.ewService.event.kpeAdditionalParameter.selectedParameter),
-                dependentParameters: new FormArray(controls)
+                dependentParameters: new FormArray(controls),
             });
         } else {
             this.form = new FormGroup({
                 parameters: new FormControl(null),
-                dependentParameters: new FormArray([])
+                dependentParameters: new FormArray([]),
             });
         }
     }
@@ -112,18 +112,21 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
         dependentParameters?.forEach((param) => {
+            const paramDep = this.dependentParameters.find(value => value.id === param.dependentParameterId)
             this.formArray = this.form.get('dependentParameters') as FormArray;
-            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue));
+            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue, paramDep?.units));
         });
     }
 
     createFormGroup(
         dependentParameterId: number = this.dependentParameters[0].id,
-        numericValue: number = 0
+        numericValue: number = 0,
+        units: string = ''
     ): FormGroup {
         return this.formBuild.group({
             dependentParameterId,
-            numericValue
+            numericValue,
+            units,
         });
     }
 
@@ -171,13 +174,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             }
             const popupWindow: IExtraOptionsWindow = {
                 isShow: false,
-                type: 'reset'
+                type: 'reset',
             };
             this.ewService.extraOptionsWindow$.next(popupWindow);
         } catch {
             const popupWindow: IExtraOptionsWindow = {
                 isShow: false,
-                type: 'save'
+                type: 'save',
             };
             this.ewService.extraOptionsWindow$.next(popupWindow);
         }
@@ -187,7 +190,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     public cancel(): void {
         const popupWindow: IExtraOptionsWindow = {
             isShow: false,
-            type: 'cancel'
+            type: 'cancel',
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
         this.formArray?.clear();
@@ -213,14 +216,14 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             return {
                 numericValue: value.numericValue,
                 dependentParameterId: id,
-                name: this.dependentParameters[value.dependentParameterId - 1].name
+                name: this.dependentParameters[value.dependentParameterId - 1].name,
             };
         });
         this.notificationParametersData = {
             selectedParameter: this.form.value.parameters,
             dependentParameters,
             createdAt: new Date(),
-            createdBy: this.authService.user$.getValue().id
+            createdBy: this.authService.user$.getValue().id,
         };
         this.ewService.event.facts.forEach((v, index) => {
             if (v.comment === this.oldMessage) {
@@ -248,7 +251,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         }
         const popupWindow: IExtraOptionsWindow = {
             type: 'save',
-            isShow: false
+            isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
@@ -261,12 +264,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             acceptText: 'Да',
             cancelText: 'Нет',
             acceptFunction: () => this.deleteParametersByNotification(),
-            closeFunction: () => this.ewService.ewAlertInfo$.next(null)
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(alertWindow);
         const popupWindow: IExtraOptionsWindow = {
             isShow: false,
-            type: 'reset'
+            type: 'reset',
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
@@ -277,7 +280,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             this.ewService.event.facts[this.index].comment = this.notificationDataToDescription(data);
         } else {
             this.ewService.event.facts.push({
-                comment: this.notificationDataToDescription(data)
+                comment: this.notificationDataToDescription(data),
             } as IMessage);
         }
     }
@@ -285,12 +288,15 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     public notificationDataToDescription(data: IKpeAdditionalParameter): string {
         const description: string[] = [];
         let result: string = '';
-
         description.push(data?.selectedParameter?.name);
         data?.dependentParameters?.forEach((value) => {
-            value.unit ?
-                description.push(value.name + ' ' + value?.numericValue?.toString() + ' ' + value?.unit?.toString())
-                : description.push(value.name + ' ' + value?.numericValue?.toString());
+            description.push(
+                value.name +
+                    ' ' +
+                    value?.numericValue?.toString() +
+                    ' ' +
+                    this.dependentParameters[value.dependentParameterId]?.units.toString()
+            );
         });
         result = '\n'.concat(description.join(';\n'));
         return result;

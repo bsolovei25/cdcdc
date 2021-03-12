@@ -5,7 +5,7 @@ export interface IKpeWorkspaceParameter {
 export interface IKpeAllDependentParameters {
     id?: number;
     name: string;
-    unit?: string;
+    units?: string;
     dependentParameterId?: number;
     numericValue?: number;
     createdAt?: Date;
