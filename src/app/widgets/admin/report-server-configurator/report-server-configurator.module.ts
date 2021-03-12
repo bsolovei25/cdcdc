@@ -39,6 +39,9 @@ import { SystemPeriodDateYearComponent } from './popup-system-options/system-per
 import { SystemPeriodEditComponent } from './popup-system-options/system-period-edit/system-period-edit.component';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 import { TreeModule } from '@circlon/angular-tree-component';
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { ReportNameConfiguratorComponent } from './report-name-configurator/report-name-configurator.component';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
     declarations: [
@@ -61,6 +64,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
         SystemPeriodDateMonthComponent,
         SystemPeriodDateDayComponent,
         SystemPeriodDateComponent,
+        ReportNameConfiguratorComponent,
     ],
     imports: [
         CommonModule,
@@ -83,6 +87,8 @@ import { TreeModule } from '@circlon/angular-tree-component';
         ReactiveFormsModule,
         MatSelectModule,
         TreeModule,
+        MatDialogModule,
+        MatSlideToggleModule
     ],
     exports: [
         SystemPeriodDateYearComponent,
