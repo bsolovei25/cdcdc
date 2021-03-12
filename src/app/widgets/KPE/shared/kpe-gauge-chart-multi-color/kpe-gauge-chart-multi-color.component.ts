@@ -26,6 +26,8 @@ interface IChartConfig {
 export class KpeGaugeChartMultiColorComponent implements OnInit {
     @ViewChild('chart') chart: ElementRef;
     @Input() type: number;
+    @Input() showAxisValues: boolean = true;
+    @Input() isPerformance: boolean = false; // В performance екст отличается от остальных текстов под диаграммой
 
     readonly chartConfig: IChartConfig[] = [
         {
@@ -33,7 +35,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
             sectionColorsIndex: [2, 3, 4],
             serifColorsIndex: [2, 4],
             centralSerifColorIndex: 3,
-            scale: 0.92,
+            scale: 0.88,
             gauge: {
                 total: 100,
                 unit: '%',
@@ -44,10 +46,10 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
             },
         },
         {
-            diagramWidth: 5,
+            diagramWidth: 6,
             sectionColorsIndex: [1, 2, 3],
             serifColorsIndex: [1, 2],
-            scale: 0.92,
+            scale: 0.88,
             gauge: {
                 total: 97.1,
                 unit: '%',
@@ -62,7 +64,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
             sectionColorsIndex: [1, 2, 3, 2, 1],
             serifColorsIndex: [1, 2, 2, 1],
             centralSerifColorIndex: 3,
-            scale: 0.92,
+            scale: 0.88,
             gauge: {
                 total: 100,
                 unit: '%',
@@ -77,7 +79,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
             sectionColorsIndex: [2, 1],
             serifColorsIndex: [],
             centralSerifColorIndex: 2,
-            scale: 0.92,
+            scale: 0.88,
             gauge: {
                 total: 50,
                 unit: 'шт',
@@ -106,8 +108,8 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
 
         const gauge = this.chartConfig[this.type].gauge // Временная мера для разнообразия
 
-        const width = 75;
-        const height = 75;
+        const width = 76;
+        const height = 76;
 
         const outerRadius = width / 2 - 2;
         const innerRadius = outerRadius - diagramWidth;
@@ -119,7 +121,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
         const svg = d3
             .select(this.chart.nativeElement)
             .append('svg')
-            .attr('viewBox', `0 0 75 75`)
+            .attr('viewBox', `0 0 76 76`)
             .append('g')
             .attr('transform', `translate(${width / 2} , ${height / 2})`);
 
@@ -162,14 +164,14 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
                 shadow = d3
                     .arc()
                     .innerRadius(16)
-                    .outerRadius(outerRadius - 8)
+                    .outerRadius(outerRadius - 10)
                     .startAngle(arrowAngle > 0 ? -0.5 * Math.PI : 0.5 * Math.PI)
                     .endAngle(-0.008 * Math.PI);
             } else if (this.type === 1){
                 shadow = d3
                     .arc()
                     .innerRadius(16)
-                    .outerRadius(outerRadius - 8)
+                    .outerRadius(outerRadius - 10)
                     .startAngle(0.5 * Math.PI)
                     .endAngle(-0.008 * Math.PI);
             }
@@ -247,9 +249,15 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-        addText(gauge.unit, 'unit', 25);
-        addText('+5', 'axis-value', -25, 31);
-        addText('+5', 'axis-value', -25, -31);
+
+        if (!this.isPerformance) {
+            addText(gauge.unit, 'unit', 25);
+        }
+
+        if (this.showAxisValues) {
+            addText('+5', 'axis-value', -25, 31);
+            addText('+5', 'axis-value', -25, -31);
+        }
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
