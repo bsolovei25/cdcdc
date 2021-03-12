@@ -1,22 +1,22 @@
 .chart {
   ::ng-deep {
     .total {
-      font-size: 13px;
-      line-height: 16px;
+      font-size: 11px;
+      line-height: 14px;
 
       fill: #FFFFFF;
     }
 
     .deviation{
-      font-size: 9px;
-      line-height: 12px;
+      font-size: 7px;
+      line-height: 10px;
 
       fill: #F7931E;
     }
 
     .unit {
-      font-size: 9px;
-      line-height: 12px;
+      font-size: 7px;
+      line-height: 10px;
 
       fill: #606580;
     }
@@ -36,8 +36,8 @@
     .axis-value {
       fill: #606580;
 
-      font-size: 9px;
-      line-height: 12px;
+      font-size: 7px;
+      line-height: 10px;
     }
 
     .diagram-section{
