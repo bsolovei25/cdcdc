@@ -31,7 +31,6 @@
     background: var(--evj-events-workspace-responsible-bg);
     height: 100%;
     width: 88%;
-    z-index: 1;
 
     .name_user {
       height: 100%;
@@ -61,14 +60,13 @@
     }
 
     .mat-form-field {
+      width: 100%;
       .mat-form-field-underline {
         display: none !important;
       }
     }
 
     .mat-select-arrow {
-      z-index: 2;
-      margin-right: -5px !important;
       background: var(--evj-events-workspace-white);
     }
   }
