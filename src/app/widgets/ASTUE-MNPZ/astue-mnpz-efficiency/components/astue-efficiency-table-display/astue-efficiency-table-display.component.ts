@@ -83,20 +83,20 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                         const newRows = [];
                         row.rows.forEach((rows) => {
                             const values = [];
-                            rows.columns.forEach((col) => {
+                            rows.values.forEach((col) => {
                                 values.push({
-                                    date: col.timestamp,
+                                    date: col.date,
                                     value: col.value,
                                     isEditable: col.editable,
                                 });
                             });
                             newRows.push({
-                                name: rows.title,
+                                name: rows.name,
                                 values,
                             });
                         });
                         this.displayData.push({
-                            name: row.title,
+                            name: row.name,
                             rows: newRows,
                         });
                     });
@@ -105,20 +105,20 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                         const children = [];
                         row.rows.forEach((rows) => {
                             const data = [];
-                            rows.columns.forEach((col) => {
+                            rows.values.forEach((col) => {
                                 data.push({
-                                    date: col.timestamp,
+                                    date: col.date,
                                     value: col.value,
                                     isEditable: col.editable,
                                 });
                             });
                             children.push({
-                                name: rows.title,
+                                name: rows.name,
                                 data,
                             });
                         });
                         this.deviationsData.push({
-                            name: row.title,
+                            name: row.name,
                             children,
                         });
                     });
@@ -193,8 +193,22 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     }
 
     getTable(): void {
+        let query = '';
         const units = this.AsEfService.selectionUnit$.getValue();
-        const url = `${this.restUrl}/api/astue-service/Astue/unit/${units[0].id}/export`;
+        const dates = this.widgetService.currentDates$.getValue();
+        this.AsEfService.selectionProduct$.getValue().forEach((value) => {
+            query += `?productId=${value.id}`;
+        });
+        units.forEach((value) => {
+            query += `&unitId=${value.id}`;
+        });
+        this.AsEfService.selectionFlow$.getValue().forEach((value) => {
+            query += `&flowId=${value.id}`;
+        });
+        if (dates) {
+            query += `&startTime=${dates.fromDateTime.toISOString()}&endTime=${dates.toDateTime.toISOString()}`;
+        }
+        const url = `${this.restUrl}/api/astue-service/Astue/export${query}`;
         this.fileSaver(url);
     }
 

@@ -33,7 +33,7 @@
       <div
         class="content__value value"
         *ngFor="let unit of units"
-        [ngClass]="{'card_active':unitSelection.isSelected(unit)}"
+        [ngClass]="{'card_active': isSelectionUnit(unit)}"
         (click)="onSelectUnitPlanning(unit)"
       >
         {{unit.name}}
