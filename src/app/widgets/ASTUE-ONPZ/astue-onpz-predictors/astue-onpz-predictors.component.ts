@@ -54,8 +54,9 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
     protected dataConnect(): void {
         super.dataConnect();
         this.setOptionsWs(this.id);
+
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions?.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
                 this.selectPredictors.clear();
                 this.astueOnpzService.setPredictors(this.id, []);
                 this.data = [];
@@ -69,15 +70,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        this.data = ref.predictors.filter((item) => !item.isHidden);
-        if (ref.predictors[0]?.id === '0') {
-            console.log('ID предиктора равна 0'); // проверка данных с backend
-        }
-        this.subscriptions.push(
-            this.astueOnpzService.colors$.subscribe((value) => {
-                this.colors = value;
-            })
-        );
     }
 
     changeToggle(item: IPredictors, color: number): void {
@@ -104,6 +96,18 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
             id: string;
         }>(this.widgetId);
         const subchannelId = channels.find((x) => x.name === options.fuel).id;
-        this.setWsOptions({ subchannelId });
+        const res = await this.widgetService.getChannelLiveDataFromWs(subchannelId, this.widgetId);
+
+        res.subscribe((value: { predictors: IPredictors[] }) => {
+            this.data = value.predictors.filter((item) => !item.isHidden);
+            if (value.predictors[0]?.id === '0') {
+                console.log('ID предиктора равна 0'); // проверка данных с backend
+            }
+            this.subscriptions.push(
+                this.astueOnpzService.colors$.subscribe((color) => {
+                    this.colors = color;
+                })
+            );
+        })
     }
 }
