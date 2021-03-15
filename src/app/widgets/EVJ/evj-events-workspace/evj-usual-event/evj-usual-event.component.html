@@ -5,7 +5,7 @@
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <div class="workspace__header">
-    <div class="select-container-left">
+    <div class="select-container">
       <div class="title">
         <span>Категория</span>
       </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="select-container-right">
+    <div class="select-container">
       <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"> </evj-events-workspace-select>
     </div>
   </div>
@@ -75,13 +75,13 @@
           </div>
         </div>
         <div class="place-date">
-          <div class="select-container-left">
+          <div class="select-container">
             <evj-events-workspace-select
               [label]="'Тип происшествия'"
               [dataType]="'eventType'"
             ></evj-events-workspace-select>
           </div>
-          <div class="select-container-right">
+          <div class="select-container">
             <div class="title">
               <span>Номер позиции</span>
             </div>
@@ -206,7 +206,7 @@
 
     <div class="workspace__third__right">
       <div class="place-date">
-        <div class="select-container-left">
+        <div class="select-container">
           <div class="creator">
             <div class="title">
               <span>Автор</span>
@@ -225,33 +225,40 @@
           </div>
         </div>
 
-        <div class="select-container-right">
+        <div class="select-container">
           <evj-events-workspace-datetimepicker [label]="'Начало события'" [date]="ewService.event.eventDateTime">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
 
       <div class="place-date">
-        <div class="select-container-left">
+        <div class="select-container">
           <div class="title">
             <span>Место</span>
           </div>
           <evj-events-place></evj-events-place>
         </div>
-        <div class="select-container-right">
+        <div class="select-container">
           <evj-events-workspace-datetimepicker [label]="'Срок исполнения'" [date]="ewService.event.deadline">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
-      <div class="place-date">
-        <div class="select-container-left">
-          <evj-events-workspace-responsible-select [smallView]="true"></evj-events-workspace-responsible-select>
+      <ng-container *ngIf="!ewService.event?.limitationsEnabled">
+        <div class="responsible">
+          <evj-events-workspace-responsible-select></evj-events-workspace-responsible-select>
         </div>
-        <div class="select-container-right">
-          <evj-events-workspace-datetimepicker [label]="'Продолжительность'" [date]="countDifference()" [disabled]="true">
-          </evj-events-workspace-datetimepicker>
+      </ng-container>
+      <ng-container *ngIf="ewService.event?.limitationsEnabled">
+        <div class="place-date">
+          <div class="select-container">
+            <evj-events-workspace-responsible-select [smallView]="true"></evj-events-workspace-responsible-select>
+          </div>
+          <div class="select-container">
+            <evj-events-workspace-datetimepicker [label]="'Продолжительность'" [date]="countDifference()" [disabled]="true">
+            </evj-events-workspace-datetimepicker>
+          </div>
         </div>
-      </div>
+      </ng-container>
       <br>
       <div class="events-correct">
         <div class="title">
