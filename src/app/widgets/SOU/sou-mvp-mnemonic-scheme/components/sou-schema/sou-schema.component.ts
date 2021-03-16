@@ -286,7 +286,12 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         // Percent
         if (elementFull?.metaFile) {
             if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.valueMomentPercent)}%`);
+                this.addTextToTspan(
+                    elementFull.textPercent,
+                    elementFull?.metaFile?.valueMomentPercent
+                        ? `${String(elementFull?.metaFile?.valueMomentPercent)}%`
+                        : `${String(elementFull?.metaFile?.tolerance)}%`
+                );
                 elementFull?.textPercent?.classList.remove(
                     'standard-text',
                     'deviation-text',
