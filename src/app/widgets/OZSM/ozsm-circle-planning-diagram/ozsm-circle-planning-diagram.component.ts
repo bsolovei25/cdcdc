@@ -46,16 +46,16 @@ export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown> 
         res = res[0];
         this.pData = [
             {
-                name: 'производства',
-                value: res.ship.value,
-                deviation: res.ship.deviation,
-                percentValue: res.ship.percent,
-            },
-            {
-                name: 'отгрузки',
+                name: 'переработки',
                 value: res.summary.value,
                 deviation: res.summary.deviation,
                 percentValue: res.summary.percent,
+            },
+            {
+                name: 'отгрузки',
+                value: res.ship.value,
+                deviation: res.ship.deviation,
+                percentValue: res.ship.percent,
             },
         ];
         this.cData = [
