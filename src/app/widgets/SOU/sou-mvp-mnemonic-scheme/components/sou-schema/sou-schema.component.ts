@@ -81,7 +81,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) && this.flag) {
+        if (document.querySelector(`#element-1_1__${this.getSvgName(this.localChosenInstall)}`) && this.flag) {
             this.flag = false;
             this.loadSchema();
             if (this.sectionsDataPark.length) {
@@ -651,6 +651,8 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 return 'collector-ref';
             case 'КПА С100':
                 return 'kpa-c100';
+            case 'Л-35-11-1000':
+                return 'l-35-11-200';
         }
     }
 }
