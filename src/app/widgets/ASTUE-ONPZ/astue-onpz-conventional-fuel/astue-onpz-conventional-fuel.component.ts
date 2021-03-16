@@ -27,11 +27,17 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     public data: IMultiChartLine[] = [];
     public colors: Map<string, number>;
     public unitName: string = '';
+    public showCurrent: boolean = true;
 
     public isPredictors: boolean = false;
     public options: IMultiChartOptions = {
         isIconsShowing: false,
     };
+
+    public currentValues: {
+        plan: number,
+        fact: number
+    }
 
     public sbWidth: number = 100;
     public sbLeft: number = 0;
@@ -122,6 +128,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                     return;
                 }
                 this.data = !!data ? this.multilineDataMapper(data) : [];
+                this.currentValues = {
+                    plan: this.data.find(item => item.graphType === 'plan')?.currentValue,
+                    fact: this.data.find(item => item.graphType === 'fact')?.currentValue
+                }
                 console.log(this.data);
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
@@ -169,5 +179,15 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
             });
         });
         return ref;
+    }
+
+    public mouseOnGraph(): void {
+        this.onMouseEnter();
+        this.showCurrent = false;
+    }
+
+    public mouseLeaveGraph(): void {
+        this.onMouseExit();
+        this.showCurrent = true;
     }
 }
