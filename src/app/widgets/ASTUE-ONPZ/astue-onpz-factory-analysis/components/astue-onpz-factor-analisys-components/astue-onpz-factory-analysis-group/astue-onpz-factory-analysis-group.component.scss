@@ -22,8 +22,8 @@
       text-align: center;
       font-size: 11px;
       color: var(--astue-onpz-factory-analisys-label);
-      @include text-overflow;
-      -webkit-line-clamp: 2;
+      @include text-overflow-old;
+      max-height: 2.4em;
     }
   }
 }
