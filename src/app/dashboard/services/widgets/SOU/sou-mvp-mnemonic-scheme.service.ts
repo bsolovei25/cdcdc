@@ -27,6 +27,7 @@ export class SouMvpMnemonicSchemeService {
     redirectMnemonic(linkId: string): void {
         console.log('redirect', linkId);
         if (!linkId) {
+            console.warn('redirect mnemonic no id', linkId);
             return;
         }
         this.redirectId$.next(linkId);
