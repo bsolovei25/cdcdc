@@ -10,7 +10,7 @@
 
   <evj-frame-top></evj-frame-top>
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
-  <evj-workflow-table [data]="alertWorkspaceTable"> </evj-workflow-table>
+  <evj-workflow-table [data]="alertWorkspaceTable"></evj-workflow-table>
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" #content>
     <div class="workflow">
@@ -26,7 +26,7 @@
               <div
                 class="workflow__action__body__item"
                 [draggable]="true"
-                (dragstart)="dragStartHandler($event, 'GraduationTableEvent')"
+                (dragstart)="dragStartHandler($event, actions[1].uid)"
               >
                 <svg-icon
                   class="workflow__action__body__item__icon"
@@ -37,7 +37,7 @@
               </div>
               <div
                 class="workflow__action__body__item"
-                (dragstart)="dragStartHandler($event, 'SendEmail')"
+                (dragstart)="dragStartHandler($event, actions[0].uid)"
                 draggable="true"
               >
                 <svg-icon
@@ -94,22 +94,20 @@
                     [class.workflow__scenario__body__top__gridster__item--active]="activeActions === i"
                     [id]="i.scenarioAction"
                   >
-                    <ng-container [ngSwitch]="i.type">
-                      <svg-icon
-                        *ngSwitchCase="workflowActions.GRADUATION_TABLE_EVENT"
-                        [matTooltip]="workflowActionsNameMap[workflowActions.GRADUATION_TABLE_EVENT]"
-                        class="workflow__action__body__item__icon"
-                        src="assets/icons/widgets/workflow/action-other.svg"
-                        [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
-                      ></svg-icon>
-                      <svg-icon
-                        *ngSwitchCase="workflowActions.SEND_EMAIL"
-                        [matTooltip]="workflowActionsNameMap[workflowActions.SEND_EMAIL]"
-                        class="workflow__action__body__item__icon"
-                        src="assets/icons/widgets/workflow/message_w.svg"
-                        [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
-                      ></svg-icon>
-                    </ng-container>
+                    <svg-icon
+                      *ngIf="isSendMail(i.type)"
+                      [matTooltip]="workflowActionsNameMap[workflowActions.SEND_EMAIL]"
+                      class="workflow__action__body__item__icon"
+                      src="assets/icons/widgets/workflow/message_w.svg"
+                      [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
+                    ></svg-icon>
+                    <svg-icon
+                      *ngIf="isTableEvent(i.type)"
+                      [matTooltip]="workflowActionsNameMap[workflowActions.GRADUATION_TABLE_EVENT]"
+                      class="workflow__action__body__item__icon"
+                      src="assets/icons/widgets/workflow/action-other.svg"
+                      [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
+                    ></svg-icon>
                     <svg-icon
                       *ngIf="activeActions === i"
                       (click)="deleteAction(i.scenarioAction)"
@@ -150,7 +148,7 @@
                     panelClass="combo-box_selectbox"
                     (selectionChange)="chooseActionScenario($event)"
                   >
-                    <mat-option *ngFor="let p of comboAction?.source" [value]="p">{{p}}</mat-option>
+                    <mat-option *ngFor="let p of comboAction?.source" [value]="p">{{p.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
