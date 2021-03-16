@@ -216,6 +216,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             (x) => x.units?.findIndex((u) => u?.id === unit) !== -1
         )?.name;
         if (!manufacture || !unit || !section) {
+            console.warn('redirect mnemonic: no such reference', id);
             return;
         }
         this.optionsGroup.get('manufacture').setValue(manufacture);
