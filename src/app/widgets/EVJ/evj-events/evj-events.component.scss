@@ -920,6 +920,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   flex: 1;
   gap: 15px;
   margin-right: 5px;
@@ -937,8 +938,12 @@
     fill: var(--color-kpe-gaude-deviation);
 
     &_bell {
+      color: var(--color-kpe-gaude-deviation);
       cursor: pointer;
-      margin-right: 10px;
+
+      &--active {
+        color: var(--color-border-active);
+      }
     }
   }
 }
