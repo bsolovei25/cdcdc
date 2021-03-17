@@ -480,7 +480,6 @@ export class EventsWorkspaceService {
             description: '',
             deviationReason: '',
             directReasons: '',
-            establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: null,

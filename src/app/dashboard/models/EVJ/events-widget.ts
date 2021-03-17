@@ -58,7 +58,6 @@ export interface IEventsWidgetNotification {
     facts?: IMessage[];
     priority: IPriority;
     deviationReason?: string; // Причина отклонения
-    establishedFacts: string; // Установленные факты
     eventType?: { id: number; name: string }; // Тип происшествия
     directReasons?: string; // Непосредственные/прямые причины
     description: string; // Описание
