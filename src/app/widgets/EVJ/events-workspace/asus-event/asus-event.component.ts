@@ -82,7 +82,11 @@ export class AsusEventComponent implements OnInit {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getReferenceMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event, saveMethod);
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(
+                event,
+                saveMethod,
+                this.ewService.event?.id
+            );
         } catch (e) {
             console.error(e);
         } finally {
