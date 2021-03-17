@@ -9,6 +9,8 @@ import { IInstallation } from '../../../../../dashboard/models/SOU/sou-main-scre
     styleUrls: ['./sou-installation-card.component.scss'],
 })
 export class SouInstallationCardComponent implements OnInit {
+    private readonly redirectWidget: string = 'sou-operational-accounting-system-main';
+
     @Input() installation: IInstallation;
 
     constructor(private userSettingsService: UserSettingsService, private mvpService: SouMvpMnemonicSchemeService) {}
@@ -16,13 +18,7 @@ export class SouInstallationCardComponent implements OnInit {
     ngOnInit(): void {}
 
     public openInstallation(event: MouseEvent): void {
-        if (this.installation.widgetName) {
-            this.userSettingsService.loadScreenByWidget(this.installation.widgetName);
-            this.mvpService.selectedManufactures$.next({
-                index: this.installation.installationId,
-                name: '',
-            });
-            return;
-        }
+        this.userSettingsService.loadScreenByWidget(this.redirectWidget).then();
+        this.mvpService.redirectMnemonic(this.installation.id);
     }
 }
