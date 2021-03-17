@@ -12,8 +12,8 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 import { animationsArray } from './sou-mvp-mnemonic-scheme.animations';
 import { SouMvpMnemonicSchemeFooterComponent } from './components/sou-mvp-mnemonic-scheme-footer/sou-mvp-mnemonic-scheme-footer.component';
 import { SouMvpMnemonicSchemeViewComponent } from './components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component';
@@ -101,7 +101,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.mvpService.redirectId$.subscribe(this.redirect.bind(this)),
+            combineLatest([this.mvpService.redirectId$, this.subChannels$])
+                .pipe(
+                    filter((ref) => !!ref[0] && !!ref[1]),
+                    map((ref) => ref[0])
+                )
+                .subscribe(this.redirect.bind(this)),
             this.optionsGroup.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe((x) => {
                 this.mvpService.closePopup();
                 this.setSubchannelBySelection(x.section, x.unit);
@@ -208,6 +213,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     private redirect(id: string): void {
+        this.mvpService.dropRedirectMnemonic();
         const section: string = id;
         const unit: string = this.options$?.value?.manufactures
             ?.flatMap((x) => x.units)
