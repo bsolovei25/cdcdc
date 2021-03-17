@@ -141,17 +141,19 @@
             </div>
             <div class="workflow__scenario__body__bottom" #splitBottom>
               <!-- Combo -->
-              <div class="combo-box" *ngIf="comboAction">
-                <mat-form-field class="combo-box_selectbox">
-                  <mat-select
-                    [(ngModel)]="comboAction.value"
-                    panelClass="combo-box_selectbox"
-                    (selectionChange)="chooseActionScenario($event)"
-                  >
-                    <mat-option *ngFor="let p of comboAction?.source" [value]="p">{{p.name}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+              <ng-container *ngFor="let item of comboAction">
+                <div class="combo-box" *ngIf="comboAction">
+                  <mat-form-field class="combo-box_selectbox">
+                    <mat-select
+                      [(ngModel)]="item.value"
+                      panelClass="combo-box_selectbox"
+                      (selectionChange)="chooseActionScenario($event, item)"
+                    >
+                      <mat-option *ngFor="let p of item.source" [value]="p">{{p.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </ng-container>
               <!-- Email -->
               <div class="email" *ngIf="emailAction.length > 0">
                 <ng-container *ngFor="let email of emailAction">

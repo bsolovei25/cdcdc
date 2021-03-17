@@ -150,7 +150,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     // tableAction: IActionTable[] = [];
     // tableActionProp: IActionTableProp[] = [];
-    comboAction: IActionCombobox;
+    comboAction: IActionCombobox[] = [];
     emailAction: IActionEmail[] = [];
     emailPropAction: IActionEmailProps[] = [];
     emailPropActionUI: IActionEmailPropsUI = {
@@ -892,11 +892,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (el) {
                 this.propsAction(ans);
             } else {
-                this.comboAction = null;
-                if (this.comboAction) {
-                    this.comboAction = { ...this.comboAction, ...ans?.[0] };
+                this.comboAction = [];
+                if (this.comboAction.length) {
+                    this.comboAction = [...this.comboAction, ...ans];
                 } else {
-                    this.comboAction = ans?.[0];
+                    this.comboAction = ans;
                 }
             }
             this.isLoading = false;
@@ -940,10 +940,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 this.emailAction = ans;
             } else {
                 if (this.comboAction) {
-                    this.comboAction = { ...this.comboAction, ...ans?.[0] };
+                    this.comboAction = [...this.comboAction, ...ans];
                 } else {
-                    this.comboAction = ans?.[0];
+                    this.comboAction = ans;
                 }
+                console.log(this.comboAction);
             }
             this.isLoading = false;
         } catch (error) {
@@ -998,6 +999,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
+        console.log(this.content?.nativeElement?.getBoundingClientRect()?.height);
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
@@ -1056,16 +1058,15 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         }
     }
 
-    async chooseActionScenario(event: MatSelectChange): Promise<void> {
+    async chooseActionScenario(event: MatSelectChange, item: IActionCombobox): Promise<void> {
         if (this.comboAction) {
-            console.log(this.comboAction);
             this.isLoading = true;
             const body = { value: event.value };
             try {
                 await this.workflowService.putProps(
                     this.chooseScenarios.uid,
                     this.activeActions.scenarioAction,
-                    this.comboAction.uid,
+                    item.uid,
                     body
                 );
                 this.isLoading = false;
