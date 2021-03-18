@@ -110,10 +110,14 @@ export interface IActionCombobox {
         id: number;
         name: string;
         wfPropertyUid: string;
-    };
+    }[];
     type: string;
     uid: string;
-    value: string;
+    value?: {
+        id: number;
+        name: string;
+        wfPropertyUid: string;
+    };
 }
 
 const fadeAnimation = trigger('fadeAnimation', [
@@ -869,8 +873,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (this.activeActions !== item) {
                 this.emailAction = [];
                 this.comboAction = null;
+                await this.getActionProp(item.action);
                 await this.getScenarioActionProp(item.scenarioAction);
-                this.getActionProp(item.action);
                 this.activeActions = item;
             }
         }
@@ -892,12 +896,19 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (el) {
                 this.propsAction(ans);
             } else {
-                this.comboAction = [];
-                if (this.comboAction.length) {
-                    this.comboAction = [...this.comboAction, ...ans];
-                } else {
-                    this.comboAction = ans;
-                }
+                ans.forEach((ansV) => {
+                    this.comboAction.map((value) => {
+                        if (value.uid === ansV.propertyGuid) {
+                            value.source.forEach((valueSource) => {
+                                if (valueSource.name === ansV.value) {
+                                    value.value = valueSource;
+                                    return value;
+                                }
+                                return value;
+                            });
+                        }
+                    });
+                });
             }
             this.isLoading = false;
         } catch (error) {
@@ -944,7 +955,6 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 } else {
                     this.comboAction = ans;
                 }
-                console.log(this.comboAction);
             }
             this.isLoading = false;
         } catch (error) {
@@ -999,7 +1009,6 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
-        console.log(this.content?.nativeElement?.getBoundingClientRect()?.height);
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
@@ -1061,7 +1070,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     async chooseActionScenario(event: MatSelectChange, item: IActionCombobox): Promise<void> {
         if (this.comboAction) {
             this.isLoading = true;
-            const body = { value: event.value };
+            const body = { value: event.value.name };
             try {
                 await this.workflowService.putProps(
                     this.chooseScenarios.uid,
