@@ -16,6 +16,13 @@ import {
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ReportNameConfiguratorComponent } from "./report-name-configurator/report-name-configurator.component";
+
+export interface IDialogData {
+    animal: string;
+    name: string;
+}
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -132,6 +139,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         public reportService: ReportServerConfiguratorService,
         private materialController: SnackBarService,
         public snackBar: SnackBarService,
+        public dialog: MatDialog,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -414,6 +422,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     onEdit(item): void {
         item.openEdit = true;
         this.newRecord = item.name;
+
+
+        const dialogRef = this.dialog.open(ReportNameConfiguratorComponent, {
+            data: {}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
     }
 
     editReference(item): void {

@@ -7,12 +7,15 @@
       'width': size + 'px'
     }"
   >
-    <evj-kpe-gauge-chart
-      background="performance"
-      [fact]="100"
-      [plan]="80"
-      [deviation]="20"
+    <evj-kpe-gauge-chart-multi-color
       class="gauge__chart"
-    ></evj-kpe-gauge-chart>
+      [type]="1"
+      [showAxisValues]="false"
+      [isPerformance]="true"
+    ></evj-kpe-gauge-chart-multi-color>
+    <span class="main-text">Ключевой показатель эффективности Л-35-1000</span>
+
+    <span class="axis__value axis__value_1">40</span>
+    <span class="axis__value axis__value_2">80</span>
   </div>
 </div>

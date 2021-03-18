@@ -81,7 +81,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1__${this.getSvgName(this.chosenInstall)}`) && this.flag) {
+        if (document.querySelector(`#element-1_1__${this.getSvgName(this.localChosenInstall)}`) && this.flag) {
             this.flag = false;
             this.loadSchema();
             if (this.sectionsDataPark.length) {
@@ -286,7 +286,12 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         // Percent
         if (elementFull?.metaFile) {
             if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.valueMomentPercent)}%`);
+                this.addTextToTspan(
+                    elementFull.textPercent,
+                    elementFull?.metaFile?.valueMomentPercent
+                        ? `${String(elementFull?.metaFile?.valueMomentPercent)}%`
+                        : `${String(elementFull?.metaFile?.tolerance)}%`
+                );
                 elementFull?.textPercent?.classList.remove(
                     'standard-text',
                     'deviation-text',
@@ -651,6 +656,8 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 return 'collector-ref';
             case 'КПА С100':
                 return 'kpa-c100';
+            case 'Л-35-11-1000':
+                return 'l-35-11-200';
         }
     }
 }

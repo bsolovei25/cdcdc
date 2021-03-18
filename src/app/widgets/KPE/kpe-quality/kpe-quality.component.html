@@ -15,6 +15,10 @@
           <div class="header__info-2"></div>
           <span>План</span>
         </li>
+        <li class="header__info-item">
+          <div class="header__info-3"></div>
+          <span>Прогноз</span>
+        </li>
       </ul>
     </div>
   </div>
@@ -28,12 +32,18 @@
             <div class="diagram-item">
               <div class="gauge" #gauge [style]="chartWidth(gauge)">
                 <evj-kpe-gauge-chart
+                  *ngIf="!displayNewDesign"
                   [fact]="card.gaugeChart.fact"
                   [plan]="card.gaugeChart.plan"
                   [noDeviation]="true"
                   [background]="'dark'"
                   [style.width.%]="100"
                 ></evj-kpe-gauge-chart>
+
+                <evj-kpe-gauge-chart-multi-color
+                  *ngIf="displayNewDesign"
+                  [type]="1"
+                ></evj-kpe-gauge-chart-multi-color>
               </div>
               <div class="graph">
                 <div class="graph__title">{{ card.description || 'Нет описания' }}</div>
@@ -50,12 +60,18 @@
         <div class="quality__header" *ngIf="!!deviationDiagram">
           <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
             <evj-kpe-gauge-chart
+              *ngIf="!displayNewDesign"
               background="dark"
               [fact]="deviationDiagram?.fact"
               [plan]="deviationDiagram?.plan"
               [deviation]="deviationDiagram?.deviation"
               isPercent="true"
             ></evj-kpe-gauge-chart>
+
+            <evj-kpe-gauge-chart-multi-color
+              *ngIf="displayNewDesign"
+              [type]="1"
+            ></evj-kpe-gauge-chart-multi-color>
           </div>
           <div class="quality__header__chart">
             <evj-kpe-deviation-diagram

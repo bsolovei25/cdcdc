@@ -92,8 +92,8 @@
     <div
       #chart
       class="content"
-      (mouseenter)="onMouseEnter()"
-      (mouseleave)="onMouseExit()"
+      (mouseenter)="mouseOnGraph()"
+      (mouseleave)="mouseLeaveGraph()"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
@@ -104,7 +104,7 @@
           по приб.
         </div>
         <div class="card card__fact">
-          <span class="value"> {{ ((predictors$ | async)?.fact | number:'0.0-2') || '---' }} </span>
+          <span class="value"> {{ (showCurrent? currentValues?.fact : (predictors$ | async)?.fact) | number:'0.0-2' || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <div class="label">
@@ -112,7 +112,7 @@
           план.
         </div>
         <div class="card card__plan">
-          <span class="value"> {{ ((predictors$ | async)?.plan | number:'0.0-2') || '---' }} </span>
+          <span class="value"> {{ ((showCurrent? currentValues?.plan : (predictors$ | async)?.plan) | number:'0.0-2') || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <ng-container *ngIf="isPredictors">

@@ -3,13 +3,14 @@ import {
     IAsEfUnitNew,
     IAsEfFlow,
     IAsPlanningTableServer,
-    IAsPlanningTable,
-} from '../../../models/ASTUE/astue-efficiency.model';
+    IAsPlanningTable, IAsEfProduct
+} from "../../../models/ASTUE/astue-efficiency.model";
 import { BehaviorSubject } from 'rxjs';
 import { SnackBarService } from '../../snack-bar.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
+import { log } from "util";
 
 @Injectable({
     providedIn: 'root',
@@ -20,6 +21,7 @@ export class AstueEfficiencyService {
     private unit$: BehaviorSubject<IAsEfUnitNew> = new BehaviorSubject<IAsEfUnitNew>(null);
     public selectionFlow$: BehaviorSubject<IAsEfFlow[]> = new BehaviorSubject<IAsEfFlow[]>(null);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
+    public selectionProduct$: BehaviorSubject<IAsEfProduct[]> = new BehaviorSubject<IAsEfProduct[]>(null);
 
     public selectionUnit$: BehaviorSubject<IAsEfUnitNew[]> = new BehaviorSubject<IAsEfUnitNew[]>(null);
     public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<IAsPlanningTable[]>(null);
@@ -126,14 +128,16 @@ export class AstueEfficiencyService {
         values.forEach((value) => {
             dataLoadQueue.push(
                 this.getPlanningTable(value.id).then((data) => {
-                    arr.push(...data.groups);
+                    arr.push(...data.data.groups);
                 })
             );
         });
         try {
             await Promise.all(dataLoadQueue);
             this.unitsTablePlanning$.next(arr);
-        } catch {}
+        } catch {
+            console.log('ошибка');
+        }
     }
 
     //#region Data

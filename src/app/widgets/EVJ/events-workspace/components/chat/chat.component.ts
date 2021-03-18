@@ -4,7 +4,7 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
 import { FileAttachMenuComponent } from '../file-attach-menu/file-attach-menu.component';
 import { IMessageFileAttachment } from '@shared/models/message.model';
 import { AppConfigService } from '@core/service/app-config.service';
-import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 export interface IChatMessageWithAttachments {
     msg: string;
@@ -25,12 +25,13 @@ export class ChatComponent implements OnInit {
     @Input() public displayMnemoImage: boolean = false;
     @Input() public onClickItem: () => void = () => {};
 
+
     @Output()
     private addingMessage: EventEmitter<IChatMessageWithAttachments> = new EventEmitter<IChatMessageWithAttachments>();
 
-    @ViewChild('scroll') scroll: ElementRef;
-    @ViewChild('input') input: ElementRef;
-    @ViewChild('graph') graph: ElementRef;
+    @ViewChild("scroll") scroll: ElementRef;
+    @ViewChild("input") input: ElementRef;
+    @ViewChild("graph") graph: ElementRef;
 
     public get headerTitle(): string {
         return this.dataTitle + '123';
@@ -63,7 +64,7 @@ export class ChatComponent implements OnInit {
         if (this.input.nativeElement.value) {
             const msg = {
                 msg: this.input.nativeElement.value,
-                attachments: this.filesToUpload,
+                attachments: this.filesToUpload
             } as IChatMessageWithAttachments;
             this.input.nativeElement.value = '';
             this.addingMessage.emit(msg);
@@ -94,6 +95,5 @@ export class ChatComponent implements OnInit {
         if (!fileId) {
             return;
         }
-        window.open(`${this.appConfigService.restUrl}/api/file-storage/${fileId}`, '_blank');
-    }
+        window.open(`${this.appConfigService.restUrl}/api/file-storage/${fileId}`, '_blank');    }
 }

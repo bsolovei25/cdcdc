@@ -207,7 +207,6 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             unit: this.openEvent.unit,
             responsibleOperator,
             description,
-            establishedFacts: '',
             facts: [
                 {
                     comment: facts,

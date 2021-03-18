@@ -1,5 +1,4 @@
 import html2canvas from 'html2canvas';
-import { DomSanitizer } from '@angular/platform-browser';
 
 export class ScreenshotMaker {
     constructor() {}

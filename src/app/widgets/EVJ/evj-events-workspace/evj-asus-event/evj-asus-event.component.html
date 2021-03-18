@@ -61,9 +61,12 @@
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
             >
-              <mat-option *ngFor="let equipment of ewService.asusEquipments" [value]="equipment.codeSap"
-                >{{ equipment.name }}
-              </mat-option>
+              <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
+              <ng-container *ngFor="let item of equipment">
+                <mat-option [value]="item.codeSap">
+                  {{ item.name }}
+                </mat-option>
+              </ng-container>
             </mat-select>
           </mat-form-field>
         </div>

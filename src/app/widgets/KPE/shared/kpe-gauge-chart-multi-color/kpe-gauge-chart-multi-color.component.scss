@@ -1,0 +1,77 @@
+.chart {
+  ::ng-deep {
+    .total {
+      font-size: 11px;
+      line-height: 14px;
+
+      fill: #FFFFFF;
+    }
+
+    .deviation{
+      font-size: 7px;
+      line-height: 10px;
+
+      fill: #F7931E;
+    }
+
+    .unit {
+      font-size: 7px;
+      line-height: 10px;
+
+      fill: #606580;
+    }
+
+    .circle__dark {
+      fill: #171924;
+    }
+
+    .background-pie {
+      fill: transparent;
+    }
+
+    .serif {
+      fill: #4B5169;
+    }
+
+    .axis-value {
+      fill: #606580;
+
+      font-size: 7px;
+      line-height: 10px;
+    }
+
+    .diagram-section{
+      &-1 {
+        fill: #FF1D25;
+        opacity: 0.25;
+      }
+      &-2 {
+        fill: #F7931E;
+        opacity: 0.25;
+      }
+      &-3 {
+        fill: #0089FF;
+        opacity: 0.25;
+      }
+      &-4 {
+        fill: #00A73D;
+        opacity: 0.25;
+      }
+    }
+
+    .diagram-section-serif{
+      &-1 {
+        fill: #FF1D25;
+      }
+      &-2 {
+        fill: #F7931E;
+      }
+      &-3 {
+        fill: #0089FF;
+      }
+      &-4 {
+        fill: #00A73D;
+      }
+    }
+  }
+}

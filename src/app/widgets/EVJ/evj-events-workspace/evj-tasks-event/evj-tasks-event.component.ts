@@ -20,6 +20,9 @@ export class EvjTasksEventComponent implements OnInit {
         this.ewService.event.status = this.ewService.event.status
             ? this.ewService.event.status
             : this.ewService.status.find((value) => value.name === 'new');
+        if (this.ewService.event.kpeAdditionalParameter) {
+            this.kpeAdditionalParameter.setValue(true);
+        }
         this.ewService.extraOptionsWindow$.subscribe((value) => {
             console.log(value, this.ewService.event.kpeAdditionalParameter);
             if (value?.type === 'save' || (value?.type === 'cancel' && this.ewService.event.kpeAdditionalParameter)) {
@@ -59,9 +62,10 @@ export class EvjTasksEventComponent implements OnInit {
     }
 
     openExtraOptions(): void {
-        console.log(this.ewService.event.kpeAdditionalParameter);
         const popupWindow: IExtraOptionsWindow = {
-            data: this.ewService.acceptButton$.getValue(),
+            data: this.ewService.acceptButton$.getValue()
+                ? this.ewService.acceptButton$.getValue()
+                : this.ewService.event.kpeAdditionalParameter,
             isShow: true,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);

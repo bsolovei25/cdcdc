@@ -76,25 +76,30 @@
                 </evj-rect-button>
               </div>
             </div>
-            <div formArrayName="dependentParameters" *ngFor="let d of dependParameters.controls; let idx = index">
-              <ng-container [formGroupName]="idx">
-                <div class="container__body__parameters">
-                  <div class="dropdown">
-                    <div class="event-mat-select">
-                      <mat-form-field class="example-full-width">
-                        <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
-                          <mat-option *ngFor="let p of dependentParameters" [value]="p">{{p?.name}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+            <div class="options">
+              <div formArrayName="dependentParameters" *ngFor="let d of dependParameters.controls; let idx = index">
+                <ng-container [formGroupName]="idx">
+                  <div class="container__body__parameters">
+                    <div class="dropdown">
+                      <div class="event-mat-select">
+                        <mat-form-field class="example-full-width">
+                          <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
+                            <mat-option *ngFor="let p of dependentParameters" [value]="p.id">
+                              {{p?.name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="value">
+                      <div class="value__text">
+                        <input formControlName="numericValue"/>
+                        <input class="input-transperent" formControlName="units">
+                      </div>
                     </div>
                   </div>
-                  <div class="value">
-                    <div class="value__text">
-                      <input type="number" formControlName="numericValue" />
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
+                </ng-container>
+              </div>
             </div>
             <div class="save-buttons">
               <div class="container__body__parameters">

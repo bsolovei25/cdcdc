@@ -23,14 +23,60 @@
     align-items: center;
     justify-content: center;
 
-    background: var(--color-kpe-gaude-back);
+    background: #171924;
     border-radius: 50%;
 
     position: relative;
 
     &__chart {
-      width: 80%;
+      width: 90%;
       position: absolute;
+
+      ::ng-deep {
+        .total {
+          font-size: 10px;
+          line-height: 13px;
+        }
+
+        .deviation{
+          font-size: 6px;
+          line-height: 9px;
+        }
+      }
+    }
+
+    .main-text {
+      width: 48%;
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      font-size: 13px;
+      line-height: 16px;
+
+      color: #D7E2F2;
+
+      position: absolute;
+      bottom: 30px;
+    }
+
+    .axis__value {
+      font-size: 13px;
+      line-height: 16px;
+
+      color: #606580;
+      position: absolute;
+
+      &_1 {
+        top: 30px;
+        left: 16px;
+      }
+
+      &_2 {
+        top: 30px;
+        right: 16px;
+      }
     }
   }
 }

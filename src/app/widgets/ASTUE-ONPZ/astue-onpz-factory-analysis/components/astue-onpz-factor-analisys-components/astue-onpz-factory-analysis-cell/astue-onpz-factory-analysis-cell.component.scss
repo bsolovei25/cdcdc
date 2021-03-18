@@ -17,18 +17,28 @@
     margin-bottom: 9px;
 
     &__title {
+      font-size: 11px;
+      max-height: 2.4em;
       cursor: pointer;
       margin: auto;
       color: var(--astue-onpz-factory-analisys-label);
-      font-size: 11px;
       text-align: center;
-      @include text-overflow;
-      -webkit-line-clamp: 2;
-
-      &:hover {
-        text-decoration: underline;
-      }
+      @include text-overflow-old;
     }
+
+    //&__title {
+    //  cursor: pointer;
+    //  margin: auto;
+    //  color: var(--astue-onpz-factory-analisys-label);
+    //  font-size: 11px;
+    //  text-align: center;
+    //  @include text-overflow;
+    //  -webkit-line-clamp: 2;
+    //
+    //  &:hover {
+    //    text-decoration: underline;
+    //  }
+    //}
   }
 
   .main {

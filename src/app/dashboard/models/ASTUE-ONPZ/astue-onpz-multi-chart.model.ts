@@ -14,6 +14,7 @@ export interface IMultiChartLine {
     tagName: string;
     graphStyle?: string;
     nextPlanValue?: number; // только для плана
+    currentValue?: number;
 }
 
 export interface IMultiChartData extends IMultiChartLine {

@@ -31,6 +31,8 @@ export interface IAsEfUnitNew extends IAsEfTable {
     initialData: IAsEfRow[];
     planFact: { plan: number; fact: number };
     planPlan: { plan: number; planProcessing: number };
+    name: string;
+    rows: IAsPlanningRows[];
 }
 
 export interface IAsEfFlow extends IAsEfTable {
@@ -128,23 +130,26 @@ export interface IAsEfScript {
 }
 
 export interface IAsPlanningTableServer {
-    groups: IAsPlanningTable[];
-    title: string;
+    data: {
+        groups: IAsPlanningTable[];
+        title: string;
+    };
 }
 
 export interface IAsPlanningTable {
     data: {
-        title: string;
+        name: string;
         rows: IAsPlanningRows[];
     }[];
     title: 'Показатели' | 'Отклонения';
 }
 
 export interface IAsPlanningRows {
-    columns: {
+    id?: string;
+    values: {
         editable: boolean;
-        timestamp: Date;
+        date: Date;
         value: number;
     }[];
-    title: string;
+    name: string;
 }
