@@ -12,7 +12,7 @@ import {
     ISystemOptionsTemplate,
     IFolder,
     IPostSystemOptionsTemplate,
-} from 'src/app/dashboard/models/ADMIN/report-server';
+} from 'src/app/dashboard/models/ADMIN/report-server.model';
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';

@@ -286,6 +286,14 @@
             }
           }
         }
+
+        .combo-box_title {
+          font-size: 14px;
+          color: var(--color-text-sub-workflow);
+          margin-left: 30px;
+          margin-top: 10px;
+        }
+
         .combo-box {
           background-color: var(--color-bg-main);
           border-radius: 25px;

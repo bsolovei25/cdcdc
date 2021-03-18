@@ -7,7 +7,7 @@ import {
     IBrigadeWithUsersDto,
     IUnits,
     IUnitSettings,
-} from '../../../models/ADMIN/admin-shift-schedule';
+} from '../../../models/ADMIN/admin-shift-schedule.model';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';

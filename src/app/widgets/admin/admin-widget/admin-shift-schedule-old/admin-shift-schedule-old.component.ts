@@ -14,7 +14,7 @@ import {
     IScheduleShift,
     IScheduleShiftDay,
     IUnits,
-} from 'src/app/dashboard/models/ADMIN/admin-shift-schedule';
+} from 'src/app/dashboard/models/ADMIN/admin-shift-schedule.model';
 import {
     AdminShiftScheduleService,
     IDropItem,

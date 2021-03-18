@@ -10,5 +10,6 @@
     "isDomenAuth": true,
     "authorizationHeader": "AsPlatform-Authorization",
     "projectName": "Evj",
-    "hash": "this-is-hash"
+    "hash": "this-is-hash",
+    "isErrorDisplay": true
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 
@@ -104,5 +103,12 @@ export class AppConfigService {
             throw Error('Config file not loaded!');
         }
         return this.appConfig.hash;
+    }
+
+    get isErrorDisplay(): boolean {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.isErrorDisplay;
     }
 }

@@ -31,7 +31,7 @@ export class EvjAsusEventComponent implements OnInit {
     constructor(
         public ewService: EventsWorkspaceService,
         public eventService: EventService,
-        public snackBarService: SnackBarService,
+        public snackBarService: SnackBarService
     ) {}
 
     ngOnInit(): void {
@@ -92,7 +92,11 @@ export class EvjAsusEventComponent implements OnInit {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getReferenceMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event, saveMethod);
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(
+                event,
+                saveMethod,
+                this.ewService.event?.id
+            );
             this.equipment = this.ewService.asusEquipments;
             // this.ewService.event.asusEvent.equipment = null;
             // this.ewService.event.asusEvent.eoService = null;
@@ -163,9 +167,7 @@ export class EvjAsusEventComponent implements OnInit {
         }
         console.log(this.ewService.asusEquipments);
         this.equipment = this.ewService.asusEquipments.filter(
-            (item) =>
-                item.name.toLowerCase().indexOf(value) > -1 ||
-                item.codeSap.toLowerCase().indexOf(value) > -1
+            (item) => item.name.toLowerCase().indexOf(value) > -1 || item.codeSap.toLowerCase().indexOf(value) > -1
         );
     }
 }

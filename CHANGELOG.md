@@ -1,3 +1,11 @@
+## [1.6.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.0...v1.6.1) (2021-03-18)
+
+
+### Bug Fixes
+
+* ** #1358:** add subchannels ([3ca4875](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3ca4875d9e938d690fbe1446dc12221268f8b3f1)), closes [#1358](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1358)
+* **#1398:** add id to ozsm-planing items ([3dd8f4d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3dd8f4d4eb831b6844bba4232b9c276208650092)), closes [#1398](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1398)
+
 # [1.6.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.5.0...v1.6.0) (2021-03-11)
 
 

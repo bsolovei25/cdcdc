@@ -142,7 +142,10 @@
             <div class="workflow__scenario__body__bottom" #splitBottom>
               <!-- Combo -->
               <ng-container *ngFor="let item of comboAction">
-                <div class="combo-box" *ngIf="comboAction">
+                <div class="combo-box_title">
+                  {{ item.description }}
+                </div>
+                <div class="combo-box">
                   <mat-form-field class="combo-box_selectbox">
                     <mat-select
                       [(ngModel)]="item.value"

@@ -158,9 +158,7 @@ export class EventService {
     }
 
     async putEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        return this.http
-            .put(`${saveMethod.data.url}/notifications/${body.id}`, body, saveMethod.options)
-            .toPromise();
+        return this.http.put(`${saveMethod.data.url}/notifications/${body.id}`, body, saveMethod.options).toPromise();
     }
 
     async deleteEvent(id: number): Promise<unknown> {
@@ -255,14 +253,13 @@ export class EventService {
         }
     }
 
-    async getAsusCategories(saveMethod: ISaveMethodEvent): Promise<IAsusCategories[]> {
+    async getAsusCategories(saveMethod: ISaveMethodEvent, eventId: number = null): Promise<IAsusCategories[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http.get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json').toPromise();
             }
-            return this.http
-                .get<IAsusCategories[]>(saveMethod.data.url + '/references/category', saveMethod.options)
-                .toPromise();
+            const url = `${saveMethod.data.url}/references/category${eventId ? `?id=${eventId}` : ''}`;
+            return this.http.get<IAsusCategories[]>(url, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -294,46 +291,49 @@ export class EventService {
         }
     }
 
-    async getAsusUnits(saveMethod: ISaveMethodEvent): Promise<IAsusTmPlace[]> {
+    async getAsusUnits(saveMethod: ISaveMethodEvent, eventId: number = null): Promise<IAsusTmPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http.get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json').toPromise();
             }
-            return this.http
-                .get<IAsusTmPlace[]>(saveMethod.data.url + '/references/tmplaces', saveMethod.options)
-                .toPromise();
+            const url = `${saveMethod.data.url}/references/tmplaces${eventId ? `?id=${eventId}` : ''}`;
+            return this.http.get<IAsusTmPlace[]>(url, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEquipments(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusTpPlace[]> {
+    async getAsusEquipments(
+        codeSap: string,
+        saveMethod: ISaveMethodEvent,
+        eventId: number = null
+    ): Promise<IAsusTpPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http.get<IAsusTpPlace[]>('assets/mock/AsusEventsMock/tpplace.json').toPromise();
             }
-            return this.http
-                .get<IAsusTpPlace[]>(
-                    saveMethod.data.url + `/references/tplaces?tmSapCode=${codeSap}`,
-                    saveMethod.options
-                )
-                .toPromise();
+            const url = `${saveMethod.data.url}/references/tplaces?tmSapCode=${codeSap}${
+                eventId ? `&id=${eventId}` : ''
+            }`;
+            return this.http.get<IAsusTpPlace[]>(url, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEOServices(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusEOService[]> {
+    async getAsusEOServices(
+        codeSap: string,
+        saveMethod: ISaveMethodEvent,
+        eventId: number = null
+    ): Promise<IAsusEOService[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http.get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoplace.json').toPromise();
             }
-            return this.http
-                .get<IAsusEOService[]>(
-                    saveMethod.data.url + `/references/eoservice?tpSapCode=${codeSap}`,
-                    saveMethod.options
-                )
-                .toPromise();
+            const url = `${saveMethod.data.url}/references/eoservice?tpSapCode=${codeSap}${
+                eventId ? `&id=${eventId}` : ''
+            }`;
+            return this.http.get<IAsusEOService[]>(url, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -527,10 +527,7 @@ export class EventService {
 
     public async getResponsible(unitId: number): Promise<IUser> {
         try {
-            return this.http
-
-                .get<IUser>(this.restUrl + `/api/notifications/${unitId}/responsible`)
-                .toPromise();
+            return this.http.get<IUser>(this.restUrl + `/api/notifications/${unitId}/responsible`).toPromise();
         } catch (error) {
             console.error(error);
         }

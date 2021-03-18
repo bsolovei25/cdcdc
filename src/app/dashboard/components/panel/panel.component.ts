@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WIDGETS } from '../../../widgets/widget-map';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, style, transition, animate } from '@angular/animations';
 
@@ -18,7 +17,6 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
 })
 export class PanelComponent implements OnInit, OnDestroy {
-    public readonly WIDGETS: typeof WIDGETS = WIDGETS;
     public active: boolean = false;
     public isWidgets: isChoosePanel;
     public claimSettingsScreens: EnumClaimScreens[] = [];

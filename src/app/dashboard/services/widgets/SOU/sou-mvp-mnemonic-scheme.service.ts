@@ -17,7 +17,7 @@ export class SouMvpMnemonicSchemeService {
     }>(null);
     currentSection$: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);
     chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-    redirectId$: Subject<string> = new Subject<string>();
+    redirectId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISouFlowOut;
@@ -33,9 +33,12 @@ export class SouMvpMnemonicSchemeService {
         this.redirectId$.next(linkId);
     }
 
+    dropRedirectMnemonic(): void {
+        this.redirectId$.next(null);
+    }
+
     openPopup(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
         this.popupData = this.getElementByCode(sections, code) as ISouFlowOut;
-        console.log(this.popupData);
         this.selectElement(sections, code);
         this.isPopupOpen = true;
     }

@@ -7,13 +7,12 @@
       *ngFor="let item of widgetService.dashboard; let i = index"
       (dragstart)="dragStart($event, item)"
       (dragstop)="dragStop($event, item)"
-      style="height: 1600px; overflow: visible !important"
+      style="overflow: visible !important"
     >
       <div class="item-container" [class.item-container_visible]="isSmpHeader(item.widgetType)">
         <ng-container
-          *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
-        >
-        </ng-container>
+          *ngComponentOutlet="widgetContainerComponent; injector: (item.id | fn:getInjector : item.uniqid);"
+        ></ng-container>
       </div>
     </gridster-item>
   </ng-container>
