@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Input, OnChanges } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICircleData } from 'src/app/dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
 import { planData } from '../../ozsm-circle-planning-diagram/ozsm-circle-planning-diagam-mock';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-ozsm-circle-planning-diagram-plan',
     templateUrl: './ozsm-circle-planning-diagram-plan.component.html',
     styleUrls: ['./ozsm-circle-planning-diagram-plan.component.scss'],
 })
-export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy, AfterViewInit {
+export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy, OnChanges {
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
     @Input() plan: ICircleData;
 
@@ -18,19 +19,22 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
 
     constructor() {}
 
-    ngOnInit(): void {
-        this.activeData = this.plan;
-    }
+    ngOnInit(): void {}
     ngOnDestroy(): void {}
-    ngAfterViewInit(): void {
+
+    ngOnChanges(): void {
+        this.activeData = this.plan;
         this.drawWidget();
     }
+
+    @AsyncRender
     private drawWidget(): void {
         if (this.svgBody) {
             this.svgBody.remove();
         }
         this.drawDiagram();
     }
+
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
         this.svgBody.attr('width', 168).attr('height', 168).attr('viewBox', '0 0 200 200');

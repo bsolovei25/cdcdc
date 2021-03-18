@@ -14,11 +14,6 @@
           [svgStyle]="{ 'width.px':250, 'height.px':70 }"
         ></svg-icon>
       </div>
-      <div class="message" *ngIf="ewService.event.establishedFacts
-      && this.messages === this.ewService.event.facts">
-        <div class="message__text">{{ewService.event.establishedFacts}}</div>
-
-      </div>
       <ng-container *ngFor="let message of messages; let i = index;">
         <div class="message" [ngClass]="{'message_odd':i%2===0}">
           <div class="message_files__list">

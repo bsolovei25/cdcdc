@@ -5,7 +5,7 @@ import {
     ICircleData,
     IOzsmCirclePlanningDiagramResponse,
 } from '../../../dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
-import { cardData, planData } from './ozsm-circle-planning-diagam-mock';
+import { cardData } from './ozsm-circle-planning-diagam-mock';
 import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.service';
 
 @Component({
@@ -44,24 +44,21 @@ export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown> 
     private dataMapper(res: IOzsmCirclePlanningDiagramResponse): void {
         console.log('pd', res);
         res = res[0];
-        this.pData = [];
-        this.pData.push(
+        this.pData = [
             {
-                name: 'производства',
+                name: 'переработки',
+                value: res.summary.value,
+                deviation: res.summary.deviation,
+                percentValue: res.summary.percent,
+            },
+            {
+                name: 'отгрузки',
                 value: res.ship.value,
                 deviation: res.ship.deviation,
                 percentValue: res.ship.percent,
             },
-            {
-                name: 'отгрузки',
-                value: res.summary.value,
-                deviation: res.summary.deviation,
-                percentValue: res.summary.percent,
-            }
-        );
-        console.log(this.pData);
-        this.cData = [];
-        this.cData.push(
+        ];
+        this.cData = [
             {
                 name: 'Выработка',
                 value: res.supply.value,
@@ -85,11 +82,9 @@ export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown> 
                 value: res.pack.value,
                 deviation: res.pack.deviation,
                 percentValue: res.pack.percent,
-            }
-        );
+            },
+        ];
     }
 
-    protected dataHandler(ref: unknown): void {
-        // this.data = ref.chartItems;
-    }
+    protected dataHandler(ref: unknown): void {}
 }

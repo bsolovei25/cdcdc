@@ -118,7 +118,7 @@ export class EventsWorkspaceService {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
-        wasted: 'Отработано'
+        wasted: 'Отработано',
     };
 
     public readonly subCategories: { [id in number]: string } = {
@@ -335,12 +335,7 @@ export class EventsWorkspaceService {
     public async accept(data: IKpeNotification): Promise<void> {
         try {
             const res = await this.kpeWorkspaceService.postKpeNotificationParameters(this.event, data);
-            this.event.kpeAdditionalParameter = {
-                selectedParameterId: res.selectedParameter.id,
-                dependentParameters: res.dependentParameters,
-                createdAt: res.createdAt,
-                createdBy: res.createdBy,
-            };
+            this.event.kpeAdditionalParameter = res;
         } catch (error) {
             console.error(error);
         }
@@ -485,7 +480,6 @@ export class EventsWorkspaceService {
             description: '',
             deviationReason: '',
             directReasons: '',
-            establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: null,
@@ -600,7 +594,7 @@ export class EventsWorkspaceService {
         const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
         const referenceMethod: ISaveMethodEvent = await this.eventService.getReferenceMethod(this.event);
         dataLoadQueue.push(
-            this.eventService.getAsusCategories(referenceMethod).then((data) => {
+            this.eventService.getAsusCategories(referenceMethod, this.event?.id).then((data) => {
                 this.asusCategories = data;
             }),
             this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
@@ -609,7 +603,7 @@ export class EventsWorkspaceService {
             this.eventService.getAsusServices(saveMethod).then((data) => {
                 this.asusServices = data;
             }),
-            this.eventService.getAsusUnits(referenceMethod).then((data) => {
+            this.eventService.getAsusUnits(referenceMethod, this.event?.id).then((data) => {
                 this.asusUnits$.next(data);
             })
         );
@@ -684,7 +678,7 @@ export class EventsWorkspaceService {
             const data = await this.eventService.getResponsible(unitId);
             this.getResponsible$.next(data);
         } catch (e) {
-            console.error(e)
+            console.error(e);
             this.getResponsible$.next(null);
         }
     }

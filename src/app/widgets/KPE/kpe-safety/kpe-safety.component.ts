@@ -81,7 +81,7 @@ export class KpeSafetyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
             return;
         }
         const height = container.offsetHeight;
-        return `min-width: ${height * 1.136}px`;
+        return `min-width: ${height}px`;
     }
 
     protected dataHandler(ref: IKpeSafetyData): void {

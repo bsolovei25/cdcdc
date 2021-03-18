@@ -3,6 +3,8 @@ import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.com
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
 import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
+import { FormControl } from '@angular/forms';
+import { IAsusTpPlace } from '../../../../dashboard/models/EVJ/events-widget';
 
 @Component({
     selector: 'evj-asus-event',
@@ -12,6 +14,10 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
 export class EvjAsusEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
+
+    public filter: FormControl = new FormControl({ value: '', disabled: true });
+
+    public equipment: IAsusTpPlace[];
 
     public isReasonsPopupOpen: boolean = false;
 
@@ -32,6 +38,9 @@ export class EvjAsusEventComponent implements OnInit {
         this.setDefaultResponsible();
         this.setDefaultUnit();
         this.setExistReferences();
+        this.filter.valueChanges.subscribe(() => {
+            this.filterEquipment();
+        });
     }
 
     private async setExistReferences(): Promise<void> {
@@ -83,7 +92,12 @@ export class EvjAsusEventComponent implements OnInit {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getReferenceMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event, saveMethod);
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(
+                event,
+                saveMethod,
+                this.ewService.event?.id
+            );
+            this.equipment = this.ewService.asusEquipments;
             // this.ewService.event.asusEvent.equipment = null;
             // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
@@ -137,5 +151,23 @@ export class EvjAsusEventComponent implements OnInit {
                 this.snackBarService.openSnackBar('Заполните поля Установка и Оборудование!', 'error');
                 break;
         }
+    }
+
+    public clearFilter(): void {
+        this.filter.setValue('');
+    }
+
+    private filterEquipment(): void {
+        let value = this.filter.value.trim();
+        if (!value || value === '') {
+            this.equipment = this.ewService.asusEquipments;
+            return;
+        } else {
+            value = value.toLowerCase();
+        }
+        console.log(this.ewService.asusEquipments);
+        this.equipment = this.ewService.asusEquipments.filter(
+            (item) => item.name.toLowerCase().indexOf(value) > -1 || item.codeSap.toLowerCase().indexOf(value) > -1
+        );
     }
 }

@@ -11,6 +11,10 @@
             <div class="header__info-2"></div>
             <span>План</span>
           </li>
+          <li class="header__info-item">
+            <div class="header__info-3"></div>
+            <span>Прогноз</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -19,12 +23,17 @@
     <div class="scroll-container">
       <div #gauge class="chart-container" [style]="chartWidth">
         <evj-kpe-gauge-chart
+          *ngIf="!displayNewDesign"
           isPercent="true"
           [background]="'dark'"
           [plan]="data?.diagram?.plan || 100"
           [fact]="data?.diagram?.fact || 100"
-          [deviation]="data?.diagram?.deviation || 100"
-        ></evj-kpe-gauge-chart>
+          [deviation]="data?.diagram?.deviation || 100">
+        </evj-kpe-gauge-chart>
+        <evj-kpe-gauge-chart-multi-color
+          [type]="1"
+          *ngIf="displayNewDesign"
+        ></evj-kpe-gauge-chart-multi-color>
       </div>
       <ng-container *ngIf="displayMode === 'line'">
         <evj-kpe-deviation-diagram

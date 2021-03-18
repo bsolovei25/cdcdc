@@ -1,7 +1,7 @@
 export interface IInstallation {
     active: boolean;
     deviation: number;
-    id: number | string;
+    id: string;
     name: string;
     widgetName?: string;
     installationId?: number;
@@ -14,13 +14,16 @@ export interface IAllInstallations {
     items: IInstallation[];
 }
 
-export interface IInstallationsObj {
-    ProductionOne?: IAllInstallations;
-    ProductionTwo?: IAllInstallations;
-    ProductionFour?: IAllInstallations;
-    ProductionTrade?: IAllInstallations;
-    OffSiteCollectors?: IAllInstallations;
-    OffSiteFacilities?: IAllInstallations;
-    CatalystProduction?: IAllInstallations;
-    Other?: IAllInstallations;
-}
+export type IInstallationsObj = {
+    [key in InstallationField]?: IAllInstallations;
+};
+
+export type InstallationField =
+    | 'ProductionOne'
+    | 'ProductionTwo'
+    | 'ProductionFour'
+    | 'ProductionTrade'
+    | 'OffSiteCollectors'
+    | 'OffSiteFacilities'
+    | 'CatalystProduction'
+    | 'Other';

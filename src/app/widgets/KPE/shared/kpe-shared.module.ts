@@ -10,6 +10,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { KpeHelperService } from './kpe-helper.service';
 import { SharedModule } from '@shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
+import { KpeGaugeChartMultiColorComponent } from './kpe-gauge-chart-multi-color/kpe-gauge-chart-multi-color.component';
 import { KpeUniversalCardComponent } from './kpe-universal-card/kpe-universal-card.component';
 import { KpeUniversalCardLineChartComponent } from './kpe-universal-card/components/kpe-universal-card-line-chart/kpe-universal-card-line-chart.component';
 import { KpePerformanceIndicatorItemComponent } from './kpe-perfomace-indicator-item/kpe-performance-indicator-item.component';
@@ -22,20 +23,24 @@ import { KpePerformanceIndicatorItemComponent } from './kpe-perfomace-indicator-
         KpeDeviationDiagramComponent,
         KpeReadinessDeviationDiagramComponent,
         KpeEqualizerChartComponent,
+        KpeGaugeChartMultiColorComponent,
         KpeUniversalCardComponent,
         KpeUniversalCardLineChartComponent,
         KpePerformanceIndicatorItemComponent,
     ],
-  exports: [
-    KpeLineDiagramComponent,
-    KpeLineChartComponent,
-    KpeGaugeChartComponent,
-    KpeDeviationDiagramComponent,
-    KpeReadinessDeviationDiagramComponent,
-    KpeEqualizerChartComponent,
-    KpeUniversalCardComponent,
-    KpePerformanceIndicatorItemComponent
-  ],
+    exports: [
+        KpeLineDiagramComponent,
+        KpeLineChartComponent,
+        KpeGaugeChartComponent,
+        KpeDeviationDiagramComponent,
+        KpeReadinessDeviationDiagramComponent,
+        KpeEqualizerChartComponent,
+        KpeGaugeChartMultiColorComponent,
+        KpeUniversalCardComponent,
+        KpeUniversalCardLineChartComponent,
+        KpePerformanceIndicatorItemComponent,
+    ],
+
     imports: [CommonModule, AngularSvgIconModule, SharedModule, MatRippleModule],
     providers: [KpeHelperService],
 })

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnDestroy, OnChanges } from '@angular/core';
-import { IExtraOptionsWindow, IKpeAdditionalParameter } from "../../../../../dashboard/models/EVJ/events-widget";
+import { IExtraOptionsWindow, IKpeAdditionalParameter } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -9,9 +9,9 @@ import {
     IKpeNotification,
     IKpeWorkspaceParameter,
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+import { IMessage } from '@shared/models/message.model';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
@@ -34,6 +34,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     public notificationParametersData: IKpeNotification;
     public form: FormGroup;
     formArray: FormArray;
+    public index: number = -1;
+    public oldMessage: string = '';
 
     constructor(
         private ewService: EventsWorkspaceService,
@@ -43,8 +45,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     ) {}
 
     ngOnInit(): void {
-        console.log('onInit');
-
         this.loadData();
         this.subscriptions.push(
             this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
@@ -65,6 +65,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             this.loadData();
             this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameter);
             this.form.get('parameters').setValue(this.info.data?.selectedParameter);
+            this.formArray = this.form.get('dependentParameters') as FormArray;
+            this.formArray.clear();
             this.setDependentParameters(this.info.data?.dependentParameters);
         }
     }
@@ -76,12 +78,32 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     loadData(): void {
         if (this.ewService.event.id) {
             this.getParametersByNotification();
+            this.oldMessage = this.notificationDataToDescription(this.ewService.event.kpeAdditionalParameter);
+        } else {
+            this.oldMessage = this.notificationDataToDescription(this.notificationParametersData);
         }
         this.getParameters();
-        this.form = this.formBuild.group({
-            parameters: this.formBuild.control(null, Validators.required),
-            dependentParameters: this.formBuild.array([]),
-        });
+        this.getExtraParameters();
+        if (this.ewService.event.id && this.ewService.event.kpeAdditionalParameter) {
+            const controls = [];
+            this.ewService.event.kpeAdditionalParameter.dependentParameters.forEach((value) => {
+                controls.push(
+                    new FormGroup({
+                        dependentParameterId: new FormControl(value.dependentParameterId),
+                        numericValue: new FormControl(value.numericValue),
+                    })
+                );
+            });
+            this.form = new FormGroup({
+                parameters: new FormControl(this.ewService.event.kpeAdditionalParameter.selectedParameter),
+                dependentParameters: new FormArray(controls),
+            });
+        } else {
+            this.form = new FormGroup({
+                parameters: new FormControl(null),
+                dependentParameters: new FormArray([]),
+            });
+        }
     }
 
     get dependParameters(): FormArray {
@@ -90,18 +112,21 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
         dependentParameters?.forEach((param) => {
+            const paramDep = this.dependentParameters.find(value => value.id === param.dependentParameterId)
             this.formArray = this.form.get('dependentParameters') as FormArray;
-            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue));
+            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue, paramDep?.units));
         });
     }
 
     createFormGroup(
-        dependentParameterId: number = this.dependentParameters[0]?.id,
-        numericValue: number = 0
+        dependentParameterId: number = this.dependentParameters[0].id,
+        numericValue: number = 0,
+        units: string = ''
     ): FormGroup {
         return this.formBuild.group({
             dependentParameterId,
             numericValue,
+            units,
         });
     }
 
@@ -136,9 +161,17 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     private async deleteParametersByNotification(): Promise<void> {
         try {
-            await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
-            this.ewService.event.kpeAdditionalParameter = null;
-
+            if (this.ewService.event.id) {
+                await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
+                this.ewService.event.kpeAdditionalParameter = null;
+                this.ewService.event.facts.splice(this.index, 1);
+                this.index = -1;
+            } else {
+                this.ewService.event.kpeAdditionalParameter = null;
+                this.ewService.event.facts.splice(this.index, 1);
+                this.index = -1;
+                this.ewService.acceptButton$.next(null);
+            }
             const popupWindow: IExtraOptionsWindow = {
                 isShow: false,
                 type: 'reset',
@@ -183,6 +216,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             return {
                 numericValue: value.numericValue,
                 dependentParameterId: id,
+                name: this.dependentParameters[value.dependentParameterId - 1].name,
             };
         });
         this.notificationParametersData = {
@@ -191,26 +225,26 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             createdAt: new Date(),
             createdBy: this.authService.user$.getValue().id,
         };
+        this.ewService.event.facts.forEach((v, index) => {
+            if (v.comment === this.oldMessage) {
+                this.index = index;
+                console.log(index);
+                this.oldMessage = v.comment;
+            }
+        });
         try {
             if (this.ewService.event.id) {
                 const res = await this.kpeWorkspaceService.postKpeNotificationParameters(
                     this.ewService.event,
                     this.notificationParametersData
                 );
-                this.ewService.event.kpeAdditionalParameter = {
-                    selectedParameterId: res.selectedParameter.id,
-                    dependentParameters: res.dependentParameters,
-                    createdAt: res.createdAt,
-                    createdBy: res.createdBy
-                };
+                this.ewService.event.kpeAdditionalParameter = res;
+                this.addKpeAdditionalToChat(res);
             } else {
-                this.ewService.event.kpeAdditionalParameter = {
-                    selectedParameterId: this.notificationParametersData.selectedParameter.id,
-                    dependentParameters: this.notificationParametersData.dependentParameters,
-                    createdAt: this.notificationParametersData.createdAt,
-                    createdBy: this.notificationParametersData.createdBy
-                }
-                this.ewService.acceptButton$.next(this.notificationParametersData)
+                this.ewService.event.kpeAdditionalParameter = this.notificationParametersData;
+                this.addKpeAdditionalToChat(this.notificationParametersData);
+                console.log(this.notificationParametersData);
+                this.ewService.acceptButton$.next(this.notificationParametersData);
             }
         } catch (error) {
             console.error(error);
@@ -220,7 +254,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
-        console.log(this.ewService.event.kpeAdditionalParameter);
     }
 
     //  DELETE Удалить данные
@@ -241,8 +274,36 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
+    public addKpeAdditionalToChat(data: IKpeAdditionalParameter): void {
+        console.log(this.index);
+        if (this.index > -1) {
+            this.ewService.event.facts[this.index].comment = this.notificationDataToDescription(data);
+        } else {
+            this.ewService.event.facts.push({
+                comment: this.notificationDataToDescription(data),
+            } as IMessage);
+        }
+    }
+
+    public notificationDataToDescription(data: IKpeAdditionalParameter): string {
+        const description: string[] = [];
+        let result: string = '';
+        description.push(data?.selectedParameter?.name);
+        data?.dependentParameters?.forEach((value) => {
+            description.push(
+                value.name +
+                    ' ' +
+                    value?.numericValue?.toString() +
+                    ' ' +
+                    this.dependentParameters[value.dependentParameterId]?.units.toString()
+            );
+        });
+        result = '\n'.concat(description.join(';\n'));
+        return result;
+    }
+
     public compareFnDependent(a, b): boolean {
-        return a?.dependentParameterId === b?.dependentParameterId;
+        return a === b;
     }
 
     public compareFn(a, b): boolean {

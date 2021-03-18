@@ -78,4 +78,8 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             this.AsEfService.selectAllUnits(this.units);
         }
     }
+
+    isSelectionUnit(unit: IAsEfUnitNew): boolean {
+        return !!this.unitSelection.selected.find(value => value.id === unit.id);
+    }
 }

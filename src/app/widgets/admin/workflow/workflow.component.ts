@@ -7,25 +7,17 @@ import {
     ElementRef,
     AfterViewInit,
     Inject,
-    ViewEncapsulation,
     ViewChildren,
     QueryList,
     HostListener,
 } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import {
-    GridsterConfig,
-    GridsterItem,
-    GridType,
-    GridsterItemComponentInterface,
-    GridsterItemComponent,
-} from 'angular-gridster2';
+import { GridsterConfig, GridsterItem, GridType, GridsterItemComponent } from 'angular-gridster2';
 import { WorkflowService } from 'src/app/dashboard/services/widgets/admin-panel/workflow.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { IAlertInputModel } from '@shared/models/alert-input.model';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -41,10 +33,11 @@ declare let LeaderLine: any;
 export interface IActions {
     actionUrl: string;
     description: string;
-    name: 'GraduationTableEvent' | 'SendEmail';
+    name: string;
     uid: string;
     wfSystemUid: string;
 }
+
 export interface ICreateConnection {
     scenario: {
         name: string;
@@ -58,7 +51,7 @@ export interface ICreateConnection {
 
 export interface IActionScenario {
     action: string;
-    actionName: 'SendEmail' | 'GraduationTableEvent';
+    actionName: string;
     scenarioAction: string;
     previousScenarioAction: string;
     nextScenarioAction: string;
@@ -72,7 +65,7 @@ export interface IActionsScenario {
 }
 
 interface IGridsterItemLocal extends GridsterItem, IActionScenario {
-    type: 'SendEmail' | 'GraduationTableEvent';
+    type: string;
 }
 
 export interface IActionEmail {
@@ -113,7 +106,11 @@ export interface IActionTableProp {
 export interface IActionCombobox {
     description: string;
     name: string;
-    source: string[];
+    source: {
+        id: number;
+        name: string;
+        wfPropertyUid: string;
+    };
     type: string;
     uid: string;
     value: string;
@@ -153,7 +150,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     // tableAction: IActionTable[] = [];
     // tableActionProp: IActionTableProp[] = [];
-    comboAction: IActionCombobox;
+    comboAction: IActionCombobox[] = [];
     emailAction: IActionEmail[] = [];
     emailPropAction: IActionEmailProps[] = [];
     emailPropActionUI: IActionEmailPropsUI = {
@@ -189,7 +186,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     isLoading: boolean = false;
 
-    dragItem: 'SendEmail' | 'GraduationTableEvent';
+    dragItem: string;
 
     private timerHwnd: number;
 
@@ -429,14 +426,14 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     private async loadActions(idModule: string): Promise<void> {
         try {
             this.actions = await this.workflowService.getWorkfkowActions(idModule);
-            this.loadWorkfkowAvailbleActions();
+            this.loadWorkflowAvailbleActions();
         } catch (error) {
             console.error(error);
             this.isLoading = false;
         }
     }
 
-    private async loadWorkfkowAvailbleActions(): Promise<void> {
+    private async loadWorkflowAvailbleActions(): Promise<void> {
         try {
             this.availbleActions = await this.workflowService.getWorkfkowAvailbleActions(
                 this.chooseModules.uid,
@@ -707,7 +704,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             this.isLoading = true;
             await this.workflowService.putActionsConnections(this.chooseModules.uid, this.chooseScenarios.uid, body);
             this.resetScenario();
-            await this.loadWorkfkowAvailbleActions();
+            await this.loadWorkflowAvailbleActions();
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -776,7 +773,6 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 this.changedOptions();
             }
         }, 2000);
-        // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
@@ -796,7 +792,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         }
     }
 
-    dragStartHandler(event: DragEvent, item: 'SendEmail' | 'GraduationTableEvent'): void {
+    dragStartHandler(event: DragEvent, item: string): void {
         if (this.chooseScenarios) {
             this.dragItem = item;
         }
@@ -805,7 +801,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     async emptyCellClick(event: DragEvent, item: IGridsterItemLocal): Promise<void> {
         if (this.dragItem) {
-            const el = this.actions?.find((val) => val.name === this.dragItem);
+            const el = this.actions?.find((val) => val.uid === this.dragItem);
             try {
                 const newAction = await this.workflowService.postAddActionsInScenario(
                     this.chooseModules.uid,
@@ -814,7 +810,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 );
                 item.cols = this.itemCol;
                 item.rows = this.itemRow;
-                item.type = this.dragItem;
+                item.type = el.name;
                 item.scenarioAction = newAction.uid;
                 item.action = newAction.actionUid;
 
@@ -896,11 +892,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (el) {
                 this.propsAction(ans);
             } else {
-                this.comboAction = null;
-                if (this.comboAction) {
-                    this.comboAction = { ...this.comboAction, ...ans?.[0] };
+                this.comboAction = [];
+                if (this.comboAction.length) {
+                    this.comboAction = [...this.comboAction, ...ans];
                 } else {
-                    this.comboAction = ans?.[0];
+                    this.comboAction = ans;
                 }
             }
             this.isLoading = false;
@@ -944,10 +940,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 this.emailAction = ans;
             } else {
                 if (this.comboAction) {
-                    this.comboAction = { ...this.comboAction, ...ans?.[0] };
+                    this.comboAction = [...this.comboAction, ...ans];
                 } else {
-                    this.comboAction = ans?.[0];
+                    this.comboAction = ans;
                 }
+                console.log(this.comboAction);
             }
             this.isLoading = false;
         } catch (error) {
@@ -1002,6 +999,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
+        console.log(this.content?.nativeElement?.getBoundingClientRect()?.height);
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
@@ -1060,7 +1058,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         }
     }
 
-    async chooseActionScenario(event: MatSelectChange): Promise<void> {
+    async chooseActionScenario(event: MatSelectChange, item: IActionCombobox): Promise<void> {
         if (this.comboAction) {
             this.isLoading = true;
             const body = { value: event.value };
@@ -1068,7 +1066,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 await this.workflowService.putProps(
                     this.chooseScenarios.uid,
                     this.activeActions.scenarioAction,
-                    this.comboAction.uid,
+                    item.uid,
                     body
                 );
                 this.isLoading = false;
@@ -1077,5 +1075,13 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 this.isLoading = false;
             }
         }
+    }
+
+    isSendMail(type: string): boolean {
+        return type.toLowerCase().includes('SendEmail'.toLowerCase());
+    }
+
+    isTableEvent(type: string): boolean {
+        return type.toLowerCase().includes('Event'.toLowerCase());
     }
 }
