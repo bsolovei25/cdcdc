@@ -16,7 +16,6 @@ export class OzsmCardLineDiagramComponent implements OnInit, OnChanges {
 
     public get bgLineClass(): 'active' | 'deviation' | 'deviation-opacity' {
         if (this.type !== 'deviation-icon') {
-            console.log(this.data?.name ?? 'def', 'active');
             return 'active';
         } else {
             return this.data?.value > this.data?.plan ? 'deviation' : 'deviation-opacity';
