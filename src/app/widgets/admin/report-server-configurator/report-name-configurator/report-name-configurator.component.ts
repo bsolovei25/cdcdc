@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ICustomOptionsTemplate, ITreeFolderMap } from '../../../../dashboard/models/ADMIN/report-server';
+import { ICustomOptionsTemplate, ITreeFolderMap } from '../../../../dashboard/models/ADMIN/report-server.model';
 import { ReportsService } from '../../../../dashboard/services/widgets/admin-panel/reports.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'evj-report-name-configurator',
