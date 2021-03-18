@@ -10,7 +10,7 @@ import {
     IReportFile,
     IFolder,
     IPostSystemOptionsTemplate,
-} from '../../../models/ADMIN/report-server';
+} from '../../../models/ADMIN/report-server.model';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({

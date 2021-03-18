@@ -7,5 +7,5 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root',
 })
 export class PreloaderService {
-    isLoad$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    isLoad$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 }

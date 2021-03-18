@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IWidget } from '../../../../../../dashboard/models/widget.model';
-import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { ICategory, IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';

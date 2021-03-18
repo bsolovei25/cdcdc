@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IUnits } from '../models/ADMIN/admin-shift-schedule';
+import { IUnits } from '../models/ADMIN/admin-shift-schedule.model';
 import { IClaim } from '../models/user-settings.model';
 
 export enum EnumClaimWidgets {

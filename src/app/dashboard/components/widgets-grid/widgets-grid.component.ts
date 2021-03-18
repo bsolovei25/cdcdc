@@ -1,5 +1,4 @@
 import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
-import { WIDGETS } from '../../../widgets/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -7,6 +6,7 @@ import { EventEmitter } from '@angular/core';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
+import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 
 export interface IParamWidgetsGrid {
     cols: number;
@@ -21,7 +21,7 @@ export interface IParamWidgetsGrid {
     styleUrls: ['./widgets-grid.component.scss'],
 })
 export class WidgetsGridComponent implements OnInit, OnDestroy {
-    public readonly WIDGETS = WIDGETS;
+    public readonly widgetContainerComponent: typeof WidgetContainerComponent = WidgetContainerComponent;
 
     private subscriptions: Subscription[] = [];
 

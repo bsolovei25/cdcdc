@@ -24,7 +24,7 @@ import {
     IBrigadeWithUsersDto,
     IUnits,
     IUnitSettings,
-} from '../../../dashboard/models/ADMIN/admin-shift-schedule';
+} from '../../../dashboard/models/ADMIN/admin-shift-schedule.model';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,

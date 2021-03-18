@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { IReportTemplate } from '../../../models/ADMIN/report-server';
+import { IReportTemplate } from '../../../models/ADMIN/report-server.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 export const fadeAnimation = trigger('fadeAnimation', [

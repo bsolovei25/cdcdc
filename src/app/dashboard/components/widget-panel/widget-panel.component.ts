@@ -6,18 +6,16 @@ import {
     Injector,
     Input,
     ChangeDetectorRef,
-    AfterViewInit,
     AfterContentChecked,
     OnDestroy,
-    Type,
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import { WIDGETS } from '../../../widgets/widget-map';
 import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { WIDGETS_LAZY } from '../../../widgets/widget-map';
 
 @Component({
     selector: 'evj-widget-panel',
@@ -33,7 +31,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
     ],
 })
 export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDestroy {
-    public readonly WIDGETS: { [key: string]: Type<unknown> } = WIDGETS;
+    public readonly widgetContainerComponent: typeof WidgetContainerComponent = WidgetContainerComponent;
     public gridWidget: boolean = true;
     public fixWidget: boolean = true;
 
@@ -61,11 +59,10 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
     @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(
-        public widgetService: WidgetService,
-        public injector: Injector,
-        public userSettings: UserSettingsService,
+        private widgetService: WidgetService,
+        private injector: Injector,
         private claimService: ClaimService,
-        private chDet: ChangeDetectorRef
+        private cdRef: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -73,13 +70,13 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
             this.widgetService.widgetsPanel$.subscribe((dataW) => {
                 const filterWidgets: IWidget[] = [];
                 dataW.forEach((widget) => {
-                    if (WIDGETS[widget.widgetType] && !widget.isHidden) {
+                    if (!!WIDGETS_LAZY[widget.widgetType] && !widget.isHidden) {
                         filterWidgets.push(widget);
                     }
                 });
                 this.widgets$.next(filterWidgets);
                 this.filterWidgets$.next(filterWidgets);
-                this.chDet.detectChanges();
+                this.cdRef.detectChanges();
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
@@ -95,7 +92,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
     }
 
     ngAfterContentChecked(): void {
-        this.chDet.detectChanges();
+        this.cdRef.detectChanges();
     }
 
     ngOnDestroy(): void {

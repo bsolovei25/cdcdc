@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { IReportTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
+import { IReportTemplate } from 'src/app/dashboard/models/ADMIN/report-server.model';
 import { AppConfigService } from '@core/service/app-config.service';
 import { ReportsService } from '../../../services/widgets/admin-panel/reports.service';
 import { MatDatepicker } from '@angular/material/datepicker';
