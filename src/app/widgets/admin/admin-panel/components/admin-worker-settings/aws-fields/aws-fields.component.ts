@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IUser, IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
-import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({

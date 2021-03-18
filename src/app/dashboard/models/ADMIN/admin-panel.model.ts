@@ -2,7 +2,7 @@ import { ICategory, IUnitEvents, IUser } from '../EVJ/events-widget';
 import { IWidget } from '../widget.model';
 import { IWorker } from '../worker';
 import { IBrigade } from '../EVJ/shift.model';
-import { IUnits } from './admin-shift-schedule';
+import { IUnits } from './admin-shift-schedule.model';
 
 export interface IAdminPanel {
     person: IUser;

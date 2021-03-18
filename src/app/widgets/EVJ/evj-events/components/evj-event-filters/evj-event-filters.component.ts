@@ -4,7 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import { IUnits } from '../../../../../dashboard/models/ADMIN/admin-shift-schedule';
+import { IUnits } from '../../../../../dashboard/models/ADMIN/admin-shift-schedule.model';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl, Validators } from '@angular/forms';
-import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 
 @Component({
     selector: 'evj-aws-card',

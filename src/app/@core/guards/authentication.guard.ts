@@ -30,13 +30,10 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
     ): Promise<boolean> {
         try {
             const auth = await this.authService.getUserAuth();
-            if (auth) {
-                return true;
-            }
+            return !!auth;
         } catch (error) {
             return false;
         }
-        // return true;
     }
 
     async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
@@ -44,7 +41,6 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
     }
 
     async canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean | UrlTree> {
-        console.log(Object.keys(route.queryParams));
         if (Object.keys(route?.queryParams)?.length > 0) {
             localStorage.setItem('queryParams', JSON.stringify(route.queryParams));
         }

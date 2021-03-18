@@ -12,12 +12,12 @@ import {
     ISystemOptionsTemplate,
     IFolder,
     IPostSystemOptionsTemplate,
-} from 'src/app/dashboard/models/ADMIN/report-server';
+} from 'src/app/dashboard/models/ADMIN/report-server.model';
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ReportNameConfiguratorComponent } from "./report-name-configurator/report-name-configurator.component";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReportNameConfiguratorComponent } from './report-name-configurator/report-name-configurator.component';
 
 export interface IDialogData {
     animal: string;
@@ -423,12 +423,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         item.openEdit = true;
         this.newRecord = item.name;
 
-
         const dialogRef = this.dialog.open(ReportNameConfiguratorComponent, {
-            data: {}
+            data: {},
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result) => {
             console.log('The dialog was closed');
         });
     }

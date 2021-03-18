@@ -6,7 +6,7 @@ import {
     IReferenceColumnsType,
     IReferenceColumns,
     IReferenceData,
-} from '../../../models/ADMIN/references';
+} from '../../../models/ADMIN/references.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';

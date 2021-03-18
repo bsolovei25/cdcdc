@@ -10,7 +10,7 @@ import {
     IUserLdapDto,
     IUserLdap,
     IUserImported,
-} from '../../../models/ADMIN/admin-panel';
+} from '../../../models/ADMIN/admin-panel.model';
 import { IUser, IUnitEvents, ICategory } from '../../../models/EVJ/events-widget';
 import { IWidget } from '../../../models/widget.model';
 import { fillDataShape } from '@shared/functions/common-functions';

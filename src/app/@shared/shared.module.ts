@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
-import { FnPipe } from './pipes/fn_pipe';
+import { FnPipe } from './pipes/fn.pipe';
 import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './components/preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';

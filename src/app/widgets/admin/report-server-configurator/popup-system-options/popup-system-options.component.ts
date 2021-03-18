@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { ISystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
+import { ISystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server.model';
 
 @Component({
     selector: 'evj-popup-system-options',

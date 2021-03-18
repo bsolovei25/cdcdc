@@ -22,6 +22,6 @@
     (dragstart)="dragStartHandler($event, item.id)"
     class="widget"
   >
-    <ng-container *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"> </ng-container>
+    <ng-container *ngComponentOutlet="widgetContainerComponent; injector: (item.id | fn:getInjector);"> </ng-container>
   </div>
 </cdk-virtual-scroll-viewport>

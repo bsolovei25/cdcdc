@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { WIDGETS, WIDGETS_LAZY } from '../../widgets/widget-map';
+import { WIDGETS_LAZY } from '../../widgets/widget-map';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
@@ -413,7 +413,7 @@ export class UserSettingsService {
     }
 
     private defWidgetSize = (widgetType: string): any => {
-        return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
+        return WIDGETS_LAZY[widgetType];
     };
 
     public setTitle(newTitle: string): void {

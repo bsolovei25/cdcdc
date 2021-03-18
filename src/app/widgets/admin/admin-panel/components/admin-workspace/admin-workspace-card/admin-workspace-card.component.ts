@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IWorkspace, ScreenClaimsEnum } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IWorkspace, ScreenClaimsEnum } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 
 @Component({
     selector: 'evj-admin-workspace-card',

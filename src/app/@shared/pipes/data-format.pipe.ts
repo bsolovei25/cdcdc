@@ -5,7 +5,7 @@ import { Pipe, PipeTransform, Injectable } from '@angular/core';
 })
 @Injectable()
 export class DateFormatPipe implements PipeTransform {
-    protected readonly locale = 'ru-RU';
+    protected readonly locale: string = 'ru-RU';
     protected readonly units = {
         YYYY: {
             year: 'numeric',
@@ -79,10 +79,6 @@ export class DateFormatPipe implements PipeTransform {
             } else {
                 unit = _value.toLocaleString(this.locale, this.units[item]);
             }
-
-            // if (index === 0) {
-            //   unit = unit.toCapitalize();
-            // }
 
             dateUnits.push(unit);
         });

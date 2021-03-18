@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
-import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
+import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/ADMIN/report-server.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 

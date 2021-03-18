@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
-import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
