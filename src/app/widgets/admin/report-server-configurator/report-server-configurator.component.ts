@@ -188,7 +188,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: any): void {
-        //this.data = ref;
+        // this.data = ref;
     }
 
     openTable(event): void {
@@ -419,49 +419,48 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         }
     }
 
-    onEdit(item): void {
-        item.openEdit = true;
-        this.newRecord = item.name;
-
-        const dialogRef = this.dialog.open(ReportNameConfiguratorComponent, {
-            data: {},
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('The dialog was closed');
-        });
+    async onEdit(item: ITreeFolderMap): Promise<void> {
+        if (item.hasOwnProperty('idTemplate')) {
+            const res = await this.reportService.getReportFileNameOptions(item.idTemplate).toPromise();
+            const dialogRef = this.dialog.open(ReportNameConfiguratorComponent, {
+                data: {
+                    item,
+                    res,
+                },
+            });
+            const name = item.name;
+            dialogRef.afterClosed().subscribe(async (result) => {
+                if (result) {
+                    const obj = {
+                        folderId: item.folderId,
+                        id: item.idTemplate,
+                        name: result.result.item.name,
+                        createdAt: item.createdAt,
+                        createdBy: item.createdBy,
+                        displayName: '',
+                        isDeleted: item.isDeleted,
+                    };
+                    try {
+                        await this.putReportTemplate(obj);
+                    } catch {
+                        item.name = name;
+                    }
+                    try {
+                        await this.reportService
+                            .postReportFileNameOptions(item.idTemplate, result.result.res)
+                            .toPromise();
+                    } catch {
+                        this.snackBar.openSnackBar('Ошибка', 'error');
+                    }
+                    item.name = result.result.item.name;
+                } else {
+                    item.name = name;
+                }
+            });
+        }
     }
 
-    editReference(item): void {
-        const obj = {
-            folderId: item.folderId,
-            id: item.idTemplate,
-            name: this.newRecord,
-            createdAt: item.createdAt,
-            createdBy: item.createdBy,
-            displayName: '',
-            isDeleted: item.isDeleted,
-        };
-        const windowsParam = {
-            isShow: true,
-            questionText: 'Применить внесенные изменения?',
-            acceptText: 'Да',
-            cancelText: 'Нет',
-            acceptFunction: () => {
-                this.putReportTemplate(obj);
-                item.name = this.newRecord;
-                item.openEdit = false;
-                this.newRecord = null;
-            },
-            closeFunction: () => {
-                this.reportService.closeAlert();
-                item.openEdit = false;
-                this.newRecord = null;
-            },
-            cancelFunction: () => {},
-        };
-        this.reportService.alertWindow$.next(windowsParam);
-    }
+    editReference(item): void {}
 
     editFolder(item): void {
         const obj = {

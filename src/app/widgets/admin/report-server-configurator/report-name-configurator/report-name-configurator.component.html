@@ -1,4 +1,5 @@
 <div class="container">
+  <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
   <div class="container__header">
     <div class="title">
       <div class="logo">
@@ -29,7 +30,7 @@
           <div class="input-block">
             <div class="input-block__input">
               <div class="input-back">
-                <input type="text"/>
+                <input type="text" [(ngModel)]="data.item.name" />
               </div>
             </div>
           </div>
@@ -41,107 +42,60 @@
         <span>Шаблон наименования файла</span>
       </div>
       <div class="container__body__template">
-        Имя отчета | Пользовательский параметр | Редактирование временного периода
+        <span></span>
+        <ng-container *ngFor="let item of data.res.customOptionsFilenameSettings; last as last">
+          {{  !last ?  item.name + ' | ' : item.name}}
+        </ng-container>
       </div>
     </div>
     <div class="options">
       <div class="title">
         <span>Конструктор шаблона наименования файла</span>
       </div>
-      <div class="container__body__options">
-
-        <div class="option">
-          <div class="option__name">Имя отчёта</div>
+      <div class="container__body__options"
+           cdkDropList
+           (cdkDropListDropped)="drop($event)"
+      >
+        <div *ngFor="let item of data.res.customOptionsFilenameSettings"
+             class="option"
+             [cdkDragData]="item"
+             cdkDrag>
+          <div class="option__name">{{ item.name }}</div>
           <div class="option__radio">
             <span class="slide">
               <mat-slide-toggle
                 disableRipple="true"
+                [(ngModel)]="item.useInFilename"
               ></mat-slide-toggle>
             </span>
           </div>
         </div>
-
-        <div class="option">
-          <div class="option__name">Название параметра</div>
-          <div class="option__radio">
-            <span class="slide">
-              <mat-slide-toggle
-                disableRipple="true"
-              ></mat-slide-toggle>
-            </span>
-          </div>
-        </div>
-
-        <div class="option">
-          <div class="option__name">Пользовательский параметр</div>
-          <div class="option__radio">
-            <span class="slide">
-              <mat-slide-toggle
-                disableRipple="true"
-              ></mat-slide-toggle>
-            </span>
-          </div>
-        </div>
-
-        <div class="option">
-          <div class="option__name">Редактирование временного периода</div>
-          <div class="option__radio">
-            <span class="slide">
-              <mat-slide-toggle
-                disableRipple="true"
-              ></mat-slide-toggle>
-            </span>
-          </div>
-        </div>
-
-        <div class="option">
-          <div class="option__name">Редактирование временного периода</div>
-          <div class="option__radio">
-            <span class="slide">
-              <mat-slide-toggle
-                disableRipple="true"
-              ></mat-slide-toggle>
-            </span>
-          </div>
-        </div>
-
-        <div class="option">
-          <div class="option__name">Редактирование временного периода</div>
-          <div class="option__radio">
-            <span class="slide">
-              <mat-slide-toggle
-                disableRipple="true"
-              ></mat-slide-toggle>
-            </span>
-          </div>
-        </div>
-
       </div>
     </div>
     <div class="container__body__buttons">
-        <div class="btn">
-          <evj-rect-button
-            class="add-button"
-            matRipple
-            matRippleColor="white"
-            textButton="Cохранить"
-            [isChangingState]="false"
-            [type]="'primary'"
-            [mat-dialog-close]="'data.animal'"
-          >
-          </evj-rect-button>
-        </div>
-        <div class="btn">
-          <evj-rect-button
-            class="add-button"
-            matRipple
-            matRippleColor="white"
-            textButton="Отменить"
-            (click)="onNoClick()"
-            [isChangingState]="false"
-            [type]="'primary'"
-          >
-          </evj-rect-button>
+      <div class="btn">
+        <evj-rect-button
+          class="add-button"
+          matRipple
+          matRippleColor="white"
+          textButton="Cохранить"
+          [isChangingState]="false"
+          [type]="'primary'"
+          (click)="dialogClose()"
+        >
+        </evj-rect-button>
+      </div>
+      <div class="btn">
+        <evj-rect-button
+          class="add-button"
+          matRipple
+          matRippleColor="white"
+          textButton="Отменить"
+          (click)="onNoClick()"
+          [isChangingState]="false"
+          [type]="'primary'"
+        >
+        </evj-rect-button>
       </div>
     </div>
   </div>

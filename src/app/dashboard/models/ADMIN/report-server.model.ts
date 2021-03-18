@@ -95,6 +95,13 @@ export interface ITreeFolderMap {
     name: string;
     children: ITreeFolderMap[];
     type: string;
+    openEdit?: boolean;
+    createdAt?: '2020-12-18T13:37:02Z';
+    createdBy?: 6;
+    displayName?: '';
+    folderId?: undefined;
+    isDeleted?: false;
+    open?: false;
 }
 
 export interface IReportFile {
@@ -112,3 +119,18 @@ export interface IPostSystemOptionsTemplate {
     fileTemplate: IReportFile;
     periodType: string;
 }
+
+export interface ICustomOptionsTemplate {
+    customOptionsFilenameSettings: ICustomOptionsFilenameSettings[];
+    templateId: number;
+    templateNameOrder: number;
+    useTemplateNameInFilename: boolean;
+}
+
+export interface ICustomOptionsFilenameSettings {
+    customOptionId: number;
+    name: string;
+    useInFilename: boolean;
+    order: number;
+}
+
