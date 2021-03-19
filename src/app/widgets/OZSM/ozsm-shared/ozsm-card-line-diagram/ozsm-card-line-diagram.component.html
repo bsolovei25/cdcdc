@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngClass]="{'disabled': isDisabled}">
   <div class="card__title">
     <div class="icon" [ngSwitch]="type">
       <ng-template ngSwitchCase="icon">
@@ -11,26 +11,22 @@
       <ng-template ngSwitchCase="default"> </ng-template>
     </div>
     <div class="name" [class.name__icon]="type === 'icon' || type === 'deviation-icon'">
-      {{type === 'number' ? 'Линия' : data?.name}}
+      {{type === 'number' ? 'Линия' : sourceData?.name}}
     </div>
   </div>
   <div *ngIf="type !== 'deviation-icon'; else deviationValue" class="value" [class.value__icon]="type === 'icon'">
-    <span class="plan">{{+data?.plan | spaceNumber : 2}}</span>
-    <span class="disabled"> / </span>
-    <span class="fact">{{+data?.value | spaceNumber : 2}}</span>
+    <span class="fact">{{+sourceData?.value | spaceNumber : 2}}</span>
   </div>
   <ng-template #deviationValue>
     <div class="value value__deviation">
-      <span class="plan">{{+data?.plan | spaceNumber : 2}}</span>
-      <span class="disabled"> / </span>
-      <span class="fact">{{+data?.value | spaceNumber : 2}}</span>
-      <span *ngIf="+data?.plan - +data?.value != 0" class="deviation"
-        >{{+data?.value - +data?.plan | spaceNumber : 2}}</span
+      <span class="fact">{{+sourceData?.value | spaceNumber : 2}}</span>
+      <span *ngIf="+sourceData?.plan - +sourceData?.value != 0" class="deviation"
+        >{{+sourceData?.value - +sourceData?.plan | spaceNumber : 2}}</span
       >
     </div>
   </ng-template>
   <div class="card__line">
-    <div class="line line__bg" [ngClass]="'line__bg-' + bgLineClass"></div>
-    <div class="line line__active" [ngStyle]="{width: percentValue + '%'}"></div>
+    <div class="line line__bg" [ngClass]="'line__bg-' + (!isDisabled? bgLineClass : 'disabled')"></div>
+    <div class="line line__active" [style.width.%]="percentValue"></div>
   </div>
 </div>

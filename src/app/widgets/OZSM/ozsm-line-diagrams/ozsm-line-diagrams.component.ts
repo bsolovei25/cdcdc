@@ -54,6 +54,7 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implement
                 fact: x.value,
                 plan: x.value,
                 percent: x.percent,
+                disabled: !x.value && !x.percent
             })) ?? []
         );
     };

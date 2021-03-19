@@ -1,8 +1,8 @@
-<div class="line-diagram">
+<div class="line-diagram" [ngClass]="{'disabled': item.disabled}">
   <div class="line-diagram__info">
     <div class="line-diagram__title"><span>{{item.title}}</span></div>
     <div class="line-diagram__level-empty">
-      <div class="level" [ngStyle]="{width: item?.percent + '%'}"></div>
+      <div class="level" [style.width.%]="item.percent? item.percent: 0"></div>
     </div>
   </div>
   <div class="line-diagram__value">
