@@ -22,7 +22,12 @@ export class KpeEnergyDiagramComponent implements OnInit {
 
     public ngOnInit(): void {
         this.dataHandler();
-        const mainValue = this.fact > this.plan ? (this.plan / this.fact) * 100 : (this.fact / this.plan) * 100;
+        const mainValue =
+            !this.fact || !this.plan
+                ? 0
+                : this.fact > this.plan
+                ? (this.plan / this.fact) * 100
+                : (this.fact / this.plan) * 100;
         const subValue = Math.abs(this.fact - this.plan);
         this.bindChart(mainValue, subValue);
     }
