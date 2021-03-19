@@ -44,6 +44,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
 
     ngOnInit(): void {
         super.widgetInit();
+        this.conventionalFuelService.predictorsId$.next(this.id);
     }
 
     ngOnDestroy(): void {
@@ -69,8 +70,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
         this.astueOnpzService.setPredictors(predictorWidgetId, []);
     }
 
-    protected dataHandler(ref: { predictors: IPredictors[] }): void {
-    }
+    protected dataHandler(ref: { predictors: IPredictors[] }): void {}
 
     changeToggle(item: IPredictors, color: number): void {
         this.selectPredictors.toggle(item.id);
@@ -95,7 +95,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
             name: string;
             id: string;
         }>(this.widgetId);
-        const subchannelId = channels.find((x) => x.name === options.fuel).id;
+        const subchannelId = channels.find((x) => x.name === options.resource).id;
         const res = await this.widgetService.getChannelLiveDataFromWs(subchannelId, this.widgetId);
 
         res.subscribe((value: { predictors: IPredictors[] }) => {
@@ -108,6 +108,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
                     this.colors = color;
                 })
             );
-        })
+        });
     }
 }

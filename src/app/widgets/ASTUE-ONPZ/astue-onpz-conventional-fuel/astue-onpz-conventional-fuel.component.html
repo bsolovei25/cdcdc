@@ -3,33 +3,18 @@
     <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-predictors" type="astue">
       <span style="margin-left: 20px">{{unitName}}</span>
 
-      <div *ngIf="isPredictors" class="selects">
+      <div *ngIf="isPredictors" class="selects" [formGroup]="selectionForm">
         <svg-icon
           class="arrow-circle"
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
           [ngStyle]="{ 'width.px':14, 'height.px':14 }"
         ></svg-icon>
 
-        <div class="option-select">
+        <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
           <div class="dropdown">
-            <!--            <div class="dropdown__marker"></div>-->
-            <mat-select class="dropdown__select" [value]="'Производство 1'">
-              <mat-option [value]="'Производство 1'">Производство 1</mat-option>
-            </mat-select>
-          </div>
-        </div>
-
-        <svg-icon
-          class="arrow-circle"
-          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
-          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
-        ></svg-icon>
-
-        <div class="option-select">
-          <div class="dropdown">
-            <!--            <div class="dropdown__marker"></div>-->
-            <mat-select class="dropdown__select" [value]="'АВТ-10'">
-              <mat-option [value]="'АВТ-10'">АВТ-10</mat-option>
+            <mat-select placeholder="Производство" class="dropdown__select" [formControlName]="'manufacture'">
+              <mat-option>Не выбрано</mat-option>
+              <mat-option *ngFor="let manufacture of manufacturesReference$ | async" [value]="manufacture.id">{{ manufacture.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -42,11 +27,24 @@
 
         <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
           <div class="dropdown">
-            <!--            <div class="dropdown__marker"></div>-->
-            <mat-select class="dropdown__select" [formControl]="selectFuel">
-              <mat-option *ngFor="let fuel of astueOnpzConventionalFuelService.selectFuelReference" [value]="fuel"
-                >{{fuel}}</mat-option
-              >
+            <mat-select placeholder="Установка" class="dropdown__select" [formControlName]="'unit'">
+              <mat-option>Не выбрано</mat-option>
+              <mat-option *ngFor="let unit of unitsReference$ | async" [value]="unit.id">{{ unit.name }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+          <div class="dropdown">
+            <mat-select placeholder="Энергоресурс" class="dropdown__select" [formControlName]="'resource'">
+              <mat-option>Не выбрано</mat-option>
+              <mat-option *ngFor="let resource of resourcesReference$ | async" [value]="resource.id">{{ resource.name }}</mat-option>
             </mat-select>
           </div>
         </div>

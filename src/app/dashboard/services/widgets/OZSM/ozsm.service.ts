@@ -32,7 +32,7 @@ export class OzsmService {
             return (
                 (
                     await this.http
-                        .get<{ scenarioInfo: IOzsmScenarioResponse[] }>(`${this.restUrl}/api/Ozsm/ScenarioInfo`)
+                        .get<{ scenarioInfo: IOzsmScenarioResponse[] }>(`${this.restUrl}/api/ozsm/ozsm/ScenarioInfo`)
                         .toPromise()
                 )?.scenarioInfo ?? []
             );
@@ -44,7 +44,7 @@ export class OzsmService {
     public async getLineDiagrams(scenarioId: string, type: IOzsmLineDiagramType): Promise<IOzsmLineDiagramResponse> {
         try {
             const res = await this.http
-                .get<IOzsmLineDiagramResponse>(`${this.restUrl}/api/Ozsm/${scenarioId}/${type}`)
+                .get<IOzsmLineDiagramResponse>(`${this.restUrl}/api/ozsm/ozsm/${scenarioId}/${type}`)
                 .toPromise();
             res.type = type;
             return res;
@@ -63,7 +63,7 @@ export class OzsmService {
             return (
                 await this.http
                     .get<{ planSummary: IOzsmCirclePlanningDiagramResponse }>(
-                        `${this.restUrl}/api/Ozsm/${scenarioId}/PlanSummaries`
+                        `${this.restUrl}/api/ozsm/ozsm/${scenarioId}/PlanSummaries`
                     )
                     .toPromise()
             )?.planSummary;
@@ -78,7 +78,7 @@ export class OzsmService {
                 (
                     await this.http
                         .get<{ utilityUsing: IOzsmResourcesCircleDiagram[] }>(
-                            `${this.restUrl}/api/Ozsm/${scenarioId}/UtilityUsing`
+                            `${this.restUrl}/api/ozsm/ozsm/${scenarioId}/UtilityUsing`
                         )
                         .toPromise()
                 )?.utilityUsing ?? []
@@ -91,7 +91,7 @@ export class OzsmService {
     public async getStorageStats(scenarioId: string): Promise<IOzsmStorageStatsResponse> {
         try {
             return await this.http
-                .get<IOzsmStorageStatsResponse>(`${this.restUrl}/api/Ozsm/${scenarioId}/StorageStats`)
+                .get<IOzsmStorageStatsResponse>(`${this.restUrl}/api/ozsm/ozsm/${scenarioId}/StorageStats`)
                 .toPromise();
         } catch (e) {
             return null;
@@ -104,7 +104,7 @@ export class OzsmService {
                 (
                     await this.http
                         .get<{ unitsSupplyAllocation: IOzsmPlanningMainItemResponse[] }>(
-                            `${this.restUrl}/api/Ozsm/${scenarioId}/ProductionAllocations`
+                            `${this.restUrl}/api/ozsm/ozsm/${scenarioId}/ProductionAllocations`
                         )
                         .toPromise()
                 )?.unitsSupplyAllocation ?? []

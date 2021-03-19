@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '@core/service/app-config.service';
 
 export interface IAstueOnpzConventionalFuelTransfer {
     predictors: any[];
@@ -12,18 +14,37 @@ export interface IAstueOnpzConventionalFuelTransfer {
 export interface IAstueOnpzConventionalFuelSelectOptions {
     manufacture: string;
     unit: string;
-    fuel: string;
+    resource: string;
+}
+
+export interface IAstueOnpzReferences {
+    manufacturies: IAstueOnpzReferenceModel[];
+    units: IAstueOnpzReferenceModel[];
+    energyResources: IAstueOnpzReferenceModel[];
+}
+
+export interface IAstueOnpzReferenceModel {
+    id: string;
+    parentId?: string;
+    name: string;
 }
 
 @Injectable({
     providedIn: 'root',
 })
 export class AstueOnpzConventionalFuelService {
+    public selectReferences$: BehaviorSubject<IAstueOnpzReferences> = new BehaviorSubject<IAstueOnpzReferences>({
+        manufacturies: [],
+        units: [],
+        energyResources: [],
+    });
+
     public defaultSelectOptions: IAstueOnpzConventionalFuelSelectOptions = {
         manufacture: 'Производство №1',
         unit: 'АВТ-10',
-        fuel: 'Топливо',
+        resource: 'Топливо',
     };
+
     public readonly selectFuelReference: string[] = [
         'Топливо',
         'Потребление тепла',
@@ -40,9 +61,36 @@ export class AstueOnpzConventionalFuelService {
         null
     );
 
-    constructor() {}
+    public predictorsId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    setSelectedOptions(options: IAstueOnpzConventionalFuelSelectOptions): void {
+    private readonly restUrl: string;
+
+    constructor(private http: HttpClient, appConfigService: AppConfigService) {
+        this.restUrl = appConfigService.restUrl;
+    }
+
+    public changeSelectedForm(options: IAstueOnpzConventionalFuelSelectOptions): void {
+        const isValid = !Object.values(options).some((x) => !x);
+        if (!isValid) {
+            return;
+        }
+        const ref = this.selectReferences$.getValue();
+        options.manufacture = ref.manufacturies.find((x) => x.id === options.manufacture)?.name;
+        options.unit = ref.units.find((x) => x.id === options.unit)?.name;
+        options.resource = ref.energyResources.find((x) => x.id === options.resource)?.name;
+        this.setSelectedOptions(options);
+    }
+
+    public setSelectedOptions(options: IAstueOnpzConventionalFuelSelectOptions): void {
         this.selectedOptions$.next({ ...options });
+    }
+
+    public async getSelectionReferences(widgetId: string): Promise<IAstueOnpzReferences> {
+        try {
+            const url = `${this.restUrl}/api/debugging-service-EnergyControl/ec/Metadata/get-catalog/${widgetId}`;
+            return await this.http.get<IAstueOnpzReferences>(url).toPromise();
+        } catch (e) {
+            console.error('getSelectionReferences', e);
+        }
     }
 }

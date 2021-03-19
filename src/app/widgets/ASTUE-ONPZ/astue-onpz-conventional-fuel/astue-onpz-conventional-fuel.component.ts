@@ -9,10 +9,11 @@ import { IChartMini } from '@shared/models/smart-scroll.model';
 import {
     AstueOnpzConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
+    IAstueOnpzReferenceModel,
 } from './astue-onpz-conventional-fuel.service';
-import { BehaviorSubject } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ScreenshotMaker } from '@core/classes/screenshot.class';
 import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
 
@@ -62,6 +63,25 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         null
     );
 
+    selectionForm: FormGroup = new FormGroup({
+        manufacture: new FormControl(),
+        unit: new FormControl(),
+        resource: new FormControl(),
+    });
+
+    public manufacturesReference$: Observable<
+        IAstueOnpzReferenceModel[]
+    > = this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x.manufacturies));
+    public unitsReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
+        this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x.units)),
+        this.selectionForm.get('manufacture').valueChanges,
+    ]).pipe(map(([units, manufacture]) => units.filter((u) => u.parentId === manufacture)));
+
+    public resourcesReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
+        this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x.energyResources)),
+        this.selectionForm.get('unit').valueChanges,
+    ]).pipe(map(([resources, unit]) => resources.filter((r) => r.parentId === unit)));
+
     constructor(
         private reportService: ReportsService,
         protected widgetService: WidgetService,
@@ -75,7 +95,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     ) {
         super(widgetService, isMock, id, uniqId);
         astueOnpzConventionalFuelService.selectedOptions = this.selectFuel.valueChanges.pipe(
-            map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, fuel: x }))
+            map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, resource: x }))
         );
     }
 
@@ -89,14 +109,34 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                     this.changeDetection.detectChanges();
                 });
             }),
-            this.selectFuel.valueChanges.subscribe((x) => {
-                this.astueOnpzConventionalFuelService.setSelectedOptions({
-                    ...this.astueOnpzConventionalFuelService.defaultSelectOptions,
-                    fuel: x,
-                });
-            })
+            // this.selectFuel.valueChanges.subscribe((x) => {
+            //     this.astueOnpzConventionalFuelService.setSelectedOptions({
+            //         ...this.astueOnpzConventionalFuelService.defaultSelectOptions,
+            //         resource: x,
+            //     });
+            // }),
+            this.astueOnpzConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
+            this.selectionForm.get('manufacture').valueChanges.subscribe((x) => {
+                this.selectionForm.get('unit').setValue(null);
+                this.selectionForm.get('resource').setValue(null);
+            }),
+            this.selectionForm.get('unit').valueChanges.subscribe((x) => {
+                this.selectionForm.get('resource').setValue(null);
+            }),
+            this.selectionForm.valueChanges
+                .pipe(debounceTime(100), distinctUntilChanged())
+                .subscribe((x) => this.astueOnpzConventionalFuelService.changeSelectedForm(x))
         );
-        this.selectFuel.setValue(this.astueOnpzConventionalFuelService.selectFuelReference[0]);
+        // this.selectFuel.setValue(this.astueOnpzConventionalFuelService.selectFuelReference[0]);
+    }
+
+    private async loadReferences(widgetId: string): Promise<void> {
+        if (!widgetId) {
+            return;
+        }
+        const ref = await this.astueOnpzConventionalFuelService.getSelectionReferences(widgetId);
+        console.log(ref);
+        this.astueOnpzConventionalFuelService.selectReferences$.next(ref);
     }
 
     async takeScreenshot(): Promise<void> {
