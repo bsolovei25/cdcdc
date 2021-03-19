@@ -130,6 +130,11 @@ export class EvjAsusEventComponent implements OnInit {
         return !this.ewService.isCreateNewEvent;
     }
 
+    public isEventFinished(): boolean {
+        // статус Завершено: description: "Завершено", id:3003, name:"closed", code:"2"
+        return this.ewService.event?.status?.id === 3003;
+    }
+
     public isAvailableOption(type: string): boolean {
         switch (type) {
             case 'eoService':

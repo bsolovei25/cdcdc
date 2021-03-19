@@ -16,7 +16,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
-              [disabled]="!ewService.isCreateNewEvent"
+              [disabled]="isCreateEvent() || isEventFinished()"
               (selectionChange)="ewService.changeCategory()"
             >
               <mat-option *ngFor="let cat of ewService.category" [value]="cat">
@@ -35,7 +35,7 @@
         <div class="event-mat-select">
           <mat-form-field appearance="none">
             <mat-select
-              [disabled]="isCreateEvent()"
+              [disabled]="isCreateEvent() || isEventFinished()"
               [value]="ewService.event.asusEvent.category"
               [compareWith]="compareFn"
             >
@@ -56,7 +56,7 @@
           <mat-form-field appearance="none">
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent() || !isAvailableOption('equipment')"
+              [disabled]="isCreateEvent() || !isAvailableOption('equipment') || isEventFinished()"
               (click)="optionClick('equipment')"
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
@@ -80,7 +80,11 @@
         <div class="event-mat-select">
           <div class="{{ewService.event.priority.name}}">
             <mat-form-field appearance="none">
-              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+              <mat-select
+                [(ngModel)]="ewService.event.priority"
+                [compareWith]="compareFn"
+                [disabled]="isEventFinished()"
+              >
                 <mat-option *ngFor="let p of ewService.priority" [value]="p"
                   >{{ ewService.priorities[p.name] }}
                 </mat-option>
@@ -97,7 +101,10 @@
       <div class="title">
         <span>Статус</span>
       </div>
-      <evj-events-workspace-select [dataType]="'status'"></evj-events-workspace-select>
+      <evj-events-workspace-select
+        [dataType]="'status'"
+        [disabled]="isEventFinished()"
+      ></evj-events-workspace-select>
     </div>
     <div class="workspace__select-container">
       <div class="title">
@@ -108,7 +115,7 @@
           <mat-form-field appearance="none">
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent()"
+              [disabled]="isCreateEvent() || isEventFinished()"
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
@@ -124,7 +131,11 @@
       </div>
       <div class="mat-form-category">
         <div class="event-mat-select">
-          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.asusEvent.eoService">
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event.asusEvent.eoService"
+            [disabled]="isEventFinished()"
+          >
             <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
               >{{ eoService.name }}
             </mat-option>
@@ -153,6 +164,7 @@
         <evj-event-description
           [description]="ewService.event?.description"
           (changedDescription)="onChangeEventDescription($event)"
+          [disabled]="isEventFinished()"
         ></evj-event-description>
       </div>
 
@@ -161,6 +173,7 @@
           <evj-events-workspace-datetimepicker
             [label]="'Крайний срок'"
             [date]="ewService.event.asusEvent?.datetimeDeadline"
+            [disabled]="isEventFinished()"
           >
           </evj-events-workspace-datetimepicker>
         </div>
@@ -168,6 +181,7 @@
           <evj-events-workspace-datetimepicker
             [label]="'Дата завершения'"
             [date]="ewService.event.asusEvent?.datetimeEnd"
+            [disabled]="isEventFinished()"
           >
           </evj-events-workspace-datetimepicker>
         </div>
@@ -206,7 +220,7 @@
         </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select> </evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select [disabled]="isEventFinished()"></evj-events-workspace-responsible-select>
       </div>
       <div class="decision">
         <div class="title">
