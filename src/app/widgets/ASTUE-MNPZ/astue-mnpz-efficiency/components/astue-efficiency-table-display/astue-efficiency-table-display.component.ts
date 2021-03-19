@@ -143,9 +143,9 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                         this.displayData.push(flow);
                     }
                 });
+                this.displayData.forEach((x) => (x.rows = x.rows?.filter((r) => r !== null)));
             }
         });
-        console.log('displayData', this.displayData);
     }
 
     private defineDates(): void {
