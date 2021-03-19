@@ -6,7 +6,7 @@ import { IDatesInterval, WidgetService } from '../../../../../dashboard/services
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
-import { IChartMini } from "@shared/models/smart-scroll.model";
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 interface ILabels {
     currentDeviation: IAsEfLabel;
@@ -52,7 +52,7 @@ export class AstueEfficiencyGraphDisplayComponent
 
     private readonly restUrl: string = null;
 
-    public readonly unit: string = 'тонн';
+    public unit: string = 'тонн';
 
     get flowUnits(): string {
         return this.AsEfService.currentFlow?.engUnits;
@@ -84,9 +84,10 @@ export class AstueEfficiencyGraphDisplayComponent
                     arr = [...arr, ...this.chartDataMap(flow?.astueFlowGraphs)];
                 });
                 this.data = arr;
-                this.scrollData = this.data.find(item => item.graphType === 'fact')?.graph;
+                this.scrollData = this.data.find((item) => item.graphType === 'fact')?.graph;
             }),
             this.AsEfService.selectionUnit$.subscribe((units) => {
+                this.unit = units?.[0]?.engUnits ?? this.unit;
                 this.resetLabel();
                 if (units?.length) {
                     units?.forEach((unit) => {
@@ -115,7 +116,7 @@ export class AstueEfficiencyGraphDisplayComponent
                     this.selectedPeriod.fromDateTime = new Date(this.selectedPeriod.fromDateTime);
                     this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
                 }
-            }),
+            })
         );
     }
 
