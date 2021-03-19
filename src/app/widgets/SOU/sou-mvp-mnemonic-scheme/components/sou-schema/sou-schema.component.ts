@@ -657,7 +657,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             case 'КПА С100':
                 return 'kpa-c100';
             case 'Л-35-11-1000':
-                return 'l-35-11-200';
+                return 'l-35-11-1000';
         }
     }
 }
