@@ -52,6 +52,10 @@ export class UserSettingsService {
         this.projectName = configService.projectName;
     }
 
+    public getRestUrl(): string {
+        return this.restUrl;
+    }
+
     public create_UUID(): string {
         let dt = new Date().getTime();
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {

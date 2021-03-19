@@ -47,7 +47,7 @@ export class GroupSelectorGroupItemComponent implements OnInit {
     @ViewChild('originOverlay') originOverlay: CdkPortal;
     public overlayRef: OverlayRef;
 
-    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+    readonly baseSrc: string = `${this.userSettingsService.getRestUrl()}/api/file-storage/`;
     public editName: boolean = true;
     public switchStatus: boolean;
     public isEditLogo: boolean;
