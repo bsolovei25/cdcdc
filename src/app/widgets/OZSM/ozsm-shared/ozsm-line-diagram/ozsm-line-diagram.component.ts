@@ -11,10 +11,10 @@ export class OzsmLineDiagramComponent implements OnInit {
     public yellow: number = 0;
     @Input() set data(value: IOZSMLineDiagram) {
         if (value) {
-            if (value.fact < 0) {
+            if (value.percent < 0) {
                 value.percent = 0;
-            } else {
-                value.percent = value.fact > value.plan ? 100 : (value.fact / value.plan) * 100;
+            } else if (value.percent > 100) {
+                value.percent = 100;
             }
             this.item = value;
         }

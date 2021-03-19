@@ -17,13 +17,13 @@
       <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg" />
       <ng-container *ngFor="let item of cData; let idx = index">
         <div class="arrow__line" *ngIf="idx === 0"></div>
-        <img [style.opacity]="item.name.toLowerCase() === 'фасовка' ? 0 : 1" src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/tip.svg" />
+        <img [style.opacity]="item?.name === 'Фасовка' ? 0 : 1" src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/tip.svg" />
         <evj-ozsm-circle-planning-diagram-card [card]="item"></evj-ozsm-circle-planning-diagram-card>
         <img
-          [style.opacity]="item.name.toLowerCase() === 'налив' ? 0 : 1"
+          [style.opacity]="item?.name === 'Налив' ? 0 : 1"
           src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg"
         />
-        <div [style.opacity]="item.name.toLowerCase() === 'налив' ? 0 : 1" class="arrow__line"></div>
+        <div [style.opacity]="item?.name === 'Налив' ? 0 : 1" class="arrow__line"></div>
       </ng-container>
       <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/tip.svg" />
       <evj-ozsm-circle-planning-diagram-plan
