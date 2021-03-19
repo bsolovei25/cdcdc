@@ -53,7 +53,7 @@
             <ng-container *ngIf="isSelectEl(block)">
               <tr class="table__row row" *ngFor="let child of block.rows">
                 <td class="row__item">
-                  <div class="unit">{{unit}}</div>
+                  <div class="unit">{{block.engUnits}}</div>
                   <div class="name"><span>{{child.name}}</span></div>
                   <div class="status" *ngIf="child.tagName">{{child.tagName}}</div>
                 </td>

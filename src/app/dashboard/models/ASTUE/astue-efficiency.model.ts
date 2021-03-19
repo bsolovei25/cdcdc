@@ -14,6 +14,7 @@ export interface IAsEfTable {
     header?: IAsEfRow;
     rows: IAsEfRow[];
     parent?: string;
+    engUnits?: string;
 }
 
 export interface IAsEfUnitNew extends IAsEfTable {

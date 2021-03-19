@@ -145,6 +145,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                 });
             }
         });
+        console.log('displayData', this.displayData);
     }
 
     private defineDates(): void {
