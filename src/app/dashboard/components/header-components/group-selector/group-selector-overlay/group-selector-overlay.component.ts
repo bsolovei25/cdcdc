@@ -15,7 +15,7 @@ export class GroupSelectorOverlayComponent implements OnInit {
     @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() changeIcon: EventEmitter<string> = new EventEmitter<string>();
 
-    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+    readonly baseSrc: string = `${this.userSettingsService.getRestUrl()}/api/file-storage/`;
 
     constructor(private userSettingsService: UserSettingsService, private snackBar: SnackBarService) {}
 

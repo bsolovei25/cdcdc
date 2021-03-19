@@ -28,7 +28,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     public formControl: FormControl = new FormControl('');
 
-    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+    readonly baseSrc: string = `${this.userSettingsService.getRestUrl()}/api/file-storage/`;
 
     public groups: IGroupScreens[] = [];
 
