@@ -97,7 +97,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
             predictorIds,
             manufactureName: selectInfo.manufacture,
             unitName: selectInfo.unit,
-            subcategoryName: selectInfo.fuel,
+            subcategoryName: selectInfo.resource,
         });
     }
 }

@@ -118,7 +118,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
             name: string;
             id: string;
         }>(this.widgetId);
-        const subchannelId = channels.find((x) => x.name === options.fuel).id;
+        const subchannelId = channels.find((x) => x.name === options.resource).id;
         this.setWsOptions({ subchannelId });
     }
 }
