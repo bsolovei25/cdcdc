@@ -1,0 +1,79 @@
+:host {
+  height: 56px;
+}
+
+.hidden-block {
+  position: absolute;
+  opacity: 0;
+  height: 32px;
+}
+
+.container {
+  position: relative;
+
+  .title {
+    margin-bottom: 7px;
+  }
+
+  .control {
+    display: flex;
+    gap: 8px;
+    height: 32px;
+    position: absolute;
+
+    &__custom-input {
+      background: var(--evj-color-bg-main);
+      color: var(--color-header-bg-calendar-divider);
+      height: inherit;
+      box-sizing: border-box;
+      justify-content: space-between;
+      flex-direction: row;
+      cursor: pointer;
+      border: 1px solid var(--color-header-bg-calendar-divider);
+      border-radius: 2px;
+      display: flex;
+
+      .control-icon {
+        width: 16px;
+        height: inherit;
+        display: flex;
+        align-items: center;
+        padding-left: 9px;
+        margin-top: 2px;
+
+        .icon {
+          color: var(--color-border-unactive);
+          cursor: pointer;
+        }
+      }
+
+      input {
+        padding: 0 8px 0 13px;
+        box-sizing: border-box;
+        width: inherit;
+        height: inherit;
+        outline: none;
+        color: var(--color-header-text-sub);
+        border: none;
+        background: transparent;
+        font-size: 13px;
+
+        &::placeholder {
+          color: var(--color-header-text-sub);
+        }
+      }
+    }
+
+    .date {
+      width: 115px;
+    }
+
+    .time {
+      width: 85px;
+    }
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+}

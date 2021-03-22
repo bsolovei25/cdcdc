@@ -23,6 +23,7 @@ export class EvjChatComponent implements OnInit {
     @Input() public displayGraphImage: boolean = false;
     @Input() public displayMnemoImage: boolean = false;
     @Input() public onClickItem: () => void = () => {};
+    @Input() public viewType: 'default' | 'cmid' = 'default';
 
     @Output()
     private addingMessage: EventEmitter<IChatMessageWithAttachments> = new EventEmitter<IChatMessageWithAttachments>();

@@ -1,0 +1,11 @@
+<div class="title">
+  <span>Тип события:</span>
+</div>
+<div class="chips">
+  <div class="chip chip__left chip__active" (click)="toggleClick('plan')" [class.chip__active]="toggleValue === 'plan'">
+    Плановое
+  </div>
+  <div class="chip chip__right" (click)="toggleClick('non-plan')" [class.chip__active]="toggleValue === 'non-plan'">
+    Внеплановое
+  </div>
+</div>

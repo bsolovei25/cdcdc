@@ -38,6 +38,9 @@ import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe
         FormsModule,
         MatDatepickerModule,
     ],
+    exports: [
+        KpeDatetimepickerComponent
+    ]
 })
 export class KpeTableModule {
     enterComponent = KpeTableComponent;

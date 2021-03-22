@@ -16,6 +16,13 @@ import { EvjEventsSmotrIconComponent } from './components/evj-events-smotr-icon/
 import { EvjEventsWorkspaceButtonComponent } from './components/evj-events-workspace-button/evj-events-workspace-button.component';
 import { EvjFileAttachMenuComponent } from './components/evj-file-attach-menu/evj-file-attach-menu.component';
 import { EvjUsualEventComponent } from './evj-usual-event/evj-usual-event.component';
+import { EvjCmidEventComponent } from './evj-cmid-event/evj-cmid-event.component';
+import { EvjCmidEventToggleComponent } from './evj-cmid-event/components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
+import { EvjCmidDatetimepickerComponent } from './evj-cmid-event/components/evj-cmid-datetimepicker/evj-cmid-datetimepicker.component';
+import { EvjCmidEventPlanTableComponent } from './evj-cmid-event/components/evj-cmid-event-plan-table/evj-cmid-event-plan-table.component';
+import { EvjCmidEventChipsComponent } from './evj-cmid-event/components/evj-cmid-event-chips/evj-cmid-event-chips.component';
+import { EvjCmidEventDropdownComponent } from './evj-cmid-event/components/evj-cmid-event-dropdown/evj-cmid-event-dropdown.component';
+import { EvjCmidEventFileDropzoneComponent } from './evj-cmid-event/components/evj-cmid-event-file-dropzone/evj-cmid-event-file-dropzone.component';
 import { EvjSmotrEventComponent } from './evj-smotr-event/evj-smotr-event.component';
 import { EvjEjsEventComponent } from './evj-ejs-event/evj-ejs-event.component';
 import { EvjCdcpEventComponent } from './evj-cdcp-event/evj-cdcp-event.component';
@@ -27,7 +34,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { EvjTasksEventComponent } from './evj-tasks-event/evj-tasks-event.component';
 import { EvjShiftPassComponent } from './evj-shift-pass/evj-shift-pass.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -39,11 +46,21 @@ import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-e
 import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-events-place.component';
 import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events-workspace-extra-options/evj-events-workspace-extra-options.component';
 import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-workspace-limitations/evj-events-workspace-limitations.component';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     declarations: [
         EvjEventsWorkspaceComponent,
         EvjUsualEventComponent,
+        EvjCmidEventComponent,
+        EvjCmidEventToggleComponent,
+        EvjCmidDatetimepickerComponent,
+        EvjCmidEventPlanTableComponent,
+        EvjCmidEventChipsComponent,
+        EvjCmidEventDropdownComponent,
+        EvjCmidEventFileDropzoneComponent,
         EvjSmotrEventComponent,
         EvjEjsEventComponent,
         EvjCdcpEventComponent,
@@ -85,6 +102,9 @@ import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-
         MatCheckboxModule,
         MatRippleModule,
         MatDialogModule,
+        NgxMatDatetimePickerModule,
+        MatDatepickerModule,
+        NgxMaskModule,
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },

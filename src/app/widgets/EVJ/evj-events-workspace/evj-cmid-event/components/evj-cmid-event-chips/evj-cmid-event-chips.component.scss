@@ -1,0 +1,64 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  margin-bottom: 8px;
+}
+
+.chips {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  .chip {
+    font-size: 13px;
+    color: var(--header-events-color-font-main);
+    border-radius: 2px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    height: 24px;
+    box-sizing: border-box;
+  }
+
+  .planned {
+    background: var(--evj-color-bg-footer);
+  }
+
+  .non-planned {
+    background: var(--color-kpe-deviation-danger);
+  }
+
+  .icon {
+    cursor: pointer;
+    padding-left: 8px;
+  }
+
+  .add-chip {
+    width: 24px;
+    height: 24px;
+    background-color: var(--evj-events-workspace-button);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+
+  .counter {
+    color: var(--color-border-unactive);
+    font-size: 13px;
+
+    .selected {
+      color: var(--color-text-main);
+    }
+  }
+}
