@@ -1,0 +1,14 @@
+<div class="dropdown-control">
+  <div class="dropdown-control__title">
+    <span><ng-content></ng-content></span>
+  </div>
+  <div class="dropdown-control__panel" [class.disabled]="disabled">
+    <mat-form-field appearance="none">
+      <mat-select [value]="items[0]" [disabled]="disabled">
+        <mat-option *ngFor="let item of items" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
