@@ -3,7 +3,7 @@
     <div class="logo">
       <img *ngIf="!!userSettingsService.groupIconId" [src]="baseSrc + userSettingsService.groupIconId" />
     </div>
-    <span>{{userSettingsService.groupName}}</span>
+    <span class="group-name">{{userSettingsService.groupName}}</span>
     <svg-icon class="group-selector__collapse" src="assets/icons/collapse.svg"></svg-icon>
   </div>
   <div class="main-dropdown" *ngIf="isDropdownShowing">
