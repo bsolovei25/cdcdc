@@ -1,5 +1,7 @@
-@import "dark-variables.scss";
-@import "light-variables.scss";
+@import "variables/dark-variables";
+@import "variables/light-variables";
+@import "variables/light-style";
+@import "variables/dark-style";
 
 @font-face {
   font-family: "Tahoma";
@@ -113,10 +115,12 @@ textarea {
 :root {
   .theme-light {
     @include variables-light();
+    @include style-light();
     //@include angular-material-theme(theme-light);
   }
   .theme-dark {
     @include variables-dark();
+    @include style-dark();
     //@include angular-material-theme(theme-dark);
   }
 }
