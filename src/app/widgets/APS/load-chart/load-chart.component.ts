@@ -29,11 +29,11 @@ export class LoadChartComponent extends WidgetPlatform<unknown> implements OnIni
         protected widgetService: WidgetService,
         private renderer: Renderer2,
         private http: HttpClient,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {

@@ -27,7 +27,6 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
 
     protected constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
     ) {}
@@ -38,12 +37,10 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
                 el?.unsubscribe();
             } catch {}
         });
-        if (!this.isMock) {
-            this.widgetService.removeWidget(this.widgetId);
-        }
+        this.widgetService.removeWidget(this.widgetId);
     }
 
-    protected widgetInit(): void {
+    protected widgetInit(isContainer: boolean = false): void {
         setTimeout(() => {
             this.subscriptions.push(
                 this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
@@ -56,21 +53,15 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
                     this.widgetUnits = ref.units;
                     this.widgetIsVideoWall = ref.isVideoWall ?? false;
                     this.attributes = ref.attributes;
-                    if (!this.isMock) {
-                        console.log(this.widgetType);
+                    if (isContainer) {
+                        this.dataDisconnect();
+                        return;
                     }
-                    this.showMock(this.isMock);
+                    this.dataConnect();
+                    console.log(this.widgetType);
                 })
             );
         });
-    }
-
-    private showMock(show: boolean): void {
-        if (show) {
-            this.dataDisconnect();
-        } else {
-            this.dataConnect();
-        }
     }
 
     protected dataConnect(): void {
@@ -78,7 +69,7 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
             return;
         }
         this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.widgetId, this.widgetType).subscribe((ref: any) => {
+            this.widgetService.getWidgetLiveDataFromWS(this.widgetId, this.widgetType).subscribe((ref: unknown) => {
                 this.dataHandler(ref);
             })
         );
@@ -86,7 +77,7 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
 
     protected dataDisconnect(): void {}
 
-    protected abstract dataHandler(ref: any): void;
+    protected abstract dataHandler(ref: unknown): void;
 
     public onMouseEnter(): void {
         if (this.hoverTimer) {

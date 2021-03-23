@@ -21,12 +21,11 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     constructor(
         public widgetService: WidgetService,
         public widgetSettingsService: WidgetSettingsService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         platformLocation: PlatformLocation
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'map';
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');

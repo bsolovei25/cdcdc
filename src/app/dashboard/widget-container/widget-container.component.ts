@@ -22,11 +22,11 @@ export class WidgetContainerComponent extends WidgetPlatform<unknown> implements
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {
-        super.widgetInit();
+        super.widgetInit(this.isMock);
     }
 
     public ngOnDestroy(): void {
@@ -34,19 +34,16 @@ export class WidgetContainerComponent extends WidgetPlatform<unknown> implements
     }
 
     protected dataDisconnect(): void {
-        super.dataDisconnect();
         this.previewTitle = this.lazyService.getWidgetPreview(this.widgetType);
     }
 
-    protected async dataConnect(): Promise<void> {
+    protected dataConnect(): void {
         super.dataConnect();
         setTimeout(() => this.loadWidget(), 0);
     }
 
     private async loadWidget(): Promise<void> {
-        // this.getDataService.isLoading$.next(false);
         const injectParams = {
-            isMock: this.isMock,
             widgetId: this.id,
             uniqId: this.uniqId,
         };
@@ -55,5 +52,5 @@ export class WidgetContainerComponent extends WidgetPlatform<unknown> implements
         setTimeout(() => (this.isLoading = false), 300);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: unknown): void {}
 }

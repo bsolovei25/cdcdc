@@ -155,11 +155,11 @@ export class AdminShiftScheduleComponent
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'peoples';
         this.renderer.listen('window', 'click', (e: Event) => {
             if (e.target !== this.toggleButton?.nativeElement && e.target !== this.menu?.nativeElement) {

@@ -29,11 +29,11 @@ export class TriggeringCriticalParametersComponent extends WidgetPlatform<unknow
     constructor(
         private eventService: EventService,
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {

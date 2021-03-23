@@ -10,11 +10,11 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 export class CdCriticalComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
     }
 

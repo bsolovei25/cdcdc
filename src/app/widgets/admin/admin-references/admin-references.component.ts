@@ -85,11 +85,11 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     constructor(
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

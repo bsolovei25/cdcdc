@@ -26,11 +26,11 @@ export class EjcoOnpzFsbLoadComponent extends WidgetPlatform<unknown> implements
     constructor(
         public widgetService: WidgetService,
         public ejcoOnpzHelperService: EjcoOnpzHelperService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngAfterViewInit(): void {

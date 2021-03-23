@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { Subscription } from 'rxjs';
 import { IPointDiagramElement } from '../../../dashboard/models/LCO/point-diagram';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
@@ -10,7 +9,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
     styleUrls: ['./point-diagram.component.scss'],
 })
 export class PointDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    pointDiagramElements: IPointDiagramElement[] = [
+    public pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,
             percentageValue: 30.6,
@@ -62,11 +61,10 @@ export class PointDiagramComponent extends WidgetPlatform<unknown> implements On
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetUnits = '%';
     }
 
@@ -78,11 +76,7 @@ export class PointDiagramComponent extends WidgetPlatform<unknown> implements On
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-        this.pointDiagramElements = ref.chartItems;
-    }
-
-    containerIsMock(): string {
-        return this.isMock ? '430px' : '100%';
+    protected dataHandler(ref: { chartItems: IPointDiagramElement[] }): void {
+        this.pointDiagramElements = ref?.chartItems ?? [];
     }
 }

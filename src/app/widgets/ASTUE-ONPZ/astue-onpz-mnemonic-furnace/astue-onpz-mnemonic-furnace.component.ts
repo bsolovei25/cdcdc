@@ -85,11 +85,11 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         private changeDetector: ChangeDetectorRef,
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         mnemonicFurnaceService.furnaceOptionsReferences = this.selectReferences;
         this.mnemonicFurnaceService.furnaceOptions$ = combineLatest([
             this.selectManufacture.valueChanges,

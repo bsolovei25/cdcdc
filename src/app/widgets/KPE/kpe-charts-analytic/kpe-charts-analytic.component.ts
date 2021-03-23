@@ -116,13 +116,13 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
     constructor(
         private chartsAnalyticService: KpeChartsAnalyticService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private cdref: ChangeDetectorRef,
         private http: HttpClient,
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.entryStates.get('chartType').setValue('limited-line-chart');
         this.entryStates.get('dateInterval').setValue('hour');
     }

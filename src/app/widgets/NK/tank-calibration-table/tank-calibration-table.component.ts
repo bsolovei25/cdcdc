@@ -102,11 +102,11 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
         private dialog: MatDialog,
         public snackBar: SnackBarService,
         public appConfigService: AppConfigService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'grad';
         this.restUrl = appConfigService.restUrl;
     }

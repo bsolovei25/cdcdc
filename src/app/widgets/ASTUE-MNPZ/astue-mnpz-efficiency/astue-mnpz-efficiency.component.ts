@@ -35,11 +35,11 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     constructor(
         protected widgetService: WidgetService,
         private astueEfficiencyService: AstueEfficiencyService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {

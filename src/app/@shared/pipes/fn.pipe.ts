@@ -5,7 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
     pure: true,
 })
 export class FnPipe implements PipeTransform {
-    public transform(templateValue: unknown, fnReference: (...e: any) => unknown, ...fnArguments: unknown[]): any {
+    public transform(
+        templateValue: unknown,
+        fnReference: (...e: unknown[]) => unknown,
+        ...fnArguments: unknown[]
+    ): unknown {
         return fnReference(templateValue, ...fnArguments);
     }
 }

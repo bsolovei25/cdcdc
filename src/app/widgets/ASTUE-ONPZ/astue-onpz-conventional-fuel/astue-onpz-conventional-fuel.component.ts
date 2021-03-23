@@ -85,7 +85,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     constructor(
         private reportService: ReportsService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
@@ -93,7 +93,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         public astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService,
         private changeDetection: ChangeDetectorRef
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         astueOnpzConventionalFuelService.selectedOptions = this.selectFuel.valueChanges.pipe(
             map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, resource: x }))
         );

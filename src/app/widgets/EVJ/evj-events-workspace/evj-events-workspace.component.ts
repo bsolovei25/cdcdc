@@ -59,13 +59,13 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         private authService: AuthService,
         private popoverOverlayService: PopoverOverlayService,
         private renderer: Renderer2,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private hostElement: ElementRef,
         private changeDetectorRef: ChangeDetectorRef,
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }
