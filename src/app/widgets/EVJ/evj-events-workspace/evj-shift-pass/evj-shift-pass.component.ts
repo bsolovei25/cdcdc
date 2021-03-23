@@ -11,7 +11,7 @@ export class EvjShiftPassComponent implements OnInit {
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
-        if (this.ewService.isEditEvent) {
+        if (this.ewService.isEditEvent && this.ewService.event.status.name !== 'closed') {
             this.ewService.event.priority = this.ewService.priority.find((value) => value.name === 'danger');
             this.ewService.event.status = this.ewService.status.find((value) => value.name === 'inWork');
         }
