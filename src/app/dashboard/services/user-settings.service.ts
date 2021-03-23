@@ -14,6 +14,7 @@ import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/header-components/group-selector/group-selector.component';
 import { Title } from '@angular/platform-browser';
+import { uuidGenerate } from '@shared/functions/uuid-generator.function';
 
 @Injectable({
     providedIn: 'root',
@@ -56,17 +57,6 @@ export class UserSettingsService {
         return this.restUrl;
     }
 
-    public create_UUID(): string {
-        let dt = new Date().getTime();
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-            // tslint:disable-next-line:no-bitwise
-            const r = (dt + Math.random() * 16) % 16 | 0;
-            dt = Math.floor(dt / 16);
-            // tslint:disable-next-line:no-bitwise
-            return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-        });
-    }
-
     public async getIcons(): Promise<boolean> {
         try {
             const icons = await this.http.get<string[]>(`${this.restUrl}/api/ref-book/IconGroup`).toPromise();
@@ -106,7 +96,7 @@ export class UserSettingsService {
     }
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
-        const uniqId = this.create_UUID();
+        const uniqId = uuidGenerate();
         const minItemCols = this.defWidgetSize(nameWidget)?.minItemCols ?? 6;
         const minItemRows = this.defWidgetSize(nameWidget)?.minItemRows ?? 6;
         this.widgetService.dashboard.push({
@@ -274,10 +264,10 @@ export class UserSettingsService {
         }
     }
 
-    private loadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
+    private loadScreenAsync(id: number, loadDefault: boolean): Observable<IScreenSettings> {
         const dataScreen = this.screens$.getValue();
         if (dataScreen?.length > 0) {
-            return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
+            return this.http.get<IScreenSettings>(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
                     if ((err.status === 404 || err.status === 403) && loadDefault) {
                         return this.loadScreenAsync(dataScreen[0].id, false);
