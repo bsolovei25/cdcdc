@@ -11,7 +11,7 @@
         </div>
         <ng-container *ngFor="let message of messages; let i = index;">
           <div class="message" [ngClass]="{'message_odd':i%2===0}">
-            <div class="message__text">{{message.comment}}</div>
+            <div class="message__text" [innerHTML]="message.comment | addWordWrap"></div>
           </div>
         </ng-container>
       </div>
