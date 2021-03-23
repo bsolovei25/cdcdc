@@ -7,9 +7,9 @@
   justify-content: center;
   align-items: center;
   left: 0;
-  width: 175px;
+  width: 194px;
   min-height: 60px;
-  padding: 0 4px;
+  padding: 0 8px;
   box-sizing: border-box;
   position: relative;
 
@@ -38,8 +38,8 @@
 
     .group-name {
       box-sizing: border-box;
-      width: 125px;
-      padding: 4px;
+      width: 130px;
+      padding: 0 4px 0 8px;
 
       overflow: hidden;
       white-space: nowrap;
