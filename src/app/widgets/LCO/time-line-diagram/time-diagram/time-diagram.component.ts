@@ -13,8 +13,6 @@ export class TimeDiagramComponent implements OnInit {
         dropTitle: '',
     };
 
-    @Input() isMock: boolean;
-
     public timeLeft: number = 0;
 
     public colorNormal: string = '#616580';
@@ -27,12 +25,10 @@ export class TimeDiagramComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            setInterval(() => {
-                this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();
-                this.timeCounter();
-            }, 100);
-        }
+        setInterval(() => {
+            this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();
+            this.timeCounter();
+        }, 100);
     }
 
     timeCounter(): void {
@@ -58,10 +54,10 @@ export class TimeDiagramComponent implements OnInit {
 
     timeLine(): string {
         let percent: number = 0;
-        if (this.timeLeft > 0 && !this.isMock) {
+        if (this.timeLeft > 0) {
             percent =
                 100 - (this.timeLeft / (Date.parse(this.data.dropTimeNext) - Date.parse(this.data.dropTimeLast))) * 100;
-        } else if (this.timeLeft === 0 && !this.isMock) {
+        } else if (this.timeLeft === 0) {
             percent = 0;
         } else {
             percent = 100;
