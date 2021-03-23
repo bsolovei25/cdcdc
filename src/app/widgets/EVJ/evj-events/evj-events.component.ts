@@ -275,11 +275,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
         private cdRef: ChangeDetectorRef,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'letter';
     }
 

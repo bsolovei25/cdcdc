@@ -113,13 +113,13 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     constructor(
         public widgetService: WidgetService,
         private oilOperationService: OilOperationsService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         public oilDocumentService: DocumentsScansService,
         private popoverOverlayService: PopoverOverlayService
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

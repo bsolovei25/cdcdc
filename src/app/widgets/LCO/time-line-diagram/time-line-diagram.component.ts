@@ -30,11 +30,11 @@ export class TimeLineDiagramComponent extends WidgetPlatform<unknown> implements
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetUnits = 'час';
         this.widgetIcon = 'drop';
     }

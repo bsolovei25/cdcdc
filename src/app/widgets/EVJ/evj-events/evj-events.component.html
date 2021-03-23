@@ -1,99 +1,97 @@
-<ng-container *ngIf="!isMock">
-  <div id="snackbar"></div>
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="letter" type="astue">
-    <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-      <div *ngIf="isSound" (click)="soundSwitch($event, isSound)">
-        <svg-icon [class.header__icon_bell--active]="isSound" class="header__icon_bell"
-                  [svgStyle]="{'height.px':'17'}"
-                  src="assets/icons/widgets/EVJ/event/bell.svg"></svg-icon>
-      </div>
-      <div *ngIf="!isSound" (click)="soundSwitch($event, isSound)">
-        <svg-icon [class.header__icon_bell--active]="isSound" class="header__icon_bell"
-                  [svgStyle]="{'height.px':'17'}"
-                  src="assets/icons/widgets/EVJ/event/bell-off.svg"></svg-icon>
-      </div>
-      <div (click)="viewChanger(false)">
-        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"></svg-icon>
-      </div>
-      <div (click)="viewChanger(true)">
-        <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="assets/pic/blocks.svg"></svg-icon>
-      </div>
+<div id="snackbar"></div>
+<evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="letter" type="astue">
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div *ngIf="isSound" (click)="soundSwitch($event, isSound)">
+      <svg-icon [class.header__icon_bell--active]="isSound" class="header__icon_bell"
+                [svgStyle]="{'height.px':'17'}"
+                src="assets/icons/widgets/EVJ/event/bell.svg"></svg-icon>
     </div>
-  </evj-contemporary-widget-header>
-  <evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
-  <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
-  <div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
-    <div class="cd-events">
-      <evj-evj-event-filters
-        [inputUnits]="units"
-        [inputPriority]="priority"
-        (outPriority)="priorityOfFilter($event)"
-        (outUnits)="unitsOfFilter($event)"
-        (description)="searchFilter($event)"
-        [placeNames]="placeNames"
-      >
-      </evj-evj-event-filters>
-      <div
-        class="notifications"
-        #notifications
-        [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
-      >
-        <cdk-virtual-scroll-viewport
-          autosize
-          class="scroll-bar"
-          [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
-          (scroll)="scrollHandler($event)"
-        >
-          <div *cdkVirtualFor="let n of notificationsGrouped">
-            <evj-evj-event-card
-              [cardDataArr]="n"
-              [viewType]="isList ? 'block' : 'list'"
-              (cardClick)="eventClick($event)"
-              [cardActiveId]="selectedId || eventOverlayId"
-              (cardDeleteClick)="deleteClick($event)"
-              [expandedElement]="expandedElement"
-              (selectionExpandedElement)="toggle()"
-              [isVideoWall]="attributes?.IsVideoWall"
-            >
-            </evj-evj-event-card>
-          </div>
-        </cdk-virtual-scroll-viewport>
-      </div>
-      <ng-container *ngIf="!attributes?.IsVideoWall">
-        <div class="controls">
-          <div class="controls__line controls__line_left">
-            <div class="controls__circle controls__circle_left"></div>
-          </div>
-          <div class="filters">
-            <div
-              class="filter filters__item"
-              *ngFor="let f of filters"
-              (click)="onFilterClick(f)"
-              [class.filter_active]="f?.isActive"
-            >
-              <span class="filter__name"> {{f?.name}} </span>
-              <span class="filter__count"> {{f?.notificationsCount}} </span>
-            </div>
-          </div>
-
-          <div class="categories" [ngSwitch]="widgetType">
-            <ng-container *ngFor="let c of categories">
-              <evj-evj-event-categories
-                class="categories__item"
-                [data]="c"
-                [subCategoriesSelected]="subCategoriesSelected"
-                (categoryClick)="onCategoryClick($event)"
-                (toggleSubCategory)="toggleSubcategory($event)"
-              >
-              </evj-evj-event-categories>
-            </ng-container>
-          </div>
-          <div class="controls__line controls__line_right">
-            <div class="controls__circle controls__circle_right"></div>
-          </div>
-        </div>
-      </ng-container>
+    <div *ngIf="!isSound" (click)="soundSwitch($event, isSound)">
+      <svg-icon [class.header__icon_bell--active]="isSound" class="header__icon_bell"
+                [svgStyle]="{'height.px':'17'}"
+                src="assets/icons/widgets/EVJ/event/bell-off.svg"></svg-icon>
+    </div>
+    <div (click)="viewChanger(false)">
+      <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg"></svg-icon>
+    </div>
+    <div (click)="viewChanger(true)">
+      <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="assets/pic/blocks.svg"></svg-icon>
     </div>
   </div>
-</ng-container>
+</evj-contemporary-widget-header>
+<evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
+<evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
+<div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
+  <div class="cd-events">
+    <evj-evj-event-filters
+      [inputUnits]="units"
+      [inputPriority]="priority"
+      (outPriority)="priorityOfFilter($event)"
+      (outUnits)="unitsOfFilter($event)"
+      (description)="searchFilter($event)"
+      [placeNames]="placeNames"
+    >
+    </evj-evj-event-filters>
+    <div
+      class="notifications"
+      #notifications
+      [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
+    >
+      <cdk-virtual-scroll-viewport
+        autosize
+        class="scroll-bar"
+        [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
+        (scroll)="scrollHandler($event)"
+      >
+        <div *cdkVirtualFor="let n of notificationsGrouped">
+          <evj-evj-event-card
+            [cardDataArr]="n"
+            [viewType]="isList ? 'block' : 'list'"
+            (cardClick)="eventClick($event)"
+            [cardActiveId]="selectedId || eventOverlayId"
+            (cardDeleteClick)="deleteClick($event)"
+            [expandedElement]="expandedElement"
+            (selectionExpandedElement)="toggle()"
+            [isVideoWall]="attributes?.IsVideoWall"
+          >
+          </evj-evj-event-card>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <ng-container *ngIf="!attributes?.IsVideoWall">
+      <div class="controls">
+        <div class="controls__line controls__line_left">
+          <div class="controls__circle controls__circle_left"></div>
+        </div>
+        <div class="filters">
+          <div
+            class="filter filters__item"
+            *ngFor="let f of filters"
+            (click)="onFilterClick(f)"
+            [class.filter_active]="f?.isActive"
+          >
+            <span class="filter__name"> {{f?.name}} </span>
+            <span class="filter__count"> {{f?.notificationsCount}} </span>
+          </div>
+        </div>
+
+        <div class="categories" [ngSwitch]="widgetType">
+          <ng-container *ngFor="let c of categories">
+            <evj-evj-event-categories
+              class="categories__item"
+              [data]="c"
+              [subCategoriesSelected]="subCategoriesSelected"
+              (categoryClick)="onCategoryClick($event)"
+              (toggleSubCategory)="toggleSubcategory($event)"
+            >
+            </evj-evj-event-categories>
+          </ng-container>
+        </div>
+        <div class="controls__line controls__line_right">
+          <div class="controls__circle controls__circle_right"></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

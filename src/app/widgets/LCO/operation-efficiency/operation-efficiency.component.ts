@@ -24,11 +24,11 @@ export class OperationEfficiencyComponent extends WidgetPlatform<unknown> implem
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetUnits = 'млн.руб.';
         this.widgetIcon = 'money';
     }

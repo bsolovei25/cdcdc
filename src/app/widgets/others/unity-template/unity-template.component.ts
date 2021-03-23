@@ -24,12 +24,12 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
 
     constructor(
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         platformLocation: PlatformLocation
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
         this.subscriptions.push(

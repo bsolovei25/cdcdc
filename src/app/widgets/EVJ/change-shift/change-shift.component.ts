@@ -65,11 +65,11 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
         public shiftService: ShiftService,
         private materialController: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'peoples';
     }
 

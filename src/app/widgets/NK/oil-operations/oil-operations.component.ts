@@ -120,11 +120,11 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         private oilTransferService: OilTransferService,
         public documentsScansService: DocumentsScansService,
         public snackBar: SnackBarService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

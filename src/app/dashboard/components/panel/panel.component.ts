@@ -46,7 +46,7 @@ export class PanelComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    onToggleClick(buttonName: isChoosePanel): void {
+    public onToggleClick(buttonName: isChoosePanel): void {
         if (this.active && buttonName !== this.isWidgets) {
             this.isWidgets = buttonName;
         } else {
@@ -55,11 +55,11 @@ export class PanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onSwap(event: boolean): void {
+    public onSwap(event: boolean): void {
         this.swap.emit(event);
     }
 
-    onGrid(event: boolean): void {
+    public onGrid(event: boolean): void {
         this.grid.emit(event);
     }
 }

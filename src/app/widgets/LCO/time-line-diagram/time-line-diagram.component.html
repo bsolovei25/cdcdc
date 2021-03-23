@@ -13,7 +13,7 @@
       <div class="time-diagram__container scroll-bar">
         <div class="time-diagram__scroll" *ngIf="data.values">
           <ng-container *ngFor="let item of data.values">
-            <evj-time-diagram class="time-diagram__line" [data]="item" [isMock]="isMock"></evj-time-diagram>
+            <evj-time-diagram class="time-diagram__line" [data]="item"></evj-time-diagram>
           </ng-container>
         </div>
       </div>

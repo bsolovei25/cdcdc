@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { WidgetModel } from '../../models/widget.model';
 import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -56,7 +56,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
-        console.log('widget-grid start');
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = !!document.fullscreenElement;
         });
@@ -76,6 +75,18 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
             subscription.unsubscribe();
         });
     }
+
+    public getInjector = (idWidget: string, uniqId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: idWidget },
+                { provide: 'uniqId', useValue: uniqId },
+                { provide: 'isMock', useValue: false },
+                { provide: 'resizeWidget', useValue: this.resizeWidget },
+            ],
+            parent: this.injector,
+        });
+    };
 
     private loadItem(): void {
         this.options = {
@@ -138,8 +149,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
         const heightScreen = document.getElementById('gridSize').clientHeight;
-        // TODO костыль
+        // TODO: костыль
         if (heightScreen < 10 || widthScreen < 10) {
+            setTimeout(() => this.sizeGrid(), 100);
             return;
         }
         const widthScreenDefault = 1920;
@@ -182,18 +194,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         this.changedOptions();
     }
 
-    public getInjector = (idWidget: string, uniqId: string): Injector => {
-        return Injector.create({
-            providers: [
-                { provide: 'widgetId', useValue: idWidget },
-                { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
-                { provide: 'resizeWidget', useValue: this.resizeWidget },
-            ],
-            parent: this.injector,
-        });
-    };
-
     public eventStart(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent): void {
         if (!e) {
             return;
@@ -213,13 +213,8 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         this.widgetService.draggingItem = item;
     }
 
-    public dragStop(item: GridsterItem, e: MouseEvent): void {
+    public dragStop(e: MouseEvent, item: GridsterItem): void {
         setTimeout(() => (this.isUserAction = false), 1000);
-    }
-
-    public dragStartHandler(e: DragEvent, i): void {
-        e.dataTransfer.setData('text/plain', i);
-        e.dataTransfer.dropEffect = 'move';
     }
 
     public changedOptions(): void {

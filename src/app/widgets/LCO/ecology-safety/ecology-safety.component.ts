@@ -29,11 +29,11 @@ export class EcologySafetyComponent extends WidgetPlatform<unknown> implements O
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetUnits = 'индекс';
         this.widgetIcon = 'eco-shield';
     }

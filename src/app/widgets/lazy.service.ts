@@ -14,7 +14,7 @@ interface IInjectParameters {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'any',
 })
 export class LazyService {
     constructor(private injector: Injector, private compiler: Compiler, private cfr: ComponentFactoryResolver) {}

@@ -17,11 +17,11 @@ export class WidgetPiesComponent extends WidgetPlatform<unknown> implements OnIn
 
     constructor(
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'tools';
         this.widgetUnits = 'шт.';
     }

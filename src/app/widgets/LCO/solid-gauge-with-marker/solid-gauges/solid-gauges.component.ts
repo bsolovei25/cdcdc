@@ -15,11 +15,11 @@ export class SolidGaugesComponent extends WidgetPlatform<unknown> implements OnI
 
     constructor(
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetUnits = 'шт.';
         this.widgetIcon = 'speedo';
     }

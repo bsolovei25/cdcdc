@@ -64,11 +64,10 @@ export class ManualInputComponent extends WidgetPlatform<unknown> implements OnI
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.restUrl = this.configService.restUrl;
         this.widgetIcon = 'peoples';
     }
@@ -78,15 +77,14 @@ export class ManualInputComponent extends WidgetPlatform<unknown> implements OnI
     }
 
     ngAfterViewInit(): void {
-        if (!this.isMock) {
-            setInterval(() => {
-                this.scrollBlockWidth = this.scroll.nativeElement.scrollWidth;
-                this.scrollTruckWidth = this.truckScroll.nativeElement.clientWidth;
-                this.scrollBlockWidth - this.scrollTruckWidth === 0
-                    ? (this.widthTruckScroll = 0)
-                    : (this.widthTruckScroll = this.scrollBlockWidth);
-            }, 1000);
-        }
+        // TODO: refactor
+        setInterval(() => {
+            this.scrollBlockWidth = this.scroll.nativeElement.scrollWidth;
+            this.scrollTruckWidth = this.truckScroll.nativeElement.clientWidth;
+            this.scrollBlockWidth - this.scrollTruckWidth === 0
+                ? (this.widthTruckScroll = 0)
+                : (this.widthTruckScroll = this.scrollBlockWidth);
+        }, 1000);
     }
 
     ngOnDestroy(): void {

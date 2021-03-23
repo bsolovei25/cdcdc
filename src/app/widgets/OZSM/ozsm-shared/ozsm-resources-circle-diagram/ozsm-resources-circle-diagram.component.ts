@@ -34,12 +34,12 @@ export class OzsmResourcesCircleDiagramComponent
     constructor(
         private ozsmService: OzsmService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private renderer: Renderer2
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngAfterViewInit(): void {

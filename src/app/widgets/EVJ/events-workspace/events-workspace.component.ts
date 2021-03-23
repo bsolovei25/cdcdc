@@ -46,11 +46,11 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
         public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }

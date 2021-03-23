@@ -1,9 +1,6 @@
 <div
   class="container pointer-event"
-  [ngStyle]="{
-    width: containerIsMock()
-  }"
-  *ngIf="!isMock"
+  [ngStyle]="{ width: '100%' }"
 >
   <evj-widget-header
     [title]="widgetTitle"

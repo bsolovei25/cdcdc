@@ -163,11 +163,11 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
         public ewtService: EventsWorkspaceService,
         private snackBar: SnackBarService,
         private authService: AuthService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngOnInit(): void {

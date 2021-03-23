@@ -84,12 +84,12 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private injector: Injector
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngOnInit(): void {

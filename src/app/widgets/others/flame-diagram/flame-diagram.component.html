@@ -9,7 +9,7 @@
   <evj-frame-top></evj-frame-top>
   <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="flame-container">
-      <div style="padding-top: 80%; position: relative" *ngIf="!isMock">
+      <div style="padding-top: 80%; position: relative">
         <img
           src="assets/gif/flame.gif"
           width="100%"
@@ -19,7 +19,6 @@
           allowFullScreen
         />
       </div>
-      <div class="mock-container" *ngIf="isMock"></div>
     </div>
   </div>
   <evj-frame-bottom></evj-frame-bottom>

@@ -50,12 +50,12 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngOnInit(): void {

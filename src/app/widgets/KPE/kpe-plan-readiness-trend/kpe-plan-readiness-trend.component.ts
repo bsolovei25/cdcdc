@@ -25,13 +25,13 @@ export class KpePlanReadinessTrendComponent extends WidgetPlatform<unknown> impl
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private http: HttpClient,
         private kpeHelperService: KpeHelperService
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {
