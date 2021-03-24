@@ -16,12 +16,12 @@
 
 ::ng-deep {
   .grid {
-    color: var(--color-kpe-line-diagram-bg);
+    color: var(--chart-segment-color);
     stroke-width: 1;
     fill: var(--color-sou-bg);
 
     path {
-      fill: var(--color-sou-bg);
+      fill: var(--chart-background-color);
     }
   }
 
@@ -46,7 +46,7 @@
   }
 
   .fact-curve {
-    stroke: var(--color-text-main);
+    stroke: var(--text-main-color);
   }
 
   .plan-curve {
@@ -54,7 +54,7 @@
   }
 
   .day-threshold-line {
-    stroke: var(--color-marker-diagram);
+    stroke: transparent;
     stroke-width: 1px;
   }
 
@@ -68,7 +68,7 @@
   .day-circle-2,
   .day-circle-3,
   .day-circle-4 {
-    fill: var(--color-text-main);
+    fill: var(--text-main-color);
   }
 
   .day-circle-1 {
@@ -88,7 +88,8 @@
   }
 
   .rect-left {
-    fill: var(--color-sou-bg);
+    fill: var(--bg-dashboard-color);
+    opacity: 0.6;
   }
 }
 

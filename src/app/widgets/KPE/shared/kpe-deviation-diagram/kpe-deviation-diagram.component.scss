@@ -14,25 +14,25 @@
 
 ::ng-deep {
   .grid {
-    color: var(--color-lines-bg-dia);
+    color: var(--chart-segment-color);
     stroke-width: 1;
     fill: var(--color-sou-bg);
 
     path {
-      fill: var(--color-sou-bg);
+      fill: var(--chart-background-color);
     }
   }
 
   .y-axis {
     text {
-      fill: var(--color-marker-diagram);
+      fill: var(--text-subscript-color);
       font-size: 10px;
     }
   }
 
   .x-axis {
     text {
-      fill: var(--color-marker-diagram);
+      fill: var(--text-subscript-color);
       font-size: 10px;
     }
   }
@@ -44,33 +44,33 @@
   }
 
   .fact-curve {
-    stroke: var(--color-text-main);
+    stroke: var(--index-fact-color);
   }
 
   .plan-curve {
-    stroke: var(--color-kpe-gaude-active);
+    stroke: var(--index-plan-color);
   }
 
   .day-threshold-line {
-    stroke: var(--color-marker-diagram);
+    stroke: transparent;
     stroke-width: 1px;
   }
 
   .deviation-line {
-    stroke: var(--color-astue-onpz-warning);
+    stroke: var(--index-error-color);
     stroke-width: 1px;
   }
 
   .deviation-circle {
-    stroke: var(--color-astue-onpz-warning);
-    fill: var(--color-kpe-deviation-diagram-circle-bg);
+    stroke: var(--index-error-color);
+    fill: var(--bg-body-color);
   }
 
   .day-circle-1,
   .day-circle-2,
   .day-circle-3,
   .day-circle-4 {
-    fill: var(--color-text-main);
+    fill: var(--bg-body-color);
   }
 
   .day-circle-1 {
@@ -90,6 +90,7 @@
   }
 
   .rect-left {
-    fill: var(--color-sou-bg);
+    fill: var(--bg-dashboard-color);
+    opacity: 0.6;
   }
 }

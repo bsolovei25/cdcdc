@@ -43,7 +43,7 @@
     fill: var(--color-kpe-gaude-back);
 
     path {
-      fill: var(--color-sou-bg);
+      fill: var(--gray-G11-color);
     }
   }
 
@@ -70,7 +70,7 @@
   }
 
   .fact-curve {
-    stroke: var(--color-text-main);
+    stroke: var(--text-main-color);
     &-dashed {
       fill: none;
       stroke: var(--color-kpe-pasportize-text);
@@ -83,7 +83,7 @@
   }
 
   .day-threshold-line {
-    stroke: var(--color-marker-diagram);
+    stroke: transparent;
     stroke-width: 1px;
   }
 
@@ -110,7 +110,7 @@
   .day-circle-2,
   .day-circle-3,
   .day-circle-4 {
-    fill: var(--color-text-main);
+    fill: var(--text-main-color);
   }
 
   .day-circle-1 {
@@ -130,6 +130,7 @@
   }
 
   .rect-left {
-    fill: transparent;
+    fill: var(--bg-dashboard-color);
+    opacity: 0.6;
   }
 }

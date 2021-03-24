@@ -16,12 +16,12 @@ $column-width: 9px;
 
 ::ng-deep {
   .grid {
-    color: var(--color-kpe-line-diagram-bg);
+    color: var(--chart-segment-color);
     stroke-width: 1;
     fill: var(--color-sou-bg);
 
     path {
-      fill: var(--color-sou-bg);
+      fill: var(--chart-background-color);
     }
   }
 

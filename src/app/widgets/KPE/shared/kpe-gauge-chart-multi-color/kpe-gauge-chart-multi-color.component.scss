@@ -4,14 +4,14 @@
       font-size: 11px;
       line-height: 14px;
 
-      fill: #FFFFFF;
+      fill: var(--index-fact-color);
     }
 
     .deviation{
       font-size: 7px;
       line-height: 10px;
 
-      fill: #F7931E;
+      fill: var(--index-error-color);
     }
 
     .unit {
@@ -22,7 +22,7 @@
     }
 
     .circle__dark {
-      fill: #171924;
+      fill: var(--bg-dashboard-color);
     }
 
     .background-pie {
@@ -30,7 +30,7 @@
     }
 
     .serif {
-      fill: #4B5169;
+      fill: var(--gray-G6-color);
     }
 
     .axis-value {
@@ -42,35 +42,35 @@
 
     .diagram-section{
       &-1 {
-        fill: #FF1D25;
+        fill: var(--index-critical-color);
         opacity: 0.25;
       }
       &-2 {
-        fill: #F7931E;
+        fill: var(--index-error-color);
         opacity: 0.25;
       }
       &-3 {
-        fill: #0089FF;
+        fill: var(--index-plan-color);
         opacity: 0.25;
       }
       &-4 {
-        fill: #00A73D;
+        fill: var(--index-green1-color);
         opacity: 0.25;
       }
     }
 
     .diagram-section-serif{
       &-1 {
-        fill: #FF1D25;
+        fill: var(--index-critical-color);
       }
       &-2 {
-        fill: #F7931E;
+        fill: var(--index-error-color);
       }
       &-3 {
-        fill: #0089FF;
+        fill: var(--index-plan-color);
       }
       &-4 {
-        fill: #00A73D;
+        fill: var(--index-green1-color);
       }
     }
   }

@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-flow: column;
-  background-color: var(--color-kpe-gaude-unactive);
+  background-color: var(--bg-body-color);
   height: 100%;
   width: 100%;
 
@@ -10,7 +10,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    border: 1px solid var(--color-cd-bg-border);
+    border: 1px solid var(--border-vidget-color);
     overflow: hidden;
   }
 }
