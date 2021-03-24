@@ -1,19 +1,3 @@
-## [1.6.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.1...v1.6.2) (2021-03-19)
-
-
-### Bug Fixes
-
-* ** #1399:** add disabled state to ozsm-planing items ([4c1c304](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4c1c30480e4dc1a9b5883dd3a18b174a8cc8b033)), closes [#1399](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1399)
-* **#1414:** add right restUrl ([e68b03c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e68b03ca10d81f93e9c17c700cfa91c4fb79f6b3)), closes [#1414](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1414)
-
-## [1.6.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.0...v1.6.1) (2021-03-18)
-
-
-### Bug Fixes
-
-* ** #1358:** add subchannels ([3ca4875](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3ca4875d9e938d690fbe1446dc12221268f8b3f1)), closes [#1358](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1358)
-* **#1398:** add id to ozsm-planing items ([3dd8f4d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3dd8f4d4eb831b6844bba4232b9c276208650092)), closes [#1398](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1398)
-
 # [1.6.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.5.0...v1.6.0) (2021-03-11)
 
 
