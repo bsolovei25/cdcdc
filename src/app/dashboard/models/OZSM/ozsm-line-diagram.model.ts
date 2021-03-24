@@ -16,6 +16,7 @@ export interface IOZSMLineDiagram {
     fact: number;
     plan: number;
     percent?: number;
+    disabled?: boolean;
 }
 
 export type IOzsmLineDiagramType = 'blendProducts' | 'packedProducts' | 'componentSupply' | 'crudeSupply';

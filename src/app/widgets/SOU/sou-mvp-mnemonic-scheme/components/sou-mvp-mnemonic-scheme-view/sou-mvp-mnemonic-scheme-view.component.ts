@@ -59,4 +59,8 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
         });
         this.mvpService.currentSection$.next(ref.section?.[0]);
     }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
 }

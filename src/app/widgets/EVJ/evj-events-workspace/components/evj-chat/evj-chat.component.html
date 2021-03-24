@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat" [ngClass]="viewType === 'cmid' ? 'cmid-chat' : 'default-chat'">
   <div class="chat__messages messages scroll scroll-bar" #scroll>
     <div class="messages__list">
       <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
@@ -28,7 +28,7 @@
               </div>
             </ng-container>
           </div>
-          <div class="message__text">{{message.comment}}</div>
+          <div class="message__text" [innerHTML]="message.comment | addWordWrap"></div>
           <div class="message__info info">
             <div class="info__author">{{message.displayName}}</div>
             <div class="info__date">{{message.createdAt | dateFormat:'DD-MM-YY hh:mm'}}</div>
@@ -38,25 +38,27 @@
     </div>
   </div>
   <div class="chat__input input-line">
-    <div class="line"></div>
-    <input class="input" type="text" [placeholder]="placeholder" (keypress)="onEnterPush($event)" #input />
-    <button
-      #attachFileBtn
-      matTooltip="Добавить файл"
-      class="button"
-      [class.button--active]="isFilePopoverOpened"
-      (click)="openAttachFilePopover(attachFileBtn)"
-    >
+    <div class="line" *ngIf="viewType !== 'cmid'"></div>
+    <input [ngClass]="viewType === 'cmid' ? 'input-cmid' : 'input'" type="text" [placeholder]="placeholder" (keypress)="onEnterPush($event)" #input/>
+    <ng-container *ngIf="viewType !== 'cmid'">
+      <button
+        #attachFileBtn
+        matTooltip="Добавить файл"
+        class="button"
+        [class.button--active]="isFilePopoverOpened"
+        (click)="openAttachFilePopover(attachFileBtn)"
+      >
+        <svg-icon
+          class="button__icon"
+          src="assets/icons/widgets/change-shift/add_file.svg"
+          [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+        ></svg-icon>
+        <div class="button__files-flag" *ngIf="filesToUpload.length"></div>
+      </button>
+    </ng-container>
+    <button matTooltip="Добавить сообщение" [ngClass]="viewType === 'cmid' ? 'button-cmid' : 'button'" (click)="onSendMessage()">
       <svg-icon
-        class="button__icon"
-        src="assets/icons/widgets/change-shift/add_file.svg"
-        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-      ></svg-icon>
-      <div class="button__files-flag" *ngIf="filesToUpload.length"></div>
-    </button>
-    <button matTooltip="Добавить сообщение" class="button" (click)="onSendMessage()">
-      <svg-icon
-        class="button__icon"
+        [ngClass]="viewType === 'cmid' ? 'button-cmid__icon' : 'button__icon'"
         src="assets/icons/widgets/change-shift/send.svg"
         [svgStyle]="{ 'width.px':15, 'height.px':15 }"
       ></svg-icon>

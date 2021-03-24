@@ -4,7 +4,7 @@
 
   * {
     box-sizing: border-box;
-    color: var(--color-text-main);
+    color: var(--text-main-color);
     font-size: 12px;
   }
 }
@@ -29,12 +29,12 @@
 
   &__background-kpe {
     border-radius: 5px 5px 0 0;
-    background: var(--color-contemporary-header-bg);
+    background: var(--bg-header-color);
   }
 
   &__background-astue {
     border-radius: 2px 2px 0 0;
-    background: var(--color-astue-onpz-widget-border);
+    background: var(--bg-header-color);
   }
 
   &__background {
@@ -57,7 +57,7 @@
       transform: rotate(45deg);
       top: -7px;
       left: -7px;
-      background: var(--color-bg-main);
+      background: var(--bg-header-color);
     }
 
     &::after {
@@ -119,8 +119,8 @@
   min-height: 40px;
   top: 100%;
   right: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: var(--color-bg-main);
+  box-shadow: 0px 4px 4px rgba(var(--bg-header-color), 0.25);
+  background: var(--bg-header-color);
   transform-origin: top;
   transform: scaleY(0);
   transition: 0.2s;

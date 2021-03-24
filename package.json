@@ -47,6 +47,7 @@
         "ngx-mask": "^9.0.1",
         "normalize.css": "^8.0.1",
         "rxjs": "~6.6.3",
+        "ts-mockito": "^2.6.1",
         "tslib": "^2.0.3",
         "zone.js": "~0.10.3"
     },

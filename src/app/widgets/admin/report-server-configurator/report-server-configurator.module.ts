@@ -42,6 +42,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ReportNameConfiguratorComponent } from './report-name-configurator/report-name-configurator.component';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 @NgModule({
     declarations: [
@@ -88,7 +89,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
         MatSelectModule,
         TreeModule,
         MatDialogModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        DragDropModule,
     ],
     exports: [
         SystemPeriodDateYearComponent,

@@ -14,7 +14,7 @@ import {
     IScheduleShift,
     IScheduleShiftDay,
     IUnits,
-} from 'src/app/dashboard/models/ADMIN/admin-shift-schedule';
+} from 'src/app/dashboard/models/ADMIN/admin-shift-schedule.model';
 import {
     AdminShiftScheduleService,
     IDropItem,
@@ -77,11 +77,11 @@ export class AdminShiftScheduleOldComponent
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'peoples';
     }
 

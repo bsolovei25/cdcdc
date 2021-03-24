@@ -33,11 +33,11 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         protected widgetService: WidgetService,
         private astueOnpzService: AstueOnpzService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngOnInit(): void {
@@ -97,7 +97,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
             predictorIds,
             manufactureName: selectInfo.manufacture,
             unitName: selectInfo.unit,
-            subcategoryName: selectInfo.fuel,
+            subcategoryName: selectInfo.resource,
         });
     }
 }

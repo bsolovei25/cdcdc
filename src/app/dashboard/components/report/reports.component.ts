@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { IReportTemplate } from '../../models/ADMIN/report-server';
+import { IReportTemplate } from '../../models/ADMIN/report-server.model';
 import { ReportsService } from '../../services/widgets/admin-panel/reports.service';
 import { TreeDraggedElement } from '@circlon/angular-tree-component';
 import { SelectionModel } from '@angular/cdk/collections';

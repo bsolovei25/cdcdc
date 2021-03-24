@@ -8,7 +8,7 @@
   <evj-frame-top></evj-frame-top>
   <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="unity-body-container">
-      <div class="loading-shade" *ngIf="!isStart && !isMock">
+      <div class="loading-shade" *ngIf="!isStart">
         <div class="loader">
           <svg viewBox="25 25 50 50">
             <circle cx="50" cy="50" r="20"></circle>

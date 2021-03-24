@@ -24,7 +24,7 @@ import { WidgetSettingsService } from '../../../dashboard/services/widget-settin
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { IUnits } from '../../../dashboard/models/ADMIN/admin-shift-schedule';
+import { IUnits } from '../../../dashboard/models/ADMIN/admin-shift-schedule.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -246,7 +246,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
-        wasted: 'Отработано'
+        wasted: 'Отработано',
     };
 
     isCDEvents: boolean = false;
@@ -275,11 +275,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
         private cdRef: ChangeDetectorRef,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'letter';
     }
 

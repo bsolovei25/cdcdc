@@ -4,7 +4,7 @@ import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/ad
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
-import { IBrigadeWithUsersDto } from 'src/app/dashboard/models/ADMIN/admin-shift-schedule';
+import { IBrigadeWithUsersDto } from 'src/app/dashboard/models/ADMIN/admin-shift-schedule.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 @Component({

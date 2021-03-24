@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { IButtonImgSrc, IWorkspace } from '../../../dashboard/models/ADMIN/admin-panel';
+import { IButtonImgSrc, IWorkspace } from '../../../dashboard/models/ADMIN/admin-panel.model';
 import { IInputOptions } from '../../../@shared/models/input.model';
 import { IUser, IUnitEvents } from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -75,11 +75,11 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
     constructor(
         protected widgetService: WidgetService,
         private adminService: AdminPanelService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {

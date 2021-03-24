@@ -16,14 +16,14 @@
   justify-content: center;
 
   padding: 20px;
-  background: #1C1F2B;
+  background: var(--bg-body-color);
 
   .gauge {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #171924;
+    background: var(--bg-body-color);
     border-radius: 50%;
 
     position: relative;
@@ -55,7 +55,7 @@
       font-size: 13px;
       line-height: 16px;
 
-      color: #D7E2F2;
+      color: var(--text-contrast-color);
 
       position: absolute;
       bottom: 30px;

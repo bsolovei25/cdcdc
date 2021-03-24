@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { IWorkspace, IGlobalClaim, ScreenClaimsEnum } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IWorkspace, IGlobalClaim, ScreenClaimsEnum } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';

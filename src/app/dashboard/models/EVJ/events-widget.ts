@@ -1,9 +1,9 @@
 import { LineChartData } from '../line-chart';
-import { IGlobalClaim } from '../ADMIN/admin-panel';
+import { IGlobalClaim } from '../ADMIN/admin-panel.model';
 import { IMessage } from '@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
-import { IUnits } from '../ADMIN/admin-shift-schedule';
-import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from "./kpe-workspace.model";
+import { IUnits } from '../ADMIN/admin-shift-schedule.model';
+import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;

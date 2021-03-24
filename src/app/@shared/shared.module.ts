@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
-import { FnPipe } from './pipes/fn_pipe';
+import { FnPipe } from './pipes/fn.pipe';
 import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './components/preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
@@ -59,6 +59,7 @@ import { RectButtonComponent } from '@shared/components/rect-button/rect-button.
 import { CheckerComponent } from './components/checker/checker.component';
 import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
 import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer.directive';
+import { AddWordWrapPipe } from './pipes/add-word-wrap.pipe';
 
 @NgModule({
     declarations: [
@@ -107,49 +108,51 @@ import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer
         RectButtonComponent,
         CheckerComponent,
         SchemaScrollResizerDirective,
+        AddWordWrapPipe,
     ],
-    exports: [
-        HeaderComponent,
-        ContentComponent,
-        FormatStatusPipe,
-        FnPipe,
-        PreLoaderComponent,
-        ButtonComponent,
-        DateFormatPipe,
-        PreLoaderComponent,
-        UiBlockComponent,
-        LoadingShadeComponent,
-        WidgetPreloaderComponent,
-        AlertWindowComponent,
-        SmartScrollComponent,
-        EmailEditorComponent,
-        UploadDropZoneComponent,
-        LineChartComponent,
-        EmailEditorComponent,
-        CircleInputComponent,
-        SpaceNumber,
-        AlertInputComponent,
-        TooltipComponent,
-        TooltipDirective,
-        LineBreakPipe,
-        SelectComponent,
-        MatSelectFilterComponent,
-        EventsChatComponent,
-        InputComponent,
-        AlertPasswordComponent,
-        WidgetHeaderComponent,
-        FrameTopComponent,
-        FrameBottomComponent,
-        ContemporaryWidgetHeaderComponent,
-        WidgetHeaderSmpComponent,
-        SafeUrlPipe,
-        ApsProgressBarComponent,
-        TimeDataPickerComponent,
-        RectangleInputComponent,
-        RectButtonComponent,
-        CheckerComponent,
-        SchemaScrollResizerDirective,
-    ],
+  exports: [
+    HeaderComponent,
+    ContentComponent,
+    FormatStatusPipe,
+    FnPipe,
+    PreLoaderComponent,
+    ButtonComponent,
+    DateFormatPipe,
+    PreLoaderComponent,
+    UiBlockComponent,
+    LoadingShadeComponent,
+    WidgetPreloaderComponent,
+    AlertWindowComponent,
+    SmartScrollComponent,
+    EmailEditorComponent,
+    UploadDropZoneComponent,
+    LineChartComponent,
+    EmailEditorComponent,
+    CircleInputComponent,
+    SpaceNumber,
+    AlertInputComponent,
+    TooltipComponent,
+    TooltipDirective,
+    LineBreakPipe,
+    SelectComponent,
+    MatSelectFilterComponent,
+    EventsChatComponent,
+    InputComponent,
+    AlertPasswordComponent,
+    WidgetHeaderComponent,
+    FrameTopComponent,
+    FrameBottomComponent,
+    ContemporaryWidgetHeaderComponent,
+    WidgetHeaderSmpComponent,
+    SafeUrlPipe,
+    ApsProgressBarComponent,
+    TimeDataPickerComponent,
+    RectangleInputComponent,
+    RectButtonComponent,
+    CheckerComponent,
+    SchemaScrollResizerDirective,
+    AddWordWrapPipe
+  ],
     imports: [
         CommonModule,
         MatInputModule,

@@ -47,7 +47,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
         @Inject("widgetId") public id: string,
         @Inject("uniqId") public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {

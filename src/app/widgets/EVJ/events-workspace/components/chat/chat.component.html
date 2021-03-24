@@ -29,7 +29,7 @@
               </div>
             </ng-container>
           </div>
-          <div class="message__text">{{message.comment}}</div>
+          <div class="message__text" [innerHTML]="message.comment | addWordWrap"></div>
           <div class="message__info info">
             <div class="info__author">{{message.displayName}}</div>
             <div class="info__date">{{message.createdAt | dateFormat:'DD-MM-YY hh:mm'}}</div>

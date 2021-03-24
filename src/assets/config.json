@@ -4,11 +4,12 @@
     "fileStorage": "https:/deploy.funcoff.club",
     "smotrUrl": "http://192.168.0.17:6937",
     "smpUrl": "http://192.168.0.17:6780",
-    "ozsmUrl": "http://192.168.0.17:6743",
+    "ozsmUrl": "https://deploy.funcoff.club",
     "reconnectInterval": 5,
     "shiftFree": "not-all",
     "isDomenAuth": true,
     "authorizationHeader": "AsPlatform-Authorization",
     "projectName": "Evj",
-    "hash": "this-is-hash"
+    "hash": "this-is-hash",
+    "isErrorDisplay": true
 }

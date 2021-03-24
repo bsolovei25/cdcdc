@@ -4,7 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'spaceNumber',
 })
 export class SpaceNumber implements PipeTransform {
-    transform(value: number, afterDots?: number): string {
+    transform(value: number | string, afterDots?: number): string {
+        if (typeof value !== 'number') {
+            throw Error('SpaceNumber: not available type');
+        }
         try {
             const numAfterDots: string = !!+value?.toFixed(afterDots).split('.')[1]
                 ? '.' + value?.toFixed(afterDots).split('.')[1]

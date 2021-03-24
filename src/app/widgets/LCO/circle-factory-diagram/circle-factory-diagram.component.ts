@@ -34,11 +34,10 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
 
     constructor(
         public widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'unit';
     }
 
@@ -51,19 +50,15 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
     }
 
     ngAfterViewInit(): void {
-        if (!this.isMock) {
-            this.d3Circle(this.data, this.circleFactory.nativeElement);
-        }
+        this.d3Circle(this.data, this.circleFactory.nativeElement);
     }
 
     protected dataConnect(): void {}
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: unknown): void {}
 
     public onChangeBackground(): void {
-        if (!this.isMock) {
-            this.clicked = !this.clicked;
-        }
+        this.clicked = !this.clicked;
     }
 
     public d3Circle(data, el): void {
@@ -78,7 +73,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
 
         const canvas = d3.select(el).append('svg').attr('min-width', '100px').attr('viewBox', '0 3 300 120');
 
-        let group = canvas.append('g').attr('transform', 'translate(60 ,60)');
+        const group = canvas.append('g').attr('transform', 'translate(60 ,60)');
 
         const arc = d3.arc().innerRadius(44).outerRadius(this.RADIUS);
 
@@ -89,7 +84,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             })
             .sort(() => null);
 
-        let groupCircle2 = group
+        const groupCircle2 = group
             .append('circle')
             .attr('cx', '0')
             .attr('cy', '0')
@@ -103,14 +98,14 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('d', arc)
             .attr('fill', (d) => color(d.index));
 
-        let groupCircle = group
+        const groupCircle = group
             .append('circle')
             .attr('cx', '0')
             .attr('cy', '0')
             .attr('r', '40')
             .attr('fill', '#040c21');
 
-        let groupText = group
+        const groupText = group
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '7px')
@@ -120,7 +115,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('y', '30')
             .text(data.value + '%');
 
-        let improvement_name = canvas
+        const improvementName = canvas
             .append('text')
             .attr('font-size', '10px')
             .attr('x', '220')
@@ -128,7 +123,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('fill', !data.improvement ? 'gray' : 'white')
             .text(data.improvement);
 
-        let improvement = canvas
+        const improvement = canvas
             .append('text')
             .attr('font-size', '8px')
             .attr('x', '190')
@@ -137,7 +132,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Улучшения');
 
-        let deviation = canvas
+        const deviation = canvas
             .append('text')
             .attr('font-size', '10px')
             .attr('x', '163')
@@ -145,7 +140,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('fill', !data.deviation ? 'gray' : 'orange')
             .text(data.deviation);
 
-        let deviation_name = canvas
+        const deviationName = canvas
             .append('text')
             .attr('font-size', '8px')
             .attr('x', '130')
@@ -154,7 +149,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Отклонения');
 
-        let pie_back = canvas
+        const pieBack = canvas
             .append('image')
             .attr(
                 'xlink:href',
@@ -167,7 +162,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             .attr('x', '6.5')
             .attr('y', '-34');
 
-        let imageFactory = canvas
+        const imageFactory = canvas
             .append('image')
             .attr('xlink:href', 'assets/pic/Icons3D/1.png')
             .attr('height', '40px')
@@ -177,8 +172,8 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
 
         let xPos1 = 100;
         let xPos2 = 100;
-        let yPos = 80;
-        for (let item of data.image) {
+        const yPos = 80;
+        for (const item of data.image) {
             if (item.id <= 2) {
                 canvas
                     .append('image')
@@ -210,7 +205,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown> imple
             }
         }
 
-        let pointStart = canvas
+        const pointStart = canvas
             .append('image')
             .attr('xlink:href', 'assets/pic/CircleFactory/pointStart.svg')
             .attr('height', '20px')

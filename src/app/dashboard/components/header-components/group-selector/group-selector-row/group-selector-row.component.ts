@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IGroupScreens } from '../group-selector.component';
 import { FormControl } from '@angular/forms';
+import { UserSettingsService } from "../../../../services/user-settings.service";
 
 @Component({
     selector: 'evj-group-selector-row',
@@ -14,14 +15,14 @@ export class GroupSelectorRowComponent implements OnInit {
     @Output() private deleteGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() private editGroup: EventEmitter<string> = new EventEmitter<string>();
 
-    readonly baseSrc: string = 'https://deploy.funcoff.club/api/file-storage/';
+    readonly baseSrc: string = `${this.userSettingsService.getRestUrl()}/api/file-storage/`;
 
     public isShowButtons: boolean = false;
     public isEditing: boolean = false;
 
     public formControl: FormControl = new FormControl({ value: '', disabled: false });
 
-    constructor() {}
+    constructor(public userSettingsService: UserSettingsService) {}
 
     public ngOnInit(): void {}
 

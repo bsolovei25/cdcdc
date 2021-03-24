@@ -17,11 +17,11 @@ export class ProductGroupsComponent extends WidgetPlatform<unknown> implements O
         protected widgetService: WidgetService,
         private http: HttpClient,
         private smpService: SmpService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'graph';
     }
 

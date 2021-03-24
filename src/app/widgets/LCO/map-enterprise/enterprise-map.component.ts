@@ -289,11 +289,10 @@ export class EnterpriseMapComponent extends WidgetPlatform<unknown> implements O
 
     constructor(
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'map';
     }
 
@@ -306,14 +305,10 @@ export class EnterpriseMapComponent extends WidgetPlatform<unknown> implements O
     }
 
     ngAfterViewInit(): void {
-        if (!this.isMock) {
-            this.draw();
-        }
+        this.draw();
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref;
-    }
+    protected dataHandler(ref: unknown): void {}
 
     private draw(): void {
         this.settingsCompass();

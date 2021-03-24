@@ -37,11 +37,11 @@ export class ReasonsDeviationsComponent extends WidgetPlatform<unknown> implemen
         public widgetService: WidgetService,
         private oilTransferService: OilTransferService,
         private reasonsDeviationsService: ReasonsDeviationsService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

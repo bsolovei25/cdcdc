@@ -1,0 +1,35 @@
+.title {
+  margin-bottom: 9px;
+}
+
+.chips {
+  display: flex;
+  height: 32px;
+  background: var(--color-group-control-item-bg);
+  border-radius: 2px 0 0 2px;
+
+  .chip {
+    padding: 0 12px;
+    color: var(--color-header-text-main);
+    line-height: 32px;
+    font-size: 13px;
+    box-sizing: border-box;
+    border: solid 1px var(--color-header-bg-calendar-divider);
+    cursor: pointer;
+
+    &__left {
+      border-radius: 2px 0 0 2px;
+      border-right: transparent;
+    }
+
+    &__right {
+      border-radius: 0 2px 2px 0;
+      border-left: transparent;
+    }
+
+    &__active {
+      background: var(--color-header-active-trans);
+      border: solid 1px var(--color-header-bg-active);
+    }
+  }
+}

@@ -20,11 +20,11 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implement
     constructor(
         private ozsmService: OzsmService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
     }
 
@@ -54,6 +54,7 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implement
                 fact: x.value,
                 plan: x.value,
                 percent: x.percent,
+                disabled: !x.value && !x.percent
             })) ?? []
         );
     };

@@ -15,7 +15,7 @@
     flex: 1 1;
     justify-content: center;
     align-items: center;
-    border-bottom: 2px solid var(--color-kpe-gauge-tab-unactive);
+    border-bottom: 2px solid var(--gray-G9-color);
     padding: 15px;
     cursor: pointer;
 
@@ -25,11 +25,11 @@
     }
 
     &--active {
-      border-bottom: 2px solid var(--color-aps-active);
+      border-bottom: 2px solid var(--index-plan-color);
       background: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0px, rgba(35, 120, 217, 0.0001) 10px);
 
       .tab__title {
-        color: var(--color-kpe-eq-chart-title);
+        color: var(--text-accent-color);
       }
     }
   }

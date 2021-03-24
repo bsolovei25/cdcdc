@@ -1,33 +1,28 @@
-<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="widgetType" *ngIf="isMock">
-</evj-widget-preview>
-
-<ng-container *ngIf="!isMock">
-  <div class="container">
-    <evj-widget-header
-      [title]="widgetTitle"
-      [icon]="widgetIcon"
-      [units]="widgetUnits"
-      [code]="widgetCode"
-      [id]="widgetId"
-      [uniqId]="widgetUniqId"
-      [widgetType]="widgetType"
-      [select]="allUnits"
-    ></evj-widget-header>
-    <evj-frame-top></evj-frame-top>
-    <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-      <div class="block block_main-icon">
-        <evj-main-icon systemIcon="1"> </evj-main-icon>
-      </div>
-      <div class="block block_factory-list">
-        <evj-production-trend-facilities> </evj-production-trend-facilities>
-      </div>
-      <div class="block block_panel">
-        <evj-production-trend-panel> </evj-production-trend-panel>
-      </div>
-      <div class="block block_graph">
-        <evj-production-trend-graph [dataWs]="graphData$ | async"> </evj-production-trend-graph>
-      </div>
+<div class="container">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [icon]="widgetIcon"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+    [widgetType]="widgetType"
+    [select]="allUnits"
+  ></evj-widget-header>
+  <evj-frame-top></evj-frame-top>
+  <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="block block_main-icon">
+      <evj-main-icon systemIcon="1"> </evj-main-icon>
     </div>
-    <evj-frame-bottom></evj-frame-bottom>
+    <div class="block block_factory-list">
+      <evj-production-trend-facilities> </evj-production-trend-facilities>
+    </div>
+    <div class="block block_panel">
+      <evj-production-trend-panel> </evj-production-trend-panel>
+    </div>
+    <div class="block block_graph">
+      <evj-production-trend-graph [dataWs]="graphData$ | async"> </evj-production-trend-graph>
+    </div>
   </div>
-</ng-container>
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

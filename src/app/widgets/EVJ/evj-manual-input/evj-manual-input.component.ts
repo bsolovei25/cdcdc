@@ -15,17 +15,8 @@ import { trigger, style, state, transition, animate, group } from '@angular/anim
 import { ManualInputService } from './../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import {
-    IHistory,
-    IMachine_MI,
-    IGroup_MI,
-    IChoosenHistorical,
-    MI_ParamSend,
-    IHistoryIdx,
-} from './../../../dashboard/models/EVJ/manual-input.model';
+import { IMachine_MI, IGroup_MI, MI_ParamSend, IHistoryIdx } from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
-import { fillDataShape } from '@shared/functions/common-functions';
-import { StringDecoder } from 'string_decoder';
 
 @Component({
     selector: 'evj-evj-manual-input',
@@ -102,11 +93,11 @@ export class EvjManualInputComponent
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.restUrl = this.configService.restUrl;
         this.widgetIcon = 'peoples';
     }
@@ -117,15 +108,13 @@ export class EvjManualInputComponent
     }
 
     ngAfterViewInit(): void {
-        if (!this.isMock) {
-            setInterval(() => {
-                this.scrollBlockWidth = this.scroll?.nativeElement.scrollWidth;
-                this.scrollTruckWidth = this.truckScroll?.nativeElement.clientWidth;
-                this.scrollBlockWidth - this.scrollTruckWidth === 0
-                    ? (this.widthTruckScroll = 0)
-                    : (this.widthTruckScroll = this.scrollBlockWidth);
-            }, 1000);
-        }
+        setInterval(() => {
+            this.scrollBlockWidth = this.scroll?.nativeElement.scrollWidth;
+            this.scrollTruckWidth = this.truckScroll?.nativeElement.clientWidth;
+            this.scrollBlockWidth - this.scrollTruckWidth === 0
+                ? (this.widthTruckScroll = 0)
+                : (this.widthTruckScroll = this.scrollBlockWidth);
+        }, 1000);
     }
 
     ngOnChanges(): void {}

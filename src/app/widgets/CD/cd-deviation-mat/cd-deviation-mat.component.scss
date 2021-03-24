@@ -257,6 +257,7 @@
           &__background {
             position: absolute;
             top: -1px;
+            fill: var(--color-border-unactive);
 
             &-children {
               position: absolute;

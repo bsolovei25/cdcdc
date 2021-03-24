@@ -265,11 +265,11 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.widgetIcon = 'letter';
     }
 

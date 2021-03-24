@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input, OnChanges, OnDestroy } from '@angular/core';
 import { timeInterval } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { IPostSystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
+import { IPostSystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server.model';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 
 @Component({

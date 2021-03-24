@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WIDGETS } from '../../../widgets/widget-map';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, style, transition, animate } from '@angular/animations';
 
@@ -18,7 +17,6 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
 })
 export class PanelComponent implements OnInit, OnDestroy {
-    public readonly WIDGETS: typeof WIDGETS = WIDGETS;
     public active: boolean = false;
     public isWidgets: isChoosePanel;
     public claimSettingsScreens: EnumClaimScreens[] = [];
@@ -48,7 +46,7 @@ export class PanelComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    onToggleClick(buttonName: isChoosePanel): void {
+    public onToggleClick(buttonName: isChoosePanel): void {
         if (this.active && buttonName !== this.isWidgets) {
             this.isWidgets = buttonName;
         } else {
@@ -57,11 +55,11 @@ export class PanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onSwap(event: boolean): void {
+    public onSwap(event: boolean): void {
         this.swap.emit(event);
     }
 
-    onGrid(event: boolean): void {
+    public onGrid(event: boolean): void {
         this.grid.emit(event);
     }
 }

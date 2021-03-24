@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, ElementRef, ViewChild, HostListen
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
-import { IReferenceColumnsType, IReferenceTypes } from 'src/app/dashboard/models/ADMIN/references';
+import { IReferenceColumnsType, IReferenceTypes } from 'src/app/dashboard/models/ADMIN/references.model';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { ReferencesService } from 'src/app/dashboard/services/widgets/admin-panel/references.service';
 
@@ -85,11 +85,11 @@ export class AdminReferencesComponent extends WidgetPlatform<unknown> implements
     constructor(
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

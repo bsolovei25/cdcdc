@@ -30,11 +30,11 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implement
     constructor(
         private ozsmService: OzsmService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     public ngOnInit(): void {
@@ -68,12 +68,10 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implement
                 storages: storageStats.storageStats,
             },
             items: planningItems.map((x, i) => ({
-                id: i + 1,
                 plan: !!x.percent && x.value ? (100 * x.value) / x.percent : 0,
                 ...x,
             })),
         });
-        console.log(this.data$.getValue());
     }
 
     private resize(): void {

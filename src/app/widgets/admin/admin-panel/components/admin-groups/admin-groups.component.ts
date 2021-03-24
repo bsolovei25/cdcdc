@@ -1,5 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IButtonImgSrc, IWorkspace, IGroup, IGlobalClaim } from '../../../../../dashboard/models/ADMIN/admin-panel';
+import {
+    IButtonImgSrc,
+    IWorkspace,
+    IGroup,
+    IGlobalClaim,
+} from '../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';

@@ -1,6 +1,7 @@
 import { IOzsmLoadingPark } from './ozsm-shared.model';
 
 export interface IOzsmPlanningMainItemResponse {
+    id: number;
     name: string;
     percent: number;
     value: number;

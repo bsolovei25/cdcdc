@@ -12,7 +12,7 @@ import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { AuthService } from '@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
-import { IError } from '../models/error';
+import { IError } from '../models/@PLATFORM/error.model';
 
 export interface IDatesInterval {
     fromDateTime: Date;
@@ -336,7 +336,9 @@ export class WidgetService {
             console.warn('reconnect уже создан');
             return;
         }
-        this.materialController.openSnackBar('Переподключение к хосту');
+        if (this.configService.isErrorDisplay) {
+            this.materialController.openSnackBar('Переподключение к хосту');
+        }
         this.reconnectRestTimer = setInterval(() => {
             this.getRest();
         }, 5000);
@@ -355,8 +357,8 @@ export class WidgetService {
         this.ws.subscribe(
             (msg) => {
                 console.log('message received');
-                if (msg?.error) {
-                    // this.materialController.openSnackBar(msg.error.message.message, 'error');
+                if (msg?.error && this.configService.isErrorDisplay) {
+                    this.materialController.openSnackBar(msg.error.message.message, 'error');
                 }
                 if (this.reconnectWsTimer) {
                     clearTimeout(this.reconnectWsTimer);
@@ -413,7 +415,9 @@ export class WidgetService {
         //     console.warn('reconnect уже создан');
         //     return;
         // }
-        this.materialController.openSnackBar('Переподключение к данным реального времени');
+        if (this.configService.isErrorDisplay) {
+            this.materialController.openSnackBar('Переподключение к данным реального времени');
+        }
         this.reconnectWsTimer = setTimeout(() => {
             this.initWS();
             // tslint:disable-next-line:forin

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IReferenceTypes } from '../../../dashboard/models/ADMIN/references';
+import { IReferenceTypes } from '../../../dashboard/models/ADMIN/references.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { ReferencesService } from '../../../dashboard/services/widgets/admin-panel/references.service';
@@ -63,11 +63,11 @@ export class ReferenceComponent extends WidgetPlatform<unknown> implements OnIni
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
         public snackBar: SnackBarService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
         this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }

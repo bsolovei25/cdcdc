@@ -110,10 +110,14 @@ export interface IActionCombobox {
         id: number;
         name: string;
         wfPropertyUid: string;
-    };
+    }[];
     type: string;
     uid: string;
-    value: string;
+    value?: {
+        id: number;
+        name: string;
+        wfPropertyUid: string;
+    };
 }
 
 const fadeAnimation = trigger('fadeAnimation', [
@@ -135,12 +139,12 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     public items: IGridsterItemLocal[] = [];
 
     public workflowActionsNameMap = WorkflowActionsNameMap;
-    public workflowActions = WorkflowActions;
+    public workflowActions: typeof WorkflowActions = WorkflowActions;
 
     private itemCol: number = 3;
     private itemRow: number = 3;
 
-    private removableLeaderLineIds = new Map<string, any>();
+    private removableLeaderLineIds: Map<string, any> = new Map<string, any>();
 
     widthSvgIconGrid: 50;
     heightSvgIconGrid: 50;
@@ -169,19 +173,19 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     leaderLine = [];
 
-    public readonly LEADER_LINE_HOST_CONTAINER = 'leader-line-host';
+    public readonly LEADER_LINE_HOST_CONTAINER: string = 'leader-line-host';
 
-    public readonly LEADER_LINE_PARENT_CONTAINER = 'leader-line-parent';
+    public readonly LEADER_LINE_PARENT_CONTAINER: string = 'leader-line-parent';
 
-    public readonly LEADER_LINE_HEIGHT = 2;
+    public readonly LEADER_LINE_HEIGHT: number = 2;
 
-    public readonly LEADER_LINE_REMOVE_TEMPLATE = 'removeLineTemplate';
+    public readonly LEADER_LINE_REMOVE_TEMPLATE: string = 'removeLineTemplate';
 
-    public readonly LEADER_LINE_REMOVE_CONTAINER = 'leader-line-remove';
+    public readonly LEADER_LINE_REMOVE_CONTAINER: string = 'leader-line-remove';
 
     actions: IActions[];
 
-    availbleActions: IActionsScenario;
+    availableActions: IActionsScenario;
     activeActions: IGridsterItemLocal;
 
     isLoading: boolean = false;
@@ -289,11 +293,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         private renderer: Renderer2,
         private workflowService: WorkflowService,
         private snackBar: SnackBarService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     ngOnInit(): void {
@@ -301,10 +305,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     }
 
     ngAfterViewInit(): void {
-        if (!this.isMock) {
-            this.slider();
-            this.sliderLeftBar();
-        }
+        this.slider();
+        this.sliderLeftBar();
     }
 
     ngOnDestroy(): void {
@@ -313,7 +315,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         this.removeIconsAndLineLeaderLine();
     }
 
-    protected async dataConnect(): Promise<void> {
+    protected dataConnect(): void {
         super.dataConnect();
         this.workflowService.chooseModules$.subscribe((module) => {
             this.chooseModules = module;
@@ -323,7 +325,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             this.chooseScenarios = scenario;
             if (this.chooseScenarios) {
                 this.isLoading = true;
-                this.loadActions(this.chooseModules.uid);
+                this.loadActions(this.chooseModules.uid).then();
             } else {
                 this.items = [];
                 this.leaderLine = [];
@@ -331,10 +333,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         });
     }
 
-    protected dataHandler(ref: any): void {
-        if (ref) {
-        }
-    }
+    protected dataHandler(ref: unknown): void {}
 
     resetScenario(isDeleteLeaderLine: boolean = true): void {
         if (isDeleteLeaderLine) {
@@ -435,7 +434,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
     private async loadWorkflowAvailbleActions(): Promise<void> {
         try {
-            this.availbleActions = await this.workflowService.getWorkfkowAvailbleActions(
+            this.availableActions = await this.workflowService.getWorkfkowAvailbleActions(
                 this.chooseModules.uid,
                 this.chooseScenarios.uid
             );
@@ -449,7 +448,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     drawingActions(): void {
         this.items = [];
         let x = 2;
-        this.availbleActions.data.sortedActionList.forEach((sort) => {
+        this.availableActions.data.sortedActionList.forEach((sort) => {
             this.items.push({
                 x,
                 y: 3,
@@ -464,7 +463,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             });
             x += 4;
         });
-        this.availbleActions.data.withoutLinks.forEach((sort) => {
+        this.availableActions.data.withoutLinks.forEach((sort) => {
             this.items.push({
                 x,
                 y: 3,
@@ -869,8 +868,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (this.activeActions !== item) {
                 this.emailAction = [];
                 this.comboAction = null;
+                await this.getActionProp(item.action);
                 await this.getScenarioActionProp(item.scenarioAction);
-                this.getActionProp(item.action);
                 this.activeActions = item;
             }
         }
@@ -892,12 +891,19 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             if (el) {
                 this.propsAction(ans);
             } else {
-                this.comboAction = [];
-                if (this.comboAction.length) {
-                    this.comboAction = [...this.comboAction, ...ans];
-                } else {
-                    this.comboAction = ans;
-                }
+                ans.forEach((ansV) => {
+                    this.comboAction.map((value) => {
+                        if (value.uid === ansV.propertyGuid) {
+                            value.source.forEach((valueSource) => {
+                                if (valueSource.name === ansV.value) {
+                                    value.value = valueSource;
+                                    return value;
+                                }
+                                return value;
+                            });
+                        }
+                    });
+                });
             }
             this.isLoading = false;
         } catch (error) {
@@ -1061,7 +1067,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     async chooseActionScenario(event: MatSelectChange, item: IActionCombobox): Promise<void> {
         if (this.comboAction) {
             this.isLoading = true;
-            const body = { value: event.value };
+            const body = { value: event.value.name };
             try {
                 await this.workflowService.putProps(
                     this.chooseScenarios.uid,

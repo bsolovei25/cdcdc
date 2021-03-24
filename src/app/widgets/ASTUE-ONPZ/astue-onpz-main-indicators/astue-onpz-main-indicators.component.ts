@@ -36,11 +36,11 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
     constructor(
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetService, id, uniqId);
     }
 
     @AsyncRender
@@ -118,7 +118,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
             name: string;
             id: string;
         }>(this.widgetId);
-        const subchannelId = channels.find((x) => x.name === options.fuel).id;
+        const subchannelId = channels.find((x) => x.name === options.resource).id;
         this.setWsOptions({ subchannelId });
     }
 }
