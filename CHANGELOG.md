@@ -1,3 +1,12 @@
+# [1.7.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.2...v1.7.0) (2021-03-24)
+
+
+### Features
+
+* **#1237:** add data to kpe-quality-reserve-table ([cb406fe](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cb406feb1cd50e1d76cd85794c63c30e25dc9e3f)), closes [#1237](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1237)
+* **#1437:** Доработка по переходу в белую тему виджетов экрана КПЭ ([5cd9aed](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5cd9aedd4d408f0e19d44006a3273878b1d99703)), closes [#1437](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1437)
+* **front#1292:** "Верстка рабочей области событий Создание карточки" ([01d4e6f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/01d4e6f77a87b7fbdfcf29e742be67bcdf577303)), closes [front#1292](https://gitlab.funcoff.club/front/issues/1292)
+
 ## [1.6.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.1...v1.6.2) (2021-03-19)
 
 
