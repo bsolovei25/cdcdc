@@ -42,7 +42,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.materialController.openSnackBar('Сервер не отвечает', 'error');
                         break;
                     case 477:
-                        // this.materialController.openSnackBar(err.error.message.message, 'error');
+                        this.materialController.openSnackBar(err.error.message.message, 'error');
                         console.error(err);
                         break;
                     case 475:
