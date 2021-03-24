@@ -12,8 +12,8 @@
 
   display: flex;
 
-  background: var(--color-kpe-universal-card_bg-main);
-  border: 1px solid var(--color-kpe-universal-card_bg-main);
+  background: var(--gray-G10-color);
+  border: 1px solid var(--gray-G10-color);
   border-radius: 2px;
 
   .content, .gauge {
@@ -44,7 +44,7 @@
     .title {
       font-size: 13px;
       line-height: 16px;
-      color: var(--color-kpe-universal-card-font-main);
+      color: var(--text-accent-color);
     }
 
     .subtitle {
