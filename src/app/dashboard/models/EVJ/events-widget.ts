@@ -285,7 +285,8 @@ export type EventsWidgetCategoryCode =
     | 'modelCalculations' // cd
     | 'ejs'
     | 'indicators'
-    | 'resources';
+    | 'resources'
+    | 'cmidCard';
 
 export type AuthenticationType = 'bearer' | 'windows';
 
