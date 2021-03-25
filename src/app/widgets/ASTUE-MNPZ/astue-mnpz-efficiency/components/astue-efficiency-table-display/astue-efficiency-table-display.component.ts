@@ -13,7 +13,7 @@ import {
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { saveAs } from 'file-saver';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { map } from 'rxjs/operators';
 
@@ -210,24 +210,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             query += `&startTime=${dates.fromDateTime.toISOString()}&endTime=${dates.toDateTime.toISOString()}`;
         }
         const url = `${this.restUrl}/api/astue-service/Astue/export${query}`;
-        this.fileSaver(url);
-    }
-
-    private fileSaver(url: string): void {
-        this.http
-            .get(url, { responseType: 'blob' as 'json', observe: 'response' })
-            .pipe(
-                map((result: HttpResponse<Blob>) => {
-                    const filename = result.headers
-                        .get('Content-Disposition')
-
-                        .split(';')[1]
-                        .trim()
-                        .split('=')[1];
-                    saveAs(result.body, filename);
-                })
-            )
-            .subscribe();
+        this.AsEfService.fileSaver(url);
     }
 
     toggleEl(block: any): void {
