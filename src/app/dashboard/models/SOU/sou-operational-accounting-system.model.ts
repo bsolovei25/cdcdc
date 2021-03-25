@@ -118,6 +118,7 @@ export interface ISouObjects {
     selected?: boolean;
     value: number;
     linkId?: string;
+    tolerance?: number;
 }
 
 export interface ISouIdent {

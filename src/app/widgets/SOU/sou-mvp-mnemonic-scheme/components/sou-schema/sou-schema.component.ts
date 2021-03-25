@@ -286,12 +286,17 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         // Percent
         if (elementFull?.metaFile) {
             if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(
-                    elementFull.textPercent,
-                    elementFull?.metaFile?.valueMomentPercent
-                        ? `${String(elementFull?.metaFile?.valueMomentPercent)}%`
-                        : `${String(elementFull?.metaFile?.tolerance)}%`
+                this.addTextToTspan(elementFull.textPercent, String(elementFull?.metaFile?.valueMomentPercent));
+                elementFull?.textPercent?.classList.remove(
+                    'standard-text',
+                    'deviation-text',
+                    'disabled-text',
+                    'reset-text'
                 );
+                elementFull?.textPercent?.classList.add(`${mode}-text`);
+            }
+            if ('tolerance' in elementFull?.metaFile) {
+                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
                 elementFull?.textPercent?.classList.remove(
                     'standard-text',
                     'deviation-text',
@@ -301,7 +306,12 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 elementFull?.textPercent?.classList.add(`${mode}-text`);
             }
         } else {
-            this.addTextToTspan(elementFull?.textPercent, `${String(percent)}%`);
+            this.addTextToTspan(
+                elementFull?.textPercent,
+                elementFull?.metaFile?.tolerance
+                    ? `${String(elementFull?.metaFile?.tolerance)}%`
+                    : `${String(percent)}%`
+            );
             elementFull?.textPercent?.classList.add(`${mode}-text`);
         }
 
