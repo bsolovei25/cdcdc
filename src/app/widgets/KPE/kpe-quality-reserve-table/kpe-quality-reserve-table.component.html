@@ -30,7 +30,7 @@
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="shadow"></div>
     <ng-container
-      *ngComponentOutlet="specialComponent; injector: getInjector(widgetId, (tabsList$ | async)[currentTab]?.id);"
+      *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (tabsList$ | async)[currentTab]?.id);"
     ></ng-container>
   </div>
 </div>

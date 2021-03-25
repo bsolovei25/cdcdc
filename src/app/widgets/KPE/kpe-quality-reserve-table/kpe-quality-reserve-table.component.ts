@@ -38,7 +38,6 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
 
     constructor(
         protected widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private injector: Injector
