@@ -1,3 +1,10 @@
+## [1.7.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.7.0...v1.7.1) (2021-03-25)
+
+
+### Bug Fixes
+
+* **1450:** Проблема с предикторами ([0c9f4a9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0c9f4a9c9a61b81ffdeb6de9386553e3be9d3d51))
+
 # [1.7.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.6.2...v1.7.0) (2021-03-24)
 
 
