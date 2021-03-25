@@ -1,14 +1,23 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    Injector,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { AstueOnpzService, IAstueOnpzPredictor } from '../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import {
     AstueOnpzConventionalFuelService,
     IAstueOnpzConventionalFuelSelectOptions,
 } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
+import { AstueOnpzPredictorsItemComponent } from './components/astue-onpz-predictors-item/astue-onpz-predictors-item.component';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 
-interface IPredictors {
+export interface IPredictors {
     isHidden: boolean;
     id: string;
     name: string;
@@ -24,11 +33,17 @@ interface IPredictors {
     selector: 'evj-astue-onpz-predictors',
     templateUrl: './astue-onpz-predictors.component.html',
     styleUrls: ['./astue-onpz-predictors.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
-    data: IPredictors[] = [];
-    colors: Map<string, number>;
+    public specialComponent: typeof AstueOnpzPredictorsItemComponent = AstueOnpzPredictorsItemComponent;
+    public subchannelId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public channels$: BehaviorSubject<
+        {
+            name: string;
+            id: string;
+        }[]
+    > = new BehaviorSubject<{ name: string; id: string }[]>([]);
 
     constructor(
         private conventionalFuelService: AstueOnpzConventionalFuelService,
@@ -37,7 +52,8 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
         private cdRef: ChangeDetectorRef,
 
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private injector: Injector
     ) {
         super(widgetService, id, uniqId);
     }
@@ -45,6 +61,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
     ngOnInit(): void {
         super.widgetInit();
         this.conventionalFuelService.predictorsId$.next(this.id);
+        this.optionsHandler().then();
     }
 
     ngOnDestroy(): void {
@@ -57,11 +74,12 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
         this.setOptionsWs(this.id);
 
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
-                this.selectPredictors.clear();
+            combineLatest([this.channels$, this.conventionalFuelService.selectedOptions$]).subscribe((value) => {
                 this.astueOnpzService.setPredictors(this.id, []);
-                this.data = [];
-                this.optionsHandler(ref).then();
+                const [channels, options] = value;
+
+                const subChannel = channels.find((x) => x.name === options.resource)?.id ?? null;
+                this.subchannelId$.next(subChannel);
             })
         );
     }
@@ -72,42 +90,22 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {}
 
-    changeToggle(item: IPredictors, color: number): void {
-        this.selectPredictors.toggle(item.id);
-        if (!this.selectPredictors.isSelected(item.id)) {
-            this.astueOnpzService.deleteTagToColor(color, item.tag);
-        }
-        const arr: IAstueOnpzPredictor[] = [];
-        this.selectPredictors.selected.forEach((id) => {
-            const el: IPredictors = this.data.find((value) => value.id === id);
-            arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
-            if (!this.astueOnpzService.colors$.getValue()?.has(el?.tag)) {
-                this.astueOnpzService.addTagToColor(el?.tag);
-            }
-        });
-
-        this.astueOnpzService.setPredictors(this.id, arr);
-        this.cdRef.detectChanges();
-    }
-
-    private async optionsHandler(options: IAstueOnpzConventionalFuelSelectOptions): Promise<void> {
+    private async optionsHandler(): Promise<void> {
         const channels = await this.widgetService.getAvailableChannels<{
             name: string;
             id: string;
         }>(this.widgetId);
-        const subchannelId = channels.find((x) => x.name === options.resource).id;
-        const res = await this.widgetService.getChannelLiveDataFromWs(subchannelId, this.widgetId);
 
-        res.subscribe((value: { predictors: IPredictors[] }) => {
-            this.data = value.predictors.filter((item) => !item.isHidden);
-            if (value.predictors[0]?.id === '0') {
-                console.log('ID предиктора равна 0'); // проверка данных с backend
-            }
-            this.subscriptions.push(
-                this.astueOnpzService.colors$.subscribe((color) => {
-                    this.colors = color;
-                })
-            );
-        });
+        this.channels$.next(channels);
     }
+
+    public getInjector = (widgetId: string, channelId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: channelId },
+            ],
+            parent: this.injector,
+        });
+    };
 }
