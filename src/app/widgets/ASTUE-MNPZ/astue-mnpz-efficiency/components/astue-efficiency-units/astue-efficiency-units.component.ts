@@ -49,7 +49,10 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             });
             this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
         }
-        const units = this.AsEfService.selectionUnit$.getValue();
+        let units = this.AsEfService.selectionUnit$.getValue();
+        if (!units?.length) {
+            units = [];
+        }
         units.push(unit);
         this.AsEfService.selectionUnit$.next(units);
         this.AsEfService.toggleUnit(unit.name);
@@ -65,7 +68,10 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             });
             this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
         }
-        const units = this.AsEfService.selectionUnit$.getValue();
+        let units = this.AsEfService.selectionUnit$.getValue();
+        if (!units?.length) {
+            units = [];
+        }
         units.push(unit);
         this.AsEfService.selectionUnit$.next(units);
         this.AsEfService.toggleUnit(unit.name);
