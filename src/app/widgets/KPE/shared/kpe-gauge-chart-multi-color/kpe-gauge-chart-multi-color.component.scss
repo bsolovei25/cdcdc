@@ -41,35 +41,35 @@
     }
 
     .diagram-section{
-      &-1 {
+      &-Red {
         fill: var(--index-critical-color);
         opacity: 0.25;
       }
-      &-2 {
+      &-Yellow {
         fill: var(--index-error-color);
         opacity: 0.25;
       }
-      &-3 {
+      &-Blue {
         fill: var(--index-plan-color);
         opacity: 0.25;
       }
-      &-4 {
+      &-Green {
         fill: var(--index-green1-color);
         opacity: 0.25;
       }
     }
 
     .diagram-section-serif{
-      &-1 {
+      &-Red {
         fill: var(--index-critical-color);
       }
-      &-2 {
+      &-Yellow {
         fill: var(--index-error-color);
       }
-      &-3 {
+      &-Blue {
         fill: var(--index-plan-color);
       }
-      &-4 {
+      &-Green {
         fill: var(--index-green1-color);
       }
     }

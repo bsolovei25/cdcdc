@@ -48,8 +48,8 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<IKpeWidget
         }
     }
 
-    protected dataHandler(ref: any): void {
-        console.log('ref', ref);
+    protected dataHandler(ref: IKpeGaugeChartData): void {
+        console.log('kpe-key-performance-indicators', ref);
         this.sourceData = ref;
         this.setActiveIndicator();
     }
