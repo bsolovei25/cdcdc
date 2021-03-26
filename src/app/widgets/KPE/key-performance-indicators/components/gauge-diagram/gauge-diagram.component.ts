@@ -1,9 +1,15 @@
 import { Component, OnInit, ElementRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
+import { IKpeUniversalCardMonthData } from '../../../shared/kpe-universal-card/kpe-universal-card.component';
+import { KpeGaugeChartMultiColor } from '../../../shared/kpe-gauge-chart-multi-color/kpe-gauge-chart-multi-color.component';
 
 export interface IKpeGaugeChartPage {
     name: string;
     value: number;
+    deviation: number;
+    dailyStatus: IKpeUniversalCardMonthData[];
+    colorBounds: KpeGaugeChartMultiColor[];
+    bounds: number[];
 }
 
 @Component({

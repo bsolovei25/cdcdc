@@ -1,29 +1,30 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
 import { CONTENT_DATA } from '../kpe-universal-card/mock';
 import { IKpeUniversalCardMonthData } from '../kpe-universal-card/kpe-universal-card.component';
+import { IKpeGaugeChartPage } from "../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
 @Component({
     selector: 'evj-kpe-performance-indicator-item',
     templateUrl: './kpe-performance-indicator-item.component.html',
     styleUrls: ['./kpe-performance-indicator-item.component.scss'],
 })
-export class KpePerformanceIndicatorItemComponent implements OnInit {
+export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
     @ViewChild('chart', { static: true }) chart: ElementRef;
     @ViewChild('container', { static: true }) container: ElementRef;
 
-    @Input() data: IKpeUniversalCardMonthData[] = CONTENT_DATA.monthData;
+    @Input() data: IKpeGaugeChartPage;
 
     public svg: any;
-    size: number = 0;
-    private currentMonth: IKpeUniversalCardMonthData[];
+    public size: number = 0;
     public arcDash: number;
+    private currentMonth: IKpeUniversalCardMonthData[];
 
     constructor() {}
 
     @AsyncRender
-    drawSvg(): void {
+    private drawSvg(): void {
         this.size = Math.min(this.container.nativeElement.offsetHeight, this.container.nativeElement.offsetWidth) - 60;
 
         const outerR = this.size / 2 - 15;
@@ -58,6 +59,11 @@ export class KpePerformanceIndicatorItemComponent implements OnInit {
         });
     }
 
+    ngOnChanges(): void {
+        this.fillDayStatuses();
+        this.drawSvg();
+    }
+
     ngOnInit(): void {
         // Массив размер которого равен колличесвту дней в месяце
         this.daysInMonth();
@@ -69,16 +75,27 @@ export class KpePerformanceIndicatorItemComponent implements OnInit {
                 status: 'default',
             };
         }
+        this.fillDayStatuses();
+        this.drawSvg();
+    }
 
-        // Меняем значение для дня, для которого есть инфа в данных
-        this.currentMonth.forEach((item, i) => {
-            const newItem = this.data.find((date) => date.day === item.day);
+    public getExtremumValue(flag: 'min' | 'max'): number {
+        if (!this.data) { return 0; }
+        if (flag === 'min') {
+            return d3.min(this.data?.bounds);
+        }
+        if (flag === 'max') {
+            return d3.max(this.data?.bounds);
+        }
+    }
+
+    private fillDayStatuses(): void {
+        this.currentMonth?.forEach((item, i) => {
+            const newItem = this.data?.dailyStatus.find((date) => date.day === item.day);
             if (newItem) {
                 this.currentMonth[i] = newItem;
             }
         });
-
-        this.drawSvg();
     }
 
     private daysInMonth(): void {
