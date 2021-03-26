@@ -1,3 +1,15 @@
+# [1.8.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.7.1...v1.8.0) (2021-03-26)
+
+
+### Bug Fixes
+
+* **#1472:** no bug ([05a338e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/05a338e08293b278c56a32922a64122586677def)), closes [#1472](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1472)
+
+
+### Features
+
+* **front#1255:** "КПЭ. Приведение к новому дизайну виджета Ключевые показатели эффективности" ([df99aa2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/df99aa24bd018825e45047841e4b8b317eed9f2b)), closes [front#1255](https://gitlab.funcoff.club/front/issues/1255)
+
 ## [1.7.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.7.0...v1.7.1) (2021-03-25)
 
 
