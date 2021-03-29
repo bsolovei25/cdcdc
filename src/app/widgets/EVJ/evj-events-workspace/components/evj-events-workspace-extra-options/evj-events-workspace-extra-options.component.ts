@@ -10,8 +10,9 @@ import {
     IKpeWorkspaceParameter,
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { IMessage } from '@shared/models/message.model';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
@@ -75,6 +76,17 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
+    public setUnit(event?: MatSelectChange): string {
+        const unit: string = this.dependentParameters[event.value].units;
+        this.dependParameters.controls.forEach((v) => {
+            const id = v.get('dependentParameterId').value;
+            if (id === event.value) {
+                v.get('units').setValue(unit);
+            }
+        });
+        return unit;
+    }
+
     loadData(): void {
         if (this.ewService.event.id) {
             this.getParametersByNotification();
@@ -112,16 +124,18 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
         dependentParameters?.forEach((param) => {
-            const paramDep = this.dependentParameters.find(value => value.id === param.dependentParameterId)
+            const paramDep = this.dependentParameters.find((value) => value.id === param.dependentParameterId);
             this.formArray = this.form.get('dependentParameters') as FormArray;
-            this.formArray.push(this.createFormGroup(param?.dependentParameterId, param?.numericValue, paramDep?.units));
+            this.formArray.push(
+                this.createFormGroup(param?.dependentParameterId, param?.numericValue, paramDep?.units)
+            );
         });
     }
 
     createFormGroup(
         dependentParameterId: number = this.dependentParameters[0].id,
         numericValue: number = 0,
-        units: string = ''
+        units: string = this.dependentParameters[0].units
     ): FormGroup {
         return this.formBuild.group({
             dependentParameterId,
@@ -228,7 +242,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         this.ewService.event.facts.forEach((v, index) => {
             if (v.comment === this.oldMessage) {
                 this.index = index;
-                console.log(index);
                 this.oldMessage = v.comment;
             }
         });
@@ -243,7 +256,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             } else {
                 this.ewService.event.kpeAdditionalParameter = this.notificationParametersData;
                 this.addKpeAdditionalToChat(this.notificationParametersData);
-                console.log(this.notificationParametersData);
                 this.ewService.acceptButton$.next(this.notificationParametersData);
             }
         } catch (error) {
@@ -275,7 +287,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     public addKpeAdditionalToChat(data: IKpeAdditionalParameter): void {
-        console.log(this.index);
         if (this.index > -1) {
             this.ewService.event.facts[this.index].comment = this.notificationDataToDescription(data);
         } else {
