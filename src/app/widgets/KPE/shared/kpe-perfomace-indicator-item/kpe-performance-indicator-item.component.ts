@@ -82,10 +82,10 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
     public getExtremumValue(flag: 'min' | 'max'): number {
         if (!this.data) { return 0; }
         if (flag === 'min') {
-            return d3.min(this.data?.bounds);
+            return d3.min(this.data?.bounds.slice(1));
         }
         if (flag === 'max') {
-            return d3.max(this.data?.bounds);
+            return d3.max(this.data?.bounds.slice(1, -1));
         }
     }
 
