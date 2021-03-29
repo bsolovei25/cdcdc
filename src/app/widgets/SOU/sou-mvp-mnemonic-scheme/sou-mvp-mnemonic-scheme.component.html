@@ -52,7 +52,7 @@
             (click)="optionsGroup.get('section').setValue(section.id)"
           >
             <span class="title" *ngIf="!!section?.name">{{ section?.name }}</span>
-            <div class="value" [ngClass]="{noTrust: false}">{{ 0 }}</div>
+            <div class="value" [ngClass]="{noTrust: false}">{{ section?.countFlowExceedingConfInterval }}</div>
           </div>
         </div>
 
