@@ -257,6 +257,12 @@ input {
   left: 87px;
 }
 
+input {
+  padding: 0 10px;
+  font-family: Tahoma;
+  font-size: 13px;
+  color: var(--color-event-card-font-sub);
+}
 input:focus {
   outline: 0;
 }
