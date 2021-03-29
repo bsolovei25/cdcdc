@@ -2,8 +2,10 @@
   <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-predictors" type="astue">
   </evj-contemporary-widget-header>
   <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <ng-container
-      *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (subchannelId$ | async));"
-    ></ng-container>
+    <div class="" style="height: 100%">
+      <ng-container style="height: 100%"
+        *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (subchannelId$ | async));"
+      ></ng-container>
+    </div>
   </div>
 </div>
