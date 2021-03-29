@@ -39,6 +39,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
     public cells: number[] = new Array(100);
     public percent: number = 97;
     public isExpanded: boolean = true;
+    public currentDate: string = '';
 
     constructor(
         protected widgetService: WidgetService,
@@ -52,6 +53,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.currentDate = this.getDate();
     }
 
     protected dataHandler(ref: unknown): void {
@@ -67,5 +69,12 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
 
     public openAdd(): void {
         this.dialog.open(KpeAccuracyTimelinesDataAddPlanComponent);
+    }
+
+    public getDate(): string {
+        const today = new Date();
+        const date = new Date(today.getFullYear(), today.getMonth() - 1, 1, 0, 0, 0, 0);
+        const month = date.toLocaleString('Ru-ru', { month: 'long' });
+        return month + ' ' + today.getFullYear();
     }
 }
