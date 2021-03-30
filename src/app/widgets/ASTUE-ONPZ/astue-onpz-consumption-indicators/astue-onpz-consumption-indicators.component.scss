@@ -17,8 +17,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: calc(100% - 78px);
-  border: 1px solid var(--color-astue-onpz-widget-border);
-  background-color: var(--color-astue-onpz-widget-bg);
+  border: 1px solid var(--border-vidget-color);
+  background-color: var(--bg-body-color);
   padding: 18px;
   border-radius: 0 0 2px 2px;
 }
@@ -32,7 +32,7 @@
 
   span {
     font-size: 13px;
-    color: var(--color-kpe-text-main);
+    color: var(--text-contrast-color);
   }
 
   &__title,
@@ -44,7 +44,7 @@
 
   &__title {
     flex: 3 3;
-    background: var(--color-astue-onpz-btn);
+    background: var(--gray-G10-color);
     border-radius: 2px;
 
     span {
@@ -55,8 +55,8 @@
   &__value {
     flex: 1 1;
     margin-left: 3px;
-    border-left: 1px solid var(--color-cd-warning);
-    background: linear-gradient(90deg, var(--color-astue-value-gr-start) 0%, transparent 89.86%);
+    border-left: 1px solid var(--index-error-color);
+    background: linear-gradient(90deg, var(--opacity-orange-20-color) 0%, transparent 89.86%);
 
     span {
       margin-left: 8px;
@@ -71,6 +71,10 @@
 
 .block--active {
   .block__title {
-    background-color: var(--color-aps-active) !important;
+    background-color: var(--border-blue-color) !important;
+
+    span {
+      color: white;
+    }
   }
 }

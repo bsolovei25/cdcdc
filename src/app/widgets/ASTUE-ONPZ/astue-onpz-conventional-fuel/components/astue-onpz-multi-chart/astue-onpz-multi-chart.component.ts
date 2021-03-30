@@ -31,12 +31,13 @@ export interface IMultiChartOptions {
 }
 
 const lineColors: { [key: string]: string } = {
-    1: '#9362d0',
-    2: '#0ba4a4',
-    3: '#8090f0',
-    4: '#0f62fe',
-    5: '#0089ff',
-    6: '#039de0',
+    1: 'var(--data-c1-color)',
+    2: 'var(--data-c7-color)',
+    // 3: '#8090f0',
+    3: 'var(--data-c3-color-opacity)',
+    4: 'var(--index-blue1-color)',
+    5: 'var(--index-plan-color)',
+    6: 'var(--data-c5-color)',
 };
 
 @Component({
@@ -514,7 +515,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const grid = this.svg
             .append('g')
             .attr('class', 'grid')
-            .attr('fill', 'rgba(18, 21, 30, 0.5)')
+            .attr('fill', 'var(--chart-axes-color)')
             .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
             .call(
                 d3
@@ -523,7 +524,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top + this.topMargin))
                     .tickFormat('')
             )
-            .style('color', '#272A38');
+            .style('color', 'var(--border-vidget-color)');
 
         const left = this.leftPadding;
 
@@ -650,7 +651,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             });
 
             const legend = axisY.append('g').attr('class', 'legend');
-            const stroke = flag ? '#FFFFFF' : lineColors[this.colors?.get(chart.tagName)];
+            const stroke = flag ? 'var(--index-fact-color)' : lineColors[this.colors?.get(chart.tagName)];
             const padding = 5;
             const topMargin = 23;
             legend
@@ -670,7 +671,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .attr('y1', this.padding.top - 2 * padding + 2 + topMargin)
                     .attr('x2', -padding)
                     .attr('y2', this.padding.top - 2 * padding + 2 + topMargin)
-                    .attr('stroke', '#0089ff')
+                    .attr('stroke', 'var(--border-blue-color)')
                     .attr('stroke-dasharray', (this.axisYWidth - 3 * padding) / 2);
             }
 
@@ -781,7 +782,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('class', 'mouse-over')
             .attr('transform', `translate(${x}, ${y})`)
             .attr('opacity', 0)
-            .style('color', 'white');
+            .style('color', 'var(--text-accent-color)');
 
         // линия курсора
         const mouseLine = mouseG
@@ -810,7 +811,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .append('svg:rect')
             .attr('width', width)
             .attr('height', height)
-            .attr('fill', 'rgba(18, 21, 30, 0.3)')
+            .attr('fill', 'var(--chart-background-color)')
             .attr('pointer-events', 'all')._groups;
 
         if (this.eventListenerFn) {

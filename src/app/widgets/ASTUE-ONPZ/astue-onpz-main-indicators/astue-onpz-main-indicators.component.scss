@@ -14,9 +14,9 @@
     display: flex;
     flex-direction: column;
 
-    background: var(--color-astue-onpz-widget-bg);
+    background: var(--bg-body-color);
 
-    border: 1px solid var(--color-astue-onpz-widget-border);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0px 0px 2px 2px;
 
     .diagram {
@@ -38,15 +38,15 @@
           ::ng-deep {
             svg {
               .diagram-inner {
-                fill: var(--color-astue-onpz-plan);
+                fill: var(--index-plan-color);
               }
 
               .diagram-value {
-                fill: var(--color-astue-onpz-fact);
+                fill: var(--index-fact-color);
               }
 
               .diagram-deviation {
-                fill: var(--color-astue-onpz-warning);
+                fill: var(--index-error-color);
               }
             }
           }
@@ -70,25 +70,50 @@
           }
 
           .values {
+            display: flex;
             font-size: 13px;
             line-height: 16px;
+            margin-top: 6px;
+            color: var(--text-contrast-color);
 
-            color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+            &--fact {
+              .dot {
+                background-color: var(--index-fact-color);
+              }
+              .value {
+                color: var(--gray-G9-color);
+              }
+            }
+
+            &--plan {
+              .dot {
+                background-color: var(--index-plan-color);
+              }
+              .value {
+                color: var(--gray-G9-color);
+              }
+            }
+
+            .dot {
+              width: 10px;
+              height: 10px;
+              border-radius: 5px;
+              display: inline-block;
+              align-self: center;
+              margin-right: 10px;
+            }
+
             .unit {
               margin-left: 5px;
-              color: var(--astue-onpz-factory-analisys-label);
+              color: var(--text-main-color);
             }
-          }
-
-          .values-plan {
-            color: var(--color-astue-onpz-plan);
           }
 
           .description {
             font-size: 13px;
             line-height: 16px;
 
-            color: var(--astue-onpz-factory-analisys-legend);
+            color: var(--text-main-color);
           }
         }
 
@@ -109,20 +134,21 @@
             line-height: 31px;
 
             &-warning {
-              color: var(--color-astue-onpz-warning);
+              color: var(--index-error-color);
             }
           }
 
           .unit {
             font-size: 12px;
             line-height: 14px;
-            color: var(--astue-onpz-factory-analisys-legend);
+            color: var(--text-main-color);
           }
         }
 
         .custom-bg {
           position: absolute;
           left: 3px;
+          fill: var(--border-vidget-color);
         }
       }
     }
