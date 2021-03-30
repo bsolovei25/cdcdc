@@ -51,7 +51,6 @@ export class AstueOnpzConventionalFuelService {
         'Выработка тепла',
         'Потребление электроэнергии',
     ];
-    public selectedOptions: Observable<IAstueOnpzConventionalFuelSelectOptions>;
     public selectedOptions$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
         this.defaultSelectOptions
     );
