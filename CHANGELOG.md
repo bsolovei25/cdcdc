@@ -1,3 +1,10 @@
+# [1.9.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.8.0...v1.9.0) (2021-03-30)
+
+
+### Features
+
+* **#1437:** Доработка по переходу в белую тему виджетов экрана КПЭ ([7fc5aff](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7fc5affccaff96b4f8ef9e3c37989edffd522ede)), closes [#1437](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1437)
+
 # [1.8.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.7.1...v1.8.0) (2021-03-26)
 
 
