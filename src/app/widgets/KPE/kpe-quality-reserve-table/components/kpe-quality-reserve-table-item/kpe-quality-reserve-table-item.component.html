@@ -5,8 +5,8 @@
       <th mat-header-cell *matHeaderCellDef>
         {{(headers$ | async)[+column].name}} <span>{{(headers$ | async)[+column]?.unit}}</span>
       </th>
-      <td mat-cell *matCellDef="let element" [class.warning]="element.cells[+column]['isWarning']">
-        {{element.cells[+column].value}}
+      <td mat-cell *matCellDef="let element" [class.warning]="element.cells[+column]?.isWarning">
+        {{element.cells[+column]?.value}}
       </td>
     </ng-container>
 
