@@ -30,7 +30,7 @@
       display: flex;
       flex-direction: column;
 
-      background: var(--color-kpe-bg-sub);
+      background: var(--gray-G10-color);
 
       border-radius: 2px;
 
@@ -43,7 +43,7 @@
         font-size: 14px;
         line-height: 16px;
 
-        color: var(--color-kpe-eq-chart-title);
+        color: var(--text-main-color);
       }
 
       &__btn {
@@ -58,7 +58,7 @@
       .custom-block {
         height: 50%;
         width: 5px;
-        background: var(--color-kpe-line-diagram-bg-sub);
+        background: var(transparent);
 
         position: absolute;
         bottom: -1px;
@@ -69,8 +69,8 @@
         width: 90px;
         height: 20px;
         border-radius: 2px;
-        background-color: var(--color-aps-bg-active-col);
-        color: var(--color-kpe-gaude-active);
+        background-color: var(--opacity-plan-20-color);
+        color: var(--index-plan-color);
 
         font-size: 12px;
         line-height: 14px;

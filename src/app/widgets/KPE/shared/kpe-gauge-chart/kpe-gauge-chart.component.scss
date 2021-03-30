@@ -1,51 +1,51 @@
 ::ng-deep .background {
   & > * {
-    fill: var(--color-kpe-gauge-bg);
+    fill: var(--bg-dashboard-color);
   }
 }
 
 ::ng-deep .main {
   & > * {
-    fill: var(--color-aps-active);
+    fill: var(--index-plan-color);
   }
 }
 
 ::ng-deep .sub {
   & > * {
-    fill: var(--color-aps-orange);
+    fill: var(--index-error-color);
   }
 }
 
 ::ng-deep .serif-active {
   & > * {
-    stroke: var(--color-aps-active);
+    stroke: var(--index-plan-color);
   }
 }
 
 ::ng-deep .serif-warning {
   & > * {
-    stroke: var(--color-aps-orange);
+    stroke: var(--index-error-color);
   }
 }
 
 ::ng-deep .text {
   &__value {
-    fill: var(--color-kpe-text-main);
+    fill: var(--text-accent-color);
     font-size: 12px;
   }
 
   &__deviation {
-    fill: var(--color-aps-orange);
+    fill: var(--index-error-color);
     font-size: 7px;
   }
 
   &__plan {
-    fill: var(--color-astue-onpz-units);
+    fill: var(--text-main-color);
     font-size: 7px;
   }
 
   &__unit {
-    fill: var(--color-kpe-text-sub);
+    fill: var(--text-subscript-color);
     font-size: 7px;
   }
 }
@@ -58,15 +58,15 @@
 
 ::ng-deep {
   .needle {
-    fill: var(--color-kpe-text-main);
+    fill: var(--index-fact-color);
   }
 
   .needle-hover-circle-back-d, .needle-hover-circle-back-dark {
-    fill: var(--color-kpe-line-diagram-bg-sub);
+    fill: var(--bg-body-color);
   }
 
   .kpe-gauge-hide-down-sector-d,  .kpe-gauge-hide-down-sector-dark{
-    fill: var(--color-kpe-line-diagram-bg-sub);
+    fill: var(--bg-body-color);
   }
 
   .needle-hover-circle-back-sou {

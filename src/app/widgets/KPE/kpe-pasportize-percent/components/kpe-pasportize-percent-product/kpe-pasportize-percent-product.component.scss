@@ -16,16 +16,16 @@
     flex-direction: column;
     justify-content: space-between;
 
-    background: var(--color-kpe-gaude-lines);
+    background: var(--gray-G10-color);
 
-    border-left: 2px solid var(--color-kpe-gaude-additional);
+    border-left: 2px solid var(--chart-axes-color);
     border-right: 1px solid var(--bg-body-color);
 
     &__title {
       font-size: 13px;
       line-height: 16px;
 
-      color: var(--color-kpe-pasportize-text);
+      color: var(--text-main-color);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -39,7 +39,7 @@
       align-items: center;
 
       border-radius: 2px;
-      border: 1px solid var(--color-kpe-gauge-tab-unactive);
+      border: 1px solid var(--gray-G5-color);
 
       &-bg {
         height: 4px;
@@ -54,7 +54,7 @@
         .line-diagram-inner {
           height: 4px;
 
-          background: var(--color-kpe-gaude-active);
+          background: var(--index-plan-color);
 
           position: absolute;
           left: 0px;
@@ -75,9 +75,9 @@
 
     font-size: 15px;
     line-height: 20px;
-    color: var(--color-kpe-text-main);
+    color: var(--text-contrast-color);
 
-    background: var(--color-kpe-gaude-lines);
+    background: var(--gray-G10-color);
     border-radius: 0px 2px 2px 0px;
 
     white-space: nowrap;
