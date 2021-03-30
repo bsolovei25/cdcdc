@@ -14,9 +14,9 @@
     display: flex;
     flex-direction: column;
 
-    background: var(--color-kpe-line-diagram-bg-sub);
+    background: var(--bg-body-color);
 
-    border: 1px solid var(--color-kpe-bg-sub);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0px 0px 2px 2px;
 
     .diagram {
@@ -32,14 +32,14 @@
 
         font-size: 13px;
         line-height: 16px;
-        color: var(--color-kpe-pasportize-text);
+        color: var(--text-accent-color);
 
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
         span {
-          color: var(--color-kpe-text-main);
+          color: var(--text-contrast-color);
         }
       }
 
@@ -56,11 +56,11 @@
           ::ng-deep {
             svg {
               .diagram-inner {
-                fill: var(--color-kpe-gaude-active);
+                fill: var( --index-plan-color);
               }
 
               .diagram-value {
-                fill: var(--color-kpe-white);
+                fill: var(--index-fact-color);
               }
             }
           }
@@ -87,7 +87,7 @@
           }
 
           .values {
-            color: var(--color-kpe-white);
+            color: var(--index-fact-color);
           }
 
           .values-fact {
@@ -134,11 +134,11 @@
         display: flex;
         align-items: center;
 
-        border-top: 1px solid var(--color-kpe-bg-sub);
+        border-top: 1px solid var(--border-vidget-color);
 
         font-size: 13px;
         line-height: 16px;
-        color: var(--color-kpe-text-main);
+        color: var(--text-accent-color);
 
         white-space: nowrap;
         overflow: hidden;
@@ -152,7 +152,7 @@
 
     .shadow {
       height: 20px;
-      background: linear-gradient(180deg, var(--color-kpe-shadow-1) -0.04%, var(--color-kpe-shadow-2) 99.96%);
+      background: linear-gradient(180deg, var(--gradient-main-color-1) -0.04%, var(--gradient-main-color-2) 99.96%);
       opacity: 0.5;
     }
 

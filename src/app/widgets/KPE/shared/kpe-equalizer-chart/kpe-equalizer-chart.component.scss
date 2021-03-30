@@ -22,15 +22,15 @@ $column-width: 4px;
   }
 
   .rect-normal {
-    fill: var(--color-kpe-gaude-active);
+    fill: var(--index-plan-color);
   }
 
   .rect-white {
-    fill: white;
+    fill: var(--index-fact-color);
   }
 
   .rect-orange {
-    fill: var(--color-astue-onpz-warning);
+    fill: var(--index-error-color);
   }
 
   .background-col {
@@ -45,15 +45,15 @@ $column-width: 4px;
   }
 
   .active {
-    color: var(--color-kpe-eq-chart-day-active);
+    color: var(--opacity-plan-20-color);
   }
 
   .normal {
-    color: var(--color-kpe-eq-chart-day-normal);
+    color: var(--chart-segment-color);
   }
 
   .step-line {
-    stroke: var(--color-kpe-gaude-active);
+    stroke: var(--index-plan-color);
     fill: transparent;
     stroke-width: 0.75px;
   }
