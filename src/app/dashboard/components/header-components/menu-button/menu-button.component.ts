@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { ThemeConfiguratorService } from '@core/service/theme-configurator.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { AppConfigService } from '@core/service/app-config.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AboutComponent } from '../../about/about.component';
 
 interface IMenuItem {
     name: string;
@@ -34,7 +36,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         private router: Router,
         private authService: AuthService,
         private themeService: ThemeConfiguratorService,
-        private configService: AppConfigService
+        public dialog: MatDialog
     ) {}
 
     public ngOnInit(): void {
@@ -124,15 +126,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         );
     }
 
-    private aboutApp(): void {
-        const alertAbout: IAlertWindowModel = {
-            isShow: true,
-            questionText: this.configService.hash,
-            acceptText: 'Подтвердить',
-            cancelText: 'Вернуться',
-            closeFunction: () => this.overlayService.aboutAlert$.next(null),
-        };
-        this.overlayService.aboutAlert$.next(alertAbout);
-        console.log('alert');
+    public aboutApp(): void {
+        const openDialog = this.dialog.open(AboutComponent);
     }
 }
