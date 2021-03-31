@@ -208,8 +208,8 @@
             <div class="creator__field">
               <div class="block">
                 <span>
-                  {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName ===
-                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+                  {{ this.ewService.event.asusEvent?.consumer ? this.ewService.event.asusEvent?.consumer ===
+                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.asusEvent?.consumer : 'Не установлен' }}
                 </span>
                 <ng-container *ngIf="this.ewService.event.fixedBy?.positionDescription">
                   <span class="block__position"> {{this.ewService.event.fixedBy?.positionDescription}} </span>
