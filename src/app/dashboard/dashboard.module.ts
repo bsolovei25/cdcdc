@@ -80,6 +80,7 @@ import { GroupSelectorOverlayComponent } from './components/header-components/gr
 import { GroupSelectorModalComponent } from './components/header-components/group-selector/group-selector-modal/group-selector-modal.component';
 import { FilterGroupsPipe } from './components/header-components/group-selector/filter-groups.pipe';
 import { PortalModule } from '@angular/cdk/portal';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
     declarations: [
@@ -126,6 +127,7 @@ import { PortalModule } from '@angular/cdk/portal';
         GroupSelectorOverlayComponent,
         GroupSelectorModalComponent,
         FilterGroupsPipe,
+        AboutComponent,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [

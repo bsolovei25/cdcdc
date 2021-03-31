@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="header">
+    <div class="header__settings">
+      <svg-icon src="{{settingLogo}}"></svg-icon>
+    </div>
+    <div class="header__title">
+      {{about.headerName}}
+    </div>
+    <div class="header__version">
+      <span class="field">Версия:</span>
+      <span>{{about.version}}</span>
+    </div>
+    <div class="header__date">
+      <span class="field">Дата релиза:</span>
+      <span>{{about.date | date:'dd.MM.yyyy'}}</span>
+    </div>
+    <svg-icon class="header__close" src="{{close}}" (click)="onClose()"></svg-icon>
+  </div>
+  <div class="body">
+    <div class="body__main">
+      <div class="title">Цифровая <span>индустриальная экосистема</span></div>
+      <div class="text">{{about.mainText}}</div>
+    </div>
+    <div class="body__features">
+      <div class="name">{{about.featuresTitle}}</div>
+      <div>
+        Полный охват бизнес-процессов управления производством <br>
+        Типовые отраслевые решения с готовыми и проверенными на практике бизнес-процессами.<br>
+        Базируется на мировых стандартах и концепциях управления производством:
+        <span class="standarts">MRPII, S&OP, APS, MES, OLAP и ERP</span>
+    </div>
+    <div class="body__modules">
+      <div class="name">Модули</div>
+      <div class="items">
+        <ng-container *ngFor="let item of about.modules">
+          <div class="body__modules__module" matTooltip="{{item.description}}">
+            <svg-icon class="module-icon" src="assets/icons/about/{{item.icon}}.svg"></svg-icon>
+            <div class="module-name">{{item.name}}</div>
+            <div class="module-status" *ngIf="item.status">{{item.status}}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <svg-icon class="wall" src="{{wallLogo}}"></svg-icon>
+  </div>
+</div>

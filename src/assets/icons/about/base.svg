@@ -1,0 +1,15 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="25" cy="25" r="24.5098" stroke="currentColor" stroke-width="0.980392"/>
+<path d="M21.812 16.5625H16.9995V33.4375H21.812V16.5625Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.9995 18.875H21.812" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.9995 24.5H21.812" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19.4365 31.8125C19.8853 31.8125 20.249 31.4487 20.249 31C20.249 30.5513 19.8853 30.1875 19.4365 30.1875C18.9878 30.1875 18.624 30.5513 18.624 31C18.624 31.4487 18.9878 31.8125 19.4365 31.8125Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.187 16.5625H27.437V33.4375H24.187" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.187 18.875H27.437" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.187 24.5H27.437" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.9995 31.8125C25.4482 31.8125 25.812 31.4487 25.812 31C25.812 30.5513 25.4482 30.1875 24.9995 30.1875C24.5508 30.1875 24.187 30.5513 24.187 31C24.187 31.4487 24.5508 31.8125 24.9995 31.8125Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.75 16.5625H33V33.4375H29.75" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.7495 18.875H32.9995" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.7495 24.5H32.9995" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30.562 31.8125C31.0107 31.8125 31.3745 31.4487 31.3745 31C31.3745 30.5513 31.0107 30.1875 30.562 30.1875C30.1133 30.1875 29.7495 30.5513 29.7495 31C29.7495 31.4487 30.1133 31.8125 30.562 31.8125Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
