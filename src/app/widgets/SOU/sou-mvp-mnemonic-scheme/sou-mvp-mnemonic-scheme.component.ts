@@ -54,6 +54,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     public readonly settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
 
+    // Суб-канал в вебсокетах
     subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
     sectionSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     footerSubchannel$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -78,6 +79,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         ),
     };
     chosenSetting$: Observable<number>;
+
+    // Определяет вид отображения
     schemeView$: BehaviorSubject<SouMvpMnemonicSchemeView> = new BehaviorSubject<SouMvpMnemonicSchemeView>(null);
 
     flowInAb: ISouFlowIn[];
@@ -107,9 +110,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                     map((ref) => ref[0])
                 )
                 .subscribe(this.redirect.bind(this)),
+            // Изменения формы
             this.optionsGroup.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe((x) => {
                 this.mvpService.closePopup();
                 this.setSubchannelBySelection(x.section, x.unit);
+                // Задает вид
                 this.schemeView$.next(this.getViewType(x));
                 this.mvpService.selectedOptions$.next(this.getWsOptions(x));
                 this.stateController().save(x);
@@ -148,6 +153,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         });
     };
 
+    // Текущий выбранный вид
     private getViewType(form: ISouSelectionOptionsForm): SouMvpMnemonicSchemeView {
         if (!form) {
             return null;
