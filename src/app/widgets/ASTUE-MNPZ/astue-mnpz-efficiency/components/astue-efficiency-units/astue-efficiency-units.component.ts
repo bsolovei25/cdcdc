@@ -53,7 +53,13 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         if (!units?.length) {
             units = [];
         }
-        units.push(unit);
+        const idx = units.findIndex((value) => value.id === unit.id);
+        if (idx > -1) {
+            units.splice(idx, 1)
+        } else {
+            units.push(unit);
+        }
+        console.log(units);
         this.AsEfService.selectionUnit$.next(units);
         this.AsEfService.toggleUnit(unit.name);
         this.AsEfService.currentUnit = unit;
