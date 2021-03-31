@@ -32,9 +32,11 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
 
     private chartInit(): void {
         this.dataHandler();
-        const mainValue = this.fact > this.plan ? (this.plan / this.fact) * 100 : (this.fact / this.plan) * 100;
-        const subValue = (Math.abs(this.fact - this.plan) / Math.max(this.fact, this.plan)) * 100;
-        this.bindChart(mainValue, subValue);
+        if (this.fact && this.plan) {
+            const mainValue = this.fact > this.plan ? (this.plan / this.fact) * 100 : (this.fact / this.plan) * 100;
+            const subValue = (Math.abs(this.fact - this.plan) / Math.max(this.fact, this.plan)) * 100;
+            this.bindChart(mainValue, subValue);
+        }
     }
 
     private dataHandler(): void {
@@ -125,7 +127,6 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
             (1.5 * Math.PI * mainValue) / this.diagramCounter + (3 * Math.PI) / 4,
             this.fact >= this.plan ? 'serif-active' : 'serif-warning'
         );
-
         const circleRad = 16;
 
         const shadowGradient = svg
