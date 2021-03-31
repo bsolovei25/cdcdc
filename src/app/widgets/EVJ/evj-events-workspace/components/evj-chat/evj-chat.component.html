@@ -1,4 +1,4 @@
-<div class="chat" [ngClass]="viewType === 'cmid' ? 'cmid-chat' : 'default-chat'">
+<div class="chat" [ngClass]="viewType === 'cmid' ? 'cmid-chat' : viewType === 'smpo' ? 'smpo-chat' : 'default-chat'">
   <div class="chat__messages messages scroll scroll-bar" #scroll>
     <div class="messages__list">
       <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">

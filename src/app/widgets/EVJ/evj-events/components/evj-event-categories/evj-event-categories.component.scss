@@ -19,12 +19,12 @@
     background: linear-gradient(90deg, rgba(32, 38, 56, 1) 0%, rgba(53, 34, 43, 0) 76%);
 
     &:hover {
-      border-left: 2px solid var(--color-kpe-gaude-active);
+      border-left: 2px solid var(--border-blue-color);
       color: var(--color-text-main);
     }
 
     &--active {
-      border-left: 2px solid var(--color-kpe-gaude-active);
+      border-left: 2px solid var(--border-blue-color);
       background: linear-gradient(90deg, rgba(0, 137, 255, 0.24413515406162467) 0%, rgba(53, 34, 43, 0) 65%);
       color: var(--color-text-main);
     }
@@ -43,7 +43,7 @@
         fill: var(--color-cd-text-sub);
 
         &--active {
-          fill: var(--color-kpe-gaude-active);
+          fill: var(--border-blue-color);
         }
       }
     }
@@ -70,8 +70,9 @@
       &:hover {
         color: var(--color-text-main);
         background-color: var(--color-cd-bg-btn-active);
-        border: 1px solid var(--color-kpe-gaude-active);
+        border: 1px solid var(--border-blue-color);
       }
+
       &:focus {
         outline: none;
       }
@@ -86,114 +87,158 @@
 }
 
 .overlay-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  gap: 1px;
+  width: 442px;
+  height: 577px;
+  background: var(--gray-G12-color);
+  border: 1px solid var(--border-blue-color);
+  box-sizing: border-box;
+  box-shadow: 0 0 10px var(--opacity-plan-50-color);
+  border-radius: 2px;
+  padding: 0 30px;
 
-  .item {
-    box-sizing: border-box;
-    background-color: var(--color-bg-btn);
-    width: 430px;
-    height: 40px;
+  h3 {
+    color: var(--text-contrast-color);
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .overlay-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
-    border-radius: 3px;
+    cursor: pointer;
+    height: 81px;
 
-    &__slide {
-      margin-left: 10px;
-
-      ::ng-deep {
-        .mat-slide-toggle-bar {
-          height: 10px !important;
-          width: 23px !important;
-        }
-
-        .mat-slide-toggle-thumb {
-          height: 14px !important;
-          width: 14px !important;
-          margin-top: 1px;
-        }
-
-        .mat-slide-toggle .mat-slide-toggle-ripple {
-          height: 30px;
-          width: 30px;
-        }
-
-        .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-          background-color: var(--color-kpe-gaude-active);
-        }
-
-        .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-          background-color: var(--color-text-main);
-        }
-
-        .mat-ripple-element {
-          background-color: transparent;
-        }
-      }
+    &__icon {
+      color: var(--border-icon-color);
     }
+  }
 
-    &__text {
-      font-size: 13px;
-      flex: 1;
-      padding-left: 20px;
+  .overlay-body {
+    height: calc(100% - 81px - 76px - 18px);
 
-      &_disabled {
-        color: var(--color-text-sub);
-      }
-    }
-
-    &__btn {
-      font-size: 13px;
-      color: var(--color-text-sub);
-
-      button {
-        cursor: pointer;
-        width: 100%;
-        max-width: 170px;
-        padding: 0 15px;
-        font-size: 13px;
-        height: 30px;
-        color: var(--color-text-sub);
-        border-radius: 3px;
-
-        border: 0;
-        background-color: var(--color-bg-sub-workflow);
-        transition: all 200ms;
-
-        &:focus {
-          outline: 0;
-        }
-
-        &:hover {
-          background-color: var(--color-bg-card);
-        }
-
-        &:active {
-          background-color: var(--color-bg-btn);
-        }
-      }
-    }
-
-    &__ckb {
-      width: 100%;
-      height: 100%;
-      max-width: 130px;
+    &__checkboxes {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      border-left: 1px solid var(--header-events-color-bg-main);
+      margin: 17px 0;
 
-      span {
-        font-size: 13px;
-        color: var(--color-text-main);
-        margin-left: 10px;
-        margin-top: 2px;
+      h3 {
+        margin-left: 19px;
+      }
+
+      .checkbox {
+        label {
+          font-size: 13px;
+          color: var(--text-main-color);
+        }
+
+        label.active {
+          color: var(--gray-G1-color);
+        }
+
+        &__item {
+          margin-right: 12px;
+
+          ::ng-deep {
+            .mat-checkbox-frame {
+              border: 1px solid var(--border-vidget-color);
+              background: var(--gray-G11-color);
+            }
+          }
+        }
       }
     }
+
+    &__subcategories {
+      height: 168px;
+      overflow-y: scroll;
+
+      .subcategory {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        margin-top: 2px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &__name,
+        &__source {
+          background: var(--gray-G11-color);
+          display: flex;
+          align-items: center;
+          border-radius: 2px;
+          border: 1px solid transparent;
+          cursor: pointer;
+
+          span {
+            color: var(--text-main-color);
+            font-size: 13px;
+          }
+        }
+
+        &__name {
+          width: calc(100% - 60px);
+          padding-left: 19px;
+        }
+
+        &__source {
+          width: 58px;
+          margin-left: 2px;
+          justify-content: center;
+        }
+      }
+
+      .active {
+        .subcategory__name {
+          background: var(--opacity-plan-10-color);
+          border: 1px solid var(--border-blue-color);
+
+          span {
+            color: var(--color-text-main);
+          }
+        }
+      }
+    }
+  }
+
+  .overlay-actions {
+    height: 76px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+
+      &__apply,
+      &__cancel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 17px;
+        border-radius: 2px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      &__apply {
+        background: var(--color-kpe-gaude-active);
+        color: var(--color-text-main);
+      }
+
+      &__cancel {
+        background: var(--gray-G9-color);
+        color: var(--text-main-color);
+      }
+    }
+  }
+
+  .divider {
+    width: 100%;
+    border-bottom: 1px solid var(--border-vidget-color);
   }
 }
