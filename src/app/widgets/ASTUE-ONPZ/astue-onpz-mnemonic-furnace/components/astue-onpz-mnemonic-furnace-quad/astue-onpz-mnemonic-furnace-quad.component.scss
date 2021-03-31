@@ -4,10 +4,10 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 1px solid var(--color-astue-onpz-mnemonic-furnace-lines);
+  border: 1px solid var(--border-forms-color);
   border-radius: 2px;
   box-sizing: border-box;
-  background: var(--color-astue-onpz-mnemonic-furnace-item-bg);
+  background: var(--gray-G10-color);
   cursor: pointer;
   user-select: none;
 
@@ -21,22 +21,22 @@
   }
 
   .value {
-    color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+    color: var(--text-accent-color);
   }
 
   .unit {
-    color: var(--color-astue-onpz-mnemonic-furnace-unit-text);
+    color: var(--text-subscript-color);
   }
 
   &__deviation {
-    border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    border-color: var(--index-error-color);
 
     .value {
-      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+      color: var(--index-error-color);
     }
 
     .unit {
-      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+      color: var(--index-error-color);
     }
   }
 }

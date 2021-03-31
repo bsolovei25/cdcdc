@@ -7,14 +7,14 @@
   width: 100%;
   height: 100%;
   overflow-y: hidden;
-
+  background-color: var(--bg-body-color);
   .container {
     display: flex;
     flex-grow: 1;
     width: 100%;
     padding: 5px;
-    background: var(--color-astue-onpz-widget-bg);
-    border: 1px solid var(--color-astue-onpz-widget-border);
+    background: var(--bg-body-color);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0 0 2px 2px;
     box-sizing: border-box;
     overflow: hidden;
@@ -40,8 +40,23 @@
     height: 655px;
     transform: perspective(1px) translateZ(0);
 
+
     &__background {
       margin: auto;
+
+      ::ng-deep {
+        circle {
+          fill: var(--bg-body-color);
+          stroke: var(--border-vidget-color);
+        }
+        line, rect, path {
+          stroke: var(--border-vidget-color);
+          color: var(--border-vidget-color);
+        }
+        path[class="secondColor"] {
+          stroke: var(--border-icon-color);
+        }
+      }
     }
 
     .wrapper {
@@ -57,7 +72,7 @@
         text-align: center;
         font-size: 14px;
         line-height: 17px;
-        color: var(--color-astue-onpz-mnemonic-furnace-box-text);
+        color: var(--text-subscript-color);
       }
 
       .streams {
@@ -141,7 +156,7 @@
         flex-grow: 1;
         width: 1px;
         margin: 10px auto 0;
-        background: var(--color-astue-onpz-mnemonic-furnace-lines);
+        background: var(--border-vidget-color);
 
         .triangle {
           position: absolute;
@@ -151,7 +166,7 @@
           height: 0;
           border-style: solid;
           border-width: 0 3px 6px 3px;
-          border-color: transparent transparent var(--color-astue-onpz-mnemonic-furnace-lines) transparent;
+          border-color: transparent transparent var(--border-vidget-color) transparent;
         }
 
         .counter {
@@ -163,17 +178,17 @@
         }
 
         &__deviation {
-          background: var(--color-astue-onpz-mnemonic-furnace-warning);
+          background: var(--index-error-color);
 
           .triangle {
-            border-color: transparent transparent var(--color-astue-onpz-mnemonic-furnace-warning) transparent;
+            border-color: transparent transparent var(--index-error-color) transparent;
           }
         }
       }
 
       .circle {
         border-radius: 50%;
-        background: var(--color-astue-onpz-widget-bg);
+        background: var(--bg-body-color);
         overflow: hidden;
       }
     }
@@ -236,9 +251,9 @@
       display: flex;
       align-items: center;
 
-      background: var(--sou-mvp-color-bg-select);
+      background: var(--bg-dashboard-color);
 
-      border: 1px solid var(--sou-mvp-color-border);
+      border: 1px solid var(--border-forms-color);
       border-radius: 3px;
 
       &__select {
@@ -249,7 +264,7 @@
       &__marker {
         height: 16px;
         width: 3.5px;
-        background-color: var(--sou-mvp-color-warning);
+        background-color: var(--index-error-color);
         margin-left: 4px;
       }
     }

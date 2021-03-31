@@ -74,19 +74,19 @@ svg {
       }
 
       text {
-        fill: var(--astue-onpz-factory-analisys-label);
+        fill: var(--text-subscript-color);
         font-size: 11px;
       }
     }
 
     .grid {
-      color: var(--color-astue-onpz-widget-border) !important;
+      color: var(--border-forms-color) !important;
       stroke-width: 1;
       opacity: 0.5;
       fill: none;
 
       &__background {
-        fill: #121510;
+        fill: var(--chart-attantionZone-color);
         opacity: 0.25;
       }
 

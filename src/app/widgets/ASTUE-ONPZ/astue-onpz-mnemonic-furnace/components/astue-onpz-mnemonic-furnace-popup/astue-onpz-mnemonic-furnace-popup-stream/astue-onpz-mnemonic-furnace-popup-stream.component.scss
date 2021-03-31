@@ -4,8 +4,8 @@
   height: 21px;
   font-size: 12px;
   line-height: 14px;
-  background: var(--color-astue-onpz-mnemonic-furnace-item-bg-dark);
-  border: 1px solid var(--color-astue-onpz-mnemonic-furnace-lines);
+  background: var(--bg-body-color);
+  border: 1px solid var(--border-forms-color);
   border-radius: 2px;
   box-sizing: border-box;
 
@@ -15,11 +15,11 @@
     width: 20px;
     min-width: 20px;
     border-radius: 2px;
-    background: var(--color-astue-onpz-mnemonic-furnace-item-bg);
+    background: var(--gray-G10-color);
 
     .text {
       margin: auto;
-      color: var(--color-astue-onpz-mnemonic-furnace-sub-text);
+      color: var(--text-main-color);
     }
   }
 
@@ -30,15 +30,15 @@
 
     .text {
       margin: auto;
-      color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+      color: var(--text-contrast-color);
     }
   }
 
   &__deviation {
-    border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    border-color: var(--index-error-color);
 
     .text {
-      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+      color: var(--index-error-color);
     }
   }
 }
