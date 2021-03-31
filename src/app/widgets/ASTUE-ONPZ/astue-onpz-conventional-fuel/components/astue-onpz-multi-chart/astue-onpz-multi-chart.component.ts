@@ -437,7 +437,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .curve(d3.curveLinear);
                 const areaFn =
                     chart.graphType === 'border'
-                        ? this.astueOnpzService.multilineChartTransfer.getValue().isEconomy
+                        ? this.astueOnpzService.multilineChartTransfer.getValue()?.isEconomy
                             ? areaBottom
                             : areaTop
                         : chart.graphType === 'lowerBorder'
