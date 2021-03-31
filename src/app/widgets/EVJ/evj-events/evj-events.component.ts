@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
     EventsWidgetCategory,
@@ -21,7 +21,7 @@ import { ClaimService, EnumClaimGlobal, EnumClaimWidgets } from '../../../dashbo
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IUnits } from '../../../dashboard/models/ADMIN/admin-shift-schedule.model';
@@ -317,16 +317,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.subCategories.forEach((subCategory, index) => {
             this.categories.forEach((category) => {
                 if (!category?.subCategories) {
-                    category.subCategories = [
-                        {
-                            name: 'Показать все события',
-                            code: '100',
-                            description: 'Показать все события',
-                            id: this.idAllSubCategory,
-                            parentCategory: null,
-                            parentCategoryId: category.id,
-                        },
-                    ];
+                    category.subCategories = [];
                 }
                 if (subCategory.parentCategoryId === category.id) {
                     category.subCategories.push(subCategory);
@@ -843,27 +834,35 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.getStats();
     }
 
-    toggleSubcategory(id: number): void {
-        if (id === this.idAllSubCategory) {
-            if (!this.subCategoriesSelected.isSelected(id)) {
-                this.subCategories.forEach((value) => {
-                    this.subCategoriesSelected.select(value.id);
-                });
-                this.subCategoriesSelected.select(id);
-            } else {
-                this.subCategoriesSelected.clear();
+    public toggleSubcategory(id: number): void {
+        if (!this.subCategoriesSelected.isSelected(id)) {
+            this.subCategoriesSelected.select(id);
+            if (this.subCategoriesSelected.selected.length === this.subCategories.length) {
+                this.subCategoriesSelected.select(this.idAllSubCategory);
             }
         } else {
-            if (!this.subCategoriesSelected.isSelected(id)) {
-                this.subCategoriesSelected.select(id);
-                if (this.subCategoriesSelected.selected.length === this.subCategories.length) {
-                    this.subCategoriesSelected.select(this.idAllSubCategory);
-                }
-            } else {
-                this.subCategoriesSelected.toggle(id);
-                this.subCategoriesSelected.deselect(this.idAllSubCategory);
-            }
+            this.subCategoriesSelected.toggle(id);
+            this.subCategoriesSelected.deselect(this.idAllSubCategory);
         }
+    }
+
+    public toggleAllSubcategories(flag: boolean): void {
+        if (flag) {
+            this.subCategories.forEach((value) => {
+                this.subCategoriesSelected.select(value.id);
+            });
+        } else {
+            this.subCategoriesSelected.clear();
+        }
+    }
+
+    public cancelSubcategories(): void {
+        this.subCategoriesSelected.clear();
+        this.getData();
+        this.getStats();
+    }
+
+    public applySubcategories(): void {
         this.getData();
         this.getStats();
     }

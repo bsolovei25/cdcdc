@@ -1,0 +1,12 @@
+<div class="datetimepicker">
+  <div class="date-info">
+    <div class="title">{{ label }}</div>
+    <div class="date" [class.disabled]="disabled">
+      <evj-time-data-picker
+        [data]="date"
+        (dateTimePicker)="dateTimePickerInputStart($event)"
+        [disabled]="disabled"
+      ></evj-time-data-picker>
+    </div>
+  </div>
+</div>
