@@ -33,15 +33,15 @@
   bottom: 32px;
   left: 14px;
   right: 2px;
-  border: 1px var(--astue-onpz-factory-analisys-grid);
+  border: 1px var(--border-vidget-color);
   border-style: solid none;
   box-sizing: border-box;
-  background: var(--astue-onpz-factory-analisys-grid-bg-opacity);
+  background: var(--bg-dashboard-color);
 
   .line {
     width: 100%;
     height: 1px;
-    background: var(--astue-onpz-factory-analisys-grid-opacity);
+    background: var(--border-vidget-color);
   }
 }
 
@@ -71,7 +71,7 @@
   &__value {
     font-size: 11px;
     transform: translateY(-3px);
-    color: var(--astue-onpz-factory-analisys-legend);
+    color: var(--text-main-color);
   }
 }
 
@@ -81,7 +81,7 @@
   min-width: 1px;
   margin: 35px 0 28px 0;
   z-index: 9;
-  background: var(--astue-onpz-factory-analisys-grid);
+  background: var(--border-forms-color);
 
   .triangle {
     $size: 4px;
@@ -94,13 +94,13 @@
     &__left {
       right: 1px;
       border-width: 0 0 $size $size;
-      border-color: transparent transparent var(--astue-onpz-factory-analisys-grid) transparent;
+      border-color: transparent transparent var(--border-forms-color) transparent;
     }
 
     &__right {
       right: -$size;
       border-width: $size 0 0 $size;
-      border-color: transparent transparent transparent var(--astue-onpz-factory-analisys-grid);
+      border-color: transparent transparent transparent var(--border-forms-color);
     }
   }
 }
@@ -110,5 +110,5 @@
   min-width: 1px;
   margin: 35px 0 0 0;
   z-index: 9;
-  background: var(--astue-onpz-factory-analisys-grid-opacity);
+  background: var(--border-forms-color);
 }

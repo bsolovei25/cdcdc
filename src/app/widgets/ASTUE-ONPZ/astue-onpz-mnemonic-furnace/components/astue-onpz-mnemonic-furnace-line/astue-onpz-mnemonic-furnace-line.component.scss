@@ -7,15 +7,15 @@
   margin: auto 0;
   width: 25px;
   height: 1px;
-  background: var(--color-astue-onpz-mnemonic-furnace-lines);
+  background: var(--border-vidget-color);
 
   .circle {
     position: absolute;
     transform: translateY(-50%);
     width: 6px;
     height: 6px;
-    background: var(--color-astue-onpz-mnemonic-furnace-item-bg-dark);
-    border: 1px solid var(--color-astue-onpz-mnemonic-furnace-lines);
+    background: var(--bg-body-color);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 50%;
     box-sizing: border-box;
 

@@ -1,8 +1,8 @@
 .container {
   width: 100%;
   height: calc(100% - 40px);
-  background-color: var(--color-kpe-gaude-unactive);
-  border: 1px solid var(--color-aps-border);
+  background-color: var(--bg-body-color);
+  border: 1px solid var(--border-vidget-color);
 
   box-sizing: border-box;
   position: relative;
@@ -12,9 +12,10 @@ thead th {
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: var(--color-kpe-line-diagram-bg-sub);
-  color: var(--color-cd-text-sub-2);
+  background-color: var(--bg-body-color);
+  color: var(--text-main-color);
   z-index: 1;
+  font-weight: 400;
 }
 th,
 td {
@@ -59,9 +60,9 @@ td {
       cursor: pointer;
 
       &__active {
-        color: #d7e2f2;
-        background: rgba(#0089ff, 0.2);
-        border-color: #0089ff;
+        color: var(--text-accent-color);
+        background: var(--opacity-plan-20-color);
+        border-color: var(--index-plan-color);
       }
     }
   }
@@ -89,13 +90,13 @@ td {
       width: 60px;
       font-size: 12px;
       font-weight: normal;
-      color: var(--color-cd-text-sub-2);
-      background-color: var(--color-bg-main);
+      color: var(--text-main-color);
+      background-color: var(--bg-body-color);
 
       &:first-of-type {
         font-size: 12px;
-        color: var(--color-cd-text-sub-2);
-        background-color: var(--color-bg-main);
+        color: var(--text-main-color);
+        background-color: var(--bg-body-color);
         left: 0;
         text-align: left;
         width: 60%;
@@ -111,8 +112,8 @@ td {
       font-size: 12px;
       height: 28px;
       transition: all 150ms;
-      color: var(--evj-color-white);
-      background: var(--color-gray80);
+      color: var(--text-main-color);
+      background: var(--gray-G10-color);
       margin-bottom: 10px;
     }
 
@@ -122,49 +123,49 @@ td {
       height: 24px;
       max-width: 60px;
       margin-top: 5px;
-      color: var(--color-cd-text-sub-2);
+      color: var(--text-main-color);
       text-align: center;
 
-      border-top: 1px solid var(--color-kpe-gaude-unactive);
-      border-bottom: 1px solid var(--color-kpe-gaude-unactive);
-      border-right: 1px solid var(--color-gray80);
-      border-left: 2px solid var(--color-aps-bg-icon);
+      border-top: 1px solid var(--bg-body-color);
+      border-bottom: 1px solid var(--bg-body-color);
+      border-right: 1px solid var(--bg-body-color);
+      border-left: 2px solid var(--border-icon-color);
 
       &.expanded-column {
-        background-color: rgba(39, 42, 56, 0.5);
+        background-color: var(--gray-G10-50-color);
       }
 
       &__children {
-        border-left: 2px solid var(--color-kpe-gaude-unactive) !important;
+        border-left: 2px solid var(--bg-body-color) !important;
 
         &--active {
-          border-top: 1px solid var(--color-aps-active);
-          border-bottom: 1px solid var(--color-aps-active);
-          color: var(--color-text-main);
+          border-top: 1px solid var(--index-plan-color);
+          border-bottom: 1px solid var(--index-plan-color);
+          color: var(--text-main-color);
 
           &:first-child {
           }
 
           &:last-of-type {
             padding: 0 !important;
-            border-right: 1px solid var(--color-aps-active) !important;
+            border-right: 1px solid var(--index-plan-color) !important;
           }
         }
       }
 
       &--active {
-        border-top: 1px solid var(--color-aps-active);
-        border-bottom: 1px solid var(--color-aps-active);
+        border-top: 1px solid var(--index-plan-color);
+        border-bottom: 1px solid var(--index-plan-color);
         box-sizing: border-box;
-        color: var(--color-text-main);
+        color: var(--text-main-color);
 
         &:first-child {
-          border-left: 2px solid var(--color-aps-active) !important;
+          border-left: 2px solid var(--index-plan-color) !important;
         }
 
         &:last-of-type {
           padding: 0 !important;
-          border-right: 1px solid var(--color-aps-active) !important;
+          border-right: 1px solid var(--index-plan-color) !important;
         }
       }
 
@@ -186,12 +187,12 @@ td {
         text-overflow: ellipsis;
 
         &__icon {
-          stroke: var(--color-aps-bg-icon);
+          stroke: var(--border-icon-color);
           margin-left: 9px;
           transition: all 200ms;
 
           &--active {
-            stroke: var(--color-aps-active);
+            stroke: var(--index-plan-color);
             transform: rotateZ(45deg);
           }
 
@@ -275,26 +276,26 @@ td {
 
           &__text {
             &--orange {
-              color: var(--color-aps-orange);
+              color: var(--index-error-color);
             }
           }
         }
 
         &__value {
-          color: var(--color-aps-orange);
+          color: var(--index-error-color);
           width: 100%;
           height: 20.69px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-left: 1px solid var(--color-aps-orange);
+          border-left: 1px solid var(--index-error-color);
 
           &-big-orange {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-aps-orange);
-            border-left: 1px solid var(--color-aps-orange);
+            color: var(--index-error-color);
+            border-left: 1px solid var(--index-error-color);
             height: 30.69px;
           }
         }
@@ -319,20 +320,20 @@ td {
               width: 2px;
               max-width: 2px;
               height: 13px;
-              fill: var(--color-border-main);
+              fill: var(--border-forms-color);
 
               &-warning {
-                fill: var(--color-warning);
+                fill: var(--index-error-color);
               }
             }
 
             &-circle {
               min-width: 6px;
               height: 14px;
-              stroke: var(--color-active);
+              stroke: var(--border-blue-color);
 
               &-warning {
-                stroke: var(--color-warning);
+                stroke: var(--index-error-color);
               }
             }
 
@@ -346,7 +347,7 @@ td {
         }
 
         &--no-active {
-          color: var(--color-aps-text-sub);
+          color: var(--text-main-color);
         }
 
         &-children {
@@ -359,7 +360,7 @@ td {
             top: -26px;
 
             &__background {
-              fill: var(--color-bg-main);
+              fill: var(--bg-body-color);
             }
 
             &--first {
@@ -367,10 +368,10 @@ td {
               left: -2px;
               top: -14.6px;
               &__default {
-                color: var(--color-aps-bg-icon);
+                color: var(--border-icon-color);
               }
               &__active {
-                color: var(--color-aps-active);
+                color: var(--index-plan-color);
               }
             }
           }
@@ -391,8 +392,9 @@ td {
 
 ::ng-deep .mat-tooltip {
   font-size: 12px;
-  background-color: var(--color-bg-main);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
+  color: var(--text-main-color);
+  background-color: var(--bg-body-color);
+  box-shadow: 0 0 20px var(--gradient-main-color-1);
 }
 
 // Scroll
@@ -409,6 +411,13 @@ td {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-aps-border-sub);
+  background-color: var(--border-forms-color);
   border-radius: 25px;
+}
+
+::ng-deep {
+  g[mask="url(#mask0)"] rect, g[mask="url(#mask0)"] path {
+    fill: var(--bg-body-color);
+    color: var(--border-forms-color);
+  }
 }
