@@ -12,8 +12,8 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, from, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { animationsArray } from './sou-mvp-mnemonic-scheme.animations';
 import { SouMvpMnemonicSchemeFooterComponent } from './components/sou-mvp-mnemonic-scheme-footer/sou-mvp-mnemonic-scheme-footer.component';
 import { SouMvpMnemonicSchemeViewComponent } from './components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component';
@@ -117,8 +117,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             }),
             this.optionsGroup
                 .get('manufacture')
-                .valueChanges.subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
-            this.optionsGroup.get('unit').valueChanges.subscribe((x) => this.optionsGroup.get('section').setValue(null))
+                .valueChanges
+                .subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
+            this.optionsGroup
+                .get('unit')
+                .valueChanges
+                .subscribe((x) => this.optionsGroup.get('section').setValue(null))
         );
         this.chosenSetting$ = this.mvpService.chosenSetting$;
     }
@@ -214,20 +218,25 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     private redirect(id: string): void {
         this.mvpService.dropRedirectMnemonic();
-        const section: string = id;
-        const unit: string = this.options$?.value?.manufactures
-            ?.flatMap((x) => x.units)
-            ?.find((x) => x?.section?.findIndex((s) => s.id === id) !== -1)?.id;
-        const manufacture: string = this.options$?.value?.manufactures?.find(
-            (x) => x.units?.findIndex((u) => u?.id === unit) !== -1
-        )?.name;
-        if (!manufacture || !unit || !section) {
-            console.warn('redirect mnemonic: no such reference', id);
-            return;
-        }
-        this.optionsGroup.get('manufacture').setValue(manufacture);
-        this.optionsGroup.get('unit').setValue(unit);
-        this.optionsGroup.get('section').setValue(section);
+
+        this.waitForOptionsReady()
+            .then(() => {
+                const section: string = id;
+                const unit: string = this.options$?.value?.manufactures
+                    ?.flatMap((x) => x.units)
+                    ?.find((x) => x?.section?.findIndex((s) => s.id === id) !== -1)?.id;
+                const manufacture: string = this.options$?.value?.manufactures?.find(
+                    (x) => x.units?.findIndex((u) => u?.id === unit) !== -1
+                )?.name;
+
+                if (!manufacture || !unit || !section) {
+                    console.warn('redirect mnemonic: no such reference', id);
+                    return;
+                }
+                this.optionsGroup.get('manufacture').setValue(manufacture);
+                this.optionsGroup.get('unit').setValue(unit);
+                this.optionsGroup.get('section').setValue(section);
+            });
     }
 
     private stateController(): { save; load } {
@@ -258,5 +267,18 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     public changeSettings(index: number): void {
         this.mvpService.chosenSetting$.next(index);
+    }
+
+    private waitForOptionsReady(): Promise<ISouOptions> {
+        return new Promise<ISouOptions>((resolve, reject) => {
+            this.options$
+                .pipe(
+                    filter((value: ISouOptions) => {
+                        return value?.manufactures?.length !== 0;
+                    }),
+                    take(1),
+                )
+                .subscribe(resolve, reject);
+        });
     }
 }

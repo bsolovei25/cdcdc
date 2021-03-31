@@ -6,6 +6,8 @@ export interface IInstallation {
     widgetName?: string;
     installationId?: number;
     order?: number;
+    sectionId?: string;
+    unitId?: string;
 }
 
 export interface IAllInstallations {
