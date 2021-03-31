@@ -17,7 +17,7 @@
       <div class="content__item" *ngFor="let unit of units">
         <evj-astue-efficiency-unit-card
           [unit]="unit"
-          [isSelected]="unitSelection.isSelected(unit)"
+          [isSelected]="unitSelection.isSelected(unit.id)"
           (selectUnit)="onSelectUnit(unit)"
         ></evj-astue-efficiency-unit-card>
       </div>

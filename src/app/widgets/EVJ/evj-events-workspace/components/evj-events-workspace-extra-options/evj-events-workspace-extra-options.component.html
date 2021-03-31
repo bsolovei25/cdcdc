@@ -83,7 +83,9 @@
                     <div class="dropdown">
                       <div class="event-mat-select">
                         <mat-form-field class="example-full-width">
-                          <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent">
+                          <mat-select formControlName="dependentParameterId" [compareWith]="compareFnDependent"
+                          (selectionChange)="setUnit($event)"
+                          >
                             <mat-option *ngFor="let p of dependentParameters" [value]="p.id">
                               {{p?.name}}
                             </mat-option>
@@ -93,7 +95,7 @@
                     </div>
                     <div class="value">
                       <div class="value__text">
-                        <input formControlName="numericValue"/>
+                        <input class="input-numeric" type="number" formControlName="numericValue"/>
                         <input class="input-transperent" formControlName="units">
                       </div>
                     </div>

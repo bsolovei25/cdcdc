@@ -50,7 +50,7 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
     }
 
     public handleTabClick(): void {
-        this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system');
+        this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system-main');
         return;
     }
 

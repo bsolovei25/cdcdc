@@ -13,7 +13,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public units: IAsEfUnitNew[] = [];
 
     public isClicked: boolean = false;
-    public unitSelection: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(true);
+    public unitSelection: SelectionModel<string> = new SelectionModel<string>(true);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
     constructor(private AsEfService: AstueEfficiencyService) {}
@@ -22,7 +22,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         this.unitSelection.clear();
         this.units?.forEach((unit) => {
             if (!!this.AsEfService.isUnitSelected(unit)) {
-                this.unitSelection.select(unit);
+                this.unitSelection.select(unit.id);
             }
         });
         let flows = this.AsEfService.selectionFlow$.getValue();
@@ -36,37 +36,57 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             this.AsEfService.cardSelection.select(...flows);
             this.cardSelection = this.AsEfService.cardSelection;
             this.AsEfService.selectionFlow$.next(flows);
-            this.AsEfService.selection$.next();
+            // this.AsEfService.selection$.next();
         }
     }
 
     onSelectUnit(unit: IAsEfUnitNew): void {
-        this.unitSelection.toggle(unit);
-        if (!this.unitSelection.isSelected(unit)) {
+        this.unitSelection.toggle(unit.id);
+        if (!this.unitSelection.isSelected(unit.id)) {
             unit.flows.forEach((flow) => {
                 this.AsEfService.cardSelection.deselect(flow);
                 this.cardSelection = this.AsEfService.cardSelection;
             });
             this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
         }
-        this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
+        let units = this.AsEfService.selectionUnit$.getValue();
+        if (!units?.length) {
+            units = [];
+        }
+        const idx = units.findIndex((value) => value.id === unit.id);
+        if (idx > -1) {
+            units.splice(idx, 1)
+        } else {
+            units.push(unit);
+        }
+        this.AsEfService.selectionUnit$.next(units);
         this.AsEfService.toggleUnit(unit.name);
         this.AsEfService.currentUnit = unit;
     }
 
     onSelectUnitPlanning(unit: IAsEfUnitNew): void {
-        this.unitSelection.toggle(unit);
-        if (!this.unitSelection.isSelected(unit)) {
+        this.unitSelection.toggle(unit.id);
+        if (!this.unitSelection.isSelected(unit.id)) {
             unit.flows.forEach((flow) => {
                 this.AsEfService.cardSelection.deselect(flow);
                 this.cardSelection = this.AsEfService.cardSelection;
             });
             this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
         }
-        this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
+        let units = this.AsEfService.selectionUnit$.getValue();
+        if (!units?.length) {
+            units = [];
+        }
+        const idx = units.findIndex((value) => value.id === unit.id);
+        if (idx > -1) {
+            units.splice(idx, 1)
+        } else {
+            units.push(unit);
+        }
+        this.AsEfService.selectionUnit$.next(units);
         this.AsEfService.toggleUnit(unit.name);
         this.AsEfService.currentUnit = unit;
-        this.AsEfService.getPlanningUnits(this.unitSelection.selected);
+        this.AsEfService.getPlanningUnits(units);
     }
 
     public onClickSelectAll(): void {
@@ -74,12 +94,13 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             this.unitSelection.clear();
             this.AsEfService.clearUnits();
         } else {
-            this.unitSelection.select(...this.units);
+            const units = this.units.map((val) => val.id);
+            this.unitSelection.select(...units);
             this.AsEfService.selectAllUnits(this.units);
         }
     }
 
     isSelectionUnit(unit: IAsEfUnitNew): boolean {
-        return !!this.unitSelection.selected.find(value => value.id === unit.id);
+        return !!this.unitSelection.selected.find((value) => value === unit.id);
     }
 }

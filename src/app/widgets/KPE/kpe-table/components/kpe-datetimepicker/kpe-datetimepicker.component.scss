@@ -1,4 +1,8 @@
 .datetimepicker {
+  ::ng-deep .mat-input-element {
+    background-color: var(--header-events-color-bg-main);
+  }
+
   width: calc(100% - 2px);
   position: relative;
   display: flex;
@@ -80,7 +84,4 @@
 
 .disabled {
   cursor: not-allowed;
-}
-::ng-deep .mat-input-element {
-  background-color: var(--header-events-color-bg-main);
 }

@@ -8,12 +8,12 @@
   height: 55px;
   padding-left: 10px;
   box-sizing: border-box;
-  background: var(--color-astue-onpz-factory-analisys-chart-card-bg);
+  background: var(--bg-body-color);
   border-radius: 0 2px 2px 0;
   border-left: solid 2px;
 
   .title {
-    color: var(--astue-onpz-factory-analisys-legend);
+    color: var(--text-main-color);
     font-size: 12px;
   }
 
@@ -24,26 +24,26 @@
   }
 
   &__plan {
-    border-color: rgb(var(--astue-onpz-factory-analisys-norm));
+    border-color: rgb(var(--index-plan-color));
 
     .value {
-      color: rgb(var(--astue-onpz-factory-analisys-norm));
+      color: rgb(var(--index-plan-color));
     }
   }
 
   &__fact {
-    border-color: var(--color-astue-onpz-factory-analisys-contrast);
+    border-color: var(--index-fact-color);
 
     .value {
-      color: var(--color-astue-onpz-factory-analisys-contrast);
+      color: var(--index-fact-color);
     }
   }
 
   &__interval {
-    border-color: var(--astue-onpz-factory-analisys-grid);
+    border-color: var(--border-forms-color);
 
     .value {
-      color: var(--astue-onpz-factory-analisys-grid);
+      color: var(--border-forms-color);
 
       &::before {
         content: "+-";

@@ -1,19 +1,23 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
+import { IKpeGaugeChartPage } from '../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
+
+export type KpeGaugeChartMultiColor = 'Red' | 'Yellow' | 'Blue' | 'Green';
 
 interface IChartConfig {
     diagramWidth: number;
-    sectionColorsIndex: number[];
-    serifColorsIndex: number[];
-    centralSerifColorIndex?: number;
+    bounds?: number[];
+    colorBounds: KpeGaugeChartMultiColor[];
+    serifColorBounds: KpeGaugeChartMultiColor[];
+    centralSerifColorIndex?: KpeGaugeChartMultiColor;
     scale: number;
     gauge: {
         total: number;
         unit: string;
         deviation: number;
         activeZone: number[];
-        activeColorIndex: number;
+        activeColorIndex: KpeGaugeChartMultiColor;
         angle: number;
     };
 }
@@ -23,76 +27,102 @@ interface IChartConfig {
     templateUrl: './kpe-gauge-chart-multi-color.component.html',
     styleUrls: ['./kpe-gauge-chart-multi-color.component.scss'],
 })
-export class KpeGaugeChartMultiColorComponent implements OnInit {
+export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @ViewChild('chart') chart: ElementRef;
     @Input() type: number;
     @Input() showAxisValues: boolean = true;
     @Input() isPerformance: boolean = false; // В performance екст отличается от остальных текстов под диаграммой
+    @Input() data: IKpeGaugeChartPage | null = null;
 
     readonly chartConfig: IChartConfig[] = [
         {
             diagramWidth: 2,
-            sectionColorsIndex: [2, 3, 4],
-            serifColorsIndex: [2, 4],
-            centralSerifColorIndex: 3,
+            colorBounds: ['Yellow', 'Blue', 'Green'],
+            serifColorBounds: ['Yellow', 'Blue'],
+            centralSerifColorIndex: 'Blue',
             scale: 0.88,
             gauge: {
                 total: 100,
                 unit: '%',
                 deviation: 20,
                 activeZone: [Math.PI / 4, Math.PI / 4 + Math.PI / 6],
-                activeColorIndex: 4,
+                activeColorIndex: 'Green',
                 angle: 75,
             },
         },
         {
             diagramWidth: 6,
-            sectionColorsIndex: [1, 2, 3],
-            serifColorsIndex: [1, 2],
+            colorBounds: ['Red', 'Yellow', 'Blue'],
+            serifColorBounds: ['Red', 'Yellow'],
             scale: 0.88,
             gauge: {
-                total: 97.1,
+                total: 0,
                 unit: '%',
-                deviation: -2.8,
-                activeZone: [Math.PI / 6, Math.PI / 4],
-                activeColorIndex: 2,
-                angle: 30,
+                deviation: 0,
+                activeZone: [-0.25 * Math.PI, -0.25 * Math.PI],
+                activeColorIndex: 'Yellow',
+                angle: 0,
             },
         },
         {
             diagramWidth: 2,
-            sectionColorsIndex: [1, 2, 3, 2, 1],
-            serifColorsIndex: [1, 2, 2, 1],
-            centralSerifColorIndex: 3,
+            colorBounds: ['Red', 'Yellow', 'Blue', 'Green', 'Red'],
+            serifColorBounds: ['Red', 'Yellow', 'Blue', 'Green'],
+            centralSerifColorIndex: 'Green',
             scale: 0.88,
             gauge: {
                 total: 100,
                 unit: '%',
                 deviation: 20,
                 activeZone: [Math.PI / 4, Math.PI / 4 + Math.PI / 6],
-                activeColorIndex: 1,
+                activeColorIndex: 'Red',
                 angle: 75,
             },
         },
         {
             diagramWidth: 2,
-            sectionColorsIndex: [2, 1],
-            serifColorsIndex: [],
-            centralSerifColorIndex: 2,
+            colorBounds: ['Yellow', 'Red'],
+            serifColorBounds: [],
+            centralSerifColorIndex: 'Blue',
             scale: 0.88,
             gauge: {
                 total: 50,
                 unit: 'шт',
                 deviation: 550,
                 activeZone: [-0.75 * Math.PI, -Math.PI / 2],
-                activeColorIndex: 1,
+                activeColorIndex: 'Red',
                 angle: -90,
             },
         },
     ];
 
+    public ngOnChanges(): void {
+        this.dataBind();
+        this.chartInit();
+    }
+
     public ngOnInit(): void {
         this.chartInit();
+    }
+
+    private dataBind(): void {
+        this.chartConfig[this.type].gauge.total = this.data?.value ? this.data?.value : this.chartConfig[this.type].gauge.total;
+        this.chartConfig[this.type].gauge.deviation = this.data?.deviation ? this.data?.deviation : this.chartConfig[this.type].gauge.deviation;
+        this.chartConfig[this.type].colorBounds = this.data?.colorBounds ? this.data?.colorBounds : this.chartConfig[this.type].colorBounds;
+        this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds ? this.data?.colorBounds.slice(0, -1) : this.chartConfig[this.type].serifColorBounds;
+        this.chartConfig[this.type].gauge.angle = this.data?.value ? this.convertPercentToGrad(this.data?.value) : this.chartConfig[this.type].gauge.angle;
+        this.chartConfig[this.type].bounds = this.data?.bounds ? this.data?.bounds : null;
+
+        // Данные для активной области
+        const boundEdge = this.chartConfig[this.type].bounds?.find(item => item > this.data?.value);
+        if (boundEdge) {
+            const index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
+            const color = this.chartConfig[this.type].colorBounds[index];
+            this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
+            const startActive = (this.convertPercentToGrad(this.data?.value) * (Math.PI / 180));
+            const endActive = (this.convertPercentToGrad(boundEdge) * (Math.PI / 180));
+            this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
+        }
     }
 
     private chartInit(): void {
@@ -102,8 +132,8 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
     @AsyncRender
     private bindChart(): void {
         // На сколько (равных?) секций разделена диаграмма
-        const sectionColorsIndex: number[] = this.chartConfig[this.type].sectionColorsIndex;
-        const serifColorsIndex: number[] = this.chartConfig[this.type].serifColorsIndex;
+        const colorBounds: KpeGaugeChartMultiColor[] = this.chartConfig[this.type].colorBounds;
+        const serifColorBounds: KpeGaugeChartMultiColor[] = this.chartConfig[this.type].serifColorBounds;
         const diagramWidth = this.chartConfig[this.type].diagramWidth;
 
         const gauge = this.chartConfig[this.type].gauge // Временная мера для разнообразия
@@ -232,11 +262,24 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
         drawDiagram('background-pie', () => backPie([null]));
 
         // Секции диаграммы
-        const sectionSize = (end - start) / sectionColorsIndex.length; // Размер каждой секции общ. разм/ колличесво секций
-        sectionColorsIndex.forEach((colorIndex, i) => {
-            const section = createPie(start + i * sectionSize, start + (i + 1) * sectionSize);
-            drawDiagram(`diagram-section-${colorIndex}`, () => section([null]));
-        });
+        const sectionSize = (end - start) / colorBounds.length; // Размер каждой секции общ. разм/ колличесво секций
+
+        // Если имеется массив bounds, то размер секции рассчитывается в соответсвии с ним, если нет - то размер секций одинаковый
+        if (this.chartConfig[this.type].bounds) {
+            this.chartConfig[this.type].bounds.forEach((bound, i) => {
+                const startBound = this.chartConfig[this.type].bounds[i];
+                const endBound = this.chartConfig[this.type].bounds[i + 1];
+                const startRad = this.convertPercentToGrad(startBound ? startBound : 0) * (Math.PI / 180);
+                const endRad = this.convertPercentToGrad(endBound ? endBound : 100) * (Math.PI / 180);
+                const section = createPie(startRad, endRad);
+                drawDiagram(`diagram-section-${colorBounds[i]}`, () => section([null]));
+            });
+        } else {
+            colorBounds.forEach((colorIndex, i) => {
+                const section = createPie(start + i * sectionSize, start + (i + 1) * sectionSize);
+                drawDiagram(`diagram-section-${colorIndex}`, () => section([null]));
+            });
+        }
 
         // Стрелка
         gradientArrow(gauge.angle);
@@ -271,10 +314,22 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
         drawDiagram('serif', () => serifEnd([null]));
 
         // Засечки на диаграмме
-        serifColorsIndex.forEach((colorIndex, i) => {
-            const sectionSerif = createPie(start + (i + 1) * sectionSize - serifSize, start + (i + 1) * sectionSize);
-            drawDiagram(`diagram-section-serif-${colorIndex}`, () => sectionSerif([null]), serifArc);
-        });
+        // Если имеется массив bounds, то положение засечки секции рассчитывается по последнему значению диапозона
+        if (this.chartConfig[this.type].bounds) {
+            this.chartConfig[this.type].bounds.forEach((bound, i) => {
+                i = i - 1;
+                const endBound = this.chartConfig[this.type].bounds[i];
+                if (!endBound) { return; }
+                const endRad = this.convertPercentToGrad(endBound) * (Math.PI / 180);
+                const sectionSerif = createPie(endRad - serifSize, endRad);
+                drawDiagram(`diagram-section-serif-${serifColorBounds[i - 1]}`, () => sectionSerif([null]), serifArc);
+            });
+        } else {
+            serifColorBounds.forEach((colorIndex, i) => {
+                const sectionSerif = createPie(start + (i + 1) * sectionSize - serifSize, start + (i + 1) * sectionSize);
+                drawDiagram(`diagram-section-serif-${colorIndex}`, () => sectionSerif([null]), serifArc);
+            });
+        }
 
         // Засечка в центре если он нужна
         if (!!this.chartConfig[this.type]?.centralSerifColorIndex) {
@@ -284,6 +339,21 @@ export class KpeGaugeChartMultiColorComponent implements OnInit {
                 () => sectionSerifCenter([null]),
                 serifArc
             );
+        }
+    }
+
+    private convertPercentToGrad(percent: number): number {
+        const start = (-3 * 180) / 4;
+        const end = -start;
+
+        if (percent > 0 && percent < 100) {
+            return percent * 2 * end / 100 - end;
+        }
+        if (percent >= 100) {
+            return end;
+        }
+        if (percent <= 0) {
+            return start;
         }
     }
 }

@@ -98,7 +98,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions?.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions$?.subscribe((ref) => {
                 this.optionsHandler(ref).then();
             })
         );
@@ -117,8 +117,16 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> im
         const channels = await this.widgetService.getAvailableChannels<{
             name: string;
             id: string;
+            manufactureName: string;
+            unitName: string;
         }>(this.widgetId);
-        const subchannelId = channels.find((x) => x.name === options.resource).id;
+        const subchannelId =
+            channels.find(
+                (x) =>
+                    x.manufactureName === options.manufacture &&
+                    x.unitName === options.unit &&
+                    x.name === options.resource
+            )?.id ?? null;
         this.setWsOptions({ subchannelId });
     }
 }

@@ -26,12 +26,12 @@ span {
       align-items: center;
       justify-content: space-between;
 
-      background: var(--color-kpe-total-reserve-bg-sub);
-      border-bottom: 2px solid var(--color-kpe-table-select);
+      background: var(--bg-dashboard-color);
+      border-bottom: 2px solid var(--gray-G9-color);
 
       font-size: 17px;
       line-height: 24px;
-      color: var(--color-kpe-pasportize-text);
+      color: var(--text-subscript-color);
       text-align: center;
 
       cursor: pointer;
@@ -55,8 +55,8 @@ span {
       }
     }
     .active {
-      color: var(--color-kpe-white);
-      border-bottom: 2px solid var(--color-kpe-gaude-active);
+      color: var(--text-accent-color-white);
+      border-bottom: 2px solid var(--index-plan-color);
     }
   }
 
@@ -104,9 +104,9 @@ span {
     display: flex;
     flex-direction: column;
 
-    background: var(--color-kpe-total-reserve-bg-main);
+    background: var(--bg-body-color);
 
-    border: 1px solid var(--color-kpe-gaude-lines);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0px 0px 2px 2px;
 
     .products-container {
@@ -122,7 +122,7 @@ span {
         display: flex;
         flex-direction: column;
 
-        background: var(--color-kpe-total-reserve-bg-sub);
+        background: var(--bg-dashboard-color);
         border-radius: 2px;
 
         &__name {
@@ -131,7 +131,7 @@ span {
 
           font-size: 17px;
           line-height: 24px;
-          color: var(--color-kpe-total-reserve-text-product);
+          color: var(--text-contrast-color);
 
           .name {
             height: 56px;
@@ -154,8 +154,8 @@ span {
             display: flex;
             align-items: center;
 
-            border-bottom: 1px solid var(--color-kpe-total-reserve-border-product);
-            color: var(--color-kpe-pasportize-text);
+            border-bottom: 1px solid var(--border-vidget-color);
+            color: var(--text-main-color);
             font-size: 15px;
             line-height: 20px;
 
@@ -181,7 +181,7 @@ span {
 
         .shadow {
           height: 20px;
-          background: linear-gradient(180deg, var(--color-kpe-shadow-1) -0.04%, var(--color-kpe-shadow-2) 99.96%);
+          background: linear-gradient(180deg, var(--gradient-main-color-1) -0.04%, var(--gradient-main-color-2) 99.96%);
           opacity: 0.5;
         }
       }

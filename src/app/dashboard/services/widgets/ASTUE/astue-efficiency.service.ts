@@ -3,14 +3,16 @@ import {
     IAsEfUnitNew,
     IAsEfFlow,
     IAsPlanningTableServer,
-    IAsPlanningTable, IAsEfProduct
-} from "../../../models/ASTUE/astue-efficiency.model";
+    IAsPlanningTable,
+    IAsEfProduct,
+} from '../../../models/ASTUE/astue-efficiency.model';
 import { BehaviorSubject } from 'rxjs';
 import { SnackBarService } from '../../snack-bar.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { log } from "util";
+import { log } from 'util';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -151,6 +153,23 @@ export class AstueEfficiencyService {
         return this.http
             .get<IAsPlanningTableServer>(this.restUrl + `/api/astue-service/Astue/unit/${unitId}/export`)
             .toPromise();
+    }
+
+    public fileSaver(url: string): void {
+        this.http
+            .get(url, { responseType: 'blob' as 'json', observe: 'response' })
+            .pipe(
+                map((result: HttpResponse<Blob>) => {
+                    const filename = result.headers
+                        .get('Content-Disposition')
+
+                        .split(';')[1]
+                        .trim()
+                        .split('=')[1];
+                    saveAs(result.body, filename);
+                })
+            )
+            .subscribe();
     }
 
     //#endregion

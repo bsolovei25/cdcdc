@@ -5,7 +5,7 @@
 .container {
   display: flex;
   flex-flow: column;
-  background-color: var(--color-kpe-line-diagram-bg-sub);
+  background-color: var(--bg-body-color);
   height: 100%;
   width: 100%;
 
@@ -20,7 +20,7 @@
       padding: 0 10px;
       border-radius: 2px;
 
-      background: var(--color-kpe-table-select);
+      background: var(--gray-G9-color);
 
       display: flex;
       justify-content: space-between;
@@ -29,7 +29,7 @@
       font-size: 13px;
       line-height: 16px;
 
-      color: var(--color-kpe-text-main);
+      color: var(--text-contrast-color);
       cursor: pointer;
     }
   }
@@ -55,7 +55,7 @@
   justify-content: center;
   align-items: flex-start;
 
-  box-shadow: 0 0 20px var(--color-kpe-shadow-1);
+  box-shadow: 0 0 20px var(--gradient-main-color-1);
   box-sizing: border-box;
   padding: 0 14px;
 
@@ -75,7 +75,7 @@
 
       font-size: 15px;
       line-height: 20px;
-      color: var(--color-kpe-text-main);
+      color: var(--text-contrast-color);
 
       &__plus {
         margin-left: 10px;
@@ -105,7 +105,7 @@
   &__diagram {
     height: 5px;
     width: 100%;
-    background-color: var(--color-kpe-gaude-back);
+    background-color: var(--bg-dashboard-color);
     border-right: 2px;
     border-radius: 2px;
 
@@ -115,7 +115,7 @@
       height: 5px;
       width: 100%;
       border-radius: 2px;
-      background-color: var(--color-kpe-white);
+      background-color: var(--index-fact-color);
     }
   }
 

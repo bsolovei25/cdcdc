@@ -13,7 +13,7 @@ import {
 } from './astue-onpz-conventional-fuel.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { ScreenshotMaker } from '@core/classes/screenshot.class';
 import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
 
@@ -36,9 +36,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     };
 
     public currentValues: {
-        plan: number,
-        fact: number
-    }
+        plan: number;
+        fact: number;
+    };
 
     public sbWidth: number = 100;
     public sbLeft: number = 0;
@@ -85,7 +85,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     constructor(
         private reportService: ReportsService,
         protected widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
@@ -94,9 +93,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         private changeDetection: ChangeDetectorRef
     ) {
         super(widgetService, id, uniqId);
-        astueOnpzConventionalFuelService.selectedOptions = this.selectFuel.valueChanges.pipe(
-            map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, resource: x }))
-        );
     }
 
     public ngOnInit(): void {
@@ -109,12 +105,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                     this.changeDetection.detectChanges();
                 });
             }),
-            // this.selectFuel.valueChanges.subscribe((x) => {
-            //     this.astueOnpzConventionalFuelService.setSelectedOptions({
-            //         ...this.astueOnpzConventionalFuelService.defaultSelectOptions,
-            //         resource: x,
-            //     });
-            // }),
             this.astueOnpzConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
             this.selectionForm.get('manufacture').valueChanges.subscribe((x) => {
                 this.selectionForm.get('unit').setValue(null);
@@ -127,7 +117,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                 .pipe(debounceTime(100), distinctUntilChanged())
                 .subscribe((x) => this.astueOnpzConventionalFuelService.changeSelectedForm(x))
         );
-        // this.selectFuel.setValue(this.astueOnpzConventionalFuelService.selectFuelReference[0]);
     }
 
     private async loadReferences(widgetId: string): Promise<void> {
@@ -169,9 +158,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                 }
                 this.data = !!data ? this.multilineDataMapper(data) : [];
                 this.currentValues = {
-                    plan: this.data.find(item => item.graphType === 'plan')?.currentValue,
-                    fact: this.data.find(item => item.graphType === 'fact')?.currentValue
-                }
+                    plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
+                    fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+                };
                 console.log(this.data);
             }),
             this.astueOnpzService.colors$.subscribe((value) => {

@@ -1,7 +1,16 @@
 <div class="widget-container">
   <evj-contemporary-widget-header type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
     <div class="header-container">
-      <div class="button" (click)="handleTabClick()" matRipple matRippleColor="white">В источник</div>
+      <div
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        (click)="handleTabClick()"
+        class="button"
+        matRipple
+        matRippleColor="white"
+      >
+        В источник
+      </div>
     </div>
   </evj-contemporary-widget-header>
 

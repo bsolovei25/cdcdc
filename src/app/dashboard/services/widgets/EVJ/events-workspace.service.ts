@@ -143,6 +143,7 @@ export class EventsWorkspaceService {
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
         modelCalculations: 'ЦД',
+        cmidCard: 'ЦМИД',
     };
 
     private defaultEvent: IEventsWidgetNotification = null;

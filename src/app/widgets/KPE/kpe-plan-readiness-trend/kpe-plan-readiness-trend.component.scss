@@ -14,9 +14,9 @@
     display: flex;
     flex-direction: column;
 
-    background: var(--color-kpe-bg);
+    background: var(--bg-body-color);
     padding: 16px 16px 0;
-    border: 1px solid var(--color-kpe-border);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0 0 2px 2px;
 
     &__column {
@@ -25,8 +25,8 @@
       height: 50%;
       width: 100%;
       padding: 5px;
-      background-color: var(--color-kpe-bg-dark);
-      border-bottom: 16px var(--color-kpe-bg) solid;
+      background-color: var(--bg-dashboard-color);
+      border-bottom: 16px var(--bg-body-color) solid;
 
       .chart-container,
       .value-container {
@@ -49,16 +49,16 @@
 
         span {
           font-size: 13px;
-          color: var(--nk-color-white);
+          color: var(--text-accent-color);
         }
 
         span.value {
-          color: var(--text-main-color);
+          color: var(--text-accent-color);
           font-size: 21px;
         }
 
         span.measurement {
-          color: var(--color-marker-diagram);
+          color: var(--text-main-color);
           font-size: 13px;
         }
       }

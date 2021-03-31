@@ -5,9 +5,10 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+import { AstueOnpzPredictorsItemComponent } from './components/astue-onpz-predictors-item/astue-onpz-predictors-item.component';
 
 @NgModule({
-    declarations: [AstueOnpzPredictorsComponent],
+    declarations: [AstueOnpzPredictorsComponent, AstueOnpzPredictorsItemComponent],
     imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSlideToggleModule, FormsModule],
 })
 export class AstueOnpzPredictorsModule {

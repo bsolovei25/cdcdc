@@ -8,7 +8,7 @@
   .circle {
     width: 7px;
     height: 7px;
-    border: solid 1px var(--color-astue-onpz-mnemonic-furnace-lines);
+    border: solid 1px var(--border-vidget-color);
     border-radius: 50%;
     box-sizing: border-box;
   }
@@ -17,7 +17,7 @@
     margin: 0 auto;
     flex-grow: 1;
     width: 1px;
-    background: var(--color-astue-onpz-mnemonic-furnace-lines);
+    background: var(--border-vidget-color);
   }
 
   .arrow {
@@ -25,6 +25,6 @@
     height: 0;
     border-style: solid;
     border-width: 0 3.5px 7px 3.5px;
-    border-color: transparent transparent var(--color-astue-onpz-mnemonic-furnace-lines) transparent;
+    border-color: transparent transparent var(--border-vidget-color) transparent;
   }
 }

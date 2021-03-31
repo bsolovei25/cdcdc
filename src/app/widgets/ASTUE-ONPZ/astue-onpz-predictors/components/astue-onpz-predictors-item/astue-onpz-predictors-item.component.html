@@ -1,0 +1,29 @@
+<div class="predictors">
+  <ul class="predictors__list">
+    <li
+      class="list__item"
+      *ngFor="let item of (data$ | async)"
+      [class.list__item--no-active]="!selectPredictors.isSelected(item.id)"
+    >
+      <div class="list__item__block">
+            <span class="list__item__slide">
+              <mat-slide-toggle
+                (change)="changeToggle(item, colors?.get(item.tag))"
+                [checked]="selectPredictors.isSelected(item.id)"
+                [disabled]="selectPredictors.selected.length > 3 && !selectPredictors.isSelected(item.id)"
+                disableRipple="true"
+              ></mat-slide-toggle>
+            </span>
+        <span class="list__item__name">{{ item.name }}</span>
+      </div>
+      <div
+        class="list__item__label"
+        style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(item.tag) }})"
+        style.color="var(--color-astue-tag-{{ colors?.get(item.tag) }})"
+        [class.list__item__label--unactive]="!selectPredictors.isSelected(item.id)"
+      >
+        {{ item.tag }}
+      </div>
+    </li>
+  </ul>
+</div>

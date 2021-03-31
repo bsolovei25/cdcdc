@@ -4,7 +4,7 @@
     "fileStorage": "https:/deploy.funcoff.club",
     "smotrUrl": "http://192.168.0.17:6937",
     "smpUrl": "http://192.168.0.17:6780",
-    "ozsmUrl": "https://deploy.funcoff.club",
+    "ozsmUrl": "https://deploy.funcoff.club/api/ozsm/ozsm",
     "reconnectInterval": 5,
     "shiftFree": "not-all",
     "isDomenAuth": true,

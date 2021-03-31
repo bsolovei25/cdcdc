@@ -16,7 +16,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
-              [disabled]="isCreateEvent() || isEventFinished()"
+              [disabled]="isCreateEvent()"
               (selectionChange)="ewService.changeCategory()"
             >
               <mat-option *ngFor="let cat of ewService.category" [value]="cat">
@@ -35,7 +35,7 @@
         <div class="event-mat-select">
           <mat-form-field appearance="none">
             <mat-select
-              [disabled]="isCreateEvent() || isEventFinished()"
+              [disabled]="isCreateEvent()"
               [value]="ewService.event.asusEvent.category"
               [compareWith]="compareFn"
             >
@@ -56,7 +56,7 @@
           <mat-form-field appearance="none">
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent() || !isAvailableOption('equipment') || isEventFinished()"
+              [disabled]="isCreateEvent() || !isAvailableOption('equipment')"
               (click)="optionClick('equipment')"
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
@@ -83,7 +83,7 @@
               <mat-select
                 [(ngModel)]="ewService.event.priority"
                 [compareWith]="compareFn"
-                [disabled]="isEventFinished()"
+                [disabled]="isCreateEvent()"
               >
                 <mat-option *ngFor="let p of ewService.priority" [value]="p"
                   >{{ ewService.priorities[p.name] }}
@@ -103,7 +103,7 @@
       </div>
       <evj-events-workspace-select
         [dataType]="'status'"
-        [disabled]="isEventFinished()"
+        [disabled]="isCreateEvent()"
       ></evj-events-workspace-select>
     </div>
     <div class="workspace__select-container">
@@ -115,7 +115,7 @@
           <mat-form-field appearance="none">
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent() || isEventFinished()"
+              [disabled]="isCreateEvent()"
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
@@ -134,7 +134,7 @@
           <mat-select
             panelClass="mat-select-custom"
             [(ngModel)]="ewService.event.asusEvent.eoService"
-            [disabled]="isEventFinished()"
+            [disabled]="isCreateEvent()"
           >
             <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
               >{{ eoService.name }}
@@ -164,7 +164,7 @@
         <evj-event-description
           [description]="ewService.event?.description"
           (changedDescription)="onChangeEventDescription($event)"
-          [disabled]="isEventFinished()"
+          [disabled]="isCreateEvent()"
         ></evj-event-description>
       </div>
 
@@ -173,7 +173,7 @@
           <evj-events-workspace-datetimepicker
             [label]="'Крайний срок'"
             [date]="ewService.event.asusEvent?.datetimeDeadline"
-            [disabled]="isEventFinished()"
+            [disabled]="isCreateEvent()"
           >
           </evj-events-workspace-datetimepicker>
         </div>
@@ -181,7 +181,7 @@
           <evj-events-workspace-datetimepicker
             [label]="'Дата завершения'"
             [date]="ewService.event.asusEvent?.datetimeEnd"
-            [disabled]="isEventFinished()"
+            [disabled]="isCreateEvent()"
           >
           </evj-events-workspace-datetimepicker>
         </div>
@@ -208,8 +208,8 @@
             <div class="creator__field">
               <div class="block">
                 <span>
-                  {{ this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName ===
-                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+                  {{ this.ewService.event.asusEvent?.consumer ? this.ewService.event.asusEvent?.consumer ===
+                  'Synchronizable S. S.' ? 'Система' : this.ewService.event.asusEvent?.consumer : 'Не установлен' }}
                 </span>
                 <ng-container *ngIf="this.ewService.event.fixedBy?.positionDescription">
                   <span class="block__position"> {{this.ewService.event.fixedBy?.positionDescription}} </span>
@@ -220,7 +220,7 @@
         </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select [disabled]="isEventFinished()"></evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select [disabled]="isCreateEvent()"></evj-events-workspace-responsible-select>
       </div>
       <div class="decision">
         <div class="title">

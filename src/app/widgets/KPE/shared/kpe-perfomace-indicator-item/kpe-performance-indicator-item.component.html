@@ -12,10 +12,11 @@
       [type]="1"
       [showAxisValues]="false"
       [isPerformance]="true"
+      [data]="data"
     ></evj-kpe-gauge-chart-multi-color>
-    <span class="main-text">Ключевой показатель эффективности Л-35-1000</span>
+    <span class="main-text">{{ data?.name }}</span>
 
-    <span class="axis__value axis__value_1">40</span>
-    <span class="axis__value axis__value_2">80</span>
+    <span class="axis__value axis__value_1">{{ getExtremumValue('min') }}</span>
+    <span class="axis__value axis__value_2">{{ getExtremumValue('max') }}</span>
   </div>
 </div>

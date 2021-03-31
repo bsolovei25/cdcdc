@@ -18,6 +18,7 @@ export interface ISouUnit {
 export interface ISouSection {
     id: string;
     name: string;
+    countFlowExceedingConfInterval?: number;
 }
 
 export interface ISouFlowIn {
@@ -118,6 +119,7 @@ export interface ISouObjects {
     selected?: boolean;
     value: number;
     linkId?: string;
+    tolerance?: number;
 }
 
 export interface ISouIdent {
