@@ -24,7 +24,11 @@
         }
 
         &--no-active {
-          color: var(--color-gray40);
+          color: var(--text-main-color);
+        }
+
+        &:not(&--no-active) {
+          color: var(--text-accent-color);
         }
 
         &__slide {
@@ -37,9 +41,9 @@
               padding: 0 2px;
               height: 16px !important;
               width: 32px !important;
-              border: 1px solid var(--color-astue-onpz-predictors-slider-border);
+              border: 1px solid var(--border-forms-color);
               box-sizing: border-box;
-              background: var(--astue-onpz-factorypredictors-slider-bg);
+              background: var(--bg-dashboard-color);
             }
 
             .mat-slide-toggle-thumb-container {
@@ -50,8 +54,10 @@
             }
 
             .mat-slide-toggle-thumb {
-              height: 12px;
-              width: 12px;
+              height: 10px;
+              width: 10px;
+              border: 1px solid var(--border-forms-color);
+              box-shadow: none;
             }
 
             .mat-slide-toggle .mat-slide-toggle-ripple {
@@ -60,11 +66,12 @@
             }
 
             .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-              background-color: var(--color-kpe-gaude-active);
+              background-color: var(--toggler-background-active);
             }
 
             .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-              background-color: var(--color-text-main);
+              background-color: var(--toggler-button-color);
+              border: 1px solid var(--toggler-button-border);
             }
 
             .mat-ripple-element {
@@ -83,18 +90,36 @@
         &__label {
           display: flex;
           align-items: center;
-
           font-size: 11px;
-
           min-height: 16px;
           padding: 3px 15px;
-          background-color: var(--color-astue-onpz-bg-tag-1);
-          color: var(--color-astue-tag-1);
+          background-color: var(--gray-G10-color);
+          color: var(--data-c2-color);
           border-radius: 2px;
 
           &--unactive {
-            color: var(--color-gray40) !important;
-            background-color: var(--color-gray80) !important;
+            color: var(--text-main-color) !important;
+            background-color: var(--border-vidget-color) !important;
+          }
+
+          &--3 {
+            color: var(--data-c4-color);
+            background-color: var(--data-c4-color-opacity);
+          }
+
+          &--4 {
+            color: var(--data-c5-color);
+            background-color: var(--data-c5-color-opacity);
+          }
+
+          &--5 {
+            color: var(--data-c7-color);
+            background-color: var(--data-c7-color-opacity);
+          }
+
+          &--6 {
+            color: var(--data-c2-color);
+            background-color: var(--data-c2-color-opacity);
           }
         }
       }

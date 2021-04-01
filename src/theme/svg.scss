@@ -1,0 +1,29 @@
+svg-icon {
+  .stroke {
+    &--gray-g7 {
+      stroke: var(--gray-G7-color);
+    }
+
+    &--gray-g8 {
+      stroke: var(--gray-G8-color);
+    }
+
+    &--gray-g10 {
+      stroke: var(--gray-G10-color);
+    }
+  }
+
+  .fill {
+    &--gray-g8 {
+      fill: var(--gray-G8-color);
+    }
+
+    &--gray-g11 {
+      fill: var(--gray-G11-color);
+    }
+
+    &--gray-g10 {
+      fill: var(--gray-G10-color);
+    }
+  }
+}

@@ -18,7 +18,7 @@
       &-higherBorder {
         fill: none;
         opacity: 1;
-        stroke: var(--color-astue-onpz-fact);
+        stroke: var(--index-fact-color);
       }
 
       &-fact,
@@ -29,40 +29,40 @@
       &-lowerBorder,
       &-higherBorder {
         stroke-dasharray: 2 1;
-        stroke: var(--color-astue-onpz-limit);
+        stroke: var(--gray-G7-color);
       }
 
       &-plan {
-        stroke: var(--color-astue-onpz-plan);
+        stroke: var(--index-plan-color);
       }
 
       &_warning {
-        stroke: var(--color-astue-onpz-warning);
+        stroke: var(--index-error-color);
       }
 
       &_normal {
-        stroke: var(--color-astue-onpz-normal);
+        stroke: var(--index-green1-color);
       }
     }
 
     .graph-area {
       &-higherBorder,
       &-lowerBorder {
-        fill: var(--color-astue-onpz-area);
+        fill: var(--chart-attantionZone-color);
         opacity: 0.2;
       }
 
       &_warning {
-        fill: var(--color-astue-onpz-warning);
+        fill: var(--index-error-color);
       }
 
       &_normal {
-        fill: var(--color-astue-onpz-normal);
+        fill: var(--index-green1-color);
       }
     }
 
     .label {
-      fill: var(--color-astue-onpz-units);
+      fill: var(--text-subscript-color);
       font-size: 12px;
     }
 
@@ -71,25 +71,25 @@
       stroke-width: 2;
 
       &_plan {
-        stroke: var(--color-astue-onpz-plan);
+        stroke: var(--index-plan-color);
       }
 
       &_fact {
-        fill: var(--color-astue-onpz-fact);
+        fill: var(--index-fact);
       }
     }
 
     .future {
-      fill: #1c1f2b;
+      fill: var(--gray-G11-color);
       opacity: 0.5;
 
       &-line {
-        stroke: var(--color-astue-onpz-units);
+        stroke: var(--text-subscript-color);
         stroke-width: 2;
       }
 
       &-with-line {
-        stroke: white;
+        stroke: var(--gray-G1-color);
         stroke-width: 1;
 
         &_hor {
@@ -99,13 +99,13 @@
     }
 
     .data {
-      fill: var(--color-astue-onpz-bg-data);
+      fill: var(--gray-G10-color);
 
       &-fact,
       &-plan,
       &-date {
         font-size: 13px;
-        fill: var(--color-astue-onpz-fact);
+        fill: var(--index-fact-color);
       }
 
       &-date {
@@ -113,11 +113,11 @@
       }
 
       &-plan {
-        fill: var(--color-astue-onpz-plan);
+        fill: var(--index-plan-color);
       }
 
       &-icon {
-        fill: var(--color-astue-onpz-bg-data-icon);
+        fill: var(--gray-G9-color);
       }
     }
   }

@@ -43,7 +43,7 @@
     position: relative;
     width: 100%;
     height: calc(100% - 40px);
-    border: 1px solid var(--color-astue-onpz-border-widget);
+    border: 1px solid var(--chart-segment-color);
     display: flex;
     flex-direction: column;
   }
@@ -53,7 +53,7 @@
     height: 40px;
     border-radius: 5px 5px 0 0;
 
-    background: var(--color-astue-onpz-bg-header);
+    background: var(--chart-background-color);
   }
 
   &__legend {
@@ -68,7 +68,7 @@
   &__chart {
     width: 100%;
     height: calc(100% - 40px);
-    background: var(--color-astue-onpz-bg-card);
+    background: var(--chart-background-color);
   }
 
   &__scroll {
@@ -89,9 +89,9 @@
     padding: 4px 12px;
     border-radius: 2px;
     text-align: center;
-    background: var(--color-astue-onpz-bg-tag-1);
+    background: var(--data-c2-color);
     font-size: 11px;
-    color: var(--color-astue-tag-1);
+    color: var(--data-c2-color);
   }
 
   &__icon {
@@ -128,7 +128,7 @@
       right: 0;
       margin: auto;
       border-radius: 50%;
-      background: var(--color-astue-onpz-button);
+      background: var(--chart-axes-color);
     }
 
     &::before {
@@ -155,7 +155,7 @@
 
   &__units {
     font-size: 10px;
-    color: var(--color-astue-onpz-units);
+    color: var(--text-subscript-color);
   }
 
   &__buttons {
@@ -193,7 +193,7 @@
     border-radius: 3px;
     margin-left: 10px;
     font-size: 14px;
-    background: var(--color-astue-onpz-bg-legend);
+    background: var(--gray-G10-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,6 +211,6 @@
 
 .plan {
   * {
-    color: var(--color-astue-onpz-plan);
+    color: var(--index-plan-color);
   }
 }

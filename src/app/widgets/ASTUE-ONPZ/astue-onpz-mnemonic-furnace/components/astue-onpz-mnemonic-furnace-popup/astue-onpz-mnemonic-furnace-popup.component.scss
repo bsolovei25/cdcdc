@@ -4,7 +4,7 @@
   width: 268px;
   height: 90px;
   filter: drop-shadow(0px 4px 4px var(--gradient-main-color-1));
-  --color: var(--index-plan-color);
+  --color: var(--border-blue-color);
 
   .line {
     position: absolute;
@@ -69,7 +69,7 @@
     margin-left: -45px;
     width: 90px;
     height: 90px;
-    background: var(--bg-body-color);
+    background: var(--gray-G11-color);
     border-radius: 50%;
     box-sizing: border-box;
 
