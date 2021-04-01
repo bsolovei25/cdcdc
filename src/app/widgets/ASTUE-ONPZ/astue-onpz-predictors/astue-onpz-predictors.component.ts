@@ -28,6 +28,12 @@ export interface IPredictors {
     unitId: number;
     unitName: string;
 }
+interface IChannel {
+    name: string;
+    manufactureName: string;
+    unitName: string;
+    id: string;
+}
 
 @Component({
     selector: 'evj-astue-onpz-predictors',
@@ -38,12 +44,7 @@ export interface IPredictors {
 export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public specialComponent: typeof AstueOnpzPredictorsItemComponent = AstueOnpzPredictorsItemComponent;
     public subchannelId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-    public channels$: BehaviorSubject<
-        {
-            name: string;
-            id: string;
-        }[]
-    > = new BehaviorSubject<{ name: string; id: string }[]>([]);
+    public channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject<IChannel[]>([]);
 
     constructor(
         private conventionalFuelService: AstueOnpzConventionalFuelService,
@@ -78,7 +79,18 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
                 this.astueOnpzService.setPredictors(this.id, []);
                 const [channels, options] = value;
 
-                const subChannel = channels.find((x) => x.name === options.resource)?.id ?? null;
+                const subChannel =
+                    channels.find(
+                        (x) =>
+                            x.name === options.resource &&
+                            x.manufactureName === options.manufacture &&
+                            x.unitName === options.unit
+                    )?.id ?? null;
+
+                if (!subChannel) {
+                    this.astueOnpzService.setPredictors(this.id, []);
+                }
+
                 this.subchannelId$.next(subChannel);
             })
         );
@@ -91,10 +103,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
     protected dataHandler(ref: { predictors: IPredictors[] }): void {}
 
     private async optionsHandler(): Promise<void> {
-        const channels = await this.widgetService.getAvailableChannels<{
-            name: string;
-            id: string;
-        }>(this.widgetId);
+        const channels = await this.widgetService.getAvailableChannels<IChannel>(this.widgetId);
 
         this.channels$.next(channels);
     }
