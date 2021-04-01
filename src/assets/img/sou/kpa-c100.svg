@@ -787,7 +787,7 @@
 <text id="text_percent_12" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="870.161">99%</tspan></text>
 <text id="text_13" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="850.161">FR30-1</tspan></text>
 </g>
-<g id="element-11_64">
+<g id="element-11_65">
 <circle id="circle_13" cx="1004" cy="974" r="11.5" fill="#1C1F2B" stroke="#606580"/>
 <g id="icon_14">
 <g id="Group_76">
@@ -1994,24 +1994,43 @@
 </g>
 <text id="text_60" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="1156.16">&#x412; &#x422;&#x41f; PL3498</tspan></text>
 </g>
-<g id="element-1_97">
+<g id="element-1_67">
 <g id="rect_30">
+<rect x="1514" y="1074" width="168" height="32" rx="2" fill="#272A38"/>
+<rect x="1514" y="1074" width="168" height="32" rx="2" stroke="#606580"/>
+</g>
+<g id="arrow-group_11">
+<g id="arrow_double_right_11" clip-path="url(#clip0)">
+<g id="Group_246">
+<g id="Group_247">
+<path id="arrow_21" d="M1662.53 1085.33L1666.94 1090L1662.53 1094.67" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Group_248">
+<path id="arrow_22" d="M1666.82 1085.33L1671.23 1090L1666.82 1094.67" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<text id="text_61" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1521" y="1088.16">&#x412; &#x434;&#x438;&#x437;&#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x43e;&#10;</tspan><tspan x="1521" y="1102.16">&#x437;&#x438;&#x43c;&#x43d;&#x435;&#x435; (PL2004)</tspan></text>
+</g>
+<g id="element-1_97">
+<g id="rect_31">
 <rect x="1514" y="1437" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="1437" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
-<g id="arrow-group_11">
-<g id="arrow_double_right_11">
-<g id="Group_246">
-<g id="Group_247">
-<path id="arrow_21" d="M1658.83 1447.75L1664.08 1453L1658.83 1458.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="arrow-group_12">
+<g id="arrow_double_right_12">
+<g id="Group_249">
+<g id="Group_250">
+<path id="arrow_23" d="M1658.83 1447.75L1664.08 1453L1658.83 1458.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<g id="Group_248">
-<path id="arrow_22" d="M1663.93 1447.75L1669.18 1453L1663.93 1458.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
+<g id="Group_251">
+<path id="arrow_24" d="M1663.93 1447.75L1669.18 1453L1663.93 1458.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="rect_31">
+</g>
+</g>
+<g id="rect_32">
 <g id="Icon&#38;Type_10">
 <g id="Idicator type_10">
 <rect id="Rectangle 7592_10" x="1518.5" y="1441.5" width="23" height="23" rx="1.5" fill="#1C1F2B" stroke="#606580"/>
@@ -2019,7 +2038,7 @@
 </g>
 </g>
 <g id="icon_52">
-<g id="Group_249">
+<g id="Group_252">
 <path id="Vector_348" d="M1530 1450.07C1529.74 1450.07 1529.47 1450.07 1529.21 1450.11C1528.61 1450.15 1528.05 1450.26 1527.56 1450.41C1526.59 1450.71 1525.99 1451.16 1525.99 1451.69V1456.49H1533.97V1451.69C1534.01 1450.79 1532.21 1450.07 1530 1450.07Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_349" d="M1527.56 1453.45C1526.62 1453.6 1525.99 1453.82 1525.99 1454.09" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_350" d="M1534.01 1454.09C1534.01 1453.64 1532.21 1453.3 1530 1453.3C1529.74 1453.3 1529.44 1453.3 1529.17 1453.3" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2028,26 +2047,26 @@
 <path id="Vector_353" d="M1524.56 1456.49H1535.44" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<text id="text_61" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="1458.16">&#x412; &#x43f;&#x430;&#x440;&#x43a; &#x413;&#x41e; (PL139)</tspan></text>
+<text id="text_62" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="1458.16">&#x412; &#x43f;&#x430;&#x440;&#x43a; &#x413;&#x41e; (PL139)</tspan></text>
 </g>
 <g id="element-1_100">
-<g id="rect_32">
+<g id="rect_33">
 <rect x="1514" y="1497" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="1497" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
-<g id="arrow-group_12">
-<g id="arrow_double_right_12">
-<g id="Group_250">
-<g id="Group_251">
-<path id="arrow_23" d="M1658.83 1507.75L1664.08 1513L1658.83 1518.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="arrow-group_13">
+<g id="arrow_double_right_13">
+<g id="Group_253">
+<g id="Group_254">
+<path id="arrow_25" d="M1658.83 1507.75L1664.08 1513L1658.83 1518.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<g id="Group_252">
-<path id="arrow_24" d="M1663.93 1507.75L1669.18 1513L1663.93 1518.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
+<g id="Group_255">
+<path id="arrow_26" d="M1663.93 1507.75L1669.18 1513L1663.93 1518.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="rect_33">
+</g>
+</g>
+<g id="rect_34">
 <g id="Icon&#38;Type_11">
 <g id="Idicator type_11">
 <rect id="Rectangle 7592_11" x="1518.5" y="1501.5" width="23" height="23" rx="1.5" fill="#1C1F2B" stroke="#606580"/>
@@ -2055,7 +2074,7 @@
 </g>
 </g>
 <g id="icon_53">
-<g id="Group_253">
+<g id="Group_256">
 <path id="Vector_354" d="M1530 1510.07C1529.74 1510.07 1529.47 1510.07 1529.21 1510.11C1528.61 1510.15 1528.05 1510.26 1527.56 1510.41C1526.59 1510.71 1525.99 1511.16 1525.99 1511.69V1516.49H1533.97V1511.69C1534.01 1510.79 1532.21 1510.07 1530 1510.07Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_355" d="M1527.56 1513.45C1526.62 1513.6 1525.99 1513.82 1525.99 1514.09" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_356" d="M1534.01 1514.09C1534.01 1513.64 1532.21 1513.3 1530 1513.3C1529.74 1513.3 1529.44 1513.3 1529.17 1513.3" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2064,26 +2083,26 @@
 <path id="Vector_359" d="M1524.56 1516.49H1535.44" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<text id="text_62" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="1518.16">&#x412; &#x422;&#x41f; PL3498</tspan></text>
+<text id="text_63" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="1518.16">&#x412; &#x422;&#x41f; PL3498</tspan></text>
 </g>
 <g id="element-1_52">
-<g id="rect_34">
+<g id="rect_35">
 <rect x="1514" y="712" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="712" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
-<g id="arrow-group_13">
-<g id="arrow_double_right_13">
-<g id="Group_254">
-<g id="Group_255">
-<path id="arrow_25" d="M1658.83 722.75L1664.08 728L1658.83 733.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="arrow-group_14">
+<g id="arrow_double_right_14">
+<g id="Group_257">
+<g id="Group_258">
+<path id="arrow_27" d="M1658.83 722.75L1664.08 728L1658.83 733.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<g id="Group_256">
-<path id="arrow_26" d="M1663.93 722.75L1669.18 728L1663.93 733.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
+<g id="Group_259">
+<path id="arrow_28" d="M1663.93 722.75L1669.18 728L1663.93 733.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="rect_35">
+</g>
+</g>
+<g id="rect_36">
 <g id="Icon&#38;Type_12">
 <g id="Idicator type_12">
 <rect id="Rectangle 7592_12" x="1518.5" y="716.5" width="23" height="23" rx="1.5" fill="#1C1F2B" stroke="#606580"/>
@@ -2091,7 +2110,7 @@
 </g>
 </g>
 <g id="icon_54">
-<g id="Group_257">
+<g id="Group_260">
 <path id="Vector_360" d="M1530 725.074C1529.74 725.074 1529.47 725.074 1529.21 725.112C1528.61 725.149 1528.05 725.262 1527.56 725.412C1526.59 725.712 1525.99 726.162 1525.99 726.687V731.487H1533.97V726.687C1534.01 725.787 1532.21 725.074 1530 725.074Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_361" d="M1527.56 728.449C1526.62 728.599 1525.99 728.824 1525.99 729.087" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_362" d="M1534.01 729.086C1534.01 728.636 1532.21 728.299 1530 728.299C1529.74 728.299 1529.44 728.299 1529.17 728.299" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2100,24 +2119,7 @@
 <path id="Vector_365" d="M1524.56 731.486H1535.44" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<text id="text_63" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="726.161">&#x41d;&#x430; &#x422;&#x420;&#x425; &#x442;&#x438;&#x442;.204&#10;</tspan><tspan x="1548" y="740.161">(&#x440;-&#x440;&#x44b; 1656, 1657)</tspan></text>
-</g>
-<g id="element-1_76">
-<rect x="1514" y="1075" width="168" height="32" rx="2" fill="#1B1E27"/>
-<text id="text_64" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1522" y="1089.16">&#x412; &#x434;&#x438;&#x437;&#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x43e;&#10;</tspan><tspan x="1522" y="1103.16">&#x437;&#x438;&#x43c;&#x43d;&#x435;&#x435; (PL2004)</tspan></text>
-<g id="arrow-group_14">
-<g id="arrow_double_right_14">
-<g id="Group_258">
-<g id="Group_259">
-<path id="arrow_27" d="M1658.83 1085.75L1664.08 1091L1658.83 1096.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="Group_260">
-<path id="arrow_28" d="M1663.93 1085.75L1669.18 1091L1663.93 1096.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
-</g>
-</g>
-<rect x="1514" y="1075" width="168" height="32" rx="2" stroke="#303549"/>
+<text id="text_64" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1548" y="726.161">&#x41d;&#x430; &#x422;&#x420;&#x425; &#x442;&#x438;&#x442;.204&#10;</tspan><tspan x="1548" y="740.161">(&#x440;-&#x440;&#x44b; 1656, 1657)</tspan></text>
 </g>
 <g id="element-1_94">
 <rect x="1514" y="1377" width="168" height="32" rx="2" fill="#1B1E27"/>
@@ -2137,12 +2139,12 @@
 <rect x="1514" y="1377" width="168" height="32" rx="2" stroke="#303549"/>
 </g>
 <g id="element-1_82">
-<g id="rect_36">
+<g id="rect_37">
 <rect x="1514" y="1195" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="1195" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_16">
-<g id="arrow_double_right_16" clip-path="url(#clip0)">
+<g id="arrow_double_right_16" clip-path="url(#clip1)">
 <g id="Group_264">
 <g id="Group_265">
 <path id="arrow_31" d="M1662.53 1206.33L1666.94 1211L1662.53 1215.67" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2168,12 +2170,12 @@
 </g>
 </g>
 <g id="element-1_88">
-<g id="rect_37">
+<g id="rect_38">
 <rect x="1514" y="1261" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="1261" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_17">
-<g id="arrow_double_right_17" clip-path="url(#clip1)">
+<g id="arrow_double_right_17" clip-path="url(#clip2)">
 <g id="Group_268">
 <g id="Group_269">
 <path id="arrow_33" d="M1662.53 1272.33L1666.94 1277L1662.53 1281.67" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2199,12 +2201,12 @@
 </g>
 </g>
 <g id="element-1_7">
-<g id="rect_38">
+<g id="rect_39">
 <rect x="1514" y="86" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="86" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_18">
-<g id="arrow_double_right_18" clip-path="url(#clip2)">
+<g id="arrow_double_right_18" clip-path="url(#clip3)">
 <g id="Group_272">
 <g id="Group_273">
 <path id="arrow_35" d="M1662.53 97.334L1666.94 102.001L1662.53 106.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2228,12 +2230,12 @@
 </g>
 </g>
 <g id="element-1_22">
-<g id="rect_39">
+<g id="rect_40">
 <rect x="1514" y="284" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="284" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_19">
-<g id="arrow_double_right_19" clip-path="url(#clip3)">
+<g id="arrow_double_right_19" clip-path="url(#clip4)">
 <g id="Group_275">
 <g id="Group_276">
 <path id="arrow_37" d="M1662.53 295.334L1666.94 300.001L1662.53 304.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2257,12 +2259,12 @@
 </g>
 </g>
 <g id="element-1_34">
-<g id="rect_40">
+<g id="rect_41">
 <rect x="1514" y="470" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="470" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_20">
-<g id="arrow_double_right_20" clip-path="url(#clip4)">
+<g id="arrow_double_right_20" clip-path="url(#clip5)">
 <g id="Group_278">
 <g id="Group_279">
 <path id="arrow_39" d="M1662.53 481.334L1666.94 486.001L1662.53 490.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2286,12 +2288,12 @@
 </g>
 </g>
 <g id="element-1_46">
-<g id="rect_41">
+<g id="rect_42">
 <rect x="1514" y="652" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="652" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_21">
-<g id="arrow_double_right_21" clip-path="url(#clip5)">
+<g id="arrow_double_right_21" clip-path="url(#clip6)">
 <g id="Group_281">
 <g id="Group_282">
 <path id="arrow_41" d="M1662.53 663.334L1666.94 668.001L1662.53 672.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2315,12 +2317,12 @@
 </g>
 </g>
 <g id="element-1_43">
-<g id="rect_42">
+<g id="rect_43">
 <rect x="1514" y="595" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="595" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_22">
-<g id="arrow_double_right_22" clip-path="url(#clip6)">
+<g id="arrow_double_right_22" clip-path="url(#clip7)">
 <g id="Group_284">
 <g id="Group_285">
 <path id="arrow_43" d="M1662.53 606.334L1666.94 611.001L1662.53 615.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2344,12 +2346,12 @@
 </g>
 </g>
 <g id="element-1_61">
-<g id="rect_43">
+<g id="rect_44">
 <rect x="1514" y="839" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="839" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_23">
-<g id="arrow_double_right_23" clip-path="url(#clip7)">
+<g id="arrow_double_right_23" clip-path="url(#clip8)">
 <g id="Group_287">
 <g id="Group_288">
 <path id="arrow_45" d="M1662.53 850.334L1666.94 855.001L1662.53 859.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2372,13 +2374,13 @@
 <path id="Vector_421" d="M1532.11 855.74V857.307" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="element-1_67">
-<g id="rect_44">
+<g id="element-1_67_2">
+<g id="rect_45">
 <rect x="1514" y="955" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="955" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_24">
-<g id="arrow_double_right_24" clip-path="url(#clip8)">
+<g id="arrow_double_right_24" clip-path="url(#clip9)">
 <g id="Group_290">
 <g id="Group_291">
 <path id="arrow_47" d="M1662.53 966.334L1666.94 971.001L1662.53 975.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2402,12 +2404,12 @@
 </g>
 </g>
 <g id="element-1_13">
-<g id="rect_45">
+<g id="rect_46">
 <rect x="1514" y="158" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1514" y="158" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_25">
-<g id="arrow_double_right_25" clip-path="url(#clip9)">
+<g id="arrow_double_right_25" clip-path="url(#clip10)">
 <g id="Group_293">
 <g id="Group_294">
 <path id="arrow_49" d="M1662.53 169.334L1666.94 174.001L1662.53 178.667" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2435,33 +2437,36 @@
 </g>
 <defs>
 <clipPath id="clip0">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 1205.67)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 1084.67)"/>
 </clipPath>
 <clipPath id="clip1">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 1271.67)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 1205.67)"/>
 </clipPath>
 <clipPath id="clip2">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 96.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 1271.67)"/>
 </clipPath>
 <clipPath id="clip3">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 294.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 96.668)"/>
 </clipPath>
 <clipPath id="clip4">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 480.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 294.668)"/>
 </clipPath>
 <clipPath id="clip5">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 662.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 480.668)"/>
 </clipPath>
 <clipPath id="clip6">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 605.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 662.668)"/>
 </clipPath>
 <clipPath id="clip7">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 849.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 605.668)"/>
 </clipPath>
 <clipPath id="clip8">
-<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 965.668)"/>
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 849.668)"/>
 </clipPath>
 <clipPath id="clip9">
+<rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 965.668)"/>
+</clipPath>
+<clipPath id="clip10">
 <rect width="10.08" height="10.6667" fill="white" transform="translate(1661.84 168.668)"/>
 </clipPath>
 </defs>
