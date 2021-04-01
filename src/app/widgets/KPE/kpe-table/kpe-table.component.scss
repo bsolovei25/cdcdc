@@ -19,7 +19,7 @@
   width: 28px;
   height: 28px;
   border-radius: 2px;
-  background-color: var(--color-kpe-table-select);
+  background-color: var(--gray-G9-color);
 
   display: flex;
   align-items: center;
@@ -40,4 +40,8 @@
 .button-container {
   width: 16px;
   height: 16px;
+  
+  &:hover {
+    cursor: pointer;
+  }
 }

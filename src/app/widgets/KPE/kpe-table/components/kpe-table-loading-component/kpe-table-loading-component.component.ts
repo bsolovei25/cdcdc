@@ -8,17 +8,15 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './kpe-table-loading-component.component.html',
     styleUrls: ['./kpe-table-loading-component.component.scss'],
 })
-export class KpeTableLoadingComponentComponent implements OnInit {
-    data: IKpeTable[] = tableLoading;
-    columnsToDisplay: IKpeTableHeader[] = tableHeader;
-    search: string = '';
+export class KpeTableLoadingComponentComponent {
+    public data: IKpeTable[] = tableLoading;
+    public columnsToDisplay: IKpeTableHeader[] = tableHeader;
+    public search: string = '';
 
-    expandedElement: SelectionModel<string> = new SelectionModel(true);
-    selectedRowProduct: string;
-    selectedRow: SelectionModel<string> = new SelectionModel(true);
+    public expandedElement: SelectionModel<string> = new SelectionModel(true);
+    public selectedRowProduct: string;
+    public selectedRow: SelectionModel<string> = new SelectionModel(true);
     constructor() {}
-
-    ngOnInit(): void {}
 
     notCriticalCount(element: IKpeTable): number {
         let i = 0;
@@ -61,4 +59,8 @@ export class KpeTableLoadingComponentComponent implements OnInit {
             this.selectedRowProduct = null;
         }
     }
+
+    trackByFn(element) {    
+        return element.id;
+     }
 }

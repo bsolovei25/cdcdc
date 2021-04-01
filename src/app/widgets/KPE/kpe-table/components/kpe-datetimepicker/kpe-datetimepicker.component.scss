@@ -1,11 +1,8 @@
 .datetimepicker {
-  ::ng-deep .mat-input-element {
-    background-color: var(--header-events-color-bg-main);
-  }
-
-  width: calc(100% - 2px);
+  width: 150px;
   position: relative;
   display: flex;
+  margin: 0 10px;
 
   .date-info {
     width: 100%;
@@ -19,7 +16,7 @@
     .date {
       color: var(--header-events-color-font-main) !important;
       font-size: 13px;
-      width: calc(100% - 20px);
+      width: calc(100% - 22px);
       height: 25px;
       border-radius: 2px;
       background-color: var(--header-events-color-bg-main);
@@ -46,7 +43,6 @@
         padding: 0;
         border-top: none;
         width: 100%;
-        min-width: 130px;
       }
 
       .mat-datepicker-toggle {
@@ -58,9 +54,6 @@
   .date-button {
     width: 11%;
     height: 100%;
-    top: 12px;
-    right: 10px;
-    position: absolute;
     cursor: pointer;
   }
 

@@ -15,6 +15,7 @@ import { KpeTableHeaderComponent } from './components/kpe-table-header/kpe-table
 import { KpeTableDevelopmentComponentComponent } from './components/kpe-table-development-component/kpe-table-development-component.component';
 import { KpeTableLoadingComponentComponent } from './components/kpe-table-loading-component/kpe-table-loading-component.component';
 import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe';
+import { KpeSelectHeaderComponent } from './components/kpe-select-header/kpe-select-header.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe
         KpeTableDevelopmentComponentComponent,
         KpeTableLoadingComponentComponent,
         KpeComponentsSearchPipe,
+        KpeSelectHeaderComponent,
     ],
     imports: [
         CommonModule,

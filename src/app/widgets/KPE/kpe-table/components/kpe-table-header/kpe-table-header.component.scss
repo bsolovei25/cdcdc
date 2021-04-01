@@ -12,13 +12,13 @@
     gap: 15px;
     padding: 0 13px;
     height: 40px;
-    color: #606580;
-    border-bottom: solid 1px #606580;
+    color: -var(--text-subscript-color);
+    border-bottom: solid 1px var(--border-icon-color);
     cursor: pointer;
 
     &__active {
-      color: #ffffff;
-      border-color: #0089ff;
+      color: var(--text-alwaysWhite-color);
+      border-color: var(--border-blue-color);
     }
 
     & > * {

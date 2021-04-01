@@ -1,0 +1,8 @@
+<div class="event-mat-select">
+    <mat-form-field appearance="none">
+      <mat-select panelClass="mat-balance-select" [(ngModel)]="items[1].value">
+        <mat-option *ngFor="let item of items" [value]="item.value"> {{item.value}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
