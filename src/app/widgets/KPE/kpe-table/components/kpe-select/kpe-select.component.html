@@ -1,7 +1,7 @@
 <div class="event-mat-select">
   <mat-form-field appearance="none">
-    <mat-select panelClass="mat-balance-select">
-      <mat-option *ngFor="let item of items" [value]="item.value"> {{item.viewValue}} </mat-option>
+    <mat-select panelClass="mat-balance-select" [ngModel]="items[0].viewValue">
+      <mat-option *ngFor="let item of items; trackBy: trackByFn" [value]="item.viewValue"> {{item.viewValue}} </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
