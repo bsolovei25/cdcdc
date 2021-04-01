@@ -11,7 +11,7 @@
     height: 40px;
     padding: 0 15px;
 
-    background: var(--color-kpe-gaude-lines);
+    background: var(--bg-header-color);
     border-radius: 2px 2px 0px 0px;
 
     display: flex;
@@ -22,7 +22,7 @@
       font-size: 14px;
       line-height: 17px;
 
-      color: var(--color-kpe-white);
+      color: var(--text-accent-color);
     }
   }
 
@@ -32,8 +32,8 @@
     display: flex;
     flex-direction: column;
 
-    background: var(--color-kpe-line-diagram-bg-sub);
-    border: 1px solid var(--color-kpe-bg-sub);
+    background: var(--bg-body-color);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 0px 0px 2px 2px;
 
     .date {
@@ -42,7 +42,7 @@
       .title {
         font-size: 12px;
         line-height: 14px;
-        color: var(--color-kpe-pasportize-text);
+        color: var(--text-main-color);
       }
 
       .plan-date {
@@ -56,14 +56,14 @@
           align-items: center;
           justify-content: space-between;
 
-          background: var(--color-kpe-gaude-back);
+          background: var(--bg-dashboard-color);
 
-          border: 1px solid var(--color-kpe-gauge-tab-unactive);
+          border: 1px solid var(--border-forms-color);
           border-radius: 2px;
 
           font-size: 13px;
           line-height: 16px;
-          color: var(--color-kpe-gaude-main);
+          color: var(--text-contrast-color);
           overflow: hidden;
 
           input {
@@ -90,15 +90,15 @@
       height: 80px;
       padding: 8px;
 
-      background: var(--color-kpe-gaude-back);
+      background: var(--bg-dashboard-color);
 
-      border: 1px solid var(--color-kpe-gauge-tab-unactive);
+      border: 1px solid var(--border-forms-color);
       border-radius: 2px;
 
       font-size: 14px;
       line-height: 17px;
 
-      color: var(--evj-color-white);
+      color: var(--text-subscript-color);
 
       outline: none;
       resize: none;
@@ -107,7 +107,7 @@
         font-size: 13px;
         line-height: 16px;
 
-        color: var(--color-kpe-gaude-additional);
+        color: var(--text-subscript-color);
       }
     }
 
@@ -125,7 +125,7 @@
         height: 32px;
         padding: 0 16px;
 
-        background: var(--color-kpe-table-select);
+        background: var(--gray-G9-color);
 
         display: flex;
         justify-content: space-between;
@@ -133,13 +133,13 @@
 
         font-size: 12px;
         line-height: 14px;
-        color: var(--color-kpe-gaude-main);
+        color: var(--text-contrast-color);
 
         cursor: pointer;
       }
       .save {
-        background: var(--color-kpe-gaude-active);
-        color: var(--color-kpe-white);
+        background: var(--index-plan-color);
+        color: var(--text-alwaysWhite-color);
 
         svg-icon {
           margin-right: 10px;
