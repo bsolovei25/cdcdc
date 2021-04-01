@@ -22,12 +22,12 @@ svg {
 ::ng-deep {
   .astue-onpz-factory-analysis-chart-svg {
     .circle {
-      fill: var(--color-bg-main);
+      fill: var(--gray-G12-color);
       &_plan {
-        stroke: $color-diagram-active;
+        stroke: var(--index-plan-color);
       }
       &_fact {
-        stroke: white;
+        stroke: var(--index-fact-color);
       }
     }
 
@@ -39,24 +39,24 @@ svg {
       fill: none;
       stroke-width: 1;
       &__plan {
-        stroke: rgb(var(--astue-onpz-factory-analisys-norm));
+        stroke: rgb(var(--index-plan-color));
       }
       &__fact,
       &__last-threshold {
-        stroke: var(--color-astue-onpz-factory-analisys-contrast);
+        stroke: var(--index-fact-color);
       }
       &__higher-border {
-        stroke: var(--astue-onpz-factory-analisys-grid);
+        stroke: var(--border-forms-color);
         stroke-width: 2;
         stroke-dasharray: 5 5;
       }
       &__lower-border {
-        stroke: var(--astue-onpz-factory-analisys-grid);
+        stroke: var(--border-forms-color);
         stroke-width: 2;
         stroke-dasharray: 5 5;
       }
       &__threshold {
-        stroke: var(--color-cd-bg-border-sub);
+        stroke: var(--border-vidget-color);
       }
     }
 
@@ -65,7 +65,7 @@ svg {
     }
 
     .circle {
-      stroke: var(--color-astue-onpz-factory-analisys-contrast);
+      stroke: var(--index-fact-color);
     }
 
     .axis {
