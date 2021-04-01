@@ -101,15 +101,15 @@
 
   padding: 9px;
 
-  background: var(--color-kpe-bg);
-  border: 1px solid var(--color-kpe-border);
-  box-shadow: 0 0 8px var(--color-aw-container-shadow-transparent);
+  background: var(--bg-dashboard-color);
+  border: 1px solid var(--border-vidget-color);
+  box-shadow: 0 0 8px var(--gradient-main-color-1);
   border-radius: 2px;
   z-index: 1000;
 
   &__date {
     font-size: 13px;
-    color: var(--color-kpe-text-main);
+    color: var(--text-main-color);
   }
 
   &__row {
@@ -121,13 +121,13 @@
 
     .param-name {
       font-size: 12px;
-      color: var(--color-kpe-pasportize-text);
+      color: var(--text-subscript-color);
     }
 
     .value {
       font-size: 11px;
       width: 40px;
-      color: var(--color-kpe-pasportize-text);
+      color: var(--text-subscript-color);
       -webkit-line-clamp: 1;
       @include text-overflow;
     }
@@ -138,15 +138,15 @@
     }
 
     .fact-average {
-      background-color: var(--evj-color-active);
+      background-color: var(--index-plan-color);
     }
 
     .fact {
-      background-color: var(--evj-color-white);
+      background-color: var(--index-fact-color);
     }
 
     .deviation {
-      background-color: var(--ozsm-color-warning);
+      background-color: var(--index-error-color);
     }
   }
 
@@ -156,15 +156,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #303549;
+    background: var(--gray-G9-color);
     border-radius: 2px;
     font-size: 13px;
-    color: var(--color-kpe-text-main);
+    color: var(--text-main-color);
     cursor: pointer;
   }
 
   &__divider {
-    background: var(--color-kpe-bg-sub);
+    background: var(--border-vidget-color);
     width: 100%;
     height: 1px;
     margin: 9px 0;
