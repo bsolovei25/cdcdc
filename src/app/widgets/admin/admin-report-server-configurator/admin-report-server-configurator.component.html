@@ -1,0 +1,9 @@
+<evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="'Конфигуратор Сервера Отчётов'" icon="setting"
+    type="astue">
+
+</evj-contemporary-widget-header>
+<div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="container__item">
+        <evj-admin-report-server-configurator-repository></evj-admin-report-server-configurator-repository>
+    </div>
+</div>
