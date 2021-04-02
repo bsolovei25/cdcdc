@@ -1,0 +1,32 @@
+<div class="add">
+    <div class="add__header">
+        <div class="title">
+            <div class="logo">
+                <svg-icon [src]="'assets/icons/widgets/admin/report-name-configurator-logo.svg'">
+                </svg-icon>
+            </div>
+            <span>Добавление папки</span>
+        </div>
+        <div class="close" (click)="onNoClick()">
+            <div class="close__button">
+                <svg-icon [svgStyle]="{'height.px':'21', 'width.px': '21'}"
+                    [src]="'assets/icons/widgets/alert-window/close.svg'">
+                </svg-icon>
+            </div>
+        </div>
+    </div>
+    <div class="add__body">
+        <div class="add__body__label">Имя папки</div>
+        <div class="add__body__input">
+            <evj-rectangle-input></evj-rectangle-input>
+        </div>
+        <div class="add__body__buttons">
+            <evj-rect-button
+            [textButton]="'Сохранить'"
+            ></evj-rect-button>
+            <evj-rect-button
+            [textButton]="'Отменить'"
+            ></evj-rect-button>
+        </div>
+    </div>
+</div>

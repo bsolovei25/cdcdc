@@ -1,0 +1,18 @@
+<div class="header">
+    <div class="header__search">
+        <svg-icon class="icon" src="assets/icons/widgets/admin/admin-report-server-configurator/search.svg"></svg-icon>
+        <input class="input" type="text" placeholder="Поиск по названию файла или папки">
+    </div>
+    <div class="header__button">
+        <button matRipple matRippleColor="white" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="addFile = !addFile">
+            Добавить
+        </button>
+    </div>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="addFile">
+        <div class="header__add">
+            <div class="item" (click)="addFolder()">Папка</div>
+            <div class="item">Отчёт</div>
+        </div>
+    </ng-template>
+
+</div>
