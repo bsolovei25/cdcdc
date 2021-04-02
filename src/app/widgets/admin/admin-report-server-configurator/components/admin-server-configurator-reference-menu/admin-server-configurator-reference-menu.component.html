@@ -1,4 +1,20 @@
 <div class="menu">
-    <div class="menu__header"></div>
-    <div class="menu__body"></div>
+    <div class="menu__header">
+        <div class="menu__header__name">Название</div>
+        <div class="menu__header__change">последнее изменение</div>
+    </div>
+    <div class="menu__body">
+        <ng-container *ngFor="let item of [1, 1, 1]">
+            <div class="item">
+                <div class="item__icon"></div>
+                <div class="item__name">Отчёты по установке ГФУ-2</div>
+                <div class="name__date">1 мар. 2021</div>
+                <div class="name__options">
+                    <svg-icon></svg-icon>
+                    <svg-icon></svg-icon>
+                    <svg-icon></svg-icon>
+                </div>
+            </div>
+        </ng-container>
+    </div>
 </div>
