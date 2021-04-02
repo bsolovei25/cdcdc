@@ -2,9 +2,8 @@
   <div class="main-groups__item main-groups__item-modified">
     <div class="main-groups__row">
       <div
-        style="cursor: pointer"
         class="title"
-        (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 152)?.linkId)"
+        (click)="redirectMnemonic(inputOne)"
       >
         <div class="arrow-btn">
           <svg-icon
@@ -12,7 +11,7 @@
             [svgStyle]="{ 'width.px':16, 'height.px':16 }"
           ></svg-icon>
         </div>
-        <span>{{mvpService.getElementByCode(sections, 152)?.name}}</span>
+        <span>{{ inputOne?.name }}</span>
         <div class="connection-circle"></div>
       </div>
       <evj-sou-mvp-mnemonic-scheme-circle-diagram
@@ -120,7 +119,7 @@
   <div class="main-groups__item">
     <div
       style="cursor: pointer"
-      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 158)?.linkId)"
+      (click)="redirectMnemonic(inputTwo)"
       class="title"
     >
       <div class="arrow-btn">
@@ -129,7 +128,7 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>{{mvpService.getElementByCode(sections, 158)?.name}}</span>
+      <span>{{ inputTwo?.name }}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram

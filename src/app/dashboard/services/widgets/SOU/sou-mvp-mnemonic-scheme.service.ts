@@ -24,6 +24,7 @@ export class SouMvpMnemonicSchemeService {
 
     constructor(private http: HttpClient) {}
 
+    // linkId === sectionId
     redirectMnemonic(linkId: string): void {
         console.log('redirect', linkId);
         if (!linkId) {
