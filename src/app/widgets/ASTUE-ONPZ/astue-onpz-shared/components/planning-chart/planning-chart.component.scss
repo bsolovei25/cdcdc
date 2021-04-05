@@ -69,7 +69,7 @@
     }
 
     .point {
-      fill: #1c1f2b;
+      fill: var(--gray-G11-color);
       stroke-width: 2;
 
       &_plan {

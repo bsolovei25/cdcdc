@@ -295,30 +295,20 @@ export class PlanningChartComponent implements OnChanges {
             .slice(-1)[0];
         if (item) {
             const g = pointsG.append('g').attr('class', 'fact-point');
-            g.append('circle')
-                .attr('class', 'point point_fact')
-                .attr('cx', item.x)
-                .attr('cy', item.y)
-                .attr('r', 4.5)
-                .style('opacity', 0.05);
-            g.append('circle')
-                .attr('class', 'point point_fact')
-                .attr('cx', item.x)
-                .attr('cy', item.y)
-                .attr('r', 3.5)
-                .style('opacity', 0.2);
-            g.append('circle')
-                .attr('class', 'point point_fact')
-                .attr('cx', item.x)
-                .attr('cy', item.y)
-                .attr('r', 1.5)
-                .style('opacity', 0.5);
-            g.append('circle')
-                .attr('class', 'point point_fact')
-                .attr('cx', item.x)
-                .attr('cy', item.y)
-                .attr('r', 0.5)
-                .style('opacity', 1);
+            const points: { radius: number, opacity: number }[] = [
+                { radius: 4.5, opacity: 0.05 },
+                { radius: 3.5, opacity: 0.2 },
+                { radius: 1.5, opacity: 0.5 },
+                { radius: 0.5, opacity: 1 }
+            ];
+            points.forEach(v => {
+                g.append("circle")
+                    .attr("class", "point point_fact")
+                    .attr("cx", item.x)
+                    .attr("cy", item.y)
+                    .attr("r", v.radius)
+                    .style("opacity", v.opacity);
+            });
             g.style('transform', 'translateY(5)');
         }
     }
