@@ -6,6 +6,8 @@ import {
     OnChanges,
     Renderer2,
     ViewChild,
+    SimpleChange,
+    SimpleChanges,
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
@@ -41,15 +43,14 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 })
 export class SouSchemaComponent implements OnChanges {
     elementsNode: Element[] = []; // все элементы
-    dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
+    elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
     fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
     dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
-    localChosenInstall: string;
     private elementsTypesCount: number = 12;
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: string;
+    @Input() chosenInstall: string; // Выбранная установка
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
@@ -58,28 +59,65 @@ export class SouSchemaComponent implements OnChanges {
         public renderer: Renderer2,
     ) {}
 
-    ngOnChanges(): void {
-        if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+    ngOnChanges(changes: SimpleChanges): void {
+        const chosenInstallChanges: SimpleChange = changes?.chosenInstall;
+
+        if (!this.chosenInstall || (chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue)) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
-            this.localChosenInstall = this.chosenInstall;
             this.processSvgWhenItIsReady();
             this.resetComponent();
-            console.log('local choosen install', this.localChosenInstall, this.getSvgFileName(this.localChosenInstall));
+            console.log('choosen install', this.chosenInstall, this.svgFileName);
         }
+
         if (this.dataPark?.length) {
             // Если есть старые данные с бэка
             // 1. Изменяем и дополняем
             this.dataPark.push(...this.setNewDataToSchema());
             // 2. Отрисовываем
             this.loadData(true);
-        } else if (this.dataAttribute?.size) {
+        } else if (this.elementsMap?.size) {
             // Если данных с бэка небыло, то заполняем
             this.dataPark = this.sectionsDataPark;
             this.loadData(false);
         }
     }
 
-    public getSvgElement(): SVGElement {
+    public get svgFileName(): string {
+        if (this.chosenInstall) {
+            switch (this.chosenInstall) {
+                case 'АССБ Авиасмеси':
+                    return 'ASSB-AviaSmesi';
+                case 'АССБ А-95':
+                    return 'ASSB-A-95';
+                case 'АССБ А-98':
+                    return 'ASSB-A-98';
+                case 'Насосная т.1163-1164 парк БГС':
+                    return 'Nasosnaya-park-BGS';
+                case 'Насосная т.1163-1164 парк А-95':
+                    return 'Nasosnaya-park-A-95';
+                case 'Насосная т.1163-1164 парк А-92':
+                    return 'Nasosnaya-park-A-92';
+                case 'ТСБ-1 Узел смешения нефти и КГС':
+                    return 'TSB-1-Usel';
+                case 'АВТ-10':
+                    return 'ABT-10-ELOU';
+                case 'ГФУ-2':
+                    return 'gfu-2';
+                case 'Коллектор Рефлюкса':
+                    return 'collector-ref';
+                case 'КПА С100':
+                    return 'kpa-c100';
+                case 'Л-35-11-1000':
+                    return 'l-35-11-1000';
+                case 'Сырьевой парк тит. 4022':
+                    return 'raw-materials-park-4022';
+            }
+        }
+
+        return null;
+    }
+
+    private getSvgElement(): SVGElement {
         return this.svgContainer?.nativeElement?.querySelector('svg');
     }
 
@@ -95,7 +133,7 @@ export class SouSchemaComponent implements OnChanges {
 
         const wait = () => {
             const svg = this.getSvgElement();
-            const foundKeyElem = svg?.querySelector(`#element-1_1__${this.getSvgFileName(this.localChosenInstall)}`);
+            const foundKeyElem = svg?.querySelector(`#element-1_1__${this.svgFileName}`);
 
             if (foundKeyElem) {
                 processSvg();
@@ -109,8 +147,8 @@ export class SouSchemaComponent implements OnChanges {
         wait();
     }
 
+    // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
     setNewDataToSchema(): (ISouFlowOut | ISouFlowIn | ISouObjects)[] {
-        // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
         const newArray = [];
         this.sectionsDataPark?.forEach((value) => {
             const element = this.dataPark.find((park) => value?.code === park?.code);
@@ -131,12 +169,13 @@ export class SouSchemaComponent implements OnChanges {
                 newArray.push(value);
             }
         });
+
         return newArray;
     }
 
     resetComponent(): void {
         this.elementsNode = [];
-        this.dataAttribute.clear();
+        this.elementsMap.clear();
         this.fullElement.clear();
     }
 
@@ -187,7 +226,7 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     loadNewData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
-        const element = this.dataAttribute.get(data?.code);
+        const element = this.elementsMap.get(data?.code);
         const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
         this.prepareElement(false, mode, element, data);
     }
@@ -206,13 +245,29 @@ export class SouSchemaComponent implements OnChanges {
             : related;
     }
 
-    parseSvg(): void {
-        let i: number = 1;
-        while (i <= this.elementsTypesCount) {
-            this.searchAndPrepareElementsInColumn(i);
-            i++;
-        }
-        console.log(`Атрибутов: ${this.dataAttribute?.size}`);
+    private parseSvg(): void {
+        const svg = this.getSvgElement();
+        const elements = svg.querySelectorAll('[id^=element-]');
+        const lines = svg?.querySelectorAll(`[id^=line_]`);
+
+        // Обработка элементов схемы
+        elements.forEach((element: Element) => {
+            const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
+            const id = elMatch && elMatch[2] && parseInt(elMatch[2], 10);
+
+            this.prepareElement(false, 'reset', element);
+            this.elementsMap.set(id, element);
+        });
+
+        // Обработка линий
+        lines.forEach((line: Element) => {
+            const elMatch = line?.id?.match(/line_(\d+)/i);
+            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+            this.elementsMap.set(id, line);
+            console.log(line, line.id, id);
+        });
+
+        console.log(`Элементов и линий: ${this.elementsMap?.size}`, this.elementsMap);
     }
 
     prepareElement(
@@ -276,7 +331,7 @@ export class SouSchemaComponent implements OnChanges {
             this.addElemClass(item, [`${mode}-text`]);
 
             if (elementFull?.metaFile) {
-                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
+                const element4 = this.elementsMap.get(elementFull.metaFile.code);
 
                 if (this.isElemOfFourthType(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
@@ -288,7 +343,7 @@ export class SouSchemaComponent implements OnChanges {
                 }
             } else {
                 this.addTextToElem(item, String(name));
-                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+                const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
                 if (this.isElemOfFourthType(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
                 }
@@ -359,14 +414,14 @@ export class SouSchemaComponent implements OnChanges {
                 if (elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
                 }
-                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+                const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
                 if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
             if ('value' in elementFull?.metaFile) {
                 this.addTextToElem(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
-                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
+                const element4 = this.elementsMap.get(elementFull.metaFile.code);
                 if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
@@ -382,7 +437,7 @@ export class SouSchemaComponent implements OnChanges {
                 ]);
                 this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
             }
-            const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
+            const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
             if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
                 this.addElemClass(elementFull?.textValue, [`text-anchor`]);
             }
@@ -391,7 +446,7 @@ export class SouSchemaComponent implements OnChanges {
         // related elements
         if (typeof elementFull?.metaFile?.related === 'object') {
             elementFull?.metaFile?.related.forEach((id) => {
-                const elementRelated = this.dataAttribute.get(id);
+                const elementRelated = this.elementsMap.get(id);
                 if (elementRelated?.children) {
                     const elementsRelated = Array.from(elementRelated?.children);
                     let elementFullRelated: IElementFull = {
@@ -499,7 +554,7 @@ export class SouSchemaComponent implements OnChanges {
             this.elementActive(elementFull);
             if (typeof elementFull.metaFile.related === 'object') {
                 elementFull.metaFile?.related?.forEach((value) => {
-                    const element = this.dataAttribute.get(value);
+                    const element = this.elementsMap.get(value);
                     if (element && element.getAttribute('id')?.includes('line')) {
                         this.lineActive(element, elementFull);
                     } else {
@@ -651,62 +706,6 @@ export class SouSchemaComponent implements OnChanges {
             }
         });
         return arrow;
-    }
-
-    searchAndPrepareElementsInColumn(columnIndex: number): void {
-        let i = 1; // счетчик элементов
-        while (i < 300) {
-            // поиск по id  - id=element-1_2
-            const svg = this.getSvgElement();
-            const elementFirst = svg?.querySelector(`#element-${columnIndex}_${i}__${this.getSvgFileName(this.localChosenInstall)}`);
-            const element = svg?.querySelector(`#element-${columnIndex}_${i}`);
-            const line = svg?.querySelector(`#line_${i}`);
-
-            if (elementFirst) {
-                this.prepareElement(false, 'reset', elementFirst);
-                this.dataAttribute.set(i, elementFirst);
-            }
-            if (element) {
-                this.prepareElement(false, 'reset', element);
-                this.dataAttribute.set(i, element);
-            }
-            if (line) {
-                this.dataAttribute.set(i, line);
-            }
-
-            i++;
-        }
-    }
-
-    public getSvgFileName(chosenInstall: string): string {
-        switch (chosenInstall) {
-            case 'АССБ Авиасмеси':
-                return 'ASSB-AviaSmesi';
-            case 'АССБ А-95':
-                return 'ASSB-A-95';
-            case 'АССБ А-98':
-                return 'ASSB-A-98';
-            case 'Насосная т.1163-1164 парк БГС':
-                return 'Nasosnaya-park-BGS';
-            case 'Насосная т.1163-1164 парк А-95':
-                return 'Nasosnaya-park-A-95';
-            case 'Насосная т.1163-1164 парк А-92':
-                return 'Nasosnaya-park-A-92';
-            case 'ТСБ-1 Узел смешения нефти и КГС':
-                return 'TSB-1-Usel';
-            case 'АВТ-10':
-                return 'ABT-10-ELOU';
-            case 'ГФУ-2':
-                return 'gfu-2';
-            case 'Коллектор Рефлюкса':
-                return 'collector-ref';
-            case 'КПА С100':
-                return 'kpa-c100';
-            case 'Л-35-11-1000':
-                return 'l-35-11-1000';
-            case 'Сырьевой парк тит. 4022':
-                return 'raw-materials-park-4022';
-        }
     }
 
     // Проверяет, является ли элемент 4 типом
