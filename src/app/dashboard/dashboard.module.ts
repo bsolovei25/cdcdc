@@ -81,6 +81,7 @@ import { GroupSelectorModalComponent } from './components/header-components/grou
 import { FilterGroupsPipe } from './components/header-components/group-selector/filter-groups.pipe';
 import { PortalModule } from '@angular/cdk/portal';
 import { AboutComponent } from './components/about/about.component';
+import { ReportLoadingFileComponent } from './components/report/report-loading-file/report-loading-file.component';
 
 @NgModule({
     declarations: [
@@ -104,6 +105,7 @@ import { AboutComponent } from './components/about/about.component';
         SearchListComponent,
         ReportComponent,
         ReportsComponent,
+        ReportLoadingFileComponent,
         DevGraphComponent,
         ReportTreeComponent,
         TableGridComponent,
@@ -128,6 +130,7 @@ import { AboutComponent } from './components/about/about.component';
         GroupSelectorModalComponent,
         FilterGroupsPipe,
         AboutComponent,
+        ReportLoadingFileComponent,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-135 362.1 324 116.8" style="enable-background:new -135 362.1 324 116.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.2;fill:url(#SVGID_1_);enable-background:new    ;}
+	.st1{fill:#8B95AD;}
+	.st2{font-family:'Tahoma';}
+	.st3{font-size:6.21px;}
+	.st4{fill:none;stroke:#131822;stroke-width:0.5;stroke-miterlimit:10;}
+	.st5{fill:#FFFFFF;}
+	.st6{font-size:5.08px;}
+	.st7{opacity:0.2;fill:url(#SVGID_2_);enable-background:new    ;}
+	.st8{fill:#41A7F3;}
+	.st9{opacity:0.1;fill:url(#SVGID_3_);enable-background:new    ;}
+	.st10{fill:#FFFDFF;}
+	.st11{opacity:0.15;fill:#FFFFFF;enable-background:new    ;}
+	.st12{opacity:0.25;fill:#FFFFFF;enable-background:new    ;}
+	.st13{opacity:0.2;fill:#FFFFFF;enable-background:new    ;}
+	.st14{opacity:0.1;fill:url(#SVGID_4_);enable-background:new    ;}
+</style>
+<title>Макеты (4)-41</title>
+<g id="a9e57fd1-6d70-4f5b-a9cd-c4acca9a5d7c">
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="88.17" y1="470.5021" x2="88.17" y2="455.2321" gradientTransform="matrix(1 0 0 -1 0 840.17)">
+		<stop  offset="0" style="stop-color:#5B607D"/>
+		<stop  offset="0.84" style="stop-color:#5B607D"/>
+	</linearGradient>
+	<path class="st0" d="M-7.3,384.9h190.9v-11c-1.4-1.2-3.9-3.1-5.3-4.3H-2l-5.2,4.7L-7.3,384.9z"/>
+	<text transform="matrix(1 0 0 1 29.73 379.1779)" class="st1 st2 st3">Наименование колонны</text>
+	<text transform="matrix(1 0 0 1 150.39 379.9579)" class="st1 st2 st3">Тип</text>
+	<line class="st4" x1="128.9" y1="385.6" x2="128.9" y2="468"/>
+	<line class="st4" x1="184.4" y1="398.7" x2="-7.2" y2="398.7"/>
+	<line class="st4" x1="184.4" y1="412.5" x2="-7.2" y2="412.5"/>
+	<line class="st4" x1="184.4" y1="426.6" x2="-7.2" y2="426.6"/>
+	<line class="st4" x1="184.4" y1="440.3" x2="-7.2" y2="440.3"/>
+	<line class="st4" x1="184.4" y1="454.1" x2="-7.2" y2="454.1"/>
+	<line class="st4" x1="184.4" y1="467.8" x2="-7.2" y2="467.8"/>
+	<path class="st5" d="M167.8,391.1L167.8,391.1c0.1-0.1,0.2-0.1,0.3-0.1l2.5,2.5c0.1,0.1,0.1,0.2,0,0.2l-0.1,0.1
+		c-0.1,0.1-0.2,0.1-0.2,0l-2.5-2.5C167.7,391.3,167.7,391.2,167.8,391.1z"/>
+	<path class="st5" d="M172.9,391L172.9,391c0.1,0.1,0.1,0.2,0.1,0.3l-2.5,2.5c-0.1,0.1-0.2,0.1-0.2,0l-0.1-0.1
+		c-0.1-0.1-0.1-0.2,0-0.2l2.5-2.5C172.8,391,172.9,391,172.9,391z"/>
+	<text transform="matrix(1 0 0 1 133.83 393.4879)" class="st5 st2 st6">Текст</text>
+	<path class="st5" d="M167.8,404.4L167.8,404.4c0.1-0.1,0.2-0.1,0.3-0.1l2.5,2.5c0.1,0.1,0.1,0.2,0,0.2l-0.1,0.1
+		c-0.1,0.1-0.2,0.1-0.2,0l-2.5-2.5C167.8,404.6,167.8,404.5,167.8,404.4z"/>
+	<path class="st5" d="M172.9,404.4L172.9,404.4c0.1,0.1,0.1,0.2,0.1,0.3l-2.5,2.5c-0.1,0.1-0.2,0.1-0.2,0l-0.1-0.1
+		c-0.1-0.1-0.1-0.2,0-0.2l2.5-2.5C172.8,404.3,172.9,404.3,172.9,404.4z"/>
+	<text transform="matrix(1 0 0 1 133.51 406.8279)" class="st5 st2 st6">Дата</text>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-70.7" y1="470.5021" x2="-70.7" y2="455.2321" gradientTransform="matrix(1 0 0 -1 0 840.17)">
+		<stop  offset="0" style="stop-color:#5B607D"/>
+		<stop  offset="0.84" style="stop-color:#5B607D"/>
+	</linearGradient>
+	<path class="st7" d="M-127,384.9h112.6v-11c-1.4-1.2-3.9-3.1-5.3-4.3h-102l-5.3,4.7V384.9z"/>
+	<text transform="matrix(1 0 0 1 -110.82 379.1779)" class="st1 st2 st3">Наименование справочника</text>
+	<text transform="matrix(1 0 0 1 -119.42 406.8279)" class="st5 st2 st6">Установки</text>
+	<text transform="matrix(1 0 0 1 5.05 393.4879)" class="st5 st2 st6">ФИО</text>
+	<rect x="-125.3" y="386" class="st8" width="0.7" height="11.6"/>
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-1878.8329" y1="-5307.3501" x2="-1878.8329" y2="-5207.8604" gradientTransform="matrix(6.123234e-017 -1 -1 -6.123234e-017 -5334.5103 -1487.0299)">
+		<stop  offset="0" style="stop-color:#41A7F3"/>
+		<stop  offset="7.000000e-002" style="stop-color:#41A7F3"/>
+		<stop  offset="0.98" style="stop-color:#41A7F3"/>
+	</linearGradient>
+	<path class="st9" d="M-126.7,396.4v-9.3c0-0.7,0.5-1.2,1.2-1.2l0,0h92.6c3.2,0,5.7,2.6,5.7,5.7c0,0,0,0,0,0v0.2
+		c0,3.2-2.6,5.7-5.7,5.7l0,0h-92.6C-126.1,397.6-126.7,397.1-126.7,396.4L-126.7,396.4z"/>
+	<text transform="matrix(1 0 0 1 -119.99 393.4879)" class="st5 st2 st6">Сотрудники</text>
+	<path class="st8" d="M-14.6,391.7v0.2c0,3.2-2.6,5.7-5.7,5.7h-0.3c-3.2,0-5.7-2.6-5.7-5.7v-0.2c0-3.2,2.6-5.7,5.7-5.7h0.3
+		C-17.2,386-14.6,388.5-14.6,391.7z"/>
+	<path class="st10" d="M-21.8,390.7h2.8c0,0,0,0.1,0,0.1c0,0.3-0.1,0.7-0.1,1c-0.1,0.6-0.1,1.2-0.2,1.8c0,0,0,0.1,0,0.1
+		c0,0.1-0.1,0.1-0.2,0.1h-1.8c-0.1,0-0.2-0.1-0.2-0.2c0-0.1,0-0.2,0-0.4c0-0.4-0.1-0.9-0.1-1.3c-0.1-0.4-0.1-0.8-0.1-1.2
+		L-21.8,390.7z M-20.8,393.3L-20.8,393.3l-0.2-1.1c0-0.2,0-0.4-0.1-0.6c-0.1-0.2,0-0.3,0-0.5c0-0.1,0-0.1-0.1-0.2
+		c-0.1,0-0.1,0-0.2,0.1c0,0,0,0,0,0.1c0,0.4,0.1,0.8,0.1,1.3c0.1,0.4,0.1,0.6,0.1,0.9c0,0.1,0,0.1,0.1,0.1
+		C-20.9,393.4-20.9,393.3-20.8,393.3C-20.9,393.3-20.9,393.3-20.8,393.3z M-19.4,391.1c0-0.1,0-0.1-0.1-0.2c-0.1,0-0.1,0-0.1,0.1
+		c0,0,0,0,0,0l-0.1,0.8l-0.2,1.4c0,0.1,0,0.1,0.1,0.2c0.1,0,0.1,0,0.1-0.1c0,0,0,0,0,0l0.1-0.6c0-0.3,0.1-0.7,0.1-1
+		S-19.5,391.3-19.4,391.1z M-20.3,392.2L-20.3,392.2v-0.6c0-0.1,0-0.3,0-0.4c0-0.1-0.1-0.2-0.2-0.1c-0.1,0-0.1,0.1-0.1,0.2v2.2
+		c0,0.1,0.1,0.1,0.1,0.1c0.1,0,0.1,0,0.1-0.1c0,0,0-0.1,0-0.1C-20.3,392.9-20.3,392.5-20.3,392.2z"/>
+	<path class="st10" d="M-21,390.1v-0.3c0-0.1,0.1-0.2,0.2-0.2h0.7c0.1,0,0.2,0.1,0.2,0.2c0,0,0,0,0,0.1v0.3h0.8c0.1,0,0.2,0,0.2,0.1
+		c0,0.1,0,0.2,0,0.2c-0.1,0.1-0.1,0.1-0.2,0.1h-2.7c-0.1,0-0.3,0-0.3-0.1c0,0,0,0,0,0c0-0.1,0-0.2,0.1-0.3c0,0,0.1,0,0.1,0
+		L-21,390.1L-21,390.1z M-20.7,390.1h0.5v-0.2h-0.5V390.1z"/>
+	<path class="st11" d="M-15.6,391.7v0.1c0,2.6-2.1,4.8-4.8,4.8h-0.2c-2.6,0-4.8-2.1-4.8-4.8v-0.1c0-2.6,2.1-4.8,4.8-4.8h0.2
+		C-17.7,386.9-15.6,389.1-15.6,391.7z"/>
+	<path class="st12" d="M-16.6,391.7v0.1c0,2.1-1.7,3.8-3.8,3.8h-0.2c-2.1,0-3.8-1.7-3.8-3.8v-0.1c0-2.1,1.7-3.8,3.8-3.8h0.2
+		C-18.3,387.9-16.6,389.6-16.6,391.7z"/>
+	<path class="st13" d="M-17.5,391.7L-17.5,391.7c0,1.7-1.3,3-2.9,3h-0.1c-1.6,0-2.9-1.3-2.9-2.9v-0.1c0-1.6,1.3-2.9,2.9-2.9h0.1
+		C-18.8,388.9-17.5,390.2-17.5,391.7z"/>
+	<rect x="-7.9" y="398.9" class="st8" width="0.8" height="13.4"/>
+	<path class="st5" d="M-37.4,392.8v1h1l3-3l-1-1L-37.4,392.8z M-32.5,390c0.1-0.1,0.1-0.3,0-0.4c0,0,0,0,0,0l-0.6-0.6
+		c-0.1-0.1-0.3-0.1-0.4,0c0,0,0,0,0,0l-0.5,0.5l1,1L-32.5,390z"/>
+	
+		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-5844.9575" y1="648.02" x2="-5844.9575" y2="838.27" gradientTransform="matrix(6.123234e-017 1 1 -6.123234e-017 -654.3701 6250.6704)">
+		<stop  offset="0" style="stop-color:#41A7F3"/>
+		<stop  offset="0.14" style="stop-color:#41A7F3"/>
+		<stop  offset="1" style="stop-color:#41A7F3"/>
+	</linearGradient>
+	<rect x="-6.4" y="398.9" class="st14" width="190.3" height="13.7"/>
+	<text transform="matrix(1 0 0 1 5.05 406.8279)" class="st5 st2 st6">Дата Рождения</text>
+	<path class="st5" d="M116.1,407.3v1h1l3-3l-1-1L116.1,407.3z M121,404.5c0.1-0.1,0.1-0.3,0-0.4c0,0,0,0,0,0l-0.6-0.6
+		c-0.1-0.1-0.3-0.1-0.4,0c0,0,0,0,0,0l-0.5,0.5l1,1L121,404.5z"/>
+	<path class="st5" d="M116.1,407.3v1h1l3-3l-1-1L116.1,407.3z M121,404.5c0.1-0.1,0.1-0.3,0-0.4c0,0,0,0,0,0l-0.6-0.6
+		c-0.1-0.1-0.3-0.1-0.4,0c0,0,0,0,0,0l-0.5,0.5l1,1L121,404.5z"/>
+	<text transform="matrix(1 0 0 1 -119.92 420.3379)" class="st5 st2 st6">Профессии</text>
+	<text transform="matrix(1 0 0 1 -119.92 435.2779)" class="st5 st2 st6">Отчеты</text>
+	<text transform="matrix(1 0 0 1 133.83 421.8379)" class="st5 st2 st6">Текст</text>
+	<text transform="matrix(1 0 0 1 5.05 421.8379)" class="st5 st2 st6">Должность</text>
+	<text transform="matrix(1 0 0 1 133.83 435.3379)" class="st5 st2 st6">Текст</text>
+	<text transform="matrix(1 0 0 1 5.05 435.3379)" class="st5 st2 st6">Подразделение</text>
+	<text transform="matrix(1 0 0 1 133.83 449.1779)" class="st5 st2 st6">Текст</text>
+	<text transform="matrix(1 0 0 1 5.05 449.1779)" class="st5 st2 st6">Телефон</text>
+</g>
+</svg>

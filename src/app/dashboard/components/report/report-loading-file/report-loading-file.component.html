@@ -1,0 +1,15 @@
+<div class="container" [style.opacity]="percent === 100 ? 1 : 0.5">
+  <div class="file-info">
+    <div class="file-loading">
+      <div class="chart" #chart>
+        <svg-icon
+          [src]="'assets/icons/widgets/reports/' + (percent === 100 ? 'loaded' : 'pause') + '.svg'"
+          [svgStyle]="{ 'width.px':8, 'height.px':8}"
+          [attr.class]="percent === 100 ? 'loaded' : 'pause'"
+        ></svg-icon>
+      </div>
+      <div class="weight">{{inputData.weight}} MB</div>
+    </div>
+  </div>
+  <svg-icon class="file-type" src="assets/icons/widgets/reports/{{inputData.fileType}}.svg"></svg-icon>
+</div>

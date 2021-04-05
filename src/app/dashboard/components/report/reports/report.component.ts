@@ -85,6 +85,8 @@ export class ReportComponent implements OnInit {
 
     public timeCheck: string = 'Годичный';
 
+    readonly files: ('xlsx' | 'pdf' | 'html')[] = ['xlsx', 'pdf', 'html'];
+
     formGroup: IReportFormGroup[] = [];
 
     @Input() data: IReportTemplate;

@@ -1,14 +1,14 @@
-<h4 class="widgets-panel__heading">Доступные виджеты</h4>
+<span class="widgets-panel__heading">Доступные виджеты</span>
 <div class="widget_menu">
   <label class="mycheckbox">
     <input type="checkbox" id="checkBoxFix" value="Swap Items" class="mycheckbox__default" (click)="changeSwap()" />
     <div class="mycheckbox__new" [class.mycheckbox__checked]="!fixWidget"></div>
-    <div class="mycheckbox__descr">Зафиксировать виджеты</div>
+    <div class="mycheckbox__descr" [class.mycheckbox__descr_checked]="!fixWidget">Зафиксировать виджеты</div>
   </label>
   <label class="mycheckbox">
     <input type="checkbox" id="checkBoxGrid" value="Swap Items" class="mycheckbox__default" (click)="getGridView()" />
     <div class="mycheckbox__new" [class.mycheckbox__checked]="!gridWidget"></div>
-    <div class="mycheckbox__descr">Сетка</div>
+    <div class="mycheckbox__descr" [class.mycheckbox__descr_checked]="!gridWidget">Сетка</div>
   </label>
 </div>
 <div class="search_block">
