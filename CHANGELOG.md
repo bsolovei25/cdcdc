@@ -1,3 +1,16 @@
+# [1.11.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.10.0...v1.11.0) (2021-04-05)
+
+
+### Bug Fixes
+
+* **#1240:** Переход между мнемосхемами ([e3c4974](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e3c4974c8754385c6acefcf1bc7c49188dff1b48)), closes [#1240](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1240)
+
+
+### Features
+
+* **#1506:** Рефакторинг и улучшения проекта СОУ ([cdb4fbf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cdb4fbfbd0782ca6d6bedddb2340a30581d53614)), closes [#1506](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1506)
+* **#997:** "Разработка белой темы и обновление панели виджетов" ([8598a2b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8598a2bc40b7f1b683aed1315b73fa949672affd)), closes [#997](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/997)
+
 # [1.10.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.9.0...v1.10.0) (2021-04-02)
 
 
