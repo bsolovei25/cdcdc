@@ -177,7 +177,7 @@
 <path id="Vector_42" d="M35.5469 639.438V640.83" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="Arrow-1">
+<g id=" Line-63">
 <g id=".template arrow">
 <path id="line" d="M184 298L515 298" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off">
@@ -191,7 +191,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-2">
+<g id="Line-64">
 <g id=".template arrow_2">
 <path id="line_dotted" d="M184 366L515 366" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_2">
@@ -205,7 +205,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-3">
+<g id="Line-65">
 <g id=".template arrow_3">
 <path id="line_dotted_2" d="M184 570L515 570" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_3">
@@ -219,7 +219,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-4">
+<g id="Line-66">
 <g id=".template arrow_4">
 <path id="line_dotted_3" d="M184 434L515 434" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_4">
@@ -233,7 +233,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-5">
+<g id="Line-67">
 <g id=".template arrow_5">
 <path id="line_dotted_4" d="M184 638L515 638" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_5">
@@ -247,7 +247,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-6">
+<g id="Line-68">
 <g id=".template arrow_6">
 <path id="line_2" d="M184 502L515 502" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_6">
@@ -488,7 +488,7 @@
 <text id="text_19" transform="translate(528 561) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="52.4668" y="13.1606">PL3903.1</tspan></text>
 <rect x="520" y="48" width="32" height="840" rx="2" stroke="#606580"/>
 </g>
-<g id="Arrow-7">
+<g id="Line-69">
 <g id=".template arrow_7">
 <path id="line_dotted_5" d="M552 110L806 110" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_7">
@@ -502,7 +502,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-8">
+<g id="Line-70">
 <g id=".template arrow_8">
 <path id="line_dotted_6" d="M552 246L806 246" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_8">
@@ -516,7 +516,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-9">
+<g id="Line-71">
 <g id=".template arrow_9">
 <path id="line_dotted_7" d="M552 393L806 393" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_9">
@@ -530,7 +530,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-10">
+<g id="Line-72">
 <g id=".template arrow_10">
 <path id="line_dotted_8" d="M552 540L806 540" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_10">
@@ -544,7 +544,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-11">
+<g id="Line-73">
 <g id=".template arrow_11">
 <path id="line_dotted_9" d="M552 684L806 684" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_11">
@@ -558,7 +558,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-12">
+<g id="Line-74">
 <g id=".template arrow_12">
 <path id="line_dotted_10" d="M552 828L806 828" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_12">
@@ -824,7 +824,7 @@
 <text id="text_31" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="841.312" y="821.852">P-1</tspan></text>
 <text id="text_value_18" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="827.251" y="874.058">12 047 &#x442;</tspan></text>
 </g>
-<g id="Arrow-13">
+<g id="Line-75">
 <g id=".template arrow_13">
 <path id="line_dotted_11" d="M899 110L1153 110" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_13">
@@ -838,7 +838,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-14">
+<g id="Line-76">
 <g id=".template arrow_14">
 <path id="line_dotted_12" d="M899 246L1153 246" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_14">
@@ -852,7 +852,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-15">
+<g id="Line-77">
 <g id=".template arrow_15">
 <path id="line_dotted_13" d="M899 393L1153 393" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_15">
@@ -866,7 +866,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-16">
+<g id="Line-78">
 <g id=".template arrow_16">
 <path id="line_dotted_14" d="M899 540L1153 540" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_16">
@@ -880,7 +880,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-17">
+<g id="Line-79">
 <g id=".template arrow_17">
 <path id="line_dotted_15" d="M899 684L1153 684" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_17">
@@ -894,7 +894,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-18">
+<g id="Line-80">
 <g id=".template arrow_18">
 <path id="line_dotted_16" d="M899 828L1153 828" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_18">
@@ -1123,7 +1123,7 @@
 <text id="text_38" transform="translate(1161 561) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="52.4668" y="13.1606">PL3903.1</tspan></text>
 <rect x="1153" y="48" width="32" height="840" rx="2" stroke="#606580"/>
 </g>
-<g id="Arrow-19">
+<g id="Line-81">
 <g id=".template arrow_19">
 <path id="line_dotted_17" d="M1188 384L1519 384" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_19">
@@ -1137,7 +1137,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-20">
+<g id="Line-82">
 <g id=".template arrow_20">
 <path id="line_dotted_18" d="M1188 452L1519 452" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_20">
@@ -1151,7 +1151,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-21">
+<g id="Line-83">
 <g id=".template arrow_21">
 <path id="line_dotted_19" d="M1188 584L1519 584" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_21">
@@ -1165,7 +1165,7 @@
 </g>
 </g>
 </g>
-<g id="Arrow-22">
+<g id="Line-84">
 <g id=".template arrow_22">
 <path id="line_3" d="M1188 516L1519 516" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_22">
