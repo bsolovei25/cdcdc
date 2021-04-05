@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 5px 0;
-  color: var(--color-text-sub);
+  color: var(--border-icon-color);
 
   &__header {
     display: flex;
@@ -11,6 +11,9 @@
 
     &__icon {
       cursor: pointer;
+      &_close {
+        color: var(--border-icon-color);
+      }
     }
 
     &__title {
@@ -20,12 +23,8 @@
       padding-left: 10px;
       font-size: 14px;
 
-      &:hover {
-        color: var(--color-text-main);
-      }
-
-      &-selected {
-        color: var(--color-text-main);
+      &:hover, &-selected {
+        color: var(--text-accent-color);
       }
     }
   }

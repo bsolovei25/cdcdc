@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  height: 46px;
+  width: 140px;
+  padding: 8px;
+
+  display: flex;
+  border: 1px solid var(--border-vidget-color);
+  background: var(--bg-header-color);
+  border-radius: 2px;
+
+  position: relative;
+
+  .file-info {
+    flex: 1;
+    display: flex;
+
+    .file-loading {
+      display: flex;
+      align-items: center;
+
+      .chart {
+        height: 16px;
+        width: 16px;
+        position: relative;
+
+        svg-icon {
+          position: absolute;
+          top: -1px;
+          left: 3px;
+
+          ::ng-deep svg {
+            color: var(--index-fact-color);
+          }
+        }
+
+        .loaded {
+          left: 4px;
+          top: -1px;
+        }
+      }
+
+      .weight {
+        margin-left: 9px;
+
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--text-subscript-color);
+      }
+    }
+  }
+
+  .file-type {
+    color: var(--border-forms-color);
+  }
+}

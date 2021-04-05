@@ -2,10 +2,10 @@
   cursor: move !important;
   position: relative;
   height: 35px;
-  width: calc(100% - 5px);
+  width: 100%;
   box-sizing: border-box;
   z-index: 800;
-  background-color: var(--color-bg-additional);
+  background-color: var(--bg-header-color);
 
   &__content {
     width: 100%;
@@ -19,7 +19,6 @@
     align-items: center;
     min-width: 44px;
     height: 100%;
-    background-color: var(--color-bg-sub);
     padding: 9px 15px;
     margin-right: 10px;
     box-sizing: border-box;
@@ -39,40 +38,6 @@
     font-size: 0.75rem;
     color: var(--color-text-sub);
   }
-
-  &:before {
-    z-index: 1;
-    content: "";
-    position: absolute;
-
-    top: -4px;
-    left: -1px;
-
-    height: 9px;
-    width: 9px;
-    box-sizing: border-box;
-
-    transform-origin: 43% 0;
-    transform: rotate(45deg);
-
-    background: var(--color-bg-main);
-  }
-
-  &:after {
-    z-index: 1;
-    content: "";
-    position: absolute;
-    top: -2px;
-    right: -1px;
-
-    height: 7px;
-    width: 7px;
-    box-sizing: border-box;
-    transform-origin: 43% 0;
-    transform: rotate(-45deg);
-
-    background: var(--color-bg-main);
-  }
 }
 
 .delete_widget {
@@ -81,7 +46,7 @@
   align-items: center;
   min-width: 44px;
   height: 100%;
-  background-color: var(--color-bg-sub);
+  background-color: var(--bg-header-color);
   padding: 9px 15px;
   box-sizing: border-box;
   z-index: 999;
