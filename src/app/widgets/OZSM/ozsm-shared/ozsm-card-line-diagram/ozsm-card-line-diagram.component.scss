@@ -2,10 +2,13 @@
   height: 100%;
   background-color: var(--ozsm-color-bg-dark);
   border: 1px solid var(--ozsm-color-border);
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   gap: 8px;
+
+  color: var(--text-contrast-color);
 
   &__title {
     height: 20%;
@@ -20,7 +23,7 @@
     position: relative;
     width: 80%;
     height: 4px;
-    margin: 0 10% 12px 10%;
+    margin: 0 10% auto 10%;
     border-radius: 1px;
     overflow: hidden;
   }
