@@ -23,6 +23,7 @@ export interface IReportOption {
     source: string[];
     sortOrder: number;
 }
+
 interface IReportFormGroup {
     id: number;
     name: string;
@@ -88,6 +89,7 @@ export class ReportComponent implements OnInit {
 
     @Input() data: IReportTemplate;
     @Input() activeElements: SelectionModel<number>;
+
     @Input() set search(data: string) {
         if (data && this.data?.name) {
             this.activeSearch = this.data.name.toLowerCase().includes(data.toLowerCase());
@@ -114,6 +116,7 @@ export class ReportComponent implements OnInit {
     ) {
         this.restUrl = configService.restUrl;
     }
+
     ngOnInit(): void {}
 
     toggle(id: number): void {
@@ -146,7 +149,15 @@ export class ReportComponent implements OnInit {
                 startDateTime: new Date(),
             };
             this.template.customOptions.forEach((option) => {
-                const value = option.type === 'dateTime' ? new Date() : '';
+                let value: Date | string = '';
+                switch (option.type) {
+                    case 'dateTime':
+                        value = new Date();
+                        break;
+                    case 'comboBox':
+                        value = option.source?.[0];
+                        break;
+                }
                 this.formGroup.push({
                     id: option.id,
                     name: option.name,
