@@ -51,7 +51,8 @@
       </div>
 
       <div class="header-buttons" *ngIf="!isPredictors">
-        <div
+        <!-- TODO #1559 кнопка скрыта -->
+        <!--<div
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
           matRipple
@@ -59,10 +60,10 @@
           class="button"
         >
           <div class="icon">
-            <svg-icon class="icon--event" src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/event.svg"></svg-icon>
+            <svg-icon class="icon&#45;&#45;event" src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/event.svg"></svg-icon>
           </div>
           <div class="label">Отработать событие</div>
-        </div>
+        </div>-->
 
         <div
           (mousedown)="$event.stopPropagation()"
