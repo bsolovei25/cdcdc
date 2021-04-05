@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'addWordWrap'
+    name: 'addWordWrap',
 })
 export class AddWordWrapPipe implements PipeTransform {
-
-  transform(value: string): string {
-      return value.replace(/\\n/g, "<br>");
-  }
-
+    transform(value: string): string {
+        return value.replaceAll(/\n/g, '<br>');
+    }
 }
