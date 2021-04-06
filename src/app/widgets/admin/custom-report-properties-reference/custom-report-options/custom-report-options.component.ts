@@ -5,6 +5,16 @@ import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ReportsService } from '../../../../dashboard/services/widgets/admin-panel/reports.service';
+import { ICustomReportProperties } from "@widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component";
+
+interface IOptions {
+    description: string,
+    type: string,
+    validationRule: string,
+    isRequired: string,
+    source: string,
+    sortOrder: string,
+}
 
 @Component({
     selector: 'evj-custom-report-options',
@@ -12,23 +22,30 @@ import { ReportsService } from '../../../../dashboard/services/widgets/admin-pan
     styleUrls: ['./custom-report-options.component.scss'],
     providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
 })
-export class CustomReportOptionsComponent implements OnInit, OnChanges {
+
+export class CustomReportOptionsComponent implements OnInit {
     @ViewChild('valueInput') valueInput: ElementRef<HTMLInputElement>;
-    @Input() public data: any;
+    @Input() set data(item: ICustomReportProperties) {
+        this.cdRef.detectChanges();
+        this.mainData = item;
+        if (this.mainData?.source) {
+            this.mainData.source.map(x => x.trim());
+        }
+    };
 
-    objectKeys = Object.keys;
+    objectKeys: any = Object.keys;
+    public mainData: ICustomReportProperties;
 
-    valueCtrl = new FormControl();
+    valueCtrl: FormControl = new FormControl();
 
-    valuesInput: string[] = [];
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    visible = true;
-    selectable = true;
-    removable = true;
+    visible: boolean = true;
+    selectable: boolean = true;
+    removable: boolean = true;
 
     isEdit: number;
 
-    options = {
+    options: IOptions = {
         description: 'Описание',
         type: 'Тип',
         validationRule: 'Правило проверки',
@@ -37,47 +54,34 @@ export class CustomReportOptionsComponent implements OnInit, OnChanges {
         sortOrder: 'Сортировка',
     };
 
-    systemOptionType = ['textBox', 'dateTime', 'comboBox', 'checkBox'];
+    systemOptionType: string[] = ['textBox', 'dateTime', 'comboBox', 'checkBox'];
 
     constructor(public reportService: ReportsService, private cdRef: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 
-    ngOnChanges(): void {
-        this.cdRef.detectChanges();
-        console.log(this.data);
-        if (this.data?.source) {
-            this.valuesInput = [];
-            for (let i of this.data.source) {
-                this.valuesInput.push(i.trim());
-            }
-        }
-    }
-
-    onBlockEditRecord(i) {
+    public onBlockEditRecord(i: number): void {
         this.isEdit = i;
         console.log(i);
     }
 
-    changeSwap() {
-        this.data.isRequired = !this.data.isRequired;
+    public changeSwap(): void {
+        this.mainData.isRequired = !this.mainData.isRequired;
         this.editOptions();
     }
 
-    editOptions() {
-        this.reportService.putCustomOptions(this.data).subscribe((ans) => {
+    public editOptions(): void {
+        this.reportService.putCustomOptions(this.mainData).subscribe((ans) => {
             this.isEdit = null;
         });
     }
 
-    ///chip-select
-    add(event: MatChipInputEvent): void {
+    // chip-select
+    public add(event: MatChipInputEvent): void {
         const input = event.input;
         const value = event.value;
-
         if ((value || '').trim()) {
-            this.valuesInput.push(value.trim());
-            this.data.source.push(value);
+            this.mainData.source.push(value.trim());
             this.editOptions();
         }
 
@@ -88,16 +92,16 @@ export class CustomReportOptionsComponent implements OnInit, OnChanges {
         this.valueCtrl.setValue(null);
     }
 
-    remove(fruit: string): void {
-        const index = this.valuesInput.indexOf(fruit);
-
+    public remove(fruit: string): void {
+        const index = this.mainData.source.indexOf(fruit);
         if (index >= 0) {
-            this.valuesInput.splice(index, 1);
+            this.mainData.source.splice(index, 1);
         }
+        this.editOptions();
     }
 
     selected(event: MatAutocompleteSelectedEvent): void {
-        this.valuesInput.push(event.option.viewValue);
+        this.mainData.source.push(event.option.viewValue);
         this.valueInput.nativeElement.value = '';
         this.valueCtrl.setValue(null);
     }

@@ -1,11 +1,11 @@
-<ng-container *ngFor="let key of objectKeys(this.data); let i = index;">
+<ng-container *ngFor="let key of objectKeys(mainData || {}); let i = index;">
   <ng-container *ngIf="key !== 'id' && key !== 'name'">
     <div class="options">
       <div class="options__title">{{ options[key] }}</div>
       <div class="options__value" [class.source]="key === 'source'">
         <ng-container *ngIf="key === 'description'">
           <div *ngIf="i !== isEdit">
-            {{ data[key] }}
+            {{ mainData[key] }}
 
             <div class="edit-button" (click)="onBlockEditRecord(i)">
               <svg-icon class="collapse" src="assets/icons/widgets/references/edit_white.svg"> </svg-icon>
@@ -13,7 +13,7 @@
           </div>
           <div *ngIf="i === isEdit" class="block-info">
             <div class="add-block-input">
-              <input type="text" [(ngModel)]="data[key]" placeholder="Новое описание..." />
+              <input type="text" [(ngModel)]="mainData[key]" placeholder="Новое описание..." />
             </div>
             <div class="add-block-icon" (click)="editOptions()">
               <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"> </svg-icon>
@@ -22,14 +22,14 @@
         </ng-container>
         <ng-container *ngIf="key === 'type'">
           <mat-form-field class="categories_selectbox">
-            <mat-select panelClass="mat-select-custom" [(ngModel)]="data[key]" (selectionChange)="editOptions()">
+            <mat-select panelClass="mat-select-custom" [(ngModel)]="mainData[key]" (selectionChange)="editOptions()">
               <mat-option *ngFor="let p of systemOptionType" [value]="p">{{ p }} </mat-option>
             </mat-select>
           </mat-form-field>
         </ng-container>
         <ng-container *ngIf="key === 'validationRule'">
           <div *ngIf="i !== isEdit">
-            {{ data[key] }}
+            {{ mainData[key] }}
 
             <div class="edit-button" (click)="onBlockEditRecord(i)">
               <svg-icon class="collapse" src="assets/icons/widgets/references/edit_white.svg"> </svg-icon>
@@ -37,7 +37,7 @@
           </div>
           <div *ngIf="i === isEdit" class="block-info">
             <div class="add-block-input">
-              <input type="text" [(ngModel)]="data[key]" placeholder="Новое правило..." />
+              <input type="text" [(ngModel)]="mainData[key]" placeholder="Новое правило..." />
             </div>
             <div class="add-block-icon" (click)="editOptions()">
               <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"> </svg-icon>
@@ -50,18 +50,18 @@
               type="checkbox"
               id="checkBoxValue"
               class="mycheckbox__default"
-              [checked]="data[key]"
+              [checked]="mainData[key]"
               (click)="changeSwap()"
             />
-            <div class="mycheckbox__new" [class.mycheckbox__checked]="data[key]"></div>
+            <div class="mycheckbox__new" [class.mycheckbox__checked]="mainData[key]"></div>
           </label>
         </ng-container>
-        <ng-container *ngIf="key === 'sortOrder' "> {{ data[key] }} </ng-container>
-        <ng-container *ngIf="key === 'source' && data.type === 'comboBox'">
+        <ng-container *ngIf="key === 'sortOrder' "> {{ mainData[key] }} </ng-container>
+        <ng-container *ngIf="key === 'source' && mainData.type === 'comboBox'">
           <mat-form-field class="example-chip-list">
             <mat-chip-list #chipList aria-label="valueInput selection">
               <mat-chip
-                *ngFor="let value of valuesInput"
+                *ngFor="let value of mainData?.source"
                 [selectable]="selectable"
                 [removable]="removable"
                 (removed)="remove(value)"
