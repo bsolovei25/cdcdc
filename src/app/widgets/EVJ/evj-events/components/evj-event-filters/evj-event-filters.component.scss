@@ -1,7 +1,7 @@
 .container {
   padding: 0 20px;
   box-sizing: border-box;
-  background-color: var(--color-events-bg-filters);
+  background-color: var(--bg-body-color);
   overflow: hidden;
 }
 
@@ -21,11 +21,11 @@
       max-width: 150px;
       font-size: 13px;
       height: 30px;
-      color: var(--color-text-sub);
+      color: var(--text-main-color);
       border-radius: 3px;
 
       border: 0;
-      background-color: var(--color-events-btn);
+      background-color: var(--gray-G9-color);
       transition: all 200ms;
 
       &:focus {
@@ -33,11 +33,11 @@
       }
 
       &:hover {
-        background-color: var(--color-bg-sub-workflow);
+        background-color: var(--gray-G10-color); //--color-bg-sub-workflow
       }
 
       &:active {
-        background-color: var(--color-bg-btn);
+        background-color: var(--gray-G11-color); //--color-bg-btn
       }
     }
   }
@@ -51,25 +51,25 @@
 
     input[type="text"] {
       font-size: 13px;
-      border: 1px solid var(--color-astue-mat-select-border);
+      border: 1px solid var(--border-forms-color);
       border-radius: 3px;
-      background-color: var(--header-events-color-bg-main);
+      background-color: var(--bg-dashboard-color);
       outline: none;
-      color: var(--color-text-main);
+      color: var(--text-main-color);
       height: 26px;
       padding-left: 8px;
       margin-left: 10px;
 
       &::placeholder {
-        color: var(--color-aps-button-color);
+        color: var(--text-subscript-color);
       }
     }
   }
 }
 
 .event-mat-select {
-  border: 1px solid var(--color-astue-mat-select-border);
-  background-color: var(--header-events-color-bg-main);
+  border: 1px solid var(--border-vidget-color);
+  background-color: var(--bg-dashboard-color);
   border-radius: 2px;
   height: 28px;
   min-width: 50px;
@@ -109,7 +109,7 @@
     .mat-select-value-text {
       margin-left: 15px;
       font-size: 13px;
-      color: var(--color-kpe-text-main);
+      color: var(--text-main-color);
     }
 
     .mat-select-arrow-wrapper {
@@ -125,7 +125,7 @@
     }
 
     .mat-form-field-appearance-legacy .mat-form-field-label {
-      color: var(--color-aps-button-color);
+      color: var(--gray-G7-color);
       font-size: 13px;
       margin-left: 12px;
       margin-top: 4px;
@@ -135,12 +135,12 @@
 
 ::ng-deep {
   .evj-event-filters-background {
-    background: var(--color-bg-main) !important;
+    background: var(--bg-body-color) !important;
     min-width: calc(100% + 32px) !important;
   }
 
   .mat-select-filter-no-entries-found {
-    background: var(--color-bg-main) !important;
+    background: var(--bg-body-color) !important;
   }
 }
 
