@@ -1,59 +1,59 @@
 ::ng-deep .background {
   & > * {
-    fill: var(--color-sou-bg);
+    fill: var(--gray-G12-color);
   }
 }
 
 ::ng-deep .main {
   & > * {
-    fill: var(--color-aps-active);
+    fill: var(--border-blue-color);
   }
 }
 
 ::ng-deep .sub {
   & > * {
-    fill: var(--color-aps-orange);
+    fill: var(--index-error-color);
   }
 }
 
 ::ng-deep .serif-active {
   & > * {
-    stroke: var(--color-aps-active);
+    stroke: var(--border-blue-color);
   }
 }
 
 ::ng-deep .serif-warning {
   & > * {
-    stroke: var(--color-aps-orange);
+    stroke: var(--index-error-color);
   }
 }
 
 ::ng-deep .text {
   &__value {
-    fill: var(--color-kpe-text-main);
+    fill: var(--text-contrast-color);
     font-size: 12px;
   }
 
   &__deviation {
-    fill: var(--color-astue-onpz-units);
+    fill: var(--text-subscript-color);
     font-size: 7px;
   }
 
   &__plan {
-    fill: var(--color-astue-onpz-units);
+    fill: var(--text-subscript-color);
     font-size: 7px;
   }
 }
 
 ::ng-deep .line {
-  stroke: var(--color-kpe-gaude-additional);
+  stroke: var(--border-icon-color);
   stroke-width: 1;
   opacity: 0.7;
 }
 
 ::ng-deep {
   .needle {
-    fill: var(--color-kpe-text-main);
+    fill: var(--gray-G1-color);
   }
 
   .needle-hover-circle-back-d {
@@ -65,18 +65,15 @@
   }
 
   .needle-hover-circle-back {
-    fill: var(--color-astue-onpz-widget-bg);
-    //fill: var(--color-bg-main);
+    fill: var(--bg-body-color);
   }
 
   .kpe-gauge-hide-down-sector {
-    //fill: var(--color-bg-main);
-    fill: var(--color-astue-onpz-widget-bg);
+    fill: var(--bg-body-color);
   }
 
   .needle-shadow-gradient-1 {
-    stop-color: var(--color-button-borderside);
-    stop-opacity: 0.15;
+    stop-color: var(--gradient-main-color-3);
   }
 
   .needle-shadow-gradient-2 {
