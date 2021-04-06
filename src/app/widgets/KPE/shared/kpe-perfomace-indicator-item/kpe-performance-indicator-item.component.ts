@@ -91,7 +91,7 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
 
     private fillDayStatuses(): void {
         this.currentMonth?.forEach((item, i) => {
-            const newItem = this.data?.dailyStatus.find((date) => date.day === item.day);
+            const newItem = this.data?.dailyStatus?.find((date) => date.day === item.day);
             if (newItem) {
                 this.currentMonth[i] = newItem;
             }
