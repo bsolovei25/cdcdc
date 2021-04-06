@@ -55,6 +55,9 @@
   justify-content: flex-end;
   cursor: pointer;
   gap: 12px;
+  width: 100%;
+  padding-right: 10px;
+  box-sizing: border-box;
 
   .button {
     display: flex;
@@ -68,6 +71,11 @@
       color: var(--text-contrast-color);
       font-size: 13px;
       margin: auto 0;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
     }
 
     .icon--event {
