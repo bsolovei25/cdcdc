@@ -1,132 +1,77 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import * as d3 from 'd3';
-import { AsyncRender } from '@shared/functions/async-render.function';
-import {
-    AstueOnpzConventionalFuelService,
-    IAstueOnpzConventionalFuelSelectOptions,
-} from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
+import { ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, OnInit } from "@angular/core";
 
-interface IAstueOnpzMainIndicatorsRaw {
-    deviationName: string;
-    deviationValue: number;
-    factName: string;
-    factValue: number;
-    nextPlanName: string;
-    nextPlanValue?: number;
-    planName: string;
-    planValue: number;
-    unitId?: number;
-    engUnits: string;
-}
+import { WidgetService } from "@dashboard/services/widget.service";
+import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
+import { AstueOnpzConventionalFuelService } from "../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service";
+import { AstueOnpzMainIndicatorsItemComponent } from "./components/astue-onpz-main-indicators-item/astue-onpz-main-indicators-item.component";
+
+import { IAstueOnpzMainIndicatorsRaw, IChannel } from "./astue-onpz-main-indicators.interface";
+
+import { BehaviorSubject, combineLatest } from "rxjs";
 
 @Component({
     selector: 'evj-astue-onpz-main-indicators',
     templateUrl: './astue-onpz-main-indicators.component.html',
     styleUrls: ['./astue-onpz-main-indicators.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    @ViewChild('chart') chart: ElementRef;
-    public data: IAstueOnpzMainIndicatorsRaw;
-    public percent: number = 0;
+    public specialComponent: typeof AstueOnpzMainIndicatorsItemComponent = AstueOnpzMainIndicatorsItemComponent;
+    public subchannelId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    public svg: any;
+    private channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject<IChannel[]>([]);
 
     constructor(
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string,
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         protected widgetService: WidgetService,
-
-        @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        private injector: Injector
     ) {
         super(widgetService, id, uniqId);
     }
 
-    @AsyncRender
-    drawSvg(): void {
-        const innerR = 66;
-        const outerR = 70;
-
-        if (this.svg) {
-            this.svg.remove();
-        }
-
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '140px').attr('height', '140px');
-
-        const arc = d3
-            .arc()
-            .innerRadius(innerR)
-            .outerRadius(outerR)
-            .startAngle(0)
-            .endAngle(this.data.deviationValue < 0 ? 2 * Math.PI * this.percent : -2 * Math.PI * this.percent);
-
-        const arcBg = d3
-            .arc()
-            .innerRadius(innerR)
-            .outerRadius(outerR)
-            .startAngle(0)
-            .endAngle(2 * Math.PI);
-
-        const arcPlan = d3
-            .arc()
-            .innerRadius(innerR - 14)
-            .outerRadius(outerR - 14)
-            .startAngle(0)
-            .endAngle(2 * Math.PI);
-
-        const g = this.svg
-            .append('g')
-            .attr('width', '140px')
-            .attr('height', '140px')
-            .style('transform', 'translate(70px, 70px)');
-
-        g.append('path')
-            .attr('d', arcBg)
-            .attr('class', this.data?.deviationValue !== 0 ? 'diagram-deviation' : 'diagram-value');
-
-        g.append('path').attr('d', arc).attr('class', 'diagram-value');
-
-        g.append('path').attr('d', arcPlan).attr('class', 'diagram-inner');
-    }
-
     public ngOnInit(): void {
         super.widgetInit();
-        this.drawSvg();
+        this.subscriptions.push(
+            combineLatest([this.channels$, this.conventionalFuelService.selectedOptions$]).subscribe((value) => {
+                const [channels, options] = value;
+                const subChannelId =
+                    channels.find(
+                        (x) =>
+                            x.manufactureName === options.manufacture &&
+                            x.unitName === options.unit &&
+                            x.name === options.resource
+                    )?.id ?? null;
+                this.subchannelId$.next(subChannelId);
+            }),
+        );
+        this.getSubchannels().then();
     }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    public getInjector = (widgetId: string, channelId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: channelId },
+            ],
+            parent: this.injector,
+        });
+    };
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions$?.subscribe((ref) => {
-                this.optionsHandler(ref).then();
-            })
-        );
     }
 
-    protected dataHandler(ref: IAstueOnpzMainIndicatorsRaw): void {
-        this.data = ref;
+    protected dataHandler(ref: IAstueOnpzMainIndicatorsRaw): void {}
 
-        this.percent = this.data.factValue / this.data.planValue;
-        this.percent = this.percent > 0 ? (this.percent > 1 ? 1 / this.percent : this.percent) : 0;
-
-        this.drawSvg();
+    private async getSubchannels(): Promise<void> {
+        const channels = await this.widgetService.getAvailableChannels<IChannel>(this.widgetId);
+        this.channels$.next(channels);
     }
 
-    private async optionsHandler(options: IAstueOnpzConventionalFuelSelectOptions): Promise<void> {
-        const channels = await this.widgetService.getAvailableChannels<{
-            name: string;
-            id: string;
-            manufactureName: string;
-            unitName: string;
-        }>(this.widgetId);
-        const subchannelId =
-            channels.find(
-                (x) =>
-                    x.manufactureName === options.manufacture &&
-                    x.unitName === options.unit &&
-                    x.name === options.resource
-            )?.id ?? null;
-        this.setWsOptions({ subchannelId });
-    }
 }
