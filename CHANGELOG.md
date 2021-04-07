@@ -1,3 +1,17 @@
+# [1.12.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.11.0...v1.12.0) (2021-04-07)
+
+
+### Bug Fixes
+
+* **#1576:** "ЭЖКО. Перевод в белую тему." ([61124ac](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/61124acd04604f839e6fcc0e0471a6a55b077155)), closes [#1576](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1576)
+* **ONPZ:** format code after code review - [#1499](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1499) ([f3fd630](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f3fd630fef98db55448ee7af2a81022a24c4c437))
+
+
+### Features
+
+* **#1501:** ЭВЖ. Переработа верстки ленты событий для использования белой темы. ([f51e836](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f51e836118f2f9dfc645c87f22b406e4730072c4)), closes [#1501](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1501)
+* **#1513:** Энергоконтроль. astue-onpz-main-indicators перевод на подканалы ([8d6cf72](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8d6cf7228d43f1a6421731310199d65d79104055)), closes [#1513](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1513)
+
 # [1.11.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.10.0...v1.11.0) (2021-04-05)
 
 
