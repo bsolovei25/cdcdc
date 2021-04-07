@@ -54,15 +54,12 @@ export class SouSchemaComponent implements OnChanges {
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(
-        public mvpService: SouMvpMnemonicSchemeService,
-        public renderer: Renderer2,
-    ) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         const chosenInstallChanges: SimpleChange = changes?.chosenInstall;
 
-        if (!this.chosenInstall || (chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue)) {
+        if (!this.chosenInstall || chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.processSvgWhenItIsReady();
             this.resetComponent();
@@ -358,19 +355,6 @@ export class SouSchemaComponent implements OnChanges {
 
         // Percent
         if (elementFull?.metaFile) {
-            if ('valueMomentPercent' in elementFull?.metaFile) {
-                if (elementFull?.textPercent) {
-                    this.addTextToElem(elementFull.textPercent, String(elementFull?.metaFile?.valueMomentPercent));
-                    this.removeElemClass(elementFull?.textPercent, [
-                        'standard-text',
-                        'deviation-text',
-                        'disabled-text',
-                        'reset-text',
-                    ]);
-                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
-                }
-                elementFull?.textPercent?.classList.add(`${mode}-text`);
-            }
             if ('tolerance' in elementFull?.metaFile) {
                 if (elementFull?.textPercent) {
                     this.addTextToElem(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
@@ -382,6 +366,31 @@ export class SouSchemaComponent implements OnChanges {
                     ]);
                     this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
                 }
+            }
+            if ('valueMomentPercent' in elementFull?.metaFile) {
+                let valueMet: number = 0;
+                switch (this.chosenSetting) {
+                    case 0:
+                        valueMet = elementFull?.metaFile?.valueMomentPercent;
+                        break;
+                    case 1:
+                        valueMet = elementFull?.metaFile?.valueByHourPercent;
+                        break;
+                    case 2:
+                        valueMet = elementFull?.metaFile?.valueTankPercent;
+                        break;
+                }
+                if (elementFull?.textPercent) {
+                    this.addTextToElem(elementFull.textPercent, `${String(valueMet)}%`);
+                    this.removeElemClass(elementFull?.textPercent, [
+                        'standard-text',
+                        'deviation-text',
+                        'disabled-text',
+                        'reset-text',
+                    ]);
+                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                }
+                elementFull?.textPercent?.classList.add(`${mode}-text`);
             }
         } else {
             this.addTextToElem(
