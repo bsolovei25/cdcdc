@@ -107,6 +107,7 @@ export class EvjEventCategoriesComponent implements OnInit {
     public toggle(id: number): void {
         this.toggleSubCategory.emit(id);
         this.syncItems();
+        this.apply();
     }
 
     public syncItems(): void {
