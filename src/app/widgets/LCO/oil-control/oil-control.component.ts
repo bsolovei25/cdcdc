@@ -181,11 +181,11 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         }
     }
 
-    // protected async dataConnect(): Promise<void> {
-    //     super.dataConnect();
-    //     const data = await this.mockDataConnect();
-    //     this.drawOilControlSocket(data);
-    // }
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+        // const data = await this.mockDataConnect();
+        // this.drawOilControlSocket(data);
+    }
 
     // for test
     async mockDataConnect(): Promise<any> {
@@ -220,10 +220,11 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         }
     }
 
-    drawOilControlSocket(ref): void {
+    drawOilControlSocket(ref: { products: OilProducts[] }): void {
         this.checkSocket = true;
         this.data = ref.products;
         this.tempData = ref.products.map((p) => fillDataShape(p));
+        console.log('drawOilControlSocket', this.tempData);
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();

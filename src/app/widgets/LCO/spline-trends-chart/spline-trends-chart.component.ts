@@ -122,6 +122,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
     }
 
     protected dataHandler(ref: any): void {
+        console.log('spline-chart', ref);
         this.data = this.processData(ref);
     }
 
