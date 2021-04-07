@@ -12,8 +12,8 @@
   overflow: hidden;
   position: relative;
   pointer-events: fill;
-  border: 0.35px solid var(--color-astue-onpz-widget-border);
-  background: var(--color-astue-onpz-widget-bg);
+  border: 1px solid var(--border-vidget-color);
+  background: var(--bg-body-color);
 }
 
 .wrapper {
@@ -44,7 +44,7 @@
       display: flex;
       flex-direction: row;
       flex: 1 1;
-      border-bottom: 0.35px solid var(--color-ejco-sub-border);
+      border-bottom: 1px solid var(--border-forms-color);
     }
 
     :last-child {
@@ -57,13 +57,13 @@
     }
 
     .title-col {
-      border-left: 0.35px solid var(--color-ejco-sub-border);
-      border-right: 0.35px solid var(--color-ejco-sub-border);
+      border-left: 1px solid var(--border-forms-color);
+      border-right: 1px solid var(--border-forms-color);
       flex: 2 2;
       display: flex;
       padding-left: 2%;
       align-items: center;
-      color: var(--color-kpe-text-main);
+      color: var(--text-contrast-color);
       font-size: 12px;
 
       span {
@@ -78,14 +78,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      color: var(--text-main-color);
 
       .item {
-        border-bottom: 1px solid var(--color-ejco-sub-border);
+        border-bottom: 1px solid var(--border-forms-color);
         flex: 1 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--color-text-sub);
         font-size: 11px;
 
         span {
@@ -131,7 +131,7 @@
       &__active {
         border-color: var(--color-kpe-gaude-active);
         box-sizing: border-box;
-        color: var(--color-kpe-text-main);
+        color: var(--text-contrast-color);
       }
     }
   }
@@ -148,6 +148,6 @@
     line-height: 16px;
     text-align: center;
     margin: 0 auto;
-    color: var(--color-kpe-text-main);
+    color: var(--text-contrast-color);
   }
 }
