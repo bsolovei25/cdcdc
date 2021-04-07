@@ -9,13 +9,12 @@ import {
     IAsEfScript,
     IAsEfTableRow,
     IAsPlanningTable,
-} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+    IAsEfTableComponent, IAsEfTableBlockComponent
+} from "../../../../../dashboard/models/ASTUE/astue-efficiency.model";
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { saveAs } from 'file-saver';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',
@@ -29,11 +28,13 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
 
     public displayData: IAsEfTable[] = [];
+    public displayDataComponent: IAsEfTableComponent[] = [];
     public dates: IAsEfCell[] = [];
 
     public data: IAsEfTableBlock[] = [];
 
     public deviationsData: IAsEfTableBlock[] = [];
+    public deviationsDataComponent: IAsEfTableBlockComponent[] = [];
 
     public scripts: IAsEfScript[] = [];
 
@@ -76,7 +77,9 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     public ngOnChanges(): void {
         if (this.planningTable?.length > 0) {
             this.displayData = [];
+            this.displayDataComponent = [];
             this.deviationsData = [];
+            this.deviationsDataComponent = [];
             this.planningTable.forEach((plan) => {
                 if (plan.title === 'Показатели') {
                     plan.data.forEach((row) => {
@@ -96,6 +99,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                             });
                         });
                         this.displayData.push({
+                            unitName: row.title,
                             name: row.name,
                             rows: newRows,
                         });
@@ -118,18 +122,45 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                             });
                         });
                         this.deviationsData.push({
+                            unitName: row.title,
                             name: row.name,
                             children,
                         });
                     });
                 }
             });
+            this.mappingNewData();
             this.defineDatesPlanning();
         }
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
+    }
+
+    mappingNewData(): void {
+        this.displayData.forEach((value) => {
+            const idx = this.displayDataComponent.findIndex((value2) => value2.unitName === value.unitName);
+            if (idx > -1) {
+                this.displayDataComponent[idx].data.push(value);
+            } else {
+                this.displayDataComponent.push({
+                    unitName: value.unitName,
+                    data: [value],
+                });
+            }
+        });
+        this.deviationsData.forEach((value) => {
+            const idx = this.deviationsDataComponent.findIndex((value2) => value2.unitName === value.unitName);
+            if (idx > -1) {
+                this.deviationsDataComponent[idx].data.push(value);
+            } else {
+                this.deviationsDataComponent.push({
+                    unitName: value.unitName,
+                    data: [value],
+                });
+            }
+        });
     }
 
     private dataMapping(): void {

@@ -22,7 +22,12 @@
 
       <table>
         <tbody>
-          <ng-container *ngFor="let block of displayData">
+        <ng-container *ngFor="let block2 of displayDataComponent">
+          <tr class="table__row separation-line">
+            <td class="separation-line__item">{{ block2.unitName }}</td>
+            <td class="separation-line__item"></td>
+          </tr>
+          <ng-container *ngFor="let block of block2.data">
             <tr class="table__row block" [ngClass]="{'block_open': isSelectEl(block)}" (click)="toggleEl(block)">
               <td class="block__item" [ngClass]="{'block__item-status': block.header?.tagName}">
                 <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
@@ -75,12 +80,18 @@
               </tr>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="!isInitialDataShow">
+        </ng-container>
+        <ng-container *ngIf="!isInitialDataShow">
+          <tr class="table__row separation-line">
+            <td class="separation-line__item">Отклонения</td>
+            <td class="separation-line__item"></td>
+          </tr>
+          <ng-container *ngFor="let deviation2 of deviationsDataComponent">
             <tr class="table__row separation-line">
-              <td class="separation-line__item">Отклонения</td>
+              <td class="separation-line__item">{{ deviation2.unitName }}</td>
               <td class="separation-line__item"></td>
             </tr>
-            <ng-container *ngFor="let deviation of deviationsData">
+            <ng-container *ngFor="let deviation of deviation2.data">
               <tr class="table__row block" (click)="blockSelection.toggle(deviation)">
                 <td class="block__item" [ngClass]="{'block__item-status': deviation?.status}">
                   <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
@@ -116,6 +127,7 @@
               </ng-container>
             </ng-container>
           </ng-container>
+        </ng-container>
         </tbody>
       </table>
     </div>
