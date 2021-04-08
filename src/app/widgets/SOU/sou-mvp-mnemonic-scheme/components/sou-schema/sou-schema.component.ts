@@ -46,7 +46,6 @@ export class SouSchemaComponent implements OnChanges {
     elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
     fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
     dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
-    private elementsTypesCount: number = 12;
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
@@ -217,20 +216,21 @@ export class SouSchemaComponent implements OnChanges {
 
     reloadOldData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.fullElement.get(data.code)?.element;
-        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        const mode = this.getElementMode(data);
         // this.elementEdit(true, mode, element, data);
         if (element?.children) {
-            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, '', 0, 0);
+            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, 0, 0);
         }
     }
 
     loadNewData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.elementsMap.get(data?.code);
-        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        const mode = this.getElementMode(data);
         this.prepareElement(false, mode, element, data);
     }
 
-    modeToElement(isExceedingConfInterval: boolean, isEnable: boolean): TypeMode {
+    private getElementMode(data: ISouFlowOut | ISouFlowIn | ISouObjects): TypeMode {
+        const {isExceedingConfInterval, isEnable} = data;
         return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
     }
 
@@ -263,7 +263,6 @@ export class SouSchemaComponent implements OnChanges {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
             this.elementsMap.set(id, line);
-            console.log(line, line.id, id);
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`, this.elementsMap);
@@ -276,7 +275,6 @@ export class SouSchemaComponent implements OnChanges {
         metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects,
         percent: number = 0,
         value: number = 0,
-        text: string = ''
     ): void {
         if (element?.children) {
             let elementFull: IElementFull = {
@@ -296,7 +294,7 @@ export class SouSchemaComponent implements OnChanges {
                 elementFull = this.searchElementsInElement(elem, elementFull);
             });
             // add class and text to element
-            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+            this.addClassAndTextToElement(element, elementFull, mode, percent, value);
             // Event
             if (metaFile) {
                 this.addElementClickListener(element, elementFull);
@@ -314,7 +312,6 @@ export class SouSchemaComponent implements OnChanges {
         element: Element,
         elementFull: IElementFull,
         mode: TypeMode,
-        text: string,
         percent: number,
         value: number
     ): void {
