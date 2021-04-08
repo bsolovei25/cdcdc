@@ -425,3 +425,27 @@
     }
   }
 }
+
+.checkbox {
+  margin-right: 5px;
+
+  label {
+    font-size: 13px;
+    color: var(--text-main-color);
+  }
+
+  label.active {
+    color: var(--gray-G1-color);
+  }
+
+  &__item {
+    margin-right: 12px;
+
+    ::ng-deep {
+      .mat-checkbox-frame {
+        border: 1px solid var(--border-vidget-color);
+        background: var(--gray-G11-color);
+      }
+    }
+  }
+}

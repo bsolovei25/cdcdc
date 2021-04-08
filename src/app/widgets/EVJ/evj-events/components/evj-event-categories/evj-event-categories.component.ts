@@ -4,6 +4,7 @@ import { CdkOverlayOrigin, Overlay, OverlayConfig, OverlayRef } from '@angular/c
 import { CdkPortal } from '@angular/cdk/portal';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-evj-event-categories',
@@ -17,9 +18,12 @@ export class EvjEventCategoriesComponent implements OnInit {
     public overlayRef: OverlayRef;
     public activeCategory: number = 0;
 
-    public limitationsEnabled: boolean = false;
     public allEnabled: boolean = false;
     public allSmpoEnabled: boolean = false;
+    public isRestrictions: boolean = false;
+
+    public isRestrictionsFormControl: FormControl = new FormControl(false);
+    public isAllEnabledControl: FormControl = new FormControl(false);
 
     @ViewChild('overlayTemplate') public overlayTemplate: CdkPortal;
     @ViewChild(CdkOverlayOrigin, { static: false }) private overlayOrigin: CdkOverlayOrigin;
@@ -28,9 +32,13 @@ export class EvjEventCategoriesComponent implements OnInit {
     public data: EventsWidgetCategory;
     @Input()
     public subCategoriesSelected: SelectionModel<number>;
+    @Input()
+    public isRestrictionsEnabled: boolean = false;
 
     @Output()
     public categoryClick: EventEmitter<EventsWidgetCategory> = new EventEmitter<EventsWidgetCategory>();
+    @Output()
+    public isRestrictionsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output()
     public toggleSubCategory: EventEmitter<number> = new EventEmitter<number>();
     @Output()
@@ -42,7 +50,9 @@ export class EvjEventCategoriesComponent implements OnInit {
 
     constructor(public overlay: Overlay, public viewContainerRef: ViewContainerRef) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.isRestrictionsFormControl.setValue(this.isRestrictionsEnabled);
+    }
 
     public onCLickItem(data: EventsWidgetCategory): void {
         this.categoryClick.emit(data);
@@ -118,6 +128,7 @@ export class EvjEventCategoriesComponent implements OnInit {
             selected.splice(index, 1);
         }
         this.allEnabled = selected.length === this.data.subCategories.length;
+        this.isAllEnabledControl.setValue(this.allEnabled);
     }
 
     public apply(): void {
@@ -128,15 +139,20 @@ export class EvjEventCategoriesComponent implements OnInit {
     }
 
     public cancel(): void {
+        this.isRestrictionsFormControl.setValue(false);
         this.closeOverlay();
         this.onCancel.emit();
     }
 
-    public limitationsChange(event: MatCheckboxChange): void {
-        this.limitationsEnabled = event.checked;
+    public restrictionsChange(event: MatCheckboxChange): void {
+        this.isRestrictions = event.checked;
+        this.isRestrictionsChanged.emit(this.isRestrictions);
+        this.syncItems();
+        this.apply();
     }
 
     public allChange(event: MatCheckboxChange): void {
+        this.isAllEnabledControl.setValue(event.checked);
         this.allEnabled = event.checked;
         this.onSelectAll.emit(this.allEnabled);
     }

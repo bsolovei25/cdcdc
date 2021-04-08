@@ -85,7 +85,7 @@ export interface IEventsWidgetNotification {
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
-    limitationsEnabled?: boolean;
+    isRestrictions?: boolean;
 }
 
 export interface IEventsEjs {
@@ -434,6 +434,7 @@ export interface IEventsWidgetOptions {
     priority?: IPriority;
     units?: IUnits[];
     subCategory?: number[];
+    isRestrictions?: boolean;
 }
 
 export type EventsWidgetOptionsCategoryType = 'ed' | 'default';
