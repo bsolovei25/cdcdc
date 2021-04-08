@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from
 import { IAlertPasswordModel } from '../../models/alert-password.model';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '../../../@core/service/auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'evj-alert-password',
@@ -126,17 +125,12 @@ export class AlertPasswordComponent implements OnInit {
         return ctrl.invalid && ctrl.touched ? 'input__block_invalid' : ctrl.dirty ? 'input__block_dirty' : '';
     }
 
-    public checkPasswords(group: FormGroup): { notSame: true } {
-        const pass = group.controls.password.value;
-        const confirmPass = group.controls.confirmPassword.value;
+   checkPasswords(group: FormGroup) {
+    let pass: string = group.controls.password.value;
+    let confirmPass: string = group.controls.confirmPassword.value;
 
-        if (pass === confirmPass) {
-            return null;
-        } else {
-            group.controls.confirmPassword.setErrors({ notSame: true });
-            return { notSame: true };
-        }
-    }
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
     public onClickBack(): void {
         this.formGroup.reset();
