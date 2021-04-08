@@ -600,7 +600,8 @@ span {
 }
 
 ::ng-deep .mat-tooltip {
-    font-size: 12px;
-    background-color: var(--color-astue-onpz-widget-bg);
-    border: 1px solid var(--color-astue-tag-5);
+  font-size: 12px;
+  background-color: var(--bg-body-color);
+  border: 1px solid var(--border-blue-color);
+  color: var(--text-accent-color) !important; ;
 }
