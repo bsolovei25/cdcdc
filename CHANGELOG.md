@@ -1,3 +1,16 @@
+# [1.13.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.12.0...v1.13.0) (2021-04-08)
+
+
+### Bug Fixes
+
+* **#1576:** "ЭЖКО. Перевод в белую тему." ([8fe68f3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8fe68f3b1b3dc74b4800c34f37812f98667d42d2)), closes [#1576](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1576)
+
+
+### Features
+
+* **front#1160:** "Доработка БП по рабочей области событий Ограничения" ([5e65f19](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5e65f19215115cf461b67880ba641ce64e2bec3a)), closes [front#1160](https://gitlab.funcoff.club/front/issues/1160)
+* **front#1255:** "КПЭ. Приведение к новому дизайну виджета Ключевые показатели эффективности" ([18d1b37](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/18d1b370aeba55e1c50a19d9c7a1579a173eedb4)), closes [front#1255](https://gitlab.funcoff.club/front/issues/1255)
+
 # [1.12.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.11.0...v1.12.0) (2021-04-07)
 
 
