@@ -53,7 +53,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_DATE_LOCALE } from '@angular/material/core';
 import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
 import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
 import { CheckerComponent } from './components/checker/checker.component';
