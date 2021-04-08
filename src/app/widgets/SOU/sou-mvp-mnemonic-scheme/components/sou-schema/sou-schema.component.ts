@@ -104,10 +104,12 @@ export class SouSchemaComponent implements OnChanges {
                     return 'collector-ref';
                 case 'КПА С100':
                     return 'kpa-c100';
-                case 'Л-35-11-1000':
+                case 'Л-35/11-1000':
                     return 'l-35-11-1000';
                 case 'Сырьевой парк тит. 4022':
                     return 'raw-materials-park-4022';
+                case 'ТРХ Тит.204':
+                    return 'trx-tit-204';
             }
         }
 
