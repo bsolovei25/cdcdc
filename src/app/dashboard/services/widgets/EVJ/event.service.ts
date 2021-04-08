@@ -469,6 +469,9 @@ export class EventService {
                 res += `&subcategoryIds=${value}`;
             });
         }
+        if (options.isRestrictions) {
+            res += `&isRestrictions=${options.isRestrictions}`;
+        }
         return res;
     }
 

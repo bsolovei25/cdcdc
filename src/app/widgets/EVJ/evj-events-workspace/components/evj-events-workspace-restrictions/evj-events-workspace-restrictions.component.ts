@@ -1,6 +1,6 @@
 import {
     Component,
-    OnInit 
+    OnInit
 } from '@angular/core';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -12,11 +12,11 @@ import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.r
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
-    selector: 'evj-evj-events-workspace-limitations',
-    templateUrl: './evj-events-workspace-limitations.component.html',
-    styleUrls: ['./evj-events-workspace-limitations.component.scss'],
+    selector: 'evj-evj-events-workspace-restrictions',
+    templateUrl: './evj-events-workspace-restrictions.component.html',
+    styleUrls: ['./evj-events-workspace-restrictions.component.scss'],
 })
-export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
+export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
 
     public users: IUser[];
 
@@ -61,8 +61,6 @@ export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
             owner: new FormControl(),
         });
 
-    private readonly DISPLAY_NAME: string = 'Ограничение';
-
     private readonly SEPARATOR: string = '***';
 
     constructor(
@@ -97,8 +95,6 @@ export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
                 strBeg + 'Тип: ' + this.form.get('type').value + strEnd +
                 this.SEPARATOR;
 
-            this.clearFactsLimitationsByDisplayName(this.DISPLAY_NAME);
-
             [
                 'Причина: ' + this.form.get('reason').value,
                 'Постоянство: ' + this.form.get('constancy').value,
@@ -110,7 +106,7 @@ export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
                 this.ewService.event.facts.push(
                     {
                         comment: item,
-                        displayName: this.DISPLAY_NAME,
+                        displayName: null,
                         createdAt: new Date(),
                     }
                 );
@@ -129,16 +125,12 @@ export class EvjEventsWorkspaceLimitationsComponent implements OnInit {
             cancelText: 'Нет',
             acceptFunction: () => {
                 this.clearDescriptionLimitationsBySeparator(this.SEPARATOR);
-                this.clearFactsLimitationsByDisplayName(this.DISPLAY_NAME);
+                this.ewService.event.isRestrictions = false;
             },
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.cancel();
         this.ewService.ewAlertInfo$.next(alertWindow);
-    }
-
-    private clearFactsLimitationsByDisplayName(displayName: string): void {
-        this.ewService.event.facts = this.ewService.event.facts.filter(fact => fact.displayName !== displayName);
     }
 
     private clearDescriptionLimitationsBySeparator(separator: string): void {
