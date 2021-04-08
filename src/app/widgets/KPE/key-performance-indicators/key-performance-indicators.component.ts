@@ -28,7 +28,6 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<IKpeWidget
 
     constructor(
         public widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
