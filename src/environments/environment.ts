@@ -7,6 +7,9 @@ export const environment = {
 
     username: 'Ivanov',
     password: 'secret',
+    
+    version: '1.12',
+    date: '08-04-2021',
 };
 
 /*
