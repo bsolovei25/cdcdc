@@ -110,16 +110,30 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation ? this.data?.deviation : this.chartConfig[this.type].gauge.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds ? this.data?.colorBounds : this.chartConfig[this.type].colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds ? this.data?.colorBounds.slice(0, -1) : this.chartConfig[this.type].serifColorBounds;
-        this.chartConfig[this.type].gauge.angle = this.data?.value ? this.convertPercentToGrad(this.data?.value) : this.chartConfig[this.type].gauge.angle;
+        this.chartConfig[this.type].gauge.angle = this.data?.value ? this.convertPercentToGrad(this.data?.zeroOn === 'Right' ? 100 - this.data?.value : this.data?.value) : this.chartConfig[this.type].gauge.angle;
         this.chartConfig[this.type].bounds = this.data?.bounds ? this.data?.bounds : null;
 
         // Данные для активной области
-        const boundEdge = this.chartConfig[this.type].bounds?.find(item => item > this.data?.value);
+        let value;
+        let boundEdge;
+        let index;
+
+        if (this.data?.zeroOn === 'Right') {
+            value = 100 - this.data?.value;
+            boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) =>
+                Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+            );
+            index = this.chartConfig[this.type].bounds?.indexOf(boundEdge);
+        } else {
+            value = this.data?.value;
+            boundEdge = this.chartConfig[this.type].bounds?.find(item => item > this.data?.value);
+            index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
+        }
+
         if (boundEdge) {
-            const index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
             const color = this.chartConfig[this.type].colorBounds[index];
             this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
-            const startActive = (this.convertPercentToGrad(this.data?.value) * (Math.PI / 180));
+            const startActive = (this.convertPercentToGrad(value) * (Math.PI / 180));
             const endActive = (this.convertPercentToGrad(boundEdge) * (Math.PI / 180));
             this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
         }
@@ -317,12 +331,13 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Если имеется массив bounds, то положение засечки секции рассчитывается по последнему значению диапозона
         if (this.chartConfig[this.type].bounds) {
             this.chartConfig[this.type].bounds.forEach((bound, i) => {
-                i = i - 1;
-                const endBound = this.chartConfig[this.type].bounds[i];
+                const index = this.data?.zeroOn === 'Right' ? i : i - 1;
+                const endBound = this.chartConfig[this.type].bounds[index];
                 if (!endBound) { return; }
                 const endRad = this.convertPercentToGrad(endBound) * (Math.PI / 180);
                 const sectionSerif = createPie(endRad - serifSize, endRad);
-                drawDiagram(`diagram-section-serif-${serifColorBounds[i - 1]}`, () => sectionSerif([null]), serifArc);
+                const className = this.data?.zeroOn === 'Right' ? colorBounds[index] : serifColorBounds[index - 1];
+                drawDiagram(`diagram-section-serif-${className}`, () => sectionSerif([null]), serifArc);
             });
         } else {
             serifColorBounds.forEach((colorIndex, i) => {
