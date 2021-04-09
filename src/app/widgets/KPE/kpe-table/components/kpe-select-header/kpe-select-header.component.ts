@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { KpeTableComponent } from '../../kpe-table.component';
+import { KpeTableService } from '../../services/kpe-table.service';
 
-export interface ISelectName {
-  value: string;
-}
 @Component({
   selector: 'evj-kpe-select-header',
   templateUrl: './kpe-select-header.component.html',
@@ -10,14 +10,26 @@ export interface ISelectName {
 })
 export class KpeSelectHeaderComponent implements OnInit {
 
-  public items: ISelectName[] = [
-    { value: 'Ср. расход на дату тн' },
-    { value: 'Мгновенный расход на дату тн' }
-  ];
+  @Input() public items: {id: number, value: string}[] = [];
+  @Input() public type: 'average' | 'instant' = 'average';
 
-  constructor() { }
+  public selectedValue = this.items[0];
+
+  constructor(
+    private kpeTableService: KpeTableService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  changeUnit(event: MatSelectChange) {
+    this.type === 'average' 
+    ? this.kpeTableService.selectAverageUnit$.next(event.value)
+    : this.kpeTableService.selectInstantUnit$.next(event.value);    
+  }
+
+  public compareFn(a, b): boolean {
+    return a?.id === b?.id;
   }
 
 }
