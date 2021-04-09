@@ -263,7 +263,6 @@ export class SouSchemaComponent implements OnChanges {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
             this.elementsMap.set(id, line);
-            console.log(line, line.id, id);
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`, this.elementsMap);
