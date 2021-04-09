@@ -1,10 +1,10 @@
 .default {
-  color: var(--header-events-color-font-main);
-  background-color: var(--color-kpe-table-select);
+  color: var(--gray-G4-color);
+  background-color: var(--gray-G9-color);
 
   ::ng-deep {
     .mat-select-arrow {
-      background-color: var(--header-events-color-font-main) !important;
+      background-color: var(--gray-G4-color) !important;
     }
   }
 }
@@ -14,8 +14,7 @@
   align-items: center;
   border-radius: 2px;
   height: 32px;
-  width: 150px;
-  margin: 0 10px;
+  width: 100%;
 
   .mat-select {
     width: calc(100% - 2px) !important;
@@ -24,7 +23,7 @@
   mat-label {
     line-height: 16px;
     font-size: 17px !important;
-    color: var(--color-text-sub);
+    color: var(--text-main-color);
   }
 
   ::ng-deep {
@@ -53,6 +52,12 @@
 
     .mat-form-field-infix {
       border-top: none;
+      width: 100% !important;
+      background-color: var(--gray-G9-color);
+    }
+
+    .mat-select-value {
+      max-width: 120px;
     }
 
     .mat-select-value-text {
@@ -69,9 +74,6 @@
     .mat-form-field-label-wrapper {
       top: -20px;
     }
-  }
-  ::ng-deep .mat-form-field-infix {
-    background-color: var(--color-kpe-table-select);
   }
 }
 

@@ -1,5 +1,5 @@
 .datetimepicker {
-  width: 150px;
+  width: 100%;
   position: relative;
   display: flex;
   margin: 0 10px;
@@ -10,17 +10,17 @@
     .title {
       font-size: 13px;
       margin-bottom: 3px;
-      color: var(--color-text-sub);
+      color: var(--text-main-color);
     }
 
     .date {
-      color: var(--header-events-color-font-main) !important;
+      color: var(--text-contrast-color) !important;
       font-size: 13px;
       width: calc(100% - 22px);
       height: 25px;
       border-radius: 2px;
-      background-color: var(--header-events-color-bg-main);
-      border: 1px solid var(--color-astue-mat-select-border);
+      background-color: var(--gray-G11-color);
+      border: 1px solid var(--gray-G9-50-color);
       padding: 0px 10px 0px 10px;
       display: flex;
       align-items: center;
@@ -62,8 +62,8 @@
   }
   .date-block-open {
     display: block;
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-text-sub);
+    background-color: var(--gray-G10-color);
+    border: 1px solid var(--gray-G6-color);
     width: 100px;
     position: absolute;
     z-index: 5;

@@ -44,9 +44,7 @@ export class EvjEventsPlaceComponent implements OnInit {
     }
 
     public onSelectPlace(event: MatSelectChange): void {
-        console.log(event);
         this.ewService.getAutoResponsible(event.value);
-        console.log(this.ewService.getResponsible$.getValue());
     }
 
 
