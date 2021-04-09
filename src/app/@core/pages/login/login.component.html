@@ -1,36 +1,37 @@
 <evj-preloader [isLoading]="isLoadingData"></evj-preloader>
-<div class="login-form" [class.swing]="swing" (ngSubmit)="onSubmit()">
-  <p class="login-text">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fa fa-lock fa-stack-1x"></i>
-    </span>
-  </p>
-  <div class="logo-gpn"></div>
+<div class="main">
+  <svg-icon class="main__wall" src="assets/icons/login/wall.svg"></svg-icon>
+  <div class="login-form" [class.swing]="swing" (ngSubmit)="onSubmit()">
+    <div class="logo">
+      <svg-icon class="logo__icon" src="assets/icons/login/gpn-logo.svg"></svg-icon>
+      <div class="logo__title"><span class="logo__title__first">Цифровая</span>индустриальная экосистема</div>
+    </div>
 
-  <evj-input
-    class="insert-component insert-component__login"
-    [options]="loginOptions"
-    [formControl]="username"
-    (keyup.enter)="onSubmit()"
-  ></evj-input>
-  <evj-input
-    class="insert-component insert-component__password"
-    [options]="passwordOptions"
-    [formControl]="password"
-    (keyup.enter)="onSubmit()"
-  ></evj-input>
+    <div class="main__auth">
+      <evj-input class="insert-component insert-component__login" [options]="loginOptions" [formControl]="username"
+        (keyup.enter)="onSubmit()"></evj-input>
+      <div class="main__auth__error">
+        <ng-container *ngIf="username.invalid">
+          <span *ngIf="username.errors.required">Введите логин</span>
+          <span *ngIf="username.errors.minlength">Минимальное колличество символов должно быть не менее 3</span>
+        </ng-container>
+      </div>
+      <evj-input class="insert-component insert-component__password" [options]="passwordOptions"
+        [formControl]="password" (keyup.enter)="onSubmit()"></evj-input>
+      <div class="main__auth__error">
+        <ng-container *ngIf="password.invalid">
+          <span *ngIf="password.errors.required">Введите пароль</span>
+          <span *ngIf="password.errors.minlength">Минимальное колличество символов должно быть не менее 6</span>
+        </ng-container>
+      </div>
+    </div>
 
-  <div class="login__submit">
-    <div class="submit__frame submit__frame-left"></div>
-    <div class="submit__frame submit__frame-right"></div>
-    <button type="submit gridster-item-content" name="Login" value="Войти" class="login-submit" (click)="onSubmit()">
-      <mat-spinner
-        *ngIf="isLoadingData"
-        diameter="20"
-        style="position: relative; margin-left: -10px; left: 50%"
-      ></mat-spinner>
-      <span *ngIf="!isLoadingData">Войти</span>
-    </button>
+    <div class="login__submit">
+      <button type="submit gridster-item-content" name="Login" value="Войти" class="login-submit" (click)="onSubmit()">
+        <mat-spinner *ngIf="isLoadingData" diameter="20" style="position: relative; margin-left: -10px; left: 50%">
+        </mat-spinner>
+        <span *ngIf="!isLoadingData">Войти</span>
+      </button>
+    </div>
   </div>
 </div>
