@@ -55,17 +55,15 @@
         <span>Позиции КД ПАЗ по установке АВТ-10:</span>
       </div>
     </div>
-    <ng-container *ngIf="toggleValue === 'plan'">
-      <div class="row">
-        <evj-cmid-event-plan-table></evj-cmid-event-plan-table>
-      </div>
-    </ng-container>
+    <div class="row">
+      <evj-cmid-event-plan-table></evj-cmid-event-plan-table>
+    </div>
     <div class="row">
       <evj-cmid-event-chips [toggleValue]="toggleValue"></evj-cmid-event-chips>
     </div>
 
     <div class="row">
-      <evj-cmid-datetimepicker>Фактическая дата и время отключения:</evj-cmid-datetimepicker>
+      <evj-cmid-datetimepicker>{{ toggleValue === 'plan' ? 'Плановая' : 'Фактическая' }} дата и время отключения:</evj-cmid-datetimepicker>
       <evj-cmid-datetimepicker>Плановая дата и время включения:</evj-cmid-datetimepicker>
     </div>
   </section>
