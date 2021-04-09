@@ -6,7 +6,7 @@
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: var(--color-bg-main);
+  background-color: var(--bg-dashboard-color);
   z-index: 9999;
 
   &.is-hidden {
@@ -14,13 +14,8 @@
   }
 
   .is-loading {
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 200px;
+
+    color: var(--toggler-button-color-active);
 
     transform: scale(0.9);
     opacity: 1;

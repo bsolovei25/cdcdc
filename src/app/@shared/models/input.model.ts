@@ -20,6 +20,7 @@ export interface IInputOptions {
     withoutUnderline?: boolean;
     icon?: IInputIcon;
     mask?: IInputMask;
+    logo?: IInputIcon;
 }
 
 export type InputStatesType = 'normal' | 'rounded' | 'warning' | 'danger';
