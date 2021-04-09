@@ -46,7 +46,6 @@ export class SouSchemaComponent implements OnChanges {
     elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
     fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
     dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
-    private elementsTypesCount: number = 12;
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
@@ -108,11 +107,11 @@ export class SouSchemaComponent implements OnChanges {
                     return 'kpa-c100';
                 case 'Л-35/11-1000':
                     return 'l-35-11-1000';
-                case 'Сырьевой парк тит. 4022':
-                    return 'raw-materials-park-4022';
                 case 'Изомалк-2':
                     if (sectionName === 'Топливо факел') {
                         return 'izomalk-2-fuel';
+                    } else if (sectionName === 'Сырьевой парк') {
+                        return 'raw-materials-park-4022';
                     }
                     break;
                 case 'ТРХ Тит.204':
