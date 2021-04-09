@@ -50,20 +50,19 @@ export class SouSchemaComponent implements OnChanges {
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: string; // Выбранная установка
+    @Input() chosenUnitName: string; // Выбранная установка
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        const chosenInstallChanges: SimpleChange = changes?.chosenInstall;
+        const chosenInstallChanges: SimpleChange = changes?.chosenUnitName;
 
-        if (!this.chosenInstall || chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue) {
+        if (!this.chosenUnitName || chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.processSvgWhenItIsReady();
             this.resetComponent();
-            console.log('choosen install', this.chosenInstall, this.svgFileName);
         }
 
         if (this.dataPark?.length) {
@@ -80,8 +79,11 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     public get svgFileName(): string {
-        if (this.chosenInstall) {
-            switch (this.chosenInstall) {
+        if (this.chosenUnitName) {
+            const section = this.mvpService.currentSection$.getValue() as {name: string};
+            const sectionName = section?.name;
+
+            switch (this.chosenUnitName) {
                 case 'АССБ Авиасмеси':
                     return 'ASSB-AviaSmesi';
                 case 'АССБ А-95':
@@ -108,6 +110,11 @@ export class SouSchemaComponent implements OnChanges {
                     return 'l-35-11-1000';
                 case 'Сырьевой парк тит. 4022':
                     return 'raw-materials-park-4022';
+                case 'Изомалк-2':
+                    if (sectionName === 'Топливо факел') {
+                        return 'izomalk-2-fuel';
+                    }
+                    break;
                 case 'ТРХ Тит.204':
                     return 'trx-tit-204';
             }
@@ -265,7 +272,7 @@ export class SouSchemaComponent implements OnChanges {
             this.elementsMap.set(id, line);
         });
 
-        console.log(`Элементов и линий: ${this.elementsMap?.size}`, this.elementsMap);
+        console.log(`Элементов и линий: ${this.elementsMap?.size}`);
     }
 
     prepareElement(
