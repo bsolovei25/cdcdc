@@ -175,7 +175,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         if (!manufactureName || !unitName || !sectionName) {
             return null;
         }
-
         if (sectionName.includes('изомалк')) {
             return 'izomalk';
         } else if (sectionName.includes('аб')) {
