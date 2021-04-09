@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
-import { CONTENT_DATA } from '../kpe-universal-card/mock';
 import { IKpeUniversalCardMonthData } from '../kpe-universal-card/kpe-universal-card.component';
 import { IKpeGaugeChartPage } from "../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
@@ -14,7 +13,9 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
     @ViewChild('chart', { static: true }) chart: ElementRef;
     @ViewChild('container', { static: true }) container: ElementRef;
 
-    @Input() data: IKpeGaugeChartPage;
+    @Input()
+    public data: IKpeGaugeChartPage;
+    public internalData: IKpeGaugeChartPage | null = null;
 
     public svg: any;
     public size: number = 0;
@@ -60,6 +61,7 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
+        this.prepareData();
         this.fillDayStatuses();
         this.drawSvg();
     }
@@ -81,11 +83,23 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
 
     public getExtremumValue(flag: 'min' | 'max'): number {
         if (!this.data) { return 0; }
+        const values = this.data.bounds?.slice(1, -1);
         if (flag === 'min') {
-            return d3.min(this.data?.bounds.slice(1));
+            return this.data.zeroOn === 'Right' ? d3.max(values) : d3.min(values);
         }
         if (flag === 'max') {
-            return d3.max(this.data?.bounds.slice(1, -1));
+            return this.data.zeroOn === 'Right' ? d3.min(values) : d3.max(values);
+        }
+    }
+
+    private prepareData(): void {
+        if (!this.data) { return; }
+        this.internalData = {...this.data};
+        // Ограничиваем значения 0 и 100
+        this.internalData.bounds = this.internalData.bounds.map(item => item > 100 ? 100 : item < 0 ? 0 : item);
+        // Если обратное заполнение, то "зеркалим" массив
+        if (this.internalData.zeroOn === 'Right') {
+            this.internalData.bounds = this.internalData.bounds.map(item => 100 - item);
         }
     }
 

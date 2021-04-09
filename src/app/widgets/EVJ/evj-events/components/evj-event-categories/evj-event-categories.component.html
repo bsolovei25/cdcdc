@@ -13,7 +13,8 @@
 <!--          <mat-checkbox-->
 <!--            class="checkbox__item"-->
 <!--            color="primary"-->
-<!--            (change)="limitationsChange($event)"-->
+<!--            [formControl]="isRestrictionsFormControl"-->
+<!--              (change)="restrictionsChange($event)"-->
 <!--          ></mat-checkbox>-->
 <!--          <label [class.active]="limitationsEnabled">Ограничения</label>-->
 <!--        </div>-->
@@ -74,28 +75,37 @@
 <!--  </div>-->
 <!--</ng-template>-->
 <ng-template cdk-portal #overlayTemplate="cdkPortal">
-  <div class="overlay-container mat-elevation-z5"
-       (mouseenter)="resetSetTimeout()"
-       (mouseleave)="closeOverlay()">
-    <div class="overlay-container mat-elevation-z5" (mouseenter)="resetSetTimeout()" (mouseleave)="closeOverlay()">
-      <ng-container *ngFor="let item of data?.subCategories">
-        <div class="item">
-          <div class="item__slide">
-            <mat-slide-toggle
-              [checked]="subCategoriesSelected.isSelected(item.id)"
-              (toggleChange)="toggle(item.id)"
-              disableRipple="true"
-            ></mat-slide-toggle>
-          </div>
-          <div class="item__text" [class.item__text_disabled]="!subCategoriesSelected.isSelected(item.id)">
-            {{ item.description }}
-          </div>
-          <div class="item__btn">
-            <button>В систему источник</button>
-          </div>
+  <div class="overlay-container mat-elevation-z5" (mouseenter)="resetSetTimeout()" (mouseleave)="closeOverlay()">
+    <ng-container *ngFor="let item of data?.subCategories">
+      <div class="item">
+        <div class="item__slide">
+          <mat-slide-toggle
+            [checked]="subCategoriesSelected.isSelected(item.id)"
+            (toggleChange)="toggle(item.id)"
+            disableRipple="true"
+          ></mat-slide-toggle>
         </div>
-      </ng-container>
-    </div>
+        <div class="item__text" [class.item__text_disabled]="!subCategoriesSelected.isSelected(item.id)">
+          {{ item.description }}
+        </div>
+          <ng-container *ngIf="item.description !== 'Показать все события'; else limitationsCheckbox">
+            <div class="item__btn">
+              <button>В систему источник</button>
+            </div>
+          </ng-container>
+          <ng-template #limitationsCheckbox>
+            <div class="item__ckb">
+              <mat-checkbox
+                class="checkbox"
+                color="primary"
+                [formControl]="isRestrictionsFormControl"
+                (change)="restrictionsChange($event)"
+              ></mat-checkbox>
+              <span>Ограничения</span>
+            </div>
+          </ng-template>
+        </div>
+    </ng-container>
   </div>
 </ng-template>
 <div class="categories">

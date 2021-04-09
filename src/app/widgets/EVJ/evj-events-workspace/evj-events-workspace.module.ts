@@ -47,7 +47,7 @@ import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-works
 import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-events-workspace-responsible/evj-events-workspace-responsible-select.component';
 import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-events-place.component';
 import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events-workspace-extra-options/evj-events-workspace-extra-options.component';
-import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-workspace-limitations/evj-events-workspace-limitations.component';
+import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events-workspace-restrictions/evj-events-workspace-restrictions.component';
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
@@ -91,7 +91,7 @@ import { NgxMaskModule } from 'ngx-mask';
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
         EvjEventsWorkspaceExtraOptionsComponent,
-        EvjEventsWorkspaceLimitationsComponent,
+        EvjEventsWorkspaceRestrictionsComponent,
     ],
     imports: [
         CommonModule,

@@ -10,6 +10,7 @@ export interface IKpeGaugeChartPage {
     dailyStatus: IKpeUniversalCardMonthData[];
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
+    zeroOn: 'Left' | 'Right';
 }
 
 @Component({

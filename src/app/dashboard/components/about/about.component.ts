@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 export interface IAboutApp {
     headerName: string;
-    version: string;
-    date: Date;
     title: string;
     mainText: string;
     featuresTitle: string;
@@ -24,10 +23,12 @@ export interface IAboutModules {
     styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
+
+    public version: string = environment.version;
+    public date: Date = new Date(environment.date);
+
     public readonly about: IAboutApp = {
         headerName: 'О программе',
-        version: '1.04',
-        date: new Date('Mar 04 2021'),
         title: 'Цифровая индустриальная экосистема',
         mainText:
             'Комплексный конструктор виджетов, охватывающий все ключевые аспекты управления' +
