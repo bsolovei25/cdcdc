@@ -30,7 +30,7 @@ export interface IKpeTableBody {
     deviation: number;
     deviationPercent: string;
     deviationColor?: string
-    recommended?: number;
+    valueRecommended?: number;
     hasComment?: boolean;
 }
 export interface IKpeTableTabs {
