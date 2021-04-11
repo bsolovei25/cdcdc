@@ -3,9 +3,9 @@
   [ngClass]="{
     off: !flowData?.isEnable,
     warning: flowData?.isExceedingConfInterval && !!flowData?.isEnable,
-    selected: flowData?.code === mvpService.selectedCode
+    selected: code === mvpService.selectedCode
   }"
-  (click)="elementClick(sections, flowData?.code)"
+  (click)="elementClick(sections, code)"
 >
   <div class="diagram-container">
     <div class="diagram" #chart></div>

@@ -103,6 +103,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     ngOnInit(): void {
         super.widgetInit();
+        this.mvpService.getConfigs().then();
+
         this.subscriptions.push(
             combineLatest([this.mvpService.redirectId$, this.subChannels$])
                 .pipe(

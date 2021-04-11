@@ -20,11 +20,13 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
     @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
         if (data.sections) {
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
+            this.code = data.code;
             this.drawSvg();
         }
     }
 
     flowData: ISouFlowOut;
+    public code: number;
 
     public svg: any;
 

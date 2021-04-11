@@ -2,10 +2,10 @@
   class="main-container"
   [ngClass]="{
     off:!flowData?.isEnable,
-    selected:flowData?.code === mvpService.selectedCode
+    selected: code === mvpService.selectedCode
   }"
 >
-  <div class="container" (click)="elementClick(sections, flowData?.code)">
+  <div class="container" (click)="elementClick(sections, code)">
     <div class="connection__left">
       <div class="connection-circle" *ngFor="let j of inputArr"></div>
     </div>
@@ -41,7 +41,7 @@
       class="line"
       [ngClass]="{
         disable:!flowData?.isEnable,
-        selectedLine: flowData?.code === mvpService?.selectedCode
+        selectedLine: code === mvpService?.selectedCode
       }"
       *ngFor="let i of outputArr"
     ></div>
