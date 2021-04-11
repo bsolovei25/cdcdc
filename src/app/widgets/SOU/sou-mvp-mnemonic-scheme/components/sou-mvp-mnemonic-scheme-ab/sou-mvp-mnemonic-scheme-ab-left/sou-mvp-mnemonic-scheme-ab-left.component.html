@@ -3,7 +3,7 @@
     <div
       style="cursor: pointer"
       class="title"
-      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 151)?.linkId)"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 0)?.linkId)"
     >
       <div class="arrow-btn">
         <svg-icon
@@ -11,19 +11,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>{{mvpService.getElementByCode(sections, 151)?.name}}</span>
+      <span [ngStyle]="{fontSize: '18px', color: 'red'}">{{mvpService.getElementByCode(sections, 0)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 150
+        code: 3
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 150
+        code: 3
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -33,7 +33,7 @@
     <div
       style="cursor: pointer"
       class="title"
-      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 148)?.linkId)"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 1)?.linkId)"
     >
       <div class="arrow-btn">
         <svg-icon
@@ -41,19 +41,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>{{mvpService.getElementByCode(sections, 148)?.name}}</span>
+      <span>{{mvpService.getElementByCode(sections, 1)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 149
+        code: 4
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 149
+        code: 4
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -63,7 +63,7 @@
     <div
       style="cursor: pointer"
       class="title"
-      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 147)?.linkId)"
+      (click)="mvpService.redirectMnemonic(mvpService.getElementByCode(sections, 2)?.linkId)"
     >
       <div class="arrow-btn">
         <svg-icon
@@ -71,19 +71,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>{{mvpService.getElementByCode(sections, 147)?.name}}</span>
+      <span>{{mvpService.getElementByCode(sections, 2)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 146
+        code: 5
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 146
+        code: 5
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>

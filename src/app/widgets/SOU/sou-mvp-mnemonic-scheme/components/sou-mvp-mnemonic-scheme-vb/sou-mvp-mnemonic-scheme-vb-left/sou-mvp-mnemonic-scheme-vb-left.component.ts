@@ -27,10 +27,10 @@ export class SouMvpMnemonicSchemeVbLeftComponent implements OnInit {
     }
 
     public get inputOne(): ISouObjects {
-        return this.mvpService.getElementByCode(this.sections, 152) as ISouObjects;
+        return this.mvpService.getElementByCode(this.sections, 79) as ISouObjects;
     }
 
     public get inputTwo(): ISouObjects {
-        return this.mvpService.getElementByCode(this.sections, 158) as ISouObjects;
+        return this.mvpService.getElementByCode(this.sections, 80) as ISouObjects;
     }
 }

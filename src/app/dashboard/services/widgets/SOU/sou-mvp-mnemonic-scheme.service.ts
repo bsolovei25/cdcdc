@@ -3,6 +3,11 @@ import { ISouFlowIn, ISouFlowOut, ISouObjects } from '../../../models/SOU/sou-op
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 
+interface ISouConfig {
+    readonlyId: number;
+    code: number;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -21,8 +26,10 @@ export class SouMvpMnemonicSchemeService {
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISouFlowOut;
+    private configSou: ISouConfig[] = [];
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     // linkId === sectionId
     redirectMnemonic(linkId: string): void {
@@ -53,13 +60,18 @@ export class SouMvpMnemonicSchemeService {
         return this.isPopupOpen;
     }
 
+    async getConfigs(): Promise<void> {
+        this.configSou = await this.http.get<ISouConfig[]>('assets/mock/SOU/sou-config.json').toPromise();
+    }
+
     // Ищет элемент по коду в массиве всех элементов
+    // Ищет по id из файла конфига находит нужный код
     getElementByCode(
         sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[],
-        code: number
+        id: number
     ): ISouFlowOut | ISouFlowIn | ISouObjects {
         if (sections?.length > 0) {
-            return sections.find((item) => item.code === code);
+            return sections.find((item) => item.code === this.configSou[id].code);
         }
     }
 
