@@ -77,6 +77,10 @@
       line-height: 20px;
       color: var(--text-contrast-color);
 
+      .date {
+        text-transform: capitalize;
+      }
+
       &__plus {
         margin-left: 10px;
         cursor: pointer;

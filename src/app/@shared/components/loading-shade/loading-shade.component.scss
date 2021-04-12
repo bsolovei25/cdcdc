@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: 100%;
-  background: rgba(0, 0, 0, 0.15);
+  background-color: var(--bg-dashboard-color);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
 
   circle {
     fill: none;
-    stroke: var(--color-border-active);
+    stroke: var(--toggler-button-color-active);
     stroke-width: 4;
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;

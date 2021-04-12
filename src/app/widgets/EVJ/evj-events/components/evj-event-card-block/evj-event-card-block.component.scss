@@ -7,13 +7,14 @@
   overflow: hidden;
   cursor: pointer;
   gap: 1px;
+  color: var(--text-contrast-color);
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background-color: var(--color-event-card-bg-sub);
+    background-color: var(--bg-dashboard-color);
     padding: 0 24px;
     box-sizing: border-box;
 
@@ -48,15 +49,15 @@
         margin-right: 10px;
 
         &_danger {
-          color: var(--color-oil-danger);
+          color: red;
         }
 
         &_warning {
-          color: var(--color-warning);
+          color: #f4a321;
         }
 
         &_closed {
-          color: var(--color-bg-sub);
+          color: var(--gray-G6-color);
         }
       }
 
@@ -64,20 +65,20 @@
         .icon {
           &__category {
             margin-left: 10px;
-            fill: var(--color-aps-active);
+            fill: var(--border-blue-color);
           }
 
           &__status {
             &_danger {
-              fill: var(--color-oil-danger);
+              fill: red;
             }
 
             &_warning {
-              fill: var(--color-warning);
+              fill: #f4a321;
             }
 
             &_standard {
-              fill: var(--color-text-main);
+              fill: var(--text-main-color);
             }
           }
         }
@@ -86,14 +87,14 @@
   }
 
   &__body {
-    background-color: var(--color-event-card-bg-body);
+    background-color: var(--bg-dashboard-color);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 0 20px;
 
     &--active {
-      background-color: var(--header-events-color-bg-hover);
+      background-color: var(--gray-G9-color);
     }
 
     .body {
@@ -105,7 +106,7 @@
       &__facts {
         @include text-overflow;
         -webkit-line-clamp: 2;
-        color: var(--color-border-unactive);
+        color: var(--border-icon-color);
       }
     }
   }
@@ -113,7 +114,7 @@
   &__footer {
     box-sizing: border-box;
     width: 100%;
-    background-color: var(--color-event-card-bg-sub);
+    background-color: var(--bg-dashboard-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,14 +133,14 @@
 
       &__critical {
         cursor: pointer;
-        background-color: var(--color-oil-border);
+        background-color: rgba(93, 96, 123, 0.2);
         padding: 5px 15px;
         border-radius: 2px;
         margin-right: 15px;
       }
 
       &__remove {
-        fill: var(--color-border-unactive);
+        fill: var(--border-icon-color);
       }
     }
   }

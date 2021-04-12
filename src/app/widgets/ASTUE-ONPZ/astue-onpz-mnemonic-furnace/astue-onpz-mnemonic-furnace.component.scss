@@ -1,13 +1,14 @@
 * {
   user-select: none;
 }
+
 .widget-container {
   display: flex;
   flex-flow: column;
   width: 100%;
   height: 100%;
   overflow-y: hidden;
-  background-color: var(--bg-body-color);
+
   .container {
     display: flex;
     flex-grow: 1;
@@ -40,23 +41,8 @@
     height: 655px;
     transform: perspective(1px) translateZ(0);
 
-
     &__background {
       margin: auto;
-
-      ::ng-deep {
-        circle {
-          fill: var(--bg-body-color);
-          stroke: var(--border-vidget-color);
-        }
-        line, rect, path {
-          stroke: var(--border-vidget-color);
-          color: var(--border-vidget-color);
-        }
-        path[class="secondColor"] {
-          stroke: var(--border-icon-color);
-        }
-      }
     }
 
     .wrapper {
@@ -140,7 +126,7 @@
         font-size: 12px;
         width: max-content;
         line-height: 14px;
-        color: var(--color-astue-onpz-mnemonic-furnace-box-text);
+        color: var(--text-main-color);
         text-align: center;
         white-space: nowrap;
         transform: translateX(-50%);
@@ -156,7 +142,7 @@
         flex-grow: 1;
         width: 1px;
         margin: 10px auto 0;
-        background: var(--border-vidget-color);
+        background: var(--border-forms-color);
 
         .triangle {
           position: absolute;
@@ -166,7 +152,7 @@
           height: 0;
           border-style: solid;
           border-width: 0 3px 6px 3px;
-          border-color: transparent transparent var(--border-vidget-color) transparent;
+          border-color: transparent transparent var(--border-forms-color) transparent;
         }
 
         .counter {
@@ -174,7 +160,7 @@
           font-size: 12px;
           bottom: 2px;
           left: 3px;
-          color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+          color: var(--text-contrast-color);
         }
 
         &__deviation {
@@ -188,7 +174,7 @@
 
       .circle {
         border-radius: 50%;
-        background: var(--bg-body-color);
+        background: var(--gray-G11-color);
         overflow: hidden;
       }
     }
@@ -247,13 +233,10 @@
     .dropdown {
       height: 24px;
       width: 150px;
-
       display: flex;
       align-items: center;
-
-      background: var(--bg-dashboard-color);
-
-      border: 1px solid var(--border-forms-color);
+      background: var(--gray-G12-color);
+      border: 1px solid var(--chart-segment-color);
       border-radius: 3px;
 
       &__select {

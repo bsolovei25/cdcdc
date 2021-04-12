@@ -28,6 +28,12 @@
             "@core/*": [
                 "./src/app/@core/*"
             ],
+            "@dashboard/*": [
+                "./src/app/dashboard/*"
+            ],
+            "@widgets/*": [
+                "./src/app/widgets/*"
+            ],
             "@shared/*": [
                 "./src/app/@shared/*"
             ]

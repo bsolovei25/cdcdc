@@ -1,14 +1,14 @@
 .notification {
   cursor: pointer;
   position: relative;
-  border: 1px solid var(--color-cd-bg-border);
-  border-left: 2px solid var(--color-cd-bg-border-sub);
+  border: 1px solid var(--border-vidget-color);
+  border-left: 2px solid var(--border-icon-color);
   padding: 15px 30px;
   padding-left: 55px;
   margin-bottom: 10px;
   margin-right: 5px;
-  color: var(--color-event-card-font-sub);
-  background-color: var(--color-events-bg-card);
+  color: var(--text-contrast-color);
+  background-color: var(--bg-dashboard-color);
 
   &:hover &__body__icon--delete {
     visibility: visible;
@@ -43,15 +43,15 @@
     }
 
     &_danger {
-      stroke: var(--color-danger-transparent);
+      stroke: rgba(234, 31, 31, 0.2);
     }
 
     &_warning {
-      stroke: var(--color-warning-transparent);
+      stroke: var(rgba(244, 163, 33, 0.2));
     }
 
     &_standard {
-      stroke: var(--color-cd-bg-border-sub);
+      stroke: var(--border-vidget-color-sub);
     }
   }
 
@@ -63,56 +63,56 @@
     height: 100%;
 
     &_danger {
-      background-color: var(--color-danger-transparent);
+      background-color: rgba(234, 31, 31, 0.2);
     }
 
     &_warning {
-      background-color: var(--color-warning-transparent);
+      background-color: var(rgba(244, 163, 33, 0.2));
     }
 
     &_standard {
-      background-color: var(--color-cd-bg-border-sub);
+      background-color: var(--bg-dashboard-color);
     }
   }
 
   &--standard {
-    border-left: 2px solid var(--color-cd-bg-border-sub);
-    background: linear-gradient(90deg, var(--color-event-card-gradient) 0%, var(--color-events-bg-card) 21%);
+    border-left: 2px solid var(--border-icon-color);
+    background: linear-gradient(90deg, var(--gray-G7-color) 0%, var(--bg-dashboard-color) 21%);
   }
 
   &--danger {
-    border-left: 2px solid var(--color-danger);
-    background: linear-gradient(90deg, var(--color-event-card-gradient-danger) 0%, var(--color-events-bg-card) 21%);
+    border-left: 2px solid #eb5757;
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.23) 0%, var(--bg-dashboard-color) 21%);
   }
 
   &--warning {
-    border-left: 2px solid var(--color-warning);
-    background: linear-gradient(90deg, var(--color-event-card-gradient-warning) 0%, var(--color-events-bg-card) 21%);
+    border-left: 2px solid #f4a321;
+    background: linear-gradient(90deg, rgba(255, 140, 0, 0.3) 0%, var(--bg-dashboard-color) 21%);
   }
 
   &--active {
     //border: 1px solid var(--color-kpe-gaude-active);
     //border-left: 2px solid var(--color-kpe-gaude-active);
     //background: linear-gradient(90deg, rgba(0, 137, 255, 0.2497373949579832) 0%, rgba(53, 34, 43, 0) 21%);
-    color: var(--header-events-color-font-main);
+    color: var(--text-contrast-color);
 
     &_danger {
-      border: 1px solid var(--color-danger);
-      border-left: 2px solid var(--color-danger);
-      background: linear-gradient(90deg, var(--color-event-card-gradient-danger) 0%, var(--color-events-bg-card) 21%);
+      border: 1px solid #eb5757;
+      border-left: 2px solid #eb5757;
+      background: linear-gradient(90deg, rgba(235, 87, 87, 0.23) 0%, var(--bg-dashboard-color) 21%);
     }
 
     &_warning {
-      border: 1px solid var(--color-warning);
-      border-left: 2px solid var(--color-warning);
-      background: linear-gradient(90deg, var(--color-event-card-gradient-warning) 0%, var(--color-events-bg-card) 21%);
+      border: 1px solid #f4a321;
+      border-left: 2px solid #f4a321;
+      background: linear-gradient(90deg, rgba(255, 140, 0, 0.3) 0%, var(--bg-dashboard-color) 21%);
     }
 
     &_standard {
-      stroke: var(--color-cd-bg-border-sub);
-      border: 1px solid var(--color-cd-bg-border-sub);
-      border-left: 2px solid var(--color-cd-bg-border-sub);
-      background: linear-gradient(90deg, var(--color-event-card-gradient) 0%, var(--color-events-bg-card) 21%);
+      stroke: var(--border-vidget-color-sub);
+      border: 1px solid var(--border-vidget-color-sub);
+      border-left: 2px solid var(--border-vidget-color-sub);
+      background: linear-gradient(90deg, var(--gray-G6-color) 0%, var(--bg-dashboard-color) 21%);
     }
   }
 
@@ -126,11 +126,11 @@
       margin-right: 10px;
 
       &_danger {
-        color: var(--color-danger);
+        color: #eb5757;
       }
 
       &_warning {
-        color: var(--color-warning);
+        color: #f4a321;
       }
     }
 
@@ -154,7 +154,7 @@
 
     &__limitation,
     &__unit {
-      background-color: #1C1F2B;
+      background-color: inherit;//var(--bg-dashboard-color);
       display: flex;
       align-items: center;
     }
@@ -164,7 +164,7 @@
       margin: 2px 10px 0 10px;
 
       div {
-        border-top: 1px solid var(--color-cd-bg-border);
+        border-top: 1px solid var(--border-vidget-color);
       }
 
       &--unit {
@@ -173,7 +173,7 @@
         max-width: 10%;
 
         div {
-          border-top: 1px solid var(--color-cd-bg-border);
+          border-top: 1px solid var(--border-vidget-color);
         }
       }
     }
@@ -200,7 +200,7 @@
 
       &-description {
         font-size: 13px;
-        color: var(--header-events-color-font-main);
+        color: var(--text-contrast-color);
         margin-right: 10px;
 
         &_children {
@@ -230,15 +230,15 @@
       vertical-align: top;
 
       &_danger {
-        color: var(--color-danger);
+        color: #eb5757;
       }
 
       &_warning {
-        color: var(--color-warning);
+        color: #f4a321;
       }
 
       &_standart {
-        color: var(--color-text-main);
+        color: var(--text-main-color);
       }
     }
 
@@ -248,24 +248,24 @@
       height: 20px;
 
       &_danger {
-        stroke: var(--color-danger);
+        stroke: #eb5757;
       }
 
       &_warning {
-        stroke: var(--color-warning);
+        stroke: #f4a321;
       }
 
       &_standard {
-        stroke: var(--color-text-sub);
+        stroke: var(--text-subscript-color);
       }
 
       &--delete {
         visibility: hidden;
-        fill: var(--color-border-unactive);
+        fill: var(--border-icon-color);
         stroke: none;
 
         &:hover {
-          fill: var(--color-border-active);
+          fill: var(--border-blue-color);
         }
 
         &__mock {
@@ -283,11 +283,6 @@
       margin-bottom: 0;
     }
   }
-}
-
-.selected-block {
-  // border: 1px solid var(--color-border-active);
-  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
 }
 
 .block-container {

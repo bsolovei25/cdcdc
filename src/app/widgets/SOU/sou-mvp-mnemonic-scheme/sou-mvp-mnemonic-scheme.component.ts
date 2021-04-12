@@ -103,6 +103,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     ngOnInit(): void {
         super.widgetInit();
+        this.mvpService.getConfigs().then();
+
         this.subscriptions.push(
             combineLatest([this.mvpService.redirectId$, this.subChannels$])
                 .pipe(
@@ -175,7 +177,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         if (!manufactureName || !unitName || !sectionName) {
             return null;
         }
-        if (unitName.includes('изомалк')) {
+        if (sectionName.includes('изомалк')) {
             return 'izomalk';
         } else if (sectionName.includes('аб')) {
             return 'ab';
@@ -204,6 +206,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string } {
         const manufacture = form.manufacture;
         const unit = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === form.unit)?.name;
+        const section = form.section;
+
         return { manufacture, unit };
     }
 

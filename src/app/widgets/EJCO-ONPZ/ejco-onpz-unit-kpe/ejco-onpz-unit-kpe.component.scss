@@ -10,8 +10,8 @@
   overflow: hidden;
   position: relative;
   pointer-events: fill;
-  border: 1px solid var(--color-astue-onpz-widget-border);
-  background: var(--color-astue-onpz-widget-bg);
+  border: 1px solid var(--border-vidget-color);
+  background: var(--bg-body-color);
 }
 
 .header-container {
@@ -26,8 +26,8 @@
     margin-left: auto;
     cursor: pointer;
     border-radius: 2px;
-    color: #d7e2f2;
-    background: #303549;
+    color: var(--text-contrast-color);
+    background: var(--gray-G9-color);
   }
 }
 
@@ -58,21 +58,6 @@
     align-items: center;
     overflow-y: auto;
     gap: 5px;
-
-    &::-webkit-scrollbar {
-      width: 10px;
-      height: 15px;
-      border-radius: 1px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-bg-sub);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-top: solid 5px var(--color-astue-onpz-widget-bg);
-      border-bottom: solid 5px var(--color-astue-onpz-widget-bg);
-    }
   }
 }
 
@@ -109,14 +94,14 @@
     line-height: 16px;
     text-align: center;
     margin: 0 auto;
-    color: var(--color-kpe-text-main);
+    color: var(--text-contrast-color);
   }
 }
 
 .devider {
   width: 0.5px;
   height: 80%;
-  background: var(--color-border-unactive);
+  background: var(--border-forms-color);
   position: relative;
   margin-right: 10px;
 
@@ -130,8 +115,7 @@
     box-sizing: border-box;
     transform-origin: 43% 0;
     border-radius: 50%;
-    border: 0.5px solid var(--color-border-unactive);
-    background: var(--color-bg-main);
+    border: 0.5px solid var(--border-forms-color);
   }
 
   &:before {

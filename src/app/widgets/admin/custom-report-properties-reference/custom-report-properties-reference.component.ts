@@ -1,15 +1,28 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-import { ReportsService } from '../../../dashboard/services/widgets/admin-panel/reports.service';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { WidgetPlatform } from "src/app/dashboard/models/@PLATFORM/widget-platform";
+import { WidgetService } from "@dashboard/services/widget.service";
+import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
+import { Subscription } from "rxjs";
 
+export interface ICustomReportProperties {
+    id?: number;
+    name: string;
+    source: string[];
+    type: 'textBox' | 'dateTime' | 'comboBox' | 'checkBox' | 'custom';
+    description: string;
+    validationRule: string;
+    isRequired: boolean;
+    sortOrder?: number;
+    openEdit?: boolean;
+    open?: boolean;
+}
 @Component({
     selector: 'evj-custom-report-properties-reference',
     templateUrl: './custom-report-properties-reference.component.html',
     styleUrls: ['./custom-report-properties-reference.component.scss'],
 })
 export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
+    @ViewChild('propertiesReferenceTable') public testBlock: ElementRef;
     @ViewChild('customOptions') public testBlock2: ElementRef;
 
     indexColumn: number = null;
@@ -22,14 +35,10 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
 
     newRecordInReference: string;
 
-    public data;
-    public datas;
-    public dataOptions;
-    public blockOut = [];
+    public data: ICustomReportProperties[];
+    public dataCopy: ICustomReportProperties[];
 
     public isLoading: boolean = false;
-
-    options = [{ object: '1' }];
 
     constructor(
         public widgetService: WidgetService,
@@ -47,7 +56,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event): void {
+    OnResize(): void {
         this.setStyleScroll();
     }
 
@@ -81,19 +90,17 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
         }
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
-    }
+    protected dataHandler(ref: any): void {}
 
-    getReference(): any {
+    getReference(): Subscription {
         return this.reportService.getCustomOptions().subscribe((data) => {
-            this.datas = data;
-            this.data = this.datas;
+            this.dataCopy = data;
+            this.data = this.dataCopy;
             this.setStyleScroll();
         });
     }
 
-    onClickReference(data, index): void {
+    onClickReference(data: ICustomReportProperties, index: number): void {
         this.idReferenceClick = data.id;
         this.indexColumn = index;
         this.setStyleScroll();
@@ -101,7 +108,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
 
     onPushReference(): void {
         this.isClickPushReference = false;
-        let object = {
+        const object: ICustomReportProperties = {
             name: this.newRecordInReference,
             description: '',
             type: 'textBox',
@@ -110,7 +117,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
             source: null,
         };
         if (this.newRecordInReference.trim().length > 0 && this.newRecordInReference !== undefined) {
-            this.reportService.postCustomOptions(object).subscribe((ans) => {
+            this.reportService.postCustomOptions(object).subscribe(() => {
                 this.getReference();
             });
             this.newRecordInReference = null;
@@ -121,20 +128,18 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
         this.isClickPushReference = true;
     }
 
-    searchReference(event: any) {
+    searchReference(event: any): void {
         if (event.key === 'Backspace') {
-            this.data = this.datas;
+            this.data = this.dataCopy;
         }
         const record = event.currentTarget.value.toLowerCase();
-        const filterData = this.data.filter((e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1);
-
-        this.data = filterData;
+        this.data = this.data.filter((e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1);
         if (!event.currentTarget.value) {
-            this.data = this.datas;
+            this.data = this.dataCopy;
         }
     }
 
-    deleteReference(item): void {
+    deleteReference(item: ICustomReportProperties): void {
         this.isLoading = true;
         const windowsParam = {
             isShow: true,
@@ -143,11 +148,11 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
             cancelText: 'Нет',
             acceptFunction: () =>
                 this.reportService.deleteCustomOptions(item.id).subscribe(
-                    (ans) => {
+                    () => {
                         this.getReference();
                         this.isLoading = false;
                     },
-                    (error) => {
+                    () => {
                         this.isLoading = false;
                     }
                 ),
@@ -159,12 +164,12 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
         this.reportService.alertWindow$.next(windowsParam);
     }
 
-    onEdit(item) {
+    onEdit(item: ICustomReportProperties): void {
         item.openEdit = true;
     }
 
-    editOptions(item) {
-        this.reportService.putCustomOptions(item).subscribe((ans) => {
+    editOptions(item: ICustomReportProperties): void {
+        this.reportService.putCustomOptions(item).subscribe(() => {
             this.getReference();
         });
     }

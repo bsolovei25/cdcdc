@@ -12,6 +12,7 @@ import { SouMvpMnemonicSchemeService } from '../../../../../../dashboard/service
     styleUrls: ['./sou-mvp-mnemonic-scheme-simple-input.component.scss'],
 })
 export class SouMvpMnemonicSchemeSimpleInputComponent implements OnInit {
+
     @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
         if (data.sections) {
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;

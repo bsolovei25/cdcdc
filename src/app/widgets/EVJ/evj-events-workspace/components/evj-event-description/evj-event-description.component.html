@@ -8,8 +8,8 @@
           [(ngModel)]="description"
           (input)="onChangeTextarea()"
           (blur)="disableTextarea()"
-          [ngClass]="disabled || ewService.event.limitationsEnabled ? 'disabled' : ''"
-          [disabled]="disabled || ewService.event.limitationsEnabled"
+          [ngClass]="disabled || ewService.event.isRestrictions ? 'disabled' : ''"
+          [disabled]="disabled || ewService.event.isRestrictions"
           #textarea
         ></textarea>
     </div>

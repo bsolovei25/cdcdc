@@ -70,6 +70,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public categories: EventsWidgetCategory[] = [];
 
+    public isRestrictions: boolean = false;
+
     public readonly categoriesAll: EventsWidgetCategory[] = [
         {
             id: 1001,
@@ -317,7 +319,16 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.subCategories.forEach((subCategory, index) => {
             this.categories.forEach((category) => {
                 if (!category?.subCategories) {
-                    category.subCategories = [];
+                    category.subCategories = [
+                        {
+                            name: 'Показать все события',
+                            code: '100',
+                            description: 'Показать все события',
+                            id: this.idAllSubCategory,
+                            parentCategory: null,
+                            parentCategoryId: category.id,
+                        },
+                    ];
                 }
                 if (subCategory.parentCategoryId === category.id) {
                     category.subCategories.push(subCategory);
@@ -499,6 +510,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
             isVideoWall: !!this.attributes?.IsVideoWall,
+            isRestrictions: this.isRestrictions,
             sortType: this.attributes?.SortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
             priority: this.priority,
@@ -713,6 +725,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             this.clearNotifications();
         }
         const options = this.getCurrentOptions();
+        console.log(options, 'options');
         this.updateWidgetSettings('options', options);
         if (!options.placeNames) {
             this.isAllowScrollLoading = true;
@@ -858,6 +871,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public cancelSubcategories(): void {
         this.subCategoriesSelected.clear();
+        this.isRestrictions = false;
         this.getData();
         this.getStats();
     }
@@ -865,5 +879,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     public applySubcategories(): void {
         this.getData();
         this.getStats();
+    }
+
+    public isRestrictionsChanged(isRestrictions: boolean): void {
+        this.isRestrictions = isRestrictions;
     }
 }

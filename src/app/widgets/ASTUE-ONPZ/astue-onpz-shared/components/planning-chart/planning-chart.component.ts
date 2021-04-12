@@ -280,7 +280,7 @@ export class PlanningChartComponent implements OnChanges {
                 .attr('width', this.graphMaxX)
                 .attr('height', this.graphMaxY)
                 .attr('mask', 'url(#planning-mask)')
-                .style('fill', 'var(--color-astue-onpz-bg-axis-2)');
+                .style('fill', 'var(--gray-G11-color)');
         }
     }
 
@@ -295,18 +295,20 @@ export class PlanningChartComponent implements OnChanges {
             .slice(-1)[0];
         if (item) {
             const g = pointsG.append('g').attr('class', 'fact-point');
-            let r = 9;
-            let opacity = 0.33;
-            for (let i = 0; i < 3; i++) {
-                g.append('circle')
-                    .attr('class', 'point point_fact')
-                    .attr('cx', item.x)
-                    .attr('cy', item.y)
-                    .attr('r', r)
-                    .style('opacity', opacity);
-                r -= 3;
-                opacity += 0.33;
-            }
+            const points: { radius: number, opacity: number }[] = [
+                { radius: 4.5, opacity: 0.05 },
+                { radius: 3.5, opacity: 0.2 },
+                { radius: 1.5, opacity: 0.5 },
+                { radius: 0.5, opacity: 1 }
+            ];
+            points.forEach(v => {
+                g.append("circle")
+                    .attr("class", "point point_fact")
+                    .attr("cx", item.x)
+                    .attr("cy", item.y)
+                    .attr("r", v.radius)
+                    .style("opacity", v.opacity);
+            });
             g.style('transform', 'translateY(5)');
         }
     }
@@ -323,7 +325,7 @@ export class PlanningChartComponent implements OnChanges {
                     .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .style('color', '#272A38');
+            .style('color', 'var(--border-vidget-color)');
         this.svg
             .append('g')
             .attr('class', 'grid')
@@ -335,7 +337,7 @@ export class PlanningChartComponent implements OnChanges {
                     .tickSize(-(this.graphMaxX - this.padding.left - this.padding.right))
                     .tickFormat('')
             )
-            .style('color', '#272A38');
+            .style('color', 'var(--border-vidget-color)');
     }
 
     private drawAxisLabels(): void {

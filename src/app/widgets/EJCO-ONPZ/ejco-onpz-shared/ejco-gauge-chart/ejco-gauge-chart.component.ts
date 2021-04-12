@@ -102,8 +102,8 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
         }
 
         drawDiagram('background', () => backPie([null]), backArc);
-        drawDiagram('sub', () => subPie(newArray(Math.ceil(tickSub))));
-        drawDiagram('main', () => mainPie(newArray(Math.ceil(tickMain))));
+        drawDiagram('sub', () => subPie(this.fact > this.plan ? [null] : newArray(tickSub)));
+        drawDiagram('main', () => mainPie(newArray(tickMain)));
 
         function addSerif(angle: number, className: 'serif-active' | 'serif-warning'): void {
             const lineOut = 2;

@@ -32,16 +32,16 @@
   &__norm {
     &__selected {
       background: var(--opacity-plan-20-color);
-      border-color: var(--index-plan-color);
+      border-color: var(--border-blue-color);
       transition: 0.2s;
 
       .value {
-        color: var(--text-accent-color);
+        color: var(--text-contrast-color);
         transition: 0.2s;
       }
 
       .unit {
-        color: var(--text-accent-color);
+        color: var(--text-contrast-color);
         transition: 0.2s;
       }
     }
@@ -63,15 +63,15 @@
     }
 
     &__selected {
-      background: rgba(var(--color-astue-onpz-mnemonic-furnace-warning-rgb), 0.2);
+      background: var(--opacity-orange-20-color);
 
       .value {
-        color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+        color: var(--text-contrast-color);
         transition: 0.2s;
       }
 
       .unit {
-        color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+        color: var(--text-contrast-color);
         transition: 0.2s;
       }
     }

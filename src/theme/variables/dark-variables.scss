@@ -101,6 +101,15 @@
   --color-scroll-track-piece: transparent;
   --color-scroll-corner: #12151e;
 
+  // Страница входа
+  --color-login-component: rgba(39, 42, 56, 0.5);
+  --color-login-button: #303549;
+  --color-login-main-bg: #12151E;
+  --color-input-visibility-password: #8C99B2;
+  --color-login-gpn-logo: #FFFFFF;
+  --color-login-input-border: #272A38;
+  --color-login-validation: #FF1D25;
+
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
 
@@ -767,7 +776,7 @@
 
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;
-$--color-warning: #f4a321;
+$--color-aps-text-sub: #f4a321;
 $--color-standard: #00a99d;
 $--color-circle: #00ffff;
 $--color-aqua: #00ffff;

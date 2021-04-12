@@ -135,7 +135,7 @@ gridster-item {
     width: 500px;
     padding: 20px 10px 20px 20px;
     box-shadow: -4px 20px 13px 4px rgba(0, 0, 0, 0.5);
-    border-color: var(--color-border-active);
+    border-color: var(--border-blue-color);
     border-right: 1px;
     z-index: 100;
   }
@@ -165,9 +165,9 @@ gridster-item {
 
     border-radius: 10px 0 0;
     background-color: var(--color-bg-main);
-    border: 1px solid var(--color-border-active);
+    border: 1px solid var(--border-blue-color);
     border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: -6px 0px 13px 1px rgba(0, 0, 0, 0.5);
 
     cursor: pointer;
   }
@@ -186,18 +186,18 @@ gridster-item {
 
     border-radius: 10px 0 0;
     background-color: var(--color-bg-main);
-    border: 1px solid var(--color-border-active);
+    border: 1px solid var(--border-blue-color);
     border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: -6px 0px 13px 1px rgba(0, 0, 0, 0.5);
 
     cursor: pointer;
   }
 
   &__icon {
     width: 20px;
-    fill: var(--color-border-main);
+    color: var(--color-border-main);
     &--active {
-      fill: var(--color-text-main);
+      color: var(--color-text-main);
     }
   }
 
@@ -213,6 +213,12 @@ gridster-item {
     min-width: 469px;
     text-align: center;
     overflow: hidden;
+
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+
+    color: var(--text-accent-color);
   }
 
   &__list {
@@ -225,12 +231,7 @@ gridster-item {
 .widget_menu {
   display: flex;
   height: 40px;
-  // width: calc(100% - 10px);
-  // min-width: 469px;
   width: 450px;
-  background: rgb(33, 36, 45);
-  border-radius: 25px;
-  line-height: 30px;
   margin: 5px;
 }
 
@@ -263,25 +264,28 @@ gridster-item {
 
 .mycheckbox__descr {
   font-size: 14px;
+  &_checked {
+    color: var(--text-accent-color);
+  }
 }
 
 .mycheckbox__default:checked + .mycheckbox__new::after {
   height: 10px;
   width: 10px;
-  border-radius: 25px;
+  border-radius: 50%;
 }
 
 .mycheckbox__new {
   width: 20px;
   height: 20px;
-  border-radius: 25px;
-  border: 1px solid white;
+  border-radius: 50%;
+  border: 1px solid var(--border-vidget-color);
   margin-right: 9px;
   position: relative;
 }
 
 .mycheckbox__checked {
-  border: 1px solid var(--color-border-active);
+  border: 1px solid var(--border-blue-color);
 }
 
 .mycheckbox__new::after {
@@ -289,9 +293,8 @@ gridster-item {
   display: block;
   width: 0;
   height: 0;
-  //background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNTAiIGhlaWdodD0iNTAiCnZpZXdCb3g9IjAgMCA1MCA1MCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDQxLjkzNzUgOC42MjUgQyA0MS4yNzM0MzggOC42NDg0MzggNDAuNjY0MDYzIDkgNDAuMzEyNSA5LjU2MjUgTCAyMS41IDM4LjM0Mzc1IEwgOS4zMTI1IDI3LjgxMjUgQyA4Ljc4OTA2MyAyNy4yNjk1MzEgOC4wMDM5MDYgMjcuMDY2NDA2IDcuMjgxMjUgMjcuMjkyOTY5IEMgNi41NjI1IDI3LjUxNTYyNSA2LjAyNzM0NCAyOC4xMjUgNS45MDIzNDQgMjguODY3MTg4IEMgNS43NzczNDQgMjkuNjEzMjgxIDYuMDc4MTI1IDMwLjM2MzI4MSA2LjY4NzUgMzAuODEyNSBMIDIwLjYyNSA0Mi44NzUgQyAyMS4wNjI1IDQzLjI0NjA5NCAyMS42NDA2MjUgNDMuNDEwMTU2IDIyLjIwNzAzMSA0My4zMjgxMjUgQyAyMi43NzczNDQgNDMuMjQyMTg4IDIzLjI4MTI1IDQyLjkxNzk2OSAyMy41OTM3NSA0Mi40Mzc1IEwgNDMuNjg3NSAxMS43NSBDIDQ0LjExNzE4OCAxMS4xMjEwOTQgNDQuMTUyMzQ0IDEwLjMwODU5NCA0My43ODEyNSA5LjY0NDUzMSBDIDQzLjQxMDE1NiA4Ljk4NDM3NSA0Mi42OTUzMTMgOC41ODk4NDQgNDEuOTM3NSA4LjYyNSBaIj48L3BhdGg+PC9zdmc+")
-  //   no-repeat center / 95%;
-  background-color: var(--color-border-active);
+
+  background-color: var(--border-blue-color);
   left: 50%;
   top: 50%;
   position: absolute;

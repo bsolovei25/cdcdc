@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IFolderReport } from '../../../components/report/reports.component';
 import { saveAs } from 'file-saver';
+import { ICustomReportProperties } from "@widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component";
 
 @Injectable({
     providedIn: 'root',
@@ -46,11 +47,11 @@ export class ReportsService {
         return this.http.get<any[]>(this.restUrl + '/api/report-options/custom/all');
     }
 
-    public postCustomOptions(body): Observable<any> {
+    public postCustomOptions(body: ICustomReportProperties): Observable<any> {
         return this.http.post<any[]>(this.restUrl + '/api/report-options/custom', body);
     }
 
-    public putCustomOptions(body): Observable<any> {
+    public putCustomOptions(body: ICustomReportProperties): Observable<any> {
         return this.http.put<any[]>(this.restUrl + '/api/report-options/custom/' + body.id, body);
     }
 

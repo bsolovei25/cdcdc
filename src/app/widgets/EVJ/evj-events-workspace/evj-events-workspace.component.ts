@@ -22,7 +22,7 @@ import {
 } from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { EvjEventsWorkspaceLimitationsComponent } from './components/evj-events-workspace-limitations/evj-events-workspace-limitations.component';
+import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events-workspace-restrictions/evj-events-workspace-restrictions.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 
 @Component({
@@ -218,7 +218,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
 
         const popoverRef = this.popoverOverlayService.open({
             origin: limitationWindowTarget,
-            content: EvjEventsWorkspaceLimitationsComponent,
+            content: EvjEventsWorkspaceRestrictionsComponent,
             data: {
                 users: this.ewService.users,
             },
@@ -231,7 +231,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
             if (response && response.data) {
                 console.log(response, 'response');
             } else {
-                this.ewService.event.limitationsEnabled = true;
+                this.ewService.event.isRestrictions = true;
             }
         });
     }

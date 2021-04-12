@@ -108,7 +108,7 @@
             [description]="ewService.event.description"
             [isRetrievalEvent]="false"
             (changedDescription)="onChangeEventDescription($event)"
-            [disabled]="ewService.event.limitationsEnabled"
+            [disabled]="ewService.event.isRestrictions"
           ></evj-event-description>
         </div>
 
@@ -243,12 +243,12 @@
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
-      <ng-container *ngIf="!ewService.event?.limitationsEnabled">
+      <ng-container *ngIf="!ewService.event?.isRestrictions">
         <div class="responsible">
           <evj-events-workspace-responsible-select></evj-events-workspace-responsible-select>
         </div>
       </ng-container>
-      <ng-container *ngIf="ewService.event?.limitationsEnabled">
+      <ng-container *ngIf="ewService.event?.isRestrictions">
         <div class="place-date">
           <div class="select-container">
             <evj-events-workspace-responsible-select [smallView]="true"></evj-events-workspace-responsible-select>

@@ -11,16 +11,16 @@ export interface IDateName {
     templateUrl: './kpe-select.component.html',
     styleUrls: ['./kpe-select.component.scss'],
 })
-export class KpeSelectComponent implements OnInit {
-    items: IDateName[] = [
+export class KpeSelectComponent {
+    public items: IDateName[] = [
         { value: 'date-0', viewValue: 'Текущее время' },
         { value: 'date-1', viewValue: 'Начало текущих суток' },
         { value: 'date-2', viewValue: 'Конец текущих суток' },
     ];
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor() {}
 
-    public ngOnInit(): void {}
-
-    public onClick(): void {}
+    trackByFn(element) {    
+        return element.id;
+     }
 }

@@ -1,21 +1,34 @@
 <div class="main-container">
   <evj-contemporary-widget-header [uniqId]="widgetUniqId" type="astue">
-    <evj-kpe-table-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-kpe-table-header>
-    <div class="button-add" matRipple [matRippleColor]="'white'">
-      <div class="button-container">
-        <svg-icon [svgStyle]="{'height.px':'16', 'width.px': '16'}" src="assets/icons/add_button.svg"></svg-icon>
+    <div class="header">
+      <div class="tabs" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div
+          class="tabs__item"
+          [class.tabs__item_active]="currentTab === i"
+          *ngFor="let tab of tabsList$ | async; let i = index"
+          (click)="changeTab(i)"
+        >
+          {{tab?.name === 'Вкладка 1' ? 'Загрузка установок' : 'Выработка компонентов'}}
+        </div>
       </div>
-    </div>
-    <div class="button-download" matRipple [matRippleColor]="'white'">
-      <div class="button-container">
-        <svg-icon [svgStyle]="{'height.px':'16', 'width.px': '16'}" src="assets/icons/download_button.svg"></svg-icon>
+
+      <div class="btn-list" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="button-add" matRipple [matRippleColor]="'white'">
+          <div class="button-container">
+            <svg-icon [svgStyle]="{'height.px':'16', 'width.px': '16'}" src="assets/icons/add_button.svg"></svg-icon>
+          </div>
+        </div>
+        <div class="button-download" matRipple [matRippleColor]="'white'">
+          <div class="button-container">
+            <svg-icon [svgStyle]="{'height.px':'16', 'width.px': '16'}" src="assets/icons/download_button.svg"></svg-icon>
+          </div>
+        </div>
       </div>
-    </div>
+    </div>    
   </evj-contemporary-widget-header>
-  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <ng-container [ngSwitch]="pageType$ | async">
-      <evj-kpe-table-development-component *ngSwitchCase="'development'"></evj-kpe-table-development-component>
-      <evj-kpe-table-loading-component *ngSwitchCase="'loading'"></evj-kpe-table-loading-component>
-    </ng-container>
+  <div class="component" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <ng-container style="height: 100%"
+    *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (tabsList$ | async)[currentTab]?.id);"
+    ></ng-container>
   </div>
 </div>

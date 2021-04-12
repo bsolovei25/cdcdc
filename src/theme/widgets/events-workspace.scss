@@ -1,17 +1,17 @@
 .mat-select-custom {
   &.mat-select-panel {
-    background: var(--color-bg-main) !important;
+    background: var(--gray-G12-color) !important;
   }
 }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: var(--color-text-main) !important;
-  background-color: var(--color-bg-main) !important;
+  color: var(--text-accent-color) !important;
+  background-color: var(--gray-G12-color) !important;
 }
 
 .mat-select-panel .mat-optgroup-label,
 .mat-select-panel .mat-option {
-  background-color: var(--bg-dashboard-color);
+  background-color: var(--gray-G12-color);
 }
 
 .mat-select-arrow {

@@ -125,7 +125,7 @@ gridster-item {
   padding-top: 20px;
   box-sizing: border-box;
 
-  background-color: var(--color-bg-main);
+  background-color: var(--bg-dashboard-color);
   border: 1px solid transparent;
   border-radius: 10px 0 0;
 
@@ -134,7 +134,7 @@ gridster-item {
   &_active {
     width: 500px;
     padding: 20px 10px 20px 20px;
-    box-shadow: -4px 20px 13px 4px var(--color-header-shadow);
+    box-shadow: -4px 20px 13px 4px var(--gradient-main-color-1);
     border-color: var(--color-border-active);
     border-right: 1px;
     z-index: 100;
@@ -164,10 +164,10 @@ gridster-item {
     height: 40px;
 
     border-radius: 10px 0 0;
-    background-color: var(--color-bg-main);
+    background-color: var(--bg-dashboard-color);
     border: 1px solid var(--color-border-active);
-    border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px var(--color-header-shadow);
+    border-right-color: var(--bg-dashboard-color);
+    box-shadow: -6px 0px 13px 1px var(--gradient-main-color-1);
 
     cursor: pointer;
   }
@@ -185,34 +185,20 @@ gridster-item {
     height: 40px;
 
     border-radius: 10px 0 0;
-    background-color: var(--color-bg-main);
+    background-color: var(--bg-dashboard-color);
     border: 1px solid var(--color-border-active);
-    border-right-color: var(--color-bg-main);
-    box-shadow: -13px 0px 13px 1px var(--color-header-shadow);
+    border-right-color: var(--bg-dashboard-color);
+    box-shadow: -6px 0px 13px 1px var(--gradient-main-color-1);
 
     cursor: pointer;
   }
 
-  &__icon {
+  &__icon, &__icon__reports {
     width: 20px;
-    fill: var(--color-border-main);
+    color: var(--border-icon-color);
     &--active {
-      fill: var(--color-text-main);
+      color: var(--gray-G1-color);
     }
-  }
-
-  &__icon__reports {
-    fill: var(--color-border-main);
-    &--active {
-      fill: var(--color-text-main);
-    }
-  }
-
-  &__heading {
-    margin: 0 0 20px 0;
-    min-width: 469px;
-    text-align: center;
-    overflow: hidden;
   }
 
   &__list {

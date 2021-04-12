@@ -146,6 +146,62 @@
   }
 }
 
+.logo {
+  position: absolute;
+
+  width: max-content;
+  height: max-content;
+
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  margin: auto;
+
+  color: var(--input-additional-color);
+
+  transition: inherit;
+
+  fill: var(--color-input-visibility-password);
+
+  &:hover {
+    fill: gray;
+  }
+
+  &_clickable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.logo {
+  position: absolute;
+
+  width: max-content;
+  height: max-content;
+
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  margin: auto;
+
+  color: var(--input-additional-color);
+
+  transition: inherit;
+
+  fill: white;
+
+  &:hover {
+    fill: gray;
+  }
+
+  &_clickable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .icon {
   position: absolute;
 
@@ -161,7 +217,7 @@
 
   transition: inherit;
 
-  fill: white;
+  fill: var(--color-input-visibility-password);
 
   &:hover {
     fill: gray;

@@ -26,7 +26,7 @@
           <mat-checkbox
             class="checkbox"
             color="primary"
-            [checked]="ewService.event?.limitationsEnabled"
+            [checked]="ewService.event?.isRestrictions"
             (click)="emitAction($event)"
           ></mat-checkbox>
           <span>Ограничения</span>

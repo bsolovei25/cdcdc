@@ -1,5 +1,5 @@
 import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 
 @Directive()
