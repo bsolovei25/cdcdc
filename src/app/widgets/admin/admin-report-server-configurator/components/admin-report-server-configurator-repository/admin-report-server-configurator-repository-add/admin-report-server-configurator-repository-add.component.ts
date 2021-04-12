@@ -8,6 +8,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AdminReportServerConfiguratorRepositoryAddComponent implements OnInit {
 
+  public readonly addIcon='assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
+
   constructor(
     public dialogRef: MatDialogRef<AdminReportServerConfiguratorRepositoryAddComponent>,
   ) { }

@@ -13,7 +13,9 @@ import { AdminReportServerConfiguratorRepositoryAddComponent } from './component
 import { AdminReportNameConfiguratorComponent } from './components/admin-report-name-configurator/admin-report-name-configurator.component';
 import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminReportServerConfiguratorFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-congigurator-file/admin-report-server-configurator-file.component';
-import { ArscItemComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-address/arsc-item/arsc-item.component';
+import { AdminReportServerConfiguratorParametersComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters.component';
+import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
+import { AdminReportServerConfiguratorParametersChangeComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-change/admin-report-server-configurator-parameters-change.component';
 
 
 
@@ -27,7 +29,9 @@ import { ArscItemComponent } from './components/admin-report-server-configurator
     AdminReportServerConfiguratorRepositoryAddComponent,
     AdminReportNameConfiguratorComponent,
     AdminReportServerConfiguratorFileComponent,
-    ArscItemComponent
+    AdminReportServerConfiguratorParametersComponent,
+    AdminReportServerConfiguratorParametersHeaderComponent,
+    AdminReportServerConfiguratorParametersChangeComponent,
   ],
   imports: [
     CommonModule,

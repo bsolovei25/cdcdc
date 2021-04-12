@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+.changes {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-header-color);
+    padding: 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__half {
+        height: 100%;
+        width: 50%;
+        padding: 25px 0;
+        
+        &:last-child {
+            padding: 25px 0 25px 25px; 
+        }
+
+        .label {
+            margin-bottom: 12px;
+        }
+    }
+    &__description {
+        height: 120px;
+        width: 100%;
+    }
+    .element {
+        margin-bottom: 15px;
+    }
+}
+.description {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-top: inherit;
+    background-color: var(--gray-G12-color);
+    border: 1px solid var(--border-forms-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+  
+    .description_nav {
+      display: flex;
+  
+      .description_button_update {
+        position: absolute;
+        right: 6px;
+        top: 0;
+  
+        svg-icon {
+          fill: var(--color-text-sub);
+          line-height: 40px;
+        }
+  
+        &:hover svg-icon {
+          cursor: pointer;
+  
+          ::ng-deep .st0 {
+            fill: var(--text-accent-color) !important;
+          }
+        }
+      }
+    }
+  
+    .description__content {
+      height: 100%;
+      background-color: var(--gray-G12-color);
+  
+      .description__content_text {
+        background-color: transparent;
+        word-wrap: break-word;
+        color: var(--text-accent-color);
+        font-size: 12px;
+        box-sizing: border-box;
+        padding-left: 10px;
+        padding-top: 10px;
+        width: calc(100% - 10px);
+        min-height: 50px;
+        height: calc(100% - 10px);
+  
+        textarea {
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          background-color: transparent;
+  
+          padding: 0;
+  
+          &::placeholder {
+            color: var(--text-main-color);
+          }
+        }
+      }
+    }
+  }
+  
+  ::-webkit-scrollbar-track-piece {
+    background-color: var(--gray-G12-color);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(39, 43, 53);
+  }
+  
+  .description_small {
+    height: 140px;
+  }
+  
+  textarea {
+    font-family: "Tahoma";
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    background-color: var(--gray-G12-color);
+    border: none;
+    color: inherit;
+    outline: none;
+    resize: none;
+  
+    overflow: hidden;
+    line-height: 1.5;
+    border-radius: 5px;
+  }
+  
+  .disabled {
+    point-events: none;
+    cursor: not-allowed;
+  }
