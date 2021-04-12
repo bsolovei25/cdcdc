@@ -110,7 +110,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation ? this.data?.deviation : this.chartConfig[this.type].gauge.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds ? this.data?.colorBounds : this.chartConfig[this.type].colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds ? this.data?.colorBounds.slice(0, -1) : this.chartConfig[this.type].serifColorBounds;
-        this.chartConfig[this.type].gauge.angle = this.data?.value ? this.convertPercentToGrad(this.data?.zeroOn === 'Right' ? 100 - this.data?.value : this.data?.value) : this.chartConfig[this.type].gauge.angle;
+        this.chartConfig[this.type].gauge.angle = this.data?.value || this.data?.value === 0 ? this.convertPercentToGrad(this.data?.zeroOn === 'Right' ? 100 - this.data?.value : this.data?.value) : this.chartConfig[this.type].gauge.angle;
         this.chartConfig[this.type].bounds = this.data?.bounds ? this.data?.bounds : null;
 
         // Данные для активной области
@@ -120,8 +120,12 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         if (this.data?.zeroOn === 'Right') {
             value = 100 - this.data?.value;
-            boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) =>
-                Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+            // Если zeroOn === 'Right', то находим минимальную границу диапазона bound, в который попадает значение
+            boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) => {
+                    if (prev < value && value < curr) {
+                        return prev;
+                    }
+                }
             );
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge);
         } else {
@@ -130,7 +134,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
         }
 
-        if (boundEdge) {
+        if (boundEdge || boundEdge === 0) {
             const color = this.chartConfig[this.type].colorBounds[index];
             this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
             const startActive = (this.convertPercentToGrad(value) * (Math.PI / 180));
