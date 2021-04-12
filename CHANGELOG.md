@@ -1,3 +1,18 @@
+# [1.14.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.13.0...v1.14.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* **front#1607:** "OutOfMemory на виджетах кпе" ([e5be3f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e5be3f92bb70d8cd7087c4ae0e0d5e42065e624c)), closes [front#1607](https://gitlab.funcoff.club/front/issues/1607)
+
+
+### Features
+
+* **#1445:** Изомалк-2 > Топливо факел ([98b934f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/98b934f82069c0e9801f93adab301e4beecbd9c1)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1446:** Изомалк-2 > Сырьевой парк ([b855756](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b855756235318bbaa215f01b2a0d76d9d240bad0)), closes [#1446](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1446)
+* **#1583:** "СОУ. Разработка файла конфигов для АБ ВБ и Изомалк." ([d761c32](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d761c32924039092cf9f3078f9de396831544c8e)), closes [#1583](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1583)
+* **front#1412:** "Приведение к новому дизайну таблиц Расчет отклонений" ([5f68094](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5f6809405c5b5f34aa4f422ae32c73f60ea4bba6)), closes [front#1412](https://gitlab.funcoff.club/front/issues/1412)
+
 # [1.13.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.12.0...v1.13.0) (2021-04-08)
 
 
