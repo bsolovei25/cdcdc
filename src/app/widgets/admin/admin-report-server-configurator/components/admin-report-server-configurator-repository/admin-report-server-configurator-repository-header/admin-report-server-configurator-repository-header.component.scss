@@ -50,7 +50,7 @@
             margin-top: 1px;
 
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
 
             &:hover {
@@ -58,6 +58,9 @@
                 color: var(--text-alwaysWhite-color);
                 cursor: pointer;
             }
+        }
+        .icon {
+            margin-right: 10px;
         }
     }
     button {

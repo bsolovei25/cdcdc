@@ -16,6 +16,7 @@ import { AdminReportServerConfiguratorFileComponent } from './components/admin-r
 import { AdminReportServerConfiguratorParametersComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters.component';
 import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
 import { AdminReportServerConfiguratorParametersChangeComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-change/admin-report-server-configurator-parameters-change.component';
+import { AdminReportServerConfiguratorParametersSelectComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-select/admin-report-server-configurator-parameters-select.component';
 
 
 
@@ -32,6 +33,7 @@ import { AdminReportServerConfiguratorParametersChangeComponent } from './compon
     AdminReportServerConfiguratorParametersComponent,
     AdminReportServerConfiguratorParametersHeaderComponent,
     AdminReportServerConfiguratorParametersChangeComponent,
+    AdminReportServerConfiguratorParametersSelectComponent,
   ],
   imports: [
     CommonModule,
