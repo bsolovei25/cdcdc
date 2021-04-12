@@ -12,6 +12,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminReportServerConfiguratorRepositoryAddComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add/admin-report-server-configurator-repository-add.component';
 import { AdminReportNameConfiguratorComponent } from './components/admin-report-name-configurator/admin-report-name-configurator.component';
 import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AdminReportServerConfiguratorFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-congigurator-file/admin-report-server-configurator-file.component';
+import { ArscItemComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-address/arsc-item/arsc-item.component';
 
 
 
@@ -23,7 +25,9 @@ import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
     AdminReportServerConfiguratorRepositoryAddressComponent,
     AdminServerConfiguratorReferenceMenuComponent,
     AdminReportServerConfiguratorRepositoryAddComponent,
-    AdminReportNameConfiguratorComponent
+    AdminReportNameConfiguratorComponent,
+    AdminReportServerConfiguratorFileComponent,
+    ArscItemComponent
   ],
   imports: [
     CommonModule,

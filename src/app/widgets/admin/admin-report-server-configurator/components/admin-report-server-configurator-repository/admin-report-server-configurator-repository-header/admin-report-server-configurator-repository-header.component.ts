@@ -9,6 +9,7 @@ import { AdminReportServerConfiguratorRepositoryAddComponent } from '../admin-re
 })
 export class AdminReportServerConfiguratorRepositoryHeaderComponent implements OnInit {
   public addFile: boolean = false;
+  public readonly addIcon = "assets/icons/widgets/admin/admin-report-server-configurator/add.svg";
 
   constructor(public dialog: MatDialog) { }
 
