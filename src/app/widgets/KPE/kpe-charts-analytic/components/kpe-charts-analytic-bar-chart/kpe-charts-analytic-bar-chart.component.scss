@@ -39,7 +39,7 @@
       position: absolute;
       right: 0;
 
-      background: linear-gradient(-90deg, rgba(0, 0, 0, 0.35) 0.02%, rgba(34, 38, 47, 0) 99.98%);
+      background: linear-gradient(-90deg, var(--gradient-main-color-1) 0.02%, var(--gradient-main-color-2) 99.98%);
       opacity: 0.25;
     }
 
@@ -68,20 +68,22 @@
         height: 1px;
         flex-grow: 1;
         z-index: 1;
-        border-top: 1px dashed var(--color-kpe-danger-dashed-column-diagram);
+        border-top: 1px dashed var(--index-critical-color);
+        opacity: 0.2;
       }
       .line-warning {
         height: 1px;
         flex-grow: 1;
         z-index: 1;
-        border-top: 1px dashed var(--color-kpe-warning-dashed-column-diagram);
+        border-top: 1px dashed var(--index-error-color);
+        opacity: 0.2;
       }
 
       &_zero {
         top: calc(50% - 4px);
         z-index: 1;
         .line {
-          border-top: 1px solid var(--color-kpe-zero-axis-column-diagram);
+          border-top: 1px solid var(--border-blue-color);
         }
       }
     }
@@ -93,9 +95,9 @@
 
       display: flex;
 
-      background: var(--color-kpe-bg-column-diagram);
-      border-left: 1px solid var(--color-kpe-border-axis-column-diagram);
-      border-bottom: 1px solid var(--color-kpe-border-axis-column-diagram);
+      background: var(--bg-dashboard-color);
+      border-left: 1px solid var(--border-icon-color);
+      border-bottom: 1px solid var(--border-icon-color);
 
       &__item {
         flex: 1;
@@ -103,7 +105,7 @@
         flex-direction: column;
         min-width: 15px;
 
-        border-right: 1px solid var(--color-kpe-grid-column-diagram);
+        border-right: 1px solid var(--border-vidget-color);
         border-top: 2px solid transparent;
 
         position: relative;
@@ -119,7 +121,7 @@
         }
         &:hover,
         &_selected {
-          background: var(--color-kpe-select-column-diagram);
+          background: var(--opacity-plan-20-color);
         }
 
         &_selected {
@@ -158,7 +160,7 @@
             height: 100%;
             width: 40%;
             min-width: 3px;
-            background-image: linear-gradient(180deg, #fbfbfb, #fbfbfb 75%, transparent 75%, transparent 100%);
+            background: linear-gradient(180deg, var(--index-fact-color), var(--index-fact-color) 75%, transparent 75%, transparent 100%);
             background-size: 1px 2px;
             border: none;
           }

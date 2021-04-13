@@ -82,23 +82,14 @@
       &__button {
         position: relative;
         height: 100%;
-        width: 9px;
-        background-color: var(--color-bg-sub);
-        border-radius: 5px;
-
-        &_left {
-          background-size: contain;
-          background: url("./../../../../assets/icons/components/smart-scroll/left-right-icon.svg") no-repeat center;
-        }
-
-        &_right {
-          background-size: contain;
-          background: url("./../../../../assets/icons/components/smart-scroll/left-right-icon.svg") no-repeat center;
-        }
-
-        &:hover {
-          cursor: pointer;
-        }
+        width: 5px;
+        background-color: var(--gray-G8-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1px;
+        color: var(--border-vidget-color);
+        cursor: pointer;
       }
     }
 

@@ -83,10 +83,7 @@
         text-decoration: none;
         color: var(--color-text-main);
         margin: 0px 10px;
-
-        &:hover {
-          cursor: pointer;
-        }
+        cursor: pointer;
       }
 
       .active-link {
