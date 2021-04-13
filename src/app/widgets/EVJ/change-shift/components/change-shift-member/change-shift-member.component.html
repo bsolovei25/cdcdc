@@ -1,0 +1,18 @@
+<div #member (click)="cardVerify()" class="container">
+  <div *ngIf="isPreview; else user" class="preview">
+    <svg-icon *ngIf="isStar" class="icon" src="assets/icons/widgets/change-shift/user-star.svg"></svg-icon>
+    <span> {{ _member?.unitRole?.name || 'Роль' }} </span>
+  </div>
+
+  <ng-template #user>
+    <div class="user">
+      <div class="avatar"> <img class="img" *ngIf="avatarPath" [src]="avatarPath" /> </div>
+      <div class="info">
+        <div class="item item__fio"> {{ _member?.user?.displayName || 'ФИО' }} </div>
+        <div class="item item__post"> {{ _member?.user?.post || 'Должность' }} </div>
+        <div class="item item__role"> {{ _member?.unitRole?.name || 'Роль' }} </div>
+        <div class="item item__status"> {{ displayStatus  || 'Статус' }} </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

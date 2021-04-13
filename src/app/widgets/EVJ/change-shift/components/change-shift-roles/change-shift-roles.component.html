@@ -1,0 +1,27 @@
+<div class="container" [formGroup]="form">
+  <div class="grid" *ngIf="!(isLoad$ | async)">
+    <div class="item">
+      <evj-change-shift-roles-header-left></evj-change-shift-roles-header-left>
+    </div>
+    <div class="item">
+      <evj-change-shift-roles-header-right></evj-change-shift-roles-header-right>
+    </div>
+    <div class="item item__padding-left">
+      <div class="scroll">
+        <evj-chang-shift-roles-person
+          *ngFor="let member of form.controls['members']['controls']"
+          [form]="member"
+        ></evj-chang-shift-roles-person>
+      </div>
+    </div>
+    <div class="item item__padding-right">
+      <div class="scroll" formArrayName="roles">
+        <evj-change-shift-roles-reference
+          *ngFor="let reference of form.controls['roles']['controls']"
+          [form]="reference"
+        ></evj-change-shift-roles-reference>
+      </div>
+    </div>
+  </div>
+  <evj-change-shift-roles-footer></evj-change-shift-roles-footer>
+</div>

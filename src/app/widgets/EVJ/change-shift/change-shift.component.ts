@@ -1,76 +1,85 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, HostListener, OnDestroy } from "@angular/core";
-import { ShiftService } from '../../../dashboard/services/widgets/EVJ/shift.service';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
-    ICommentRequired,
-    IVerifyWindow,
-    Shift,
-    ShiftComment,
-    ShiftMember
-} from '../../../dashboard/models/EVJ/shift.model';
+    IChangeShiftComment,
+    IChangeShiftMember,
+    IChangeShiftModel,
+    IChangeShiftVerifier,
+} from './change-shift.interfaces';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-
-export type responsibleStatusType = 'accepted' | 'inProgressAccepted' | 'inProgressPassed'
-    | 'initialization' | 'passed' | 'absent';
+import { ChangeShiftHelperService } from './services/change-shift-helper.service';
+import { ChangeShiftKeeperService } from './services/change-shift-keeper.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-change-shift',
     templateUrl: './change-shift.component.html',
-    styleUrls: ['./change-shift.component.scss']
+    styleUrls: ['./change-shift.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    @ViewChild("input") input: ElementRef;
-    @ViewChild("scroll") scroll: ElementRef;
-    @ViewChild("allPeople") allPeople: ElementRef;
-    @ViewChild("addShift") addShift: ElementRef;
+export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    @ViewChild('input') input: ElementRef;
+    @ViewChild('scroll') scroll: ElementRef;
 
-    public mapPosition: { code: string; name: string }[] = [
-        {
-            code: 'responsible',
-            name: 'Старший оператор'
-        },
-        {
-            code: 'common',
-            name: 'Оператор'
-        }
-    ];
-
-    public readonly responsibleStatus: { [key in responsibleStatusType]: string } = {
-        accepted: "Принята",
-        inProgressAccepted: "Готова к приёму",
-        inProgressPassed: "Готова к передаче",
-        initialization: "Сформирована",
-        passed: "Сдана",
-        absent: "Отсутствует"
-    };
-
-    public comments: ShiftComment[] = [];
-    public currentShift: Shift = null;
-    public presentMembers: ShiftMember[] = null;
-    public absentMembers: ShiftMember[] = null;
-    public addingShiftMembers: ShiftMember[] = [];
-
-    public isWindowCardVerifyActive: boolean = false;
-    public isWindowUsbVerifyActive: boolean = false;
-    public verifyInfo: IVerifyWindow = null;
+    public shift$: BehaviorSubject<IChangeShiftModel> = this.changeShiftKeeperService.shift$;
+    public dates$: Observable<Date[]> = this.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => [x?.startFact ?? new Date(), x?.endFact ?? new Date()])
+    );
+    public mainMember$: Observable<IChangeShiftMember> = this.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => (x?.members ?? []).find((m) => this.changeShiftHelperService.isMainMember(m)) ?? null)
+    );
+    public members$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => x.members)
+    );
+    public presentMembers$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => x.members?.filter((m) => m?.user?.status !== 'absent') ?? [])
+    );
+    public absentsMembers$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => x.members?.filter((m) => m?.user?.status === 'absent') ?? [])
+    );
+    public comments$: Observable<IChangeShiftComment[]> = this.changeShiftKeeperService.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => (x?.comments?.length ? x.comments : []))
+    );
+    public isShiftApplyAvailable: Observable<boolean> = this.changeShiftKeeperService.shift$.pipe(
+        filter((x) => !!x),
+        map((x) => x.status === 'acceptReady' || x.status === 'accepted' || x.status === 'init')
+    );
 
     public unitId: number = null;
 
-    public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-
     constructor(
         protected widgetService: WidgetService,
-        public shiftService: ShiftService,
         private materialController: SnackBarService,
-        private avatarConfiguratorService: AvatarConfiguratorService,
-
+        public changeShiftHelperService: ChangeShiftHelperService,
+        public changeShiftKeeperService: ChangeShiftKeeperService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, id, uniqId);
         this.widgetIcon = 'peoples';
+    }
+
+    @HostListener('document:change-shift-update', ['$event'])
+    public refreshShift(): void {
+        const shiftType = this.changeShiftHelperService.getShiftTypeByName(this.widgetType);
+        this.changeShiftKeeperService.loadShift(this.unitId, shiftType).then();
     }
 
     public ngOnInit(): void {
@@ -83,250 +92,64 @@ export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnI
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        this.unitId = await this.shiftService.getUnitId(this.widgetId);
-        if (!this.shiftService.checkShiftByUnit(this.unitId)) {
-            this.shiftService.getShiftInfo(this.unitId);
+        this.changeShiftKeeperService.widgetId = this.widgetId;
+        this.unitId = await this.changeShiftKeeperService.getUnitId(this.widgetId);
+        const shiftType = this.changeShiftHelperService.getShiftTypeByName(this.widgetType);
+        await this.changeShiftKeeperService.loadShift(this.unitId, shiftType);
+    }
+
+    protected dataHandler(ref: { data: IChangeShiftVerifier }): void {
+        const value = ref?.data;
+        this.changeShiftKeeperService.verifyAction$.next(value);
+        if ((value?.type === 'shift' && value?.isConfirmed) || value.type === 'refresh') {
+            const event = new CustomEvent('change-shift-update');
+            document.dispatchEvent(event);
         }
-        this.subscriptions.push(
-            this.shiftService.getShiftByUnit(this.unitId).subscribe((data) => {
-                if (this.widgetType) {
-                    console.log(data);
-                    this.setRealtimeData(this.widgetType, data);
-                }
-            })
-        );
-        this.subscriptions.push(
-            this.shiftService.verifyWindowObservable(this.id).subscribe((obj: IVerifyWindow) => {
-                this.verifyHandler(obj);
-            })
-        );
     }
 
-    protected dataHandler(ref: any): void {
-        this.shiftService.resultVerify(this.id, ref, this.unitId);
-    }
-
-    public getIconType(iconType: string): string {
-        return `assets/icons/widgets/change-shift/${iconType}.svg`;
-    }
-
-    public getStatusTooltip(iconType: string): string {
-        return this.responsibleStatus[iconType];
-    }
-
-    private async verifyHandler(obj: IVerifyWindow): Promise<void> {
-        console.log(obj);
-        if (obj.action === "close") {
-            switch (obj.type) {
-                case "card":
-                    // TODO close card request
-                    await this.shiftService.cancelCardAction(obj.verifyId);
-                    break;
-                case "usb":
-                    // TODO close usb request
-                    await this.shiftService.cancelUsbAction(obj.verifyId);
-                    break;
-            }
-            if (obj?.message) {
-                this.materialController.openSnackBar(obj?.message);
-            }
-            setTimeout(() => {
-                this.isWindowCardVerifyActive = false;
-                this.isWindowUsbVerifyActive = false;
-            }, 1000);
-        } else if (obj.action === 'open') {
-            this.verifyInfo = obj;
-            switch (obj.type) {
-                case 'card':
-                    this.isWindowCardVerifyActive = true;
-                    break;
-                case 'usb':
-                    this.isWindowUsbVerifyActive = true;
-                    break;
-            }
-        }
-        this.verifyInfo.result = obj.result;
-    }
-
-    private setRealtimeData(widgetType: string, data): void {
-        if (!widgetType || !data) {
+    async onSendMessage(isRequired: boolean = false): Promise<void> {
+        const message: string = this.input.nativeElement.value;
+        if (!message) {
             return;
         }
-        if (widgetType === 'shift-pass') {
-            this.currentShift = data.passingShift;
+        if (isRequired) {
+            this.changeShiftKeeperService.setRequiredComment(message);
         } else {
-            this.currentShift = data.acceptingShift;
+            await this.changeShiftKeeperService.addShiftComment(message);
         }
-
-        if (this.currentShift.shiftMembers?.length > 0) {
-            let index = this.currentShift.shiftMembers.findIndex((item) => item.position === 'responsible');
-            if (index === -1) {
-                console.warn('No responsible found in shift');
-                index = 0;
-            }
-
-            this.currentShift.shiftMembers[index].employee.main = true;
-            const tempMember = this.currentShift.shiftMembers[0];
-            this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
-            this.currentShift.shiftMembers[index] = tempMember;
-            this.photoPathMain = this.avatarConfiguratorService.getAvatarPath(
-                this.currentShift?.shiftMembers[0]?.employee?.photoId
-            );
-
-            this.comments = [];
-            if (widgetType === 'shift-pass') {
-                for (const commentObj of this.currentShift.shiftPassingComments || []) {
-                    this.setMessage(commentObj);
-                }
-            } else {
-                for (const commentObj of this.currentShift.shiftAcceptingComments || []) {
-                    this.setMessage(commentObj);
-                }
-            }
-        } else {
-            console.warn(`Для виджета ${this.widgetType} нет доступных смен`);
-        }
-
-        this.presentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'        );
-        this.absentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'        );
+        this.input.nativeElement.value = '';
+        setTimeout(() => this.scrollBottom(), 50);
     }
 
-    public getDisplayPosition(code): string {
-        if (code) {
-            return this.mapPosition.find((el) => el.code === code).name;
-        }
-    }
-
-    async onSendMessage(): Promise<void> {
-        if (this.input.nativeElement.value) {
-            const comment = await this.shiftService.sendComment(
-                this.currentShift.shiftMembers.find((el) => el.position === 'responsible').employee.id,
-                this.currentShift.id,
-                this.input.nativeElement.value,
-                this.widgetType
-            );
-            this.setMessage(comment);
-        }
-        setTimeout(() => {
-            this.scrollBottom();
-        }, 50);
-    }
-
-    private setMessage(comment: ShiftComment): void {
-        this.comments.push(comment);
-        this.setRequireComment(comment.comment);
-        try {
-            this.input.nativeElement.value = "";
-        } catch {
-        }
-    }
-
-    onEnterPush(event?: any): void {
+    public onEnterPush(event?: KeyboardEvent): void {
         if (event.keyCode === 13) {
-            this.onSendMessage();
+            this.onSendMessage().then();
         }
     }
 
-    scrollBottom(): void {
+    private scrollBottom(): void {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
-    getMain(): ShiftMember {
-        if (this.currentShift) {
-            return this.currentShift.shiftMembers.find((item) => item.employee.main);
-        }
-    }
-
-    public async showPeople(): Promise<void> {
-        if (this.currentShift.status !== 'inProgressAccepted') {
+    public shiftApply(): void {
+        const type = this.widgetType.search('pass') !== -1 ? 'pass' : 'accept';
+        if (this.changeShiftHelperService.isReadyShift(this.shift$.getValue())) {
+            this.changeShiftKeeperService.applyShift(this.widgetId, null, type).then();
             return;
         }
-        const classes: DOMTokenList = this.addShift?.nativeElement.classList;
-        if (classes.contains('onShift__add-active')) {
-            classes.remove('onShift__add-active');
-            this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
-        } else {
-            await this.showFreeShiftMembers();
-            classes.add('onShift__add-active');
-            this.allPeople.nativeElement.classList.add('onShift__allPeople-active');
-        }
-    }
-
-    @HostListener('document:changeShift_clickAddBtn', ['$event'])
-    removeAddPeople(event): void {
-        const classes: DOMTokenList = this.addShift?.nativeElement.classList;
-        if (classes?.contains('onShift__add-active')) {
-            classes.remove('onShift__add-active');
-            this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
-        }
-    }
-
-    private async showFreeShiftMembers(): Promise<void> {
-        const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
-        console.log(tempShiftMembers);
-        this.addingShiftMembers = [];
-        for (const tempShiftMember of tempShiftMembers) {
-            const addingShiftMember: ShiftMember = new (class implements ShiftMember {
-                employee = null;
-                shiftType = null;
-                status = null;
-                position = 'common';
-            })();
-            addingShiftMember.employee = tempShiftMember;
-            this.addingShiftMembers.push(addingShiftMember);
-        }
-        console.log(this.addingShiftMembers);
-    }
-
-    shiftApply(): void {
-        // TODO
-        const typeOfChangingShift: string = this.widgetType === 'shift-pass' ? 'pass' : 'accept';
-        this.shiftService
-            .applyShift(this.currentShift.id, typeOfChangingShift, this.widgetId, this.unitId)
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-
-    public shiftCancel(): void {
         this.materialController.openSnackBar('Для продолжения оставьте комментарий');
-        this.shiftService.setIsCommentRequired(true, this.widgetType);
-        console.log(this.shiftService.getIsCommentRequired(this.widgetType));
-        const subscription = this.shiftService
-            .getRequiredComment(this.currentShift.id)
-            .asObservable()
-            .subscribe((ans) => {
-                if (ans.result) {
-                    console.log('continue');
-                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId, this.unitId);
-                    this.materialController.openSnackBar('Отказ от смены');
-                } else {
-                    console.log('cancel');
-                }
-                this.shiftService.setIsCommentRequired(false, this.widgetType);
-                if (subscription) {
-                    subscription.unsubscribe();
-                }
-            });
-    }
-
-    public setRequireComment(ref: string): void {
-        const requiredComment: ICommentRequired = {
-            idShift: this.currentShift.id,
-            comment: ref,
-            result: true
-        };
-        this.shiftService.continueWithComment.next(requiredComment);
+        this.changeShiftKeeperService.setIsCommentRequired(true);
+        this.changeShiftKeeperService.requiredComment$.pipe(take(1)).subscribe((x) => {
+            if (!!x.result) {
+                this.changeShiftKeeperService.applyShift(this.widgetId, x.comment, type).then();
+            } else {
+                this.materialController.openSnackBar('Отмена');
+            }
+            this.changeShiftKeeperService.setIsCommentRequired(false);
+        });
     }
 
     public unsetRequireComment(): void {
-        const requiredComment: ICommentRequired = {
-            idShift: this.currentShift.id,
-            comment: null,
-            result: false
-        };
-        this.shiftService.continueWithComment.next(requiredComment);
+        this.changeShiftKeeperService.setRequiredComment('', true);
     }
 }

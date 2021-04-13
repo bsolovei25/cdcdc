@@ -37,12 +37,11 @@ import { SystemPeriodDateDayComponent } from './popup-system-options/system-peri
 import { SystemPeriodDateMonthComponent } from './popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
 import { SystemPeriodDateYearComponent } from './popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
 import { SystemPeriodEditComponent } from './popup-system-options/system-period-edit/system-period-edit.component';
-import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 import { TreeModule } from '@circlon/angular-tree-component';
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from '@angular/material/dialog';
 import { ReportNameConfiguratorComponent } from './report-name-configurator/report-name-configurator.component';
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { DragDropModule } from "@angular/cdk/drag-drop";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [

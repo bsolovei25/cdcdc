@@ -1,7 +1,7 @@
 import { ICategory, IUnitEvents, IUser } from '../EVJ/events-widget';
 import { IWidget } from '../widget.model';
 import { IWorker } from '../worker';
-import { IBrigade } from '../EVJ/shift.model';
+import { IBrigade } from '../../../widgets/EVJ/change-shift/change-shift.interfaces';
 import { IUnits } from './admin-shift-schedule.model';
 
 export interface IAdminPanel {

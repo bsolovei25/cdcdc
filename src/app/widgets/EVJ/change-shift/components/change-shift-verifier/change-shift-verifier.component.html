@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    <svg-icon class="icon" src="assets/icons/attention.svg"></svg-icon>
+    <span class="title"> Выполните действие </span>
+    <svg-icon class="exit" (click)="close()" src="assets/icons/exit-circle.svg"></svg-icon>
+  </div>
+
+  <div class="info">
+    <ng-container *ngIf="!!_member">
+      <ng-container *ngIf="_member?.user; else role">
+        <div class="item">
+          <div class="title"> ФИО </div>
+          <div class="field"> <span> {{ _member?.user?.displayName || '---' }} </span> </div>
+        </div>
+
+        <div class="item">
+          <div class="title"> Должность | роль </div>
+          <div class="field"> <span> {{ _member?.unitRole?.name || '---' }} </span> </div>
+        </div>
+      </ng-container>
+
+      <ng-template #role>
+        <div class="item">
+          <div class="title"> Выберите роль </div>
+          <div class="field">
+            <mat-select
+              [formControl]="roleControl"
+              placeholder="Выберите роль"
+              panelClass="mat-select-panel-custom"
+              class="mat-select-custom"
+            >
+              <mat-option *ngFor="let role of availableRoles$ | async" [value]="role.id"> {{ role.name }} </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <div class="item">
+      <div class="title"> {{ !!_member ? 'Приложите карту к считывателю' : 'Используйте USB-ключ для авторизации' }} </div>
+      <div class="field" [class]="'field__' + (result$ | async)">
+        <ng-container *ngTemplateOutlet="result; context: {$implicit: result$ | async}"></ng-container>
+        <ng-template #result let-res>
+          <span> {{ !(res) ? 'Не выполнено' : ((res) === 'error' ? 'Не успешно' : 'Успешно') }} </span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="error" [style.opacity]="!!(resultMessage$ | async) ? 100 : 0">
+    <svg-icon class="icon" src="assets/icons/warning.svg"></svg-icon>
+    <div class="text"> {{ resultMessage$ | async }} </div>
+  </div>
+</div>
