@@ -118,7 +118,7 @@ export class ChangeShiftRolesService {
             .get('members')
             .value.map((x) => ({ ...x.object, unitRole: roles.find((r) => r.id === x.userRole) }));
         members.forEach((x) => (x.unitRole.id = isNaN(+x.unitRole.id) ? 0 : x.unitRole.id));
-        roles.forEach((x) => (x.id = isNaN(+x.id) ? null : x.id));
+        roles.forEach((x) => (x.id = isNaN(+x.id) ? 0 : x.id));
         roles = roles.filter((x) => !!x.name);
         const body = {
             roles,
