@@ -810,7 +810,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .append('svg:rect')
             .attr('width', width)
             .attr('height', height)
-            .attr('fill', 'var(--chart-background-color)')
+            .attr('fill', 'none')
             .attr('pointer-events', 'all')._groups;
 
         if (this.eventListenerFn) {
