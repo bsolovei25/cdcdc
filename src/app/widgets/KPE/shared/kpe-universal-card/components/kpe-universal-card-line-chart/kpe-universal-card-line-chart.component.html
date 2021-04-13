@@ -1,23 +1,20 @@
 <div class="container">
   <div class="info-top">
-    <span class="current"
-      >{{chartValues.currentValue | spaceNumber}}<span
+    <span class="current">
+      {{chartValues?.fact | spaceNumber}}
+      <span
         class="dev"
         [ngClass]="{
-          'dev_great': chartValues.devPC > 0,
-          'dev_bad': chartValues.devPC < 0
+          'dev_great': chartValues?.deviationPlanPredictFact > 0,
+          'dev_bad': chartValues?.deviationPlanPredictFact < 0
          }"
-        >{{chartValues.devPC}}</span
-      ></span
-    >
-    <span class="predict">{{chartValues.predictValue | spaceNumber}}</span>
+        >
+        {{chartValues?.deviationPlanPredictFact}}
+      </span>
+    </span>
+    <span class="predict">{{chartValues?.predict | spaceNumber}}</span>
   </div>
   <div class="diagram">
-    <div
-      class="diagram__orangeBold"
-      [style.left.%]="chartData.orangeBold.left"
-      [style.width.%]="chartData.orangeBold.percent"
-    ></div>
     <div
       class="diagram__orangeThin"
       [style.left.%]="chartData.orangeThin.left"
@@ -32,6 +29,11 @@
       class="diagram__lightThin"
       [style.left.%]="chartData.lightThin.left"
       [style.width.%]="chartData.lightThin.percent"
+    ></div>
+    <div
+      class="diagram__orangeBold"
+      [style.left.%]="chartData.orangeBold.left"
+      [style.width.%]="chartData.orangeBold.percent"
     ></div>
     <div
       class="diagram__blueLightBold"
@@ -58,14 +60,14 @@
     ></div>
   </div>
   <div class="info-bottom">
-    <span class="plan">{{chartValues.planValue | spaceNumber}}</span>
+    <span class="plan">{{chartValues?.plan | spaceNumber}}</span>
     <span
       class="dev"
       [ngClass]="{
-      'dev_great': chartValues.devPP > 0,
-      'dev_bad': chartValues.devPP < 0
+      'dev_great': chartValues?.deviationPlanPredict > 0,
+      'dev_bad': chartValues?.deviationPlanPredict < 0
       }"
-      >{{chartValues.devPP}}</span
+      >{{chartValues?.deviationPlanPredictFact}}</span
     >
   </div>
 </div>

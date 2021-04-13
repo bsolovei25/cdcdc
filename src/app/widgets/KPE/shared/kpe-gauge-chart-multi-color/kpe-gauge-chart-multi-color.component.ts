@@ -31,7 +31,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @ViewChild('chart') chart: ElementRef;
     @Input() type: number;
     @Input() showAxisValues: boolean = true;
-    @Input() isPerformance: boolean = false; // В performance екст отличается от остальных текстов под диаграммой
+    @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
     @Input() data: IKpeGaugeChartPage | null = null;
 
     readonly chartConfig: IChartConfig[] = [
@@ -112,6 +112,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds ? this.data?.colorBounds.slice(0, -1) : this.chartConfig[this.type].serifColorBounds;
         this.chartConfig[this.type].gauge.angle = this.data?.value || this.data?.value === 0 ? this.convertPercentToGrad(this.data?.zeroOn === 'Right' ? 100 - this.data?.value : this.data?.value) : this.chartConfig[this.type].gauge.angle;
         this.chartConfig[this.type].bounds = this.data?.bounds ? this.data?.bounds : null;
+        this.chartConfig[this.type].gauge.unit = this.data?.unit ? this.data?.unit : this.chartConfig[this.type].gauge.unit;
 
         // Данные для активной области
         let value;
