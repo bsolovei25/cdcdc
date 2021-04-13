@@ -1,6 +1,4 @@
-import { IKpeUniversalCardContentData } from "./kpe-universal-card.component";
-
-export const CONTENT_DATA: IKpeUniversalCardContentData = {
+export const CONTENT_DATA = {
     title: 'План по отбору пропана',
     subtitle: 'В пропановой фракции',
     percent: 2,

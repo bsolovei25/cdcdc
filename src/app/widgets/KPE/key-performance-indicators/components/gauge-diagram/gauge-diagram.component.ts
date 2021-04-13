@@ -11,6 +11,10 @@ export interface IKpeGaugeChartPage {
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
     zeroOn: 'Left' | 'Right';
+    fact?: number;
+    plan?: number;
+    unit?: string;
+    isUnitPercent?: boolean;
 }
 
 @Component({

@@ -3,15 +3,16 @@
     <evj-kpe-gauge-chart-multi-color
       [type]="0"
       [style.width.%]="100"
+      [data]="gaugeChart"
     ></evj-kpe-gauge-chart-multi-color>
   </div>
   <div class="content" [style.width.%]="100 - cardConfig[currentType].gaugeWidth">
-    <span class="title">{{contentData.title}}</span>
-    <span class="subtitle">{{contentData.subtitle}}</span>
-    <div class="percent-info" [ngClass]="['percent-info', contentData.percentStatus]">{{contentData.percent}}%</div>
+    <span class="title">{{contentData?.name}}</span>
+    <span class="subtitle">{{contentData?.title}}</span>
+    <div class="percent-info" [ngClass]="['percent-info', contentData.percentStatus]">{{contentData?.percentageInfluence}}%</div>
     <div class="line-diagram" *ngIf="cardConfig[currentType].haveLineChart">
       <evj-kpe-universal-card-line-chart
-        [data]="contentData.lineChart"
+        [data]="contentData"
       ></evj-kpe-universal-card-line-chart>
     </div>
     <div class="month-indicators">

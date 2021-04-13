@@ -100,6 +100,25 @@
       background: var(--color-astue-onpz-widget-border);
     }
   }
+
+  &__main-new {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-grow: 1;
+
+    & > * {
+      flex: calc(50% - 5px);
+    }
+
+    &__card {
+      width: 100%;
+    }
+  }
+
+  &__main-new--line {
+    flex-direction: column;
+  }
 }
 
 .chart-card {

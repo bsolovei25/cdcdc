@@ -24,7 +24,7 @@
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)" *ngIf="!!diagram">
           <evj-kpe-gauge-chart
-            isPercent="true"
+            [isPercent]="diagram?.isUnitPercent"
             [background]="'dark'"
             [fact]="diagram?.fact"
             [plan]="diagram?.plan"
@@ -34,6 +34,7 @@
 
           <evj-kpe-gauge-chart-multi-color
             [type]="1"
+            [data]="diagram"
             *ngIf="displayNewDesign"
           ></evj-kpe-gauge-chart-multi-color>
         </div>
@@ -98,7 +99,8 @@
                   <div class="units__unit"
                        (click)="engUnitsComparator.setEngUnits(chartCard?.progressChart.title, 'percent')"
                        [class.units__unit_active]="engUnitsComparator.isEngUnitsPercent(chartCard?.progressChart.title)"
-                  >%</div>
+                  >%
+                  </div>
                 </div>
               </div>
               <div class="chart-card__diagram">
@@ -115,11 +117,11 @@
           </div>
         </div>
       </div>
-      <div class="readiness__main">
+      <div class="readiness__main" *ngIf="!displayNewDesign">
         <ng-container *ngFor="let row of chartCards">
           <div class="readiness__main__row" *ngIf="displayMode === 'tiled'">
             <ng-container *ngFor="let card of row">
-              <div *ngIf="!displayNewDesign" class="readiness__main__chart element-container">
+              <div class="readiness__main__chart element-container">
                 <div class="chart-card">
                   <div class="chart-card__content">
                     <div class="chart-card__title">
@@ -133,7 +135,8 @@
                         <div class="units__unit"
                              (click)="engUnitsComparator.setEngUnits(card?.progressChart.title, 'percent')"
                              [class.units__unit_active]="engUnitsComparator.isEngUnitsPercent(card?.progressChart.title)"
-                        >%</div>
+                        >%
+                        </div>
                       </div>
                     </div>
                     <div class="chart-card__diagram">
@@ -149,19 +152,11 @@
                   </div>
                 </div>
               </div>
-              <evj-kpe-universal-card
-                *ngIf="displayNewDesign"
-                [gaugeChart]="{
-                    fact: diagram?.fact,
-                    plan: diagram?.plan,
-                    deviation: diagram?.deviation
-                  }"
-              ></evj-kpe-universal-card>
             </ng-container>
           </div>
           <ng-container *ngFor="let card of row">
             <div class="readiness__main__row readiness__main__row-line" *ngIf="displayMode === 'line'">
-              <div *ngIf="!displayNewDesign" class="readiness__main__chart element-container-line">
+              <div class="readiness__main__chart element-container-line">
                 <div class="chart-card">
                   <div class="chart-card__content">
                     <div class="chart-card__title">
@@ -186,17 +181,22 @@
                   </div>
                 </div>
               </div>
-              <evj-kpe-universal-card
-                *ngIf="displayNewDesign"
-                [type]="0"
-                [gaugeChart]="{
-                    fact: diagram?.fact,
-                    plan: diagram?.plan,
-                    deviation: diagram?.deviation
-                  }"
-              ></evj-kpe-universal-card>
             </div>
           </ng-container>
+        </ng-container>
+      </div>
+      <div class="readiness__main-new"
+        [class.readiness__main-new--line]="displayMode === 'line'"
+        *ngIf="displayNewDesign"
+      >
+        <ng-container *ngFor="let card of gaugeCards">
+          <evj-kpe-universal-card
+            class="readiness__main-new__card"
+            *ngIf="displayNewDesign"
+            [type]="0"
+            [gaugeChart]="card.chartPage"
+            [contentData]="card.linePage"
+          ></evj-kpe-universal-card>
         </ng-container>
       </div>
     </div>
