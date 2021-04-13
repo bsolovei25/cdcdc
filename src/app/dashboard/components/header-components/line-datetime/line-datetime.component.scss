@@ -125,3 +125,54 @@
   display: flex;
   position: absolute;
 }
+
+.container {
+  * {
+    box-sizing: border-box;
+  }
+  height: 100%;
+  width: 100%;
+
+  position: relative;
+
+  .date-container {
+    height: 50%;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--opacity-plan-20-color);
+
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--text-accent-color);
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &__first {
+      border-bottom: 1px solid var(--border-blue-color);
+    }
+  }
+
+  .shadow {
+    width: 16px;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+
+    &:first-child {
+      background: linear-gradient(90deg, var(--gradient-main-color-1) -0.04%, var(--gradient-main-color-2) 99.96%);
+      left: 0;
+    }
+
+    &:last-child {
+      background: linear-gradient(270deg, var(--gradient-main-color-1) -0.04%, var(--gradient-main-color-2) 99.96%);
+      right: 0;
+    }
+  }
+}
