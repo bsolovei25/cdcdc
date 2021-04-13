@@ -1,0 +1,175 @@
+<div class="widget-container pointer-event">
+  <evj-contemporary-widget-header
+    [widgetTitle]="widgetTitle"
+    [uniqId]="widgetUniqId"
+    type="astue"
+    icon="people"
+  ></evj-contemporary-widget-header>
+  <div class="container">
+    <div
+      *ngIf="isWindowCardVerifyActive"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="shadow-panel"></div>
+      <evj-card-verifier [verifyInfo]="verifyInfo"></evj-card-verifier>
+    </div>
+
+    <div *ngIf="isWindowUsbVerifyActive" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="shadow-panel"></div>
+      <evj-usb-verifier [verifyInfo]="verifyInfo"></evj-usb-verifier>
+    </div>
+
+    <evj-alert-window [info]="shiftService.alertWindow$ | async"></evj-alert-window>
+
+    <!--TODO-->
+    <ng-container *ngIf="widgetType === 'shift-pass'">
+      <evj-alert-window [info]="shiftService.alertWindowLeaveShift$ | async"></evj-alert-window>
+    </ng-container>
+
+    <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="change-shift__mainWorker">
+        <svg-icon class="mainWorker__frame" src="assets/icons/change-shift-main-avatar-frame.svg"> </svg-icon>
+        <div class="mainWorker__avatar">
+          <img class="mainWorker__img" [src]="photoPathMain" />
+        </div>
+        <div class="mainWorker__info">
+          <div class="mainWorker__row">
+            <div class="mainWorker__row_colInfo" *ngIf="getMain()">
+              <div class="mainWorker__name">
+                <span>{{ getMain().employee.lastName }} {{ getMain().employee.firstName.charAt(0).toUpperCase() }}.</span>
+                <div
+                  class="mainWorker__name__icon"
+                  [matTooltip]="getStatusTooltip(getMain().status)"
+                >
+                    <svg-icon src="{{getIconType(getMain().status)}}"></svg-icon>
+                </div>
+              </div>
+              <div class="mainWorker__position" *ngIf="currentShift != null">
+                {{ this.getDisplayPosition(getMain().position) }}
+              </div>
+            </div>
+          </div>
+          <div class="mainWorker__row">
+            <div class="mainWorker__squad">
+              <div class="mainWorker__number">Бригада</div>
+              <div class="mainWorker__number">{{ currentShift?.brigade?.number }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="change-shift__onShift">
+        <div class="onShift__label">На смене</div>
+        <ng-container *ngIf="currentShift">
+          <div class="onShift__add" #addShift (click)="showPeople()">Добавить</div>
+          <div class="onShift__people scroll-bar">
+            <div *ngFor="let person of this.presentMembers; let i = index">
+              <evj-shift-person
+                [widgetId]="widgetId"
+                [person]="person"
+                [shiftType]="widgetType"
+                [shiftId]="currentShift.id"
+                [currentBrigade]="currentShift?.brigade?.id"
+                [onShift]="true"
+                [isPresent]="true"
+                [currentShift]="this.currentShift"
+                [unitId]="unitId"
+              ></evj-shift-person>
+            </div>
+          </div>
+          <div class="onShift__allPeople" #allPeople>
+            <div class="allPeople__scroll scroll-bar">
+              <div *ngFor="let person of this.addingShiftMembers">
+                <evj-shift-person
+                  [widgetId]="widgetId"
+                  [person]="person"
+                  [shiftId]="currentShift.id"
+                  [onShift]="false"
+                  [unitId]="unitId"
+                ></evj-shift-person>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="change-shift__absent">
+        <div class="absent__label">Отсутствуют</div>
+        <ng-container *ngIf="currentShift">
+          <div class="absent__people scroll-bar">
+            <div *ngFor="let person of absentMembers">
+              <evj-shift-person
+                [widgetId]="widgetId"
+                [person]="person"
+                [shiftType]="widgetType"
+                [shiftId]="currentShift.id"
+                [onShift]="true"
+                [currentBrigade]="currentShift?.brigade?.id"
+                [currentShift]="currentShift"
+                [isPresent]="false"
+                [unitId]="unitId"
+              ></evj-shift-person>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="change-shift__comment">
+        <div class="comment__title">Комментарии оператора</div>
+        <div class="comment__body">
+          <div class="comment__display">
+            <div class="messages scroll-bar" #scroll>
+              <div class="message" *ngFor="let comment of comments">{{ comment.comment }}</div>
+            </div>
+          </div>
+          <div class="comment__new">
+            <input
+              type="text"
+              class="comment__text gridster-item-content"
+              placeholder="Напишите свой комментарий..."
+              (keypress)="onEnterPush($event)"
+              #input
+            />
+            <button type="submit" class="button comment__file gridster-item-content">
+              <svg-icon src="assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
+            </button>
+            <button type="submit" class="button comment__submit gridster-item-content" (click)="onSendMessage()">
+              <svg-icon src="assets/icons/widgets/change-shift/send.svg"></svg-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">Передать смену</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <button type="submit" (click)="shiftApply()" matRipple matRippleColor="white">Принять смену</button>
+          </div>
+          <div style="margin: 5px"></div>
+          <div class="change-shift__submit">
+            <button (click)="this.shiftCancel()" matRipple matRippleColor="white">Отказаться</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="this.shiftService.getIsCommentRequired(widgetType)">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <button type="submit" (click)="onSendMessage()" matRipple matRippleColor="white">
+              Подтвердить (оставить комментарий)
+            </button>
+          </div>
+          <div style="margin: 5px"></div>
+          <div class="change-shift__submit">
+            <button (click)="unsetRequireComment()" matRipple matRippleColor="white">Отмена</button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

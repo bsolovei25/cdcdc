@@ -1,0 +1,109 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  width: 515px;
+  padding: 18px 18px 22px 30px;
+  border: 1px solid var(--border-blue-color);
+  background: var(--bg-dashboard-color);
+  box-sizing: border-box;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 37px;
+
+    .icon {
+      height: 27px;
+      width: 27px;
+      color: var(--border-blue-color);
+      margin-right: 25px;
+    }
+
+    .title {
+      font-size: 18px;
+      color: var(--text-accent-color);
+    }
+
+    .exit {
+      width: 20px;
+      height: 20px;
+      color: var(--border-icon-color);
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  .info {
+    margin: auto auto auto 54px;
+    display: flex;
+    flex-flow: column;
+    gap: 26px;
+
+    .item {
+      display: flex;
+      width: 320px;
+      flex-flow: column;
+      font-size: 14px;
+      gap: 9px;
+
+      .title {
+        color: var(--text-main-color);
+      }
+
+      .field {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        height: 36px;
+        padding: 0 17px;
+        border-radius: 2px;
+        border: 1px solid var(--border-vidget-color);
+        background: var(--gray-G10-color);
+        box-sizing: border-box;
+
+        &__error {
+          background: var(--opacity-red-20-color);
+          border-color: var(--index-critical-color);
+        }
+
+        &__success {
+          background: var(--opacity-green-20-color);
+          border-color: var(--index-green1-color);
+        }
+
+        span {
+          color: var(--text-accent-color);
+        }
+
+        .mat-select-custom {
+          --font-size: 14px;
+          --color: var(--text-accent-color);
+        }
+      }
+    }
+  }
+
+  .error {
+    display: flex;
+    align-items: center;
+    margin-left: 54px;
+    margin-top: 30px;
+    margin-right: 40px;
+    gap: 16px;
+    color: var(--index-critical-color);
+
+    .text {
+      overflow: hidden;
+      flex-grow: 1;
+      height: 100%;
+      font-size: 13px;
+    }
+
+    .icon {
+      width: 21px;
+      min-width: 21px;
+      height: 18px;
+    }
+  }
+}

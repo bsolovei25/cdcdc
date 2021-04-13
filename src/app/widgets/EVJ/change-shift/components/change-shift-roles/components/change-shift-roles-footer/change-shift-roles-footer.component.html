@@ -1,0 +1,12 @@
+<div class="container">
+
+  <span [class.disable]="!(rolesErrors$ | async)"> Некорректно заполнены роли </span>
+  <span [class.disable]="!(membersErrors$ | async)"> Не у всех выбрана роль </span>
+  <span [class.disable]="!(formErrors$ | async)"> {{ (formErrors$ | async)?.error }} базовых ролей не присвоено </span>
+
+  <div class="buttons-group">
+    <evj-simple-button [disabled]="errors$ | async" (click)="applyForm()"> Подтвердить </evj-simple-button>
+    <evj-simple-button (click)="cancel()"> Отменить </evj-simple-button>
+  </div>
+
+</div>

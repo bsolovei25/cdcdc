@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
-import { Shift, ShiftMember } from 'src/app/dashboard/models/EVJ/shift.model';
+import { Shift, ShiftMember } from '@dashboard/models/EVJ/shift.model';
 import { ShiftService } from '../../../../dashboard/services/widgets/EVJ/shift.service';
 import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
 import { AppConfigService } from '@core/service/app-config.service';
@@ -285,6 +285,6 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
     }
 
     public getIconType(iconType: string): string {
-        return `assets/icons/widgets/change-shift/${iconType}.svg`
+        return `assets/icons/widgets/change-shift/${iconType}.svg`;
     }
 }
