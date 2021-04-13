@@ -1,0 +1,21 @@
+<!--TODO: add claims support (pointer-events: none)-->
+<div class="container" *ngIf="formGroup" [formGroup]="formGroup" style="pointer-events: all">
+  <div class="input">
+    <input placeholder="Введите название роли..." formControlName="name"/>
+  </div>
+  <div class="select">
+    <mat-select
+      formControlName="type"
+      placeholder="Выберите роль"
+      panelClass="mat-select-panel-custom"
+      class="mat-select-custom"
+    >
+      <mat-option> Не выбрано </mat-option>
+      <mat-option *ngFor="let item of reference" [value]="item.key"> {{ item.value }} </mat-option>
+    </mat-select>
+  </div>
+  <svg-icon *ngIf="isStar" class="icon" src="assets/icons/widgets/change-shift/user-star.svg"></svg-icon>
+  <div class="button" (click)="delete()">
+    <svg-icon src="assets/icons/trash.svg"></svg-icon>
+  </div>
+</div>

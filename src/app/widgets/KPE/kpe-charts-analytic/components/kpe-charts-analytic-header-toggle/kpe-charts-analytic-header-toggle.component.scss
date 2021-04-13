@@ -1,12 +1,12 @@
 .chips {
   display: flex;
   height: 23px;
-  background: #303549;
+  background: var(--gray-G9-color);
   border-radius: 2px 0 0 2px;
 
   .chip {
     padding: 0 10px;
-    color: #d7e2f2;
+    color: var(--text-main-color);
     line-height: 21px;
     font-size: 8px;
     box-sizing: border-box;
@@ -22,8 +22,9 @@
     }
 
     &__active {
-      background: rgba(#0089ff, 0.2);
-      border-color: #0089ff;
+      background: var(--opacity-plan-20-color);
+      border-color: var(--border-blue-color);
+      color: var(--text-contrast-color);
     }
   }
 }

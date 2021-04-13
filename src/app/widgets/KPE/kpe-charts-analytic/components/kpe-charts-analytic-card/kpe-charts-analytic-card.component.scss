@@ -4,14 +4,14 @@
   gap: 4px;
   height: 100%;
   width: 100%;
-  padding: 6.7px 11px;
-  background: rgba(#272a38, 0.2);
+  padding: 7px 11px;
+  background: var(--opacity-card-50);
   border-radius: 2px;
   box-sizing: border-box;
 
   .title {
     font-size: 10px;
-    color: #8c99b2;
+    color: var(--text-main-color);
   }
 
   .value {
@@ -21,15 +21,15 @@
     }
 
     &__plan {
-      color: #0089ff;
+      color: var(--index-plan-color);
     }
 
     &__deviation {
-      color: #8c99b2;
+      color: var(--text-main-color);
     }
 
     &__interval {
-      color: #606580;
+      color: var(--text-subscript-color);
     }
   }
 }

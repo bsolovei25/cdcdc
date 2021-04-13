@@ -73,6 +73,10 @@
         stroke: var(--index-plan-color);
       }
 
+      &-fact {
+        stroke: var(--text-accent-color);
+      }
+
       &-border,
       &-higherBorder,
       &-lowerBorder {

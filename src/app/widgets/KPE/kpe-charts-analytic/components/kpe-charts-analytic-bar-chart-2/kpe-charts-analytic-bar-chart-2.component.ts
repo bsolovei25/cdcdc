@@ -158,7 +158,7 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
                     .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .attr('class', 'grid');
+            .attr('class', 'grid grid-first');
 
         this.svg
             .append('g')
@@ -170,7 +170,7 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
                     .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
                     .tickFormat('')
             )
-            .attr('class', 'grid');
+            .attr('class', 'grid grid-second');
     }
 
     private drawDayThreshold(): void {

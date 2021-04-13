@@ -33,12 +33,13 @@ body {
 }
 
 .scroll-bar::-webkit-scrollbar-thumb {
-  background: var(--gray-G9-color);
+  background: var(--gray-G9-50-color);
+  //background: var(--gray-G9-color);
   border-radius: 5px;
 }
 
 .scroll-bar::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--gray-G11-color);
   border-radius: 5px;
 }
 

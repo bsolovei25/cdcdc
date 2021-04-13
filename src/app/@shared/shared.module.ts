@@ -53,14 +53,15 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import { ErrorStateMatcher, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
 import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
 import { CheckerComponent } from './components/checker/checker.component';
-import { FormatStatusPipe } from '../widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
+import { FormatStatusPipe } from '@widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
 import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer.directive';
 import { AddWordWrapPipe } from './pipes/add-word-wrap.pipe';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SimpleButtonComponent } from './components/simple-button/simple-button.component';
 
 @NgModule({
     declarations: [
@@ -110,52 +111,53 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
         CheckerComponent,
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
-        DropdownComponent,
+        SimpleButtonComponent,
+        DropdownComponent
     ],
-  exports: [
-    HeaderComponent,
-    ContentComponent,
-    FormatStatusPipe,
-    FnPipe,
-    PreLoaderComponent,
-    ButtonComponent,
-    DateFormatPipe,
-    PreLoaderComponent,
-    UiBlockComponent,
-    LoadingShadeComponent,
-    WidgetPreloaderComponent,
-    AlertWindowComponent,
-    SmartScrollComponent,
-    EmailEditorComponent,
-    UploadDropZoneComponent,
-    LineChartComponent,
-    EmailEditorComponent,
-    CircleInputComponent,
-    SpaceNumber,
-    AlertInputComponent,
-    TooltipComponent,
-    TooltipDirective,
-    LineBreakPipe,
-    SelectComponent,
-    MatSelectFilterComponent,
-    EventsChatComponent,
-    InputComponent,
-    AlertPasswordComponent,
-    WidgetHeaderComponent,
-    FrameTopComponent,
-    FrameBottomComponent,
-    ContemporaryWidgetHeaderComponent,
-    WidgetHeaderSmpComponent,
-    SafeUrlPipe,
-    ApsProgressBarComponent,
-    TimeDataPickerComponent,
-    RectangleInputComponent,
-    RectButtonComponent,
-    CheckerComponent,
-    SchemaScrollResizerDirective,
-    AddWordWrapPipe,
-    DropdownComponent
-  ],
+    exports: [
+        HeaderComponent,
+        ContentComponent,
+        FormatStatusPipe,
+        FnPipe,
+        PreLoaderComponent,
+        ButtonComponent,
+        DateFormatPipe,
+        PreLoaderComponent,
+        UiBlockComponent,
+        LoadingShadeComponent,
+        WidgetPreloaderComponent,
+        AlertWindowComponent,
+        SmartScrollComponent,
+        EmailEditorComponent,
+        UploadDropZoneComponent,
+        LineChartComponent,
+        EmailEditorComponent,
+        CircleInputComponent,
+        SpaceNumber,
+        AlertInputComponent,
+        TooltipComponent,
+        TooltipDirective,
+        LineBreakPipe,
+        SelectComponent,
+        MatSelectFilterComponent,
+        EventsChatComponent,
+        InputComponent,
+        AlertPasswordComponent,
+        WidgetHeaderComponent,
+        FrameTopComponent,
+        FrameBottomComponent,
+        ContemporaryWidgetHeaderComponent,
+        WidgetHeaderSmpComponent,
+        SafeUrlPipe,
+        ApsProgressBarComponent,
+        TimeDataPickerComponent,
+        RectangleInputComponent,
+        RectButtonComponent,
+        CheckerComponent,
+        SchemaScrollResizerDirective,
+        AddWordWrapPipe,
+        SimpleButtonComponent,
+    ],
     imports: [
         CommonModule,
         MatInputModule,
@@ -174,6 +176,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
+        MatRippleModule,
     ],
     providers: [
         SpaceNumber,

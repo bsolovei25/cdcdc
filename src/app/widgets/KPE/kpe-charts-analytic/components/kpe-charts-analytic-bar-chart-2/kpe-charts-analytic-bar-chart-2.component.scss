@@ -16,17 +16,28 @@ $column-width: 9px;
 
 ::ng-deep {
   .grid {
-    color: var(--chart-segment-color);
+    color: var(--border-icon-color);
     stroke-width: 1;
-    fill: var(--color-sou-bg);
+    stroke-opacity: 0.25;
+    fill: var(--color-kpe-gaude-back);
+
+    .tick {
+      color: var(--border-icon-color);
+    }
 
     path {
-      fill: var(--chart-background-color);
+      fill: transparent;
+    }
+
+    &-first {
+      path {
+        fill: var(--bg-dashboard-color);
+      }
     }
   }
 
   .line-active {
-    stroke: var(--color-kpe-eq-chart-day-active);
+    stroke: var(--opacity-plan-20-color);
     stroke-width: $column-width * 2;
   }
 
@@ -37,41 +48,30 @@ $column-width: 9px;
   }
 
   .rect-normal {
-    fill: var(--color-kpe-gaude-active);
+    fill: var(--border-blue-color);
   }
 
   .rect-white {
-    fill: white;
+    fill: var(--index-fact-color);
   }
 
   .rect-orange {
-    fill: var(--color-astue-onpz-warning);
+    fill: var(--index-error-color);
   }
 
   .active {
-    color: var(--color-kpe-eq-chart-day-active);
-  }
-
-  .normal {
-    color: var(--color-kpe-eq-chart-day-normal);
+    color: var(--opacity-plan-20-color);
   }
 
   .step-line {
-    stroke: var(--color-kpe-gaude-active);
+    stroke: var(--border-blue-color);
     fill: transparent;
     stroke-width: 0.75px;
   }
 
-  .y-axis {
+  .y-axis, .x-axis {
     text {
-      fill: var(--color-marker-diagram);
-      font-size: 10px;
-    }
-  }
-
-  .x-axis {
-    text {
-      fill: var(--color-marker-diagram);
+      fill: var(--text-main-color);
       font-size: 10px;
     }
   }

@@ -665,7 +665,7 @@ export const WIDGETS_LAZY = {
     },
     'shift-pass': {
         import: async () => {
-            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+            return await import('src/app/widgets/others/change-shift/change-shift.module');
         },
         module: 'ChangeShiftModule',
         itemCols: 15,
@@ -675,6 +675,28 @@ export const WIDGETS_LAZY = {
         preview: 'change-shift',
     },
     'shift-accept': {
+        import: async () => {
+            return await import('src/app/widgets/others/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift',
+    },
+    'shift-pass-new': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift',
+    },
+    'shift-accept-new': {
         import: async () => {
             return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
         },

@@ -1,3 +1,13 @@
+$darkBlueColor: #272a38;
+$darkBlueColor2: #163455;
+$darkestBlueColor: #1d1f2b;
+$lightBlueColor: #606580;
+$lightBlueColor2: #4b5169;
+$whiteColor: #d7e2f2;
+$blueColor: #0089ff;
+$orangeColor: #f7931e;
+$brownColor: #483628;
+
 .svg_sou {
   &::ng-deep {
     .element {
@@ -5,69 +15,70 @@
     }
 
     .disabled {
-      stroke: #272a38;
+      stroke: $darkBlueColor;
+      fill: $darkestBlueColor;
 
       &-text {
-        fill: #606580;
+        fill: $lightBlueColor;
       }
 
       &-arrow {
-        stroke: #606580;
+        stroke: $lightBlueColor;
       }
 
       &-line {
-        fill: #272a38;
+        fill: $darkBlueColor;
       }
     }
 
     .standard {
-      stroke: #4b5169;
-      fill: #272a38;
+      stroke: $lightBlueColor2;
+      fill: $darkBlueColor;
 
       &-text {
-        fill: #d7e2f2;
+        fill: $whiteColor;
       }
 
       &-arrow {
-        stroke: #d7e2f2;
+        stroke: $whiteColor;
       }
 
       &-line {
-        fill: #4b5169;
+        fill: $lightBlueColor2;
       }
     }
 
     .deviation {
-      stroke: #f7931e;
-      fill: #483628;
+      stroke: $orangeColor;
+      fill: $brownColor;
 
       &-text {
-        fill: #d7e2f2;
+        fill: $whiteColor;
       }
 
       &-arrow {
-        stroke: #d7e2f2;
+        stroke: $whiteColor;
       }
 
       &-line {
-        fill: #f7931e;
+        fill: $orangeColor;
       }
     }
 
     .active {
-      stroke: #0089ff;
-      fill: #163455;
+      stroke: $blueColor;
+      fill: $darkBlueColor2;
 
       &-text {
-        fill: #d7e2f2;
+        fill: $whiteColor;
       }
 
       &-arrow {
-        stroke: #d7e2f2;
+        stroke: $whiteColor;
       }
 
       &-line {
-        fill: #0089ff;
+        fill: $blueColor;
       }
     }
 
