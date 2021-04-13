@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, OnDestroy, Input } from '@angular/core';
 import { HeaderDataService } from '../../../services/header-data.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { IHeaderDate } from '../../../models/i-header-date';
 
 @Component({
@@ -10,11 +10,19 @@ import { IHeaderDate } from '../../../models/i-header-date';
 })
 export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('lightBlock') lightBlock: ElementRef;
+    @Input() set screenWidth(data: number) {
+        this.screenWidth$.next(data);
+    }
 
     private subscription: Subscription;
 
+    public firstLineInfo: string;
+    public secondLineInfo: string;
+    public interval: any;
+
     public currentData: number;
     public dates: any[] = [];
+    public screenWidth$: BehaviorSubject<number> = new BehaviorSubject<number>(1920);
 
     public dateFromSelector: IHeaderDate = {
         status: true,
@@ -50,11 +58,41 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private setData(data: IHeaderDate): void {
         this.dateFromSelector = data;
+        clearInterval(this.interval);
+
         if (this.dateFromSelector.status === false) {
             setTimeout(() => {
                 this.searchDate(this.dateFromSelector, this.lightBlock);
             }, 1);
         }
+
+        const periodOptions = {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+        };
+
+        const baseOptions = {
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+        };
+
+        this.interval = setInterval(() => {
+            if (this.dateFromSelector.status === false) {
+                this.firstLineInfo = `${data.startDatetime.toLocaleString(
+                    'ru',
+                    periodOptions
+                )} - ${data.endDatetime.toLocaleString('ru', periodOptions)}`;
+
+                const date = new Date().toLocaleString('ru', baseOptions).split(',');
+                this.secondLineInfo = `${date[0]}${date[1]}`;
+            } else {
+                const date = new Date().toLocaleString('ru', baseOptions).split(',');
+                [this.firstLineInfo, this.secondLineInfo] = date;
+            }
+        }, 1000);
     }
 
     ngOnDestroy(): void {
