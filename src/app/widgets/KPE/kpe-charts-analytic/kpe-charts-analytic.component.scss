@@ -19,9 +19,9 @@
     height: calc(100% - 32px);
     gap: 17px;
     padding: 16px 18px 18px 16px;
-    border: 1px solid var(--color-kpe-bg-sub-opacity);
+    border: 1px solid var(--border-vidget-color);
     border-radius: 2px;
-    background: var(--color-kpe-bg);
+    background: var(--bg-body-color);
     box-sizing: border-box;
   }
 }
@@ -65,8 +65,8 @@
       width: 100%;
       display: flex;
       align-items: center;
-      background: var(--color-kpe-bg-dark);
-      border: 1px solid var(--color-kpe-border);
+      background: var(--bg-dashboard-color);
+      border: 1px solid var(--border-forms-color);
       box-sizing: border-box;
       border-radius: 2px;
       overflow: hidden;
@@ -75,13 +75,13 @@
         display: flex;
         height: 100%;
         width: 27px;
-        background: var(--color-kpe-border);
+        background: var(--border-vidget-color);
 
         span {
           margin: auto;
           font-size: 14px;
           line-height: 17px;
-          color: var(--color-kpe-pasportize-text);
+          color: var(--text-main-color);
         }
       }
 
@@ -91,7 +91,7 @@
 
         ::ng-deep {
           .mat-select-placeholder {
-            color: var(--color-kpe-eq-chart-title);
+            color: var(--text-contrast-color);
           }
         }
       }

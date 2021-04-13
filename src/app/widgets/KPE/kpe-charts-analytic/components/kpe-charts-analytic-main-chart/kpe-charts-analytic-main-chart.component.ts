@@ -144,7 +144,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         return result;
     }
 
-    // Приводим графики к заданному интервалу
+    // Приводим графики к заданному интервалу, добавляя недостающие точки
     private addPoints(
         dataset1: IChartsAnalyticDataset[],
         dataset2: IChartsAnalyticDataset[]
@@ -276,7 +276,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
                     .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .attr('class', 'grid');
+            .attr('class', 'grid grid-first');
 
         this.svg
             .append('g')
@@ -288,7 +288,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
                     .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
                     .tickFormat('')
             )
-            .attr('class', 'grid');
+            .attr('class', 'grid grid-second');
     }
 
     private appendCircle(r: number, x: number, y: number, className: string): void {
