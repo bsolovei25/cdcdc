@@ -43,10 +43,26 @@
 
         .icons {
             height: 100%;
-            width: 80px;
+            width: 100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2px
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 2px;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                background-color: var(--border-blue-color);
+                color: var(--text-alwaysWhite-color);
+            }
         }
     }
 }
