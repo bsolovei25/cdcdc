@@ -1,3 +1,20 @@
+# [1.15.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.14.0...v1.15.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* **#1522:** Вид элементов в соответствии с фигмой ([f105840](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f105840cc11a9ed69c27173cf6b072ceac12f4a9)), closes [#1522](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1522)
+* **#1537:** Отображение мнемосхемы если данные не пришли ([5dbcdac](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5dbcdac4e26025cd7a6d892a9e436ba573939bd1)), closes [#1537](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1537)
+* **#1605:** "Корректировка цвета линий факта  на multiline chart" ([65fb6ab](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/65fb6abcac9afc59a0e5917fa3fb3f3936aaaf11)), closes [#1605](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1605)
+* **#1612:** Добавлена поддержка элемента ellipse ([9adbea4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9adbea4ad2f279d4ccc94f1c505f09b09881a2af)), closes [#1612](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1612)
+
+
+### Features
+
+* **#1256:** "КПЭ. Приведение к новому дизайну виджета по безопасности" ([502ca3c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/502ca3c35638dab7dc4460cc2ed4369281fba5b8)), closes [#1256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1256)
+* **#1598:** "КПЭ. Аналитический экран. Перевод в светлую тему." ([5420a38](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5420a3808e8e44145bc5da8378f325a9294b5d6a)), closes [#1598](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1598)
+* **front#1254:** "КПЭ. Приведение к новому дизайну виджета по исполнимости" ([c96e7bc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c96e7bcef20fcc46e10bd0294466a72521ebe554)), closes [front#1254](https://gitlab.funcoff.club/front/issues/1254)
+
 # [1.14.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.13.0...v1.14.0) (2021-04-12)
 
 
