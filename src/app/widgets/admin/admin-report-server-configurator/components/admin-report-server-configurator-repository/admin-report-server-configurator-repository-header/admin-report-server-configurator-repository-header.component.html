@@ -4,7 +4,9 @@
         <input class="input" type="text" placeholder="Поиск по названию файла или папки" />
     </div>
     <button #button matRipple matRippleColor="white" (click)="addFile()">
-        <svg-icon src="{{addIcon}}"></svg-icon>
+        <svg-icon
+        [svgStyle]="{'height.px':'21', 'width.px': '21'}"
+        src="{{addIcon}}"></svg-icon>
         Добавить
     </button>
     <ng-template>

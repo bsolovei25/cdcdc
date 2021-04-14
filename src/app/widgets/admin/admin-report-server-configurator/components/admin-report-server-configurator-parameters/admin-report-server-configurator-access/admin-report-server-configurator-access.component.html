@@ -11,15 +11,18 @@
     <div class="access-settings__body">
         <div class="menu">
             <div class="menu__checkbox">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox
+                color="primary"
+                ></mat-checkbox>
                 выбрать всё
             </div>
-            <div class="menu__button">
-                Открыть доступ
+            <evj-simple-button>
+                <span>Открыть доступ</span>
                 <svg-icon
+                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
                 src="assets/icons/widgets/admin/admin-report-server-configurator/access-arrows.svg"
                 ></svg-icon>
-            </div>
+            </evj-simple-button>
         </div>
         <div class="list">
             <ng-container *ngFor="let item of items">

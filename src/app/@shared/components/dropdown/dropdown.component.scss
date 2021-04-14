@@ -1,6 +1,6 @@
 .default {
     color: var(--text-contrast-color);
-    background-color: var(--gray-G12-color);
+    background-color: var(--bg-dashboard-color);
   
     ::ng-deep {
       .mat-select-arrow {
@@ -65,7 +65,7 @@
     }
     ::ng-deep .mat-form-field-infix {
       border-top: none;
-      background-color: var(--gray-G12-color);
+      background-color: var(--bg-dashboard-color);
       border: 1px solid var(--border-forms-color);
 
     }

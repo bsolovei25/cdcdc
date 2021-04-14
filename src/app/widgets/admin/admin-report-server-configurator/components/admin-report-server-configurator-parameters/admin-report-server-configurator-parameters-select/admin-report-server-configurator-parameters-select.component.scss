@@ -12,13 +12,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
 
     &__header {
         height: 60px;
         width: 100%;
         border-bottom: 1px solid var(--border-vidget-color);
         border-radius: 2px 2px 0 0;
-        padding: 0 20px;
         position: sticky;
         z-index: 1;
 
@@ -36,8 +36,8 @@
     &__body {
         height: 330px;
         width: 100%;
-        overflow: scroll;
-        padding: 10px 20px;
+        overflow: auto;
+        padding: 10px 0;
 
         .item {
             height: 34px;
@@ -60,7 +60,6 @@
         height: 60px;
         border-top: 1px solid var(--border-vidget-color);
         border-radius: 0 0 2px 2px;
-        padding: 0 20px;
         position: sticky;
         z-index: 1;
 
