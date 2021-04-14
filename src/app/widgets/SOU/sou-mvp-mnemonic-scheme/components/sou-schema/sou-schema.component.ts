@@ -9,12 +9,12 @@ import {
     SimpleChange,
     SimpleChanges,
 } from '@angular/core';
-import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
     metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects;
@@ -25,6 +25,7 @@ interface IElementFull {
     circle: Element;
     textValue: Element;
     textPercent: Element;
+    ellipse: Element;
     flag: boolean;
 }
 
@@ -293,6 +294,7 @@ export class SouSchemaComponent implements OnChanges {
                 circle: null,
                 textValue: null,
                 textPercent: null,
+                ellipse: null,
                 flag: true,
             };
             const children = Array.from(element?.children);
@@ -357,6 +359,9 @@ export class SouSchemaComponent implements OnChanges {
         });
         if (elementFull?.circle) {
             this.addElemClass(elementFull?.circle, [mode]);
+        }
+        if (elementFull?.ellipse) {
+            this.addElemClass(elementFull?.ellipse, [mode]);
         }
 
         // Percent
@@ -472,6 +477,7 @@ export class SouSchemaComponent implements OnChanges {
                         circle: null,
                         textValue: null,
                         textPercent: null,
+                        ellipse: null,
                         flag: true,
                     };
                     // Search
@@ -522,11 +528,9 @@ export class SouSchemaComponent implements OnChanges {
             } else {
                 elementFull?.rects.push(element);
             }
-        }
-        if (name?.includes('point')) {
+        } else if (name?.includes('point')) {
             elementFull?.points.push(element);
-        }
-        if (name?.includes('text')) {
+        } else if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
             } else if (name.includes('text_percent')) {
@@ -534,12 +538,12 @@ export class SouSchemaComponent implements OnChanges {
             } else {
                 elementFull.texts.push(element);
             }
-        }
-        if (name?.includes('arrow-group')) {
+        } else if (name?.includes('arrow-group')) {
             elementFull?.arrows.push(...this.searchArrow(element?.children));
-        }
-        if (name?.includes('circle')) {
+        } else if (name?.includes('circle')) {
             elementFull.circle = element;
+        } else if (name?.includes('ellipse')) {
+            elementFull.ellipse = element;
         }
         return elementFull;
     }
