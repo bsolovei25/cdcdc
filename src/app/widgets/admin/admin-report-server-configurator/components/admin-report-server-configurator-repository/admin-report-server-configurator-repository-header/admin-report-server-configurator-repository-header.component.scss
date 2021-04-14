@@ -16,6 +16,9 @@
     justify-content: center;
     position: relative;
 
+    font-size: 13px;
+    line-height: 16px;
+
     .search {
         width: 450px;
         display: flex;
@@ -28,7 +31,7 @@
             flex-grow: 1;
             background-color: var(--bg-header-color);
             border: 1px solid var(--bg-header-color);
-            color: var(--text-accent-color);
+            color: var(--text-contrast-color);
             padding: 0 20px;
             outline: none;
             &::placeholder {

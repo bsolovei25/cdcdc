@@ -73,6 +73,9 @@
                 display: flex;
                 align-items: center;
 
+                font-size: 13px;
+                line-height: 16px;
+
                 mat-checkbox {
                     margin-right: 8px
                 }
@@ -104,6 +107,10 @@
 
                 display: flex;
                 align-items: center;
+
+                font-size: 12px;
+                line-height: 14px;
+                color: var(--text-main-color);
 
                 &__user {
                     height: 23px;
