@@ -157,6 +157,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
         SimpleButtonComponent,
+        DropdownComponent
     ],
     imports: [
         CommonModule,

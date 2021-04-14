@@ -12,6 +12,8 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
   public readonly closePopupIcon='assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
   public readonly listIcon='assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
 
+  public items: Array<number> = new Array(20);
+
   ngOnInit(): void {
   }
   constructor(

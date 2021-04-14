@@ -2,6 +2,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminReportServerConfiguratorRepositoryAddFileComponent } from '../admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
 import { AdminReportServerConfiguratorRepositoryAddComponent } from '../admin-report-server-configurator-repository-add/admin-report-server-configurator-repository-add.component';
 
 @Component({
@@ -60,8 +61,12 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
     });
   }
 
-  public addItem(): void {
-    const dialogref = this.dialog.open(AdminReportServerConfiguratorRepositoryAddComponent)
+  public addFolder(): void {
+    this.dialog.open(AdminReportServerConfiguratorRepositoryAddComponent);
+  }
+
+  public addReport(): void {
+    this.dialog.open(AdminReportServerConfiguratorRepositoryAddFileComponent);
   }
 
 }

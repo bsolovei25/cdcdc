@@ -4,7 +4,13 @@
         <div class="title">Выберите нужные параметры</div>
         <svg-icon class="close" src="{{closePopupIcon}}" (click)="onClose()"></svg-icon>
     </div>
-    <div class="selection__body"></div>
+    <div class="selection__body">
+        <ng-container *ngFor="let item of items">
+            <div class="item">
+                параметр
+            </div>
+        </ng-container>
+    </div>
     <div class="selection__footer">
         <button class="button">
             Принять

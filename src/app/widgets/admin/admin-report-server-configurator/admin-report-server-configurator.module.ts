@@ -17,6 +17,9 @@ import { AdminReportServerConfiguratorParametersComponent } from './components/a
 import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
 import { AdminReportServerConfiguratorParametersChangeComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-change/admin-report-server-configurator-parameters-change.component';
 import { AdminReportServerConfiguratorParametersSelectComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-select/admin-report-server-configurator-parameters-select.component';
+import { AdminReportServerConfiguratorAccessComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-access/admin-report-server-configurator-access.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
 
 
 
@@ -34,6 +37,8 @@ import { AdminReportServerConfiguratorParametersSelectComponent } from './compon
     AdminReportServerConfiguratorParametersHeaderComponent,
     AdminReportServerConfiguratorParametersChangeComponent,
     AdminReportServerConfiguratorParametersSelectComponent,
+    AdminReportServerConfiguratorAccessComponent,
+    AdminReportServerConfiguratorRepositoryAddFileComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +46,8 @@ import { AdminReportServerConfiguratorParametersSelectComponent } from './compon
     AngularSvgIconModule,
     MatRippleModule,
     OverlayModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCheckboxModule
   ]
 })
 export class AdminReportServerConfiguratorModule {

@@ -66,6 +66,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            &:first-child {
+                font-size: 13px;
+                line-height: 16px;
+            }
     
             &:hover {
                 background-color: var(--border-blue-color);

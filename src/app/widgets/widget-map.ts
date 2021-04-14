@@ -519,9 +519,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AdminReportServerConfiguratorModule',
         itemCols: 60,
-        itemRows: 30,
+        itemRows: 25,
         minItemCols: 60,
-        minItemRows: 30,
+        minItemRows: 25,
         preview: 'report-server-configurator',
     },
     reference: {

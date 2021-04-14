@@ -1,0 +1,42 @@
+<div class="add">
+    <div class="add__header">
+        <div class="title">
+            <svg-icon class="icon" src="{{addIcon}}"></svg-icon>
+            <span>Добавление версии</span>
+        </div>
+        <div class="close" (click)="onNoClick()">
+            <div class="close__button">
+                <svg-icon [svgStyle]="{'height.px':'21', 'width.px': '21'}"
+                    [src]="'assets/icons/widgets/alert-window/close.svg'">
+                </svg-icon>
+            </div>
+        </div>
+    </div>
+    <div class="add__body">
+        <div class="add__body__label">Имя версии</div>
+        <div class="add__body__input">
+            <div class="input-block">
+                <div class="input-block__input">
+                    <div class="input-back">
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="add__body__load">
+            Перетащите или загрузите файл
+            <svg-icon
+            src="{{loadIcon}}"
+            ></svg-icon>
+            Не более 500 MB .xls
+        </div>
+        <div class="add__body__buttons">
+            <div class="button">
+                <evj-rect-button [textButton]="'Сохранить'"></evj-rect-button>
+            </div>
+            <div class="button">
+                <evj-rect-button [textButton]="'Отменить'"></evj-rect-button>
+            </div>
+        </div>
+    </div>
+</div>
