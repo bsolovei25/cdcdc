@@ -8,6 +8,13 @@ $blueColor: #0089ff;
 $orangeColor: #f7931e;
 $brownColor: #483628;
 
+@mixin ellipse {
+  &[id^=ellipse] {
+    @content;
+    stroke: transparent;
+  }
+}
+
 .svg_sou {
   &::ng-deep {
     .element {
@@ -29,6 +36,10 @@ $brownColor: #483628;
       &-line {
         fill: $darkBlueColor;
       }
+
+      @include ellipse {
+        fill: transparent;
+      }
     }
 
     .standard {
@@ -46,6 +57,10 @@ $brownColor: #483628;
       &-line {
         fill: $lightBlueColor2;
       }
+
+      @include ellipse {
+        fill: white;
+      }
     }
 
     .deviation {
@@ -62,6 +77,10 @@ $brownColor: #483628;
 
       &-line {
         fill: $orangeColor;
+      }
+
+      @include ellipse {
+        fill: white;
       }
     }
 
