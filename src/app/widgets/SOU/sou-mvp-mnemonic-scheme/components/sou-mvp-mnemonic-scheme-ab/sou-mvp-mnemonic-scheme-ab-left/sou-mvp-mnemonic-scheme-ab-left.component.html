@@ -11,7 +11,7 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span [ngStyle]="{fontSize: '18px', color: 'red'}">{{mvpService.getElementByCode(sections, 0)?.name}}</span>
+      <span>{{mvpService.getElementByCode(sections, 0)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
