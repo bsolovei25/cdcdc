@@ -33,7 +33,8 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
         @Inject('viewType') public viewType: string,
-        @Inject('unitName') public unitName: string
+        @Inject('unitName') public unitName: string,
+        @Inject('sectionName') public sectionName: string,
     ) {
         super(widgetId, channelId, widgetService);
     }

@@ -50,16 +50,17 @@ export class SouSchemaComponent implements OnChanges {
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenUnitName: string; // Выбранная установка
+    @Input() unitName: string;
+    @Input() sectionName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        const chosenInstallChanges: SimpleChange = changes?.chosenUnitName;
+        const unitNameChanges: SimpleChange = changes?.unitName;
 
-        if (!this.chosenUnitName || chosenInstallChanges?.currentValue !== chosenInstallChanges?.previousValue) {
+        if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
             this.processSvgWhenItIsReady();
             this.resetComponent();
@@ -79,11 +80,8 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     public get svgFileName(): string {
-        if (this.chosenUnitName) {
-            const section = this.mvpService.currentSection$.getValue() as {name: string};
-            const sectionName = section?.name;
-
-            switch (this.chosenUnitName) {
+        if (this.unitName) {
+            switch (this.unitName) {
                 case 'АССБ Авиасмеси':
                     return 'ASSB-AviaSmesi';
                 case 'АССБ А-95':
@@ -109,9 +107,9 @@ export class SouSchemaComponent implements OnChanges {
                 case 'Л-35/11-1000':
                     return 'l-35-11-1000';
                 case 'Изомалк-2':
-                    if (sectionName === 'Топливо факел') {
+                    if (this.sectionName === 'Топливо факел') {
                         return 'izomalk-2-fuel';
-                    } else if (sectionName === 'Сырьевой парк') {
+                    } else if (this.sectionName === 'Сырьевой парк') {
                         return 'raw-materials-park-4022';
                     }
                     break;
@@ -139,7 +137,8 @@ export class SouSchemaComponent implements OnChanges {
 
         const wait = () => {
             const svg = this.getSvgElement();
-            const foundKeyElem = svg?.querySelector(`#element-1_1__${this.svgFileName}`);
+            const svgFileName = this.svgFileName;
+            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
 
             if (foundKeyElem) {
                 processSvg();
@@ -234,7 +233,7 @@ export class SouSchemaComponent implements OnChanges {
     loadNewData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.elementsMap.get(data?.code);
         const mode = this.getElementMode(data);
-        this.prepareElement(false, mode, element, data);
+        this.prepareElement(mode, element, data);
     }
 
     private getElementMode(data: ISouFlowOut | ISouFlowIn | ISouObjects): TypeMode {
@@ -262,7 +261,7 @@ export class SouSchemaComponent implements OnChanges {
             const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
             const id = elMatch && elMatch[2] && parseInt(elMatch[2], 10);
 
-            this.prepareElement(false, 'reset', element);
+            this.prepareElement('reset', element);
             this.elementsMap.set(id, element);
         });
 
@@ -277,7 +276,6 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     prepareElement(
-        reload: boolean,
         mode: TypeMode,
         element: Element,
         metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects,

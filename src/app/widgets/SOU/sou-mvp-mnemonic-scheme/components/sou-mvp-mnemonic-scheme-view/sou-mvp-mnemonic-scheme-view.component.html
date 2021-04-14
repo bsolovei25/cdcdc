@@ -56,7 +56,8 @@
           *ngIf="viewType === 'svg'"
           [chosenSetting]="chosenSetting$ | async"
           [sectionsDataPark]="(data$ | async)?.sectionsData"
-          [chosenUnitName]="unitName"
+          [unitName]="unitName"
+          [sectionName]="sectionName"
         >
         </evj-sou-schema>
       </div>
