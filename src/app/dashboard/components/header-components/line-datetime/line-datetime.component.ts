@@ -178,8 +178,10 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.activeStates.isTimeline = true;
         }
 
-        this.renderer.removeStyle(highlightBlock.nativeElement, 'left');
-        this.renderer.setStyle(highlightBlock.nativeElement, 'left', `${posLeft}%`);
-        this.renderer.setStyle(highlightBlock.nativeElement, 'width', `${posRight - posLeft}%`);
+        if (highlightBlock) {
+            this.renderer.removeStyle(highlightBlock.nativeElement, 'left');
+            this.renderer.setStyle(highlightBlock.nativeElement, 'left', `${posLeft}%`);
+            this.renderer.setStyle(highlightBlock.nativeElement, 'width', `${posRight - posLeft}%`);
+        }
     }
 }
