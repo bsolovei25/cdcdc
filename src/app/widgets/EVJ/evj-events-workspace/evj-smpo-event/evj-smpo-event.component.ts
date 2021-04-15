@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
+import { BehaviorSubject } from "rxjs";
 import { EvjEventsSmpoReasonsMenuComponent } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
 import { EvjEventsSmpoCorrectMenuComponent } from '../components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { IMenuItem } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
@@ -8,6 +9,9 @@ import { Observable, of } from 'rxjs';
 import { map, take } from "rxjs/operators";
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
+
+const STATUSES = ['Новое', 'В работе'];
+const SUBCATEGORIES = ['СМПО'];
 
 @Component({
     selector: 'evj-smpo-event',
@@ -17,6 +21,12 @@ import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.s
 export class EvjSmpoEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
+
+    public subCategories$: BehaviorSubject<string[]> = new BehaviorSubject(SUBCATEGORIES);
+    public statuses$: BehaviorSubject<string[]> = new BehaviorSubject(STATUSES);
+
+    // public startData: Date | null = new Date();
+    // public endData: Date | null = new Date();
 
     public dateNow: Date = new Date();
 
