@@ -41,6 +41,10 @@
         }
     }
 
+    .icon {
+        margin-right: 10px;
+    }
+
     &__add {
         width: 120px;
         height: 65px;
@@ -57,14 +61,15 @@
             justify-content: flex-start;
             align-items: center;
 
+            .icon {
+                margin-right: 10px;
+            }
+
             &:hover {
                 background-color: var(--border-blue-color);
                 color: var(--text-alwaysWhite-color);
                 cursor: pointer;
             }
-        }
-        .icon {
-            margin-right: 10px;
         }
     }
     button {
@@ -83,7 +88,6 @@
         top: 10px;
 
         display: flex;
-        justify-content: space-between;
         align-items: center;
 
         &:hover {

@@ -31,6 +31,16 @@
             width: 21px;
             cursor: pointer;
         }
+
+        .close {
+            width: 21px;
+            height: 21px;
+
+            &:hover {
+                color: var(--border-blue-color);
+                cursor: pointer;
+            }
+        }
     }
 
     &__body {

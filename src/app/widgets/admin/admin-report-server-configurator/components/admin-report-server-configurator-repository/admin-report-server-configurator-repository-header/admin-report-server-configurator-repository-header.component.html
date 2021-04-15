@@ -5,18 +5,30 @@
     </div>
     <button #button matRipple matRippleColor="white" (click)="addFile()">
         <svg-icon
-        [svgStyle]="{'height.%':'100', 'width.px': '21'}"
-        src="{{addIcon}}"></svg-icon>
+        class="icon"
+        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+        src="{{addIcon}}"
+        ></svg-icon>
         Добавить
     </button>
     <ng-template>
         <div class="header__add">
             <div class="item" (click)="addFolder()">
-                <svg-icon class="icon" src={{folderIcon}}></svg-icon>
+                <svg-icon
+                class="icon"
+                src={{folderIcon}}
+                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
+                >
+                </svg-icon>
                 <span>Папка</span>
             </div>
             <div class="item" (click)="addReport()">
-                <svg-icon class="icon" src={{reportIcon}}></svg-icon>
+                <svg-icon
+                class="icon"
+                src={{reportIcon}}
+                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
+                >
+                </svg-icon>
                 <span>Отчёт</span>
             </div>
         </div>
