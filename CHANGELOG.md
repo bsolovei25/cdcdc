@@ -1,3 +1,16 @@
+# [1.16.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.15.0...v1.16.0) (2021-04-15)
+
+
+### Bug Fixes
+
+* **#1446:** Исправлено переключение между мнемосхемами в пределах одной установки ([5463dee](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5463dee0d2049968e9afb194f9ac228b4c5f83d3)), closes [#1446](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1446)
+
+
+### Features
+
+* **#1457:** Разработка компонентов СМПО Причины и Корректирующие мероприятия ([8cc173f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8cc173fdb8748422adc0db3ddf30020cc967c8d6)), closes [#1457](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1457)
+* **#1555:** Resolve "Проработка виджета Предикторы v2" ([94e4ac7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/94e4ac7b364602b62b27557e4da123dd5019dd63))
+
 # [1.15.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.14.0...v1.15.0) (2021-04-14)
 
 
