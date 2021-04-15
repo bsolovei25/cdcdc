@@ -58,6 +58,7 @@ import { EvjEventsSmpoReasonsMenuItemComponent } from './components/evj-events-s
 import { EvjEventsSmpoCorrectComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct.component';
 import { EvjEventsSmpoCorrectMenuComponent } from './components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct-item/evj-events-smpo-correct-item.component';
+import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
 
 @NgModule({
     declarations: [
@@ -106,6 +107,7 @@ import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-
         EvjEventsSmpoCorrectMenuComponent,
         EvjEventsSmpoCorrectItemComponent,
         EvjEventsWorkspaceRestrictionsComponent,
+        EvjSmpoEventCriticalComponent,
     ],
     imports: [
         CommonModule,

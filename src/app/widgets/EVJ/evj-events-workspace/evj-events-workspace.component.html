@@ -45,14 +45,23 @@
           [noOverflow]="displayContainer"
           *ngIf="!ewService?.event?.productionTasks?.subCategory?.id else shiftPass"
         ></evj-usual-event>
+
         <ng-template #shiftPass>
-          <evj-shift-pass *ngIf="ewService?.event?.productionTasks?.subCategory?.id === 1010 else tasks">
-          </evj-shift-pass>
+          <ng-container [ngSwitch]="ewService?.event?.productionTasks?.subCategory?.id">
+            <evj-shift-pass *ngSwitchCase="1010"></evj-shift-pass>
+            <evj-smpo-event *ngSwitchCase="1060"></evj-smpo-event>
+            <evj-tasks-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-tasks-event>
+          </ng-container>
+
+
         </ng-template>
+
         <ng-template #tasks>
-          <evj-tasks-event [noOverflow]="displayContainer"></evj-tasks-event>
+
         </ng-template>
+
       </ng-container>
+
       <evj-asus-event *ngSwitchCase="5" [noOverflow]="displayContainer"></evj-asus-event>
       <evj-ejs-event
         *ngSwitchCase="6"
