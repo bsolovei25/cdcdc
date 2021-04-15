@@ -18,6 +18,19 @@
   display: flex;
   overflow: overlay;
 
+  .group-divider {
+    &:last-child {
+      .triangle {
+        display: none;
+      }
+    }
+    &:nth-child(2) {
+      .triangle__left {
+        display: none;
+      }
+    }
+  }
+
   &::-webkit-scrollbar {
     width: 5px;
     height: 4px !important;
@@ -51,8 +64,8 @@
   gap: 20%;
   margin: 35px 0 27px 0;
   padding: 0 16px 0 4px;
-  border-right: solid 1px var(--astue-onpz-factory-analisys-grid-opacity);
-  background: var(--astue-onpz-factory-analisys-grid-bg);
+  border-right: 1px solid var(--border-vidget-color);
+  background: var(--bg-dashboard-color);
 
   &__units {
     position: absolute;
@@ -110,5 +123,5 @@
   min-width: 1px;
   margin: 35px 0 0 0;
   z-index: 9;
-  background: var(--border-forms-color);
+  background: var(--border-vidget-color);
 }

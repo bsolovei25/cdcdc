@@ -42,8 +42,13 @@
   }
 
   .main {
+    &:hover {
+      background: var(--gray-G12-50-color) !important;
+      z-index: 1;
+    }
     flex-grow: 1;
     padding: 0 10px;
+    transition: all 0.2s;
   }
 }
 
