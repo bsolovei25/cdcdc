@@ -83,7 +83,7 @@ export class AstueOnpzPredictorsItemComponent
     protected dataHandler(ref: { predictors: IPredictors[]; predictorsGroups: IPredictorsGroup[] }): void {
         let data: IPredictorsGroup[] = [
             ...ref.predictorsGroups,
-            { id: 'without group', name: 'Без группы', predictors: ref.predictors ?? [] },
+            { id: 'without group', isExpanded: true, name: 'Общее', predictors: ref.predictors ?? [] },
         ];
 
         data.forEach((item, i) => {
