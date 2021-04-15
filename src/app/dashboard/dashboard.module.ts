@@ -69,10 +69,8 @@ import { GroupSelectorRowComponent } from './components/header-components/group-
 import { IndicatorDiagramComponent } from './components/header-components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/header-components/menu-button/menu-button.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
-import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
-import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
-import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module';
+import { TankFilterComponent } from '@widgets/NK/tank-information/components/tank-filter/tank-filter.component';
+import { OilOperationsFilterComponent } from '@widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { GroupSelectorDialogComponent } from './components/header-components/group-selector/group-selector-dialog/group-selector-dialog.component';
 import { GroupSelectorGroupItemComponent } from './components/header-components/group-selector/group-selector-group-item/group-selector-group-item.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -81,6 +79,8 @@ import { GroupSelectorModalComponent } from './components/header-components/grou
 import { FilterGroupsPipe } from './components/header-components/group-selector/filter-groups.pipe';
 import { PortalModule } from '@angular/cdk/portal';
 import { AboutComponent } from './components/about/about.component';
+import { ReportLoadingFileComponent } from './components/report/report-loading-file/report-loading-file.component';
+import { ReportServerConfiguratorModule } from '@widgets/admin/report-server-configurator/report-server-configurator.module';
 
 @NgModule({
     declarations: [
@@ -104,6 +104,7 @@ import { AboutComponent } from './components/about/about.component';
         SearchListComponent,
         ReportComponent,
         ReportsComponent,
+        ReportLoadingFileComponent,
         DevGraphComponent,
         ReportTreeComponent,
         TableGridComponent,
@@ -128,6 +129,7 @@ import { AboutComponent } from './components/about/about.component';
         GroupSelectorModalComponent,
         FilterGroupsPipe,
         AboutComponent,
+        ReportLoadingFileComponent,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [
@@ -183,9 +185,8 @@ import { AboutComponent } from './components/about/about.component';
         MatMenuModule,
         MatRippleModule,
         MatBadgeModule,
-        ReportServerConfiguratorModule,
-        AstueOnpzMnemonicFurnaceModule,
         PortalModule,
+        ReportServerConfiguratorModule,
     ],
     bootstrap: [],
     providers: [

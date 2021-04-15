@@ -1,8 +1,11 @@
-<span id="svg_elements">
+<span
+  #svgContainer
+  id="svg_elements"
+>
   <svg-icon
-    #svg_sou
+    *ngIf="svgFileName"
     class="svg_sou"
-    src="assets/img/sou/{{getSvgName(localChosenInstall)}}.svg"
+    src="assets/img/sou/{{ svgFileName }}.svg"
     [svgStyle]="{ 'width.%': 100, 'height.%': 100 }"
   ></svg-icon>
 </span>

@@ -18,23 +18,23 @@
 
     .label-mouse {
       font-size: 12px;
-      fill: #d7e2f2;
+      fill: var(--gray-G4-color);
     }
 
     .graph-area {
       &-border,
       &-higherBorder,
       &-lowerBorder {
-        fill: var(--color-astue-onpz-area);
+        fill: var(--chart-attantionZone-color);
         opacity: 0.2;
       }
 
       &_warning {
-        fill: var(--color-astue-onpz-warning);
+        fill: var(--index-error-color);
       }
 
       &_normal {
-        fill: var(--color-astue-onpz-normal);
+        fill: var(--index-green1-color);
       }
     }
 
@@ -49,7 +49,7 @@
       &-other {
         fill: none;
         opacity: 1;
-        stroke: var(--color-astue-onpz-fact);
+        stroke: var(--index-fact-color);
       }
 
       &-fact,
@@ -64,38 +64,42 @@
       }
 
       &-factModel {
-        stroke: #5b607d;
+        stroke: var(--border-icon-color);
       }
 
       fill: none;
 
       &-plan {
-        stroke: var(--color-astue-onpz-plan);
+        stroke: var(--index-plan-color);
+      }
+
+      &-fact {
+        stroke: var(--text-accent-color);
       }
 
       &-border,
       &-higherBorder,
       &-lowerBorder {
         stroke-dasharray: 2 2;
-        stroke: var(--color-aps-bg-icon);
+        stroke: var(--border-icon-color);
       }
     }
 
     .label {
-      fill: var(--color-astue-onpz-units);
+      fill: var(--border-icon-color);
       font-size: 12px;
     }
 
     .point {
-      fill: #1c1f2b;
+      fill: var(--gray-G11-color);
       stroke-width: 2;
 
       &_plan {
-        stroke: var(--color-astue-onpz-plan);
+        stroke: var(--index-plan-color);
       }
 
       &_fact {
-        stroke: var(--color-astue-onpz-fact);
+        stroke: var(--index-fact-color);
       }
     }
 
@@ -109,28 +113,28 @@
     }
 
     .axisY-bg_1 {
-      fill: var(--color-astue-onpz-widget-bg);
+      fill: var(--gray-G11-color);
     }
 
     .axisY-bg_2 {
-      fill: var(--color-astue-onpz-widget-border);
+      fill: var(--border-vidget-color);
     }
 
     .legend-text {
-      fill: var(--color-text-main);
+      fill: var(--text-accent-color);
       font-size: 13px;
     }
 
     .button {
       circle {
         stroke-width: 1;
-        stroke: var(--color-astue-onpz-button);
+        stroke: var(--border-icon-color);
         fill: transparent;
       }
 
       line {
         stroke-width: 1;
-        stroke: var(--color-astue-onpz-button);
+        stroke: var(--border-icon-color);
         stroke-linecap: round;
       }
 
@@ -140,10 +144,10 @@
     }
 
     .future {
-      fill: rgba(28, 31, 43, 0.5);
+      fill: var(--gray-G10-color);
 
       &-line {
-        stroke: white;
+        stroke: var(--gray-G1-color);
         stroke-width: 1;
 
         &_hor {
@@ -153,21 +157,21 @@
     }
 
     .big-rect {
-      fill: var(--color-astue-onpz-bg-data);
+      fill: var(--gray-G10-color);
     }
 
     .small-rect {
-      fill: var(--color-astue-onpz-bg-data-icon);
+      fill: var(--gray-G9-color);
     }
 
     .data {
-      fill: var(--color-astue-onpz-bg-data);
+      fill: var(--gray-G10-color);
 
       &-fact,
       &-plan,
       &-date {
         font-size: 13px;
-        fill: var(--color-astue-onpz-fact);
+        fill: var(--index-fact-color);
         z-index: 10;
       }
 
@@ -176,22 +180,22 @@
       }
 
       &-plan {
-        fill: var(--color-astue-onpz-plan);
+        fill: var(--index-plan-color);
       }
 
       &-icon {
-        fill: var(--color-astue-onpz-bg-data-icon);
+        fill: var(--gray-G9-color);
       }
     }
 
     .val {
       rect {
-        fill: rgba(48, 53, 73);
+        fill: var(--gray-G9-color);
       }
 
       text {
         font-size: 13px;
-        fill: var(--color-astue-onpz-fact);
+        fill: var(--index-fact-color);
       }
     }
   }

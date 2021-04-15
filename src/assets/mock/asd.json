@@ -1,0 +1,1918 @@
+{
+  "channelId": "f781aeb0-f8e2-11ea-8b95-b3bcb3d77263",
+  "data": {
+    "unitId": 0,
+    "predictors": [
+      {
+        "id": "29cd3be0-3d31-11eb-b778-65cd3d5b2637",
+        "name": "Скорость ветра",
+        "label": "Скорость ветра",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:SV",
+        "isHidden": false
+      },
+      {
+        "id": "72efa630-3c84-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI659",
+        "isHidden": false
+      },
+      {
+        "id": "65bc3070-3d1d-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра воздуха на горение",
+        "label": "Тем-ра воздуха на горение",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI-562",
+        "isHidden": false
+      },
+      {
+        "id": "9a2d31c0-3c77-11eb-9df8-01e022e24b68",
+        "name": "Расход отбензин. нефти в печь П-1/2 (3 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/2 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC45",
+        "isHidden": false
+      },
+      {
+        "id": "08bbf650-3d0c-11eb-95d8-01d34931cb0c",
+        "name": "Сырье на установку",
+        "label": "Сырье на установку",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI200",
+        "isHidden": false
+      },
+      {
+        "id": "c569a1c0-3c95-11eb-af23-ff480c3813b1",
+        "name": "Расход отбензин. нефти в печь П-1/1 (2 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/1 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC40",
+        "isHidden": false
+      },
+      {
+        "id": "a2f76110-3c7a-11eb-9df8-01e022e24b68",
+        "name": "Расход мазута в печь П-3 (5 поток)",
+        "label": "Расход мазута в печь П-3 (5 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC116",
+        "isHidden": false
+      },
+      {
+        "id": "074fffb0-3d0b-11eb-95d8-01d34931cb0c",
+        "name": "ТГ к\u00A0пил.горелкам\u00A0П-102",
+        "label": "ТГ к\u00A0пил.горелкам\u00A0П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC248",
+        "isHidden": false
+      },
+      {
+        "id": "2b2f2e60-3c98-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов на перевале печи П-1/1",
+        "label": "Тем-ра дым. газов на перевале печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI541",
+        "isHidden": false
+      },
+      {
+        "id": "af436c80-3c6f-11eb-8253-d7a6ba628f6a",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI548",
+        "isHidden": false
+      },
+      {
+        "id": "ca387360-81ab-11eb-ac3b-1d1753e09721",
+        "name": "Т продукта на вход печи П 1/2, 1/1, 1/3",
+        "label": "Т продукта на вход печи П 1/2, 1/1, 1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI806",
+        "isHidden": true
+      },
+      {
+        "id": "efac6180-81a9-11eb-ac3b-1d1753e09721",
+        "name": "Температура воздуха на горение",
+        "label": "Температура воздуха на горение",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:T1",
+        "isHidden": true
+      },
+      {
+        "id": "f4d673d0-3c99-11eb-af23-ff480c3813b1",
+        "name": "Температура окружающего воздуха",
+        "label": "Температура окружающего воздуха",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:T1",
+        "isHidden": false
+      },
+      {
+        "id": "24879420-3c99-11eb-af23-ff480c3813b1",
+        "name": "Уровень в Е-27",
+        "label": "Уровень в Е-27",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:LI1442",
+        "isHidden": false
+      },
+      {
+        "id": "efb9cce0-3c7a-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI672",
+        "isHidden": false
+      },
+      {
+        "id": "3b845a70-3c97-11eb-af23-ff480c3813b1",
+        "name": "Уровень в К-2 (дубль)",
+        "label": "Уровень в К-2 (дубль)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:LI1423",
+        "isHidden": false
+      },
+      {
+        "id": "c1501950-3c7e-11eb-9df8-01e022e24b68",
+        "name": "Расход жидкого топлива от печи П-1/2 (возврат)",
+        "label": "Расход жидкого топлива от печи П-1/2 (возврат)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI196",
+        "isHidden": false
+      },
+      {
+        "id": "1b391670-3c92-11eb-9df8-01e022e24b68",
+        "name": "E-34 уровень",
+        "label": "E-34 уровень",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:LC475",
+        "isHidden": false
+      },
+      {
+        "id": "ab723080-3c80-11eb-9df8-01e022e24b68",
+        "name": "Расход отбензин. нефти в печь П-1/1 (3 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/1 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC41",
+        "isHidden": false
+      },
+      {
+        "id": "65794530-3c87-11eb-9df8-01e022e24b68",
+        "name": "Бензин на\u00A0вых. из Т-15/3",
+        "label": "Бензин на\u00A0вых. из Т-15/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI867",
+        "isHidden": false
+      },
+      {
+        "id": "8975ba30-3d64-11eb-af4d-5fc08f0957af",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI767",
+        "isHidden": false
+      },
+      {
+        "id": "9d5349b0-3d63-11eb-af4d-5fc08f0957af",
+        "name": "Температура низа колонны К-1",
+        "label": "Температура низа колонны К-1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI531",
+        "isHidden": false
+      },
+      {
+        "id": "ae24fbf0-3d66-11eb-af4d-5fc08f0957af",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI525",
+        "isHidden": false
+      },
+      {
+        "id": "889dec20-3c85-11eb-9df8-01e022e24b68",
+        "name": "Бензин на\u00A0вых. из Т-17/6",
+        "label": "Бензин на\u00A0вых. из Т-17/6",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI877",
+        "isHidden": false
+      },
+      {
+        "id": "f41786d0-3d2c-11eb-90d9-63c1895ad2fe",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI524",
+        "isHidden": false
+      },
+      {
+        "id": "4dd948c0-3c83-11eb-9df8-01e022e24b68",
+        "name": "Влажность воздуха",
+        "label": "Влажность воздуха",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:VV",
+        "isHidden": false
+      },
+      {
+        "id": "b0a86a20-3d74-11eb-8866-6b507f82a1b0",
+        "name": "Расход отбензин. нефти в печь П-1/2 (4 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/2 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC46",
+        "isHidden": false
+      },
+      {
+        "id": "bbead750-3d75-11eb-8866-6b507f82a1b0",
+        "name": "Расход топливного газа на установку ",
+        "label": "Расход топливного газа на установку ",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI163",
+        "isHidden": false
+      },
+      {
+        "id": "e1c861c0-3c78-11eb-9df8-01e022e24b68",
+        "name": "Давление в поду П-1/1",
+        "label": "Давление в поду П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI2302",
+        "isHidden": false
+      },
+      {
+        "id": "e25b5d80-3c79-11eb-9df8-01e022e24b68",
+        "name": "Давление ТГ в лин.2/1-1",
+        "label": "Давление ТГ в лин.2/1-1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC213",
+        "isHidden": false
+      },
+      {
+        "id": "e9e16cb0-3c7f-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/3 (4)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/3 (4)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI614",
+        "isHidden": false
+      },
+      {
+        "id": "34297d20-3c95-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI769",
+        "isHidden": false
+      },
+      {
+        "id": "966a8ad0-3c7f-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-101 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-101 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI527",
+        "isHidden": false
+      },
+      {
+        "id": "cf214d10-3c92-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/3 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/3 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI611",
+        "isHidden": false
+      },
+      {
+        "id": "ec11ab70-3c85-11eb-9df8-01e022e24b68",
+        "name": "Расход жидкого топлива на печь П-1/2",
+        "label": "Расход жидкого топлива на печь П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI186",
+        "isHidden": false
+      },
+      {
+        "id": "d68d4ac0-3c7b-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/2 (4)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/2 (4)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI610",
+        "isHidden": false
+      },
+      {
+        "id": "6f488890-3d73-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра отбен.нефти из печи П-101 (2 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-101 (2 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI538",
+        "isHidden": false
+      },
+      {
+        "id": "d4af977a-64dc-2f69-77e9-77e91e304171",
+        "name": "Температура пара на установку ",
+        "label": "Температура пара на установку ",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI826",
+        "isHidden": true
+      },
+      {
+        "id": "61722a80-7696-a36f-5e35-0717dc190074",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI749",
+        "isHidden": false
+      },
+      {
+        "id": "7e28dab0-3c7c-11eb-9df8-01e022e24b68",
+        "name": "Расход мазута в печь П-3 (3 поток)",
+        "label": "Расход мазута в печь П-3 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC114",
+        "isHidden": false
+      },
+      {
+        "id": "79668810-3d76-11eb-8866-6b507f82a1b0",
+        "name": "Расход жидкого топлива от печи П-101 (возврат)",
+        "label": "Расход жидкого топлива от печи П-101 (возврат)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI194",
+        "isHidden": false
+      },
+      {
+        "id": "60dfbc70-3d22-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов на перевале печи П-1/3",
+        "label": "Тем-ра дым. газов на перевале печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI555",
+        "isHidden": false
+      },
+      {
+        "id": "384d1880-3c7c-11eb-9df8-01e022e24b68",
+        "name": "Расход отбензин. нефти в печь П-1/3 (3 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/3 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC49",
+        "isHidden": false
+      },
+      {
+        "id": "7cb81ba3-0ca5-299c-62f9-ea9231a18e66",
+        "name": "Тем-ра 3 и 4 потока ШМФ из П-102",
+        "label": "Тем-ра 3 и 4 потока ШМФ из П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI653",
+        "isHidden": false
+      },
+      {
+        "id": "03344780-87aa-11eb-8091-f3874382bada",
+        "name": "Направление ветра",
+        "label": "Направление ветра",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:NV:Average",
+        "isHidden": true
+      },
+      {
+        "id": "08649230-8252-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-1/3 по продукту (Сумма)",
+        "label": "Загрузка печи П-1/3 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC_47-50",
+        "isHidden": true
+      },
+      {
+        "id": "13e84590-823c-11eb-b1fa-7f849b7eb0fe",
+        "name": "Разряжение в конвекции печи П-101 (Среднее)",
+        "label": "Разряжение в конвекции печи П-101 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_48-49",
+        "isHidden": true
+      },
+      {
+        "id": "1ce52300-8252-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-3 по продукту (Сумма)",
+        "label": "Загрузка печи П-3 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC1_12-17",
+        "isHidden": true
+      },
+      {
+        "id": "20720530-8250-11eb-97e3-d70fabda7f56",
+        "name": "Разряжение в конвекции печи П-1/3 (Среднее)",
+        "label": "Разряжение в конвекции печи П-1/3 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_38-41",
+        "isHidden": true
+      },
+      {
+        "id": "32fa3d70-87ab-11eb-8091-f3874382bada",
+        "name": "Давление",
+        "label": "Давление",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "Meteo:AD",
+        "isHidden": true
+      },
+      {
+        "id": "380c8670-3d13-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/1 (3)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/1 (3)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI605",
+        "isHidden": false
+      },
+      {
+        "id": "48621f40-8240-11eb-b1fa-7f849b7eb0fe",
+        "name": "Разряжение в конвекции печи П-1/2 (Среднее)",
+        "label": "Разряжение в конвекции печи П-1/2 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_34-37",
+        "isHidden": true
+      },
+      {
+        "id": "4e6bf2e0-823f-11eb-b1fa-7f849b7eb0fe",
+        "name": "Разряжение в конвекции печи П-1/1 (Среднее)",
+        "label": "Разряжение в конвекции печи П-1/1 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_30-33",
+        "isHidden": true
+      },
+      {
+        "id": "5871d020-823a-11eb-b1fa-7f849b7eb0fe",
+        "name": "Разряжение в конвекции печи П-102 (Среднее)",
+        "label": "Разряжение в конвекции печи П-102 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_46-47",
+        "isHidden": true
+      },
+      {
+        "id": "659e3b90-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-101 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-101 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P101_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "6c7a84f0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-102 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-102 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P102_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "73949aa0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-102 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-102 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI7_50-51",
+        "isHidden": true
+      },
+      {
+        "id": "79cbca60-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-101 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-101 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI5_27-28",
+        "isHidden": true
+      },
+      {
+        "id": "808633e0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-1/1 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-1/1 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI60_3-6",
+        "isHidden": true
+      },
+      {
+        "id": "870fc960-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-1/2 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-1/2 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI60_7-10",
+        "isHidden": true
+      },
+      {
+        "id": "8de81b20-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-1/3 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-1/3 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI6_11-14",
+        "isHidden": true
+      },
+      {
+        "id": "95441bd0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура дымовых газов после конвекции П-3 (Среднее)",
+        "label": "Температура дымовых газов после конвекции П-3 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI7_11-14",
+        "isHidden": true
+      },
+      {
+        "id": "9c3c2a90-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-3 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-3 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P3_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "a2a05dc0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-1/1 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-1/1 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P11_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "a9e701b0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-1/2 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-1/2 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P12_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "b02b02b0-8252-11eb-97e3-d70fabda7f56",
+        "name": "Температура продукта на выходе из печи П-1/3 (Сумма)",
+        "label": "Температура продукта на выходе из печи П-1/3 (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:P13_out_T_weighted",
+        "isHidden": true
+      },
+      {
+        "id": "b6ea2720-8252-11eb-97e3-d70fabda7f56",
+        "name": "Тем-ра отбен.нефти из печи П-101 (Среднее)",
+        "label": "Тем-ра отбен.нефти из печи П-101 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI5_37-40",
+        "isHidden": true
+      },
+      {
+        "id": "dfbccc40-8232-11eb-b1fa-7f849b7eb0fe",
+        "name": "Разряжение в конвекции печи П-3 (Среднее)",
+        "label": "Разряжение в конвекции печи П-3 (Среднее)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI3_42-45",
+        "isHidden": true
+      },
+      {
+        "id": "e8530990-8251-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-101 по продукту (Сумма)",
+        "label": "Загрузка печи П-101 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC_30-33",
+        "isHidden": true
+      },
+      {
+        "id": "f1e6aac0-8251-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-102 по продукту (Сумма)",
+        "label": "Загрузка печи П-102 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC_84-87",
+        "isHidden": true
+      },
+      {
+        "id": "f90e2df0-8251-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-1/1 по продукту (Сумма)",
+        "label": "Загрузка печи П-1/1 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC_39-42",
+        "isHidden": true
+      },
+      {
+        "id": "ffe9db10-8251-11eb-97e3-d70fabda7f56",
+        "name": "Загрузка печи П-1/2 по продукту (Сумма)",
+        "label": "Загрузка печи П-1/2 по продукту (Сумма)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC_43-46",
+        "isHidden": true
+      },
+      {
+        "id": "ddee0c44-44ce-260f-0167-dbb41bd70ec7",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI746",
+        "isHidden": false
+      },
+      {
+        "id": "458dde20-3d77-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов после конвекции печи 3 (2)",
+        "label": "Тем-ра дым. газов после конвекции печи 3 (2)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI712",
+        "isHidden": false
+      },
+      {
+        "id": "a1594e30-3c8a-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/3 (3)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/3 (3)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI613",
+        "isHidden": false
+      },
+      {
+        "id": "c65087b0-3c87-11eb-9df8-01e022e24b68",
+        "name": "Расход отбензин. нефти в печь П-1/3 (4 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/3 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC50",
+        "isHidden": false
+      },
+      {
+        "id": "033377f0-3d1e-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI536",
+        "isHidden": false
+      },
+      {
+        "id": "90c83620-3c81-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/1 (2)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/1 (2)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI604",
+        "isHidden": false
+      },
+      {
+        "id": "eb959c60-3d2f-11eb-b778-65cd3d5b2637",
+        "name": "Тем-ра отбен.нефти из печи П-101 (1 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-101 (1 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI537",
+        "isHidden": false
+      },
+      {
+        "id": "ecdabf70-3c93-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/2 (3)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/2 (3)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI609",
+        "isHidden": false
+      },
+      {
+        "id": "526ff000-3d14-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI680",
+        "isHidden": false
+      },
+      {
+        "id": "34ff5470-3c79-11eb-9df8-01e022e24b68",
+        "name": "Давление ТГ  к осн. горелкам печи П-3",
+        "label": "Давление ТГ  к осн. горелкам печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC240",
+        "isHidden": false
+      },
+      {
+        "id": "dac5bc10-3d72-11eb-8866-6b507f82a1b0",
+        "name": "Расход ТГ на основные горелки П-102",
+        "label": "Расход ТГ на основные горелки П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI-1006",
+        "isHidden": false
+      },
+      {
+        "id": "73ad5760-3d75-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI778",
+        "isHidden": false
+      },
+      {
+        "id": "094f3d90-3d78-11eb-8866-6b507f82a1b0",
+        "name": "Расход ТГ на основные горелки П-1/2",
+        "label": "Расход ТГ на основные горелки П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI-1002",
+        "isHidden": false
+      },
+      {
+        "id": "3f9985a0-3c78-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/3",
+        "label": "Тем-ра дым. газов на перевале печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI789",
+        "isHidden": false
+      },
+      {
+        "id": "67c8cff0-3c86-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI678",
+        "isHidden": false
+      },
+      {
+        "id": "569d4340-3c96-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов после конвекции печи П-101 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-101 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI528",
+        "isHidden": false
+      },
+      {
+        "id": "eaa41d60-3d64-11eb-af4d-5fc08f0957af",
+        "name": "Расход отбензин.нефти в печь П-1/2 (2 поток)",
+        "label": "Расход отбензин.нефти в печь П-1/2 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC44",
+        "isHidden": false
+      },
+      {
+        "id": "08f0cef0-3c7d-11eb-9df8-01e022e24b68",
+        "name": "Расход ТГ на основные горелки П-1/1",
+        "label": "Расход ТГ на основные горелки П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI-1001",
+        "isHidden": false
+      },
+      {
+        "id": "7dc358c0-3c95-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов на перевале печи П-1/3",
+        "label": "Тем-ра дым. газов на перевале печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI785",
+        "isHidden": false
+      },
+      {
+        "id": "c9319d9d-2459-5892-954e-dfa185081b4a",
+        "name": "Расход ШМФ в печь П-102 (1 поток)",
+        "label": "Расход ШМФ в печь П-102 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC84",
+        "isHidden": false
+      },
+      {
+        "id": "579fc88e-9b16-5e00-4b0f-59eaa5a8186d",
+        "name": "Разряжение в конвекции печи П-3",
+        "label": "Разряжение в конвекции печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI345",
+        "isHidden": false
+      },
+      {
+        "id": "69c020fc-3f05-0791-3071-db43f64d87a8",
+        "name": "Разряжение в конвекции печи П-102",
+        "label": "Разряжение в конвекции печи П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI347",
+        "isHidden": false
+      },
+      {
+        "id": "45cdd490-3c8b-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI770",
+        "isHidden": false
+      },
+      {
+        "id": "33af3dd0-3d76-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра топливн. газа после Т-43 ",
+        "label": "Тем-ра топливн. газа после Т-43 ",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI739",
+        "isHidden": true
+      },
+      {
+        "id": "0633fd00-3d3a-11eb-9506-7d5a96207432",
+        "name": "Расход мазута в печь П-3 (6 поток)",
+        "label": "Расход мазута в печь П-3 (6 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC117",
+        "isHidden": false
+      },
+      {
+        "id": "378fa085-37b8-5f05-567b-a89d537249b2",
+        "name": "Разряжение в конвекции печи П-101",
+        "label": "Разряжение в конвекции печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI349",
+        "isHidden": false
+      },
+      {
+        "id": "f9b3ddc0-3c8a-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI768",
+        "isHidden": false
+      },
+      {
+        "id": "4dcb89b0-3d1e-11eb-95d8-01d34931cb0c",
+        "name": "Содержание кислорода в дым. газах печи П-1/3",
+        "label": "Содержание кислорода в дым. газах печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI934",
+        "isHidden": true
+      },
+      {
+        "id": "48cb79a0-3c8a-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/3",
+        "label": "Тем-ра дым. газов на перевале печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI793",
+        "isHidden": false
+      },
+      {
+        "id": "45f91120-3d79-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI676",
+        "isHidden": false
+      },
+      {
+        "id": "95122af0-3c78-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI781",
+        "isHidden": false
+      },
+      {
+        "id": "aee79ba4-8e60-65fc-8d0d-ed7f0d796594",
+        "name": "Разряжение в конвекции печи П-1/2",
+        "label": "Разряжение в конвекции печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI335",
+        "isHidden": false
+      },
+      {
+        "id": "4f03851e-2c29-7d3f-42b4-3ee8519e7fda",
+        "name": "Тем-ра отбензин. нефти из Т\u20117/5 (вход П-101)",
+        "label": "Тем-ра отбензин. нефти из Т\u20117/5 (вход П-101)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI518",
+        "isHidden": true
+      },
+      {
+        "id": "c9bc3750-3d77-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра отбен.нефти из печи П-101 (3 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-101 (3 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI539",
+        "isHidden": false
+      },
+      {
+        "id": "84757740-3d79-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра отбен.нефти из печи П-1/3 (3 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/3 (3 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI559",
+        "isHidden": false
+      },
+      {
+        "id": "9a7ba740-3c74-11eb-9df8-01e022e24b68",
+        "name": "Содержание кислорода в дым. газах печи П-101",
+        "label": "Содержание кислорода в дым. газах печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI936",
+        "isHidden": true
+      },
+      {
+        "id": "093100b0-3c87-11eb-9df8-01e022e24b68",
+        "name": "Содержание кислорода в дым. газах печи П-102",
+        "label": "Содержание кислорода в дым. газах печи П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI937",
+        "isHidden": true
+      },
+      {
+        "id": "e400fc4d-053e-12f6-5a5c-a928e8938243",
+        "name": "Разряжение в конвекции печи П-101",
+        "label": "Разряжение в конвекции печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI348",
+        "isHidden": false
+      },
+      {
+        "id": "76d31405-7525-85a6-a025-153177721276",
+        "name": "Разряжение в конвекции печи П-1/3",
+        "label": "Разряжение в конвекции печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI338",
+        "isHidden": false
+      },
+      {
+        "id": "f7c31f80-3d75-11eb-8866-6b507f82a1b0",
+        "name": "Температура низа колонны К-2",
+        "label": "Температура низа колонны К-2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI567",
+        "isHidden": true
+      },
+      {
+        "id": "91367ec0-3c75-11eb-9df8-01e022e24b68",
+        "name": "Давление низа колонны К-1",
+        "label": "Давление низа колонны К-1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC210",
+        "isHidden": false
+      },
+      {
+        "id": "eec80b20-3c80-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI526",
+        "isHidden": false
+      },
+      {
+        "id": "884364a0-3d78-11eb-8866-6b507f82a1b0",
+        "name": "Расход отбензин. нефти в печь П-1/2 (1 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/2 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC43",
+        "isHidden": false
+      },
+      {
+        "id": "e3d4e150-3c7d-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI779",
+        "isHidden": false
+      },
+      {
+        "id": "50d4ba54-9b27-249a-9497-3f50ffdc672d",
+        "name": "Разряжение в конвекции печи П-1/1",
+        "label": "Разряжение в конвекции печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI330",
+        "isHidden": false
+      },
+      {
+        "id": "3ca55cd0-3c81-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI776",
+        "isHidden": false
+      },
+      {
+        "id": "cb974370-3d78-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI675",
+        "isHidden": false
+      },
+      {
+        "id": "ff2db3b0-3d08-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра мазута из печи П-3 (5 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (5 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI665",
+        "isHidden": false
+      },
+      {
+        "id": "978de710-3c7d-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра отбен.нефти из печи П-1/2 (3 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/2 (3 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI552",
+        "isHidden": false
+      },
+      {
+        "id": "40928e54-8946-2e9a-25e8-8be760ef48d7",
+        "name": "Разряжение в конвекции печи П-1/1",
+        "label": "Разряжение в конвекции печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI331",
+        "isHidden": false
+      },
+      {
+        "id": "ccda641a-87b5-035e-07d0-c529cdbb3491",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI748",
+        "isHidden": false
+      },
+      {
+        "id": "9dd06ef0-3d21-11eb-95d8-01d34931cb0c",
+        "name": "Содержание кислорода в дым. газах печи П-1/1",
+        "label": "Содержание кислорода в дым. газах печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI932",
+        "isHidden": true
+      },
+      {
+        "id": "1449fff0-3d64-11eb-af4d-5fc08f0957af",
+        "name": "Расход мазута в печь П-3 (4 поток)",
+        "label": "Расход мазута в печь П-3 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC115",
+        "isHidden": false
+      },
+      {
+        "id": "313f1310-3d74-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI521",
+        "isHidden": false
+      },
+      {
+        "id": "d4f9d2e0-3d12-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/3 (2)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/3 (2)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI612",
+        "isHidden": false
+      },
+      {
+        "id": "9a429810-3c83-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI522",
+        "isHidden": false
+      },
+      {
+        "id": "c34052e0-3d76-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/2 (2)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/2 (2)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI608",
+        "isHidden": false
+      },
+      {
+        "id": "3324c710-3c84-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI773",
+        "isHidden": false
+      },
+      {
+        "id": "d6b0e3d0-3d35-11eb-9506-7d5a96207432",
+        "name": "ТГ к осн.горелкам П-1/1",
+        "label": "ТГ к осн.горелкам П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC215",
+        "isHidden": false
+      },
+      {
+        "id": "0b8d77c0-3d0a-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/1 (4)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/1 (4)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI606",
+        "isHidden": false
+      },
+      {
+        "id": "34981625-777f-48de-0497-375eb9e29cae",
+        "name": "Разряжение в конвекции печи П-1/2",
+        "label": "Разряжение в конвекции печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI336",
+        "isHidden": false
+      },
+      {
+        "id": "7a168bb0-3d09-11eb-95d8-01d34931cb0c",
+        "name": "Расход отбензин. нефти в печь П-1/1 (4 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/1 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC42",
+        "isHidden": false
+      },
+      {
+        "id": "9d486360-3c96-11eb-af23-ff480c3813b1",
+        "name": "Давление ТГ к осн. горелкам П-101",
+        "label": "Давление ТГ к осн. горелкам П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC214",
+        "isHidden": false
+      },
+      {
+        "id": "4370e3d0-3d72-11eb-8866-6b507f82a1b0",
+        "name": "Расход газа из Е-2",
+        "label": "Расход газа из Е-2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI103",
+        "isHidden": false
+      },
+      {
+        "id": "099467fd-5510-7640-31c6-936bf33d2e01",
+        "name": "Разряжение в конвекции печи П-3",
+        "label": "Разряжение в конвекции печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI342",
+        "isHidden": false
+      },
+      {
+        "id": "07f792ab-82f7-8635-3a8e-de53cfd40b53",
+        "name": "Разряжение в конвекции печи П-1/3",
+        "label": "Разряжение в конвекции печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI341",
+        "isHidden": false
+      },
+      {
+        "id": "2e266340-3c75-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра отбен.нефти из печи П-1/2 (2 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/2 (2 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI551",
+        "isHidden": false
+      },
+      {
+        "id": "4876fee0-3d78-11eb-8866-6b507f82a1b0",
+        "name": "Содержание кислорода в дым. газах печи П-3",
+        "label": "Содержание кислорода в дым. газах печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI935",
+        "isHidden": true
+      },
+      {
+        "id": "a83622c7-a687-90ab-6a25-c2b72146861b",
+        "name": "Разряжение в конвекции печи П-102",
+        "label": "Разряжение в конвекции печи П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI346",
+        "isHidden": false
+      },
+      {
+        "id": "afc2bc90-3c99-11eb-af23-ff480c3813b1",
+        "name": "Содержание кислорода в дым. газах печи П-1/2",
+        "label": "Содержание кислорода в дым. газах печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:QI933",
+        "isHidden": true
+      },
+      {
+        "id": "5205fb5a-3887-43df-291c-b0e6baac05e0",
+        "name": "Расход ШМФ в печь  П-102 (3 поток)",
+        "label": "Расход ШМФ в печь  П-102 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC86",
+        "isHidden": true
+      },
+      {
+        "id": "e501d120-3c94-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра отбен.нефти перед К-2 ",
+        "label": "Тем-ра отбен.нефти перед К-2 ",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI556",
+        "isHidden": false
+      },
+      {
+        "id": "4cc20930-3c7f-11eb-9df8-01e022e24b68",
+        "name": "Расход мазута в печь П-3 (1 поток)",
+        "label": "Расход мазута в печь П-3 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC112",
+        "isHidden": false
+      },
+      {
+        "id": "4b0d47c0-3c94-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI780",
+        "isHidden": false
+      },
+      {
+        "id": "6edc15b0-3d74-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI679",
+        "isHidden": false
+      },
+      {
+        "id": "97251bb0-3c94-11eb-af23-ff480c3813b1",
+        "name": "Расход жидкого топлива на печь П-1/1 (подача)",
+        "label": "Расход жидкого топлива на печь П-1/1 (подача)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI185",
+        "isHidden": false
+      },
+      {
+        "id": "c0978973-3acd-998f-a35e-715e8db474d1",
+        "name": "Тем-ра 1 и 2 потока ШМФ из П-102 ",
+        "label": "Тем-ра 1 и 2 потока ШМФ из П-102 ",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI652",
+        "isHidden": false
+      },
+      {
+        "id": "04a828e0-3d66-11eb-af4d-5fc08f0957af",
+        "name": "ТГ к пил.горелкам П-1/1",
+        "label": "ТГ к пил.горелкам П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC1201",
+        "isHidden": false
+      },
+      {
+        "id": "1325f0d4-25ec-2a5e-4c1b-743bac11527a",
+        "name": "Разряжение в конвекции печи П-1/2",
+        "label": "Разряжение в конвекции печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI337",
+        "isHidden": false
+      },
+      {
+        "id": "0b2842b0-9ef0-3875-02e4-f00a514d5fe6",
+        "name": "Разряжение в конвекции печи П-1/3",
+        "label": "Разряжение в конвекции печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI339",
+        "isHidden": false
+      },
+      {
+        "id": "70c92ea0-3c82-11eb-9df8-01e022e24b68",
+        "name": "Давление ТГ  к осн. горелкам печи П-1/3",
+        "label": "Давление ТГ  к осн. горелкам печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC217",
+        "isHidden": false
+      },
+      {
+        "id": "ddf48710-3d20-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI677",
+        "isHidden": false
+      },
+      {
+        "id": "a983f200-3d65-11eb-af4d-5fc08f0957af",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI777",
+        "isHidden": false
+      },
+      {
+        "id": "c7c12fb0-3c7c-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-3 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-3 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI711",
+        "isHidden": false
+      },
+      {
+        "id": "b44b524c-0110-4e27-0e74-f3d7675a7240",
+        "name": "Тем-ра дым. газов на перевале печи П-101",
+        "label": "Тем-ра дым. газов на перевале печи П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI523",
+        "isHidden": false
+      },
+      {
+        "id": "bb33a8d0-3d13-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра мазута из печи П-3 (3 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (3 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI663",
+        "isHidden": false
+      },
+      {
+        "id": "6c226b70-3c99-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра отбен.нефти из печи П-1/1 (2 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/1 (2 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI544",
+        "isHidden": false
+      },
+      {
+        "id": "9e7fc2c0-3d16-11eb-95d8-01d34931cb0c",
+        "name": "Расход жидкого топлива от печи П-3 (возврат)",
+        "label": "Расход жидкого топлива от печи П-3 (возврат)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI198",
+        "isHidden": false
+      },
+      {
+        "id": "82a53600-3d77-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра отбен.нефти из печи П-1/1 (3 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/1 (3 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI545",
+        "isHidden": false
+      },
+      {
+        "id": "561509f0-3d66-11eb-af4d-5fc08f0957af",
+        "name": "Тем-ра мазута из печи П-3 (1 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (1 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI661",
+        "isHidden": false
+      },
+      {
+        "id": "b0c0a280-3d73-11eb-8866-6b507f82a1b0",
+        "name": "Давление ТГ к пил.горелкам П-1/3",
+        "label": "Давление ТГ к пил.горелкам П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC1203",
+        "isHidden": false
+      },
+      {
+        "id": "b27414f0-3d1d-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра отбен.нефти из печи П-1/2 (1 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/2 (1 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TC550",
+        "isHidden": false
+      },
+      {
+        "id": "1c3e9950-3d73-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра отбен.нефти из печи П-1/2 (4 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/2 (4 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI553",
+        "isHidden": false
+      },
+      {
+        "id": "45cc8c20-3c77-11eb-9df8-01e022e24b68",
+        "name": "Топл.газ на ОГ П-101 (л.2/15)",
+        "label": "Топл.газ на ОГ П-101 (л.2/15)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI-1004",
+        "isHidden": false
+      },
+      {
+        "id": "518a4b60-3c9a-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI775",
+        "isHidden": false
+      },
+      {
+        "id": "1e89bc10-3d16-11eb-95d8-01d34931cb0c",
+        "name": "Расход жидкого топлива на печь П-3 (подача)",
+        "label": "Расход жидкого топлива на печь П-3 (подача)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI188",
+        "isHidden": false
+      },
+      {
+        "id": "400c0071-681d-77b5-953f-7b2d663f4a4a",
+        "name": "Разряжение в конвекции печи П-1/1",
+        "label": "Разряжение в конвекции печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI333",
+        "isHidden": false
+      },
+      {
+        "id": "6bcca3b0-3d30-11eb-b778-65cd3d5b2637",
+        "name": "Расход отбензин.нефти в печь П-101 (4 поток)",
+        "label": "Расход отбензин.нефти в печь П-101 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC33",
+        "isHidden": false
+      },
+      {
+        "id": "669a5331-633d-0aad-0982-0c7f34cf99fe",
+        "name": "Разряжение в конвекции печи П-1/2",
+        "label": "Разряжение в конвекции печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI334",
+        "isHidden": false
+      },
+      {
+        "id": "8acc8f40-3d72-11eb-8866-6b507f82a1b0",
+        "name": "Расход отбензин.нефти в печь П-1/3 (1 поток)",
+        "label": "Расход отбензин.нефти в печь П-1/3 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC47",
+        "isHidden": false
+      },
+      {
+        "id": "ea43b980-3c96-11eb-af23-ff480c3813b1",
+        "name": "Расход отбензин.нефти в печь П-101 (3 поток)",
+        "label": "Расход отбензин.нефти в печь П-101 (3 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC32",
+        "isHidden": false
+      },
+      {
+        "id": "81c73520-3c92-11eb-9df8-01e022e24b68",
+        "name": "Расход жидкого топлива от печи П-1/1 (возврат)",
+        "label": "Расход жидкого топлива от печи П-1/1 (возврат)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI195",
+        "isHidden": false
+      },
+      {
+        "id": "c351b425-4757-3a60-4493-fe7df7dc8603",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI751",
+        "isHidden": false
+      },
+      {
+        "id": "6951da90-3c7e-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов после конвекции печи П-3 (4)",
+        "label": "Тем-ра дым. газов после конвекции печи П-3 (4)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI714",
+        "isHidden": false
+      },
+      {
+        "id": "f3f623e0-3d73-11eb-8866-6b507f82a1b0",
+        "name": "Давление ТГ к пил.горелкам П-101",
+        "label": "Давление ТГ к пил.горелкам П-101",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC1204",
+        "isHidden": false
+      },
+      {
+        "id": "848f7364-40b8-4a91-1864-611de7e47b2e",
+        "name": "Разряжение в конвекции печи П-1/3",
+        "label": "Разряжение в конвекции печи П-1/3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI340",
+        "isHidden": false
+      },
+      {
+        "id": "79e80410-3c79-11eb-9df8-01e022e24b68",
+        "name": "Давление ТГ  к осн. горелкам печи П-1/2",
+        "label": "Давление ТГ  к осн. горелкам печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC1202",
+        "isHidden": false
+      },
+      {
+        "id": "47322db3-6ce5-5068-7ce5-40e11c6f850f",
+        "name": "Тем-ра ШМФ из К-10",
+        "label": "Тем-ра ШМФ из К-10",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI690",
+        "isHidden": false
+      },
+      {
+        "id": "23877d80-3c7e-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра мазута из печи П-3 (4 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (4 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI664",
+        "isHidden": false
+      },
+      {
+        "id": "be09cb20-3c82-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра отбен.нефти из печи П-1/3 (4 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/3 (4 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI560",
+        "isHidden": false
+      },
+      {
+        "id": "42418b70-3c89-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI772",
+        "isHidden": false
+      },
+      {
+        "id": "e060f460-3d3a-11eb-9506-7d5a96207432",
+        "name": "Расход отбензин. нефти в печь П-1/1 (1 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/1 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC39",
+        "isHidden": false
+      },
+      {
+        "id": "c5390490-3c84-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра мазута из печи П-3 (6 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (6 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI666",
+        "isHidden": false
+      },
+      {
+        "id": "04705410-3c76-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI673",
+        "isHidden": false
+      },
+      {
+        "id": "49a5dc90-3d65-11eb-af4d-5fc08f0957af",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/2 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/2 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI607",
+        "isHidden": false
+      },
+      {
+        "id": "935c1210-3d1e-11eb-95d8-01d34931cb0c",
+        "name": "Расход отбензин.нефти в печь П-1/3 (1 поток)",
+        "label": "Расход отбензин.нефти в печь П-1/3 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TC557",
+        "isHidden": false
+      },
+      {
+        "id": "f376e7c0-3d31-11eb-b778-65cd3d5b2637",
+        "name": "Расход отбензин. нефти в печь П-1/1 (1 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/1 (1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TC543",
+        "isHidden": false
+      },
+      {
+        "id": "5a76aee0-3c80-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI774",
+        "isHidden": false
+      },
+      {
+        "id": "a485baa0-3d69-11eb-a798-7f0bcc0c4b92",
+        "name": "Расход жидкого топлива на печь П-101 (подача)",
+        "label": "Расход жидкого топлива на печь П-101 (подача)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FI184",
+        "isHidden": false
+      },
+      {
+        "id": "f25b4320-3d74-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра дым. газов на перевале печи П-1/2",
+        "label": "Тем-ра дым. газов на перевале печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI771",
+        "isHidden": false
+      },
+      {
+        "id": "85b6d720-3c98-11eb-af23-ff480c3813b1",
+        "name": "Тем-ра отбен.нефти из печи П-1/1 (4 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/1 (4 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI546",
+        "isHidden": false
+      },
+      {
+        "id": "9208ffd0-3d0b-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов после конвекции печи П-3 (3)",
+        "label": "Тем-ра дым. газов после конвекции печи П-3 (3)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI713",
+        "isHidden": false
+      },
+      {
+        "id": "93ec8250-3d0a-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра отбен.нефти из печи П-1/3 (2 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-1/3 (2 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI558",
+        "isHidden": false
+      },
+      {
+        "id": "edf04160-3c83-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра отбен.нефти из печи П-101 (4 пот.)",
+        "label": "Тем-ра отбен.нефти из печи П-101 (4 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI540",
+        "isHidden": false
+      },
+      {
+        "id": "021a0d80-3d72-11eb-8866-6b507f82a1b0",
+        "name": "Расход отбензин. нефти в печь П-101 (2 поток)",
+        "label": "Расход отбензин. нефти в печь П-101 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC31",
+        "isHidden": false
+      },
+      {
+        "id": "37c4f786-1837-1be2-2597-58e9c0be1d71",
+        "name": "Давление ТГ  к осн. горелкам печи П-102",
+        "label": "Давление ТГ  к осн. горелкам печи П-102",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC232",
+        "isHidden": false
+      },
+      {
+        "id": "3ae481b0-3c7b-11eb-9df8-01e022e24b68",
+        "name": "Разряжение в конвекции печи П-1/1",
+        "label": "Разряжение в конвекции печи П-1/1",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI332",
+        "isHidden": false
+      },
+      {
+        "id": "8423d370-3d3a-11eb-9506-7d5a96207432",
+        "name": "Расход отбензин. нефти в печь П-101(1 поток)",
+        "label": "Расход отбензин. нефти в печь П-101(1 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC30",
+        "isHidden": false
+      },
+      {
+        "id": "f517cb61-2a03-080f-38e9-0c0f37b700f9",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI750",
+        "isHidden": false
+      },
+      {
+        "id": "80d40f30-3d19-11eb-95d8-01d34931cb0c",
+        "name": "Тем-ра дым. газов после конвекции печи П-1/1 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-1/1 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI603",
+        "isHidden": false
+      },
+      {
+        "id": "07e7b3c0-3d77-11eb-8866-6b507f82a1b0",
+        "name": "Расход мазута в печь П-3 (2 поток)",
+        "label": "Расход мазута в печь П-3 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC113",
+        "isHidden": false
+      },
+      {
+        "id": "eb636e1d-a440-5fe6-08f1-9f62e5212da5",
+        "name": "Разряжение в конвекции печи П-3",
+        "label": "Разряжение в конвекции печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI343",
+        "isHidden": false
+      },
+      {
+        "id": "a1b6f621-1091-1506-5abf-431831be1911",
+        "name": "Расход ШМФ в печь П-102 (4 поток)",
+        "label": "Расход ШМФ в печь П-102 (4 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC87",
+        "isHidden": false
+      },
+      {
+        "id": "073038b0-3d79-11eb-8866-6b507f82a1b0",
+        "name": "Расход отбензин. нефти в печь П-1/3 (2 поток)",
+        "label": "Расход отбензин. нефти в печь П-1/3 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC48",
+        "isHidden": false
+      },
+      {
+        "id": "0842a2b0-3c7f-11eb-9df8-01e022e24b68",
+        "name": "Давление ТГ  к осн. горелкам печи П-1/2",
+        "label": "Давление ТГ  к осн. горелкам печи П-1/2",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PC216",
+        "isHidden": false
+      },
+      {
+        "id": "4c8a49a0-3c7a-11eb-9df8-01e022e24b68",
+        "name": "Тем-ра дым. газов на перевале печи П-3",
+        "label": "Тем-ра дым. газов на перевале печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI674",
+        "isHidden": false
+      },
+      {
+        "id": "26564fe1-5195-3b7c-38ad-bf9a4685043b",
+        "name": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "label": "Тем-ра дым. газов после конвекции печи П-102 (1)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI747",
+        "isHidden": false
+      },
+      {
+        "id": "34605ad0-3d75-11eb-8866-6b507f82a1b0",
+        "name": "Тем-ра мазута из печи П-3 (2 пот.)",
+        "label": "Тем-ра мазута из печи П-3 (2 пот.)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:TI662",
+        "isHidden": false
+      },
+      {
+        "id": "b39143cd-5207-6cbe-2115-1c53b8b79616",
+        "name": "Расход ШМФ в печь  П-102 (2 поток)",
+        "label": "Расход ШМФ в печь  П-102 (2 поток)",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:FC85",
+        "isHidden": false
+      },
+      {
+        "id": "bb044a7f-4fc1-37b4-43ef-ae5ef1bb1e43",
+        "name": "Разряжение в конвекции печи П-3",
+        "label": "Разряжение в конвекции печи П-3",
+        "colorIndex": 0,
+        "isActive": false,
+        "tag": "AVT10:PI344",
+        "isHidden": false
+      }
+    ],
+    "widgetType": "astue-onpz-predictors",
+    "isHistoricalDataSupported": false
+  }
+}

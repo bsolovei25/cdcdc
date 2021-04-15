@@ -1,20 +1,20 @@
 import {
-    AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     Input,
     OnChanges,
-    OnInit,
-    QueryList,
-    ViewChildren,
+    Renderer2,
+    ViewChild,
+    SimpleChange,
+    SimpleChanges,
 } from '@angular/core';
-import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
     metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects;
@@ -25,6 +25,7 @@ interface IElementFull {
     circle: Element;
     textValue: Element;
     textPercent: Element;
+    ellipse: Element;
     flag: boolean;
 }
 
@@ -41,58 +42,118 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     styleUrls: ['./sou-schema.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
+export class SouSchemaComponent implements OnChanges {
     elementsNode: Element[] = []; // все элементы
-    dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
-    flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
-    fullElement: Map<number, IElementFullAndUI> = new Map();
+    elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
+    fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
     dataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[] = []; // Данные с бэка
-    localChosenInstall: string;
-    countTypesElement: number = 12;
 
     @Input() sectionsDataPark: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: string;
+    @Input() unitName: string;
+    @Input() sectionName: string;
 
-    @ViewChildren('svg_sou') svg: QueryList<ElementRef>;
+    @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
 
-    ngOnInit(): void {}
+    ngOnChanges(changes: SimpleChanges): void {
+        const unitNameChanges: SimpleChange = changes?.unitName;
 
-    ngOnChanges(): void {
-        if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+        if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
-            this.localChosenInstall = this.chosenInstall;
-            this.flag = true;
+            this.processSvgWhenItIsReady();
             this.resetComponent();
         }
+
         if (this.dataPark?.length) {
             // Если есть старые данные с бэка
             // 1. Изменяем и дополняем
             this.dataPark.push(...this.setNewDataToSchema());
             // 2. Отрисовываем
             this.loadData(true);
-        } else if (this.dataAttribute?.size) {
+        } else if (this.elementsMap?.size) {
             // Если данных с бэка небыло, то заполняем
             this.dataPark = this.sectionsDataPark;
             this.loadData(false);
         }
     }
 
-    ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1__${this.getSvgName(this.localChosenInstall)}`) && this.flag) {
-            this.flag = false;
-            this.loadSchema();
-            if (this.sectionsDataPark.length) {
+    public get svgFileName(): string {
+        if (this.unitName) {
+            switch (this.unitName) {
+                case 'АССБ Авиасмеси':
+                    return 'ASSB-AviaSmesi';
+                case 'АССБ А-95':
+                    return 'ASSB-A-95';
+                case 'АССБ А-98':
+                    return 'ASSB-A-98';
+                case 'Насосная т.1163-1164 парк БГС':
+                    return 'Nasosnaya-park-BGS';
+                case 'Насосная т.1163-1164 парк А-95':
+                    return 'Nasosnaya-park-A-95';
+                case 'Насосная т.1163-1164 парк А-92':
+                    return 'Nasosnaya-park-A-92';
+                case 'ТСБ-1 Узел смешения нефти и КГС':
+                    return 'TSB-1-Usel';
+                case 'АВТ-10':
+                    return 'ABT-10-ELOU';
+                case 'ГФУ-2':
+                    return 'gfu-2';
+                case 'Коллектор Рефлюкса':
+                    return 'collector-ref';
+                case 'КПА С100':
+                    return 'kpa-c100';
+                case 'Л-35/11-1000':
+                    return 'l-35-11-1000';
+                case 'Изомалк-2':
+                    if (this.sectionName === 'Топливо факел') {
+                        return 'izomalk-2-fuel';
+                    } else if (this.sectionName === 'Сырьевой парк') {
+                        return 'raw-materials-park-4022';
+                    }
+                    break;
+                case 'ТРХ Тит.204':
+                    return 'trx-tit-204';
+            }
+        }
+
+        return null;
+    }
+
+    private getSvgElement(): SVGElement {
+        return this.svgContainer?.nativeElement?.querySelector('svg');
+    }
+
+    // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
+    private processSvgWhenItIsReady(): void {
+        const processSvg = () => {
+            this.parseSvg();
+            if (this.sectionsDataPark && this.sectionsDataPark.length) {
                 this.dataPark = this.sectionsDataPark;
                 this.loadData(false);
             }
-        }
+        };
+
+        const wait = () => {
+            const svg = this.getSvgElement();
+            const svgFileName = this.svgFileName;
+            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
+
+            if (foundKeyElem) {
+                processSvg();
+            } else {
+                setTimeout(() => {
+                    wait();
+                }, 100);
+            }
+        };
+
+        wait();
     }
 
+    // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
     setNewDataToSchema(): (ISouFlowOut | ISouFlowIn | ISouObjects)[] {
-        // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
         const newArray = [];
         this.sectionsDataPark?.forEach((value) => {
             const element = this.dataPark.find((park) => value?.code === park?.code);
@@ -113,12 +174,13 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 newArray.push(value);
             }
         });
+
         return newArray;
     }
 
     resetComponent(): void {
         this.elementsNode = [];
-        this.dataAttribute.clear();
+        this.elementsMap.clear();
         this.fullElement.clear();
     }
 
@@ -161,20 +223,21 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     reloadOldData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
         const element = this.fullElement.get(data.code)?.element;
-        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
+        const mode = this.getElementMode(data);
         // this.elementEdit(true, mode, element, data);
         if (element?.children) {
-            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, '', 0, 0);
+            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, 0, 0);
         }
     }
 
     loadNewData(data: ISouFlowOut | ISouFlowIn | ISouObjects): void {
-        const element = this.dataAttribute.get(data?.code);
-        const mode = this.modeToElement(data.isExceedingConfInterval, data.isEnable);
-        this.elementEdit(false, mode, element, data);
+        const element = this.elementsMap.get(data?.code);
+        const mode = this.getElementMode(data);
+        this.prepareElement(mode, element, data);
     }
 
-    modeToElement(isExceedingConfInterval: boolean, isEnable: boolean): TypeMode {
+    private getElementMode(data: ISouFlowOut | ISouFlowIn | ISouObjects): TypeMode {
+        const {isExceedingConfInterval, isEnable} = data;
         return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
     }
 
@@ -188,26 +251,36 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             : related;
     }
 
-    loadSchema(): void {
-        let i: number = 1;
-        while (i <= this.countTypesElement) {
-            const elements = this.searchElements(i);
-            if (elements) {
-                this.elementsNode?.push(...elements);
-            }
-            i++;
-        }
-        console.log(`Атрибутов: ${this.dataAttribute?.size}`);
+    private parseSvg(): void {
+        const svg = this.getSvgElement();
+        const elements = svg.querySelectorAll('[id^=element-]');
+        const lines = svg?.querySelectorAll(`[id^=line_]`);
+
+        // Обработка элементов схемы
+        elements.forEach((element: Element) => {
+            const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
+            const id = elMatch && elMatch[2] && parseInt(elMatch[2], 10);
+
+            this.prepareElement('reset', element);
+            this.elementsMap.set(id, element);
+        });
+
+        // Обработка линий
+        lines.forEach((line: Element) => {
+            const elMatch = line?.id?.match(/line_(\d+)/i);
+            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+            this.elementsMap.set(id, line);
+        });
+
+        console.log(`Элементов и линий: ${this.elementsMap?.size}`);
     }
 
-    elementEdit(
-        reload: boolean,
+    prepareElement(
         mode: TypeMode,
         element: Element,
         metaFile?: ISouFlowOut | ISouFlowIn | ISouObjects,
         percent: number = 0,
         value: number = 0,
-        text: string = ''
     ): void {
         if (element?.children) {
             let elementFull: IElementFull = {
@@ -219,18 +292,19 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 circle: null,
                 textValue: null,
                 textPercent: null,
+                ellipse: null,
                 flag: true,
             };
-            const elements = Array.from(element?.children);
+            const children = Array.from(element?.children);
             // Search
-            elements?.forEach((elem) => {
+            children?.forEach((elem) => {
                 elementFull = this.searchElementsInElement(elem, elementFull);
             });
             // add class and text to element
-            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+            this.addClassAndTextToElement(element, elementFull, mode, percent, value);
             // Event
             if (metaFile) {
-                this.eventClick(element, elementFull);
+                this.addElementClickListener(element, elementFull);
                 const elementFullAndUI: IElementFullAndUI = {
                     element,
                     elementFull,
@@ -240,79 +314,103 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    addClassAndTextToElement(
+    // Добавление класса и текста для элемента
+    private addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
         mode: TypeMode,
-        text: string,
         percent: number,
         value: number
     ): void {
-        element.setAttribute('class', 'element');
+        this.addElemClass(element, ['element']);
 
-        elementFull?.rects?.forEach((item) => {
-            item.classList.add(mode);
+        elementFull?.rects?.forEach((item: Element) => {
+            this.addElemClass(item, [mode]);
         });
-        elementFull?.points?.forEach((item) => {
-            item.classList.add(mode);
+        elementFull?.points?.forEach((item: Element) => {
+            this.addElemClass(item, [mode]);
         });
-        elementFull?.texts?.forEach((item) => {
-            item.classList.add(`${mode}-text`);
+        elementFull?.texts?.forEach((item: Element) => {
+            this.addElemClass(item, [`${mode}-text`]);
+
             if (elementFull?.metaFile) {
-                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
-                if (element4.id.includes('-4_')) {
-                    item.classList.add(`text-anchor`);
+                const element4 = this.elementsMap.get(elementFull.metaFile.code);
+
+                if (this.isElemOfFourthType(element4)) {
+                    this.addElemClass(item, [`text-anchor`]);
                 }
                 if ('productName' in elementFull?.metaFile) {
-                    this.addTextToTspan(item, String(elementFull?.metaFile?.productName));
+                    this.addTextToElem(item, String(elementFull?.metaFile?.productName));
                 } else {
-                    this.addTextToTspan(item, String(elementFull?.metaFile?.name));
+                    this.addTextToElem(item, String(elementFull?.metaFile?.name));
                 }
             } else {
-                this.addTextToTspan(item, String(name));
-                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
-                if (element4?.id.includes('-4_')) {
-                    item.classList.add(`text-anchor`);
+                this.addTextToElem(item, String(name));
+                const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
+                if (this.isElemOfFourthType(element4)) {
+                    this.addElemClass(item, [`text-anchor`]);
                 }
             }
         });
-        elementFull?.arrows?.forEach((item) => {
-            item.classList.toggle(`${mode}-arrow`);
+        elementFull?.arrows?.forEach((item: Element) => {
+            this.addElemClass(item, [`${mode}-arrow`]);
         });
         if (elementFull?.circle) {
-            elementFull?.circle?.classList.add(mode);
+            this.addElemClass(elementFull?.circle, [mode]);
+        }
+        if (elementFull?.ellipse) {
+            this.addElemClass(elementFull?.ellipse, [mode]);
         }
 
         // Percent
         if (elementFull?.metaFile) {
-            if ('valueMomentPercent' in elementFull?.metaFile) {
-                this.addTextToTspan(elementFull.textPercent, String(elementFull?.metaFile?.valueMomentPercent));
-                elementFull?.textPercent?.classList.remove(
-                    'standard-text',
-                    'deviation-text',
-                    'disabled-text',
-                    'reset-text'
-                );
-                elementFull?.textPercent?.classList.add(`${mode}-text`);
-            }
             if ('tolerance' in elementFull?.metaFile) {
-                this.addTextToTspan(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
-                elementFull?.textPercent?.classList.remove(
-                    'standard-text',
-                    'deviation-text',
-                    'disabled-text',
-                    'reset-text'
-                );
+                if (elementFull?.textPercent) {
+                    this.addTextToElem(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
+                    this.removeElemClass(elementFull?.textPercent, [
+                        'standard-text',
+                        'deviation-text',
+                        'disabled-text',
+                        'reset-text',
+                    ]);
+                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                }
+            }
+            if ('valueMomentPercent' in elementFull?.metaFile) {
+                let valueMet: number = 0;
+                switch (this.chosenSetting) {
+                    case 0:
+                        valueMet = elementFull?.metaFile?.valueMomentPercent;
+                        break;
+                    case 1:
+                        valueMet = elementFull?.metaFile?.valueByHourPercent;
+                        break;
+                    case 2:
+                        valueMet = elementFull?.metaFile?.valueTankPercent;
+                        break;
+                }
+                if (elementFull?.textPercent) {
+                    this.addTextToElem(elementFull.textPercent, `${String(valueMet)}%`);
+                    this.removeElemClass(elementFull?.textPercent, [
+                        'standard-text',
+                        'deviation-text',
+                        'disabled-text',
+                        'reset-text',
+                    ]);
+                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                }
                 elementFull?.textPercent?.classList.add(`${mode}-text`);
             }
         } else {
-            this.addTextToTspan(
+            this.addTextToElem(
                 elementFull?.textPercent,
                 elementFull?.metaFile?.tolerance
                     ? `${String(elementFull?.metaFile?.tolerance)}%`
                     : `${String(percent)}%`
             );
-            elementFull?.textPercent?.classList.add(`${mode}-text`);
+            if (elementFull?.textPercent) {
+                this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+            }
         }
 
         // Value
@@ -330,34 +428,43 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                         valueMet = elementFull?.metaFile?.valueTank;
                         break;
                 }
-                this.addTextToTspan(elementFull?.textValue, `${String(valueMet)} тн`);
-                elementFull?.textValue?.classList.add(`${mode}-text`);
-                const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
-                if (element4?.id.includes('-4_')) {
-                    elementFull?.textValue.classList.add(`text-anchor`);
+                this.addTextToElem(elementFull?.textValue, `${String(valueMet)} тн`);
+                if (elementFull?.textValue) {
+                    this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
+                }
+                const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
+                if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+                    this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
             if ('value' in elementFull?.metaFile) {
-                this.addTextToTspan(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
-                const element4 = this.dataAttribute.get(elementFull.metaFile.code);
-                if (element4.id.includes('-4_')) {
-                    elementFull?.textValue.classList.add(`text-anchor`);
+                this.addTextToElem(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
+                const element4 = this.elementsMap.get(elementFull.metaFile.code);
+                if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+                    this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
         } else {
-            this.addTextToTspan(elementFull?.textValue, `${String(value)} тн`);
-            elementFull?.textValue?.classList.remove('standard-text', 'deviation-text', 'disabled-text', 'reset-text');
-            elementFull?.textValue?.classList.add(`${mode}-text`);
-            const element4 = this.dataAttribute.get(elementFull?.metaFile?.code);
-            if (element4?.id.includes('-4_')) {
-                elementFull?.textValue.classList.add(`text-anchor`);
+            this.addTextToElem(elementFull?.textValue, `${String(value)} тн`);
+            if (elementFull?.textValue) {
+                this.removeElemClass(elementFull?.textValue, [
+                    'standard-text',
+                    'deviation-text',
+                    'disabled-text',
+                    'reset-text',
+                ]);
+                this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
+            }
+            const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
+            if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+                this.addElemClass(elementFull?.textValue, [`text-anchor`]);
             }
         }
 
         // related elements
         if (typeof elementFull?.metaFile?.related === 'object') {
             elementFull?.metaFile?.related.forEach((id) => {
-                const elementRelated = this.dataAttribute.get(id);
+                const elementRelated = this.elementsMap.get(id);
                 if (elementRelated?.children) {
                     const elementsRelated = Array.from(elementRelated?.children);
                     let elementFullRelated: IElementFull = {
@@ -368,36 +475,38 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                         circle: null,
                         textValue: null,
                         textPercent: null,
+                        ellipse: null,
                         flag: true,
                     };
                     // Search
                     elementsRelated?.forEach((elem) => {
                         elementFullRelated = this.searchElementsInElement(elem, elementFullRelated);
                     });
-                    elementFullRelated?.rects?.forEach((item) => {
-                        item.classList.add(mode);
+                    elementFullRelated?.rects?.forEach((item: Element) => {
+                        this.addElemClass(item, [mode]);
                     });
-                    elementFullRelated?.points?.forEach((item) => {
-                        item.classList.add(mode);
+                    elementFullRelated?.points?.forEach((item: Element) => {
+                        this.addElemClass(item, [mode]);
                     });
-                    elementFullRelated?.texts?.forEach((item) => {
-                        item.classList.add(`${mode}-text`);
+                    elementFullRelated?.texts?.forEach((item: Element) => {
+                        this.addElemClass(item, [`${mode}-text`]);
                     });
-                    elementFullRelated?.arrows?.forEach((item) => {
-                        item.classList.add(`${mode}-arrow`);
+                    elementFullRelated?.arrows?.forEach((item: Element) => {
+                        this.addElemClass(item, [`${mode}-arrow`]);
                     });
                     if (elementFullRelated?.circle) {
-                        elementFullRelated?.circle?.classList.add(mode);
+                        this.addElemClass(elementFullRelated?.circle, [mode]);
                     }
 
                     if (elementRelated.getAttribute('id').includes('line')) {
-                        elementRelated?.classList.add(mode);
+                        this.addElemClass(elementRelated, [mode]);
                     }
                 }
             });
         }
     }
 
+    // Функция распознает, чем является элемент. Если чем то нужным, то кладет его в IElementFull
     searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
         if (name?.includes('rect')) {
@@ -417,11 +526,9 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             } else {
                 elementFull?.rects.push(element);
             }
-        }
-        if (name?.includes('point')) {
+        } else if (name?.includes('point')) {
             elementFull?.points.push(element);
-        }
-        if (name?.includes('text')) {
+        } else if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
             } else if (name.includes('text_percent')) {
@@ -429,39 +536,42 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             } else {
                 elementFull.texts.push(element);
             }
-        }
-        if (name?.includes('arrow-group')) {
+        } else if (name?.includes('arrow-group')) {
             elementFull?.arrows.push(...this.searchArrow(element?.children));
-        }
-        if (name?.includes('circle')) {
+        } else if (name?.includes('circle')) {
             elementFull.circle = element;
+        } else if (name?.includes('ellipse')) {
+            elementFull.ellipse = element;
         }
         return elementFull;
     }
 
-    eventClick(element: Element, elementFull: IElementFull): void {
+    // Добавляет отслеживание клика на элементе
+    private addElementClickListener(element: Element, elementFull: IElementFull): void {
         if (elementFull?.flag) {
             elementFull.flag = false;
+
             if (
                 'name' in elementFull.metaFile ||
                 'productName' in elementFull.metaFile ||
                 'linkId' in elementFull.metaFile
             ) {
-                const handler = this.eventListenerClick(elementFull);
+                const handler = this.getElementClickHandler(elementFull);
                 element.removeEventListener('click', handler);
                 element.addEventListener('click', handler);
             }
         }
     }
 
-    eventListenerClick(elementFull: IElementFull): () => void {
+    // Возвращает коллбек для клика по элементу
+    private getElementClickHandler(elementFull: IElementFull): () => void {
         return () => {
             console.log('click', elementFull);
             this.mvpService.redirectMnemonic(elementFull.metaFile.linkId);
             this.elementActive(elementFull);
             if (typeof elementFull.metaFile.related === 'object') {
                 elementFull.metaFile?.related?.forEach((value) => {
-                    const element = this.dataAttribute.get(value);
+                    const element = this.elementsMap.get(value);
                     if (element && element.getAttribute('id')?.includes('line')) {
                         this.lineActive(element, elementFull);
                     } else {
@@ -476,48 +586,46 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     lineActive(line: Element, elementFull: IElementFull): void {
-        if (!line?.classList.contains(`${elementFull.metaFile.code}`)) {
-            line?.classList.add(`${elementFull.metaFile.code}`, 'active');
+        if (!this.hasElemClass(line, `${elementFull?.metaFile?.code}`)) {
+            this.addElemClass(line, [`${elementFull?.metaFile?.code}`, 'active']);
         } else {
             const count = this.countElementsInClassList(line);
             if (count > 1) {
-                line?.classList.remove(`${elementFull.metaFile.code}`);
+                this.removeElemClass(line, [`${elementFull.metaFile.code}`]);
             } else {
-                line?.classList.remove(`${elementFull.metaFile.code}`, 'active');
+                this.removeElemClass(line, [`${elementFull.metaFile.code}`, 'active']);
             }
         }
     }
 
-    countElementsInClassList(element: Element): number {
+    // Не совсем понимаю что делает данная функция
+    // Считает количество классов элемента, длинна которых не больше трех символов?
+    // Видимо, это классы которые соответствуют айдишникам
+    private countElementsInClassList(element: Element): number {
         let count = 0;
-        element?.classList.forEach((list) => {
-            if (list.length <= 3) {
+        element?.classList.forEach((className: string) => {
+            if (className.length <= 3) {
                 count++;
             }
         });
         return count;
     }
 
-    addClassList(item: Element, element: IElementFull, name: string): void {
-        item?.classList.add(`${element.metaFile.code}`);
-        item?.classList.add(name);
-    }
-
     elementActive(elementFull: IElementFull, element?: IElementFull): void {
         const active = 'active';
         const relatedOrNormal = element ? element : elementFull;
-        elementFull.rects.forEach((item) => {
-            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
-                this.addClassList(item, relatedOrNormal, active);
+        elementFull.rects.forEach((item: Element) => {
+            if (!this.hasElemClass(item, `${relatedOrNormal?.metaFile?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, active]);
                 if ('productName' in relatedOrNormal.metaFile && !element) {
                     this.mvpService.openPopup(this.dataPark, relatedOrNormal?.metaFile?.code);
                 }
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`]);
                 } else {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, active]);
                 }
                 if ('productName' in relatedOrNormal?.metaFile && !element) {
                     if (this.mvpService?.isOpenPopup) {
@@ -527,73 +635,74 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             }
         });
         elementFull.points.forEach((item) => {
-            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
-                this.addClassList(item, relatedOrNormal, active);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.metaFile?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, active]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`]);
                 } else {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, active]);
                 }
             }
         });
         elementFull.texts.forEach((item) => {
-            if (!item?.classList.contains(`${relatedOrNormal?.metaFile?.code}`)) {
-                this.addClassList(item, relatedOrNormal, `${active}-text`);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.metaFile?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, `${active}-text`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`]);
                 } else {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, `${active}-text`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, `${active}-text`]);
                 }
             }
         });
         elementFull.arrows.forEach((item) => {
-            if (!item?.classList.contains(`${relatedOrNormal.metaFile.code}`)) {
-                this.addClassList(item, relatedOrNormal, `${active}-arrow`);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.metaFile?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, `${active}-arrow`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`]);
                 } else {
-                    item?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, `${active}-arrow`);
+                    this.removeElemClass(item, [`${relatedOrNormal?.metaFile?.code}`, `${active}-arrow`]);
                 }
             }
         });
 
-        if (!elementFull.circle?.classList.contains(`${relatedOrNormal?.metaFile?.code}`)) {
-            this.addClassList(elementFull.circle, relatedOrNormal, active);
+        if (!this.hasElemClass(elementFull.circle, `${relatedOrNormal?.metaFile?.code}`)) {
+            this.addElemClass(elementFull.circle, [`${relatedOrNormal?.metaFile?.code}`, active]);
         } else {
             const count = this.countElementsInClassList(elementFull?.circle);
             if (count > 1) {
-                elementFull.circle?.classList.remove(`${relatedOrNormal?.metaFile?.code}`);
+                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.metaFile?.code}`]);
             } else {
-                elementFull.circle?.classList.remove(`${relatedOrNormal?.metaFile?.code}`, active);
+                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.metaFile?.code}`, active]);
             }
         }
-        elementFull.textPercent?.classList.toggle('active-text');
-        elementFull.textValue?.classList.toggle('active-text');
+        this.toggleElemClass(elementFull?.textPercent, 'active-text');
+        this.toggleElemClass(elementFull?.textValue, 'active-text');
     }
 
-    addTextToTspan(element: Element, text: string): void {
+    addTextToElem(element: Element, text: string): void {
         if (element?.children) {
             const children = Array.from(element?.children);
+
             if (text === '') {
-                children?.forEach((value) => {
-                    value.textContent = text;
+                children?.forEach((child: Element) => {
+                    this.setTspanText(child, text);
                 });
             }
             if (text.length > 13) {
                 if (children.length > 1) {
-                    children[0].textContent = text.slice(0, 13);
-                    children[1].textContent = text.slice(13);
+                    this.setTspanText(children[0], text.slice(0, 13));
+                    this.setTspanText(children[1], text.slice(13));
                 } else {
-                    children[0].textContent = text;
+                    this.setTspanText(children[0], text);
                 }
             } else {
-                children[0].textContent = text;
+                this.setTspanText(children[0], text);
             }
         }
     }
@@ -616,58 +725,49 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         return arrow;
     }
 
-    searchElements(elementIndex: number): Element[] {
-        let i = 1; // счетчик элементов
-        const localElements: Element[] = [];
-        while (i < 300) {
-            // поиск по id  - id=element-1_2
-            const element = document.querySelector(`#element-${elementIndex}_${i}`);
-            const elementFirst = document.querySelector(
-                `#element-${elementIndex}_${i}__${this.getSvgName(this.localChosenInstall)}`
-            );
-            const line = document.querySelector(`#line_${i}`);
-            if (elementFirst) {
-                this.elementEdit(false, 'reset', elementFirst);
-                this.dataAttribute.set(i, elementFirst);
-            }
-            if (element) {
-                this.elementEdit(false, 'reset', element);
-                this.dataAttribute.set(i, element);
-            }
-            if (line) {
-                this.dataAttribute.set(i, line);
-            }
-            i++;
-        }
-        return localElements;
+    // Проверяет, является ли элемент 4 типом
+    private isElemOfFourthType(element: Element): boolean {
+        return element?.id?.includes('-4_');
     }
 
-    getSvgName(chosenInstall: string): string {
-        switch (chosenInstall) {
-            case 'АССБ Авиасмеси':
-                return 'ASSB-AviaSmesi';
-            case 'АССБ А-95':
-                return 'ASSB-A-95';
-            case 'АССБ А-98':
-                return 'ASSB-A-98';
-            case 'Насосная т.1163-1164 парк БГС':
-                return 'Nasosnaya-park-BGS';
-            case 'Насосная т.1163-1164 парк А-95':
-                return 'Nasosnaya-park-A-95';
-            case 'Насосная т.1163-1164 парк А-92':
-                return 'Nasosnaya-park-A-92';
-            case 'ТСБ-1 Узел смешения нефти и КГС':
-                return 'TSB-1-Usel';
-            case 'АВТ-10':
-                return 'ABT-10-ELOU';
-            case 'ГФУ-2':
-                return 'gfu-2';
-            case 'Коллектор Рефлюкса':
-                return 'collector-ref';
-            case 'КПА С100':
-                return 'kpa-c100';
-            case 'Л-35-11-1000':
-                return 'l-35-11-1000';
+    // Добавляет список классов элементу
+    private addElemClass(element: Element, classList: string[]): void {
+        if (element && classList) {
+            classList.forEach((className: string) => {
+                this.renderer.addClass(element, className);
+            });
+        }
+    }
+
+    // Удаляет список классов из элемента
+    private removeElemClass(element: Element, classList: string[]): void {
+        if (element && classList) {
+            classList.forEach((className: string) => {
+                this.renderer.removeClass(element, className);
+            });
+        }
+    }
+
+    // Переключает (добавляет или удаляет если уже есть) класс элемента
+    private toggleElemClass(element: Element, className: string): void {
+        if (element) {
+            if (this.hasElemClass(element, className)) {
+                this.removeElemClass(element, [className]);
+            } else {
+                this.addElemClass(element, [className]);
+            }
+        }
+    }
+
+    // Проверяет наличие класса у элемента
+    private hasElemClass(element: Element, className: string): boolean {
+        return element?.classList?.contains(className);
+    }
+
+    // Присв
+    private setTspanText(element: Element, text: string): void {
+        if (element) {
+            this.renderer.setProperty(element, 'innerHTML', text);
         }
     }
 }

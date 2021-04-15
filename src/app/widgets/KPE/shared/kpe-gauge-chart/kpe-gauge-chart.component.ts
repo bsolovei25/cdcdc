@@ -11,17 +11,18 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 export class KpeGaugeChartComponent implements OnInit, OnChanges {
     private readonly defaultImg: string = '';
     private readonly diagramCounter: number = 100;
-    private readonly tickDensity: number = 80 / this.diagramCounter;
+    private readonly diagramSize: number = 80;
+    private readonly tickDensity: number = this.diagramSize / this.diagramCounter;
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 0;
-    @Input() plan: number = 0;
-    @Input() deviation: number = 0;
-    @Input() noDeviation: boolean = false;
-    @Input() img: string = this.defaultImg;
-    @Input() background: 'lite' | 'dark' | 'sou' | 'performance' = 'lite';
-    @Input() isPercent: boolean = false;
+    @Input() public fact: number = 0;
+    @Input() public plan: number = 0;
+    @Input() public deviation: number = 0;
+    @Input() public noDeviation: boolean = false;
+    @Input() public img: string = this.defaultImg;
+    @Input() public background: 'lite' | 'dark' | 'sou' | 'performance' = 'lite';
+    @Input() public isPercent: boolean = false;
 
     public ngOnInit(): void {
         this.chartInit();
@@ -46,7 +47,8 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
     }
 
     private getTick(percent: number): number {
-        return this.tickDensity * percent;
+        const value = this.tickDensity * percent;
+        return value >= this.diagramSize ? this.diagramSize : value <= 0 ? 0 : value;
     }
 
     @AsyncRender

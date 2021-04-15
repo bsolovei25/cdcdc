@@ -1,0 +1,19 @@
+<div class="container">
+  <ng-container *ngIf="_worker">
+    <svg-icon class="main-worker__frame" src="assets/icons/change-shift-main-avatar-frame.svg"> </svg-icon>
+    <div class="main-worker__avatar">
+      <img class="main-worker__img" [src]="avatarPath" />
+    </div>
+    <div class="main-worker__info">
+      <div class="main-worker__name">
+        <span>{{ _worker.user.displayName }}</span>
+        <svg-icon [matTooltip]="statusTooltip" src="{{ statusIcon }}"></svg-icon>
+      </div>
+      <div class="main-worker__description position">{{ _worker.user.post || 'Должность' }}</div>
+      <div class="main-worker__description role">
+        {{ _worker.unitRole.name || 'Роль' }}
+        <svg-icon *ngIf="isBaseRole" src="assets/icons/widgets/change-shift/user-star.svg"></svg-icon>
+      </div>
+    </div>
+  </ng-container>
+</div>

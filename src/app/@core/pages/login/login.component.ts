@@ -15,8 +15,14 @@ import { IInputOptions } from '../../../@shared/models/input.model';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, Validators.required);
-    password: FormControl = new FormControl(environment.password, Validators.required);
+    username: FormControl = new FormControl(environment.username, [
+        Validators.required,
+        Validators.minLength(3)
+    ]);
+    password: FormControl = new FormControl(environment.password, [
+        Validators.required,       
+        Validators.minLength(6)
+    ]);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -28,14 +34,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
         type: 'text',
         state: 'normal',
         placeholder: 'Логин',
-        isMovingPlaceholder: true,
+        isMovingPlaceholder: false,
+        logo: {
+            src: 'assets/icons/login/login.svg',
+            svgStyle: { 'width.px': 22, 'height.px': 22 },
+            isClickable: true,
+        }
     };
 
     public passwordOptions: IInputOptions = {
         type: 'password',
         state: 'normal',
         placeholder: 'Пароль',
-        isMovingPlaceholder: true,
+        isMovingPlaceholder: false,
         icon: {
             src: 'assets/icons/login/visibility_off.svg',
             svgStyle: { 'width.px': 20, 'height.px': 20 },
@@ -49,6 +60,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
             },
             secState: 'assets/icons/login/visibility.svg',
         },
+        logo: {
+            src: 'assets/icons/login/password.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 22 },
+            isClickable: true,
+        }
     };
 
     constructor(public authService: AuthService, private router: Router, private preLoaderService: PreloaderService) {

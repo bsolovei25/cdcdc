@@ -84,6 +84,11 @@
               [subCategoriesSelected]="subCategoriesSelected"
               (categoryClick)="onCategoryClick($event)"
               (toggleSubCategory)="toggleSubcategory($event)"
+              (onApply)="applySubcategories()"
+              (onCancel)="cancelSubcategories()"
+              (isRestrictionsChanged)="isRestrictionsChanged($event)"
+              [isRestrictionsEnabled]="isRestrictions"
+              (onSelectAll)="toggleAllSubcategories($event)"
             >
             </evj-evj-event-categories>
           </ng-container>

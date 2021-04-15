@@ -115,10 +115,7 @@
         align-items: center;
         background: var(--color-new-header-bg);
         user-select: none;
-
-        &:hover {
-          cursor: pointer;
-        }
+        cursor: pointer;
 
         &:first-child {
           margin-top: 0;

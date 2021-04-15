@@ -11,13 +11,14 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 export class EjcoGaugeChartComponent implements OnInit, OnChanges {
     private readonly defaultImg: string = '';
     private readonly diagramCounter: number = 100;
-    private readonly tickDensity: number = 80 / this.diagramCounter;
+    private readonly diagramSize: number = 80;
+    private readonly tickDensity: number = this.diagramSize / this.diagramCounter;
 
     @ViewChild('chart') chart: ElementRef;
 
     @Input() fact: number = 0;
     @Input() plan: number = 0;
-    @Input() deviation: number;
+    @Input() deviation: number = 0;
     @Input() displayType: 'limited' | null = null;
     @Input() img: string = this.defaultImg;
     @Input() background: 'lite' | 'dark' = 'lite';
@@ -44,7 +45,8 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
     }
 
     private getTick(percent: number): number {
-        return this.tickDensity * percent;
+        const value = this.tickDensity * percent;
+        return value >= this.diagramSize ? this.diagramSize : value <= 0 ? 0 : value;
     }
 
     @AsyncRender

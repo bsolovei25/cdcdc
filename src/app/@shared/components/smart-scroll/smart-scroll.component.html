@@ -1,7 +1,11 @@
 <div class="container">
   <div class="scroll-bar">
     <div class="scroll-bar__bg"></div>
-    <div class="sb__button sb__button_left" #btnLeft></div>
+    <div class="sb__button" #btnLeft>
+      <svg-icon
+        src="assets/icons/components/smart-scroll/left-right-icon.svg"
+      ></svg-icon>
+    </div>
     <div class="sb__track" #sbTrack>
       <evj-line-chart-track *ngIf="data?.length" [data]="data" [limits]="limits"></evj-line-chart-track>
       <div class="sb__thumb" #sbThumb>
@@ -10,6 +14,10 @@
         <div (mousedown)="$event.stopPropagation()" class="resizer resizer_right" #resizerRight></div>
       </div>
     </div>
-    <div class="sb__button sb__button_right" #btnRight></div>
+    <div class="sb__button" #btnRight>
+      <svg-icon
+        src="assets/icons/components/smart-scroll/left-right-icon.svg"
+      ></svg-icon>
+    </div>
   </div>
 </div>

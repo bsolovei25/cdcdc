@@ -13,12 +13,18 @@ export class SouInstallationCardComponent implements OnInit {
 
     @Input() installation: IInstallation;
 
-    constructor(private userSettingsService: UserSettingsService, private mvpService: SouMvpMnemonicSchemeService) {}
+    constructor(
+        private userSettingsService: UserSettingsService,
+        private mvpService: SouMvpMnemonicSchemeService,
+    ) {}
 
     ngOnInit(): void {}
 
-    public openInstallation(event: MouseEvent): void {
+    public openInstallation(): void {
+        const installationId = this.installation?.id;
+        const sectionId = this.installation?.sectionId;
+
         this.userSettingsService.loadScreenByWidget(this.redirectWidget).then();
-        this.mvpService.redirectMnemonic(this.installation.id);
+        this.mvpService.redirectMnemonic(sectionId || installationId);
     }
 }

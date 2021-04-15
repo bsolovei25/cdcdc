@@ -1,7 +1,7 @@
 <div class="container">
   <table class="table">
     <thead class="table__header">
-      <tr>
+      <tr class="table__header__shadow">
         <ng-container *ngFor="let column of columnsToDisplay">
           <ng-container [ngSwitch]="column.id">
             <th *ngSwitchCase="'1'">
@@ -19,7 +19,19 @@
                 </div>
               </div>
             </th>
-            <th *ngSwitchCase="'8'">
+            <th *ngSwitchCase="'4'">
+              <evj-kpe-select-header
+              [items]="averageConsumption"
+              [type]="'average'"
+              ></evj-kpe-select-header>
+            </th>
+            <th *ngSwitchCase="'5'">
+              <evj-kpe-select-header
+              [items]="instantConsumption"
+              [type]="'instant'"
+              ></evj-kpe-select-header>
+            </th>
+            <th *ngSwitchCase="'9'">
               <div class="deviation-header">
                 <pre><span>  Откл. прогноза от плана  </span></pre>
                 <div class="deviation-header__value-left">
@@ -36,61 +48,62 @@
           </ng-container>
         </ng-container>
       </tr>
+      <tr class="table__header__empty"></tr>
     </thead>
     <tbody class="table__body">
-      <ng-container *ngFor="let element of data">
+      <ng-container *ngFor="let element of (data$ | async)">
         <tr
           class="table__body__row"
-          [class.last-tr]="element.unit.name === 'last-row'"
-          [class.table__body__row--active]="selectedRowProduct === element.unit.name"
+          [class.last-tr]="element.name === 'last-row'"
+          [class.table__body__row--active]="selectedRowProduct === element.name"
         >
-          <ng-container *ngIf="element.unit.name !== 'last-row'">
+          <ng-container *ngIf="element.name !== 'last-row'">
             <td
               class="table__body__column"
-              [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+              [class.table__body__column--active]="selectedRowProduct === element.name"
               (click)="onClickRow($event, element)"
               colspan="11"
             >
               <div
-                (click)="onClickRow($event, element.unit)"
+                (click)="onClickRow($event, element)"
                 class="table__body__column__row-title"
-                [class.table__body__column__row-title__border-active]="selectedRowProduct === element.unit.name"
+                [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
               >
                 <svg-icon
                   class="table__body__column__row-title__icon"
-                  (click)="onClickTr($event, element.unit)"
+                  (click)="onClickTr($event, element)"
                   [ngClass]="{
-                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name)
+                  'table__body__column__row-title__icon--active': !expandedElement.isSelected(element.name)
                   }"
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
                 <div class="table__body__column__row-title">
                   <div class="table__body__column__row-title__text__name">
-                    <span>{{ element.unit.name }}</span>
+                    <span>{{ element.name }}</span>
                   </div>
-                  <div class="table__body__column__row-title__text__name__value-right">
-                    <div class="deviations">
-                      Отклонений:
-                      <div class="default-text">{{ notCriticalCount(element) + criticalCount(element) }}</div>
-                    </div>
-                    <div class="deviations">
-                      Некритичные:
-                      <div class="warning-text">{{ notCriticalCount(element) }}</div>
-                    </div>
-                    <div class="deviations">
-                      Критичные:
-                      <div class="danger-text">{{ criticalCount(element) }}</div>
-                    </div>
+                </div>
+                <div class="table__body__column__row-title__text__name__value-right">
+                  <div class="deviations">
+                    Отклонений:
+                    <div class="default-text">{{ element.eventCount }}</div>
+                  </div>
+                  <div class="deviations">
+                    Некритичные:
+                    <div class="warning-text">{{ element.nonCriticalEventCount }}</div>
+                  </div>
+                  <div class="deviations">
+                    Критичные:
+                    <div class="danger-text">{{ element.criticalEventCount }}</div>
                   </div>
                 </div>
               </div>
             </td>
           </ng-container>
         </tr>
-        <ng-container *ngFor="let elementChildren of element.parameters | kpeComponentsSearch: search">
+        <ng-container *ngFor="let elementChildren of element.rows | kpeComponentsSearch: search">
           <tr
-            *ngIf="expandedElement.isSelected(element.unit.name)"
+            *ngIf="!expandedElement.isSelected(element.name)"
             class="table__body__row expanded-row"
             (click)="onClickRowChildren($event, elementChildren)"
           >
@@ -98,38 +111,37 @@
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
               [ngClass]="{
-                  'expanded-column__warning': column.id === '8' && elementChildren.isNotCritical !== 0
-                  || column.id === '9' && elementChildren.isNotCritical !== 0,
-                  'expanded-column__danger': column.id === '8' && elementChildren.isCritical !== 0
-                  || column.id === '9' && elementChildren.isCritical !== 0
-                  }"
+                'expanded-column__warning': column.id === '9' && elementChildren.deviationColor !== '0'
+                || column.id === '10' && elementChildren.deviationColor !== '0',
+                'expanded-column__danger': column.id === '9' && elementChildren.deviationColor !== '0'
+                || column.id === '10' && elementChildren.deviationColor !== '0'
+                }"
               [matTooltip]="elementChildren?.name"
             >
               <div
                 *ngIf="column.id === '1'"
                 class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
+                [class.opacity]="selectedRow.isSelected(element.name) && this.selectedRowProduct"
               >
                 <svg-icon
-                  [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isNotCritical !== 0"
-                  [class.table__body__column__row-title-children__left-block--first__danger]="elementChildren.isCritical !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.deviationColor === '1'"
+                  [class.table__body__column__row-title-children__left-block--first__danger]="elementChildren.deviationColor === '2'"
                   [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
-                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical === 0"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical !== 0"
-                  [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.deviationColor === '1'"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.deviationColor === '2'"
+                  [src]="'assets/icons/widgets/KPE/kpe-table/dropdown.svg'"
                 >
                 </svg-icon>
                 <div
                   class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)"
                 >
                   <span>{{ elementChildren.name }}</span>
                 </div>
                 <div
                   class="table__body__column__row-title__engUnit"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)"
                 ></div>
               </div>
               <ng-container *ngIf="column.id === '2'">
@@ -139,38 +151,43 @@
               </ng-container>
               <ng-container *ngIf="column.id === '3'">
                 <div class="value">
-                  <span>{{elementChildren.average }}</span>
+                  <span>{{elementChildren.valuePlan }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '4'">
                 <div class="value">
-                  <span>{{elementChildren.instant }}</span>
+                  <span>{{ selectAverageUnit === 0 ? elementChildren.averageTonne : elementChildren.averageM3}}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '5'">
                 <div class="value">
-                  <span>{{elementChildren.accumulation }}</span>
+                  <span>{{ selectInstantUnit === 0 ? elementChildren.instantTonne : elementChildren.instantM3 }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '6'">
                 <div class="value">
-                  <span>{{elementChildren.percentPlan }}</span>
+                  <span>{{elementChildren.total }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '7'">
                 <div class="value">
-                  <span>{{elementChildren.predictPercent }}</span>
+                  <span>{{elementChildren.planPercent }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '8'">
                 <div class="value">
-                  <span>{{elementChildren.deviationValue }}</span>
+                  <span>{{elementChildren.prediction }}</span>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="column.id === '9'">
+                <div class="value">
+                  <span>{{elementChildren.deviation}}</span>
                   <span>{{elementChildren.deviationPercent }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '10'">
                 <div class="value">
-                  <span>{{elementChildren.recommended }}</span>
+                  <span>{{elementChildren.valueRecommended }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '11'">
@@ -191,6 +208,14 @@
     </tbody>
   </table>
   <div class="container__footer">
+    <div class="button">
+      <div class="button__cloud">
+        <svg-icon src="assets/icons/widgets/KPE/kpe-table/cloud.svg"></svg-icon>
+      </div>
+      <div class="button__text">
+        Загрузить
+      </div>
+    </div>
     <div class="container__date">
       <div class="container__date__title">Время и дата</div>
       <div class="container__date__element">
@@ -217,6 +242,9 @@
       <div class="container__date__element">
         <evj-kpe-datetimepicker></evj-kpe-datetimepicker>
       </div>
+    </div>
+    <div class="button">
+      <div class="button__text">Рассчитать</div>
     </div>
   </div>
 </div>

@@ -17,10 +17,10 @@
   .higherBorder {
     fill: none;
     stroke-dasharray: 2 1;
-    stroke: var(--color-kpe-gaude-additional);
+    stroke: var(--border-icon-color);
     opacity: 1;
     &-area {
-      fill: var(--color-kpe-line-diagram-bg);
+      fill: var(--gray-G7-50-color);
       opacity: 0.25;
     }
   }
@@ -29,36 +29,39 @@
   .higherColorize {
     fill: none;
     stroke-dasharray: 2 1;
-    stroke: var(--color-astue-onpz-warning);
+    stroke: var(--index-error-color);
     opacity: 1;
     &-area {
-      fill: var(--color-astue-onpz-warning);
+      fill: var(--index-error-color);
       opacity: 0.1;
     }
   }
 
   .grid {
-    color: var(--color-lines-bg-dia);
+    color: var(--border-icon-color);
     stroke-width: 1;
+    stroke-opacity: 0.25;
     fill: var(--color-kpe-gaude-back);
 
+    .tick {
+      color: var(--border-icon-color);
+    }
+
     path {
-      fill: var(--gray-G11-color);
+      fill: transparent;
+    }
+
+    &-first {
+      path {
+        fill: var(--bg-dashboard-color);
+      }
     }
   }
 
-  .y-axis {
+  .y-axis, .x-axis {
     text {
       font-family: Tahoma;
-      fill: var(--color-text-sub);
-      font-size: 12px;
-    }
-  }
-
-  .x-axis {
-    text {
-      font-family: Tahoma;
-      fill: var(--color-text-sub);
+      fill: var(--text-subscript-color);
       font-size: 12px;
     }
   }
@@ -70,20 +73,20 @@
   }
 
   .fact-curve {
-    stroke: var(--text-main-color);
+    stroke: var(--index-fact-color);
     &-dashed {
       fill: none;
-      stroke: var(--color-kpe-pasportize-text);
+      stroke: var(--gray-G6-color);
       stroke-dasharray: 4 4;
     }
   }
 
   .plan-curve {
-    stroke: var(--color-kpe-gaude-active);
+    stroke: var(--index-plan-color);
   }
 
   .day-threshold-line {
-    stroke: transparent;
+    stroke: var(--border-icon-color);
     stroke-width: 1px;
   }
 
@@ -130,7 +133,6 @@
   }
 
   .rect-left {
-    fill: var(--bg-dashboard-color);
-    opacity: 0.6;
+    fill: none;
   }
 }

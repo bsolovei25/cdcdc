@@ -16,6 +16,7 @@ export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
         if (data.sections) {
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
             this.sections = data.sections;
+            this.code = data.code;
         }
     }
     @Input() choosenSetting: number;
@@ -29,6 +30,7 @@ export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
     }
 
     flowData: ISouFlowOut;
+    code: number;
     sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
     outputEnable: boolean = true;
     inputArr: number[] = new Array(1);

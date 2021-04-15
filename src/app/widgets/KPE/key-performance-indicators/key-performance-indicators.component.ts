@@ -28,7 +28,6 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<IKpeWidget
 
     constructor(
         public widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -49,7 +48,6 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<IKpeWidget
     }
 
     protected dataHandler(ref: IKpeGaugeChartData): void {
-        console.log('kpe-key-performance-indicators', ref);
         this.sourceData = ref;
         this.setActiveIndicator();
     }

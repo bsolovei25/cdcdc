@@ -1,4 +1,7 @@
-<div class="installation" (click)="openInstallation($event)">
+<div
+  class="installation"
+  (click)="openInstallation()"
+>
   <div
     class="installation__npz"
     [ngClass]="installation?.deviation > 0 ? 'installation__npz__active' : 'installation__npz__default'"

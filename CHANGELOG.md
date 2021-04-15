@@ -1,3 +1,96 @@
+# [1.15.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.14.0...v1.15.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* **#1522:** Вид элементов в соответствии с фигмой ([f105840](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f105840cc11a9ed69c27173cf6b072ceac12f4a9)), closes [#1522](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1522)
+* **#1537:** Отображение мнемосхемы если данные не пришли ([5dbcdac](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5dbcdac4e26025cd7a6d892a9e436ba573939bd1)), closes [#1537](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1537)
+* **#1605:** "Корректировка цвета линий факта  на multiline chart" ([65fb6ab](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/65fb6abcac9afc59a0e5917fa3fb3f3936aaaf11)), closes [#1605](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1605)
+* **#1612:** Добавлена поддержка элемента ellipse ([9adbea4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9adbea4ad2f279d4ccc94f1c505f09b09881a2af)), closes [#1612](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1612)
+
+
+### Features
+
+* **#1256:** "КПЭ. Приведение к новому дизайну виджета по безопасности" ([502ca3c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/502ca3c35638dab7dc4460cc2ed4369281fba5b8)), closes [#1256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1256)
+* **#1598:** "КПЭ. Аналитический экран. Перевод в светлую тему." ([5420a38](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5420a3808e8e44145bc5da8378f325a9294b5d6a)), closes [#1598](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1598)
+* **front#1254:** "КПЭ. Приведение к новому дизайну виджета по исполнимости" ([c96e7bc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c96e7bcef20fcc46e10bd0294466a72521ebe554)), closes [front#1254](https://gitlab.funcoff.club/front/issues/1254)
+
+# [1.14.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.13.0...v1.14.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* **front#1607:** "OutOfMemory на виджетах кпе" ([e5be3f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e5be3f92bb70d8cd7087c4ae0e0d5e42065e624c)), closes [front#1607](https://gitlab.funcoff.club/front/issues/1607)
+
+
+### Features
+
+* **#1445:** Изомалк-2 > Топливо факел ([98b934f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/98b934f82069c0e9801f93adab301e4beecbd9c1)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1446:** Изомалк-2 > Сырьевой парк ([b855756](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b855756235318bbaa215f01b2a0d76d9d240bad0)), closes [#1446](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1446)
+* **#1583:** "СОУ. Разработка файла конфигов для АБ ВБ и Изомалк." ([d761c32](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d761c32924039092cf9f3078f9de396831544c8e)), closes [#1583](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1583)
+* **front#1412:** "Приведение к новому дизайну таблиц Расчет отклонений" ([5f68094](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5f6809405c5b5f34aa4f422ae32c73f60ea4bba6)), closes [front#1412](https://gitlab.funcoff.club/front/issues/1412)
+
+# [1.13.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.12.0...v1.13.0) (2021-04-08)
+
+
+### Bug Fixes
+
+* **#1576:** "ЭЖКО. Перевод в белую тему." ([8fe68f3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8fe68f3b1b3dc74b4800c34f37812f98667d42d2)), closes [#1576](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1576)
+
+
+### Features
+
+* **front#1160:** "Доработка БП по рабочей области событий Ограничения" ([5e65f19](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5e65f19215115cf461b67880ba641ce64e2bec3a)), closes [front#1160](https://gitlab.funcoff.club/front/issues/1160)
+* **front#1255:** "КПЭ. Приведение к новому дизайну виджета Ключевые показатели эффективности" ([18d1b37](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/18d1b370aeba55e1c50a19d9c7a1579a173eedb4)), closes [front#1255](https://gitlab.funcoff.club/front/issues/1255)
+
+# [1.12.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.11.0...v1.12.0) (2021-04-07)
+
+
+### Bug Fixes
+
+* **#1576:** "ЭЖКО. Перевод в белую тему." ([61124ac](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/61124acd04604f839e6fcc0e0471a6a55b077155)), closes [#1576](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1576)
+* **ONPZ:** format code after code review - [#1499](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1499) ([f3fd630](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f3fd630fef98db55448ee7af2a81022a24c4c437))
+
+
+### Features
+
+* **#1501:** ЭВЖ. Переработа верстки ленты событий для использования белой темы. ([f51e836](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f51e836118f2f9dfc645c87f22b406e4730072c4)), closes [#1501](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1501)
+* **#1513:** Энергоконтроль. astue-onpz-main-indicators перевод на подканалы ([8d6cf72](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8d6cf7228d43f1a6421731310199d65d79104055)), closes [#1513](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1513)
+
+# [1.11.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.10.0...v1.11.0) (2021-04-05)
+
+
+### Bug Fixes
+
+* **#1240:** Переход между мнемосхемами ([e3c4974](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e3c4974c8754385c6acefcf1bc7c49188dff1b48)), closes [#1240](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1240)
+
+
+### Features
+
+* **#1506:** Рефакторинг и улучшения проекта СОУ ([cdb4fbf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cdb4fbfbd0782ca6d6bedddb2340a30581d53614)), closes [#1506](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1506)
+* **#997:** "Разработка белой темы и обновление панели виджетов" ([8598a2b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8598a2bc40b7f1b683aed1315b73fa949672affd)), closes [#997](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/997)
+
+# [1.10.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.9.0...v1.10.0) (2021-04-02)
+
+
+### Bug Fixes
+
+* **#1381:** Переход из главного экрана соу в мнемосхемы ([8a79b08](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8a79b084fb827c0a64801d96c442f75e2d90c111)), closes [#1381](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1381)
+* **#1399:** "ОЗСМ. Приведение виджетов к дизайну" ([e35c1c6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e35c1c658e259ebfbb2e574ec2cd600b3721e8dd)), closes [#1399](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1399)
+* **#1518:** "На виджет предикторы приходят значения по другой установке, вместо выбранной авт-10" ([356c405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/356c405151e4eb3441bfcc0482efc6ad2c103c9f)), closes [#1518](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1518)
+* **front#1280:** "Приведение к новому дизайну таблиц Расчет отклонений" ([8bbefb3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8bbefb3e15a0716ea93997b5acb5a729e2563018)), closes [front#1280](https://gitlab.funcoff.club/front/issues/1280)
+* **front#1386:** Resolve "ЭЖКО. Не работает переход в источник с виджетов ЭЖКО" ([ca266b9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ca266b9990b465c118e8091e8580c9a9925ae4ba))
+
+
+### Features
+
+* **#1146:** Добавлена мнемосхема Сырьевой парк тит. 4022 ([6bdd01f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6bdd01fee869d3a3458cbf208f1b57852bfd281d)), closes [#1146](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1146)
+* **#1437:** Доработка по переходу в белую тему виджетов экрана КПЭ ([7f82062](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7f82062a5505e15ab3d571e004dbdc390d7e2877)), closes [#1437](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1437)
+* **#1458:** Доработка по переходу в белую тему виджетов экрана Печи Энергоконтроль ([1d696f2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1d696f2a4f210d82d3f1fb84bd4e38f098a0f2da)), closes [#1458](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1458)
+* **#1458:** Доработка по переходу в белую тему виджетов экрана Печи Энергоконтроль ([46a3b8c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/46a3b8c50effa434580274f0d701e04745b1d93c)), closes [#1458](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1458)
+* **#1510:** Исправить ошибки, возникающие при загрузке диаграмм виджетов ЭЖКО ([b11771e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b11771e8b6e529662dcd43daf9f8b2e96a22e543)), closes [#1510](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1510)
+* **ONPZ:** format code for light theme - [#1499](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1499) ([b3537f6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b3537f6e8f56b544a4871b388e40a5a596a2487d))
+
 # [1.9.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.8.0...v1.9.0) (2021-03-30)
 
 

@@ -19,6 +19,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
         if (data.sections) {
             this.sections = data.sections;
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
+            this.code = data.code
             this.drawSvg();
         }
     }
@@ -29,6 +30,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
 
     public svg: any;
+    public code: number;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 

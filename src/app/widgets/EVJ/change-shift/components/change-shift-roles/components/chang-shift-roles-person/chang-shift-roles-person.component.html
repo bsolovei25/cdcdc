@@ -1,0 +1,13 @@
+<div class="container" *ngIf="formGroup" [formGroup]="formGroup">
+  <div class="avatar"></div>
+  <div class="info">
+    <span class="fio"> {{ member?.user?.displayName }} </span>
+    <span class="position"> {{ member.user.post }} </span>
+  </div>
+  <div class="select">
+    <mat-select placeholder="Выберите роль" panelClass="mat-select-panel-custom" class="mat-select-custom" formControlName="userRole">
+      <mat-option> Не выбрано </mat-option>
+      <mat-option *ngFor="let item of availableRoles$ | async" [value]="item.id"> {{ item.name }} </mat-option>
+    </mat-select>
+  </div>
+</div>

@@ -61,7 +61,7 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
     private async getSubChannels(): Promise<void> {
         const subChannels = await this.widgetService.getAvailableChannels<IQualityReserveTableTabs>(this.widgetId);
         this.tabsList$.next(subChannels);
-
+        
     }
 
     public getInjector = (widgetId: string, channelId: string): Injector => {

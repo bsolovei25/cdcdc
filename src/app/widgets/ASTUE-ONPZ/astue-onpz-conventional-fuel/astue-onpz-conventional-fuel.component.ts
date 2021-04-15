@@ -64,9 +64,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     );
 
     selectionForm: FormGroup = new FormGroup({
-        manufacture: new FormControl(),
-        unit: new FormControl(),
-        resource: new FormControl(),
+        manufacture: new FormControl(null),
+        unit: new FormControl(null),
+        resource: new FormControl(null),
     });
 
     public manufacturesReference$: Observable<
@@ -124,6 +124,15 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
             return;
         }
         const ref = await this.astueOnpzConventionalFuelService.getSelectionReferences(widgetId);
+
+        const manufactureId = ref.manufacturies.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture)?.id
+        const unitId = ref.units.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit && item.parentId === manufactureId)?.id
+        const resId = ref.energyResources.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource && item.parentId === unitId)?.id
+
+        this.selectionForm.get('manufacture').setValue(this.selectionForm.value.manufacture ?? manufactureId);
+        this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);
+        this.selectionForm.get('resource').setValue(this.selectionForm.value.resource ?? resId);
+
         console.log(ref);
         this.astueOnpzConventionalFuelService.selectReferences$.next(ref);
     }

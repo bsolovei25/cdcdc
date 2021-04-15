@@ -1,0 +1,208 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+.event-card {
+  height: 100%;
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--text-main-color);
+  background-color: var(--bg-dashboard-color);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+  padding: 0 16px;
+
+  ::ng-deep {
+    .dropdown-control__panel {
+      border: 1px solid var(--border-vidget-color);
+    }
+  }
+
+  .bottom-align {
+    margin-bottom: 7px;
+  }
+
+  .critical-button {
+    border: 1px solid var(--border-vidget-color);
+    background-color: transparent;
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    margin: 20px 27px 0px;
+
+    &__icon {
+      color: #616580;
+    }
+  }
+
+  .active {
+    border: 1px solid var(--index-critical-color);
+    background-color: var(--index-critical-color);
+
+    .critical-button__icon {
+      color: var(--text-alwaysWhite-color);
+      fill: var(--text-alwaysWhite-color);
+    }
+  }
+
+  .checkbox-container {
+    margin-top: 18px;
+
+    .checkbox {
+      margin-right: 8px;
+
+      ::ng-deep {
+        .mat-checkbox-frame {
+          border-width: 1px;
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  .dtp-container {
+    width: 100%;
+  }
+
+  &__section {
+    gap: 10px;
+    height: 100%;
+    margin: 10px 0;
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: inherit;
+
+      &__container {
+        width: 100%;
+      }
+
+      &__title {
+        margin-bottom: -3px;
+      }
+    }
+
+    .column {
+      display: flex;
+      gap: inherit;
+
+      &__block {
+        gap: inherit;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 50%;
+
+        .text {
+          width: 100%;
+          margin-top: 5px;
+
+          &__title {
+            margin-bottom: 7px;
+          }
+
+          textarea {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background-color: transparent;
+            border: 1px solid var(--border-vidget-color);
+            color: var(--text-contrast-color);
+            outline: none;
+            resize: none;
+            overflow: auto;
+            line-height: 1.5;
+            border-radius: 2px;
+            padding: 8px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 156px;
+            margin-bottom: -5px;
+
+            &::placeholder {
+              color: var(--text-contrast-color);
+            }
+          }
+        }
+
+        .chat-title {
+          margin-bottom: 7px;
+        }
+      }
+    }
+  }
+
+  .custom-input {
+    background: transparent;
+    color: var(--text-contrast-color);
+    height: 32px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-direction: row;
+    cursor: pointer;
+    border: 1px solid var(--border-vidget-color);
+    border-radius: 2px;
+    display: flex;
+    width: 100%;
+
+    input {
+      padding: 0 8px 0 13px;
+      box-sizing: border-box;
+      width: inherit;
+      height: inherit;
+      outline: none;
+      color: var(--text-contrast-color);
+      border: none;
+      background: transparent;
+      font-size: 13px;
+
+      &::placeholder {
+        color: var(--border-vidget-color);
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 4px;
+    height: 100%;
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: var(--color-header-bg-dark);
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    border: 1px solid var(--color-header-bg-dark);
+    border-radius: 40px;
+    background-color: var(--color-header-text-sub);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: var(--color-header-bg-dark);
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: var(--color-header-bg-dark);
+  }
+
+  ::-webkit-resizer {
+    background-color: var(--color-header-bg-dark);
+  }
+}

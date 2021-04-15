@@ -25,4 +25,10 @@
     (click)="onClickIcon()"
     *ngIf="!!options.icon"
   ></svg-icon>
+  <svg-icon
+    class="logo"
+    [src]="options.logo.src"
+    [svgStyle]="options.logo.svgStyle"
+    *ngIf="!!options.logo"
+  ></svg-icon>
 </div>

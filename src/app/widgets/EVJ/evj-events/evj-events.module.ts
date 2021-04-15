@@ -17,7 +17,7 @@ import { EvjEventCardComponent } from './components/evj-event-card/evj-event-car
 import { EvjEventCategoriesComponent } from './components/evj-event-categories/evj-event-categories.component';
 import { EvjEventFiltersComponent } from './components/evj-event-filters/evj-event-filters.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PortalModule } from '@angular/cdk/portal';
 import { PlatformModule } from '@angular/cdk/platform';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -60,6 +60,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatRippleModule,
         EventsWorkspaceModule,
         MatCheckboxModule,
+        FormsModule,
     ],
     providers: [],
 })

@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
+import {IKpeGaugeChartPage} from "@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
 export interface IKpeSafetyData {
     gaugeCards: IKpeSafetyCard[] | null;
@@ -34,6 +35,7 @@ export class KpeSafetyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
     public deviationChartData: IDeviationDiagramData[] = [];
 
     public deviationDiagramData: IKpeGaugeChartData = { plan: 100, fact: 100 };
+    public deviationData :  IKpeGaugeChartData | IKpeGaugeChartPage;
 
     public gaugeCards: IKpeSafetyCard[][] = [];
     public cardsList: IKpeSafetyCard[] = [];
@@ -87,14 +89,13 @@ export class KpeSafetyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
     protected dataHandler(ref: IKpeSafetyData): void {
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
         this.gaugeCards = this.kpeHelperService.sortArray<IKpeSafetyCard>(ref.gaugeCards, 4);
-
         this.cardsList = [];
         this.gaugeCards.forEach((card) => {
             this.cardsList = [...this.cardsList, ...card];
         });
         this.cardsList?.forEach((x) => (x.deviationPercentage = 100 - x.percentage));
 
-        this.deviationDiagramData = ref.deviationDiagram;
+        this.deviationData = this.deviationDiagramData = ref.deviationDiagram;
         ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
                 this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);

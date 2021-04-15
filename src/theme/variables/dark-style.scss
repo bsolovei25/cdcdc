@@ -1,44 +1,44 @@
 @mixin style-dark() {
   /*Фон*/
-  --bg-dashboard-color: #12151E; /*Дэшборды и Формы*/
+  --bg-dashboard-color: #12151e; /*Дэшборды и Формы*/
   --bg-body-color: #1c1f2b; /*Тело виджета*/
-  --bg-header-color: #272A38; /*Хедер виджета*/
+  --bg-header-color: #272a38; /*Хедер виджета*/
   /*Основной цвет*/
-  --gray-G12-color: #12151E;
+  --gray-G12-color: #12151e;
   --gray-G12-50-color: rgba(18, 21, 30, 0.5);
-  --gray-G11-color: #1C1F2B;
-  --gray-G10-color: #272A38;
+  --gray-G11-color: #1c1f2b;
+  --gray-G10-color: #272a38;
   --gray-G10-50-color: rgba(39, 42, 56, 0.5);
   --gray-G9-color: #303549;
   --gray-G9-50-color: rgba(48, 53, 73, 0.5);
-  --gray-G8-color: #4B5169;
+  --gray-G8-color: #4b5169;
   --gray-G7-color: #606580;
   --gray-G7-50-color: rgba(96, 101, 128, 0.5);
-  --gray-G6-color: #8C99B2;
-  --gray-G5-color: #C4D3E9;
-  --gray-G4-color: #D7E2F2;
-  --gray-G3-color: #EBF1F9;
-  --gray-G2-color: #F5F8FD;
-  --gray-G1-color: #FFFFFF;
+  --gray-G6-color: #8c99b2;
+  --gray-G5-color: #c4d3e9;
+  --gray-G4-color: #d7e2f2;
+  --gray-G3-color: #ebf1f9;
+  --gray-G2-color: #f5f8fd;
+  --gray-G1-color: #ffffff;
   /*Текст*/
-  --text-accent-color: #FFFFFF; /*Акцентный текст*/
-  --text-contrast-color: #D7E2F2; /*Контрастный текст*/
-  --text-main-color: #8C99B2; /*Основной и подписи на осях*/
+  --text-accent-color: #ffffff; /*Акцентный текст*/
+  --text-contrast-color: #d7e2f2; /*Контрастный текст*/
+  --text-main-color: #8c99b2; /*Основной и подписи на осях*/
   --text-subscript-color: #606580; /*Подписи и Будущие показатели и Подписи осей*/
-  --text-alwaysWhite-color: #FFFFFF; /*Белый текст на цветной>*/
+  --text-alwaysWhite-color: #ffffff; /*Белый текст на цветной>*/
   /*Границы*/
-  --border-vidget-color: #272A38; /*Обводка виджета  и Разделители*/
-  --border-forms-color: #4B5169; /*Обводка формы*/
+  --border-vidget-color: #272a38; /*Обводка виджета  и Разделители*/
+  --border-forms-color: #4b5169; /*Обводка формы*/
   --border-icon-color: #606580; /*Иконки*/
-  --border-blue-color: #0089FF; /*Синяя обводка*/
+  --border-blue-color: #0089ff; /*Синяя обводка*/
   /*Индексы*/
-  --index-fact-color: #FFFFFF; /*Факт*/
-  --index-plan-color: #0089FF; /*План 1*/
-  --index-error-color: #F7931E; /*Отклонения*/
-  --index-critical-color: #FF1D25; /*Критические отклонения*/
-  --index-green1-color: #00A73D; /*Зеленый*/
-  --index-prediction-color: #A2E2FF; /*План 2*/
-  --index-blue1-color: #0F62FE; /*Синий*/
+  --index-fact-color: #ffffff; /*Факт*/
+  --index-plan-color: #0089ff; /*План 1*/
+  --index-error-color: #f7931e; /*Отклонения*/
+  --index-critical-color: #ff1d25; /*Критические отклонения*/
+  --index-green1-color: #00a73d; /*Зеленый*/
+  --index-prediction-color: #a2e2ff; /*План 2*/
+  --index-blue1-color: #0f62fe; /*Синий*/
   /*Графики*/
   --chart-axes-color: #606580; /*Оси*/
   --chart-segment-color: rgba(96, 101, 128, 0.25); /*- Cегменты и Будующий период*/
@@ -51,21 +51,48 @@
   --opacity-red-20-color: rgba(255, 29, 37, 0.2); /*20% прозрачность критического отклонения*/
   --opacity-green-20-color: rgba(0, 167, 61, 0.2); /*20% прозрачность зеленого*/
   --opacity-plan-10-color: rgba(0, 137, 255, 0.1); /*10% прозрачность плана*/
+  --opacity-plan-50-color: rgba(0, 137, 255, 0.5); /*50% прозрачность плана*/
   --opacity-plan2-20-color: rgba(162, 226, 255, 0.2); /*20% прозрачность плана 2*/
+  --opacity-card-50: rgba(39, 42, 56, 0.5);
   /*Визуализация*/
-  --data-c1-color: #D4BBFF;
-  --data-c2-color: #9362D0;
-  --data-c3-color: #8090F0;
-  --data-c4-color: #78A9FF;
-  --data-c5-color: #45C5FA;
-  --data-c6-color: #6FDC8C;
-  --data-c7-color: #08BDBA;
-  --data-c8-color: #007D79;
-  --data-c9-color: #FF7D96;
-  --data-c10-color: #FDD13A;
-  --data-c11-color: #8C99B2;
+  /*предикторы*/
+  --data-c1-color: #d4bbff;
+  --data-c2-color: #9362d0;
+  --data-c3-color: #8090f0;
+  --data-c4-color: #78a9ff;
+  --data-c5-color: #45c5fa;
+  --data-c6-color: #6fdc8c;
+  --data-c7-color: #08bdba;
+  --data-c8-color: #007d79;
+  --data-c9-color: #ff7d96;
+  --data-c10-color: #fdd13a;
+  --data-c11-color: #8c99b2;
+  /*предикторы с прозрачностью*/
+  --data-c1-color-opacity: rgba(212, 187, 255, 0.2);
+  --data-c2-color-opacity: rgba(147, 98, 208, 0.2);
+  --data-c3-color-opacity: rgba(128, 144, 240, 0.2);
+  --data-c4-color-opacity: rgba(120, 169, 255, 0.2);
+  --data-c5-color-opacity: rgba(69, 197, 250, 0.2);
+  --data-c6-color-opacity: rgba(111, 220, 140, 0.2);
+  --data-c7-color-opacity: rgba(8, 189, 186, 0.2);
+  --data-c8-color-opacity: rgba(0, 125, 121, 0.2);
+  --data-c9-color-opacity: rgba(255, 125, 150, 0.2);
+  --data-c10-color-opacity: rgba(253, 209, 58, 0.2);
+  --data-c11-color-opacity: rgba(253, 209, 58, 0.2);
   /*Для градиентов*/
   /*Тень*/
   --gradient-main-color-1: rgba(0, 0, 0, 0.2);
   --gradient-main-color-2: rgba(25, 28, 44, 0);
+  --gradient-main-color-3: rgba(255, 255, 255, 0.15);
+  /*Для компонентов*/
+  --toggler-background: #12151e;
+  --toggler-background-active: #0089ff;
+  --toggler-border: #4b5169;
+  --toggler-border-active: #0f62fe;
+  --toggler-button-border: #ffffff;
+  --toggler-button-border-active: #ffffff;
+  --toggler-button-color: #ffffff;
+  --toggler-button-color-active: #ffffff;
+  --tooltip-bg: #303549; /*фон тултипов*/
+  --tooltip-border: #0089ff; /*обводка тултипов*/
 }

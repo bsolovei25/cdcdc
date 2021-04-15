@@ -2,20 +2,15 @@
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
     <p class="panel-header__text" [class.panel-header__text--active]="active || activeSearch">{{data.name}}</p>
     <svg-icon
-      *ngIf="active"
-      class="panel-header__icon panel-header__icon__active"
-      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-      src="assets/icons/widgets/reports/arrow-up.svg"
-    ></svg-icon>
-    <svg-icon
-      *ngIf="!active"
       class="panel-header__icon"
-      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-      src="assets/icons/widgets/reports/arrow-bottom.svg"
+      [class.panel-header__icon__active]="active"
+      [svgStyle]="{ 'width.px':12, 'height.px':7 }"
+      src="assets/icons/widgets/reports/arrow.svg"
     ></svg-icon>
   </div>
   <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
     <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'exactTime'">
       <mat-label class="form__title">Точное время</mat-label>
       <input disabled autocomplete="off" matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
@@ -23,16 +18,17 @@
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'timePeriod'">
-      <mat-label class="form__title">Выберите дату начала</mat-label>
+
+    <mat-form-field class="form form__picker custom-picker form-picker_left" *ngIf="periodTime?.periodType === 'timePeriod'">
+      <span class="form__title">Выберите дату начала</span>
       <input
         disabled
         autocomplete="off"
@@ -44,16 +40,16 @@
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerT disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'timePeriod'">
-      <mat-label class="form__title">Выберите дату окончания</mat-label>
+    <mat-form-field class="form form__picker custom-picker form-picker_right" *ngIf="periodTime?.periodType === 'timePeriod'">
+      <span class="form__title">Выберите дату окончания</span>
       <input
         disabled
         autocomplete="off"
@@ -65,44 +61,46 @@
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerTend disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'datePeriod'">
+
+    <mat-form-field class="form form__picker custom-picker form-picker_left" *ngIf="periodTime?.periodType === 'datePeriod'">
       <mat-label class="form__title">Выберите дату начала</mat-label>
       <input disabled autocomplete="off" matInput [matDatepicker]="pickerFrom" [(ngModel)]="periodTime.startDateTime" />
       <mat-datepicker-toggle matSuffix [for]="pickerFrom">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'datePeriod'">
+    <mat-form-field class="form form__picker custom-picker form-picker_right" *ngIf="periodTime?.periodType === 'datePeriod'">
       <mat-label class="form__title">Выберите дату окончания</mat-label>
       <input disabled autocomplete="off" matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
       <mat-datepicker-toggle matSuffix [for]="pickerTo">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
+
     <mat-form-field class="form form__picker custom-picker" *ngIf="periodTime?.periodType === 'day'">
       <mat-label class="form__title">Выберите день</mat-label>
       <input disabled autocomplete="off" matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
@@ -110,14 +108,15 @@
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
             class="form__icon"
-            src="assets/icons/widgets/reports/calend.svg"
-            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+            src="assets/icons/widgets/reports/calendar.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
+
     <evj-system-period-date-year
       *ngIf="periodTime?.periodType === 'year'"
       (dateTimePicker)="dateTimePicker($event, 'year')"
@@ -138,8 +137,8 @@
             <mat-icon matDatepickerToggleIcon>
               <svg-icon
                 class="form__icon"
-                src="assets/icons/widgets/reports/calend.svg"
-                [svgStyle]="{ 'width.px':25, 'height.px':25}"
+                src="assets/icons/widgets/reports/calendar.svg"
+                [svgStyle]="{ 'width.px':14, 'height.px':14}"
               >
               </svg-icon>
             </mat-icon>
@@ -162,24 +161,15 @@
       </ng-container>
     </ng-container>
     <div class="panel-body__footer">
-      <svg-icon
-        (click)="postItem(template, 'xlsx')"
-        class="panel-body__footer__icon"
-        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-        src="assets/icons/widgets/reports/xls.svg"
-      ></svg-icon>
-      <svg-icon
-        (click)="postItem(template, 'pdf')"
-        class="panel-body__footer__icon"
-        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-        src="assets/icons/widgets/reports/pdf.svg"
-      ></svg-icon>
-      <svg-icon
-        (click)="postItem(template, 'html')"
-        class="panel-body__footer__icon"
-        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-        src="assets/icons/widgets/reports/html.svg"
-      ></svg-icon>
+      <evj-report-loading-file
+        *ngFor="let file of files"
+        (click)="postItem(template, file)"
+        [data]="{
+          percent: 100,
+          fileType: file,
+          weight: 12
+        }"
+      ></evj-report-loading-file>
     </div>
   </div>
 </div>

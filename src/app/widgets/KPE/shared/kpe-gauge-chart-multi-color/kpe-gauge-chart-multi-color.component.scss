@@ -73,5 +73,19 @@
         fill: var(--index-green1-color);
       }
     }
+
+    .needle {
+      fill: var(--index-fact-color);
+    }
+
+    .needle-shadow-gradient-1 {
+      stop-color: var(--index-fact-color);
+      stop-opacity: 0.15;
+    }
+
+    .needle-shadow-gradient-2 {
+      stop-color: transparent;
+      stop-opacity: 0;
+    }
   }
 }

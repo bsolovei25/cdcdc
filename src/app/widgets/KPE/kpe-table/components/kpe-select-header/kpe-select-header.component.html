@@ -1,0 +1,13 @@
+<div class="event-mat-select">
+    <mat-form-field appearance="none">
+      <mat-select
+      panelClass="mat-balance-select"
+      [(ngModel)]="selectedValue"
+      [compareWith]="compareFn"
+      (selectionChange)="changeUnit($event)"
+      >
+        <mat-option *ngFor="let item of items" [value]="item.id"> {{item.value}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  

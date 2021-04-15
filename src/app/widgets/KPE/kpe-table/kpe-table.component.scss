@@ -1,16 +1,17 @@
 .main-container {
   width: 100%;
   height: 100%;
-
-  ::ng-deep .aps-header__interface {
-    padding: 0px !important;
-  }
+  
+  display: flex;
+  flex-direction: column;
 }
 
-.container {
+.component {
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
   overflow: auto;
+  background-color: var(--bg-body-color);
+  border: 1px solid var(--border-vidget-color);
 }
 .button-add {
   position: absolute;
@@ -19,7 +20,7 @@
   width: 28px;
   height: 28px;
   border-radius: 2px;
-  background-color: var(--color-kpe-table-select);
+  background-color: var(--gray-G9-color);
 
   display: flex;
   align-items: center;
@@ -40,4 +41,42 @@
 .button-container {
   width: 16px;
   height: 16px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header {
+  height: 40px;
+
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .tabs {
+    display: flex;
+
+    &__item {
+      height: 40px;
+      padding: 0 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-bottom: 2px solid var(--gray-G9-color);
+
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--text-main-color);
+
+      cursor: pointer;
+
+      &_active {
+        border-color: var(--border-blue-color);
+        color: var(--text-alwaysWhite-color);
+      }
+    }
+  }
 }

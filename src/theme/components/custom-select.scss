@@ -1,0 +1,25 @@
+.mat-select-custom {
+  --font-size: 13px;
+  --color: var(--text-main-color);
+
+  font-size: var(--font-size);
+
+  .mat-select-placeholder {
+    color: var(--color);
+  }
+
+  .mat-select-value {
+    color: var(--color);
+  }
+
+  .mat-select-arrow {
+    background-color: var(--color);
+  }
+}
+
+.mat-select-panel-custom {
+  .mat-optgroup-label, .mat-option {
+    background-color: var(--gray-G12-color);
+    color: var(--text-contrast-color);
+  }
+}

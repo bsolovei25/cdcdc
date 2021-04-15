@@ -1,22 +1,25 @@
 <div evjSchemaScrollResizer [scaleElement]="schemaContainer">
-  <div class="main-content-container" *ngIf="!!(data$ | async)" #schema>
+  <div
+    class="main-content-container"
+    #schema
+  >
     <evj-sou-mvp-mnemonic-scheme-ab-left
       *ngIf="viewType === 'ab'"
-      [sections]="(data$ | async).sectionsData"
+      [sections]="(data$ | async)?.sectionsData"
       [choosenSetting]="chosenSetting$ | async"
-      [flowIn]="(data$ | async).flowIn"
+      [flowIn]="(data$ | async)?.flowIn"
     ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
     <evj-sou-mvp-mnemonic-scheme-vb-left
       *ngIf="viewType === 'vb'"
-      [sections]="(data$ | async).sectionsData"
+      [sections]="(data$ | async)?.sectionsData"
       [choosenSetting]="chosenSetting$ | async"
-      [flowIn]="(data$ | async).flowIn"
+      [flowIn]="(data$ | async)?.flowIn"
     ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
     <evj-sou-mvp-mnemonic-scheme-izomalk-left
       *ngIf="viewType === 'izomalk'"
-      [sections]="(data$ | async).sectionsData"
+      [sections]="(data$ | async)?.sectionsData"
       [choosenSetting]="chosenSetting$ | async"
     ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
@@ -34,26 +37,27 @@
         <evj-sou-mvp-mnemonic-scheme-section
           *ngIf="viewType === 'ab'"
           [choosenSetting]="chosenSetting$ | async"
-          [sections]="(data$ | async).sectionsData"
+          [sections]="(data$ | async)?.sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section>
 
         <evj-sou-mvp-mnemonic-scheme-section-vb
           *ngIf="viewType === 'vb'"
           [chosenSetting]="chosenSetting$ | async"
-          [sections]="(data$ | async).sectionsData"
+          [sections]="(data$ | async)?.sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-vb>
 
         <evj-sou-mvp-mnemonic-scheme-section-izomalk
           *ngIf="viewType === 'izomalk'"
           [choosenSetting]="chosenSetting$ | async"
-          [sections]="(data$ | async).sectionsData"
+          [sections]="(data$ | async)?.sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
         <evj-sou-schema
           *ngIf="viewType === 'svg'"
           [chosenSetting]="chosenSetting$ | async"
-          [sectionsDataPark]="(data$ | async).sectionsData"
-          [chosenInstall]="unitName"
+          [sectionsDataPark]="(data$ | async)?.sectionsData"
+          [unitName]="unitName"
+          [sectionName]="sectionName"
         >
         </evj-sou-schema>
       </div>

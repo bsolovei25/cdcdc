@@ -7,25 +7,24 @@ form {
   margin: 0 auto;
 }
 input {
-  //  width: 100%;
   width: 450px;
   height: 40px;
   padding-left: 20px;
-  border: 0 solid var(--color-border-main);
-  border-radius: 25px;
   outline: none;
-  background: var(--color-oil-circle-disable);
+  border: none;
+  background: transparent;
   font-size: 12px;
-  color: white;
+  color: var(--text-accent-color);
 }
 
 .search_input {
   position: relative;
+  border: 1px solid var(--border-forms-color);
 }
 
 ::placeholder {
   padding-right: 10px;
-  color: var(--color-border-unactive);
+  color: var(--text-subscript-color);
   font-style: italic;
   font-size: 12px;
 }
@@ -45,21 +44,23 @@ input {
 
 .button {
   margin-left: 400px;
-  background-color: rgba(96, 101, 127, 0.3);
-  border-radius: 25px;
+  background-color: var(--gray-G12-color);
+  border: 1px solid var(--gray-G12-color);
+  color: var(--border-icon-color);
 
   &:hover {
-    background: var(--color-border-active);
+    background: var(--opacity-plan-20-color);
+    border: 1px solid var(--border-blue-color);
 
     .button_filter_icon,
     .button_close_icon {
-      fill: white;
+      color: var(--gray-G1-color);
     }
   }
 }
 
 .icon {
-  fill: var(--color-border-unactive);
+  fill: var(--border-icon-color);
 
   &:hover {
     .icon-close-button {
@@ -79,13 +80,13 @@ input {
 }
 
 .button_filter_icon {
-  fill: var(--color-border-unactive);
+  fill: var(--border-icon-color);
   width: 26px;
   height: 26px;
 }
 
 .button_close_icon {
-  fill: var(--color-border-unactive);
+  fill: var(--border-icon-color);
   width: 26px;
   height: 26px;
 }

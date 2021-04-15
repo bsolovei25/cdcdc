@@ -2,7 +2,7 @@
   <div
     class="line"
     [ngClass]="{
-    selectedLine:flowData?.code === mvpService.selectedCode
+    selectedLine: code === mvpService.selectedCode
   }"
   >
     <div class="connection-circle"></div>
@@ -12,7 +12,7 @@
     [ngClass]="{
       off:!flowData?.isEnable,
       warning:flowData?.isExceedingConfInterval && !!flowData?.isEnable,
-      selected:flowData?.code === mvpService.selectedCode
+      selected: code === mvpService.selectedCode
     }"
   >
     <div class="circle" #chart>
@@ -31,7 +31,7 @@
     class="line"
     [ngClass]="{
       enableLine: !flowData?.isEnable,
-      selectedLine:flowData?.code === mvpService.selectedCode
+      selectedLine: code === mvpService.selectedCode
     }"
   ></div>
 </div>

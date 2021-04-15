@@ -1,3 +1,79 @@
+<!--<ng-template cdk-portal #overlayTemplate="cdkPortal">-->
+<!--  <div class="overlay-container" (mouseenter)="resetSetTimeout()">-->
+<!--    <div class="overlay-header">-->
+<!--      <h3>Производственные <br> задания и распоряжения</h3>-->
+<!--      <div (click)="closeOverlay()">-->
+<!--        <svg-icon src="assets/icons/widgets/EVJ/events/close-overlay.svg" class="overlay-header__icon"></svg-icon>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="divider"></div>-->
+<!--    <div class="overlay-body">-->
+<!--      <div class="overlay-body__checkboxes">-->
+<!--        <div class="checkbox">-->
+<!--          <mat-checkbox-->
+<!--            class="checkbox__item"-->
+<!--            color="primary"-->
+<!--            [formControl]="isRestrictionsFormControl"-->
+<!--              (change)="restrictionsChange($event)"-->
+<!--          ></mat-checkbox>-->
+<!--          <label [class.active]="limitationsEnabled">Ограничения</label>-->
+<!--        </div>-->
+<!--        <div class="checkbox">-->
+<!--          <mat-checkbox-->
+<!--            class="checkbox__item"-->
+<!--            color="primary"-->
+<!--            (change)="allChange($event)"-->
+<!--            [(ngModel)]="allEnabled"-->
+<!--          ></mat-checkbox>-->
+<!--          <label [class.active]="allEnabled">Выбрать все</label>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="overlay-body__subcategories">-->
+<!--        <ng-container *ngFor="let item of data?.subCategories">-->
+<!--          <div class="subcategory" [class.active]="subCategoriesSelected.isSelected(item.id)">-->
+<!--            <div class="subcategory__name" matRipple matRippleColor="#FFFFFF" (click)="toggle(item.id)">-->
+<!--              <span>{{ item.description }}</span>-->
+<!--            </div>-->
+<!--            <div class="subcategory__source" matRipple matRippleColor="#FFFFFF" (click)="onClickUrl($event, '#')">-->
+<!--              <span>СИ</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+
+<!--      <div class="overlay-body__checkboxes">-->
+<!--        <h3>СМПО</h3>-->
+<!--        <div class="checkbox">-->
+<!--          <mat-checkbox-->
+<!--            class="checkbox__item"-->
+<!--            color="primary"-->
+<!--            (change)="allSmpoChange($event)"-->
+<!--          ></mat-checkbox>-->
+<!--          <label [class.active]="allSmpoEnabled">Выбрать все</label>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="overlay-body__subcategories">-->
+<!--        <div class="subcategory">-->
+<!--          <div class="subcategory__name" matRipple matRippleColor="#FFFFFF">-->
+<!--            <span>Причины и мероприятия</span>-->
+<!--          </div>-->
+<!--          <div class="subcategory__source" matRipple matRippleColor="#FFFFFF">-->
+<!--            <span>СИ</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="divider"></div>-->
+<!--    <div class="overlay-actions">-->
+<!--      <div class="buttons">-->
+<!--        <div class="buttons__apply" matRipple matRippleColor="#FFFFFF" (click)="apply()">Применить</div>-->
+<!--        <div class="buttons__cancel" matRipple matRippleColor="#FFFFFF" (click)="cancel()">Отменить</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
 <ng-template cdk-portal #overlayTemplate="cdkPortal">
   <div class="overlay-container mat-elevation-z5" (mouseenter)="resetSetTimeout()" (mouseleave)="closeOverlay()">
     <ng-container *ngFor="let item of data?.subCategories">
@@ -22,6 +98,8 @@
               <mat-checkbox
                 class="checkbox"
                 color="primary"
+                [formControl]="isRestrictionsFormControl"
+                (change)="restrictionsChange($event)"
               ></mat-checkbox>
               <span>Ограничения</span>
             </div>

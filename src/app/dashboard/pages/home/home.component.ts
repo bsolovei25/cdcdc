@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
@@ -6,6 +6,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AppConfigService } from '@core/service/app-config.service';
+import { BehaviorSubject } from "rxjs";
 
 @Component({
     selector: 'evj-home',
@@ -15,6 +16,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 export class HomeComponent implements OnInit, OnDestroy {
     fullscreen: boolean = false;
     readonly projectName: string;
+    screenWidth$: BehaviorSubject<number> = new BehaviorSubject<number>(1920);
 
     constructor(
         private widgetService: WidgetService,
@@ -25,6 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         public router: Router
     ) {
         this.applicationCreate();
+        this.onResize();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    public onResize(): void {
+        this.screenWidth$.next(window.innerWidth);
     }
 
     ngOnInit(): void {

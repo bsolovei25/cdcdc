@@ -21,7 +21,7 @@
       right: 3px;
       top: 0;
       bottom: 0;
-      background: #1c1f2b;
+      background: var(--gray-G11-color);
       border-radius: 5px;
     }
 
@@ -54,7 +54,7 @@
           height: 100%;
           flex-grow: 1;
           margin: auto;
-          background: rgba(0, 137, 255, 0.1);
+          background: var(--opacity-plan-10-color);
         }
       }
 
@@ -82,23 +82,14 @@
       &__button {
         position: relative;
         height: 100%;
-        width: 9px;
-        background-color: var(--color-bg-sub);
-        border-radius: 5px;
-
-        &_left {
-          background-size: contain;
-          background: url("./../../../../assets/icons/components/smart-scroll/left-right-icon.svg") no-repeat center;
-        }
-
-        &_right {
-          background-size: contain;
-          background: url("./../../../../assets/icons/components/smart-scroll/left-right-icon.svg") no-repeat center;
-        }
-
-        &:hover {
-          cursor: pointer;
-        }
+        width: 5px;
+        background-color: var(--gray-G8-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1px;
+        color: var(--border-vidget-color);
+        cursor: pointer;
       }
     }
 
@@ -110,7 +101,7 @@
       top: 0px;
       bottom: 0px;
       margin: auto;
-      background: #0089ff;
+      background: var(--border-blue-color);
 
       &:hover {
         cursor: e-resize;

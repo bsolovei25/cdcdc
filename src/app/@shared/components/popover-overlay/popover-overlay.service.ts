@@ -8,6 +8,7 @@ export type PopoverParams<T> = {
     width?: string | number;
     height?: string | number;
     position?: 'start' | 'end' | 'center';
+    positions?: ConnectionPositionPair[];
     origin: HTMLElement;
     content: PopoverContent;
     data?: T;
@@ -19,9 +20,17 @@ export type PopoverParams<T> = {
 export class PopoverOverlayService {
     constructor(private overlay: Overlay, private injector: Injector) {}
 
-    public open<T>({ origin, content, data, width, height, position }: PopoverParams<T>): PopoverRef<T> {
-        const overlayRef = this.overlay.create(this.getOverlayConfig({ origin, width, height, position }));
-        const popoverRef = new PopoverRef<T>(overlayRef, content, data);
+    public open<T, K>({
+        origin,
+        content,
+        data,
+        width,
+        height,
+        position,
+        positions,
+    }: PopoverParams<T>): PopoverRef<T, K> {
+        const overlayRef = this.overlay.create(this.getOverlayConfig({ origin, width, height, position, positions }));
+        const popoverRef = new PopoverRef<T, K>(overlayRef, content, data);
 
         const injector = Injector.create({
             providers: [{ provide: PopoverRef, useValue: popoverRef }],
@@ -38,27 +47,41 @@ export class PopoverOverlayService {
         width,
         height,
         position,
+        positions,
     }: {
         origin: HTMLElement;
         width: string | number;
         height: string | number;
         position?: 'start' | 'end' | 'center';
+        positions?: ConnectionPositionPair[];
     }): OverlayConfig {
+        const positionStrategy = positions
+            ? this.getOverlayPosition(origin, positions)
+            : this.getOverlayPositionBySingle(origin, position);
         return new OverlayConfig({
             hasBackdrop: true,
             width,
             height,
             backdropClass: 'popover-backdrop',
-            positionStrategy: this.getOverlayPosition(origin, position),
+            positionStrategy,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
         });
     }
 
-    private getOverlayPosition(origin: HTMLElement, position: 'start' | 'end' | 'center'): PositionStrategy {
+    private getOverlayPositionBySingle(origin: HTMLElement, position: 'start' | 'end' | 'center'): PositionStrategy {
         return this.overlay
             .position()
             .flexibleConnectedTo(origin)
             .withPositions(this.getPositions(position))
+            .withFlexibleDimensions(false)
+            .withPush(false);
+    }
+
+    private getOverlayPosition(origin: HTMLElement, positions: ConnectionPositionPair[]): PositionStrategy {
+        return this.overlay
+            .position()
+            .flexibleConnectedTo(origin)
+            .withPositions(positions)
             .withFlexibleDimensions(false)
             .withPush(false);
     }

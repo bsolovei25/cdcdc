@@ -6,12 +6,12 @@
 >
   <section class="event-card__section">
     <div class="row">
-      <evj-cmid-event-dropdown [items]="['ОНПЗ']" [disabled]="true" style="width: 127px;">Предприятие:
-      </evj-cmid-event-dropdown>
-      <evj-cmid-event-dropdown [items]="['Производство 1']" [disabled]="true" style="width: 300px;">Производство:
-      </evj-cmid-event-dropdown>
-      <evj-cmid-event-dropdown [items]="['АВТ-10']" [disabled]="true" style="width: 127px;">Установка:
-      </evj-cmid-event-dropdown>
+      <evj-event-dropdown [items]="['ОНПЗ']" [disabled]="true" style="width: 127px;">Предприятие:
+      </evj-event-dropdown>
+      <evj-event-dropdown [items]="['Производство 1']" [disabled]="true" style="width: 300px;">Производство:
+      </evj-event-dropdown>
+      <evj-event-dropdown [items]="['АВТ-10']" [disabled]="true" style="width: 127px;">Установка:
+      </evj-event-dropdown>
     </div>
   </section>
 
@@ -23,11 +23,11 @@
       <div class="column__block">
         <div class="row">
           <evj-cmid-event-toggle (value)="setToggleValue($event)"></evj-cmid-event-toggle>
-          <evj-cmid-event-dropdown [items]="['Технологические']">Тип причины отключения:</evj-cmid-event-dropdown>
+          <evj-event-dropdown [items]="['Технологические']">Тип причины отключения:</evj-event-dropdown>
         </div>
         <div class="row">
-          <evj-cmid-event-dropdown [items]="['Неисправность технологического оборудования']">Причина отключения:
-          </evj-cmid-event-dropdown>
+          <evj-event-dropdown [items]="['Неисправность технологического оборудования']">Причина отключения:
+          </evj-event-dropdown>
         </div>
       </div>
       <div class="column__block">
@@ -55,17 +55,15 @@
         <span>Позиции КД ПАЗ по установке АВТ-10:</span>
       </div>
     </div>
-    <ng-container *ngIf="toggleValue === 'plan'">
-      <div class="row">
-        <evj-cmid-event-plan-table></evj-cmid-event-plan-table>
-      </div>
-    </ng-container>
+    <div class="row">
+      <evj-cmid-event-plan-table></evj-cmid-event-plan-table>
+    </div>
     <div class="row">
       <evj-cmid-event-chips [toggleValue]="toggleValue"></evj-cmid-event-chips>
     </div>
 
     <div class="row">
-      <evj-cmid-datetimepicker>Фактическая дата и время отключения:</evj-cmid-datetimepicker>
+      <evj-cmid-datetimepicker>{{ toggleValue === 'plan' ? 'Плановая' : 'Фактическая' }} дата и время отключения:</evj-cmid-datetimepicker>
       <evj-cmid-datetimepicker>Плановая дата и время включения:</evj-cmid-datetimepicker>
     </div>
   </section>

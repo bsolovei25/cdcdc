@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  padding: 0 24px;
+  border-radius: 2px;
+  color: var(--text-contrast-color);
+  background: var(--gray-G9-color);
+  cursor: pointer;
+  user-select: none;
+  transition: .2s;
+
+  &:hover {
+    color: var(--text-alwaysWhite-color);
+    background: var(--border-blue-color);
+    transition: .4s;
+  }
+
+  &__disabled {
+    opacity: .5;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  &__small {
+    height: 24px;
+  }
+
+  &__middle {
+    height: 32px;
+  }
+
+  &__big {
+    height: 40px;
+  }
+
+  span {
+    margin: auto;
+    font-size: 13px;
+  }
+}

@@ -9,12 +9,18 @@ export interface IAsEfProduct {
     id: string;
 }
 
+export interface IAsEfTableComponent {
+    unitName: string;
+    data: IAsEfTable[];
+}
+
 export interface IAsEfTable {
     name: string;
     header?: IAsEfRow;
     rows: IAsEfRow[];
     parent?: string;
     engUnits?: string;
+    unitName?: string;
 }
 
 export interface IAsEfUnitNew extends IAsEfTable {
@@ -104,12 +110,18 @@ export interface IAsEfInitialDataRow extends IAsEfTempl {
     tag: string;
 }
 
+export interface IAsEfTableBlockComponent {
+    unitName: string;
+    data: IAsEfTableBlock[];
+}
+
 export interface IAsEfTableBlock extends IAsEfTempl {
     relativeName?: string;
     status?: string;
     dataSummary?: string;
     data?: IAsEfTableCell[];
     children: IAsEfTableRow[];
+    unitName?: string;
 }
 
 export interface IAsEfTableRow extends IAsEfTempl {
@@ -141,6 +153,7 @@ export interface IAsPlanningTable {
     data: {
         name: string;
         rows: IAsPlanningRows[];
+        title: string;
     }[];
     title: 'Показатели' | 'Отклонения';
 }
