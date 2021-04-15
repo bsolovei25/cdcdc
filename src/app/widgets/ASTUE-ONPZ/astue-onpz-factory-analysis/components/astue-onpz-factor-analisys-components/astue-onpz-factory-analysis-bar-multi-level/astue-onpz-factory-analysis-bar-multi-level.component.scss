@@ -1,0 +1,39 @@
+@import "../astue-onpz-factory-analysis-bar/astue-onpz-factory-analysis-bar.component.scss";
+
+.bar {
+  .filler {
+    border-style: none none solid none !important;
+  }
+  &:last-child .filler {
+    border-style: solid none solid none !important;
+  }
+  .info {
+    background: linear-gradient(180deg, var(--internal-color-filler) 100%, var(--internal-color-filler) 100%);
+  }
+  .total-value {
+    align-items: center;
+    color: var(--internal-color-solid);
+    fill: var(--internal-color-solid);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    overflow: hidden;
+    &.blue {
+      color: rgb(var(--astue-onpz-factory-analisys-norm)) !important;
+    }
+    &.deep-blue {
+      color: rgb(var(--astue-onpz-factory-analisys-bad)) !important;
+    }
+  }
+  .line-divider {
+    &__bottom {
+      right: 1px;
+      border-style: solid;
+      border-width: 4px 0 4px 4px;
+      border-color: var(--internal-color-solid) transparent transparent transparent;
+      width: 1px;
+      margin-left: auto;
+    }
+  }
+}
+

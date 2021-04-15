@@ -20,6 +20,8 @@ export interface IAstueOnpzFactoryAnalysisBarResponseGroup {
 export interface IAstueOnpzFactoryAnalysisBarResponseDiagram {
     title: string;
     value: number;
+    order: number;
+    content: IAstueOnpzFactoryAnalysisBarResponseDiagram[];
 }
 /// region response end
 
@@ -55,7 +57,7 @@ export interface IAstueOnpzFactoryAnalysisSection {
 export interface IAstueOnpzFactoryAnalysisGroup {
     order: number;
     title: string;
-    bars: IAstueOnpzFactoryAnalysisBar[];
+    diagrams: IAstueOnpzFactoryAnalysisBar[];
 }
 
 export interface IAstueOnpzFactoryAnalysisBar {
@@ -65,6 +67,7 @@ export interface IAstueOnpzFactoryAnalysisBar {
     topLevel?: number;
     order?: number;
     type?: IAstueOnpzFactoryAnalysisBarType;
+    content?: IAstueOnpzFactoryAnalysisBar[];
 }
 
 export enum IAstueOnpzFactoryAnalysisBarType {

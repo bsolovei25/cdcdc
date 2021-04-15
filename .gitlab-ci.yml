@@ -73,14 +73,18 @@ stages:
 
 workflow:
   rules:
-    - if: $CI_MERGE_REQUEST_IID
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "devops"
 
 .default_rules_refs_anchor: &default_rules_refs
   rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "devops"
@@ -112,9 +116,8 @@ export-to-zyfra:
   stage: release
   variables:
     GIT_STRATEGY: none
-  needs: []
   trigger:
-    include: ci/export-images-child.yml
+    include: ci/pipelines/export-images-child.yml
   <<: *default_rules_refs
 
 export-to-zyfra-semantic:
@@ -135,10 +138,14 @@ export-to-zyfra-semantic:
 
 release-notes-maker:
   extends: .release-notes-tpl
+  variables:
+    GROUP_PROJECT_ID: 55
   stage: release
   needs: []
   dependencies: []
   rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
+      when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
 
@@ -157,6 +164,7 @@ export-to-ftp:
     - if: $SEMVER_EXPORT_ON == "false"
       when: never
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
+      when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
     - if: $CI_COMMIT_BRANCH == "develop"
@@ -179,6 +187,8 @@ export-to-ftp-no-build:
         file: "/pipelines/semantic-release.yml"
   rules:
     - if: $SEMVER_EXPORT_ON == "false"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual
@@ -203,6 +213,8 @@ semantic-release:
         file: "/pipelines/semantic-release.yml"
   rules:
     - if: $SEMVER_EXPORT_ON == "false"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
     - if: $CI_COMMIT_BRANCH == "master"
       when: manual

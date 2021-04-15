@@ -14,24 +14,29 @@ export function astueOnpzFactoryAnalysisBarMapper(
     response: IAstueOnpzFactoryAnalysisBarResponse
 ): IAstueOnpzFactoryAnalysisDiagram {
     const [min, max] = minMaxFinder(response.sections);
-    const result = {
+    const result: IAstueOnpzFactoryAnalysisDiagram = {
         groups: [],
         legend: [],
         minmax: [],
     };
     const trueMinValue = min - (max - min) * 0.1;
     result.minmax = [trueMinValue, max];
+    console.warn(response, 'from');
     response.sections.forEach((x) => {
         const values = [];
         values.push(x.mainDiagram.value);
         result.groups.push({
-            title: x.mainDiagram.title,
-            bars: [
+            order: null,
+            title: null,
+            diagrams: [
                 {
+                    title: x.mainDiagram.title,
                     value: x.mainDiagram.value,
                     type: IAstueOnpzFactoryAnalysisBarType.Summary,
                     lowLevel: trueMinValue,
                     topLevel: x.mainDiagram.value,
+                    order: null,
+                    content: null,
                 },
             ],
         });
@@ -40,7 +45,8 @@ export function astueOnpzFactoryAnalysisBarMapper(
             .forEach((group) => {
                 result.groups.push({
                     title: group.title,
-                    bars: group.diagrams
+                    order: null,
+                    diagrams: group.diagrams
                         .filter((d) => !!d.value || d.value === 0)
                         .map((d, i) => {
                             const prevValue = values[values.length - 1];
@@ -55,6 +61,7 @@ export function astueOnpzFactoryAnalysisBarMapper(
                                         : IAstueOnpzFactoryAnalysisBarType.Deviation,
                                 lowLevel: d.value > 0 ? prevValue : curValue,
                                 topLevel: d.value > 0 ? curValue : prevValue,
+                                content: contentMapper(d?.content, d.value > 0 ? prevValue : curValue, d.value),
                             };
                         }),
                 });
@@ -76,4 +83,34 @@ export function minMaxFinder(sections: IAstueOnpzFactoryAnalysisBarResponseSecti
     });
     values = values.sort((a, b) => a - b);
     return [values[0], values[values.length - 1]];
+}
+
+function contentMapper(
+    content: IAstueOnpzFactoryAnalysisBarResponseDiagram[],
+    startValue: number,
+    commonValue: number
+): IAstueOnpzFactoryAnalysisBar[] {
+    if (!content?.length) {
+        return [];
+    }
+
+    const multiply = commonValue > 0 ? -1 : 1;
+    const sumValue: number = content.map((x) => Math.abs(x.value)).reduce((a, b) => a + b);
+    const values = content.map((x) => (Math.abs(x.value) / sumValue) * commonValue);
+    content.forEach((x, i) => (x.order = values[i]));
+    content = content.sort((a, b) => multiply * b.order - multiply * a.order);
+
+    let curValue = startValue;
+    return content.map((c, i) => {
+        const prevValue = curValue;
+        curValue += -multiply * c.order;
+        return {
+            title: c.title,
+            value: c.value,
+            order: values[i],
+            type: c.value > 0 ? IAstueOnpzFactoryAnalysisBarType.Normal : IAstueOnpzFactoryAnalysisBarType.Deviation,
+            lowLevel: prevValue,
+            topLevel: curValue,
+        };
+    });
 }
