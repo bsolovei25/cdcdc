@@ -51,6 +51,13 @@ import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { EvjEventsSmpoReasonsComponent } from './components/evj-events-smpo-reasons/evj-events-smpo-reasons.component';
+import { EvjEventsSmpoReasonsMenuComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
+import { EvjEventsSmpoReasonItemComponent } from "./components/evj-events-smpo-reasons/evj-events-smpo-reason-item/evj-events-smpo-reason-item.component";
+import { EvjEventsSmpoReasonsMenuItemComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
+import { EvjEventsSmpoCorrectComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct.component';
+import { EvjEventsSmpoCorrectMenuComponent } from './components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
+import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct-item/evj-events-smpo-correct-item.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +98,13 @@ import { NgxMaskModule } from 'ngx-mask';
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
         EvjEventsWorkspaceExtraOptionsComponent,
+        EvjEventsSmpoReasonsComponent,
+        EvjEventsSmpoReasonsMenuComponent,
+        EvjEventsSmpoReasonItemComponent,
+        EvjEventsSmpoReasonsMenuItemComponent,
+        EvjEventsSmpoCorrectComponent,
+        EvjEventsSmpoCorrectMenuComponent,
+        EvjEventsSmpoCorrectItemComponent,
         EvjEventsWorkspaceRestrictionsComponent,
     ],
     imports: [

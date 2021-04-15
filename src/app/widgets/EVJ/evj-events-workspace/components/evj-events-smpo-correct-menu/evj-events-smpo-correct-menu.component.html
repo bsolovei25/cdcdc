@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="container__header">
+    <div class="title-block">
+      <svg-icon
+        class="category-list"
+        [src]="'assets/icons/widgets/EVJ/evj-events-workspace/category_list.svg'"
+      >
+      </svg-icon>
+      <div class="title">Выберите нужные мероприятия</div>
+    </div>
+    <div class="close" (click)="close()">
+      <div class="close__button">
+        <svg-icon
+          matRipple matRippleColor="white"
+          [svgStyle]="{'height.px':'19', 'width.px': '19'}"
+          [src]="'assets/icons/widgets/EVJ/evj-events-workspace/close.svg'"
+        >
+        </svg-icon>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="body">
+    <evj-events-smpo-reasons-menu-item (click)="toggleItem(item)" [menuItem]="item" *ngFor="let item of items; trackBy: trackByIndex"></evj-events-smpo-reasons-menu-item>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="search">
+    <div class="search__block">
+      <div class="search__icon">
+        <svg-icon src="assets/icons/widgets/workspace/smotr/reasons/search.svg"></svg-icon>
+      </div>
+      <input class="search__input" type="text" placeholder="Поиск" [formControl]="searchInput" />
+    </div>
+    <div class="button" matRipple matRippleColor="white" (click)="accept()">Применить</div>
+  </div>
+</div>
+

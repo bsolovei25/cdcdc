@@ -73,14 +73,7 @@
                                          class="dtp-container"></evj-smpo-event-datetimepicker>
         </div>
         <div class="row">
-          <div class="row__title">
-            <span>Активная фаза</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="custom-input">
-            <input type="text" placeholder="Активная фаза"/>
-          </div>
+          <evj-event-dropdown [items]="phasesList">Активная фаза</evj-event-dropdown>
         </div>
         <div class="column">
           <div class="column__block">
@@ -128,6 +121,33 @@
             <input type="text" placeholder="Отклонение 2-го уровня"/>
           </div>
         </div>
+
+        <div class="row">
+          <div class="reasons">
+            <div class="title d-flex flex-justify-between">
+              <span>Причины</span>
+              <div class="button-block">
+                <svg-icon (click)="openReasonsList()" src="assets/icons/widgets/EVJ/evj-events-workspace/plus.svg"></svg-icon>
+              </div>
+            </div>
+            <evj-events-smpo-reasons [items]="reasons"
+                                     (onRemoveItem)="removeReason($event)" ></evj-events-smpo-reasons>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="reasons h-auto">
+            <div class="title">
+              <span>Корректирующие мероприятия</span>
+              <div class="button-block">
+                <svg-icon (click)="openEventsList()" src="assets/icons/widgets/EVJ/evj-events-workspace/plus.svg"></svg-icon>
+              </div>
+            </div>
+            <evj-events-smpo-events [items]="events"
+                                    (onRemoveItem)="removeEvent($event)" ></evj-events-smpo-events>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
