@@ -317,6 +317,21 @@ export interface ISubcategory {
     parentCategoryId: number;
 }
 
+export interface IReason {
+    id: number;
+    name: string;
+}
+
+export interface ICorrect {
+    id: number;
+    name: string;
+}
+
+export interface IPhase {
+    id: number;
+    name: string;
+}
+
 interface IEventStep {
     author: string;
     date: Date;

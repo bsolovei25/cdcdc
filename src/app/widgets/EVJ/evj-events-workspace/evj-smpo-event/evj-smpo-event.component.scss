@@ -206,3 +206,17 @@
     background-color: var(--color-header-bg-dark);
   }
 }
+
+.reasons {
+  &.h-auto {
+    min-height: auto;
+  }
+  width: 100%;
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+  svg-icon {
+    cursor: pointer;
+  }
+}

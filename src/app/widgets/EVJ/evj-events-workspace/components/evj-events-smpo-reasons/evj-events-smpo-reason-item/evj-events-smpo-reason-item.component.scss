@@ -1,0 +1,38 @@
+.evj-events-smpo-reason-item {
+  &_body {
+    background: var(--gray-G10-color);
+    display: flex;
+    margin-bottom: 9px;
+    justify-content: space-between;
+  }
+  &_title {
+    padding: 5px 0 9px 20px;
+
+    span {
+      line-height: 1.4;
+      color: var(--text-contrast-color);
+    }
+  }
+  &_icon-wrapper {
+    align-items: flex-end;
+    display: flex;
+    padding: 2px;
+  }
+  &_icon {
+    align-items: center;
+    background: var(--gray-G9-color);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    svg {
+      fill: var(--border-icon-color);
+    }
+    span {
+      line-height: 1.4;
+      color: var(--text-accent-color);
+    }
+  }
+}
