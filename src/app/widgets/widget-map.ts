@@ -1653,6 +1653,15 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+    'cvtr-home': {
+        import: async () => await import('src/app/widgets/CVTR/cvtr-home/cvtr-home.module'),
+        module: 'CvtrHomeModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'default',
+    },
     //#endregion CVTR
 
     // #region EJV
