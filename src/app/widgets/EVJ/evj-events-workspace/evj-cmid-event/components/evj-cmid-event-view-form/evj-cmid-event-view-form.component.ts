@@ -1,16 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
+import { IChatMessageWithAttachments } from '../../../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
-import { CmidEventToogleValue } from './components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
+import { CmidEventToogleValue } from '../../components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 
 @Component({
-    selector: 'evj-cmid-event',
-    templateUrl: './evj-cmid-event.component.html',
-    styleUrls: ['./evj-cmid-event.component.scss'],
+    selector: 'evj-cmid-event-view-form',
+    templateUrl: './evj-cmid-event-view-form.component.html',
+    styleUrls: ['./evj-cmid-event-view-form.component.scss'],
 })
-export class EvjCmidEventComponent implements OnInit {
-    @Input()
-    public noOverflow: boolean = false;
+export class EvjCmidEventViewFormComponent implements OnInit {
 
     public dateNow: Date = new Date();
 
