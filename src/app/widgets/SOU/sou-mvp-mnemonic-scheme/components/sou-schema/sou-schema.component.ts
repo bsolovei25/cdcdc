@@ -336,18 +336,18 @@ export class SouSchemaComponent implements OnChanges {
             if (elementFull?.metaFile) {
                 const element4 = this.elementsMap.get(elementFull.metaFile.code);
 
-                if (this.isElemOfFourthType(element4)) {
+                if (this.doesElemNeedTextAnchor(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
                 }
                 if ('productName' in elementFull?.metaFile) {
-                    this.addTextToElem(item, String(elementFull?.metaFile?.productName));
+                    this.addTextToTextElem(item, String(elementFull?.metaFile?.productName));
                 } else {
-                    this.addTextToElem(item, String(elementFull?.metaFile?.name));
+                    this.addTextToTextElem(item, String(elementFull?.metaFile?.name));
                 }
             } else {
-                this.addTextToElem(item, String(name));
+                this.addTextToTextElem(item, String(name));
                 const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
-                if (this.isElemOfFourthType(element4)) {
+                if (this.doesElemNeedTextAnchor(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
                 }
             }
@@ -366,7 +366,7 @@ export class SouSchemaComponent implements OnChanges {
         if (elementFull?.metaFile) {
             if ('tolerance' in elementFull?.metaFile) {
                 if (elementFull?.textPercent) {
-                    this.addTextToElem(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
+                    this.addTextToTextElem(elementFull.textPercent, `${String(elementFull?.metaFile?.tolerance)}%`);
                     this.removeElemClass(elementFull?.textPercent, [
                         'standard-text',
                         'deviation-text',
@@ -390,7 +390,7 @@ export class SouSchemaComponent implements OnChanges {
                         break;
                 }
                 if (elementFull?.textPercent) {
-                    this.addTextToElem(elementFull.textPercent, `${String(valueMet)}%`);
+                    this.addTextToTextElem(elementFull.textPercent, `${String(valueMet)}%`);
                     this.removeElemClass(elementFull?.textPercent, [
                         'standard-text',
                         'deviation-text',
@@ -402,7 +402,7 @@ export class SouSchemaComponent implements OnChanges {
                 elementFull?.textPercent?.classList.add(`${mode}-text`);
             }
         } else {
-            this.addTextToElem(
+            this.addTextToTextElem(
                 elementFull?.textPercent,
                 elementFull?.metaFile?.tolerance
                     ? `${String(elementFull?.metaFile?.tolerance)}%`
@@ -428,24 +428,24 @@ export class SouSchemaComponent implements OnChanges {
                         valueMet = elementFull?.metaFile?.valueTank;
                         break;
                 }
-                this.addTextToElem(elementFull?.textValue, `${String(valueMet)} тн`);
+                this.addTextToTextElem(elementFull?.textValue, `${String(valueMet)} тн`);
                 if (elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
                 }
                 const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
-                if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+                if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
             if ('value' in elementFull?.metaFile) {
-                this.addTextToElem(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
+                this.addTextToTextElem(elementFull?.textValue, `${String(elementFull?.metaFile?.value)} т`);
                 const element4 = this.elementsMap.get(elementFull.metaFile.code);
-                if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+                if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
         } else {
-            this.addTextToElem(elementFull?.textValue, `${String(value)} тн`);
+            this.addTextToTextElem(elementFull?.textValue, `${String(value)} тн`);
             if (elementFull?.textValue) {
                 this.removeElemClass(elementFull?.textValue, [
                     'standard-text',
@@ -456,7 +456,7 @@ export class SouSchemaComponent implements OnChanges {
                 this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
             }
             const element4 = this.elementsMap.get(elementFull?.metaFile?.code);
-            if (this.isElemOfFourthType(element4) && elementFull?.textValue) {
+            if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                 this.addElemClass(elementFull?.textValue, [`text-anchor`]);
             }
         }
@@ -685,19 +685,27 @@ export class SouSchemaComponent implements OnChanges {
         this.toggleElemClass(elementFull?.textValue, 'active-text');
     }
 
-    addTextToElem(element: Element, text: string): void {
-        if (element?.children) {
-            const children = Array.from(element?.children);
+    // Добавляет текст для текстовой ноды <text>
+    // @TODO Element можно заменить на SVGElement
+    private addTextToTextElem(textElem: Element, text: string): void {
+        if (textElem?.children) {
+            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
+            const maxLineLength = this.getTextElemMaxLineLength(textElem as SVGElement);
+
+            const children = Array.from(textElem?.children);
 
             if (text === '') {
                 children?.forEach((child: Element) => {
                     this.setTspanText(child, text);
                 });
             }
-            if (text.length > 13) {
+            if (maxLineLength && text.length > maxLineLength) {
                 if (children.length > 1) {
-                    this.setTspanText(children[0], text.slice(0, 13));
-                    this.setTspanText(children[1], text.slice(13));
+                    children.forEach((child: SVGTextPositioningElement, index: number) => {
+                        const from = maxLineLength * index;
+                        const to = maxLineLength * (index + 1);
+                        this.setTspanText(child, text.slice(from, to).trim());
+                    });
                 } else {
                     this.setTspanText(children[0], text);
                 }
@@ -705,6 +713,50 @@ export class SouSchemaComponent implements OnChanges {
                 this.setTspanText(children[0], text);
             }
         }
+    }
+
+    // Сделать текст <text> многострочным для элементов определенных типов
+    // Если текст не помещается в одну стоку
+    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
+        const maxLineLength = this.getTextElemMaxLineLength(textElem);
+        const lineOffsetTopPx = 20;
+
+        if (maxLineLength) {
+            const linesCount = Math.ceil(text?.length / maxLineLength);
+            const children = textElem?.children && Array.from(textElem.children) as SVGTextPositioningElement[];
+
+            if (children?.length < linesCount) {
+                const lastTspan = children[children.length - 1];
+                const lastTspanY = lastTspan.y.baseVal[0].value;
+                const newLinesCount = linesCount - children.length;
+
+                // Добавление новых строк
+                for (let i = 0; i < newLinesCount; i++) {
+                    const lastTspanClone = lastTspan.cloneNode() as SVGTextPositioningElement;
+                    lastTspanClone.y.baseVal[0].value = lastTspanY + (lineOffsetTopPx * (i + 1));
+                    this.renderer.appendChild(textElem, lastTspanClone);
+                }
+
+                // Если добавлены новые строки, то нужно отцентровать текст по вертикали
+                if (newLinesCount !== 0) {
+                    this.renderer.setStyle(textElem, 'transform', `translateY(-${(newLinesCount * lineOffsetTopPx / 2)}px)`);
+                }
+            }
+        }
+    }
+
+    // Возвращает максимальную длину строки для текстового элемента <text>
+    // Или null если ограничений нет
+    private getTextElemMaxLineLength(textElem: SVGElement): number {
+        const elementParentId = textElem?.parentElement?.id;
+
+        if (elementParentId?.includes('-4_')) {
+            return 13;
+        } else if (elementParentId?.includes('-13_')) {
+            return 7;
+        }
+
+        return null;
     }
 
     searchArrow(elements: HTMLCollection): Element[] {
@@ -725,9 +777,13 @@ export class SouSchemaComponent implements OnChanges {
         return arrow;
     }
 
-    // Проверяет, является ли элемент 4 типом
-    private isElemOfFourthType(element: Element): boolean {
-        return element?.id?.includes('-4_');
+    // Нужно ли этому элементу выравнивание текста по центру
+    private doesElemNeedTextAnchor(element: Element): boolean {
+        const elementId = element?.id;
+        return (
+            elementId?.includes('-4_')
+            || elementId?.includes('-13_')
+        );
     }
 
     // Добавляет список классов элементу
@@ -764,7 +820,7 @@ export class SouSchemaComponent implements OnChanges {
         return element?.classList?.contains(className);
     }
 
-    // Присв
+    // Заполнение tspan элемента текстом
     private setTspanText(element: Element, text: string): void {
         if (element) {
             this.renderer.setProperty(element, 'innerHTML', text);
