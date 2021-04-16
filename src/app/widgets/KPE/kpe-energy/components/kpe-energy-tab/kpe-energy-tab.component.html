@@ -36,13 +36,13 @@
       </div>
       <div class="values">
         <span class="main__stats__fact">
-          {{(comparator.isEngUnitsPercent(data.title) ? data.percentage : data.fact) | number : '1.0-2'}}
+          {{(comparator.isEngUnitsPercent(data?.title) ? data?.percentage : data?.fact) | number : '1.0-2'}}
         </span>
         <span class="main__stats__deviation">
-          ∆ {{(comparator.isEngUnitsPercent(data.title) ? data.deviationPercentage : deviationValue) | number : '1.0-2'}}
+          ∆ {{(comparator.isEngUnitsPercent(data?.title) ? data?.deviationPercentage : deviationValue) | number : '1.0-2'}}
         </span>
         <span class="main__stats__plan">
-          {{(comparator.isEngUnitsPercent(data.title) ? 100 : data.plan) | number : '1.0-2'}}
+          {{(comparator.isEngUnitsPercent(data?.title) ? 100 : data?.plan) | number : '1.0-2'}}
         </span>
       </div>
     </div>
