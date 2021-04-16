@@ -103,7 +103,12 @@ export class SouSchemaComponent implements OnChanges {
                 case 'Коллектор Рефлюкса':
                     return 'collector-ref';
                 case 'КПА С100':
-                    return 'kpa-c100';
+                    if (this.sectionName === 'КПА С100') {
+                        return 'kpa-c100';
+                    } else if (this.sectionName === 'Сырье с100') {
+                        return 'trx-tit-204';
+                    }
+                    break;
                 case 'Л-35/11-1000':
                     return 'l-35-11-1000';
                 case 'Изомалк-2':
@@ -113,8 +118,6 @@ export class SouSchemaComponent implements OnChanges {
                         return 'raw-materials-park-4022';
                     }
                     break;
-                case 'ТРХ Тит.204':
-                    return 'trx-tit-204';
             }
         }
 
