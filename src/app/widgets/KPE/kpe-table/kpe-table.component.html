@@ -5,10 +5,10 @@
         <div
           class="tabs__item"
           [class.tabs__item_active]="currentTab === i"
-          *ngFor="let tab of tabsList$ | async; let i = index"
+          *ngFor="let tab of data.allTabs; let i = index"
           (click)="changeTab(i)"
         >
-          {{tab?.name === 'Вкладка 1' ? 'Загрузка установок' : 'Выработка компонентов'}}
+          {{ tab?.name }}
         </div>
       </div>
 
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
   </evj-contemporary-widget-header>
   <div class="component" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container style="height: 100%"
