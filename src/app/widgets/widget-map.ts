@@ -1277,6 +1277,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
 
+    'sou-main-screen-ud': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-traffic-tracking/sou-traffic-tracking.module');
+        },
+        module: 'SouTrafficTrackingModule',
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
+        preview: 'sou-main-screen-ud',
+    },
+
     // #endregion SOU
 
     //#region ASTUE-MNPZ
