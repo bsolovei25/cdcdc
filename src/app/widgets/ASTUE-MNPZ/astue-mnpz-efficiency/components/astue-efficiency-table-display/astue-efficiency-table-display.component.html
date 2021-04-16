@@ -11,12 +11,12 @@
     </div>
   </div>
   <div class="table-display__container">
-    <div class="table-display__table table" *ngIf="!!dates?.length || !!displayData?.length; else nodata">
+    <div class="table-display__table table" *ngIf="!!dates?.length || !!displayDataComponent?.length; else nodata">
       <div class="table-header">
         <div class="table-header__item">{{ isInitialDataShow ? 'Наименование' : 'Показатели' }}</div>
         <div class="table-header__item">Итого</div>
         <div class="table-header__item" *ngFor="let value of dates">
-          {{ currentDate ? (value.date | date:'dd.MM.yyyy hh:MM') : (value.date | date:'dd.MM') }}
+          {{ currentDate ? (value.date | date:'dd.MM.yyyy HH:mm') : (value.date | date:'dd.mm') }}
         </div>
       </div>
 
