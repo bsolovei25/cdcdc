@@ -1,21 +1,21 @@
-<div class="title">
+<div class="title" *ngIf="enableTitles">
   <span>Выбранные позиции:</span>
 </div>
 <div class="chips">
-  <ng-container
-    *ngFor="let card of ['K_DBL_TI796', 'K_DBL_FI43A', 'K_DBL_LSA1464', 'K_DBL_FRSA42B', 'K_DBL_P1_1_BL6']">
-    <div class="chip planned">
-      <span>{{ card }}</span>
+  <ng-container *ngFor="let chip of chips">
+    <div class="chip planned" [attr.id]="chip.name" (click)="chipClick(chip)">
+      <span>{{ chip.name }}</span>
       <svg-icon
+        *ngIf="enableControls"
         class="icon"
         src="assets/icons/widgets/workspace/cmid/chips-close.svg"
       ></svg-icon>
     </div>
   </ng-container>
-  <!--<div class="add-chip">
+  <!--<div class="add-chip" *ngIf="enableControls">
     <svg-icon class="add-chip" src="assets/icons/widgets/workspace/cmid/chips-add.svg"></svg-icon>
   </div>-->
-  <div class="counter">
+  <div class="counter" *ngIf="enableTitles">
     <span><span class="selected">5</span> / 602</span>
   </div>
 </div>

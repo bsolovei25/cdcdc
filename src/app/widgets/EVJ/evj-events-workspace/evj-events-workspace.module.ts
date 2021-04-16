@@ -17,10 +17,13 @@ import { EvjEventsWorkspaceButtonComponent } from './components/evj-events-works
 import { EvjFileAttachMenuComponent } from './components/evj-file-attach-menu/evj-file-attach-menu.component';
 import { EvjUsualEventComponent } from './evj-usual-event/evj-usual-event.component';
 import { EvjCmidEventComponent } from './evj-cmid-event/evj-cmid-event.component';
+import { EvjCmidEventEditFormComponent } from './evj-cmid-event/components/evj-cmid-event-edit-form/evj-cmid-event-edit-form.component';
+import { EvjCmidEventViewFormComponent } from './evj-cmid-event/components/evj-cmid-event-view-form/evj-cmid-event-view-form.component';
 import { EvjCmidEventToggleComponent } from './evj-cmid-event/components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 import { EvjCmidDatetimepickerComponent } from './evj-cmid-event/components/evj-cmid-datetimepicker/evj-cmid-datetimepicker.component';
 import { EvjCmidEventPlanTableComponent } from './evj-cmid-event/components/evj-cmid-event-plan-table/evj-cmid-event-plan-table.component';
 import { EvjCmidEventChipsComponent } from './evj-cmid-event/components/evj-cmid-event-chips/evj-cmid-event-chips.component';
+import { EvjCmidEventChipPopoverComponent } from './evj-cmid-event/components/evj-cmid-event-chips/components/evj-cmid-event-chip-popover/evj-cmid-event-chip-popover.component';
 import { EvjEventDropdownComponent } from './components/evj-event-dropdown/evj-event-dropdown.component';
 import { EvjCmidEventFileDropzoneComponent } from './evj-cmid-event/components/evj-cmid-event-file-dropzone/evj-cmid-event-file-dropzone.component';
 import { EvjSmpoEventComponent } from './evj-smpo-event/evj-smpo-event.component';
@@ -65,10 +68,13 @@ import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-s
         EvjEventsWorkspaceComponent,
         EvjUsualEventComponent,
         EvjCmidEventComponent,
+        EvjCmidEventEditFormComponent,
+        EvjCmidEventViewFormComponent,
         EvjCmidEventToggleComponent,
         EvjCmidDatetimepickerComponent,
         EvjCmidEventPlanTableComponent,
         EvjCmidEventChipsComponent,
+        EvjCmidEventChipPopoverComponent,
         EvjEventDropdownComponent,
         EvjCmidEventFileDropzoneComponent,
         EvjSmpoEventComponent,
