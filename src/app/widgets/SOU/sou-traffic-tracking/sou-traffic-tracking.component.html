@@ -1,0 +1,37 @@
+<div class="widget-container">
+  <evj-widget-header-smp
+    *ngIf="isHover"
+    [uniqId]="uniqId"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+  ></evj-widget-header-smp>
+
+  <div>
+    <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="drop" type="astue">
+      <div
+        class="header"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="buttons-select">
+          <div
+            *ngFor="let button of buttons"
+            class="buttons-select__item"
+            [class.active]="button.id === selectedButtonId"
+            (click)="selectButton(button.id)"
+          >{{ button.text }}</div>
+        </div>
+      </div>
+    </evj-contemporary-widget-header>
+  </div>
+
+  <div
+    class="container"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <img [src]="'assets/icons/widgets/SOU/sou-traffic-tracking/' + selectedButtonId + '.png'"/>
+  </div>
+</div>
