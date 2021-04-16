@@ -76,7 +76,7 @@ export class EvjCmidEventChipsComponent implements OnInit {
     }
 
     private openPopover(origin: HTMLElement, chip: ICmidEventChip): void {
-        const popoverRef = this.popoverOverlayService.open<ICmidEventChip>({
+        const popoverRef = this.popoverOverlayService.open({
             content: EvjCmidEventChipPopoverComponent,
             origin,
             data: chip,
