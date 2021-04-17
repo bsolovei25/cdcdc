@@ -1,3 +1,17 @@
+# [1.17.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.16.0...v1.17.0) (2021-04-17)
+
+
+### Bug Fixes
+
+* **#1445:** Исправления отображения Изомалк-2 Печи факел ([2374808](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/237480823ec3b9bb25e2232105a11c2ef7c84440)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1553:** Размещение трх 204 ([f6c2010](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f6c20100a467107884f2a05176ee6ccc1f7c397f)), closes [#1553](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1553)
+
+
+### Features
+
+* **#1643:** Добавлено демо для СОУ учета движения ([d583c03](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d583c03df2ad34b6bb43af054e99e5bbba84cf48)), closes [#1643](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1643)
+* **front#1573:** "ЦМИД. Верстка состояния просмотра карточки КД ПАЗ" ([9622992](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9622992855b293b9adee1a145520c8f51b124edb)), closes [front#1573](https://gitlab.funcoff.club/front/issues/1573)
+
 # [1.16.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.15.0...v1.16.0) (2021-04-15)
 
 
