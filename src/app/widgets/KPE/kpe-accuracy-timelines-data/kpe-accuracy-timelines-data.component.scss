@@ -96,12 +96,12 @@
       font-size: 21px;
       line-height: 36px;
 
-      color: var(--color-kpe-white);
+      color: var(--text-contrast-color);
 
       .unit {
         font-size: 13px;
         line-height: 16px;
-        color: var(--color-kpe-text-sub);
+        color: var(--text-subscript-color);
       }
     }
   }
@@ -128,7 +128,7 @@
     padding: 0 8px;
     border-radius: 2px;
 
-    color: var(--color-kpe-gaude-active);
+    color: var(--index-plan-color);
     background-color: var(--color-aps-bg-active-col);
 
     display: flex;
