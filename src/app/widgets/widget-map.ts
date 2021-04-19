@@ -418,7 +418,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'kpe-execution-production-program',
     },
-    'kpe-charts-analytic': {
+    'kpe-monitoring': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module');
         },
