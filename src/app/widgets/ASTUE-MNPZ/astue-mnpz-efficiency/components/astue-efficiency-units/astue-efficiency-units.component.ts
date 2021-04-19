@@ -6,7 +6,7 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-astue-efficiency-units',
     templateUrl: './astue-efficiency-units.component.html',
-    styleUrls: ['./astue-efficiency-units.component.scss'],
+    styleUrls: ['./astue-efficiency-units.component.scss']
 })
 export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public isInitialDataShow: boolean = true;
@@ -16,7 +16,8 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
     public unitSelection: SelectionModel<string> = new SelectionModel<string>(true);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(private AsEfService: AstueEfficiencyService) {
+    }
 
     public ngOnChanges(): void {
         this.unitSelection.clear();
@@ -31,12 +32,19 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
                 flows = flows?.map((flowsS) => (flow?.id === flowsS?.id ? flow : flowsS));
             });
         });
+        let units = this.AsEfService.selectionUnit$.getValue();
+        this.units?.forEach((unit) => {
+            units = units?.map((unitLoc) => (unitLoc.id === unit.id ? unit : unitLoc));
+        });
         if (flows) {
             this.AsEfService.cardSelection.clear();
             this.AsEfService.cardSelection.select(...flows);
             this.cardSelection = this.AsEfService.cardSelection;
             this.AsEfService.selectionFlow$.next(flows);
             // this.AsEfService.selection$.next();
+        }
+        if (units) {
+            this.AsEfService.selectionUnit$.next(units);
         }
     }
 
@@ -55,7 +63,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         }
         const idx = units.findIndex((value) => value.id === unit.id);
         if (idx > -1) {
-            units.splice(idx, 1)
+            units.splice(idx, 1);
         } else {
             units.push(unit);
         }
@@ -79,7 +87,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         }
         const idx = units.findIndex((value) => value.id === unit.id);
         if (idx > -1) {
-            units.splice(idx, 1)
+            units.splice(idx, 1);
         } else {
             units.push(unit);
         }
