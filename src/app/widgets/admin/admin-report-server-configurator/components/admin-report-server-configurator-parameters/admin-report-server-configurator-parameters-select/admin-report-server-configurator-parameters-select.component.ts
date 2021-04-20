@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ISystemOptions } from '@dashboard/models/ADMIN/report-server.model';
+import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-parameters-select',
@@ -12,14 +14,25 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
   public readonly closePopupIcon='assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
   public readonly listIcon='assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
 
-  public items: Array<number> = new Array(20);
+  public options: ISystemOptions[] = [];
 
   ngOnInit(): void {
+    this.systemOptions();
   }
   constructor(
-    public dialogRef: MatDialogRef<AdminReportServerConfiguratorParametersSelectComponent>,){}
+    public dialogRef: MatDialogRef<AdminReportServerConfiguratorParametersSelectComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ISystemOptions,
+    private arscService: AdminReportServerConfiguratorRootService
+    ){}
 
   onClose(): void {
     this.dialogRef.close();
   }
+
+  public async systemOptions(): Promise<void> {
+    const data = await this.arscService.getSystemOptions();
+    this.options = data;
+    console.log(this.options);
+  }
+  
 }

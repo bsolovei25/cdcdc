@@ -4,8 +4,10 @@
         <div class="menu__header__name">Последнее изменение</div>
     </div>
     <div class="menu__body">
-        <ng-container *ngFor="let item of [1, 1, 1]">
-            <evj-admin-report-server-configurator-file></evj-admin-report-server-configurator-file>
+        <ng-container *ngFor="let item of data?.folders">
+            <evj-admin-report-server-configurator-file
+            [item]="item"
+            ></evj-admin-report-server-configurator-file>
         </ng-container>
     </div>
 </div>

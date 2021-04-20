@@ -1,7 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AppConfigService } from "@core/service/app-config.service";
-import { IReportFile, IReportTemplate, ISystemOptions, IFolder, IFileTemplate, IPostSystemOptionsTemplate, ICustomOptionsTemplate, ICustomOptions } from "../models/admin-report-server-configurator.model";
+import {
+    IReportFile,
+    IReportTemplate,
+    ISystemOptions,
+    IFolder,
+    IFileTemplate,
+    IPostSystemOptionsTemplate,
+    ICustomOptionsTemplate,
+    ICustomOptions
+} from "../models/admin-report-server-configurator.model";
 import { IAlertWindowModel } from "@shared/models/alert-window.model";
 import { BehaviorSubject } from "rxjs";
 
@@ -10,7 +19,7 @@ import { BehaviorSubject } from "rxjs";
 })
 
 export class AdminReportServerConfiguratorRootService {
-        private restUrl: string;
+    private restUrl: string;
 
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -57,8 +66,6 @@ export class AdminReportServerConfiguratorRootService {
         ).toPromise();
     }
 
-
-
     public putReportFileTemplate(filetemplate): Promise<IReportTemplate> {
         return this.http.put<IReportTemplate>(this.restUrl + "/api/report-filetemplate", filetemplate).toPromise();
     }
@@ -79,7 +86,7 @@ export class AdminReportServerConfiguratorRootService {
         return this.http.post<any>(this.restUrl + "/api/report-folders", folder).toPromise();
     }
 
-    public putFolderTemplate(folder: {name: string, parentFolderId: number, id: number}): Promise<any> {
+    public putFolderTemplate(folder: { name: string, parentFolderId: number, id: number }): Promise<any> {
         return this.http.put<any>(this.restUrl + "/api/report-folders", folder).toPromise();
     }
 
@@ -108,4 +115,13 @@ export class AdminReportServerConfiguratorRootService {
     public postReportFileNameOptions(templateId: number, template: ICustomOptionsTemplate): Promise<void> {
         return this.http.post<void>(this.restUrl + `/api/report-template/${templateId}/filename-options`, template).toPromise();
     }
+
+    public async reportFileTemplate(): Promise<void> {
+        const data = await this.getReportFileTemplate();
+        console.log(data);
+      }
+      public async reportTemplate(): Promise<void> {
+        const data = await this.getReportTemplate();
+        console.log(data);
+      }
 }

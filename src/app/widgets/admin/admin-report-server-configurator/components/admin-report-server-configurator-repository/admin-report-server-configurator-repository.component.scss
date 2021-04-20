@@ -23,6 +23,7 @@
 
     &__body {
         flex-grow: 1;
+        min-height: 500px;
         width: 100%;
         box-shadow: inset -10px 0 10px 0 var(--gradient-main-color-1);
 
@@ -42,6 +43,7 @@
 
         &__menu {
             flex-grow: 1;
+            min-height: 400px;
             width: 100%;
         }
     }

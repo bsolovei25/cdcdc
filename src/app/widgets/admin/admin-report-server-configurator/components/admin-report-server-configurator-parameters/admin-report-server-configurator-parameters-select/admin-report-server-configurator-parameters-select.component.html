@@ -5,9 +5,9 @@
         <svg-icon class="close" src="{{closePopupIcon}}" (click)="onClose()"></svg-icon>
     </div>
     <div class="selection__body">
-        <ng-container *ngFor="let item of items">
+        <ng-container *ngFor="let item of data">
             <div class="item">
-                параметр
+                <span>{{item.name}}</span>
             </div>
         </ng-container>
     </div>
