@@ -14,9 +14,9 @@ import {
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { GridsterConfig, GridsterItem, GridType, GridsterItemComponent } from 'angular-gridster2';
 import { WorkflowService } from 'src/app/dashboard/services/widgets/admin-panel/workflow.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { IAlertInputModel } from '@shared/models/alert-input.model';
+import { IAlertInputModel } from '@shared/interfaces/alert-input.model';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';

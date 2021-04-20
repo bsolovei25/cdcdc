@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IInputOptions } from '../../models/input.model';
+import { IInputOptions } from '../../interfaces/input.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { IAlertPasswordModel } from '../../models/alert-password.model';
+import { IAlertPasswordModel } from '../../interfaces/alert-password.model';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '../../../@core/service/auth.service';
 
@@ -125,12 +125,12 @@ export class AlertPasswordComponent implements OnInit {
         return ctrl.invalid && ctrl.touched ? 'input__block_invalid' : ctrl.dirty ? 'input__block_dirty' : '';
     }
 
-   checkPasswords(group: FormGroup) {
-    let pass: string = group.controls.password.value;
-    let confirmPass: string = group.controls.confirmPassword.value;
+    checkPasswords(group: FormGroup) {
+        let pass: string = group.controls.password.value;
+        let confirmPass: string = group.controls.confirmPassword.value;
 
-    return pass === confirmPass ? null : { notSame: true }
-  }
+        return pass === confirmPass ? null : { notSame: true };
+    }
 
     public onClickBack(): void {
         this.formGroup.reset();

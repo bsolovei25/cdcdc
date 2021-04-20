@@ -5,7 +5,7 @@ import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import {
     AstueOnpzConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
@@ -125,9 +125,19 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         }
         const ref = await this.astueOnpzConventionalFuelService.getSelectionReferences(widgetId);
 
-        const manufactureId = ref?.manufacturies.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture)?.id
-        const unitId = ref?.units.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit && item.parentId === manufactureId)?.id
-        const resId = ref?.energyResources.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource && item.parentId === unitId)?.id
+        const manufactureId = ref?.manufacturies.find(
+            (item) => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture
+        )?.id;
+        const unitId = ref?.units.find(
+            (item) =>
+                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit &&
+                item.parentId === manufactureId
+        )?.id;
+        const resId = ref?.energyResources.find(
+            (item) =>
+                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource &&
+                item.parentId === unitId
+        )?.id;
 
         this.selectionForm.get('manufacture').setValue(this.selectionForm.value.manufacture ?? manufactureId);
         this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);

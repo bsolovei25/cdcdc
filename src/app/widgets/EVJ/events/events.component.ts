@@ -17,7 +17,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
 import { ClaimService, EnumClaimGlobal, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
@@ -236,7 +236,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
-        wasted: 'Отработано'
+        wasted: 'Отработано',
     };
 
     public isCDEvents: boolean = false;
@@ -730,7 +730,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                     switch (f.code) {
                         case 'all':
                             f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3001).count;
-                            f.notificationsCount += this.isEDEvents ? 0 : stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
+                            f.notificationsCount += this.isEDEvents
+                                ? 0
+                                : stats.statsByStatus.find((sf) => sf.status.id === 3002).count;
                             break;
                         case 'closed':
                             f.notificationsCount = stats.statsByStatus.find((sf) => sf.status.id === 3003).count;

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
-import { WidgetService } from '../../../../../dashboard/services/widget.service';
+import { ChannelPlatform } from '@dashboard/models/@PLATFORM/channel-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 import { AstueOnpzService, IAstueOnpzPredictor } from '../../../astue-onpz-shared/astue-onpz.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IPredictors, IPredictorsGroup } from '../../astue-onpz-predictors.component';
 import { BehaviorSubject } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PREDICTORS_DATA, PREDICTORS_GROUP_DATA } from '@widgets/ASTUE-ONPZ/astue-onpz-predictors/components/mock';
+import { PREDICTORS_GROUP_DATA } from '@widgets/ASTUE-ONPZ/astue-onpz-predictors/components/mock';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 

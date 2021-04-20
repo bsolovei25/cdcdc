@@ -1,4 +1,4 @@
-import { IChartMini } from '../models/smart-scroll.model';
+import { IChartMini } from '../interfaces/smart-scroll.model';
 import { IDatesInterval } from '../../dashboard/services/widget.service';
 
 export function setLimits(data: IChartMini[], limits: IDatesInterval): IChartMini[] {

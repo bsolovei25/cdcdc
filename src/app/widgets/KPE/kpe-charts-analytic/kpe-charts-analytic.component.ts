@@ -3,16 +3,14 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import {
-    IKpeChartsAnalyticSharedStates,
-} from '../../../dashboard/models/KPE/kpe-charts-analytic.model';
+import { IKpeChartsAnalyticSharedStates } from '../../../dashboard/models/KPE/kpe-charts-analytic.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { KpeChartsAnalyticService } from '../../../dashboard/services/widgets/KPE/kpe-charts-analytic.service';
-import { animate, state, style, transition, trigger } from "@angular/animations";
-import { KpeEqualizerChartComponent } from "../shared/kpe-equalizer-chart/kpe-equalizer-chart.component";
-import { KpeChartsAnalyticMainChartComponent } from "./components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component";
-import { IChartMini } from "@shared/models/smart-scroll.model";
-import { HttpClient } from "@angular/common/http";
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { KpeEqualizerChartComponent } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
+import { KpeChartsAnalyticMainChartComponent } from './components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
+import { HttpClient } from '@angular/common/http';
 
 type ChartType = 'limited-line-chart' | 'line-chart' | 'bar-chart-1' | 'bar-chart-2';
 
@@ -86,7 +84,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
             type: 'bar-chart-2',
             name: 'Столбчатый график 2',
         },
-    ]
+    ];
 
     public timePeriodOptions: { type: TimePeriod; name: string }[] = [
         {
@@ -105,7 +103,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
             type: 'year',
             name: 'Год',
         },
-    ]
+    ];
 
     public selectedChartType$: BehaviorSubject<ChartType> = new BehaviorSubject<ChartType>('limited-line-chart');
     private sharedStates$: Observable<IKpeChartsAnalyticSharedStates> = this.sharedStates.valueChanges.pipe(
@@ -120,7 +118,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private cdref: ChangeDetectorRef,
-        private http: HttpClient,
+        private http: HttpClient
     ) {
         super(widgetService, id, uniqId);
         this.entryStates.get('chartType').setValue('limited-line-chart');
@@ -144,7 +142,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
                 } else {
                     this.chartsAnalyticService.setSync(this.uniqId, {
                         fromDateTime: x[0].dateStart,
-                        toDateTime: x[0].dateEnd
+                        toDateTime: x[0].dateEnd,
                     });
                 }
             }),
@@ -161,7 +159,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
                     this.isDateRangePickerEnabled = true;
                 }
             }),
-            this.entryStates.get('chartType').valueChanges.subscribe(value => {
+            this.entryStates.get('chartType').valueChanges.subscribe((value) => {
                 this.selectedChartType$.next(value);
             }),
             this.widgetService.currentDates$.subscribe((ref) => {
@@ -180,7 +178,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
                     this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
                 }
                 this.setDates();
-            }),
+            })
         );
     }
 

@@ -1,5 +1,5 @@
-import { IChartMini } from '@shared/models/smart-scroll.model';
-import { ChartStyleType } from '@shared/models/line-chart-style.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
+import { ChartStyleType } from '@shared/interfaces/line-chart-style.model';
 
 export interface IProductionTrend {
     graphType: ProductionTrendType;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IAlertInputModel } from '../../models/alert-input.model';
+import { IAlertInputModel } from '../../interfaces/alert-input.model';
 
 @Component({
     selector: 'evj-alert-input',

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
-import { IApsWidgetHeaderMenu, ApsHeaderIconType } from '../../models/aps-widget-header.model';
+import { IApsWidgetHeaderMenu, ApsHeaderIconType } from '../../interfaces/aps-widget-header.model';
 import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
 import { Subscription } from 'rxjs';
 

@@ -6,7 +6,8 @@ import {
     HostListener,
     Input,
     Renderer2,
-    ElementRef, ChangeDetectorRef
+    ElementRef,
+    ChangeDetectorRef,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -20,7 +21,7 @@ import {
     IEventsWidgetNotification,
     IStatus,
 } from '../../../dashboard/models/EVJ/events-widget';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events-workspace-restrictions/evj-events-workspace-restrictions.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
@@ -63,7 +64,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private hostElement: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         super(widgetService, id, uniqId);
         this.widgetIcon = 'document';

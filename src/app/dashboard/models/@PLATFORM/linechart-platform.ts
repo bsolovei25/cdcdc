@@ -3,7 +3,7 @@ import { filter, map } from 'rxjs/operators';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { IProductionTrend } from '../LCO/production-trends.model';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 
 export type SmartGraphType = 'realtime' | 'rest';
 

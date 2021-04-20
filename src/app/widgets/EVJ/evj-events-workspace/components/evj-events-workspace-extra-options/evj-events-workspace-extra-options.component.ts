@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnDestroy, OnChanges } 
 import { IExtraOptionsWindow, IKpeAdditionalParameter } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import {
     IKpeAllDependentParameters,
@@ -11,7 +11,7 @@ import {
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { IMessage } from '@shared/models/message.model';
+import { IMessage } from '@shared/interfaces/message.model';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({

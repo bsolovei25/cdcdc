@@ -5,7 +5,7 @@ import { IProductionTrend } from '../../../../../dashboard/models/LCO/production
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { fillDataShape } from '@shared/functions/common-functions';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',

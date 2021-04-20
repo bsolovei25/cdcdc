@@ -5,8 +5,8 @@ import { IScreenSettings } from '../../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../../services/claim.service';
 import { OverlayService } from '../../../services/overlay.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { IInputOptions } from '@shared/models/input.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
+import { IInputOptions } from '@shared/interfaces/input.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
