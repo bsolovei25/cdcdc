@@ -2,9 +2,28 @@
   height: 100%;
   width: 100%;
 }
-
+.smpo-card {
+  ::ng-deep {
+    .event-mat-select {
+      height: 32px !important;
+    }
+    .default {
+      background-color: var(--bg-dashboard-color) !important;
+    }
+    .description {
+      height: 196px !important;
+      background-color: var(--bg-dashboard-color) !important;
+      .description__content {
+        background-color: var(--bg-dashboard-color) !important;
+      }
+    }
+    .default-chat {
+      background-color: var(--bg-dashboard-color) !important;
+    }
+  }
+}
 .event-card {
-  height: 100%;
+  min-height: 100%;
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
@@ -185,6 +204,7 @@
   }
 }
 
+
 .select-container {
   flex-grow: 1;
   width: 100%;
@@ -205,14 +225,6 @@
   line-height: 24px;
 }
 
-::ng-deep {
-  .event-mat-select {
-    height: 32px !important;
-  }
-  .default {
-    background-color: var(--bg-dashboard-color) !important;
-  }
-}
 .control-group-size {
   &-1 {
     flex-grow: 2;

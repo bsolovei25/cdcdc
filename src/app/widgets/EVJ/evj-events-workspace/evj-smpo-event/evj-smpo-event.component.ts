@@ -1,17 +1,13 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
-import { BehaviorSubject } from "rxjs";
 import { EvjEventsSmpoReasonsMenuComponent } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
 import { EvjEventsSmpoCorrectMenuComponent } from '../components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { IMenuItem } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, take } from "rxjs/operators";
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
-import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
-
-const STATUSES = ['Новое', 'В работе'];
-const SUBCATEGORIES = ['СМПО'];
+import { EventService } from "@dashboard/services/widgets/EVJ/event.service";
 
 @Component({
     selector: 'evj-smpo-event',
@@ -21,13 +17,6 @@ const SUBCATEGORIES = ['СМПО'];
 export class EvjSmpoEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
-
-    public subCategories$: BehaviorSubject<string[]> = new BehaviorSubject(SUBCATEGORIES);
-    public statuses$: BehaviorSubject<string[]> = new BehaviorSubject(STATUSES);
-
-    // public startData: Date | null = new Date();
-    // public endData: Date | null = new Date();
-
     public dateNow: Date = new Date();
 
     public reasons: IMenuItem[] = [];
@@ -46,7 +35,6 @@ export class EvjSmpoEventComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        // TODO Проинитить данные причин и эвентов?
         this.getReasonsList();
         this.getEventsList();
         this.getPhasesList();
@@ -79,11 +67,13 @@ export class EvjSmpoEventComponent implements OnInit {
     public removeEvent(event: IMenuItem): void {
         this.events = this.events.filter((currentEvent) => currentEvent.id !== event.id);
         this.getEventsList();
+        this.ewService.event.events = this.events;
     }
 
     public removeReason(reason: IMenuItem): void {
         this.reasons = this.reasons.filter((currentReason) => currentReason.id !== reason.id);
         this.getReasonsList();
+        this.ewService.event.reasons = this.reasons;
     }
 
     public phasesList$(): Observable<string[]> {
@@ -133,6 +123,7 @@ export class EvjSmpoEventComponent implements OnInit {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.reasons = res?.data;
+                this.ewService.event.reasons = this.reasons;
             }
         });
     }
@@ -155,6 +146,7 @@ export class EvjSmpoEventComponent implements OnInit {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.events = res?.data;
+                this.ewService.event.events = this.events;
             }
         });
     }
