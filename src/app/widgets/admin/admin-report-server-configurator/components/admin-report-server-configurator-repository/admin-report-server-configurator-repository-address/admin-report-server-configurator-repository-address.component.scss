@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+.address {
+    height: 32px;
+    width: 120px;
+    background-color: var(--gray-G10-color);
+    border-radius: 2px;
+    color: var(--text-contrast-color);
+
+    font-family: 'Tahoma';
+    font-style: normal;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

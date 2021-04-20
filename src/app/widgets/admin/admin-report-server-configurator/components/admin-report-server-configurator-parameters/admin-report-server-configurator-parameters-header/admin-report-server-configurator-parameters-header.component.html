@@ -1,0 +1,23 @@
+<div class="settings">
+    <div class="settings__switch">
+        <div class="case"
+        [ngClass]="{'clicked': parameters === 1}"
+        (click)="openParameters()"
+        >Параметры</div>
+        <div class="case"
+        [ngClass]="{'clicked': parameters === 2}"
+        (click)="openAccessLevel()"
+        >Уровень доступа</div>
+    </div>
+    <div class="settings__buttons">
+        <evj-simple-button class="button" (click)="openSelect()">
+            Изменить параметры
+        </evj-simple-button>
+        <evj-simple-button class="button">
+            Сохранить
+        </evj-simple-button>
+        <evj-simple-button class="button">
+            Отменить
+        </evj-simple-button>
+    </div>
+</div>
