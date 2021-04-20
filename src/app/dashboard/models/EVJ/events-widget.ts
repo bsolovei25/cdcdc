@@ -86,6 +86,15 @@ export interface IEventsWidgetNotification {
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
+    isImportance?: boolean;
+    isCritical?: boolean;
+    isNotNeedActivity?: boolean;
+    productGroup?: string;
+    activePhase?: string;
+    product?: string;
+    secondDeviation?: string;
+    reasons?: IReason[];
+    events?: ICorrect[];
 }
 
 export interface IEventsEjs {
