@@ -70,7 +70,7 @@
 
             <evj-kpe-gauge-chart-multi-color
               *ngIf="displayNewDesign"
-              [type]="1"
+              [type]="2"
             ></evj-kpe-gauge-chart-multi-color>
           </div>
           <div class="quality__header__chart">
@@ -124,12 +124,9 @@
                 </div>
                 <evj-kpe-universal-card
                   *ngIf="displayNewDesign"
-                  [type]="1"
-                  [gaugeChart]="{
-                    fact: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact,
-                    plan:engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? 100 : card.gaugeChart?.plan,
-                    deviation: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.deviationPercentage : card.gaugeChart?.deviation
-                  }"
+                  [type]="2"
+                  [gaugeChart]="card.gaugeChart"
+                  [contentData]="getContentData(card.gaugeChart, card.description)"
                 ></evj-kpe-universal-card>
               </ng-container>
             </div>

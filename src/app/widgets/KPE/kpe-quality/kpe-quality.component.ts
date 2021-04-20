@@ -8,7 +8,7 @@ import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-cha
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
-import { SortTypeEvents } from "../../../dashboard/models/EVJ/events-widget";
+import {IKpeUniversalCardLineChart} from "@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component";
 
 type DisplayModeType = 'tiled' | 'line' | 'planFeasibility';
 
@@ -146,5 +146,21 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
             return [];
         }
         return this.kpeHelperService.prepareKpeLineChartData(data);
+    }
+
+    public getContentData(card: IKpeGaugeChartData, description: string): IKpeUniversalCardLineChart {
+        return {
+            name: card.title,
+            title: description,
+            percent: card.percentage,
+            percentStatus: 'default',
+            deviationPlanPredict: card.plan,
+            deviationPlanPredictFact: card.fact,
+            fact: card.fact,
+            percentageInfluence: card.percentage,
+            plan: card.plan,
+            planPredict: card.plan,
+            predict: card.plan,
+        }
     }
 }
