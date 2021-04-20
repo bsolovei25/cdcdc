@@ -5,8 +5,10 @@ import { KpeGaugeChartMultiColor } from '../../../shared/kpe-gauge-chart-multi-c
 
 export interface IKpeGaugeChartPage {
     name: string;
+    title?: string;
     value: number;
     deviation: number;
+    debalancePercent: number;
     dailyStatus: IKpeUniversalCardMonthData[];
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
@@ -14,6 +16,7 @@ export interface IKpeGaugeChartPage {
     fact?: number;
     plan?: number;
     unit?: string;
+    type?: string;
     isUnitPercent?: boolean;
 }
 

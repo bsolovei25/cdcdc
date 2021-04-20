@@ -91,6 +91,10 @@ export class KpeUniversalCardComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
+        if (this.gaugeChart) {
+            this.gaugeChart.name = this.gaugeChart.title;
+        }
+
         if (this.contentData) {
             if (this.contentData.fact - this.contentData.planPredict < 0) {
                 this.contentData.percentStatus = 'warning';

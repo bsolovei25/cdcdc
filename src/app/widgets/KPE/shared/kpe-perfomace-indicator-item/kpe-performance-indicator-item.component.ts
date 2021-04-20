@@ -95,12 +95,6 @@ export class KpePerformanceIndicatorItemComponent implements OnInit, OnChanges {
     private prepareData(): void {
         if (!this.data) { return; }
         this.internalData = {...this.data};
-        // Ограничиваем значения 0 и 100
-        this.internalData.bounds = this.internalData.bounds.map(item => item > 100 ? 100 : item < 0 ? 0 : item);
-        // Если обратное заполнение, то "зеркалим" массив
-        if (this.internalData.zeroOn === 'Right') {
-            this.internalData.bounds = this.internalData.bounds.map(item => 100 - item);
-        }
     }
 
     private fillDayStatuses(): void {

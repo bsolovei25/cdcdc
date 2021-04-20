@@ -32,6 +32,7 @@
         </evj-kpe-gauge-chart>
         <evj-kpe-gauge-chart-multi-color
           [type]="1"
+          [data]="data.diagram"
           *ngIf="displayNewDesign"
         ></evj-kpe-gauge-chart-multi-color>
       </div>
@@ -60,11 +61,8 @@
         <evj-kpe-universal-card
           *ngFor="let tab of data?.tabs"
           type="2"
-          [gaugeChart]="{
-            fact: data?.diagram?.fact,
-            plan: data?.diagram?.plan,
-            deviation: data?.diagram?.deviation
-          }"
+          [gaugeChart]="tab"
+          [contentData]="getContentData(tab)"
         ></evj-kpe-universal-card
       ></ng-container>
     </div>

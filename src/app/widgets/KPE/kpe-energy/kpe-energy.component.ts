@@ -8,11 +8,13 @@ import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.mode
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
+import {IKpeGaugeChartPage} from "@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
+import {IKpeUniversalCardLineChart} from "@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component";
 
 export interface IKpeEnergy {
     tabs: IKpeEnergyTab[] | null;
     chart: IKpeLineChartData[] | null;
-    diagram: IKpeGaugeChartData | null;
+    diagram: IKpeGaugeChartData | IKpeGaugeChartPage | null;
     displayMode: 'tiled' | 'line';
 }
 
@@ -55,6 +57,7 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
 
     protected dataHandler(ref: IKpeEnergy): void {
         this.data = ref;
+
         this.data.tabs.forEach((x) => (x.deviationPercentage = 100 - x.percentage));
         this.displayMode = ref.displayMode;
         if (this.kpeHelperService.compare<IKpeEnergyTab>(this.data.tabs, ref.tabs)) {
@@ -83,5 +86,41 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
         }
         const height = this.gaugeElement.nativeElement.offsetHeight;
         return `min-width: ${height}px`;
+    }
+
+    private getNameTab(key: string): string {
+        switch (key) {
+            case 'warm': {
+                return 'Тепловая энергия';
+            }
+            case 'water': {
+                return 'Обороная вода';
+            }
+            case 'steam': {
+                return 'Производство пара';
+            }
+            case 'fuel': {
+                return 'Топливо';
+            }
+            case '': {
+                return 'Электроэнергия';
+            }
+        }
+    }
+
+    public getContentData(tab: IKpeEnergyTab): IKpeUniversalCardLineChart {
+        return {
+            name: this.getNameTab(tab.type),
+            title: this.getNameTab(tab.type),
+            percent: tab.percentage,
+            percentStatus: 'default',
+            deviationPlanPredict: tab.plan,
+            deviationPlanPredictFact: tab.fact,
+            fact: tab.fact,
+            percentageInfluence: tab.percentage,
+            plan: tab.plan,
+            planPredict: tab.plan,
+            predict: tab.plan,
+        }
     }
 }
