@@ -21,6 +21,7 @@ export interface IReportTemplate {
     description: string;
     fileId: string;
     fileTemplate?: IReportFile;
+    folderId: number;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
     periodType?: 'year' | 'month' | 'day' | 'timePeriod' | 'datePeriod' | 'exactTime' | 'none';

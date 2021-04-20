@@ -115,13 +115,4 @@ export class AdminReportServerConfiguratorRootService {
     public postReportFileNameOptions(templateId: number, template: ICustomOptionsTemplate): Promise<void> {
         return this.http.post<void>(this.restUrl + `/api/report-template/${templateId}/filename-options`, template).toPromise();
     }
-
-    public async reportFileTemplate(): Promise<void> {
-        const data = await this.getReportFileTemplate();
-        console.log(data);
-      }
-      public async reportTemplate(): Promise<void> {
-        const data = await this.getReportTemplate();
-        console.log(data);
-      }
 }

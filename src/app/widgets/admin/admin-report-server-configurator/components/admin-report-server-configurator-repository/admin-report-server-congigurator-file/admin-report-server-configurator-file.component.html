@@ -1,23 +1,50 @@
-<div class="item">
-    <div class="item__half">
-        <svg-icon class="type" src="{{folderIcon}}"></svg-icon>
-        <span>{{item.name}}</span>
-    </div>
-    <div class="item__half">
-        <div class="date">1 мар. 2021</div>
-        <div class="icons">
-            <div class="icon">
-                <svg-icon src="{{windowsIcon}}"></svg-icon>
-            </div>
-            <div class="icon">
-                <svg-icon
-                src="{{editIcon}}"
-                (click)="editFile()"
-                ></svg-icon>
-            </div>
-            <div class="icon">
-                <svg-icon src="{{trashIcon}}"></svg-icon>
+<ng-container *ngIf="item || report">
+    <div class="item">
+        <div class="item__half">
+            <svg-icon class="type" src="{{item ? folderIcon : reportIcon}}"></svg-icon>
+            <span>{{item ? item?.name : report?.name}}</span>
+        </div>
+        <div class="item__half">
+            <div class="date">{{item ? '1 мар. 2021' : report?.createdAt | date: "d MMMM y"}}</div>
+            <div class="icons">
+                <div class="icon">
+                    <svg-icon src="{{windowsIcon}}"></svg-icon>
+                </div>
+                <div class="icon">
+                    <svg-icon
+                    src="{{editIcon}}"
+                    (click)="editFile()"
+                    ></svg-icon>
+                </div>
+                <div class="icon">
+                    <svg-icon src="{{trashIcon}}"></svg-icon>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</ng-container>
+<ng-container *ngIf="childrens || templates">
+    <div class="item">
+        <div class="item__half">
+            <svg-icon class="type" src="{{childrens ? folderIcon : reportIcon}}"></svg-icon>
+            <span>{{childrens ? childrens?.name : templates?.name}}</span>
+        </div>
+        <div class="item__half">
+            <div class="date">{{childrens ? '1 мар. 2021' : report?.createdAt | date: "d MMMM y"}}</div>
+            <div class="icons">
+                <div class="icon">
+                    <svg-icon src="{{windowsIcon}}"></svg-icon>
+                </div>
+                <div class="icon">
+                    <svg-icon
+                    src="{{editIcon}}"
+                    (click)="editFile()"
+                    ></svg-icon>
+                </div>
+                <div class="icon" (click)="deleteFolder(childrens)">
+                    <svg-icon src="{{trashIcon}}"></svg-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
