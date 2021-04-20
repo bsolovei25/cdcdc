@@ -8,7 +8,7 @@
     </div>
     <evj-group-selector class="header__group-selector"></evj-group-selector>
     <evj-indicator-selector class="header__indicator-selector"></evj-indicator-selector>
-    <evj-line-datetime class="header__line-datetime"></evj-line-datetime>
+    <evj-line-datetime class="header__line-datetime" [screenWidth]="screenWidth$ | async"></evj-line-datetime>
     <evj-period-selector class="header__period-selector"></evj-period-selector>
     <evj-user-info class="header__user-info"></evj-user-info>
     <evj-indicator-diagram class="header__indicator-diagram"></evj-indicator-diagram>

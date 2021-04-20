@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, Input } from "@angular/core";
 import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -8,7 +8,7 @@ import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/E
     templateUrl: './evj-usual-event.component.html',
     styleUrls: ['./evj-usual-event.component.scss'],
 })
-export class EvjUsualEventComponent implements OnInit {
+export class EvjUsualEventComponent {
     @Input()
     public noOverflow: boolean = false;
 
@@ -20,12 +20,9 @@ export class EvjUsualEventComponent implements OnInit {
         placeholder: 'Номер позиции',
         isMovingPlaceholder: true,
     };
-
     progressLineHeight: number;
 
     constructor(public ewService: EventsWorkspaceService) {}
-
-    ngOnInit(): void {}
 
     @HostListener('document:resize', ['$event'])
     OnResize(event): void {
@@ -59,7 +56,6 @@ export class EvjUsualEventComponent implements OnInit {
     public countDifference(): Date {
         return new Date(new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate());
     }
-
     // TODO
     public progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;

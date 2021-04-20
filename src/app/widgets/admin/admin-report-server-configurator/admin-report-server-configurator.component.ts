@@ -1,7 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { AdminReportServerConfiguratorRootService } from './services/admin-report-server-configurator-root.service';
 
 @Component({
   selector: 'evj-admin-report-server-configurator',

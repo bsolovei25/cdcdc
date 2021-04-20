@@ -950,6 +950,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 } else {
                     this.comboAction = ans;
                 }
+                console.log(this.comboAction);
             }
             this.isLoading = false;
         } catch (error) {
@@ -1004,6 +1005,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
+        console.log(this.content?.nativeElement?.getBoundingClientRect()?.height);
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {

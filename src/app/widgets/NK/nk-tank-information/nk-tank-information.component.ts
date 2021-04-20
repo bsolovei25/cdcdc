@@ -1,11 +1,11 @@
-import { ITankInformation, ITankCardValue } from '../../../dashboard/models/NK/tank-information';
+import { ITankInformation, ITankCardValue } from '@dashboard/models/NK/tank-information';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetService } from '@dashboard/services/widget.service';
 import { Inject, Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 interface INkTankInformationAttributes {
     IsVideoWall: boolean;
+    FilterFrequency: number;
 }
 
 @Component({
@@ -16,6 +16,8 @@ interface INkTankInformationAttributes {
 export class NkTankInformationComponent
     extends WidgetPlatform<INkTankInformationAttributes>
     implements OnInit, OnDestroy, OnChanges {
+    private readonly defaultFilterFrequency: number = 30;
+
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
     cardsDataFiltered: ITankCardValue[] = [];
     // Карточки отфильтрованные по name
@@ -25,26 +27,10 @@ export class NkTankInformationComponent
     timer: ReturnType<typeof setTimeout>;
     count: number = 0;
 
-    getFilter(filter: string): void {
-        this.selectedFilter = filter;
-
-        this.cardsDataFiltered = [];
-
-        this.cardsData.forEach((item) => {
-            if (this.selectedFilter === 'Все резервуары') {
-                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
-            } else if (item.name === this.selectedFilter) {
-                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
-            }
-        });
-    }
-
     constructor(
         protected widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
-        private http: HttpClient
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, id, uniqId);
     }
@@ -62,7 +48,7 @@ export class NkTankInformationComponent
 
     protected dataConnect(): void {
         super.dataConnect();
-        const interval = 10000;
+        const interval = (this.attributes.FilterFrequency ?? this.defaultFilterFrequency) * 1000;
 
         if (this.attributes.IsVideoWall) {
             this.timer = setInterval(() => {
@@ -95,6 +81,20 @@ export class NkTankInformationComponent
         ref.items.forEach((item, i) => {
             if (!this.filterList.includes(item.name)) {
                 this.filterList.push(item.name);
+            }
+        });
+    }
+
+    public getFilter(filter: string): void {
+        this.selectedFilter = filter;
+
+        this.cardsDataFiltered = [];
+
+        this.cardsData.forEach((item) => {
+            if (this.selectedFilter === 'Все резервуары') {
+                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
+            } else if (item.name === this.selectedFilter) {
+                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
             }
         });
     }

@@ -17,10 +17,13 @@ import { EvjEventsWorkspaceButtonComponent } from './components/evj-events-works
 import { EvjFileAttachMenuComponent } from './components/evj-file-attach-menu/evj-file-attach-menu.component';
 import { EvjUsualEventComponent } from './evj-usual-event/evj-usual-event.component';
 import { EvjCmidEventComponent } from './evj-cmid-event/evj-cmid-event.component';
+import { EvjCmidEventEditFormComponent } from './evj-cmid-event/components/evj-cmid-event-edit-form/evj-cmid-event-edit-form.component';
+import { EvjCmidEventViewFormComponent } from './evj-cmid-event/components/evj-cmid-event-view-form/evj-cmid-event-view-form.component';
 import { EvjCmidEventToggleComponent } from './evj-cmid-event/components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 import { EvjCmidDatetimepickerComponent } from './evj-cmid-event/components/evj-cmid-datetimepicker/evj-cmid-datetimepicker.component';
 import { EvjCmidEventPlanTableComponent } from './evj-cmid-event/components/evj-cmid-event-plan-table/evj-cmid-event-plan-table.component';
 import { EvjCmidEventChipsComponent } from './evj-cmid-event/components/evj-cmid-event-chips/evj-cmid-event-chips.component';
+import { EvjCmidEventChipPopoverComponent } from './evj-cmid-event/components/evj-cmid-event-chips/components/evj-cmid-event-chip-popover/evj-cmid-event-chip-popover.component';
 import { EvjEventDropdownComponent } from './components/evj-event-dropdown/evj-event-dropdown.component';
 import { EvjCmidEventFileDropzoneComponent } from './evj-cmid-event/components/evj-cmid-event-file-dropzone/evj-cmid-event-file-dropzone.component';
 import { EvjSmpoEventComponent } from './evj-smpo-event/evj-smpo-event.component';
@@ -51,16 +54,27 @@ import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { EvjEventsSmpoReasonsComponent } from './components/evj-events-smpo-reasons/evj-events-smpo-reasons.component';
+import { EvjEventsSmpoReasonsMenuComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
+import { EvjEventsSmpoReasonItemComponent } from "./components/evj-events-smpo-reasons/evj-events-smpo-reason-item/evj-events-smpo-reason-item.component";
+import { EvjEventsSmpoReasonsMenuItemComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
+import { EvjEventsSmpoCorrectComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct.component';
+import { EvjEventsSmpoCorrectMenuComponent } from './components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
+import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct-item/evj-events-smpo-correct-item.component';
+import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
 
 @NgModule({
     declarations: [
         EvjEventsWorkspaceComponent,
         EvjUsualEventComponent,
         EvjCmidEventComponent,
+        EvjCmidEventEditFormComponent,
+        EvjCmidEventViewFormComponent,
         EvjCmidEventToggleComponent,
         EvjCmidDatetimepickerComponent,
         EvjCmidEventPlanTableComponent,
         EvjCmidEventChipsComponent,
+        EvjCmidEventChipPopoverComponent,
         EvjEventDropdownComponent,
         EvjCmidEventFileDropzoneComponent,
         EvjSmpoEventComponent,
@@ -91,7 +105,15 @@ import { NgxMaskModule } from 'ngx-mask';
         EvjEventsWorkspaceResponsibleSelectComponent,
         EvjEventsPlaceComponent,
         EvjEventsWorkspaceExtraOptionsComponent,
+        EvjEventsSmpoReasonsComponent,
+        EvjEventsSmpoReasonsMenuComponent,
+        EvjEventsSmpoReasonItemComponent,
+        EvjEventsSmpoReasonsMenuItemComponent,
+        EvjEventsSmpoCorrectComponent,
+        EvjEventsSmpoCorrectMenuComponent,
+        EvjEventsSmpoCorrectItemComponent,
         EvjEventsWorkspaceRestrictionsComponent,
+        EvjSmpoEventCriticalComponent,
     ],
     imports: [
         CommonModule,

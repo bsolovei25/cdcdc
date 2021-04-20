@@ -1,0 +1,29 @@
+.critical-button {
+  cursor: pointer;
+  border: 1px solid var(--border-vidget-color);
+  background-color: transparent;
+  height: 53px;
+  border-radius: 50%;
+  margin: 0 27px 0;
+  width: 53px;
+
+  &__icon {
+    color: #616580;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.active {
+  border: 1px solid var(--index-critical-color);
+  background-color: var(--index-critical-color);
+
+  .critical-button__icon {
+    color: var(--text-alwaysWhite-color);
+    fill: var(--text-alwaysWhite-color);
+  }
+}

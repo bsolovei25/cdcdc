@@ -11,6 +11,10 @@ export interface IKpeGaugeChartPage {
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
     zeroOn: 'Left' | 'Right';
+    fact?: number;
+    plan?: number;
+    unit?: string;
+    isUnitPercent?: boolean;
 }
 
 @Component({
@@ -43,7 +47,7 @@ export class GaugeDiagramComponent implements OnInit, OnChanges {
             this.pokeNeedle(this.convertPercentToGrad(this.percent));
             this.text.text(this.percent);
         }
-        if (this.data) {
+        if (this.data && this.g) {
             this.appendName(51, this.data.name);
         }
     }

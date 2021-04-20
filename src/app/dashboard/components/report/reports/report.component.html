@@ -164,11 +164,7 @@
       <evj-report-loading-file
         *ngFor="let file of files"
         (click)="postItem(template, file)"
-        [data]="{
-          percent: 100,
-          fileType: file,
-          weight: 12
-        }"
+        [data]="file"
       ></evj-report-loading-file>
     </div>
   </div>

@@ -3,6 +3,7 @@
   id="svg_elements"
 >
   <svg-icon
+    *ngIf="svgFileName"
     class="svg_sou"
     src="assets/img/sou/{{ svgFileName }}.svg"
     [svgStyle]="{ 'width.%': 100, 'height.%': 100 }"

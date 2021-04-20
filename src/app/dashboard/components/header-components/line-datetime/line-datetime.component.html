@@ -1,4 +1,4 @@
-<div class="block">
+<div *ngIf="(screenWidth$ | async) > 1500" class="block">
   <ng-container *ngFor="let data of dates">
     <div class="calendar-column">
       <div
@@ -24,4 +24,10 @@
       </div>
     </div>
   </ng-container>
+</div>
+<div *ngIf="(screenWidth$ | async) <= 1500" class="container">
+  <div class="shadow"></div>
+  <div class="date-container date-container__first">{{firstLineInfo}}</div>
+  <div class="date-container">{{secondLineInfo}}</div>
+  <div class="shadow"></div>
 </div>

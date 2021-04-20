@@ -5,28 +5,35 @@
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <section class="event-card__section">
-    <div class="row bottom-align">
-      <evj-event-dropdown [items]="['Производственные задания']" style="width: 281px;">Категория</evj-event-dropdown>
-      <div class="critical-button active" [class.active]="!true">
-        <svg-icon class="critical-button__icon" src="assets/icons/widgets/workspace/smpo/critical-icon.svg"
-                  *ngIf="!false"></svg-icon>
-        <svg-icon class="critical-button__icon" src="assets/icons/widgets/workspace/smpo/critical-icon-active.svg"
-                  *ngIf="!true"></svg-icon>
+    <div class="row bottom-align d-flex">
+      <div class="select-container control-group-size-1">
+        <div class="title">
+          <span>Категория</span>
+        </div>
+        <evj-events-workspace-select dataType="categories"></evj-events-workspace-select>
       </div>
-      <div class="checkbox-container">
-        <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
-        <label>Важность события</label>
-      </div>
-      <div class="checkbox-container">
-        <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
-        <label>Мероприятия не требуются</label>
+      <div class="select-container d-flex control-group-size-2">
+        <evj-smpo-event-critical></evj-smpo-event-critical>
+        <div class="checkbox-container">
+          <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
+          <label>Важность события</label>
+        </div>
+        <div class="checkbox-container">
+          <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
+          <label>Мероприятия не требуются</label>
+        </div>
       </div>
     </div>
     <div class="column">
       <div class="column__block">
         <div class="row">
-          <evj-event-dropdown [items]="['СМПО']">Подкатегория</evj-event-dropdown>
-          <evj-event-dropdown [items]="['В работе']">Статус</evj-event-dropdown>
+          <div class="select-container">
+            <div class="title">
+              <span>Подкатегория</span>
+            </div>
+            <evj-events-workspace-select dataType="subCategoriesFilter"></evj-events-workspace-select>
+          </div>
+          <evj-event-dropdown [items]="statuses$ | async">Статус</evj-event-dropdown>
         </div>
         <div class="row">
           <div class="text">
@@ -68,19 +75,12 @@
       </div>
       <div class="column__block">
         <div class="row">
-          <evj-smpo-event-datetimepicker [label]="'Дата начала'" class="dtp-container"></evj-smpo-event-datetimepicker>
+          <evj-smpo-event-datetimepicker [label]="'Дата начала'"  class="dtp-container"></evj-smpo-event-datetimepicker>
           <evj-smpo-event-datetimepicker [label]="'Дата закрытия'"
                                          class="dtp-container"></evj-smpo-event-datetimepicker>
         </div>
         <div class="row">
-          <div class="row__title">
-            <span>Активная фаза</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="custom-input">
-            <input type="text" placeholder="Активная фаза"/>
-          </div>
+          <evj-event-dropdown [items]="phasesList">Активная фаза</evj-event-dropdown>
         </div>
         <div class="column">
           <div class="column__block">
@@ -128,6 +128,33 @@
             <input type="text" placeholder="Отклонение 2-го уровня"/>
           </div>
         </div>
+
+        <div class="row">
+          <div class="reasons">
+            <div class="title d-flex flex-justify-between">
+              <span>Причины</span>
+              <div class="button-block">
+                <svg-icon (click)="openReasonsList()" src="assets/icons/widgets/EVJ/evj-events-workspace/plus.svg"></svg-icon>
+              </div>
+            </div>
+            <evj-events-smpo-reasons [items]="reasons"
+                                     (onRemoveItem)="removeReason($event)" ></evj-events-smpo-reasons>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="reasons h-auto">
+            <div class="title">
+              <span>Корректирующие мероприятия</span>
+              <div class="button-block">
+                <svg-icon (click)="openEventsList()" src="assets/icons/widgets/EVJ/evj-events-workspace/plus.svg"></svg-icon>
+              </div>
+            </div>
+            <evj-events-smpo-events [items]="events"
+                                    (onRemoveItem)="removeEvent($event)" ></evj-events-smpo-events>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>

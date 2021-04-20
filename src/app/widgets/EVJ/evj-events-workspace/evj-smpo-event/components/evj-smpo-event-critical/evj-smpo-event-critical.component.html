@@ -1,0 +1,8 @@
+<div class="critical-button__wrapper">
+  <div class="critical-button active" (click)="value = !value" [class.active]="value">
+    <svg-icon class="critical-button__icon" src="assets/icons/widgets/workspace/smpo/critical-icon.svg"
+              *ngIf="!value"></svg-icon>
+    <svg-icon class="critical-button__icon" src="assets/icons/widgets/workspace/smpo/critical-icon-active.svg"
+              *ngIf="value"></svg-icon>
+  </div>
+</div>

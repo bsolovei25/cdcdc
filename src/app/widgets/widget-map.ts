@@ -418,7 +418,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'kpe-execution-production-program',
     },
-    'kpe-charts-analytic': {
+    'kpe-monitoring': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module');
         },
@@ -1288,6 +1288,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
 
+    'sou-main-screen-ud': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-traffic-tracking/sou-traffic-tracking.module');
+        },
+        module: 'SouTrafficTrackingModule',
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
+        preview: 'sou-main-screen-ud',
+    },
+
     // #endregion SOU
 
     //#region ASTUE-MNPZ
@@ -1658,6 +1670,15 @@ export const WIDGETS_LAZY = {
     'cvtr-izomalk': {
         import: async () => await import('src/app/widgets/CVTR/cvtr-izomalk/cvtr-izomalk.module'),
         module: 'CvtrIzomalkModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'cvtr-home': {
+        import: async () => await import('src/app/widgets/CVTR/cvtr-home/cvtr-home.module'),
+        module: 'CvtrHomeModule',
         itemCols: 10,
         itemRows: 10,
         minItemCols: 10,

@@ -125,9 +125,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         }
         const ref = await this.astueOnpzConventionalFuelService.getSelectionReferences(widgetId);
 
-        const manufactureId = ref.manufacturies.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture)?.id
-        const unitId = ref.units.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit && item.parentId === manufactureId)?.id
-        const resId = ref.energyResources.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource && item.parentId === unitId)?.id
+        const manufactureId = ref?.manufacturies.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture)?.id
+        const unitId = ref?.units.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit && item.parentId === manufactureId)?.id
+        const resId = ref?.energyResources.find(item => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource && item.parentId === unitId)?.id
 
         this.selectionForm.get('manufacture').setValue(this.selectionForm.value.manufacture ?? manufactureId);
         this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);

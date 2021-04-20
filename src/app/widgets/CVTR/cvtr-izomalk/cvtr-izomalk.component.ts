@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-cvtr-izomalk',
@@ -21,5 +21,5 @@ export class CvtrIzomalkComponent extends WidgetPlatform implements OnInit {
 
     ngOnInit(): void {}
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: unknown): void {}
 }

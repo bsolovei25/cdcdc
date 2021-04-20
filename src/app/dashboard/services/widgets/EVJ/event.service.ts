@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from "rxjs";
 import {
     EventsWidgetCategoryCode,
     EventsWidgetsStats,
@@ -10,20 +10,21 @@ import {
     IAsusTmPlace,
     IAsusTpPlace,
     IAsusWorkgroup,
-    ICategory,
+    ICategory, ICorrect,
     IEventsWidgetNotification,
     IEventsWidgetNotificationPreview,
-    IEventsWidgetOptions,
-    IPriority,
+    IEventsWidgetOptions, IPhase,
+    IPriority, IReason,
     ISaveMethodEvent,
     ISmotrReference,
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser,
-} from '../../../models/EVJ/events-widget';
+    IUser
+} from "../../../models/EVJ/events-widget";
 import { AppConfigService } from '@core/service/app-config.service';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
+import { catchError } from "rxjs/operators";
 
 export interface IEventsFilter {
     unitNames?: string[];
@@ -193,6 +194,33 @@ export class EventService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    public getCorrects(): Observable<ICorrect[]> {
+        return this.http
+            .get<ICorrect[]>(`${this.restUrl}/api/notification-reference/smpo/event`)
+            .pipe(catchError((error) => {
+                console.error(error);
+                return EMPTY;
+            }));
+    }
+
+    public getReasons(): Observable<IReason[]> {
+        return this.http
+            .get<IReason[]>(`${this.restUrl}/api/notification-reference/smpo/reason`)
+            .pipe(catchError((error) => {
+                console.error(error);
+                return EMPTY;
+            }));
+    }
+
+    public getPhaseList(): Observable<IPhase[]> {
+        return this.http
+            .get<IPhase[]>(`${this.restUrl}/api/notification-reference/smpo/phase`)
+            .pipe(catchError((error) => {
+                console.error(error);
+                return EMPTY;
+            }));
     }
 
     async getPriority(): Promise<IPriority[]> {

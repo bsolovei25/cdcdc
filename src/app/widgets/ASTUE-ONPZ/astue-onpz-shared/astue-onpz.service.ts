@@ -248,8 +248,7 @@ export class AstueOnpzService {
                     `${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`
                 )
                 .toPromise();
-            response.sort((a, b) => (a.sortIndex > b.sortIndex ? 1 : -1));
-            console.log('sort', response);
+            response.sort((a, b) => a.sortIndex - b.sortIndex);
             return response?.map((x) => x.id) ?? [];
         } catch {}
     }

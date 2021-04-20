@@ -36,6 +36,7 @@
             #gaugeChart
             [type]="1"
             *ngIf="displayNewDesign"
+            [data]="this.deviationData"
           ></evj-kpe-gauge-chart-multi-color>
         </div>
         <div class="readiness__header__chart">
@@ -81,6 +82,7 @@
                   <evj-kpe-gauge-chart-multi-color
                     [type]="3"
                     *ngIf="displayNewDesign"
+                    [data]="card"
                   ></evj-kpe-gauge-chart-multi-color>
                 </div>
                 <div class="gauge-card__label">{{ card?.title }}</div>

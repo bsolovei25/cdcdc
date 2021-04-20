@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
 import { CmidEventToogleValue } from './components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 
 @Component({

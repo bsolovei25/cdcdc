@@ -21,7 +21,7 @@ export interface IKpeTableBody {
     plan: number;
     valuePlan?: number;
     averageTonne: number;
-    averageM3: number; 
+    averageM3: number;
     instantTonne: number;
     instantM3: number;
     total: number;
@@ -38,6 +38,12 @@ export interface IKpeTableTabs {
     id: string;
 }
 
+export interface IKpeTableData {
+    allTabs: IKpeTableTabs[];
+    groups: IKpeTable[];
+    title: string;
+}
+
 @Component({
     selector: 'evj-kpe-table',
     templateUrl: './kpe-table.component.html',
@@ -48,7 +54,8 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
     public specialComponent: typeof KpeTableDevelopmentComponentComponent = KpeTableDevelopmentComponentComponent;
 
     public tabsList$: BehaviorSubject<IKpeTableTabs[]> = new BehaviorSubject<IKpeTableTabs[]>([]);
-    public currentTab: number = 1;
+    public currentTab: number = 0;
+    public data: IKpeTableData | null = null;
 
     constructor(
         public widgetService: WidgetService,
@@ -73,7 +80,9 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
         });
     };
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: IKpeTableData): void {
+        this.data = ref;
+    }
 
     protected dataConnect(): void {
         super.dataConnect();

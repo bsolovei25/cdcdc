@@ -7,15 +7,12 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
-import {
-    AstueOnpzConventionalFuelService,
-    IAstueOnpzConventionalFuelSelectOptions,
-} from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
+import { AstueOnpzConventionalFuelService } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 import { AstueOnpzPredictorsItemComponent } from './components/astue-onpz-predictors-item/astue-onpz-predictors-item.component';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 export interface IPredictors {
     isHidden: boolean;
@@ -27,7 +24,16 @@ export interface IPredictors {
     tag: string;
     unitId: number;
     unitName: string;
+    isFiltered?: boolean;
 }
+export interface IPredictorsGroup {
+    id: string;
+    name: string;
+    isExpanded?: boolean;
+    isFiltered?: boolean;
+    predictors: IPredictors[];
+}
+
 interface IChannel {
     name: string;
     manufactureName: string;
@@ -104,7 +110,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
 
     private async optionsHandler(): Promise<void> {
         const channels = await this.widgetService.getAvailableChannels<IChannel>(this.widgetId);
-
         this.channels$.next(channels);
     }
 
