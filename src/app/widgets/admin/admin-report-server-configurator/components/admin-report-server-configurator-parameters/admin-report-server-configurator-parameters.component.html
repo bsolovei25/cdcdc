@@ -1,0 +1,24 @@
+<div class="parameters">
+    <div class="parameters__header">
+        <evj-admin-report-server-configurator-parameters-header>
+        </evj-admin-report-server-configurator-parameters-header>
+    </div>
+    <div class="parameters__body">
+        <ng-container [ngSwitch]="parameter">
+            <ng-container *ngSwitchCase="1">
+                <div class="access">
+                    <evj-admin-report-server-configurator-access>
+                    </evj-admin-report-server-configurator-access>
+                </div>
+                <div class="access">
+                    <evj-admin-report-server-configurator-access>
+                    </evj-admin-report-server-configurator-access>
+                </div>
+            </ng-container>
+            <evj-admin-report-server-configurator-parameters-change
+            *ngSwitchCase="2"
+            >
+            </evj-admin-report-server-configurator-parameters-change>
+        </ng-container>
+    </div>
+</div>

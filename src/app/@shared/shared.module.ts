@@ -60,6 +60,7 @@ import { CheckerComponent } from './components/checker/checker.component';
 import { FormatStatusPipe } from '@widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
 import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer.directive';
 import { AddWordWrapPipe } from './pipes/add-word-wrap.pipe';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SimpleButtonComponent } from './components/simple-button/simple-button.component';
 
 @NgModule({
@@ -111,6 +112,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
         SimpleButtonComponent,
+        DropdownComponent
     ],
     exports: [
         HeaderComponent,
@@ -155,6 +157,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
         SimpleButtonComponent,
+        DropdownComponent
     ],
     imports: [
         CommonModule,

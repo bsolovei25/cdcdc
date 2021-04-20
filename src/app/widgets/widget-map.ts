@@ -513,6 +513,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 15,
         preview: 'report-server-configurator',
     },
+    'admin-report-server-configurator': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-report-server-configurator/admin-report-server-configurator.module');
+        },
+        module: 'AdminReportServerConfiguratorModule',
+        itemCols: 60,
+        itemRows: 25,
+        minItemCols: 60,
+        minItemRows: 25,
+        preview: 'report-server-configurator',
+    },
     reference: {
         import: async () => {
             return await import('src/app/widgets/admin/reference/reference.module');
