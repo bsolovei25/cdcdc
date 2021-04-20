@@ -22,7 +22,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DocumentCodingFilterComponent } from '../document-coding/components/document-coding-filter/document-coding-filter.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { FormControl } from '@angular/forms';
-import { ArrayProperties } from '@shared/models/common.model';
+import { ArrayProperties } from '@shared/interfaces/common.model';
 
 export type IDocumentOilQualityPanelFilterType =
     | 'products-document-panel'

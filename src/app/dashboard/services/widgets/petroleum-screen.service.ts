@@ -16,7 +16,7 @@ import {
 } from '../../models/NK/petroleum-products-movement.model';
 import { SnackBarService } from '../snack-bar.service';
 import { IDatesInterval, WidgetService } from '../widget.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 
 @Injectable({
     providedIn: 'root',

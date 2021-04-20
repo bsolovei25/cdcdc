@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Ou
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IProductionTrend, ProductionTrendType } from '../../../../../dashboard/models/LCO/production-trends.model';
-import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartD3, IChartMini } from '@shared/interfaces/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
 import { newArray } from '@angular/compiler/src/util';
@@ -295,19 +295,19 @@ export class PlanningChartComponent implements OnChanges {
             .slice(-1)[0];
         if (item) {
             const g = pointsG.append('g').attr('class', 'fact-point');
-            const points: { radius: number, opacity: number }[] = [
+            const points: { radius: number; opacity: number }[] = [
                 { radius: 4.5, opacity: 0.05 },
                 { radius: 3.5, opacity: 0.2 },
                 { radius: 1.5, opacity: 0.5 },
-                { radius: 0.5, opacity: 1 }
+                { radius: 0.5, opacity: 1 },
             ];
-            points.forEach(v => {
-                g.append("circle")
-                    .attr("class", "point point_fact")
-                    .attr("cx", item.x)
-                    .attr("cy", item.y)
-                    .attr("r", v.radius)
-                    .style("opacity", v.opacity);
+            points.forEach((v) => {
+                g.append('circle')
+                    .attr('class', 'point point_fact')
+                    .attr('cx', item.x)
+                    .attr('cy', item.y)
+                    .attr('r', v.radius)
+                    .style('opacity', v.opacity);
             });
             g.style('transform', 'translateY(5)');
         }

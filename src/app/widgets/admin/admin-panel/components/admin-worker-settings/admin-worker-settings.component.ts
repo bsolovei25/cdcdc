@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { IUser, IUnitEvents, ICategory } from '../../../../../dashboard/models/EVJ/events-widget';
-import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
-import { IInputOptions } from '../../../../../@shared/models/input.model';
-import { IAlertPasswordModel } from '../../../../../@shared/models/alert-password.model';
+import { IAlertWindowModel } from '../../../../../@shared/interfaces/alert-window.model';
+import { IInputOptions } from '../../../../../@shared/interfaces/input.model';
+import { IAlertPasswordModel } from '../../../../../@shared/interfaces/alert-password.model';
 import { IGlobalClaim, IWorkspace } from '../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { Subscription } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { FormControl } from '@angular/forms';
 
 @Component({

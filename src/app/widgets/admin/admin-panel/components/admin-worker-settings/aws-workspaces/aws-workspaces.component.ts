@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkspace, IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel.model';
-import { IInputOptions } from '../../../../../../@shared/models/input.model';
+import { IInputOptions } from '../../../../../../@shared/interfaces/input.model';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({

@@ -11,7 +11,7 @@ import {
     IEventsWidgetNotification,
     IStatus,
 } from '../../../dashboard/models/EVJ/events-widget';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @Component({

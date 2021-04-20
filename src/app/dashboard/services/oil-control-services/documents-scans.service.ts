@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { IDocumentsScan } from '../../models/oil-document.model';
 import { IQualityDocsRecord } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
 

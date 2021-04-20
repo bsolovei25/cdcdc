@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, HostListener, Input } from "@angular/core";
-import { IInputOptions } from '@shared/models/input.model';
+import { Component, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import { IInputOptions } from '@shared/interfaces/input.model';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
@@ -54,7 +54,9 @@ export class EvjUsualEventComponent {
     }
 
     public countDifference(): Date {
-        return new Date(new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate());
+        return new Date(
+            new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate()
+        );
     }
     // TODO
     public progressLine(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ISmpEventsMessageModel } from '@shared/models/smp-events-message.model';
+import { ISmpEventsMessageModel } from '@shared/interfaces/smp-events-message.model';
 
 @Component({
     selector: 'evj-events-chat',

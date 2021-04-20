@@ -8,7 +8,7 @@ import {
     IUnits,
     IUnitSettings,
 } from '../../../models/ADMIN/admin-shift-schedule.model';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { IUser } from '../../../models/EVJ/events-widget';

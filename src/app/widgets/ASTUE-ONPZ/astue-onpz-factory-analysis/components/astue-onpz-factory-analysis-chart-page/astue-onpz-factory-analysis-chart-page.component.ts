@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
 import { AstueOnpzMnemonicFurnaceService } from '../../../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';

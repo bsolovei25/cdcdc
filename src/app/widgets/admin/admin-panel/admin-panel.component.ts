@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IButtonImgSrc, IWorkspace } from '../../../dashboard/models/ADMIN/admin-panel.model';
-import { IInputOptions } from '../../../@shared/models/input.model';
+import { IInputOptions } from '../../../@shared/interfaces/input.model';
 import { IUser, IUnitEvents } from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AdminPanelService } from '../../../dashboard/services/widgets/admin-panel/admin-panel.service';

@@ -4,7 +4,7 @@ import { IAbsent } from '../../admin-shift-schedule.component';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
-import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../../../@shared/interfaces/alert-window.model';
 
 @Component({
     selector: 'evj-admin-shift-info-employee',
