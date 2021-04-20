@@ -109,7 +109,7 @@ export class SouSchemaComponent implements OnChanges {
                         return 'trx-tit-204';
                     }
                     break;
-                case 'Л-35/11-1000':
+                case 'Л-35-11-1000':
                     return 'l-35-11-1000';
                 case 'Изомалк-2':
                     if (this.sectionName === 'Топливо факел') {
@@ -753,7 +753,9 @@ export class SouSchemaComponent implements OnChanges {
     private getTextElemMaxLineLength(textElem: SVGElement): number {
         const elementParentId = textElem?.parentElement?.id;
 
-        if (elementParentId?.includes('-4_')) {
+        if (elementParentId?.includes('-3_')) {
+            return 23;
+        } else if (elementParentId?.includes('-4_')) {
             return 13;
         } else if (elementParentId?.includes('-13_')) {
             return 7;
