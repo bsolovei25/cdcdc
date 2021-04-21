@@ -15,11 +15,12 @@ import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminReportServerConfiguratorFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-congigurator-file/admin-report-server-configurator-file.component';
 import { AdminReportServerConfiguratorParametersComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters.component';
 import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
-import { AdminReportServerConfiguratorParametersChangeComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-change/admin-report-server-configurator-parameters-change.component';
 import { AdminReportServerConfiguratorParametersSelectComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-select/admin-report-server-configurator-parameters-select.component';
 import { AdminReportServerConfiguratorAccessComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-access/admin-report-server-configurator-access.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -35,7 +36,6 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
     AdminReportServerConfiguratorFileComponent,
     AdminReportServerConfiguratorParametersComponent,
     AdminReportServerConfiguratorParametersHeaderComponent,
-    AdminReportServerConfiguratorParametersChangeComponent,
     AdminReportServerConfiguratorParametersSelectComponent,
     AdminReportServerConfiguratorAccessComponent,
     AdminReportServerConfiguratorRepositoryAddFileComponent,
@@ -47,7 +47,10 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
     MatRippleModule,
     OverlayModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
   ]
 })
 export class AdminReportServerConfiguratorModule {

@@ -9,7 +9,7 @@ import { AdminReportServerConfiguratorRootService } from "./admin-report-server-
 })
 
 export class AdminReportConfiguratorService {
-    public headerSettingsPicker: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+    public headerSettingsPicker: BehaviorSubject<number> = new BehaviorSubject<number>(1);
     public folders$: BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]> = new BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]>(null);
     public reports$: BehaviorSubject<ITemplate[]> = new BehaviorSubject<ITemplate[]>(null);
     public reportParameters$: BehaviorSubject<IReportTemplate> = new BehaviorSubject<IReportTemplate>(null);
