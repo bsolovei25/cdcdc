@@ -10,13 +10,13 @@
 
   * {
     fill: none;
-    stroke: var(--color-text-sub);
+    stroke: var(--text-subscript-color);
     stroke-width: 2px;
   }
 
   ::ng-deep {
     .longer-rect {
-      fill: var(--color-aw-container-body-transparent);
+      fill: transparent;
     }
 
     .longer-rect-default {

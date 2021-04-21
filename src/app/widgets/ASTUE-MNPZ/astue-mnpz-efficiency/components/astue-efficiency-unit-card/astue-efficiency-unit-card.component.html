@@ -1,16 +1,16 @@
 <div class="card">
   <div class="card__header header">
     <div class="click-area" (click)="onToggleCard()"></div>
-    <img
+    <svg-icon
       class="arrow"
       [ngClass]="{'arrow_open':isOpen}"
       src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
-    />
-    <img class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg" />
+    ></svg-icon>
+    <svg-icon class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg"></svg-icon>
     <span class="unit-name" (click)="onToggleCard()" [matTooltip]="unit.name">{{unit.name}}</span>
     <div class="header__button button" [ngClass]="{'button_active':isSelected}" (click)="onSelectUnit()">
-      <img class="icon icon-unactive" src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg" />
-      <img class="icon icon-active" src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg" />
+      <svg-icon class="icon icon-unactive" src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg"></svg-icon>
+      <svg-icon class="icon icon-active" src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg"></svg-icon>
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
