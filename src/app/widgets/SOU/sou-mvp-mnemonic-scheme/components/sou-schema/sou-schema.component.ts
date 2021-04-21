@@ -110,7 +110,7 @@ export class SouSchemaComponent implements OnChanges {
                         return 'trx-tit-204';
                     }
                     break;
-                case 'Л-35-11-1000':
+                case 'Л-35/11-1000':
                     return 'l-35-11-1000';
                 case 'Изомалк-2':
                     if (this.sectionName === 'Топливо факел') {
