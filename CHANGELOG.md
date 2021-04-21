@@ -1,3 +1,18 @@
+# [1.18.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.17.0...v1.18.0) (2021-04-21)
+
+
+### Bug Fixes
+
+* **#1563:** Исправлен стиль плашки с цифрой для секции ([429066c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/429066cf4ab6e555048f0bfeb2c1002614e2cbef)), closes [#1563](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1563)
+* **#1617:** Добавлен перенос строк для элемента 3 типа ([03e6f18](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03e6f18e4d3741faa34f4bcca9209945a6945e53)), closes [#1617](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1617)
+* **#1646:** Исправление ГФУ-2 ([544581e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/544581ee56e378a1cc0976d9201472aaf70e7a6f)), closes [#1646](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1646)
+* **#1654:** Исправлено заполнение svg данными ([a4793f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a4793f9ff9074d30e890c2b48783cd959c487d3f)), closes [#1654](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1654)
+
+
+### Features
+
+* **#1496:** Создать новую подкатегорию СМПО категории Производственные задания ([0add19a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0add19a7040b51cd78822e9c5fe3af4f5f14bf05)), closes [#1496](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1496)
+
 # [1.17.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.16.0...v1.17.0) (2021-04-17)
 
 
