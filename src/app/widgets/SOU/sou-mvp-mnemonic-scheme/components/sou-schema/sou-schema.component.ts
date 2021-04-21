@@ -73,11 +73,10 @@ export class SouSchemaComponent implements OnChanges {
             // 1. Изменяем и дополняем
             this.dataPark.push(...this.setNewDataToSchema());
             // 2. Отрисовываем
-            this.loadData(true);
+            this.updateSvgByMetadata(true);
         } else if (this.elementsMap?.size) {
             // Если данных с бэка небыло, то заполняем
-            this.dataPark = this.sectionsDataPark;
-            this.loadData(false);
+            this.processSectionsData();
         }
     }
 
@@ -134,9 +133,8 @@ export class SouSchemaComponent implements OnChanges {
     private processSvgWhenItIsReady(): void {
         const processSvg = () => {
             this.parseSvg();
-            if (this.sectionsDataPark && this.sectionsDataPark.length) {
-                this.dataPark = this.sectionsDataPark;
-                this.loadData(false);
+            if (this.sectionsDataPark?.length) {
+                this.processSectionsData();
             }
         };
 
@@ -212,36 +210,36 @@ export class SouSchemaComponent implements OnChanges {
         console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
     }
 
-    loadData(reload: boolean): void {
+    // Обработка данных с бека
+    // Тут можно замокать данные
+    private processSectionsData(): void {
+        this.dataPark = this.sectionsDataPark;
+        this.updateSvgByMetadata(false);
+    }
+
+    // Обновляет svg по данным с бека
+    updateSvgByMetadata(reload: boolean): void {
         // tests
         this.testsToLogPanel();
         //
         this.dataPark?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
-            if (reload) {
-                this.reloadOldData(data);
-            } else {
-                this.loadNewData(data);
-            }
+            this.updateElementByMetadata(data, reload);
         });
     }
 
-    reloadOldData(data: ElementMetadata): void {
-        const element = this.fullElement.get(data.code)?.element;
-        const mode = this.getElementMode(data);
-        // this.elementEdit(true, mode, element, data);
-        if (element?.children) {
-            this.addClassAndTextToElement(element, this.fullElement?.get(data?.code)?.elementFull, mode, 0, 0);
-        }
-    }
+    // Ищет элемент в svg по метадате и обновляет его
+    private updateElementByMetadata(metadata: ElementMetadata, reload: boolean): void {
+        const element = this.elementsMap.get(metadata?.code);
+        const mode = this.getElementMode(metadata);
 
-    loadNewData(data: ElementMetadata): void {
-        const element = this.elementsMap.get(data?.code);
-        const mode = this.getElementMode(data);
-        if (data?.code === 4) {
-            console.log('DATA', data, element);
+        if (reload) {
+            if (element?.children) {
+                this.addClassAndTextToElement(element, this.fullElement?.get(metadata?.code)?.elementFull, mode, 0, 0);
+            }
+        } else {
+            this.prepareElement(mode, element, metadata);
         }
-        this.prepareElement(mode, element, data);
     }
 
     private getElementMode(data: ElementMetadata): TypeMode {
@@ -266,14 +264,14 @@ export class SouSchemaComponent implements OnChanges {
         const lines = svg?.querySelectorAll(`[id^=line_]`);
 
         // Обработка линий
-        lines.forEach((line: Element) => {
+        lines?.forEach((line: Element) => {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
             this.elementsMap.set(id, line);
         });
 
         // Обработка элементов схемы
-        elements.forEach((element: Element) => {
+        elements?.forEach((element: Element) => {
             const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
             const id = elMatch && elMatch[2] && parseInt(elMatch[2], 10);
 
