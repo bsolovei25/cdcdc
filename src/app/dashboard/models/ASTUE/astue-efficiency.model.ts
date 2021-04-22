@@ -83,6 +83,7 @@ export interface IAsEfGraph {
 interface IAsEfTempl {
     id?: number;
     name: string;
+    uom?: string;
 }
 
 export interface IAsEfCard extends IAsEfTempl {
