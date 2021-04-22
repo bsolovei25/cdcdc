@@ -174,7 +174,6 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
         });
         this.allData.forEach((unit) => {
             const flows: string[] = this.AsEfService.isUnitSelected(unit);
-            console.log(flows);
             if (!!flows) {
                 unit.flows.forEach((flow) => {
                     if (flows.includes(flow.name)) {
