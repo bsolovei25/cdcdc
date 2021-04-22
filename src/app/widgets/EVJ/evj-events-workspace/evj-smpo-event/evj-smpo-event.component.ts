@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
+import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from "@angular/core";
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
 import { EvjEventsSmpoReasonsMenuComponent } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
@@ -8,14 +8,16 @@ import { Observable } from 'rxjs';
 import { map, take } from "rxjs/operators";
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { EventService } from "@dashboard/services/widgets/EVJ/event.service";
+import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take-until-destroed.function";
 import { IPhase } from "@dashboard/models/EVJ/events-widget";
 
+@DecorateUntilDestroy()
 @Component({
     selector: 'evj-smpo-event',
     templateUrl: './evj-smpo-event.component.html',
     styleUrls: ['./evj-smpo-event.component.scss'],
 })
-export class EvjSmpoEventComponent implements OnInit {
+export class EvjSmpoEventComponent implements OnInit, OnDestroy {
     @Input()
     public noOverflow: boolean = false;
     public dateNow: Date = new Date();
@@ -40,6 +42,8 @@ export class EvjSmpoEventComponent implements OnInit {
         this.getEventsList();
         this.getPhasesList();
     }
+
+    public ngOnDestroy(): void {}
 
     public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
@@ -119,7 +123,9 @@ export class EvjSmpoEventComponent implements OnInit {
             data: this.reasonList,
         });
 
-        popoverRef.afterClosed$.subscribe((res) => {
+        popoverRef.afterClosed$
+            .pipe(takeUntilDestroyed(this))
+            .subscribe((res) => {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.reasons = res?.data;
@@ -142,7 +148,9 @@ export class EvjSmpoEventComponent implements OnInit {
             data: this.eventsList,
         });
 
-        popoverRef.afterClosed$.subscribe((res) => {
+        popoverRef.afterClosed$
+            .pipe(takeUntilDestroyed(this))
+            .subscribe((res) => {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.events = res?.data;
