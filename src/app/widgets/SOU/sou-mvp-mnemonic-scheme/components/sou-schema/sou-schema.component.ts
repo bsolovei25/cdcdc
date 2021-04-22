@@ -10,14 +10,10 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import {
-    ISouFlowIn,
-    ISouFlowOut,
-    ISouObjects,
-} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
-    metadata?: ElementMetadata;
+    sectionData?: SouSectionData;
     rects: Element[];
     points: Element[];
     arrows: Element[];
@@ -34,8 +30,6 @@ interface IElementFullAndUI {
     elementFull: IElementFull;
 }
 
-type ElementMetadata = ISouFlowOut | ISouFlowIn | ISouObjects;
-
 type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 
 @Component({
@@ -48,9 +42,9 @@ export class SouSchemaComponent implements OnChanges {
     elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
     fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
-    dataPark: ElementMetadata[] = []; // Данные с бэка
+    dataPark: SouSectionData[] = []; // Данные с бэка
 
-    @Input() sectionsDataPark: ElementMetadata[];
+    @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
     @Input() unitName: string;
     @Input() sectionName: string;
@@ -73,7 +67,7 @@ export class SouSchemaComponent implements OnChanges {
             // 1. Изменяем и дополняем
             this.dataPark.push(...this.setNewDataToSchema());
             // 2. Отрисовываем
-            this.updateSvgByMetadata(true);
+            this.updateSvgBySectionData(true);
         } else if (this.elementsMap?.size) {
             // Если данных с бэка небыло, то заполняем
             this.processSectionsData();
@@ -133,7 +127,7 @@ export class SouSchemaComponent implements OnChanges {
     private processSvgWhenItIsReady(): void {
         const processSvg = () => {
             this.parseSvg();
-            if (this.sectionsDataPark?.length) {
+            if (this.sectionsData?.length) {
                 this.processSectionsData();
             }
         };
@@ -156,9 +150,9 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
-    setNewDataToSchema(): ElementMetadata[] {
+    setNewDataToSchema(): SouSectionData[] {
         const newArray = [];
-        this.sectionsDataPark?.forEach((value) => {
+        this.sectionsData?.forEach((value) => {
             const element = this.dataPark.find((park) => value?.code === park?.code);
             if (element) {
                 element.isExceedingConfInterval = value?.isExceedingConfInterval;
@@ -213,36 +207,36 @@ export class SouSchemaComponent implements OnChanges {
     // Обработка данных с бека
     // Тут можно замокать данные
     private processSectionsData(): void {
-        this.dataPark = this.sectionsDataPark;
-        this.updateSvgByMetadata(false);
+        this.dataPark = this.sectionsData;
+        this.updateSvgBySectionData(false);
     }
 
     // Обновляет svg по данным с бека
-    updateSvgByMetadata(reload: boolean): void {
+    updateSvgBySectionData(reload: boolean): void {
         // tests
         this.testsToLogPanel();
         //
         this.dataPark?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
-            this.updateElementByMetadata(data, reload);
+            this.updateElementBySectionData(data, reload);
         });
     }
 
-    // Ищет элемент в svg по метадате и обновляет его
-    private updateElementByMetadata(metadata: ElementMetadata, reload: boolean): void {
-        const element = this.elementsMap.get(metadata?.code);
-        const mode = this.getElementMode(metadata);
+    // Ищет элемент в svg по данным с бека и обновляет его
+    private updateElementBySectionData(sectionData: SouSectionData, reload: boolean): void {
+        const element = this.elementsMap.get(sectionData?.code);
+        const mode = this.getElementMode(sectionData);
 
         if (reload) {
             if (element?.children) {
-                this.addClassAndTextToElement(element, this.fullElement?.get(metadata?.code)?.elementFull, mode, 0, 0);
+                this.addClassAndTextToElement(element, this.fullElement?.get(sectionData?.code)?.elementFull, mode, 0, 0);
             }
         } else {
-            this.prepareElement(mode, element, metadata);
+            this.prepareElement(mode, element, sectionData);
         }
     }
 
-    private getElementMode(data: ElementMetadata): TypeMode {
+    private getElementMode(data: SouSectionData): TypeMode {
         const {isExceedingConfInterval, isEnable} = data;
         return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
     }
@@ -285,11 +279,11 @@ export class SouSchemaComponent implements OnChanges {
     prepareElement(
         mode: TypeMode,
         element: Element,
-        metadata?: ElementMetadata,
+        sectionData?: SouSectionData,
     ): void {
         if (element?.children) {
             let elementFull: IElementFull = {
-                metadata,
+                sectionData,
                 rects: [],
                 points: [],
                 arrows: [],
@@ -308,13 +302,13 @@ export class SouSchemaComponent implements OnChanges {
             // add class and text to element
             this.addClassAndTextToElement(element, elementFull, mode, 0, 0);
             // Event
-            if (metadata) {
+            if (sectionData) {
                 this.addElementClickListener(element, elementFull);
                 const elementFullAndUI: IElementFullAndUI = {
                     element,
                     elementFull,
                 };
-                this.fullElement.set(metadata?.code, elementFullAndUI);
+                this.fullElement.set(sectionData?.code, elementFullAndUI);
             }
         }
     }
@@ -338,20 +332,20 @@ export class SouSchemaComponent implements OnChanges {
         elementFull?.texts?.forEach((item: Element) => {
             this.addElemClass(item, [`${mode}-text`]);
 
-            if (elementFull?.metadata) {
-                const element4 = this.elementsMap.get(elementFull.metadata.code);
+            if (elementFull?.sectionData) {
+                const element4 = this.elementsMap.get(elementFull.sectionData.code);
 
                 if (this.doesElemNeedTextAnchor(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
                 }
-                if ('productName' in elementFull?.metadata) {
-                    this.addTextToTextElem(item, String(elementFull?.metadata?.productName));
+                if ('productName' in elementFull?.sectionData) {
+                    this.addTextToTextElem(item, String(elementFull?.sectionData?.productName));
                 } else {
-                    this.addTextToTextElem(item, String(elementFull?.metadata?.name));
+                    this.addTextToTextElem(item, String(elementFull?.sectionData?.name));
                 }
             } else {
                 this.addTextToTextElem(item, String(name));
-                const element4 = this.elementsMap.get(elementFull?.metadata?.code);
+                const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
                 if (this.doesElemNeedTextAnchor(element4)) {
                     this.addElemClass(item, [`text-anchor`]);
                 }
@@ -368,10 +362,10 @@ export class SouSchemaComponent implements OnChanges {
         }
 
         // Percent
-        if (elementFull?.metadata) {
-            if ('tolerance' in elementFull?.metadata) {
+        if (elementFull?.sectionData) {
+            if ('tolerance' in elementFull?.sectionData) {
                 if (elementFull?.textPercent) {
-                    this.addTextToTextElem(elementFull.textPercent, `${String(elementFull?.metadata?.tolerance)}%`);
+                    this.addTextToTextElem(elementFull.textPercent, `${String(elementFull?.sectionData?.tolerance)}%`);
                     this.removeElemClass(elementFull?.textPercent, [
                         'standard-text',
                         'deviation-text',
@@ -381,17 +375,17 @@ export class SouSchemaComponent implements OnChanges {
                     this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
                 }
             }
-            if ('valueMomentPercent' in elementFull?.metadata) {
+            if ('valueMomentPercent' in elementFull?.sectionData) {
                 let valueMet: number = 0;
                 switch (this.chosenSetting) {
                     case 0:
-                        valueMet = elementFull?.metadata?.valueMomentPercent;
+                        valueMet = elementFull?.sectionData?.valueMomentPercent;
                         break;
                     case 1:
-                        valueMet = elementFull?.metadata?.valueByHourPercent;
+                        valueMet = elementFull?.sectionData?.valueByHourPercent;
                         break;
                     case 2:
-                        valueMet = elementFull?.metadata?.valueTankPercent;
+                        valueMet = elementFull?.sectionData?.valueTankPercent;
                         break;
                 }
                 if (elementFull?.textPercent) {
@@ -409,8 +403,8 @@ export class SouSchemaComponent implements OnChanges {
         } else {
             this.addTextToTextElem(
                 elementFull?.textPercent,
-                elementFull?.metadata?.tolerance
-                    ? `${String(elementFull?.metadata?.tolerance)}%`
+                elementFull?.sectionData?.tolerance
+                    ? `${String(elementFull?.sectionData?.tolerance)}%`
                     : `${String(percent)}%`
             );
             if (elementFull?.textPercent) {
@@ -419,32 +413,32 @@ export class SouSchemaComponent implements OnChanges {
         }
 
         // Value
-        if (elementFull?.metadata) {
-            if ('valueByHour' in elementFull?.metadata) {
+        if (elementFull?.sectionData) {
+            if ('valueByHour' in elementFull?.sectionData) {
                 let valueMet: number = 0;
                 switch (this.chosenSetting) {
                     case 0:
-                        valueMet = elementFull?.metadata?.valueMoment;
+                        valueMet = elementFull?.sectionData?.valueMoment;
                         break;
                     case 1:
-                        valueMet = elementFull?.metadata?.valueByHour;
+                        valueMet = elementFull?.sectionData?.valueByHour;
                         break;
                     case 2:
-                        valueMet = elementFull?.metadata?.valueTank;
+                        valueMet = elementFull?.sectionData?.valueTank;
                         break;
                 }
                 this.addTextToTextElem(elementFull?.textValue, `${String(valueMet)} тн`);
                 if (elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
                 }
-                const element4 = this.elementsMap.get(elementFull?.metadata?.code);
+                const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
                 if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
             }
-            if ('value' in elementFull?.metadata) {
-                this.addTextToTextElem(elementFull?.textValue, `${String(elementFull?.metadata?.value)} т`);
-                const element4 = this.elementsMap.get(elementFull.metadata.code);
+            if ('value' in elementFull?.sectionData) {
+                this.addTextToTextElem(elementFull?.textValue, `${String(elementFull?.sectionData?.value)} т`);
+                const element4 = this.elementsMap.get(elementFull.sectionData.code);
                 if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                     this.addElemClass(elementFull?.textValue, [`text-anchor`]);
                 }
@@ -460,15 +454,15 @@ export class SouSchemaComponent implements OnChanges {
                 ]);
                 this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
             }
-            const element4 = this.elementsMap.get(elementFull?.metadata?.code);
+            const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
             if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                 this.addElemClass(elementFull?.textValue, [`text-anchor`]);
             }
         }
 
         // related elements
-        if (typeof elementFull?.metadata?.related === 'object') {
-            elementFull?.metadata?.related.forEach((id) => {
+        if (typeof elementFull?.sectionData?.related === 'object') {
+            elementFull?.sectionData?.related.forEach((id) => {
                 const elementRelated = this.elementsMap.get(id);
                 if (elementRelated?.children) {
                     const elementsRelated = Array.from(elementRelated?.children);
@@ -557,9 +551,9 @@ export class SouSchemaComponent implements OnChanges {
             elementFull.flag = false;
 
             if (
-                'name' in elementFull.metadata ||
-                'productName' in elementFull.metadata ||
-                'linkId' in elementFull.metadata
+                'name' in elementFull.sectionData ||
+                'productName' in elementFull.sectionData ||
+                'linkId' in elementFull.sectionData
             ) {
                 const handler = this.getElementClickHandler(elementFull);
                 element.removeEventListener('click', handler);
@@ -572,10 +566,10 @@ export class SouSchemaComponent implements OnChanges {
     private getElementClickHandler(elementFull: IElementFull): () => void {
         return () => {
             console.log('click', elementFull);
-            this.mvpService.redirectMnemonic(elementFull.metadata.linkId);
+            this.mvpService.redirectMnemonic(elementFull.sectionData.linkId);
             this.elementActive(elementFull);
-            if (typeof elementFull.metadata.related === 'object') {
-                elementFull.metadata?.related?.forEach((value) => {
+            if (typeof elementFull.sectionData.related === 'object') {
+                elementFull.sectionData?.related?.forEach((value) => {
                     const element = this.elementsMap.get(value);
                     if (element && element.getAttribute('id')?.includes('line')) {
                         this.lineActive(element, elementFull);
@@ -591,14 +585,14 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     lineActive(line: Element, elementFull: IElementFull): void {
-        if (!this.hasElemClass(line, `${elementFull?.metadata?.code}`)) {
-            this.addElemClass(line, [`${elementFull?.metadata?.code}`, 'active']);
+        if (!this.hasElemClass(line, `${elementFull?.sectionData?.code}`)) {
+            this.addElemClass(line, [`${elementFull?.sectionData?.code}`, 'active']);
         } else {
             const count = this.countElementsInClassList(line);
             if (count > 1) {
-                this.removeElemClass(line, [`${elementFull.metadata.code}`]);
+                this.removeElemClass(line, [`${elementFull.sectionData.code}`]);
             } else {
-                this.removeElemClass(line, [`${elementFull.metadata.code}`, 'active']);
+                this.removeElemClass(line, [`${elementFull.sectionData.code}`, 'active']);
             }
         }
     }
@@ -620,19 +614,19 @@ export class SouSchemaComponent implements OnChanges {
         const active = 'active';
         const relatedOrNormal = element ? element : elementFull;
         elementFull.rects.forEach((item: Element) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.metadata?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.metadata?.code}`, active]);
-                if ('productName' in relatedOrNormal.metadata && !element) {
-                    this.mvpService.openPopup(this.dataPark, relatedOrNormal?.metadata?.code);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
+                if ('productName' in relatedOrNormal.sectionData && !element) {
+                    this.mvpService.openPopup(this.dataPark, relatedOrNormal?.sectionData?.code);
                 }
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`, active]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
                 }
-                if ('productName' in relatedOrNormal?.metadata && !element) {
+                if ('productName' in relatedOrNormal?.sectionData && !element) {
                     if (this.mvpService?.isOpenPopup) {
                         this.mvpService?.closePopup();
                     }
@@ -640,50 +634,50 @@ export class SouSchemaComponent implements OnChanges {
             }
         });
         elementFull.points.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.metadata?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.metadata?.code}`, active]);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`, active]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
                 }
             }
         });
         elementFull.texts.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.metadata?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.metadata?.code}`, `${active}-text`]);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-text`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`, `${active}-text`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-text`]);
                 }
             }
         });
         elementFull.arrows.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.metadata?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.metadata?.code}`, `${active}-arrow`]);
+            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
+                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-arrow`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.metadata?.code}`, `${active}-arrow`]);
+                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-arrow`]);
                 }
             }
         });
 
-        if (!this.hasElemClass(elementFull.circle, `${relatedOrNormal?.metadata?.code}`)) {
-            this.addElemClass(elementFull.circle, [`${relatedOrNormal?.metadata?.code}`, active]);
+        if (!this.hasElemClass(elementFull.circle, `${relatedOrNormal?.sectionData?.code}`)) {
+            this.addElemClass(elementFull.circle, [`${relatedOrNormal?.sectionData?.code}`, active]);
         } else {
             const count = this.countElementsInClassList(elementFull?.circle);
             if (count > 1) {
-                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.metadata?.code}`]);
+                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.sectionData?.code}`]);
             } else {
-                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.metadata?.code}`, active]);
+                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.sectionData?.code}`, active]);
             }
         }
         this.toggleElemClass(elementFull?.textPercent, 'active-text');
@@ -755,7 +749,9 @@ export class SouSchemaComponent implements OnChanges {
     private getTextElemMaxLineLength(textElem: SVGElement): number {
         const elementParentId = textElem?.parentElement?.id;
 
-        if (elementParentId?.includes('-3_')) {
+        if (elementParentId?.includes('-1_')) {
+            return 17;
+        } else if (elementParentId?.includes('-3_')) {
             return 23;
         } else if (elementParentId?.includes('-4_')) {
             return 13;

@@ -6,13 +6,14 @@ import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
+    SouSectionData,
+} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 export interface ISouMvpMnemonicSchemeView {
     name: string;
     flowIn: ISouFlowIn[];
-    sectionsData: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
+    sectionsData: SouSectionData[];
 }
 
 @Component({
@@ -45,10 +46,11 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
         this.chosenSetting$ = this.mvpService.chosenSetting$;
     }
 
-    protected dataHandler(ref: { section: { flowIn: any[]; flowOut: any[]; objects: any[]; name: string }[] }): void {
+    protected dataHandler(ref: { section: { flowIn: ISouFlowIn[]; flowOut: ISouFlowOut[]; objects: ISouObjects[]; name: string }[] }): void {
         const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
         const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
-        sectionsData.forEach((x) => {
+
+        sectionsData?.forEach((x) => {
             if (x.linkId === this.emptyGuid) {
                 delete x.linkId;
             }
