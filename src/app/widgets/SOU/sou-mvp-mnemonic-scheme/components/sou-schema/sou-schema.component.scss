@@ -21,27 +21,6 @@ $brownColor: #483628;
       cursor: pointer;
     }
 
-    .disabled {
-      stroke: $darkBlueColor;
-      fill: $darkestBlueColor;
-
-      &-text {
-        fill: $lightBlueColor;
-      }
-
-      &-arrow {
-        stroke: $lightBlueColor;
-      }
-
-      &-line {
-        fill: $darkBlueColor;
-      }
-
-      @include ellipse {
-        fill: transparent;
-      }
-    }
-
     .standard {
       stroke: $lightBlueColor2;
       fill: $darkBlueColor;
@@ -60,6 +39,27 @@ $brownColor: #483628;
 
       @include ellipse {
         fill: white;
+      }
+    }
+
+    .disabled {
+      stroke: $darkBlueColor;
+      fill: $darkestBlueColor;
+
+      &-text {
+        fill: $lightBlueColor;
+      }
+
+      &-arrow {
+        stroke: $lightBlueColor;
+      }
+
+      &-line {
+        fill: $darkBlueColor;
+      }
+
+      @include ellipse {
+        fill: transparent;
       }
     }
 

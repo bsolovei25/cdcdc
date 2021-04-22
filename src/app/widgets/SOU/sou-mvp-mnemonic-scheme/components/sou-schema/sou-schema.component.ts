@@ -25,11 +25,6 @@ interface IElementFull {
     flag: boolean;
 }
 
-interface IElementFullAndUI {
-    element: Element;
-    elementFull: IElementFull;
-}
-
 type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 
 @Component({
@@ -40,8 +35,8 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 })
 export class SouSchemaComponent implements OnChanges {
     elementsNode: Element[] = []; // все элементы
-    elementsMap: Map<number, Element> = new Map(); // id элемента, элемент
-    fullElement: Map<number, IElementFullAndUI> = new Map(); // Исходные элементы + распарсеные
+    elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
+    elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
 
     @Input() sectionsData: SouSectionData[];
@@ -178,7 +173,7 @@ export class SouSchemaComponent implements OnChanges {
     resetComponent(): void {
         this.elementsNode = [];
         this.elementsMap.clear();
-        this.fullElement.clear();
+        this.elementsFullMap.clear();
     }
 
     testsToLogPanel(): void {
@@ -229,7 +224,7 @@ export class SouSchemaComponent implements OnChanges {
 
         if (reload) {
             if (element?.children) {
-                this.addClassAndTextToElement(element, this.fullElement?.get(sectionData?.code)?.elementFull, mode, 0, 0);
+                this.addClassAndTextToElement(element, this.elementsFullMap?.get(sectionData?.code), mode);
             }
         } else {
             this.prepareElement(mode, element, sectionData);
@@ -300,15 +295,11 @@ export class SouSchemaComponent implements OnChanges {
                 elementFull = this.searchElementsInElement(elem, elementFull);
             });
             // add class and text to element
-            this.addClassAndTextToElement(element, elementFull, mode, 0, 0);
+            this.addClassAndTextToElement(element, elementFull, mode);
             // Event
             if (sectionData) {
                 this.addElementClickListener(element, elementFull);
-                const elementFullAndUI: IElementFullAndUI = {
-                    element,
-                    elementFull,
-                };
-                this.fullElement.set(sectionData?.code, elementFullAndUI);
+                this.elementsFullMap.set(sectionData?.code, elementFull);
             }
         }
     }
@@ -318,8 +309,6 @@ export class SouSchemaComponent implements OnChanges {
         element: Element,
         elementFull: IElementFull,
         mode: TypeMode,
-        percent: number,
-        value: number
     ): void {
         this.addElemClass(element, ['element']);
 
@@ -405,7 +394,7 @@ export class SouSchemaComponent implements OnChanges {
                 elementFull?.textPercent,
                 elementFull?.sectionData?.tolerance
                     ? `${String(elementFull?.sectionData?.tolerance)}%`
-                    : `${String(percent)}%`
+                    : `0%`
             );
             if (elementFull?.textPercent) {
                 this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
@@ -444,7 +433,7 @@ export class SouSchemaComponent implements OnChanges {
                 }
             }
         } else {
-            this.addTextToTextElem(elementFull?.textValue, `${String(value)} тн`);
+            this.addTextToTextElem(elementFull?.textValue, `0 тн`);
             if (elementFull?.textValue) {
                 this.removeElemClass(elementFull?.textValue, [
                     'standard-text',
@@ -574,9 +563,9 @@ export class SouSchemaComponent implements OnChanges {
                     if (element && element.getAttribute('id')?.includes('line')) {
                         this.lineActive(element, elementFull);
                     } else {
-                        const el = this.fullElement.get(value);
-                        if (el) {
-                            this.elementActive(el?.elementFull, elementFull);
+                        const elFull = this.elementsFullMap.get(value);
+                        if (elFull) {
+                            this.elementActive(elFull, elementFull);
                         }
                     }
                 });
