@@ -209,6 +209,34 @@
   }
 }
 
+.info {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  margin-left: 10px;
+
+  &__label {
+    margin-right: 10px;
+  }
+
+  &__values {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    min-width: 100px;
+    padding: 0 18px;
+    border-left: solid 2px transparent;
+    background: var(--gray-G9-50-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin-right: 22px;
+  }
+
+  &__value {
+    color: var(--text-contrast-color);
+  }
+}
+
 .plan {
   * {
     color: var(--index-plan-color);
