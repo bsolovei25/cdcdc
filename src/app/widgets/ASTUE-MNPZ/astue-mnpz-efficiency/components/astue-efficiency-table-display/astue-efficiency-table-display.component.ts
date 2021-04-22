@@ -166,8 +166,15 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     private dataMapping(): void {
         this.displayData = [];
         this.displayDataComponent = [];
+        const units = this.AsEfService.selectionUnit$.getValue();
+        units?.forEach(value => {
+            if (value) {
+                this.displayData.push(value);
+            }
+        });
         this.allData.forEach((unit) => {
             const flows: string[] = this.AsEfService.isUnitSelected(unit);
+            console.log(flows);
             if (!!flows) {
                 unit.flows.forEach((flow) => {
                     if (flows.includes(flow.name)) {
@@ -176,7 +183,6 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                     }
                 });
                 this.displayData.forEach((x) => (x.rows = x.rows?.filter((r) => r !== null)));
-
             }
         });
         this.mappingNewData();

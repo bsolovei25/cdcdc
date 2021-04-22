@@ -43,10 +43,10 @@ export interface IAsEfUnitNew extends IAsEfTable {
 }
 
 export interface IAsEfFlow extends IAsEfTable {
+    id: string;
     engUnits: string;
     astueFlowGraphs: IProductionTrend[];
     initialData: IAsEfTable[];
-    id: string;
 }
 
 export interface IAsEfLabel {
@@ -62,6 +62,8 @@ export interface IAsEfRow {
     tagName?: string;
     dataSummary?: number;
     values?: IAsEfCell[];
+    value?: number;
+    uom?: string;
 }
 
 export interface IAsEfCell {
@@ -108,6 +110,7 @@ export interface IAsEfInitialDataBlock extends IAsEfTempl {
 export interface IAsEfInitialDataRow extends IAsEfTempl {
     value: number;
     tag: string;
+    uom?: string;
 }
 
 export interface IAsEfTableBlockComponent {
