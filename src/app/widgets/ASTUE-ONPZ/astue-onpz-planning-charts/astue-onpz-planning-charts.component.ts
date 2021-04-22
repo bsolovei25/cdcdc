@@ -83,7 +83,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
         subscriptionOptions: any;
         multiLineChart: IMultiChartLine[];
     }): void {
-        this.data = ref.graphs;
+        this.data = ref?.graphs;
         this.astueOnpzService.setMultiLinePredictors(ref?.multiLineChart);
     }
 
