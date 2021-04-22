@@ -39,6 +39,20 @@ export interface IEventsWidgetNotificationPreview {
     retrievalEvents: IEventsWidgetNotificationPreview[];
 }
 
+export interface ISMPOData {
+    isCritical?: boolean;
+    isImportance?: boolean;
+    isNotNeedActivity?: boolean;
+    activePhase?: string;
+    activePhaseId?: number;
+    originalId?: string;
+    product?: string;
+    productGroup?: string;
+    secondDeviation?: string;
+    reasons?: IReason[];
+    events?: ICorrect[];
+}
+
 export interface IEventsWidgetNotification {
     id?: number;
     parentId?: number;
@@ -86,15 +100,7 @@ export interface IEventsWidgetNotification {
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
-    isImportance?: boolean;
-    isCritical?: boolean;
-    isNotNeedActivity?: boolean;
-    productGroup?: string;
-    activePhase?: string;
-    product?: string;
-    secondDeviation?: string;
-    reasons?: IReason[];
-    events?: ICorrect[];
+    smpo: ISMPOData;
 }
 
 export interface IEventsEjs {

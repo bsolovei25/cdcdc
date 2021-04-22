@@ -536,6 +536,7 @@ export class EventsWorkspaceService {
                 subCategory: null,
             },
             eventEndDateTime: null,
+            smpo: {}
         };
     }
 
