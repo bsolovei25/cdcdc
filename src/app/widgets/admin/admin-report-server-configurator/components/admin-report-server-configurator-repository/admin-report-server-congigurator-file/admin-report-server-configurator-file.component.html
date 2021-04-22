@@ -13,13 +13,13 @@
                 <div class="icon">
                     <svg-icon
                     src="{{editIcon}}"
-                    (click)="editFile()"
+                    (click)="editFile(report)"
                     ></svg-icon>
                 </div>
                 <div class="icon">
                     <svg-icon
                     src="{{trashIcon}}"
-                    (click)="deleteFolder(item || report)"
+                    (click)="deleteFolder(item)"
                     ></svg-icon>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="icon">
                     <svg-icon
-                    (click)="deleteFolder(childrens || templates)"
+                    (click)="deleteFolder(childrens)"
                     src="{{trashIcon}}"></svg-icon>
                 </div>
             </div>
