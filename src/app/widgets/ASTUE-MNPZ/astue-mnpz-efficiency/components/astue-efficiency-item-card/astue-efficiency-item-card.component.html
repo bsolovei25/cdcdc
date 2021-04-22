@@ -1,7 +1,7 @@
 <div class="card" [class.card_list-item]="isListItem"
      [ngClass]="{'card_active':isActive, 'card_bc': background}"
 >
-  <img class="icon" src="assets/icons/widgets/ASTUE/astue-efficiency/card/{{card.icon}}.svg" *ngIf="!isListItem"/>
+  <svg-icon class="icon" src="assets/icons/widgets/ASTUE/astue-efficiency/card/{{card.icon}}.svg" *ngIf="!isListItem"></svg-icon>
   <div class="name">{{card.name}}</div>
   <div class="status" *ngIf="isListItem">{{card.status}}</div>
 </div>

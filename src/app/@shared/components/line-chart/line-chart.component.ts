@@ -29,8 +29,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     private DELTA_CF: number = 0.1;
 
     private readonly chartStroke: { [key: string]: string } = {
-        plan: '#ffffff',
-        fact: '#3fa9f5',
+        plan: 'var(--index-plan-color)',
+        fact: 'var(--index-fact-color)',
     };
 
     private svg: any = null;
@@ -246,7 +246,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             .call(this.axis.axisY)
             .selectAll('text')
             .style('font-size', '12px')
-            .style('fill', '#8c99b2');
+            .style('fill', 'var(--text-main-color)');
 
         this.svg.select('g.axis path').remove();
 
@@ -258,14 +258,14 @@ export class LineChartComponent implements OnChanges, OnInit {
             .call(this.axis.axisX)
             .selectAll('text')
             .style('font-size', '12px')
-            .style('fill', '#8c99b2');
+            .style('fill', 'var(--text-main-color)');
 
         // изменение цветов осей
         let g = this.svg.selectAll('g.axis');
-        g.style('color', '#606580');
+        g.style('color', 'var(--border-icon-color)');
 
         // отрисовка центра начала координат
-        g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
+        g = this.svg.select('g.axis:last-of-type').style('color', 'var(--index-plan-color)');
         const linesG = g.append('g').attr('opacity', 1).attr('class', 'longer-line');
 
         linesG
@@ -291,7 +291,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             .selectAll('.tick')
             .append('circle')
             .attr('r', 3)
-            .style('fill', '#3fa9f5');
+            .style('fill', 'var(--index-plan-color)');
 
         this.drawAxisArrows('xAxis');
 
@@ -336,6 +336,6 @@ export class LineChartComponent implements OnChanges, OnInit {
             .attr('x2', this.graphMaxX - this.padding.right - this.padding.left)
             .attr('y2', 0)
             .style('opacity', '0.2')
-            .style('stroke', '#8c99b2');
+            .style('stroke', 'var(--text-main-color)');
     }
 }

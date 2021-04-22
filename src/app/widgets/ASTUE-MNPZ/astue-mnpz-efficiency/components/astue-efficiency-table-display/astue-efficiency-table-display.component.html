@@ -30,7 +30,7 @@
           <ng-container *ngFor="let block of block2.data">
             <tr class="table__row block" [ngClass]="{'block_open': isSelectEl(block)}" (click)="toggleEl(block)">
               <td class="block__item" [ngClass]="{'block__item-status': block.header?.tagName}">
-                <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
+                <svg-icon class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"></svg-icon>
                 {{block.parent ? block.parent + ' ' : ''}}{{ block.name }}
                 <div class="status" *ngIf="block.header?.tagName">{{ block.header?.tagName }}</div>
               </td>
@@ -51,7 +51,7 @@
                     (change)="defineDataSummary(block)"
                   />
                   <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
-                  <img class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg" />
+                  <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
                 </td>
               </ng-template>
             </tr>
@@ -75,7 +75,7 @@
                     (change)="defineDataSummary(child)"
                   />
                   <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
-                  <img class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg" />
+                  <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
                 </td>
               </tr>
             </ng-container>
@@ -94,7 +94,7 @@
             <ng-container *ngFor="let deviation of deviation2.data">
               <tr class="table__row block" (click)="blockSelection.toggle(deviation)">
                 <td class="block__item" [ngClass]="{'block__item-status': deviation?.status}">
-                  <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
+                  <svg-icon class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"></svg-icon>
                   {{deviation.name}}
                   <img class="separator" src="assets/icons/widgets/ASTUE/astue-efficiency/table/separator.svg" />
                   {{deviation.relativeName}}
@@ -121,7 +121,7 @@
                       (change)="defineDataSummary(child)"
                     />
                     <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
-                    <img class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg" />
+                    <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
                   </td>
                 </tr>
               </ng-container>
