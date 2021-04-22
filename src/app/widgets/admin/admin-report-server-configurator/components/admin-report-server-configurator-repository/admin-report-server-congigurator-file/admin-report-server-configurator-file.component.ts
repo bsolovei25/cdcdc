@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ITreeFolderMap } from '@dashboard/models/ADMIN/report-server.model';
 import { IReportTemplate, ITemplate, ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 import { AdminReportNameConfiguratorComponent } from '../../admin-report-name-configurator/admin-report-name-configurator.component';
@@ -32,11 +31,11 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   }
 
   async editFile(item: IReportTemplate): Promise<void> {    
-    const data = await this.arscRootService.getReportFileNameOptions(item.id);
+    const res = await this.arscRootService.getReportFileNameOptions(item.id);
     const dialogRef = this.dialog.open(AdminReportNameConfiguratorComponent, {
       data: {
         item,
-        data,
+        res,
       },
     });
     const name = item.name;
@@ -57,4 +56,6 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
 
   public async deleteFolder(item: ITemplateFolder): Promise<void> {
     this.arscRootService.deleteFolder(item.id);
-  }}
+  }
+
+}
