@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map, take } from "rxjs/operators";
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { EventService } from "@dashboard/services/widgets/EVJ/event.service";
+import { IPhase } from "@dashboard/models/EVJ/events-widget";
 
 @Component({
     selector: 'evj-smpo-event',
@@ -21,7 +22,7 @@ export class EvjSmpoEventComponent implements OnInit {
 
     public reasons: IMenuItem[] = [];
     public events: IMenuItem[] = [];
-    public phasesList: string[] = [];
+    public phasesList: IPhase[] = [];
 
     private reasonList: IMenuItem[] = [];
     private eventsList: IMenuItem[] = [];
@@ -67,18 +68,17 @@ export class EvjSmpoEventComponent implements OnInit {
     public removeEvent(event: IMenuItem): void {
         this.events = this.events.filter((currentEvent) => currentEvent.id !== event.id);
         this.getEventsList();
-        this.ewService.event.events = this.events;
+        this.ewService.event.smpo.events = this.events;
     }
 
     public removeReason(reason: IMenuItem): void {
         this.reasons = this.reasons.filter((currentReason) => currentReason.id !== reason.id);
         this.getReasonsList();
-        this.ewService.event.reasons = this.reasons;
+        this.ewService.event.smpo.reasons = this.reasons;
     }
 
-    public phasesList$(): Observable<string[]> {
-        return this.eventService.getPhaseList()
-            .pipe(map(phases => phases.map((phase => phase.name))));
+    public phasesList$(): Observable<IPhase[]> {
+        return this.eventService.getPhaseList();
     }
 
     public reasonList$(): Observable<IMenuItem[]> {
@@ -123,7 +123,7 @@ export class EvjSmpoEventComponent implements OnInit {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.reasons = res?.data;
-                this.ewService.event.reasons = this.reasons;
+                this.ewService.event.smpo.reasons = this.reasons;
             }
         });
     }
@@ -146,7 +146,7 @@ export class EvjSmpoEventComponent implements OnInit {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.events = res?.data;
-                this.ewService.event.events = this.events;
+                this.ewService.event.smpo.events = this.events;
             }
         });
     }

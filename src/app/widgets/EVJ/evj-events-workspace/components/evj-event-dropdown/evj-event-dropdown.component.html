@@ -6,7 +6,7 @@
     <mat-form-field appearance="none">
       <mat-select (selectionChange)="onSelected($event)" [value]="items[0]" [disabled]="disabled">
         <mat-option *ngFor="let item of items" [value]="item">
-          {{ item }}
+          {{ fieldName ? item[fieldName] : item }}
         </mat-option>
       </mat-select>
     </mat-form-field>

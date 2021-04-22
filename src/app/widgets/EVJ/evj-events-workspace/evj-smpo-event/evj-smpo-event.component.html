@@ -13,13 +13,13 @@
         <evj-events-workspace-select dataType="categories"></evj-events-workspace-select>
       </div>
       <div class="select-container d-flex control-group-size-2">
-        <evj-smpo-event-critical [(ngModel)]="ewService.event.isCritical"></evj-smpo-event-critical>
+        <evj-smpo-event-critical [(ngModel)]="ewService.event.smpo.isCritical"></evj-smpo-event-critical>
         <div class="checkbox-container">
-          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.isImportance" color="primary"></mat-checkbox>
+          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.smpo.isImportance" color="primary"></mat-checkbox>
           <label>Важность события</label>
         </div>
         <div class="checkbox-container">
-          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.isNotNeedActivity" color="primary"></mat-checkbox>
+          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.smpo.isNotNeedActivity" color="primary"></mat-checkbox>
           <label>Мероприятия не требуются</label>
         </div>
       </div>
@@ -98,7 +98,8 @@
         </div>
         <div class="row">
           <evj-event-dropdown
-            [(ngModel)]="ewService.event.activePhase"
+            fieldName="name"
+            [(ngModel)]="ewService.event.smpo.activePhase"
             [items]="phasesList"
           >Активная фаза</evj-event-dropdown>
         </div>
@@ -111,7 +112,7 @@
             </div>
             <div class="row">
               <div class="custom-input">
-                <input [(ngModel)]="ewService.event.originalId" type="text"  placeholder="ID в системе-источнике"/>
+                <input [(ngModel)]="ewService.event.smpo.originalId" type="text"  placeholder="ID в системе-источнике"/>
               </div>
             </div>
           </div>
@@ -123,7 +124,7 @@
             </div>
             <div class="row">
               <div class="custom-input">
-                <input [(ngModel)]="ewService.event.productGroup" type="text" placeholder="Группа"/>
+                <input [(ngModel)]="ewService.event.smpo.productGroup" type="text" placeholder="Группа"/>
               </div>
             </div>
           </div>
@@ -135,7 +136,7 @@
         </div>
         <div class="row">
           <div class="custom-input">
-            <input [(ngModel)]="ewService.event.product"  type="text" placeholder="Продукт"/>
+            <input [(ngModel)]="ewService.event.smpo.product"  type="text" placeholder="Продукт"/>
           </div>
         </div>
         <div class="row">
@@ -145,7 +146,7 @@
         </div>
         <div class="row">
           <div class="custom-input">
-            <input [(ngModel)]="ewService.event.secondDeviation" type="text" placeholder="Отклонение 2-го уровня"/>
+            <input [(ngModel)]="ewService.event.smpo.secondDeviation" type="text" placeholder="Отклонение 2-го уровня"/>
           </div>
         </div>
 
