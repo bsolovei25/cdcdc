@@ -30,7 +30,7 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async editFile(item: IReportTemplate): Promise<void> {    
+  async editFile(item: IReportTemplate | ITemplate): Promise<void> {    
     const res = await this.arscRootService.getReportFileNameOptions(item.id);
     const dialogRef = this.dialog.open(AdminReportNameConfiguratorComponent, {
       data: {
