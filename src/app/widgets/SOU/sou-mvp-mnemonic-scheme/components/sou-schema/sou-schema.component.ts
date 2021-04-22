@@ -313,13 +313,13 @@ export class SouSchemaComponent implements OnChanges {
         this.addElemClass(element, ['element']);
 
         elementFull?.rects?.forEach((item: Element) => {
-            this.addElemClass(item, [mode]);
+            this.setElementMode(item, mode);
         });
         elementFull?.points?.forEach((item: Element) => {
-            this.addElemClass(item, [mode]);
+            this.setElementMode(item, mode);
         });
         elementFull?.texts?.forEach((item: Element) => {
-            this.addElemClass(item, [`${mode}-text`]);
+            this.setElementMode(item, mode, true);
 
             if (elementFull?.sectionData) {
                 const element4 = this.elementsMap.get(elementFull.sectionData.code);
@@ -344,10 +344,10 @@ export class SouSchemaComponent implements OnChanges {
             this.addElemClass(item, [`${mode}-arrow`]);
         });
         if (elementFull?.circle) {
-            this.addElemClass(elementFull?.circle, [mode]);
+            this.setElementMode(elementFull?.circle, mode);
         }
         if (elementFull?.ellipse) {
-            this.addElemClass(elementFull?.ellipse, [mode]);
+            this.setElementMode(elementFull?.ellipse, mode);
         }
 
         // Percent
@@ -355,13 +355,7 @@ export class SouSchemaComponent implements OnChanges {
             if ('tolerance' in elementFull?.sectionData) {
                 if (elementFull?.textPercent) {
                     this.addTextToTextElem(elementFull.textPercent, `${String(elementFull?.sectionData?.tolerance)}%`);
-                    this.removeElemClass(elementFull?.textPercent, [
-                        'standard-text',
-                        'deviation-text',
-                        'disabled-text',
-                        'reset-text',
-                    ]);
-                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                    this.setElementMode(elementFull?.textPercent, mode, true);
                 }
             }
             if ('valueMomentPercent' in elementFull?.sectionData) {
@@ -379,15 +373,9 @@ export class SouSchemaComponent implements OnChanges {
                 }
                 if (elementFull?.textPercent) {
                     this.addTextToTextElem(elementFull.textPercent, `${String(valueMet)}%`);
-                    this.removeElemClass(elementFull?.textPercent, [
-                        'standard-text',
-                        'deviation-text',
-                        'disabled-text',
-                        'reset-text',
-                    ]);
-                    this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                    this.setElementMode(elementFull?.textPercent, mode, true);
                 }
-                elementFull?.textPercent?.classList.add(`${mode}-text`);
+                this.setElementMode(elementFull?.textPercent, mode, true);
             }
         } else {
             this.addTextToTextElem(
@@ -397,7 +385,7 @@ export class SouSchemaComponent implements OnChanges {
                     : `0%`
             );
             if (elementFull?.textPercent) {
-                this.addElemClass(elementFull?.textPercent, [`${mode}-text`]);
+                this.setElementMode(elementFull?.textPercent, mode, true);
             }
         }
 
@@ -418,7 +406,7 @@ export class SouSchemaComponent implements OnChanges {
                 }
                 this.addTextToTextElem(elementFull?.textValue, `${String(valueMet)} тн`);
                 if (elementFull?.textValue) {
-                    this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
+                    this.setElementMode(elementFull?.textValue, mode, true);
                 }
                 const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
                 if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
@@ -434,15 +422,7 @@ export class SouSchemaComponent implements OnChanges {
             }
         } else {
             this.addTextToTextElem(elementFull?.textValue, `0 тн`);
-            if (elementFull?.textValue) {
-                this.removeElemClass(elementFull?.textValue, [
-                    'standard-text',
-                    'deviation-text',
-                    'disabled-text',
-                    'reset-text',
-                ]);
-                this.addElemClass(elementFull?.textValue, [`${mode}-text`]);
-            }
+            this.setElementMode(elementFull?.textValue, mode, true);
             const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
             if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
                 this.addElemClass(elementFull?.textValue, [`text-anchor`]);
@@ -471,23 +451,23 @@ export class SouSchemaComponent implements OnChanges {
                         elementFullRelated = this.searchElementsInElement(elem, elementFullRelated);
                     });
                     elementFullRelated?.rects?.forEach((item: Element) => {
-                        this.addElemClass(item, [mode]);
+                        this.setElementMode(item, mode);
                     });
                     elementFullRelated?.points?.forEach((item: Element) => {
-                        this.addElemClass(item, [mode]);
+                        this.setElementMode(item, mode);
                     });
                     elementFullRelated?.texts?.forEach((item: Element) => {
-                        this.addElemClass(item, [`${mode}-text`]);
+                        this.setElementMode(item, mode, true);
                     });
                     elementFullRelated?.arrows?.forEach((item: Element) => {
                         this.addElemClass(item, [`${mode}-arrow`]);
                     });
                     if (elementFullRelated?.circle) {
-                        this.addElemClass(elementFullRelated?.circle, [mode]);
+                        this.setElementMode(elementFullRelated?.circle, mode);
                     }
 
                     if (elementRelated.getAttribute('id').includes('line')) {
-                        this.addElemClass(elementRelated, [mode]);
+                        this.setElementMode(elementRelated, mode);
                     }
                 }
             });
@@ -817,5 +797,28 @@ export class SouSchemaComponent implements OnChanges {
         if (element) {
             this.renderer.setProperty(element, 'innerHTML', text);
         }
+    }
+
+    // Задает режим отображения элемента
+    private setElementMode(element: SVGElement | Element, mode: TypeMode, textPostfix?: boolean): void {
+        if (textPostfix) {
+            this.removeElemClass(element, [
+                'standard-text',
+                'deviation-text',
+                'disabled-text',
+                'reset-text',
+            ]);
+            this.addElemClass(element as Element, [`${mode}-text`]);
+        } else {
+            this.removeElemClass(element, [
+                'standard',
+                'deviation',
+                'disabled',
+                'reset',
+                'active',
+            ]);
+            this.addElemClass(element as Element, [mode]);
+        }
+
     }
 }
