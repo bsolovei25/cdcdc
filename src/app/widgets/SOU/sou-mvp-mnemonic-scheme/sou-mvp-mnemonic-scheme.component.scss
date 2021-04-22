@@ -157,11 +157,11 @@
         border-radius: 2px;
         background: var(--sou-mvp-color-border);
         color: var(--sou-mvp-color-text-info);
-      }
 
-      .noTrust {
-        background: var(--sou-mvp-color-warning);
-        color: var(--sou-mvp-color-white);
+        &.noTrust {
+          background: var(--sou-mvp-color-warning);
+          color: var(--sou-mvp-color-white);
+        }
       }
     }
 

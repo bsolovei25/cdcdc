@@ -1,10 +1,18 @@
 <div class="container" [class.container__wide]="data?.type === 'sum'">
   <ng-container *ngIf="data">
-    <div class="top" [matTooltip]="data.title">
+    <div class="top" evjFactoryAnalysisTooltip position="bottom" [title]="data.title">
       <div class="top__title">{{ data.title }}</div>
     </div>
     <div class="main">
-      <evj-astue-onpz-factory-analysis-bar [data]="data"></evj-astue-onpz-factory-analysis-bar>
+      <ng-container *ngIf="!isMultiple(data); else multiBlocks">
+        <evj-astue-onpz-factory-analysis-bar [data]="data"></evj-astue-onpz-factory-analysis-bar>
+      </ng-container>
+      <ng-template #multiBlocks>
+        <evj-astue-onpz-factory-analysis-bar-multi-level
+          [totalValue]="data.value"
+          [groupData]="data"
+        ></evj-astue-onpz-factory-analysis-bar-multi-level>
+      </ng-template>
     </div>
   </ng-container>
 </div>

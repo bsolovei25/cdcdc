@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { IFolderReport } from '../../../components/report/reports.component';
 import { saveAs } from 'file-saver';
-import { ICustomReportProperties } from "@widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component";
+import { ICustomReportProperties } from '@widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component';
 
 @Injectable({
     providedIn: 'root',

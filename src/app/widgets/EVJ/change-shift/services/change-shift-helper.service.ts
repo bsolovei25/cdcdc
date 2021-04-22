@@ -85,7 +85,7 @@ export class ChangeShiftHelperService {
     };
 
     public getShiftTypeByName(widgetName: string): ChangeShiftType {
-        return widgetName === 'shift-pass' ? 'pass' : 'accept';
+        return widgetName.search('pass') !== -1 ? 'pass' : 'accept';
     }
 
     public isBaseRole = (role: ChangeShiftRoleType): boolean => {

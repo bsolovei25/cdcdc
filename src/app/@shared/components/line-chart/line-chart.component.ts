@@ -2,8 +2,8 @@ import { Component, ViewChild, ElementRef, OnChanges, HostListener, Input, OnIni
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IProductionTrend, ProductionTrendType } from '../../../dashboard/models/LCO/production-trends.model';
-import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
-import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
+import { IChartD3, IChartMini, IPointTank } from '../../interfaces/smart-scroll.model';
+import { ChartStyleType, ChartStyle, IChartStyle } from '../../interfaces/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
 import { setLimits } from '../../functions/set-limits.function';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
@@ -18,7 +18,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' = 'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' =
+        'production-trend';
 
     @Input()
     private scroll: { left: number; right: number } = { left: 0, right: 0 };

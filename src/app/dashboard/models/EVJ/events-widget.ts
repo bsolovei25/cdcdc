@@ -1,6 +1,6 @@
 import { LineChartData } from '../line-chart';
 import { IGlobalClaim } from '../ADMIN/admin-panel.model';
-import { IMessage } from '@shared/models/message.model';
+import { IMessage } from '@shared/interfaces/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
@@ -86,6 +86,15 @@ export interface IEventsWidgetNotification {
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
+    isImportance?: boolean;
+    isCritical?: boolean;
+    isNotNeedActivity?: boolean;
+    productGroup?: string;
+    activePhase?: string;
+    product?: string;
+    secondDeviation?: string;
+    reasons?: IReason[];
+    events?: ICorrect[];
 }
 
 export interface IEventsEjs {
@@ -315,6 +324,21 @@ export interface ISubcategory {
     isCanBeManuallySelected?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
+}
+
+export interface IReason {
+    id: number;
+    name: string;
+}
+
+export interface ICorrect {
+    id: number;
+    name: string;
+}
+
+export interface IPhase {
+    id: number;
+    name: string;
 }
 
 interface IEventStep {

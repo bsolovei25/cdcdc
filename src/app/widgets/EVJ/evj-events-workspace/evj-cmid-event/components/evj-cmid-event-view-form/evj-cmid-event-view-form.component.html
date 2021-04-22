@@ -1,0 +1,195 @@
+<div class="progress">
+  <div class="progress__bar">
+    <div class="value" [style.width.%]="60"></div>
+  </div>
+  <div class="progress__statuses">
+    <div class="status finished">
+      <div class="status__icon">
+        <svg-icon class="icon-finished" src="assets/icons/widgets/workspace/cmid/check.svg"></svg-icon>
+      </div>
+      <span>Создание события</span>
+    </div>
+
+    <div class="status finished">
+      <div class="status__icon">
+        <svg-icon class="icon-finished" src="assets/icons/widgets/workspace/cmid/check.svg"></svg-icon>
+      </div>
+      <span>Согласование с АСУС</span>
+    </div>
+
+    <div class="status progress">
+      <div class="status__icon">
+        <div class="icon-progress"></div>
+      </div>
+      <span>Отключение позиций</span>
+    </div>
+
+    <div class="status">
+      <div class="status__icon"></div>
+      <span>Включение позиций</span>
+    </div>
+
+    <div class="status">
+      <div class="status__icon"></div>
+      <span>Выполнение</span>
+    </div>
+  </div>
+</div>
+
+<div class="event-card">
+  <div class="header-section">
+    <div class="value-block-section">
+      <div class="value-block">
+        <div class="value-block__title">Объект:</div>
+        <div class="value-block__value">ОНПЗ</div>
+      </div>
+      <div class="divider">
+        <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/arrow-right.svg"></svg-icon>
+      </div>
+      <div class="value-block">
+        <div class="value-block__title"></div>
+        <div class="value-block__value">Производство 1</div>
+      </div>
+      <div class="divider">
+        <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/arrow-right.svg"></svg-icon>
+      </div>
+      <div class="value-block">
+        <div class="value-block__title"></div>
+        <div class="value-block__value">АВТ-10</div>
+      </div>
+      <div class="value-block date">
+        <div class="value-block__title">Время подачи заявки:</div>
+        <div class="value-block__value">12.02.2021 10:00</div>
+      </div>
+      <div class="operator-block">
+        <img src="assets/img/cmid-event/men.png">
+        <div class="operator-block__info">
+          <div class="name">Иванов С.П.</div>
+          <div class="position">ст. оператор</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-block-section">
+      <div class="status-block-section__name">Статус:</div>
+      <div class="status-block-section__status">В работе</div>
+    </div>
+  </div>
+
+  <div class="event-card__divider"></div>
+
+  <section class="event-card__section">
+    <h2>Позиции для отключения</h2>
+
+    <div class="row">
+      <evj-cmid-event-chips
+        [toggleValue]="toggleValue"
+        [enableControls]="false"
+        [enableTitles]="false"
+      ></evj-cmid-event-chips>
+    </div>
+
+    <div class="column">
+      <div class="column__block">
+        <div class="title">
+          <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/clock.svg"></svg-icon>
+          Плановое время:
+        </div>
+        <div class="row">
+          <div class="datetime-block">
+            <div class="datetime-block__title">Отключение:</div>
+            <div class="datetime-block__value">12.02.2021 13:30</div>
+          </div>
+          <div class="datetime-block right">
+            <div class="datetime-block__title">Включение:</div>
+            <div class="datetime-block__value">12.02.2021 13:30</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column__block">
+        <div class="title">
+          <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/clock.svg"></svg-icon>
+          Фактическое время:
+        </div>
+        <div class="column">
+          <div class="datetime-block">
+            <div class="datetime-block__title">Отключение:</div>
+            <div class="datetime-block__value">12.02.2021 13:30</div>
+          </div>
+          <div class="datetime-block right">
+            <div class="datetime-block__title">Включение:</div>
+            <div class="datetime-block__value">12.02.2021 13:30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="event-card__divider"></div>
+
+  <section class="event-card__section">
+    <div class="column">
+      <div class="column__block text">
+        <h2>Причина отключения</h2>
+        <div class="column">
+          <div class="column__block left-text-title">Тип события:</div>
+          <div class="column__block right-text-value">Плановое</div>
+        </div>
+        <div class="column">
+          <div class="column__block left-text-title">Тип причины отключения:</div>
+          <div class="column__block right-text-value">Регламентные</div>
+        </div>
+        <div class="column">
+          <div class="column__block left-text-title">Причина отключения:</div>
+          <div class="column__block right-text-value">Выбранная причина отключения из
+            регламентного списка
+          </div>
+        </div>
+        <div class="column">
+          <div class="column__block left-text-title">Краткое описание причины:</div>
+          <div class="column__block right-text-value">Краткое описание причины отключения,
+            заполненное пользователем от руки
+          </div>
+        </div>
+      </div>
+
+      <div class="column__block text">
+        <h2>Сопроводительная документация</h2>
+        <span class="light-span">Номер и дата НРД:</span>
+        <span class="dark-span">№12 2345 4573   <span class="light-span">12.02.2021 13:30</span>
+        </span>
+        <div class="file">
+          <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/file-icon.svg"></svg-icon>
+          <span>Загруженный файл.pdf</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="column">
+      <div class="column__block">
+        <div class="chat-title">
+          <span>Корректирующие мероприятия</span>
+          <div class="chat-title__counter">1</div>
+        </div>
+        <evj-chat
+          dataTitle="Корректирующие мероприятия"
+          placeholder="Введите текст меропрития..."
+          viewType="cmid"
+        ></evj-chat>
+      </div>
+      <div class="column__block">
+        <div class="chat-title">
+          <span>Комментарии</span>
+          <div class="chat-title__counter">1</div>
+        </div>
+        <evj-chat
+          dataTitle="Комментарии"
+          placeholder="Введите комментарий..."
+          viewType="cmid"
+        ></evj-chat>
+      </div>
+    </div>
+  </section>
+</div>

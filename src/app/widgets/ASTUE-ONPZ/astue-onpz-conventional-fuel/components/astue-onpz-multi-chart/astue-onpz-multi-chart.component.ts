@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartD3, IChartMini } from '@shared/interfaces/smart-scroll.model';
 import {
     IMultiChartLine,
     IMultiChartData,

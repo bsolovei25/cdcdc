@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { IRetrievalEventDto, EventsWidgetNotificationStatus } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
@@ -16,7 +16,7 @@ export class EventsCorrectCardComponent implements OnInit {
         new: 'standart',
         inWork: 'warning',
         closed: 'danger',
-        wasted: 'standart'
+        wasted: 'standart',
     };
 
     constructor(public ewService: EventsWorkspaceService) {}

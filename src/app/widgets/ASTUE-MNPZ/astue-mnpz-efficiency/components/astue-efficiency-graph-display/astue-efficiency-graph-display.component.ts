@@ -6,7 +6,7 @@ import { IDatesInterval, WidgetService } from '../../../../../dashboard/services
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 
 interface ILabels {
     currentDeviation: IAsEfLabel;

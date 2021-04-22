@@ -2,9 +2,28 @@
   height: 100%;
   width: 100%;
 }
-
+.smpo-card {
+  ::ng-deep {
+    .event-mat-select {
+      height: 32px !important;
+    }
+    .default {
+      background-color: var(--bg-dashboard-color) !important;
+    }
+    .description {
+      height: 196px !important;
+      background-color: var(--bg-dashboard-color) !important;
+      .description__content {
+        background-color: var(--bg-dashboard-color) !important;
+      }
+    }
+    .default-chat {
+      background-color: var(--bg-dashboard-color) !important;
+    }
+  }
+}
 .event-card {
-  height: 100%;
+  min-height: 100%;
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
@@ -29,31 +48,8 @@
     margin-bottom: 7px;
   }
 
-  .critical-button {
-    border: 1px solid var(--border-vidget-color);
-    background-color: transparent;
-    width: 53px;
-    height: 53px;
-    border-radius: 50%;
-    margin: 20px 27px 0px;
-
-    &__icon {
-      color: #616580;
-    }
-  }
-
-  .active {
-    border: 1px solid var(--index-critical-color);
-    background-color: var(--index-critical-color);
-
-    .critical-button__icon {
-      color: var(--text-alwaysWhite-color);
-      fill: var(--text-alwaysWhite-color);
-    }
-  }
-
   .checkbox-container {
-    margin-top: 18px;
+    margin-top: 0;
 
     .checkbox {
       margin-right: 8px;
@@ -80,6 +76,7 @@
       display: flex;
       align-items: center;
       gap: inherit;
+      margin-bottom: 5px;
 
       &__container {
         width: 100%;
@@ -204,5 +201,58 @@
 
   ::-webkit-resizer {
     background-color: var(--color-header-bg-dark);
+  }
+}
+
+
+.select-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 65px;
+  border-radius: 2px;
+  min-width: 53px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 5px;
+  justify-content: center;
+}
+
+.title {
+  width: 100%;
+  height: 24px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 24px;
+}
+
+.control-group-size {
+  &-1 {
+    flex-grow: 2;
+    width: 110px;
+  }
+  &-2 {
+    flex-grow: 2;
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    .checkbox-container {
+      margin-right: 39px;
+    }
+  }
+}
+
+.reasons {
+  &.h-auto {
+    min-height: auto;
+  }
+  width: 100%;
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+  svg-icon {
+    cursor: pointer;
   }
 }

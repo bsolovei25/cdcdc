@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="bar-container">
+    <div
+      #barElement
+      *ngFor="let group of groups; trackBy: trackByFn; let i = index"
+      evjFactoryAnalysisTooltip
+      [title]="group.title"
+      [value]="group.value"
+      [style]="group.barStyle"
+      class="bar"
+      [ngClass]="'bar__' + group.barClass"
+    >
+      <div class="filler" [class.secondary]="i !== 0"></div>
+      <div *ngIf="i === 0" class="line-divider__bottom"></div>
+      <div *ngIf="i === 0" class="total-value {{ totalValue > 0 ? 'blue' : 'deep-blue' }}">
+        <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/cell/total-value.svg"></svg-icon>
+        <span class="text-blue" [matTooltip]="totalValue > 0 ? '+' + totalValue : totalValue.toString()">
+          <span *ngIf="totalValue > 0">+</span>{{ totalValue }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

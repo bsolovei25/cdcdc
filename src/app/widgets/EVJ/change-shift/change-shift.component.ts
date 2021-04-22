@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
+    ChangeShiftType,
     IChangeShiftComment,
     IChangeShiftMember,
     IChangeShiftModel,
@@ -62,6 +63,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         map((x) => x.status === 'acceptReady' || x.status === 'accepted' || x.status === 'init')
     );
 
+    public shiftType$: BehaviorSubject<ChangeShiftType> = new BehaviorSubject<ChangeShiftType>('accept');
     public unitId: number = null;
 
     constructor(
@@ -95,6 +97,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.changeShiftKeeperService.widgetId = this.widgetId;
         this.unitId = await this.changeShiftKeeperService.getUnitId(this.widgetId);
         const shiftType = this.changeShiftHelperService.getShiftTypeByName(this.widgetType);
+        this.shiftType$.next(shiftType);
         await this.changeShiftKeeperService.loadShift(this.unitId, shiftType);
     }
 
@@ -132,7 +135,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     }
 
     public shiftApply(): void {
-        const type = this.widgetType.search('pass') !== -1 ? 'pass' : 'accept';
+        const type = this.shiftType$.getValue();
         if (this.changeShiftHelperService.isReadyShift(this.shift$.getValue())) {
             this.changeShiftKeeperService.applyShift(this.widgetId, null, type).then();
             return;

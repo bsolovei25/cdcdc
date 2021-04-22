@@ -1,0 +1,35 @@
+@import "../../../../../../../theme/mixins/mixins-text-overflow";
+
+.evj-events-smpo-reasons-menu-item {
+  &_body {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-left: 2px solid var(--border-icon-color);
+    border-radius: 2px;
+    background: var(--gray-G10-color);
+    max-height: 34px;
+    margin-bottom: 2px;
+    margin-right: 9px;
+    span {
+      @include text-overflow;
+      -webkit-line-clamp: 1;
+    }
+    &:hover, &.active {
+      border: 1px solid var(--border-blue-color);
+      background: var(--opacity-plan-20-color);
+      border-left: 2px solid var(--border-blue-color);
+      span {
+        color: var(--text-contrast-color);
+      }
+    }
+  }
+  &_title {
+    color: var(--text-subscript-color);
+    padding: 7px 0 11px 13px;
+    font-size: 13px;
+    &:hover {
+      color: var(--text-contrast-color);
+    }
+  }
+
+}

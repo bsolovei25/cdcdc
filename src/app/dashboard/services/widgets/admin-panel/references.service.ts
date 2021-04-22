@@ -9,7 +9,7 @@ import {
 } from '../../../models/ADMIN/references.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 
 @Injectable({
     providedIn: 'root',

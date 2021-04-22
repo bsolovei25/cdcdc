@@ -1,3 +1,45 @@
+# [1.18.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.17.0...v1.18.0) (2021-04-21)
+
+
+### Bug Fixes
+
+* **#1563:** Исправлен стиль плашки с цифрой для секции ([429066c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/429066cf4ab6e555048f0bfeb2c1002614e2cbef)), closes [#1563](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1563)
+* **#1617:** Добавлен перенос строк для элемента 3 типа ([03e6f18](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03e6f18e4d3741faa34f4bcca9209945a6945e53)), closes [#1617](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1617)
+* **#1646:** Исправление ГФУ-2 ([544581e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/544581ee56e378a1cc0976d9201472aaf70e7a6f)), closes [#1646](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1646)
+* **#1654:** Исправлено заполнение svg данными ([a4793f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a4793f9ff9074d30e890c2b48783cd959c487d3f)), closes [#1654](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1654)
+
+
+### Features
+
+* **#1496:** Создать новую подкатегорию СМПО категории Производственные задания ([0add19a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0add19a7040b51cd78822e9c5fe3af4f5f14bf05)), closes [#1496](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1496)
+
+# [1.17.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.16.0...v1.17.0) (2021-04-17)
+
+
+### Bug Fixes
+
+* **#1445:** Исправления отображения Изомалк-2 Печи факел ([2374808](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/237480823ec3b9bb25e2232105a11c2ef7c84440)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1553:** Размещение трх 204 ([f6c2010](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f6c20100a467107884f2a05176ee6ccc1f7c397f)), closes [#1553](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1553)
+
+
+### Features
+
+* **#1643:** Добавлено демо для СОУ учета движения ([d583c03](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d583c03df2ad34b6bb43af054e99e5bbba84cf48)), closes [#1643](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1643)
+* **front#1573:** "ЦМИД. Верстка состояния просмотра карточки КД ПАЗ" ([9622992](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9622992855b293b9adee1a145520c8f51b124edb)), closes [front#1573](https://gitlab.funcoff.club/front/issues/1573)
+
+# [1.16.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.15.0...v1.16.0) (2021-04-15)
+
+
+### Bug Fixes
+
+* **#1446:** Исправлено переключение между мнемосхемами в пределах одной установки ([5463dee](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5463dee0d2049968e9afb194f9ac228b4c5f83d3)), closes [#1446](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1446)
+
+
+### Features
+
+* **#1457:** Разработка компонентов СМПО Причины и Корректирующие мероприятия ([8cc173f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8cc173fdb8748422adc0db3ddf30020cc967c8d6)), closes [#1457](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1457)
+* **#1555:** Resolve "Проработка виджета Предикторы v2" ([94e4ac7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/94e4ac7b364602b62b27557e4da123dd5019dd63))
+
 # [1.15.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.14.0...v1.15.0) (2021-04-14)
 
 

@@ -5,8 +5,10 @@ import { KpeGaugeChartMultiColor } from '../../../shared/kpe-gauge-chart-multi-c
 
 export interface IKpeGaugeChartPage {
     name: string;
+    title?: string;
     value: number;
     deviation: number;
+    debalancePercent: number;
     dailyStatus: IKpeUniversalCardMonthData[];
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
@@ -14,6 +16,7 @@ export interface IKpeGaugeChartPage {
     fact?: number;
     plan?: number;
     unit?: string;
+    type?: string;
     isUnitPercent?: boolean;
 }
 
@@ -47,7 +50,7 @@ export class GaugeDiagramComponent implements OnInit, OnChanges {
             this.pokeNeedle(this.convertPercentToGrad(this.percent));
             this.text.text(this.percent);
         }
-        if (this.data) {
+        if (this.data && this.g) {
             this.appendName(51, this.data.name);
         }
     }

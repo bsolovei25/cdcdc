@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ISmpEvent } from '../../../dashboard/models/SMP/smp-events.model';
 import { ISelectValue } from '../../../@shared/components/select/select.component';
-import { ISmpEventsMessageModel } from '../../../@shared/models/smp-events-message.model';
+import { ISmpEventsMessageModel } from '../../../@shared/interfaces/smp-events-message.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SmpEventsService } from '../../../dashboard/services/widgets/SMP/smp-events.service';
 

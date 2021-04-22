@@ -14,6 +14,9 @@ import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-o
 import { AstueOnpzFactorAnalysisChartInfoComponent } from './components/astue-onpz-factor-analisys-chart-components/astue-onpz-factor-analysis-chart-info/astue-onpz-factor-analysis-chart-info.component';
 import { AstueOnpzFactoryAnalysisChartComponent } from './components/astue-onpz-factor-analisys-chart-components/astue-onpz-factory-analysis-chart/astue-onpz-factory-analysis-chart.component';
 import { AstueOnpzSharedModule } from '../astue-onpz-shared/astue-onpz-shared.module';
+import { AstueOnpzFactoryAnalysisBarMultiLevelComponent } from './components/astue-onpz-factor-analisys-components/astue-onpz-factory-analysis-bar-multi-level/astue-onpz-factory-analysis-bar-multi-level.component';
+import { AstueOnpzFactoryAnalysisBarMultiLevelTooltipComponent } from './components/astue-onpz-factor-analisys-components/astue-onpz-factory-analysis-bar-multi-level/components/astue-onpz-factory-analysis-bar-multi-level-tooltip/astue-onpz-factory-analysis-bar-multi-level-tooltip.component';
+import { FactoryAnalysisTooltipDirective } from './components/astue-onpz-factor-analisys-components/astue-onpz-factory-analysis-bar-multi-level/directives/factory-analysis-tooltip.directive';
 @NgModule({
     declarations: [
         AstueOnpzFactoryAnalysisComponent,
@@ -25,6 +28,9 @@ import { AstueOnpzSharedModule } from '../astue-onpz-shared/astue-onpz-shared.mo
         AstueOnpzFactoryAnalysisChartPageComponent,
         AstueOnpzFactorAnalysisChartInfoComponent,
         AstueOnpzFactoryAnalysisChartComponent,
+        AstueOnpzFactoryAnalysisBarMultiLevelComponent,
+        AstueOnpzFactoryAnalysisBarMultiLevelTooltipComponent,
+        FactoryAnalysisTooltipDirective,
     ],
     imports: [
         CommonModule,

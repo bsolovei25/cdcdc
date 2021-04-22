@@ -1,5 +1,5 @@
 import { IProductionTrend } from '../../dashboard/models/LCO/production-trends.model';
-import { IChartMini } from '../models/smart-scroll.model';
+import { IChartMini } from '../interfaces/smart-scroll.model';
 
 export function fillDataArray(
     data: IProductionTrend[],

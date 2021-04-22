@@ -35,7 +35,16 @@ export class KpeUniversalCardComponent implements OnInit, OnChanges {
         this.currentType = currentType;
     }
     @Input()
-    public contentData: IKpeUniversalCardLineChart;
+    public contentData: IKpeUniversalCardLineChart = {
+        percentStatus: 'default',
+        deviationPlanPredict: 0,
+        deviationPlanPredictFact: 0,
+        fact: 0,
+        percentageInfluence: 0,
+        plan: 0,
+        planPredict: 0,
+        predict: 0,
+    };
 
     @Input()
     public gaugeChart: IKpeGaugeChartPage;
@@ -74,7 +83,7 @@ export class KpeUniversalCardComponent implements OnInit, OnChanges {
 
         // Меняем значение для дня, для которого есть инфа в данных
         this.currentMonth.forEach((item, i) => {
-            const newItem = this.gaugeChart?.dailyStatus.find(date => date.day === item.day)
+            const newItem = this.gaugeChart?.dailyStatus?.find(date => date.day === item.day)
             if (newItem) {
                 this.currentMonth[i] = newItem;
             }
@@ -82,6 +91,10 @@ export class KpeUniversalCardComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
+        if (this.gaugeChart) {
+            this.gaugeChart.name = this.gaugeChart.title;
+        }
+
         if (this.contentData) {
             if (this.contentData.fact - this.contentData.planPredict < 0) {
                 this.contentData.percentStatus = 'warning';

@@ -10,7 +10,7 @@ import {
     IAsEfTableRow,
     IAsPlanningTable,
     IAsEfTableComponent, IAsEfTableBlockComponent
-} from "../../../../../dashboard/models/ASTUE/astue-efficiency.model";
+} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 @Component({
     selector: 'evj-astue-efficiency-table-display',
     templateUrl: './astue-efficiency-table-display.component.html',
-    styleUrls: ['./astue-efficiency-table-display.component.scss'],
+    styleUrls: ['./astue-efficiency-table-display.component.scss']
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
@@ -90,18 +90,18 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                                 values.push({
                                     date: col.date,
                                     value: col.value,
-                                    isEditable: col.editable,
+                                    isEditable: col.editable
                                 });
                             });
                             newRows.push({
                                 name: rows.name,
-                                values,
+                                values
                             });
                         });
                         this.displayData.push({
                             unitName: row.title,
                             name: row.name,
-                            rows: newRows,
+                            rows: newRows
                         });
                     });
                 } else {
@@ -113,18 +113,18 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                                 data.push({
                                     date: col.date,
                                     value: col.value,
-                                    isEditable: col.editable,
+                                    isEditable: col.editable
                                 });
                             });
                             children.push({
                                 name: rows.name,
-                                data,
+                                data
                             });
                         });
                         this.deviationsData.push({
                             unitName: row.title,
                             name: row.name,
-                            children,
+                            children
                         });
                     });
                 }
@@ -146,7 +146,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             } else {
                 this.displayDataComponent.push({
                     unitName: value.unitName,
-                    data: [value],
+                    data: [value]
                 });
             }
         });
@@ -157,17 +157,18 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             } else {
                 this.deviationsDataComponent.push({
                     unitName: value.unitName,
-                    data: [value],
+                    data: [value]
                 });
             }
         });
     }
 
     private dataMapping(): void {
+        this.displayData = [];
+        this.displayDataComponent = [];
         this.allData.forEach((unit) => {
             const flows: string[] = this.AsEfService.isUnitSelected(unit);
             if (!!flows) {
-                this.displayData.push(unit);
                 unit.flows.forEach((flow) => {
                     if (flows.includes(flow.name)) {
                         flow.parent = unit.name;
@@ -175,8 +176,10 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                     }
                 });
                 this.displayData.forEach((x) => (x.rows = x.rows?.filter((r) => r !== null)));
+
             }
         });
+        this.mappingNewData();
     }
 
     private defineDates(): void {

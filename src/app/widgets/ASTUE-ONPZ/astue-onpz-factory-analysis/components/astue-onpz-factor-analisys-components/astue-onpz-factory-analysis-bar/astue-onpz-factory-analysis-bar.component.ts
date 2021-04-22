@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IAstueOnpzFactoryAnalysisBar } from '../../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { IAstueOnpzFactoryAnalysisBar } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model";
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-bar',
@@ -7,17 +7,15 @@ import { IAstueOnpzFactoryAnalysisBar } from '../../../../../../dashboard/models
     styleUrls: ['./astue-onpz-factory-analysis-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AstueOnpzFactoryAnalysisBarComponent implements OnInit {
+export class AstueOnpzFactoryAnalysisBarComponent {
     @Input() set data(value: IAstueOnpzFactoryAnalysisBar) {
         this.barStyle = `top: ${100 - value.topLevel}%; bottom: ${value.lowLevel}%;`;
         this.barClass = value.type;
         this.value = value.value;
+        this.title = value.title
     }
     public barStyle: string = null;
     public barClass: string = null;
     public value: number = null;
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    public title: string = null;
 }

@@ -1,0 +1,46 @@
+<div class="access-settings">
+    <div class="access-settings__header">
+        <div class="name">
+            Доступ открыт
+        </div>
+        <div class="search">
+            <svg-icon class="icon" src="{{searchIcon}}"></svg-icon>
+            <input class="input" type="text" placeholder="Поиск по имени" />
+        </div>
+    </div>
+    <div class="access-settings__body">
+        <div class="menu">
+            <div class="menu__checkbox">
+                <mat-checkbox
+                color="primary"
+                ></mat-checkbox>
+                выбрать всё
+            </div>
+            <evj-simple-button>
+                Открыть доступ
+                <svg-icon
+                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
+                src="assets/icons/widgets/admin/admin-report-server-configurator/access-arrows.svg"
+                ></svg-icon>
+            </evj-simple-button>
+        </div>
+        <div class="list">
+            <ng-container *ngFor="let item of items">
+                <div class="item">
+                    <svg-icon
+                    class="item__user"
+                    src="assets/icons/widgets/admin/admin-report-server-configurator/user.svg"
+                    ></svg-icon>
+                    <div class="item__name">
+                        <span>Иванов Иван Иванович</span>
+                        <span>Оператор ТУ</span>
+                    </div>
+                    <svg-icon
+                    class="item__delete"
+                    src="assets/icons/widgets/admin/admin-report-server-configurator/trash.svg"
+                    ></svg-icon>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

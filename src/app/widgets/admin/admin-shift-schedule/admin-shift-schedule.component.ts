@@ -25,7 +25,7 @@ import {
     IUnits,
     IUnitSettings,
 } from '../../../dashboard/models/ADMIN/admin-shift-schedule.model';
-import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../@shared/interfaces/alert-window.model';
 import {
     AdminShiftScheduleService,
     IDropItem,

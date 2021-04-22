@@ -53,14 +53,14 @@
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
                     <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="!engUnitsComparator.isEngUnitsPercent(cardsItem.title)"
-                         (click)="engUnitsComparator.setEngUnits(cardsItem.title, 'units')"
+                         [class.gauge-card__units__unit_active]="!engUnitsComparator.isEngUnitsPercent(cardsItem?.chartPage.title)"
+                         (click)="engUnitsComparator.setEngUnits(cardsItem?.chartPage.title, 'units')"
                     >
-                      {{ cardsItem?.unit || 'ед.изм'}}
+                      {{ cardsItem?.chartPage.unit || 'ед.изм'}}
                     </div>
                     <div class="gauge-card__units__unit"
-                         (click)="engUnitsComparator.setEngUnits(cardsItem.title, 'percent')"
-                         [class.gauge-card__units__unit_active]="engUnitsComparator.isEngUnitsPercent(cardsItem.title)"
+                         (click)="engUnitsComparator.setEngUnits(cardsItem?.chartPage.title, 'percent')"
+                         [class.gauge-card__units__unit_active]="engUnitsComparator.isEngUnitsPercent(cardsItem?.chartPage.title)"
                     >
                       %
                     </div>
@@ -69,9 +69,9 @@
                     <evj-kpe-gauge-chart
                       *ngIf="!displayNewDesign"
                       background="lite"
-                      [fact]="engUnitsComparator.isEngUnitsPercent(cardsItem?.title) ? cardsItem?.percentage : cardsItem?.fact"
-                      [plan]="engUnitsComparator.isEngUnitsPercent(cardsItem?.title) ? 100 : cardsItem?.plan"
-                      [deviation]="engUnitsComparator.isEngUnitsPercent(cardsItem?.title) ? cardsItem?.deviationPercentage : cardsItem?.deviation"
+                      [fact]="engUnitsComparator.isEngUnitsPercent(cardsItem?.chartPage.title) ? cardsItem?.chartPage.percentage : cardsItem?.chartPage.fact"
+                      [plan]="engUnitsComparator.isEngUnitsPercent(cardsItem?.chartPage.title) ? 100 : cardsItem?.chartPage.plan"
+                      [deviation]="engUnitsComparator.isEngUnitsPercent(cardsItem?.chartPage.title) ? cardsItem?.chartPage.deviationPercentage : cardsItem?.chartPage.deviation"
                     ></evj-kpe-gauge-chart>
                     <evj-kpe-gauge-chart-multi-color
                       [type]="1"
