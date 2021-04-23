@@ -72,28 +72,28 @@
         </div>
       </div>
     </div>
-    <div class="workspace__select-container">
-      <div class="title">
-        <span>Приоритет</span>
-      </div>
-      <div class="mat-form-category">
-        <div class="event-mat-select">
-          <div class="{{ewService.event.priority.name}}">
-            <mat-form-field appearance="none">
-              <mat-select
-                [(ngModel)]="ewService.event.priority"
-                [compareWith]="compareFn"
-                [disabled]="isCreateEvent()"
-              >
-                <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                  >{{ ewService.priorities[p.name] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="workspace__select-container" >-->
+<!--      <div class="title">-->
+<!--        <span>Приоритет</span>-->
+<!--      </div>-->
+<!--      <div class="mat-form-category">-->
+<!--        <div class="event-mat-select">-->
+<!--          <div class="{{ewService.event.priority.name}}">-->
+<!--            <mat-form-field appearance="none">-->
+<!--              <mat-select-->
+<!--                [(ngModel)]="ewService.event.priority"-->
+<!--                [compareWith]="compareFn"-->
+<!--                [disabled]="isCreateEvent()"-->
+<!--              >-->
+<!--                <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
+<!--                  >{{ ewService.priorities[p.name] }}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 
   <div class="workspace__header">
@@ -127,7 +127,7 @@
     </div>
     <div class="workspace__select-container">
       <div class="title">
-        <span>Единицы обслуживания</span>
+        <span>Единица обслуживания</span>
       </div>
       <div class="mat-form-category">
         <div class="event-mat-select">
