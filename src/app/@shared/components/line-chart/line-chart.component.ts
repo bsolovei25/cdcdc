@@ -29,8 +29,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     private DELTA_CF: number = 0.1;
 
     private readonly chartStroke: { [key: string]: string } = {
-        plan: 'var(--index-plan-color)',
-        fact: 'var(--index-fact-color)',
+        plan: 'var(--index-fact-color)',
+        fact: 'var(--index-plan-color)',
     };
 
     private svg: any = null;
