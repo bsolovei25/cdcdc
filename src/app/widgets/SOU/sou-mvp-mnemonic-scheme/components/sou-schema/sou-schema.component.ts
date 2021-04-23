@@ -717,6 +717,11 @@ export class SouSchemaComponent implements OnChanges {
                     lineLength: 17,
                     lineHeight: 14,
                 };
+            case 2:
+                return {
+                    lineLength: 20,
+                    lineHeight: 14,
+                };
             case 3:
                 return {
                     lineLength: 23,
