@@ -1,0 +1,5 @@
+ci
+.git
+.vscode
+Dockerfile
+node_modules
