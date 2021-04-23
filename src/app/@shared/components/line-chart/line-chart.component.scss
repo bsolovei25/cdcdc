@@ -22,5 +22,12 @@
     .longer-rect-default {
       fill: none;
     }
+
+    .mouse-over {
+      color: var(--index-error-color) !important;
+    }
+    .mouse-graph-date, .mouse-graph-value {
+      fill: var(--text-accent-color) !important;
+    }
   }
 }
