@@ -18,8 +18,8 @@ evj:
     environment: dev
     
   image:
-    registry: "registry.funcoff.club/evj"
-    name: "front"
+    registry: "registry.funcoff.club/cup"
+    name: "evj-front"
     tag: "develop"
 
   resourcesOverride: true
