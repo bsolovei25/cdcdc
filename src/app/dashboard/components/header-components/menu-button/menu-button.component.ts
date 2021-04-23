@@ -44,7 +44,10 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.loadData();
         this.themeService.isDarkTheme.subscribe((value) => {
             this.isDarkTheme = value;
-            this.setMenuItems();
+            const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение темы');
+            if (idx !== -1) {
+                this.menuItems[idx].icon = this.isDarkTheme ? 'lightTheme' : 'darkTheme';
+            }
         });
     }
 
@@ -116,7 +119,6 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     private loadData(): void {
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
-                console.warn('SID: ', data?.sid)
                 if (data?.sid) {
                     const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение пароля');
                     if (idx !== -1) {
