@@ -1,32 +1,66 @@
 ---
 include:
-  - project: "oaovd/osspu/evj/infra/pipelines"
-    file: "/pipelines/angular-docker-helm-main.yml"
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/pipelines/angular-pipelines.yml'
+  # - project: "oaovd/osspu/evj/infra/pipelines"
+  #   file: "/pipelines/angular-docker-helm-main.yml"
 
 variables:
   # legacy
-  ENV_STAGES_FILE: "evj-front.env"
   S3_RELEASE_BUCKET: "gazgolder/release-tags/${CI_PROJECT_NAME}"
 
-  # global lvl
+  # GLOBAL LVL
   GIT_DEPTH: 3
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
-  DOCKER_DRIVER: overlay2
-  GIT_SSL_NO_VERIFY: "1"
-  # PROJECT_NAME: "front"
-  CACHE_KEY: "$CI_PROJECT_NAME-$CI_PROJECT_ID-cache"
-
-  # CI STAGES LVL
-  ## angular pipelines
-  SEMVER_EXPORT_ON: "true"
-  COMPILE_TARGET: "angular"
-  IS_ALERTING: "true"
-
-  # EXPORTING-SEMVER LVL
-  ## skip build and don't upload to ftp (controlled from RELEASE prjct)
+  IS_DEBUG_ENV: "true"
+  IS_FETCH_REMOTE_DOCKERFILE: "true"
+  CACHE_KEY: "$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG-cache"
+  SR_CACHE_KEY: "$CI_PROJECT_NAME-$CI_PROJECT_ID-SR-cache"
   SKIP_BUILD: $SKIP_BUILD
   NO_FTP: $NO_FTP
+
+  # CI STAGES LVL
+  IS_DEPLOY_REVIEW: "true"
+  IS_ALERTING: "true"
+  UNIT_TESTS_ON: "true"
+  HELM_DEPLOY_ON: "true"
+  SEMVER_EXPORT_ON: "true"
+  
+  
+  # DOCKER BUILD LVL
+  # DOCKERFILE_PACK: "./docker/Dockerfile.packing"
+  DOCKERHUB_URL: "registry.funcoff.club"
+  DOCKER_REPO: "cup"
+  DOCKER_EXPORT_PULL_TAG: "latest"
+
+  # service lvl
+  SERVICE_NAME: "evj-front"
+  EXTERNAL_DOCKER_IMG: "onpz.local/cup/evj-front"
+  TAG: "$CI_RELEASE_TAG"
+  
+  # deploy lvl
+  HELM_DEPLOY_WITH: "nexus"
+  HELM_RELEASE: "asplatform-front"
+  HELM_NS: "evj"
+  HELM_INGRESS_DOMAIN: "funcoff.club"
+  HELM_INGRESS_PREFIX: "evj"
+  HELM_SUBCHART_NAME: "evj"
+  HELM_NEXUS_CHART: "asplatform-front"
+  HELM_NEXUS_CHART_VERSION: "0.3.4"
+  HELM_NEXUS_REGISTRY: "helm-gazgolder"
+  HELM_VALUES_OVERRIDE: "./ci/evj.gazgolder.yaml"
+  HELM_EXTRA_FLAGS: ""
+
+  # fetching Dockerfile from remote repo 
+  FETCH_PROJECT_ID: "184"
+  FETCH_PATH: "builds%2Fangular%2F"
+  FETCH_FILE: "Dockerfile.default"
+  FETCH_REF: "/raw?ref=master"
+
+  # ALERTING
+  ROCKETCHAT_PUBLISH_SUCCESS: "*${SERVICE_NAME}* / *New build coming*. Deploying on funcoff.club ->"
+  ROCKETCHAT_PUBLISH_FAIL: "*BUILD ${SERVICE_NAME} FAILED*. See details below ->"
+  ROCKETCHAT_RELEASE_SUCCESS: "*New release ${SERVICE_NAME} coming*. Uploaded to gpn-ftp ->"
+  ROCKETCHAT_RELEASE_FAIL: "*RELEASE ${SERVICE_NAME} FAILED*. See details below ->"
 
   ## semver controlling variables
   SR_MANUAL_TAG_RELEASE: "false"
@@ -36,50 +70,17 @@ variables:
   SR_IS_EXPORTING: "true"
   SR_IS_ALERTING: "true"
   SR_SEMVER_RELEASE_DRY_RUN: "false"
-  EXTERNAL_REGISTRY: "onpz.local/evj"
+  EXTERNAL_REGISTRY: "onpz.local/asplatform"
 
-  # DOCKER BUILD LVL
-  DOCKERHUB_URL: "registry.funcoff.club"
-  DOCKER_REPO: "evj"
-  DOCKERFILE_PACK: "./docker/Dockerfile.packing"
-  DOCKER_EXPORT_PULL_TAG: "latest"
-
-  # service lvl
-  SERVICE_NAME: "front"
-  EXTERNAL_DOCKER_IMG: "onpz.local/evj/front"
-
-  # deploy lvl
-  RELEASE: "front"
-  IMG_VERSION: "latest"
-  NS: "evj"
-  CHART: "./ci/front-chart"
-  DOMAIN: "funcoff.club"
-  INGRESS_PREFIX: "evj"
-
-  # ALERTING
-  ROCKETCHAT_PUBLISH_SUCCESS: "*${SERVICE_NAME}* / *New build coming*. Uploaded to gpn-ftp ->"
-  ROCKETCHAT_PUBLISH_FAIL: "*BUILD ${SERVICE_NAME} FAILED*. See details below ->"
-  ROCKETCHAT_RELEASE_SUCCESS: "*New release ${SERVICE_NAME} coming*. Uploaded to gpn-ftp ->"
-  ROCKETCHAT_RELEASE_FAIL: "*RELEASE ${SERVICE_NAME} FAILED*. See details below ->"
-  # AUTH_TOKEN_PUBLISH: $ROCKETCHAT_PIPELINES
-  # AUTH_TOKEN_RELEASE: $ROCKETCHAT_RELEASE_TAGS
 
 stages:
-  - build
-  - packing
+  - restore
+  - build-n-test
+  - pack-n-push
   - deploy
   - alerting
   - release
 
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
-    - if: $CI_PIPELINE_SOURCE == "pipeline"
-      when: never
-    - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == "master"
-    - if: $CI_COMMIT_BRANCH == "devops"
 
 .default_rules_refs_anchor: &default_rules_refs
   rules:
@@ -112,29 +113,6 @@ deliver-to-deploy:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "devops"
 
-export-to-zyfra:
-  stage: release
-  variables:
-    GIT_STRATEGY: none
-  trigger:
-    include: ci/pipelines/export-images-child.yml
-  <<: *default_rules_refs
-
-export-to-zyfra-semantic:
-  stage: release
-  needs: []
-  trigger:
-    include:
-      - project: "oaovd/osspu/evj/infra/pipelines"
-        file: "/pipelines/semantic-release-to-zyfra-tst.yml"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RELEASE == "ZYFRA_FRONT"
-    # - if: $CI_COMMIT_BRANCH == "master"
-    #   when: manual
-    # - if: $CI_COMMIT_BRANCH == "devops"
-    #   when: manual
-    # - if: $CI_COMMIT_BRANCH == "alpha"
-    #   when: manual
 
 release-notes-maker:
   extends: .release-notes-tpl
@@ -165,22 +143,16 @@ export-to-ftp:
       when: never
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "master"
       when: manual
-    - if: $CI_COMMIT_BRANCH == "develop"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "devops"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "alpha"
-      when: manual
+      allow_failure: true
+
 
 export-to-ftp-no-build:
   stage: release
   needs: []
   variables:
     SKIP_BUILD: "true"
-    # DOCKERHUB_URL: "nexus.funcoff.club"
-    # DOCKER_REPO: "asplatform"
   trigger:
     include:
       - project: "oaovd/osspu/evj/infra/pipelines"
@@ -190,14 +162,9 @@ export-to-ftp-no-build:
       when: never
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "master"
       when: manual
-    - if: $CI_COMMIT_BRANCH == "develop"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "devops"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "alpha"
-      when: manual
+      allow_failure: true
 
 semantic-release:
   stage: release
@@ -205,8 +172,6 @@ semantic-release:
   variables:
     SKIP_BUILD: "true"
     SR_IS_EXPORTING: "false"
-    # DOCKERHUB_URL: "nexus.funcoff.club"
-    # DOCKER_REPO: "asplatform"
   trigger:
     include:
       - project: "oaovd/osspu/evj/infra/pipelines"
@@ -216,11 +181,6 @@ semantic-release:
       when: never
     - if: $CI_PIPELINE_SOURCE == "pipeline" && $RUN_FROM == "release"
       when: never
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "master"
       when: manual
-    - if: $CI_COMMIT_BRANCH == "develop"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "devops"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "alpha"
-      when: manual
+      allow_failure: true

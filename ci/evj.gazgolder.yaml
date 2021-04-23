@@ -1,0 +1,48 @@
+tags:
+  evj: true
+
+global:
+  environment: "gazgolder"
+  securityContextEnabled: false
+
+evj:
+  deployment:
+    replicas: 1
+
+  ingress:
+    state: true
+    site: ingress-name
+
+  labels:
+    project: evj
+    environment: dev
+    
+  image:
+    registry: "registry.funcoff.club/cup"
+    name: "evj-front"
+    tag: "develop"
+
+  resourcesOverride: true
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "80m"
+    limits:
+      memory: "196Mi"
+      cpu: "150m"
+
+  podAnnotations: {}
+
+  configMaps:
+    nginx:
+      overrideCI: false
+    config:
+      overrideCI: false
+      data:
+        _custom: {
+          "restUrl": "https://smp.funcoff.club",
+          "reconnectInterval": 5,
+          "isPlatform": "false"
+        }
+
+
