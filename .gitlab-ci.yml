@@ -21,7 +21,7 @@ variables:
   # CI STAGES LVL
   IS_DEPLOY_REVIEW: "true"
   IS_ALERTING: "true"
-  UNIT_TESTS_ON: "false"
+  UNIT_TESTS_ON: "true"
   HELM_DEPLOY_ON: "true"
   SEMVER_EXPORT_ON: "true"
   
