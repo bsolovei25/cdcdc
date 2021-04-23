@@ -106,7 +106,6 @@ mInarJutHTwE+Elb3QIDAQAB`;
         try {
             if (this.userSessionToken) {
                 current = await this.http.get<ITokenData>(this.restUrl + '/api/user-management/current').toPromise();
-                console.warn('NO WINDOWS: ', current);
                 this.configureUserAuth(current);
                 return current;
             }
@@ -121,7 +120,6 @@ mInarJutHTwE+Elb3QIDAQAB`;
                     withCredentials: true,
                 })
                 .toPromise();
-            console.warn('WINDOWS: ', current);
 
             this.configureUserAuth(current);
             return current;
