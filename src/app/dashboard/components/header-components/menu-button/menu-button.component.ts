@@ -44,7 +44,10 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.loadData();
         this.themeService.isDarkTheme.subscribe((value) => {
             this.isDarkTheme = value;
-            this.setMenuItems();
+            const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение темы');
+            if (idx !== -1) {
+                this.menuItems[idx].icon = this.isDarkTheme ? 'lightTheme' : 'darkTheme';
+            }
         });
     }
 
