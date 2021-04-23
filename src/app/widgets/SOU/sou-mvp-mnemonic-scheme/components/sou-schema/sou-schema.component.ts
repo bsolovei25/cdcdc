@@ -296,6 +296,17 @@ export class SouSchemaComponent implements OnChanges {
             });
             // add class and text to element
             this.addClassAndTextToElement(element, elementFull, mode);
+
+            // text-anchor для выравнивания текста по центру
+            if (this.doesElemNeedTextAnchor(element)) {
+                const textAnchorClassName = 'text-anchor';
+                this.addElemClass(elementFull?.textValue, [textAnchorClassName]);
+                this.addElemClass(elementFull?.textPercent, [textAnchorClassName]);
+                elementFull?.texts?.forEach((el: Element) => {
+                    this.addElemClass(el, [textAnchorClassName]);
+                });
+            }
+
             // Event
             if (sectionData) {
                 this.addElementClickListener(element, elementFull);
@@ -322,11 +333,6 @@ export class SouSchemaComponent implements OnChanges {
             this.setElementMode(item, mode, true);
 
             if (elementFull?.sectionData) {
-                const element4 = this.elementsMap.get(elementFull.sectionData.code);
-
-                if (this.doesElemNeedTextAnchor(element4)) {
-                    this.addElemClass(item, [`text-anchor`]);
-                }
                 if ('productName' in elementFull?.sectionData) {
                     this.addTextToTextElem(item, String(elementFull?.sectionData?.productName));
                 } else {
@@ -334,10 +340,6 @@ export class SouSchemaComponent implements OnChanges {
                 }
             } else {
                 this.addTextToTextElem(item, String(name));
-                const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
-                if (this.doesElemNeedTextAnchor(element4)) {
-                    this.addElemClass(item, [`text-anchor`]);
-                }
             }
         });
         elementFull?.arrows?.forEach((item: Element) => {
@@ -408,25 +410,13 @@ export class SouSchemaComponent implements OnChanges {
                 if (elementFull?.textValue) {
                     this.setElementMode(elementFull?.textValue, mode, true);
                 }
-                const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
-                if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
-                    this.addElemClass(elementFull?.textValue, [`text-anchor`]);
-                }
             }
             if ('value' in elementFull?.sectionData) {
                 this.addTextToTextElem(elementFull?.textValue, `${String(elementFull?.sectionData?.value)} т`);
-                const element4 = this.elementsMap.get(elementFull.sectionData.code);
-                if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
-                    this.addElemClass(elementFull?.textValue, [`text-anchor`]);
-                }
             }
         } else {
             this.addTextToTextElem(elementFull?.textValue, `0 тн`);
             this.setElementMode(elementFull?.textValue, mode, true);
-            const element4 = this.elementsMap.get(elementFull?.sectionData?.code);
-            if (this.doesElemNeedTextAnchor(element4) && elementFull?.textValue) {
-                this.addElemClass(elementFull?.textValue, [`text-anchor`]);
-            }
         }
 
         // related elements
@@ -658,7 +648,7 @@ export class SouSchemaComponent implements OnChanges {
     private addTextToTextElem(textElem: Element, text: string): void {
         if (textElem?.children) {
             this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
-            const maxLineLength = this.getTextElemMaxLineLength(textElem as SVGElement);
+            const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
 
             const children = Array.from(textElem?.children);
 
@@ -667,11 +657,11 @@ export class SouSchemaComponent implements OnChanges {
                     this.setTspanText(child, text);
                 });
             }
-            if (maxLineLength && text.length > maxLineLength) {
+            if (textParams?.lineLength && text.length > textParams.lineLength) {
                 if (children.length > 1) {
                     children.forEach((child: SVGTextPositioningElement, index: number) => {
-                        const from = maxLineLength * index;
-                        const to = maxLineLength * (index + 1);
+                        const from = textParams.lineLength * index;
+                        const to = textParams.lineLength * (index + 1);
                         this.setTspanText(child, text.slice(from, to).trim());
                     });
                 } else {
@@ -686,11 +676,11 @@ export class SouSchemaComponent implements OnChanges {
     // Сделать текст <text> многострочным для элементов определенных типов
     // Если текст не помещается в одну стоку
     private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
-        const maxLineLength = this.getTextElemMaxLineLength(textElem);
-        const lineOffsetTopPx = 20;
+        const textParams = this.getTextElemLayoutParams(textElem);
+        const lineOffsetTopPx = textParams?.lineHeight || 20;
 
-        if (maxLineLength) {
-            const linesCount = Math.ceil(text?.length / maxLineLength);
+        if (textParams?.lineLength) {
+            const linesCount = Math.ceil(text?.length / textParams.lineLength);
             const children = textElem?.children && Array.from(textElem.children) as SVGTextPositioningElement[];
 
             if (children?.length < linesCount) {
@@ -713,22 +703,52 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
-    // Возвращает максимальную длину строки для текстового элемента <text>
+    // Возвращает параметры перестроения текста <text>
     // Или null если ограничений нет
-    private getTextElemMaxLineLength(textElem: SVGElement): number {
-        const elementParentId = textElem?.parentElement?.id;
+    private getTextElemLayoutParams(textElem: SVGElement): {
+        lineLength: number, // Максимальное количество символов в строке
+        lineHeight: number, // Высота новой строки при переносе
+    } {
+        const elementTypeId = this.getElementTypeId(textElem?.parentElement);
 
-        if (elementParentId?.includes('-1_')) {
-            return 17;
-        } else if (elementParentId?.includes('-3_')) {
-            return 23;
-        } else if (elementParentId?.includes('-4_')) {
-            return 13;
-        } else if (elementParentId?.includes('-13_')) {
-            return 7;
+        switch (elementTypeId) {
+            case 1:
+                return {
+                    lineLength: 17,
+                    lineHeight: 14,
+                };
+            case 3:
+                return {
+                    lineLength: 23,
+                    lineHeight: 12,
+                };
+            case 4:
+                return {
+                    lineLength: 13,
+                    lineHeight: 20,
+                };
+            case 13:
+                return {
+                    lineLength: 7,
+                    lineHeight: 20,
+                };
         }
 
         return null;
+    }
+
+    // Нужно ли этому элементу выравнивание текста по центру
+    private doesElemNeedTextAnchor(element: Element): boolean {
+        const typesNeedTextAnchor = [4, 13, 14];
+        const elementTypeId = this.getElementTypeId(element);
+        return elementTypeId && typesNeedTextAnchor.includes(elementTypeId);
+    }
+
+    // Возвращает ID типа элемента
+    private getElementTypeId(element: SVGElement | Element): number {
+        const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
+        const typeId = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+        return typeId;
     }
 
     searchArrow(elements: HTMLCollection): Element[] {
@@ -747,15 +767,6 @@ export class SouSchemaComponent implements OnChanges {
             }
         });
         return arrow;
-    }
-
-    // Нужно ли этому элементу выравнивание текста по центру
-    private doesElemNeedTextAnchor(element: Element): boolean {
-        const elementId = element?.id;
-        return (
-            elementId?.includes('-4_')
-            || elementId?.includes('-13_')
-        );
     }
 
     // Добавляет список классов элементу

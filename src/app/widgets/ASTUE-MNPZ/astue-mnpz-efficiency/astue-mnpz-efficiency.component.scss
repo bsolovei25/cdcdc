@@ -7,22 +7,65 @@
   }
 }
 
+.btn-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  .btns {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .btn {
+      height: 40px;
+      width: 190px;
+      padding: 0 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid var(--border-icon-color);
+
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--text-subscript-color);
+
+      &:first-child {
+        margin-left: auto;
+      }
+
+      &_active {
+        color: var(--text-contrast-color);
+        border-color: var(--border-blue-color);
+      }
+
+      &:hover {
+        color: var(--text-contrast-color);
+      }
+    }
+  }
+}
+
 .container {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
 }
 
 .content-container {
   width: 100%;
   height: 100%;
-  padding: 0 14px;
-  border-left: 0.5px dashed var(--color-border-main-transparrent);
-  border-right: 0.5px dashed var(--color-border-main-transparrent);
+  padding-top: 10px;
   display: flex;
   overflow: auto;
+
+  border: 1px solid var(--border-vidget-color);
 }
 
 .item {
@@ -90,7 +133,7 @@
     position: absolute;
     content: '';
     display: inline-block;
-    background-color: var(--color-astue-tag-5);
+    background-color: var(--border-blue-color);
     clip-path: polygon(50% 0, 0% 100%, 100% 100%);
     left: 16px;
     width: 7px;
@@ -102,8 +145,9 @@
 
   .mat-tooltip {
     font-size: 12px;
-    background-color: var(--color-astue-onpz-widget-bg);
-    border: 1px solid var(--color-astue-tag-5);
+    background-color: var(--gray-G11-color);
+    border: 1px solid var(--border-blue-color);
+    color: var(--text-accent-color);
     border-radius: 2px;
   }
 }
