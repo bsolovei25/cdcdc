@@ -56,7 +56,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });
-        this.$encrypt = new JSEncrypt();
+        this.$encrypt = new JSEncrypt(null);
     }
 
     async authenticate(username: string, password: string): Promise<ITokenData> {
@@ -106,7 +106,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         try {
             if (this.userSessionToken) {
                 current = await this.http.get<ITokenData>(this.restUrl + '/api/user-management/current').toPromise();
-                console.warn('NO WINDOWS: ', current)
+                console.warn('NO WINDOWS: ', current);
                 this.configureUserAuth(current);
                 return current;
             }
@@ -121,7 +121,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
                     withCredentials: true,
                 })
                 .toPromise();
-            console.warn('WINDOWS: ', current)
+            console.warn('WINDOWS: ', current);
 
             this.configureUserAuth(current);
             return current;
