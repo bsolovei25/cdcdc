@@ -1716,6 +1716,18 @@ export const WIDGETS_LAZY = {
     },
     //#endregion ED
 
+    // #region CMID
+    'cmid-often-closed-positions': {
+        import: async () => await import('src/app/widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.module'),
+        module: 'CmidOftenClosedPositionsModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 6,
+        preview: 'default',
+    },
+    //#endregion CMID
+
     //#region others
     'flame-diagram': {
         import: async () => {
