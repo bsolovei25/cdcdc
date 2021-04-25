@@ -14,8 +14,8 @@ import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-serv
 })
 export class AdminReportServerConfiguratorParametersSelectComponent implements OnInit {
 
-  public readonly closePopupIcon='assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
-  public readonly listIcon='assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
+  public readonly closePopupIcon = 'assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
+  public readonly listIcon = 'assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
   public selectParameter: SelectionModel<ISystemOptions> = new SelectionModel<ISystemOptions>(true);
   public selectedParameters: ISystemOptions[] = [];
   @Input() public report: IReportTemplate = null;
@@ -23,14 +23,13 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
   ngOnInit(): void {
     console.log(this.data.options);
     console.log(this.data.data);
-    
   }
   constructor(
     public dialogRef: MatDialogRef<AdminReportServerConfiguratorParametersSelectComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {data: IReportTemplate, options: ISystemOptions[]},
+    @Inject(MAT_DIALOG_DATA) public data: { data: IReportTemplate, options: ISystemOptions[] },
     private arscRootService: AdminReportServerConfiguratorRootService,
     private arscService: AdminReportConfiguratorService
-    ){}
+  ) { }
 
   onClose(): void {
     this.dialogRef.close();
@@ -41,12 +40,15 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
 
     item.isActive = !item.isActive;
 
-  if (item.isActive) {
+    if (item.isActive) {
       this.selectedParameters.push(item);
-  } else {
+      console.log(this.selectedParameters);
+    } else if (!item.isActive) {
       const index = this.selectedParameters.findIndex((e) => e.isActive);
       this.selectedParameters.splice(index, 1);
+      console.log(this.selectedParameters);
+      
+    }
   }
-  }
-  
+
 }

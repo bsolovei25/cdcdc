@@ -6,7 +6,9 @@
     height: 100%;
 
     display: flex;
+    align-items: center;
     gap: 15px;
+    overflow-x: scroll;
 }
 .address {
     height: 32px;

@@ -63,7 +63,7 @@ export class ReportServerConfiguratorService {
         return this.http.post<IFileTemplate>(this.restUrl + "/api/report-filetemplate/loaded", body);
     }
 
-    public postSystemOptions(id, options): Observable<IPostSystemOptionsTemplate> {
+    public postSystemOptions(id: number, options): Observable<IPostSystemOptionsTemplate> {
         return this.http.post<IPostSystemOptionsTemplate>(
             this.restUrl + "/api/report-template/" + id + "/system-options",
             options
