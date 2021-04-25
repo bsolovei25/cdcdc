@@ -9,7 +9,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
-import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
+import { IPointTank, IPointD3 } from '../interfaces/smart-scroll.model';
 import { lineBreakTankName } from '../functions/line-break.function';
 
 @Directive({

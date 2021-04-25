@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../../../../@shared/interfaces/alert-window.model';
 import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';

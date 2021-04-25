@@ -5,11 +5,8 @@
   * {
     box-sizing: border-box;
     font-size: 14px;
-    color: var(--color-text-main);
   }
 }
-
-
 
 .items {
   width: 100%;
@@ -28,11 +25,11 @@
     position: relative;
     border-radius: 2px;
     margin-bottom: 7px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px var(--gradient-main-color-1);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--color-new-header-bg);
+    background: var(--bg-header-color);
     overflow: hidden;
 
     font-size: 14px;
@@ -58,6 +55,7 @@
     }
 
     .button {
+      color: var(--border-icon-color);
       .icon-unactive {
         visibility: visible;
       }
@@ -113,7 +111,7 @@
         margin: 1px 0px;
         display: flex;
         align-items: center;
-        background: var(--color-new-header-bg);
+        background: var(--gray-G10-color);
         user-select: none;
         cursor: pointer;
 
@@ -126,7 +124,7 @@
         }
 
         &_active {
-          background: var(--color-bg-active);
+          background: var(--border-blue-color);
 
           &::after {
             content: "";
@@ -135,7 +133,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            background: var(--color-active);
+            background: var(--opacity-plan-20-color);
           }
         }
       }
@@ -144,8 +142,8 @@
     &_list {
       padding: 12px 0px;
       border-radius: 12px;
-      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-      background: var(--color-aw-container-body-transparent);
+      box-shadow: 2px 2px 8px var(--gradient-main-color-1);
+      background: var(--bg-body-color);
     }
 
     &::-webkit-scrollbar-track {
@@ -159,8 +157,8 @@
 .card {
   &_active {
     padding-left: 22px;
-    border-left: 2px solid var(--color-active);
-    background: var(--color-bg-active) !important;
+    border-left: 2px solid var(--border-blue-color);
+    background: var(--opacity-plan-20-color) !important;
   }
 
   &:hover {

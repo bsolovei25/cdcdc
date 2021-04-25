@@ -218,6 +218,7 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),
             retrievalEvents: [],
+            smpo: {}
         };
         try {
             await this.ewService.postEventRetrieval(event);

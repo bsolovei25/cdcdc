@@ -10,7 +10,7 @@ import {
     EventEmitter,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { IInputOptions } from '../../models/input.model';
+import { IInputOptions } from '../../interfaces/input.model';
 
 type formFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline' | 'none';
 

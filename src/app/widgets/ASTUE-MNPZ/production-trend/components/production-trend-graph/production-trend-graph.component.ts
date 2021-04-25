@@ -5,7 +5,7 @@ import { IDatesInterval, WidgetService } from 'src/app/dashboard/services/widget
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable } from 'rxjs';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import { filter, map } from 'rxjs/operators';
 
 export interface IWsData<T> {

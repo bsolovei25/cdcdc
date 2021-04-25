@@ -1,12 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from "@angular/core";
-import { IProductionTrend, ProductionTrendType } from "../../../../../dashboard/models/LCO/production-trends.model";
-import { IChartD3 } from "@shared/models/smart-scroll.model";
-import { AsyncRender } from "@shared/functions/async-render.function";
-import * as d3Selection from "d3-selection";
-import * as d3 from "d3";
-import { fillDataArray } from "@shared/functions/fill-data-array.function";
-import { IDatesInterval, WidgetService } from "../../../../../dashboard/services/widget.service";
-import { dateFormatLocale } from "@shared/functions/universal-time-fromat.function";
+import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
+import { IProductionTrend, ProductionTrendType } from '../../../../../dashboard/models/LCO/production-trends.model';
+import { IChartD3 } from '@shared/interfaces/smart-scroll.model';
+import { AsyncRender } from '@shared/functions/async-render.function';
+import * as d3Selection from 'd3-selection';
+import * as d3 from 'd3';
+import { fillDataArray } from '@shared/functions/fill-data-array.function';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-deviation-limits-chart',
@@ -248,19 +248,19 @@ export class DeviationLimitsChartComponent implements OnChanges {
             return;
         }
         const g = pointsG.append('g').attr('class', 'fact-point');
-        const points: { radius: number, opacity: number }[] = [
+        const points: { radius: number; opacity: number }[] = [
             { radius: 4.5, opacity: 0.05 },
             { radius: 3.5, opacity: 0.2 },
             { radius: 1.5, opacity: 0.5 },
-            { radius: 0.5, opacity: 1 }
+            { radius: 0.5, opacity: 1 },
         ];
-        points.forEach(v => {
-            g.append("circle")
-                .attr("class", "point point_fact")
-                .attr("cx", item.graph[item.graph.length - 1].x)
-                .attr("cy", item.graph[item.graph.length - 1].y)
-                .attr("r", v.radius)
-                .style("opacity", v.opacity);
+        points.forEach((v) => {
+            g.append('circle')
+                .attr('class', 'point point_fact')
+                .attr('cx', item.graph[item.graph.length - 1].x)
+                .attr('cy', item.graph[item.graph.length - 1].y)
+                .attr('r', v.radius)
+                .style('opacity', v.opacity);
         });
     }
 

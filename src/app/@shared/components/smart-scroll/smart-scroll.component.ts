@@ -10,7 +10,7 @@ import {
     OnChanges,
     OnDestroy,
 } from '@angular/core';
-import { IChartMini } from '../../models/smart-scroll.model';
+import { IChartMini } from '../../interfaces/smart-scroll.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
 
 @Component({

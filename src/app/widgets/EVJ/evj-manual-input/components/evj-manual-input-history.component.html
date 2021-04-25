@@ -6,8 +6,8 @@
           *ngIf="!machineData[historyIdx.machineIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_down.svg"
           [svgStyle]="{
-          'widtd.px':14, 
-          'height.px':8, 
+          'widtd.px':14,
+          'height.px':8,
           'cursor':'pointer'
         }"
         ></svg-icon>
@@ -16,8 +16,8 @@
           *ngIf="machineData[historyIdx.machineIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_top.svg"
           [svgStyle]="{
-          'widtd.px':8, 
-          'height.px':14, 
+          'widtd.px':8,
+          'height.px':14,
           'cursor':'pointer'
         }"
         ></svg-icon>
@@ -37,8 +37,8 @@
           *ngIf="!machineData[historyIdx.machineIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_down.svg"
           [svgStyle]="{
-            'widtd.px':14, 
-            'height.px':8, 
+            'widtd.px':14,
+            'height.px':8,
             'cursor':'pointer'
           }"
         ></svg-icon>
@@ -47,8 +47,8 @@
           *ngIf="machineData[historyIdx.machineIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_top.svg"
           [svgStyle]="{
-          'widtd.px':8, 
-          'height.px':14, 
+          'widtd.px':8,
+          'height.px':14,
           'cursor':'pointer'
         }"
         ></svg-icon>
@@ -61,8 +61,8 @@
           *ngIf="!machineData[historyIdx.machineIdx]?.groups[historyIdx.groupIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_down.svg"
           [svgStyle]="{
-            'widtd.px':14, 
-            'height.px':8, 
+            'widtd.px':14,
+            'height.px':8,
             'cursor':'pointer'
           }"
         ></svg-icon>
@@ -71,8 +71,8 @@
           *ngIf="machineData[historyIdx.machineIdx]?.groups[historyIdx.groupIdx]?.open"
           src="assets/icons/widgets/manual-input/arrow_top.svg"
           [svgStyle]="{
-            'widtd.px':8, 
-            'height.px':14, 
+            'widtd.px':8,
+            'height.px':14,
             'cursor':'pointer'
           }"
         ></svg-icon>
@@ -81,7 +81,7 @@
     </tr>
     <tr
       class="params"
-      [@Branch]="(machineData[historyIdx.machineIdx]?.open 
+      [@Branch]="(machineData[historyIdx.machineIdx]?.open
       && machineData[historyIdx.machineIdx]?.groups[historyIdx.groupIdx]?.open)?'expanded' : 'collapsed'"
     >
       <td class="params__title">{{paramTitle}}</td>

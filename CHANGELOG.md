@@ -1,3 +1,37 @@
+# [1.19.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.18.0...v1.19.0) (2021-04-23)
+
+
+### Bug Fixes
+
+* **#1587:** КПА c100 исправления индикации ([9118ce6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9118ce685f2ff0a5df1c955d60f00b84e8051aea)), closes [#1587](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1587)
+* **#1612:** Исправлено отображение элементов на КПА c100 ([5fbf54f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5fbf54ff1b9349de2d59f4e13d78e0afb3428a03)), closes [#1612](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1612)
+* **#1618:** Исправлено отображение таблицы Астуэ ([d636a46](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d636a46b63a9ed37c7847e78642d692af88b386a)), closes [#1618](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1618)
+* **#1661:** Исправлена индикация ТП Насоснаяа парк БГС ([0c98fef](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0c98fefe335130e4030566e2a22c2dd13c31ee41)), closes [#1661](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1661)
+* **#1669, #1670:** Resolve "События. Скрыть поле Приоритет в карточке АСУС" и События. Исправление наименования поля в карточке АСУС ([138e32a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/138e32a5918c8c88458c9490a7884fa61950ded6))
+* **#1706:** Исправления КПА с100 ([e78e765](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e78e765b22df2a749cbcc08d22e50cc6a6f0200d)), closes [#1706](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1706)
+* **#1717:** "Неполный состав кнопок выводится в панели опций" ([f4eab36](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f4eab365fcd9fb1d055497651abfcd32db1484b2)), closes [#1717](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1717)
+* **KPE:** fixed widgetId input into header component. [#1695](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1695) ([0cfd9dc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0cfd9dc86804c91cd73fa2f262db6b108cfb1425))
+
+
+### Features
+
+* **#1604:** Реализовать возможность просмотра значений тренда по наведению мыши для трендов по предикторам ([0534fd9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0534fd99dfac3d5c2d6b3750ff4b3738809959f8)), closes [#1604](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1604)
+
+# [1.18.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.17.0...v1.18.0) (2021-04-21)
+
+
+### Bug Fixes
+
+* **#1563:** Исправлен стиль плашки с цифрой для секции ([429066c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/429066cf4ab6e555048f0bfeb2c1002614e2cbef)), closes [#1563](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1563)
+* **#1617:** Добавлен перенос строк для элемента 3 типа ([03e6f18](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03e6f18e4d3741faa34f4bcca9209945a6945e53)), closes [#1617](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1617)
+* **#1646:** Исправление ГФУ-2 ([544581e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/544581ee56e378a1cc0976d9201472aaf70e7a6f)), closes [#1646](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1646)
+* **#1654:** Исправлено заполнение svg данными ([a4793f9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a4793f9ff9074d30e890c2b48783cd959c487d3f)), closes [#1654](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1654)
+
+
+### Features
+
+* **#1496:** Создать новую подкатегорию СМПО категории Производственные задания ([0add19a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0add19a7040b51cd78822e9c5fe3af4f5f14bf05)), closes [#1496](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1496)
+
 # [1.17.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.16.0...v1.17.0) (2021-04-17)
 
 

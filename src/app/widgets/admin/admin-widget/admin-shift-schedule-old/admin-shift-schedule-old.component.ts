@@ -5,7 +5,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../../@shared/interfaces/alert-window.model';
 import { FormControl } from '@angular/forms';
 import { IAbsent } from '../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';

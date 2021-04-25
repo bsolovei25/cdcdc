@@ -4,7 +4,7 @@ import { ShiftService } from '../../../../dashboard/services/widgets/EVJ/shift.s
 import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 
 interface IMapper {
     code: string;

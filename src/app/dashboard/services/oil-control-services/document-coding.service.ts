@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { IEncodedFileToSave } from '../../../widgets/NK/document-coding/components/document-coding-menu/document-coding-menu.component';
 import { IOilFilter } from '../../models/oil-operations';

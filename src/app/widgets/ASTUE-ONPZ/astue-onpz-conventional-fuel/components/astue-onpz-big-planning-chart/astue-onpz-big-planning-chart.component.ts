@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { IPlanningChart } from '../../../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { fillDataShape } from '@shared/functions/common-functions';
-import { IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',
@@ -22,6 +22,8 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
     public data: IProductionTrend[] = [];
     public colors: Map<string, number>;
     public scaleCounter: number = 5;
+    public chartValue: number = 0;
+
     set scale(isMinus: boolean) {
         let counter = this.scaleCounter + (+isMinus || -1);
         if (counter < 0) {
@@ -32,12 +34,18 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
 
     constructor(
         protected widgetService: WidgetService,
+        private cdr: ChangeDetectorRef,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private astueService: AstueOnpzService
+        private astueService: AstueOnpzService,
     ) {
         super(widgetService, id, uniqId);
+    }
+
+    public setChartValues(value: number): void {
+        this.chartValue = value;
+        this.cdr.detectChanges();
     }
 
     public ngOnInit(): void {

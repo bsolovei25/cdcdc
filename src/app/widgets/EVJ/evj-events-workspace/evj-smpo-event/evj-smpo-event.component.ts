@@ -1,38 +1,30 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from "@angular/core";
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
-import { BehaviorSubject } from "rxjs";
 import { EvjEventsSmpoReasonsMenuComponent } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
 import { EvjEventsSmpoCorrectMenuComponent } from '../components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { IMenuItem } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, take } from "rxjs/operators";
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
-import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
+import { EventService } from "@dashboard/services/widgets/EVJ/event.service";
+import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take-until-destroed.function";
+import { IPhase } from "@dashboard/models/EVJ/events-widget";
 
-const STATUSES = ['Новое', 'В работе'];
-const SUBCATEGORIES = ['СМПО'];
-
+@DecorateUntilDestroy()
 @Component({
     selector: 'evj-smpo-event',
     templateUrl: './evj-smpo-event.component.html',
     styleUrls: ['./evj-smpo-event.component.scss'],
 })
-export class EvjSmpoEventComponent implements OnInit {
+export class EvjSmpoEventComponent implements OnInit, OnDestroy {
     @Input()
     public noOverflow: boolean = false;
-
-    public subCategories$: BehaviorSubject<string[]> = new BehaviorSubject(SUBCATEGORIES);
-    public statuses$: BehaviorSubject<string[]> = new BehaviorSubject(STATUSES);
-
-    // public startData: Date | null = new Date();
-    // public endData: Date | null = new Date();
-
     public dateNow: Date = new Date();
 
     public reasons: IMenuItem[] = [];
     public events: IMenuItem[] = [];
-    public phasesList: string[] = [];
+    public phasesList: IPhase[] = [];
 
     private reasonList: IMenuItem[] = [];
     private eventsList: IMenuItem[] = [];
@@ -46,11 +38,12 @@ export class EvjSmpoEventComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        // TODO Проинитить данные причин и эвентов?
         this.getReasonsList();
         this.getEventsList();
         this.getPhasesList();
     }
+
+    public ngOnDestroy(): void {}
 
     public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
@@ -79,16 +72,17 @@ export class EvjSmpoEventComponent implements OnInit {
     public removeEvent(event: IMenuItem): void {
         this.events = this.events.filter((currentEvent) => currentEvent.id !== event.id);
         this.getEventsList();
+        this.ewService.event.smpo.events = this.events;
     }
 
     public removeReason(reason: IMenuItem): void {
         this.reasons = this.reasons.filter((currentReason) => currentReason.id !== reason.id);
         this.getReasonsList();
+        this.ewService.event.smpo.reasons = this.reasons;
     }
 
-    public phasesList$(): Observable<string[]> {
-        return this.eventService.getPhaseList()
-            .pipe(map(phases => phases.map((phase => phase.name))));
+    public phasesList$(): Observable<IPhase[]> {
+        return this.eventService.getPhaseList();
     }
 
     public reasonList$(): Observable<IMenuItem[]> {
@@ -129,10 +123,13 @@ export class EvjSmpoEventComponent implements OnInit {
             data: this.reasonList,
         });
 
-        popoverRef.afterClosed$.subscribe((res) => {
+        popoverRef.afterClosed$
+            .pipe(takeUntilDestroyed(this))
+            .subscribe((res) => {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.reasons = res?.data;
+                this.ewService.event.smpo.reasons = this.reasons;
             }
         });
     }
@@ -151,10 +148,13 @@ export class EvjSmpoEventComponent implements OnInit {
             data: this.eventsList,
         });
 
-        popoverRef.afterClosed$.subscribe((res) => {
+        popoverRef.afterClosed$
+            .pipe(takeUntilDestroyed(this))
+            .subscribe((res) => {
             this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
             if (res.type !== 'backdropClick') {
                 this.events = res?.data;
+                this.ewService.event.smpo.events = this.events;
             }
         });
     }

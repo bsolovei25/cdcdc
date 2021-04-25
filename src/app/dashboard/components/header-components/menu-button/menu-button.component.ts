@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
-import { IAlertPasswordModel } from '@shared/models/alert-password.model';
+import { IAlertPasswordModel } from '@shared/interfaces/alert-password.model';
 import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
 import { ThemeConfiguratorService } from '@core/service/theme-configurator.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { AppConfigService } from '@core/service/app-config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AboutComponent } from '../../about/about.component';
@@ -44,7 +44,10 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.loadData();
         this.themeService.isDarkTheme.subscribe((value) => {
             this.isDarkTheme = value;
-            this.setMenuItems();
+            const idx: number = this.menuItems.findIndex((item) => item.name === 'Изменение темы');
+            if (idx !== -1) {
+                this.menuItems[idx].icon = this.isDarkTheme ? 'lightTheme' : 'darkTheme';
+            }
         });
     }
 
