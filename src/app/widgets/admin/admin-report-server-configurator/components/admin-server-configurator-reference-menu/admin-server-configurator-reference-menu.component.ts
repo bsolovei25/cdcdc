@@ -13,7 +13,7 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
   @Input() public data: IFolder;
   @Input() public reports: IReportTemplate[];
 
-  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[];
+  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[] | IFolder;
   @Input() public templates: ITemplate[];
 
   constructor(
@@ -36,6 +36,7 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     console.log(folder);
     this.arscService.folders$.next(folder.childFolders);
     this.arscService.reports$.next(folder.templates);
+    this.arscService.address$.next(folder)
   }
 
   public async openTemplate(template: IReportTemplate): Promise<void> {

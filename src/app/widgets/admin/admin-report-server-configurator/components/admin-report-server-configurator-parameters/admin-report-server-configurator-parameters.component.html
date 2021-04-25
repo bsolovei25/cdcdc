@@ -9,7 +9,10 @@
                         доступа</div>
                 </div>
                 <div class="settings__buttons">
-                    <evj-simple-button class="button" (click)="openSelect()">
+                    <evj-simple-button
+                    class="button"
+                    (click)="openSelect()"
+                    >
                         Изменить параметры
                     </evj-simple-button>
                     <evj-simple-button class="button" (click)="submit()">
@@ -23,14 +26,21 @@
         </div>
         <div class="parameters__body">
             <ng-container [ngSwitch]="parameter">
+                <ng-container *ngSwitchDefault>
+                    <div class="empty">
+                        <svg-icon
+                        src="assets/icons/widgets/admin/admin-report-server-configurator/empty-box.svg"
+                        ></svg-icon>
+                    </div>
+                </ng-container>
                 <ng-container *ngSwitchCase="2">
                     <div class="access">
                         <evj-admin-report-server-configurator-access>
                         </evj-admin-report-server-configurator-access>
                     </div>
                     <div class="access">
-                        <evj-admin-report-server-configurator-access>
-                        </evj-admin-report-server-configurator-access>
+                        <evj-admin-report-server-configurator-list-group>
+                        </evj-admin-report-server-configurator-list-group>
                     </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="1">

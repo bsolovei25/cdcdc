@@ -21,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AdminReportServerConfiguratorListGroupComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-list-group/admin-report-server-configurator-list-group.component';
 
 
 
@@ -39,6 +40,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AdminReportServerConfiguratorParametersSelectComponent,
     AdminReportServerConfiguratorAccessComponent,
     AdminReportServerConfiguratorRepositoryAddFileComponent,
+    AdminReportServerConfiguratorListGroupComponent,
   ],
   imports: [
     CommonModule,

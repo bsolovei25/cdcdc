@@ -69,6 +69,12 @@
 
             font-size: 14px;
             line-height: 17px;
+
+            &__active {
+                background-color: var(--opacity-plan-20-color);
+                border: 1px solid var(--border-blue-color);
+                color: var(--text-accent-color);
+            }
         }
     }
 

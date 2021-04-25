@@ -47,7 +47,8 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   }
     
   public openSelect(): void {
-    const dialogRef = this.dialog.open(AdminReportServerConfiguratorParametersSelectComponent, {data: this.options});
+    const dialogRef = this.dialog.open(AdminReportServerConfiguratorParametersSelectComponent,
+      {data: {data: this.data, options: this.options}});
 
     dialogRef.afterClosed().subscribe(result => {
     });
