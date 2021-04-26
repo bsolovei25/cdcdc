@@ -34,10 +34,13 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SouSchemaComponent implements OnChanges {
+
     elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
+
+    private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
@@ -202,7 +205,17 @@ export class SouSchemaComponent implements OnChanges {
     // Обработка данных с бека
     // Тут можно замокать данные
     private processSectionsData(): void {
-        this.dataPark = this.sectionsData;
+        if (this.debugElementCode) {
+            this.dataPark = this.sectionsData.map((item: SouSectionData) => {
+                if (item?.code === this.debugElementCode) {
+                    console.log(`Отладка элемента: ${item.code}. Данные с бэка:`, item);
+                }
+
+                return item;
+            });
+        } else {
+            this.dataPark = this.sectionsData;
+        }
         this.updateSvgBySectionData(false);
     }
 
@@ -266,6 +279,10 @@ export class SouSchemaComponent implements OnChanges {
 
             this.prepareElement('reset', element);
             this.elementsMap.set(id, element);
+
+            if (this.debugElementCode && id === this.debugElementCode) {
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+            }
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`);
