@@ -8,7 +8,7 @@
         <ng-container *ngFor="let item of data.options">
             <div class="item"
             [ngClass]="{'item__active': item.isActive}"
-            (click)="chooseParameter(selectParameter?.selected[0], item)"
+            (click)="chooseParameter(item)"
             >
                 <span>{{item.name}}</span>
             </div>

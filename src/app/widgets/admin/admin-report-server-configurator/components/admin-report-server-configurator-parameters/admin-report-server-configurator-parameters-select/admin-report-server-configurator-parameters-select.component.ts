@@ -34,7 +34,7 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
     this.dialogRef.close();
   }
 
-  public chooseParameter(parameter: ISystemOptions, item: ISystemOptions): void {
+  public chooseParameter(item: ISystemOptions): void {
     console.log(item);
 
     item.isActive = !item.isActive;
