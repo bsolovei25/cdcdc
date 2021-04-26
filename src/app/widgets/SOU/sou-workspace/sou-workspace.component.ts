@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from "@angular/core";
+import { WidgetService } from "@dashboard/services/widget.service";
+import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 
 @Component({
   selector: 'evj-sou-workspace',
@@ -6,11 +8,21 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./sou-workspace.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SouWorkspaceComponent implements OnInit {
+export class SouWorkspaceComponent extends WidgetPlatform implements OnInit {
 
-  constructor() { }
+    constructor(
+        protected widgetService: WidgetService,
 
-  ngOnInit(): void {
-  }
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, id, uniqId);
+    }
+
+    ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    protected dataHandler(ref: unknown): void {}
 
 }

@@ -1,0 +1,51 @@
+.widget {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.header {
+  height: 40px;
+  color: var(--color-text-main);
+
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 6px;
+
+  .btn {
+    height: 24px;
+    margin-left: 8px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 2px;
+
+    color: var(--color-sou-button-txt);
+    background-color: var(--color-sou-dark-button);
+
+    &__blue {
+      color: var(--color-text-main);
+      background-color: var(--color-new-header-active);
+    }
+
+    &__icon {
+      margin-right: 9px;
+    }
+
+    &__save {
+      padding: 0 12px;
+    }
+
+    &__reload {
+      padding: 0 15px;
+    }
+
+    &__close {
+      padding: 0 19px;
+    }
+  }
+}
