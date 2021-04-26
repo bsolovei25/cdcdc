@@ -11,7 +11,6 @@ import {
     ICustomOptionsTemplate,
     ICustomOptions
 } from "../models/admin-report-server-configurator.model";
-import { IAlertWindowModel } from "@shared/models/alert-window.model";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
