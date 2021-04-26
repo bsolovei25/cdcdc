@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from "@angular/core";
 
 @Component({
   selector: 'evj-sou-workspace-info-bar',
@@ -8,9 +8,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class SouWorkspaceInfoBarComponent implements OnInit {
 
-  constructor() { }
+    @Input() data: {};
 
-  ngOnInit(): void {
-  }
+    constructor() {}
+
+    ngOnInit(): void {
+        console.log(this.data);
+    }
 
 }

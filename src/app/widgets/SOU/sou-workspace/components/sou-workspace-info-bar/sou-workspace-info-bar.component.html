@@ -1,9 +1,14 @@
 <div class="info-bar">
   <div class="about-section">
 
-    <div class="about-section__subtitle"></div>
+    <div class="about-section__subtitle"
+         [ngStyle]="{ 'color': data['mainColor'] }">
+      {{ data['subTitle'] }}
+    </div>
 
-    <div class="about-section__title"></div>
+    <div class="about-section__title">
+      {{ data['title'] }}
+    </div>
 
     <div class="about-section__details">
       <div class="about-section__detail">
