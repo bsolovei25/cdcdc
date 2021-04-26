@@ -31,6 +31,7 @@ export interface IKpeUniversalCardLineChart{
     styleUrls: ['./kpe-universal-card.component.scss'],
 })
 export class KpeUniversalCardComponent implements OnInit, OnChanges {
+    @Input() onlyPercent: boolean = false;
     @Input() set type(currentType: number) {
         this.currentType = currentType;
     }
