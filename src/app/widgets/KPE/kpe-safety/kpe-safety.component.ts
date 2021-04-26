@@ -18,6 +18,7 @@ export interface IKpeSafetyCard {
     title: string;
     unit: string;
     deviation?: number;
+    percentageInfluence?: number;
     fact: number;
     plan: number;
     percentage?: number;

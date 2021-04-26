@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { IMessageFileAttachment } from '@shared/models/message.model';
+import { IMessageFileAttachment } from '@shared/interfaces/message.model';
 import { UploadDropZoneComponent } from '@shared/components/upload-drop-zone/upload-drop-zone.component';
 import { FileAttachMenuService } from '../../../../../dashboard/services/file-attach-menu.service';
 

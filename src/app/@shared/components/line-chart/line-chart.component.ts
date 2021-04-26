@@ -2,8 +2,8 @@ import { Component, ViewChild, ElementRef, OnChanges, HostListener, Input, OnIni
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IProductionTrend, ProductionTrendType } from '../../../dashboard/models/LCO/production-trends.model';
-import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
-import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
+import { IChartD3, IChartMini, IPointTank } from '../../interfaces/smart-scroll.model';
+import { ChartStyleType, ChartStyle, IChartStyle } from '../../interfaces/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
 import { setLimits } from '../../functions/set-limits.function';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
@@ -18,7 +18,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' = 'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' =
+        'production-trend';
 
     @Input()
     private scroll: { left: number; right: number } = { left: 0, right: 0 };
@@ -28,8 +29,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     private DELTA_CF: number = 0.1;
 
     private readonly chartStroke: { [key: string]: string } = {
-        plan: '#ffffff',
-        fact: '#3fa9f5',
+        plan: 'var(--index-fact-color)',
+        fact: 'var(--index-plan-color)',
     };
 
     private svg: any = null;
@@ -245,7 +246,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             .call(this.axis.axisY)
             .selectAll('text')
             .style('font-size', '12px')
-            .style('fill', '#8c99b2');
+            .style('fill', 'var(--text-main-color)');
 
         this.svg.select('g.axis path').remove();
 
@@ -257,14 +258,14 @@ export class LineChartComponent implements OnChanges, OnInit {
             .call(this.axis.axisX)
             .selectAll('text')
             .style('font-size', '12px')
-            .style('fill', '#8c99b2');
+            .style('fill', 'var(--text-main-color)');
 
         // изменение цветов осей
         let g = this.svg.selectAll('g.axis');
-        g.style('color', '#606580');
+        g.style('color', 'var(--border-icon-color)');
 
         // отрисовка центра начала координат
-        g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
+        g = this.svg.select('g.axis:last-of-type').style('color', 'var(--index-plan-color)');
         const linesG = g.append('g').attr('opacity', 1).attr('class', 'longer-line');
 
         linesG
@@ -290,7 +291,7 @@ export class LineChartComponent implements OnChanges, OnInit {
             .selectAll('.tick')
             .append('circle')
             .attr('r', 3)
-            .style('fill', '#3fa9f5');
+            .style('fill', 'var(--index-plan-color)');
 
         this.drawAxisArrows('xAxis');
 
@@ -335,6 +336,6 @@ export class LineChartComponent implements OnChanges, OnInit {
             .attr('x2', this.graphMaxX - this.padding.right - this.padding.left)
             .attr('y2', 0)
             .style('opacity', '0.2')
-            .style('stroke', '#8c99b2');
+            .style('stroke', 'var(--text-main-color)');
     }
 }

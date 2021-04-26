@@ -39,7 +39,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             diagramWidth: 2,
             colorBounds: ['Yellow', 'Blue', 'Green'],
             serifColorBounds: ['Yellow', 'Blue'],
-            centralSerifColorIndex: 'Blue',
+            // centralSerifColorIndex: 'Blue',
             scale: 0.88,
             gauge: {
                 total: 100,
@@ -68,7 +68,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             diagramWidth: 2,
             colorBounds: ['Red', 'Yellow', 'Blue', 'Green', 'Red'],
             serifColorBounds: ['Red', 'Yellow', 'Blue', 'Green'],
-            centralSerifColorIndex: 'Green',
+            // centralSerifColorIndex: 'Green',
             scale: 0.88,
             gauge: {
                 total: 100,
@@ -83,7 +83,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             diagramWidth: 2,
             colorBounds: ['Yellow', 'Red'],
             serifColorBounds: [],
-            centralSerifColorIndex: 'Blue',
+            // centralSerifColorIndex: 'Blue',
             scale: 0.88,
             gauge: {
                 total: 50,
@@ -97,49 +97,94 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     ];
 
     public ngOnChanges(): void {
-        this.dataBind();
+        if (this.data) {
+            this.dataBind();
+        }
         this.chartInit();
     }
 
     public ngOnInit(): void {
+        if (this.data) {
+            this.dataBind();
+        }
         this.chartInit();
     }
 
+    private getFactPercent(fact: number, plan: number, zeroOn: 'Right' | 'Left'): number {
+        let per;
+        per = zeroOn === 'Right' ? 100 - (fact / plan * 100 > 100 ? 99 : fact / plan * 100) : fact / plan * 100;
+        per = per > 100 ? 100 : per < -100 ? -100 : per;
+        return per || 0;
+    }
+
+    private limitArray(arr: number[]): number[] {
+        // перегоняем массив в процентном соотношении до 100
+        if (!arr) return [];
+        const maxBound = Math.max.apply(null, arr)
+        // Если обратное заполнение, то "зеркалим" массив
+        if (this.data?.zeroOn === 'Right') {
+            return [...arr]
+                .map(item => {
+                    if (arr[arr.length - 1] !== 0) {
+                        // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
+                        return Math.floor((item - arr[arr.length - 1]) / (maxBound - arr[arr.length - 1]) * 100)
+                    } else {
+                       return Math.floor(item / maxBound * 100)
+                    }
+                })
+                .map(item => 100 - item);
+        }
+        if (arr[0] !== 0) {
+            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
+            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+        } else {
+            return [...arr].map(item => Math.floor(item / maxBound * 100));
+        }
+
+    }
+
     private dataBind(): void {
-        this.chartConfig[this.type].gauge.total = this.data?.value ? this.data?.value : this.chartConfig[this.type].gauge.total;
-        this.chartConfig[this.type].gauge.deviation = this.data?.deviation ? this.data?.deviation : this.chartConfig[this.type].gauge.deviation;
-        this.chartConfig[this.type].colorBounds = this.data?.colorBounds ? this.data?.colorBounds : this.chartConfig[this.type].colorBounds;
-        this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds ? this.data?.colorBounds.slice(0, -1) : this.chartConfig[this.type].serifColorBounds;
-        this.chartConfig[this.type].gauge.angle = this.data?.value || this.data?.value === 0 ? this.convertPercentToGrad(this.data?.zeroOn === 'Right' ? 100 - this.data?.value : this.data?.value) : this.chartConfig[this.type].gauge.angle;
-        this.chartConfig[this.type].bounds = this.data?.bounds ? this.data?.bounds : null;
-        this.chartConfig[this.type].gauge.unit = this.data?.unit ? this.data?.unit : this.chartConfig[this.type].gauge.unit;
+        const maxBound = Math.max.apply(null, this.data?.bounds)
+        this.chartConfig[this.type].gauge.total = this.data?.fact;
+        this.chartConfig[this.type].gauge.deviation = this.data?.deviation;
+        this.chartConfig[this.type].colorBounds = this.data?.colorBounds;
+        this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds?.slice(0, -1);
+        this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getFactPercent(this.data?.fact, maxBound, this.data?.zeroOn));
+        this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
+        this.chartConfig[this.type].gauge.unit = this.data?.unit;
 
         // Данные для активной области
         let value;
         let boundEdge;
         let index;
-
         if (this.data?.zeroOn === 'Right') {
-            value = 100 - this.data?.value;
+            value = 100 - this.data?.fact / maxBound * 100;
             // Если zeroOn === 'Right', то находим минимальную границу диапазона bound, в который попадает значение
             boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) => {
                     if (prev < value && value < curr) {
                         return prev;
                     }
+                    return curr;
                 }
             );
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge);
         } else {
-            value = this.data?.value;
-            boundEdge = this.chartConfig[this.type].bounds?.find(item => item > this.data?.value);
+            value = this.data?.fact / maxBound * 100;
+            boundEdge = this.chartConfig[this.type].bounds?.find(item => item > value);
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
         }
-
         if (boundEdge || boundEdge === 0) {
-            const color = this.chartConfig[this.type].colorBounds[index];
+            const color = this.data?.zeroOn === 'Right' ? this.chartConfig[this.type].colorBounds.reverse()[index] : this.chartConfig[this.type].colorBounds[index];
             this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
-            const startActive = (this.convertPercentToGrad(value) * (Math.PI / 180));
-            const endActive = (this.convertPercentToGrad(boundEdge) * (Math.PI / 180));
+            const startActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? boundEdge : value) * (Math.PI / 180));
+            const endActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : boundEdge) * (Math.PI / 180));
+            this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
+        } else if (!boundEdge) {
+            // возможно этот кейс больше не отрабатывает после перегонки баундов в %
+            const color = this.data.zeroOn === 'Right' ? this.chartConfig[this.type]?.colorBounds[this.data?.colorBounds?.length - 1] : this.chartConfig[this.type]?.colorBounds[0];
+            this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
+            const startActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? 0 : value) * (Math.PI / 180));
+            const endActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : 0) * (Math.PI / 180));
             this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
         }
     }
@@ -221,7 +266,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                     .arc()
                     .innerRadius(16)
                     .outerRadius(outerRadius - 10)
-                    .startAngle(0.5 * Math.PI)
+                    .startAngle(arrowAngle > 0 ? -0.5 * Math.PI : 0.5 * Math.PI)
                     .endAngle(-0.008 * Math.PI);
             }
             else {
@@ -276,25 +321,29 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Темный круглый фон
         drawCircle(width / 2 - 2, 'circle__dark');
 
-        // Основаная диаграмма поверх которой будут остальные
+        // Основная диаграмма поверх которой будут остальные
         const backPie = createPie(start, end);
         drawDiagram('background-pie', () => backPie([null]));
 
         // Секции диаграммы
-        const sectionSize = (end - start) / colorBounds.length; // Размер каждой секции общ. разм/ колличесво секций
+        const sectionSize = (end - start) / colorBounds?.length || 1; // Размер каждой секции общ. разм/ колличесво секций
 
-        // Если имеется массив bounds, то размер секции рассчитывается в соответсвии с ним, если нет - то размер секций одинаковый
+        // Если имеется массив bounds, то размер секции рассчитывается в соответствии с ним, если нет - то размер секций одинаковый
+        const defEndBound = this.data?.zeroOn === 'Left' ? 100 : 0;
         if (this.chartConfig[this.type].bounds) {
             this.chartConfig[this.type].bounds.forEach((bound, i) => {
                 const startBound = this.chartConfig[this.type].bounds[i];
                 const endBound = this.chartConfig[this.type].bounds[i + 1];
                 const startRad = this.convertPercentToGrad(startBound ? startBound : 0) * (Math.PI / 180);
-                const endRad = this.convertPercentToGrad(endBound ? endBound : 100) * (Math.PI / 180);
+                const endRad = this.convertPercentToGrad(endBound ? endBound : defEndBound) * (Math.PI / 180);
                 const section = createPie(startRad, endRad);
-                drawDiagram(`diagram-section-${colorBounds[i]}`, () => section([null]));
+                if (colorBounds[i]) {
+                    drawDiagram(`diagram-section-${colorBounds[i]}`, () => section([null]));
+                }
+
             });
         } else {
-            colorBounds.forEach((colorIndex, i) => {
+            colorBounds?.forEach((colorIndex, i) => {
                 const section = createPie(start + i * sectionSize, start + (i + 1) * sectionSize);
                 drawDiagram(`diagram-section-${colorIndex}`, () => section([null]));
             });
@@ -311,19 +360,29 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-
-        if (!this.isPerformance) {
+        if (this.data?.description) {
+            addText(this.data.description, 'unit', 25);
+        }
+        if (!this.isPerformance && !this.data?.description) {
             addText(gauge.unit, 'unit', 25);
         }
 
         if (this.showAxisValues) {
-            addText('+5', 'axis-value', -25, 31);
-            addText('+5', 'axis-value', -25, -31);
+            const values = this.data?.bounds?.slice(1, -1) || [];
+            const last = this.data?.bounds?.length ? this.data?.bounds[this.data?.bounds?.length - 1] : 100;
+            const firstB = this.data?.zeroOn === 'Right' ? d3.max(values) || last : d3.min(values) || 0;
+            const lastB = this.data?.zeroOn === 'Right' ? d3.min(values) || 0 : d3.max(values) || last;
+
+            addText(`${firstB}`, 'axis-value', -25, -31);
+            addText(`${lastB}`, 'axis-value', -25, 31);
         }
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
+        if (this.data?.fact < this.data.plan) {
+            // если мы выполнили план, активной секции нет
+            drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
+        }
 
         // Края диаграммы
         const serifSize = Math.PI / 180;
@@ -335,14 +394,16 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Засечки на диаграмме
         // Если имеется массив bounds, то положение засечки секции рассчитывается по последнему значению диапозона
         if (this.chartConfig[this.type].bounds) {
-            this.chartConfig[this.type].bounds.forEach((bound, i) => {
+            this.chartConfig[this.type].colorBounds.forEach((bound, i) => {
                 const index = this.data?.zeroOn === 'Right' ? i : i - 1;
                 const endBound = this.chartConfig[this.type].bounds[index];
                 if (!endBound) { return; }
                 const endRad = this.convertPercentToGrad(endBound) * (Math.PI / 180);
                 const sectionSerif = createPie(endRad - serifSize, endRad);
                 const className = this.data?.zeroOn === 'Right' ? colorBounds[index] : serifColorBounds[index - 1];
-                drawDiagram(`diagram-section-serif-${className}`, () => sectionSerif([null]), serifArc);
+                if (className) {
+                    drawDiagram(`diagram-section-serif-${className}`, () => sectionSerif([null]), serifArc);
+                }
             });
         } else {
             serifColorBounds.forEach((colorIndex, i) => {
@@ -376,4 +437,5 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             return start;
         }
     }
+
 }

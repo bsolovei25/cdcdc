@@ -173,7 +173,7 @@ export class WidgetService {
     }
 
     // TODO delete and change to getChannelLiveDataFromWs
-    getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
+    getWidgetLiveDataFromWS<T = any>(widgetId: string, widgetType: string): Observable<T> {
         if (!widgetId || !widgetType) {
             return;
         }

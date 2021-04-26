@@ -8,8 +8,8 @@
     <div class="table__block" *ngFor="let block of data">
       <evj-astue-efficiency-inintial-data-block
         [block]="block"
-        [isOpen]="blockSelection.isSelected(block)"
-        (clicked)="blockSelection.toggle(block)"
+        [isOpen]="blockSelection.isSelected(block.name)"
+        (clicked)="blockSelection.toggle(block.name)"
       ></evj-astue-efficiency-inintial-data-block>
     </div>
   </div>

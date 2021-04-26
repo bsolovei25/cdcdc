@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, OnChanges, HostListener, Input, ViewChild, ElementRef } from '@angular/core';
-import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
+import { IChartMini, IChartD3 } from '../../../interfaces/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IDatesInterval } from '../../../../dashboard/services/widget.service';

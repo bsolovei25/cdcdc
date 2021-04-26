@@ -7,7 +7,7 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-astue-efficiency-initial-data',
     templateUrl: './astue-efficiency-initial-data.component.html',
-    styleUrls: ['./astue-efficiency-initial-data.component.scss'],
+    styleUrls: ['./astue-efficiency-initial-data.component.scss']
 })
 export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
     public data: IAsEfInitialDataBlock[] = [];
@@ -16,14 +16,18 @@ export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    public blockSelection: SelectionModel<IAsEfInitialDataBlock> = new SelectionModel<IAsEfInitialDataBlock>(true);
+    public blockSelection: SelectionModel<string> = new SelectionModel<string>(true);
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(private AsEfService: AstueEfficiencyService) {
+    }
 
     public ngOnInit(): void {
         this.subscriptions.push(
             combineLatest([this.AsEfService.selectionUnit$, this.AsEfService.selectionFlow$]).subscribe((results) => {
                 this.data = [];
+                if (!results.flat().length) {
+                    this.blockSelection.clear();
+                }
                 results?.flat()?.forEach((data) => {
                     if (data) {
                         if ((data as IAsEfUnitNew)?.periodCounter) {
@@ -36,6 +40,7 @@ export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
                         this.data = [...this.data, ...data?.initialData] as any;
                     }
                 });
+
             })
         );
     }

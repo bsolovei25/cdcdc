@@ -5,7 +5,7 @@ import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { PreloaderService } from '../../service/preloader.service';
-import { IInputOptions } from '../../../@shared/models/input.model';
+import { IInputOptions } from '../../../@shared/interfaces/input.model';
 // Angular material
 // Local modules
 
@@ -15,14 +15,8 @@ import { IInputOptions } from '../../../@shared/models/input.model';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, [
-        Validators.required,
-        Validators.minLength(3)
-    ]);
-    password: FormControl = new FormControl(environment.password, [
-        Validators.required,       
-        Validators.minLength(6)
-    ]);
+    username: FormControl = new FormControl(environment.username, [Validators.required, Validators.minLength(3)]);
+    password: FormControl = new FormControl(environment.password, [Validators.required, Validators.minLength(6)]);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -39,7 +33,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             src: 'assets/icons/login/login.svg',
             svgStyle: { 'width.px': 22, 'height.px': 22 },
             isClickable: true,
-        }
+        },
     };
 
     public passwordOptions: IInputOptions = {
@@ -64,7 +58,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             src: 'assets/icons/login/password.svg',
             svgStyle: { 'width.px': 17, 'height.px': 22 },
             isClickable: true,
-        }
+        },
     };
 
     constructor(public authService: AuthService, private router: Router, private preLoaderService: PreloaderService) {

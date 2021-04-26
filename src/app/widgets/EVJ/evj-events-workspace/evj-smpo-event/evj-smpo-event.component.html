@@ -4,7 +4,7 @@
   (touchstart)="$event.stopPropagation()"
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
-  <section class="event-card__section">
+  <section class="event-card__section smpo-card">
     <div class="row bottom-align d-flex">
       <div class="select-container control-group-size-1">
         <div class="title">
@@ -13,13 +13,13 @@
         <evj-events-workspace-select dataType="categories"></evj-events-workspace-select>
       </div>
       <div class="select-container d-flex control-group-size-2">
-        <evj-smpo-event-critical></evj-smpo-event-critical>
+        <evj-smpo-event-critical [(ngModel)]="ewService.event.smpo.isCritical"></evj-smpo-event-critical>
         <div class="checkbox-container">
-          <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
+          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.smpo.isImportance" color="primary"></mat-checkbox>
           <label>Важность события</label>
         </div>
         <div class="checkbox-container">
-          <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
+          <mat-checkbox class="checkbox" [(ngModel)]="ewService.event.smpo.isNotNeedActivity" color="primary"></mat-checkbox>
           <label>Мероприятия не требуются</label>
         </div>
       </div>
@@ -33,19 +33,25 @@
             </div>
             <evj-events-workspace-select dataType="subCategoriesFilter"></evj-events-workspace-select>
           </div>
-          <evj-event-dropdown [items]="statuses$ | async">Статус</evj-event-dropdown>
+          <div class="select-container">
+            <div class="title">
+              <span>Статус</span>
+            </div>
+            <evj-events-workspace-select dataType="status"></evj-events-workspace-select>
+          </div>
+
         </div>
         <div class="row">
           <div class="text">
             <div class="text__title">
               <span>Краткое описание</span>
             </div>
-            <textarea
-              required
-              placeholder="Введите данные..."
-              minlength="3"
-            >
-          </textarea>
+            <evj-event-description
+              [description]="ewService.event.description"
+              [isRetrievalEvent]="false"
+              (changedDescription)="onChangeEventDescription($event)"
+              [disabled]="ewService.event.isRestrictions"
+            ></evj-event-description>
           </div>
         </div>
         <div class="row">
@@ -54,9 +60,10 @@
               <span>Установленные факты</span>
             </div>
             <evj-chat
-              viewType="smpo"
+              [messages]="ewService.event.facts"
               dataTitle="Установленные факты"
-              placeholder="Напишите свой комментарий..."
+              placeholder="Укажите факты..."
+              (addingMessage)="onSendMessage($event,'facts')"
             ></evj-chat>
           </div>
         </div>
@@ -67,20 +74,34 @@
             </div>
             <evj-chat
               viewType="smpo"
+              [messages]="ewService.event.comments"
               dataTitle="Комментарии"
               placeholder="Напишите свой комментарий..."
+              (addingMessage)="onSendMessage($event,'comments')"
             ></evj-chat>
           </div>
         </div>
       </div>
       <div class="column__block">
         <div class="row">
-          <evj-smpo-event-datetimepicker [label]="'Дата начала'"  class="dtp-container"></evj-smpo-event-datetimepicker>
-          <evj-smpo-event-datetimepicker [label]="'Дата закрытия'"
-                                         class="dtp-container"></evj-smpo-event-datetimepicker>
+
+          <evj-smpo-event-datetimepicker
+            [date]="ewService.event.eventDateTime"
+            [label]="'Дата начала'"
+            class="dtp-container"></evj-smpo-event-datetimepicker>
+
+          <evj-smpo-event-datetimepicker
+            [date]="ewService.event.eventEndDateTime"
+            [label]="'Дата закрытия'"
+            class="dtp-container"></evj-smpo-event-datetimepicker>
+
         </div>
         <div class="row">
-          <evj-event-dropdown [items]="phasesList">Активная фаза</evj-event-dropdown>
+          <evj-event-dropdown
+            fieldName="name"
+            [(ngModel)]="ewService.event.smpo.activePhase"
+            [items]="phasesList"
+          >Активная фаза</evj-event-dropdown>
         </div>
         <div class="column">
           <div class="column__block">
@@ -91,7 +112,7 @@
             </div>
             <div class="row">
               <div class="custom-input">
-                <input type="text" placeholder="ID в системе-источнике"/>
+                <input [(ngModel)]="ewService.event.smpo.originalId" type="text"  placeholder="ID в системе-источнике"/>
               </div>
             </div>
           </div>
@@ -103,7 +124,7 @@
             </div>
             <div class="row">
               <div class="custom-input">
-                <input type="text" placeholder="Группа"/>
+                <input [(ngModel)]="ewService.event.smpo.productGroup" type="text" placeholder="Группа"/>
               </div>
             </div>
           </div>
@@ -115,7 +136,7 @@
         </div>
         <div class="row">
           <div class="custom-input">
-            <input type="text" placeholder="Продукт"/>
+            <input [(ngModel)]="ewService.event.smpo.product"  type="text" placeholder="Продукт"/>
           </div>
         </div>
         <div class="row">
@@ -125,7 +146,7 @@
         </div>
         <div class="row">
           <div class="custom-input">
-            <input type="text" placeholder="Отклонение 2-го уровня"/>
+            <input [(ngModel)]="ewService.event.smpo.secondDeviation" type="text" placeholder="Отклонение 2-го уровня"/>
           </div>
         </div>
 

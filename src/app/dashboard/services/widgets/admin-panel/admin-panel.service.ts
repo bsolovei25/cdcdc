@@ -16,7 +16,7 @@ import { IWidget } from '../../../models/widget.model';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { AuthService } from '@core/service/auth.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { mergeMap } from 'rxjs/operators';
 
 @Injectable({

@@ -23,7 +23,8 @@ export class KpeEnergyTabComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     get deviationValue(): number {
         return this.data.deviation;

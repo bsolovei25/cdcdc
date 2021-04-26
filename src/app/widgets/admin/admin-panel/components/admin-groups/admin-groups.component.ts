@@ -6,9 +6,9 @@ import {
     IGlobalClaim,
 } from '../../../../../dashboard/models/ADMIN/admin-panel.model';
 import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
-import { IInputOptions } from '../../../../../@shared/models/input.model';
+import { IInputOptions } from '../../../../../@shared/interfaces/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../../../@shared/interfaces/alert-window.model';
 import { Subscription, combineLatest } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';

@@ -27,7 +27,16 @@
             src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"
           ></svg-icon>
         </div>
+        <div class="card__info info">
+          <div class="info__label">
+            Значение: <br />
+          </div>
+          <div class="info__values">
+            <span class="info__value">{{ chartValue | number:'0.0-2' || '---' }}</span>
+          </div>
+        </div>
       </div>
+
       <div class="card__chart">
         <evj-planning-chart
           [data]="data"
@@ -37,6 +46,7 @@
           [size]="scaleCounter"
           [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
           (scrollData)="scrollData = $event"
+          (chartValue)="setChartValues($event)"
         ></evj-planning-chart>
       </div>
       <div class="card__scroll">

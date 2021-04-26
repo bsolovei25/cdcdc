@@ -5,7 +5,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FormControl } from '@angular/forms';
 import { IBrigadeWithUsersDto } from '../../../../../dashboard/models/ADMIN/admin-shift-schedule.model';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
-import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '../../../../../@shared/interfaces/alert-window.model';
 
 @Component({
     selector: 'evj-admin-shift-brigade',

@@ -19,7 +19,6 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
-import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -60,7 +59,9 @@ import { CheckerComponent } from './components/checker/checker.component';
 import { FormatStatusPipe } from '@widgets/EVJ/evj-events-workspace/components/evj-events-workspace-select/formatStatus.pipe';
 import { SchemaScrollResizerDirective } from './directives/schema-scroll-resizer.directive';
 import { AddWordWrapPipe } from './pipes/add-word-wrap.pipe';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SimpleButtonComponent } from './components/simple-button/simple-button.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
     declarations: [
@@ -111,6 +112,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
         SimpleButtonComponent,
+        DropdownComponent,
     ],
     exports: [
         HeaderComponent,
@@ -155,6 +157,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
         SchemaScrollResizerDirective,
         AddWordWrapPipe,
         SimpleButtonComponent,
+        DropdownComponent,
     ],
     imports: [
         CommonModule,

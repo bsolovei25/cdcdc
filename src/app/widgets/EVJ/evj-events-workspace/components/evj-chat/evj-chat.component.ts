@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { IMessage } from '@shared/models/message.model';
+import { IMessage } from '@shared/interfaces/message.model';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { EvjFileAttachMenuComponent } from '../evj-file-attach-menu/evj-file-attach-menu.component';
-import { IMessageFileAttachment } from '@shared/models/message.model';
+import { IMessageFileAttachment } from '@shared/interfaces/message.model';
 import { AppConfigService } from '@core/service/app-config.service';
-import { EventsWorkspaceService } from "../../../../../dashboard/services/widgets/EVJ/events-workspace.service";
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 export interface IChatMessageWithAttachments {
     msg: string;

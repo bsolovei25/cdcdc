@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { BehaviorSubject } from 'rxjs';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { IAlertPasswordModel } from '../../@shared/models/alert-password.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
+import { IAlertPasswordModel } from '../../@shared/interfaces/alert-password.model';
 
 @Injectable({
     providedIn: 'root',

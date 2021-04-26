@@ -418,7 +418,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'kpe-execution-production-program',
     },
-    'kpe-charts-analytic': {
+    'kpe-monitoring': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module');
         },
@@ -511,6 +511,17 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 27,
         minItemRows: 15,
+        preview: 'report-server-configurator',
+    },
+    'admin-report-server-configurator': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-report-server-configurator/admin-report-server-configurator.module');
+        },
+        module: 'AdminReportServerConfiguratorModule',
+        itemCols: 60,
+        itemRows: 25,
+        minItemCols: 60,
+        minItemRows: 25,
         preview: 'report-server-configurator',
     },
     reference: {

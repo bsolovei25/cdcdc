@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IUserLdapDto, IUserLdap } from '../../../../../dashboard/models/ADMIN/admin-panel.model';
-import { IInputOptions } from '../../../../../@shared/models/input.model';
+import { IInputOptions } from '../../../../../@shared/interfaces/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';

@@ -54,7 +54,7 @@
 
       <div class="buttons">
         <ng-container *ngIf="!(changeShiftKeeperService.isRequireComment$ | async)">
-          <evj-simple-button [disabled]="!(isShiftApplyAvailable | async)" (click)="shiftApply()" style="width: 100%"> {{ widgetType === 'shift-pass' ? 'Передать смену' : 'Принять смену' }} </evj-simple-button>
+          <evj-simple-button [disabled]="!(isShiftApplyAvailable | async)" (click)="shiftApply()" style="width: 100%"> {{ (shiftType$ | async) === 'pass' ? 'Передать смену' : 'Принять смену' }} </evj-simple-button>
         </ng-container>
         <ng-container *ngIf="changeShiftKeeperService.isRequireComment$ | async">
           <evj-simple-button (click)="onSendMessage(true)" style="width: 100%"> Подтвердить </evj-simple-button>

@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, HostListener, Input, OnChanges, After
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IProductionTrend, ProductionTrendType } from '../../../../dashboard/models/LCO/production-trends.model';
-import { IChartMini, IChartD3 } from '@shared/models/smart-scroll.model';
+import { IChartMini, IChartD3 } from '@shared/interfaces/smart-scroll.model';
 
 @Component({
     selector: 'evj-kpe-line-chart',

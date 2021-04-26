@@ -1,6 +1,6 @@
 import { LineChartData } from '../line-chart';
 import { IGlobalClaim } from '../ADMIN/admin-panel.model';
-import { IMessage } from '@shared/models/message.model';
+import { IMessage } from '@shared/interfaces/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
@@ -37,6 +37,20 @@ export interface IEventsWidgetNotificationPreview {
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
     retrievalEvents: IEventsWidgetNotificationPreview[];
+}
+
+export interface ISMPOData {
+    isCritical?: boolean;
+    isImportance?: boolean;
+    isNotNeedActivity?: boolean;
+    activePhase?: string;
+    activePhaseId?: number;
+    originalId?: string;
+    product?: string;
+    productGroup?: string;
+    secondDeviation?: string;
+    reasons?: IReason[];
+    events?: ICorrect[];
 }
 
 export interface IEventsWidgetNotification {
@@ -86,6 +100,7 @@ export interface IEventsWidgetNotification {
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
+    smpo: ISMPOData;
 }
 
 export interface IEventsEjs {

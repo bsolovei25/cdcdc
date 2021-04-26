@@ -818,11 +818,21 @@
 </g>
 </g>
 <g id="element-1_79">
-<path id="circle_7" d="M1714.5 418C1714.5 424.351 1709.35 429.5 1703 429.5C1696.65 429.5 1691.5 424.351 1691.5 418C1691.5 411.649 1696.65 406.5 1703 406.5C1709.35 406.5 1714.5 411.649 1714.5 418Z" fill="#12151E" stroke="#4B5169"/>
+<g id="circle_7">
+<mask id="path-318-inside-1" fill="white">
+<path d="M1715 418C1715 424.627 1709.63 430 1703 430C1696.37 430 1691 424.627 1691 418C1691 411.373 1696.37 406 1703 406C1709.63 406 1715 411.373 1715 418Z"/>
+</mask>
+<path d="M1715 418C1715 424.627 1709.63 430 1703 430C1696.37 430 1691 424.627 1691 418C1691 411.373 1696.37 406 1703 406C1709.63 406 1715 411.373 1715 418Z" fill="#12151E" stroke="#4B5169" stroke-width="2" mask="url(#path-318-inside-1)"/>
+</g>
 <text id="text_22" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1723" y="423.161">PL2705</tspan></text>
 </g>
-<g id="element-1_94">
-<path id="circle_8" d="M1404.5 352C1404.5 358.351 1399.35 363.5 1393 363.5C1386.65 363.5 1381.5 358.351 1381.5 352C1381.5 345.649 1386.65 340.5 1393 340.5C1399.35 340.5 1404.5 345.649 1404.5 352Z" fill="#12151E" stroke="#606580"/>
+<g id="element-1_95">
+<g id="circle_8">
+<mask id="path-320-inside-2" fill="white">
+<path d="M1405 352C1405 358.627 1399.63 364 1393 364C1386.37 364 1381 358.627 1381 352C1381 345.373 1386.37 340 1393 340C1399.63 340 1405 345.373 1405 352Z"/>
+</mask>
+<path d="M1405 352C1405 358.627 1399.63 364 1393 364C1386.37 364 1381 358.627 1381 352C1381 345.373 1386.37 340 1393 340C1399.63 340 1405 345.373 1405 352Z" fill="#12151E" stroke="#606580" stroke-width="2" mask="url(#path-320-inside-2)"/>
+</g>
 <text id="text_23" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1337.83" y="357.161">F2422</tspan></text>
 <path id="icon_21" d="M1393.75 347C1393.75 347 1391.5 347 1391.5 349.5C1391.5 352 1394.5 352 1394.5 354.5C1394.5 357 1392.25 357 1392.25 357" stroke="#606580" stroke-linecap="round"/>
 </g>
@@ -835,8 +845,13 @@
 <path id="Rectangle 7354_30" d="M1421.36 349L1430 352L1421.36 355V352V349Z" fill="#606580"/>
 <path id="line_111_29" d="M1394 352L1421.36 352" stroke="#606580" stroke-linecap="round"/>
 </g>
-<g id="element-1_94_2">
-<path id="circle_9" d="M1404.5 304C1404.5 310.351 1399.35 315.5 1393 315.5C1386.65 315.5 1381.5 310.351 1381.5 304C1381.5 297.649 1386.65 292.5 1393 292.5C1399.35 292.5 1404.5 297.649 1404.5 304Z" fill="#12151E" stroke="#606580"/>
+<g id="element-1_94">
+<g id="circle_9">
+<mask id="path-326-inside-3" fill="white">
+<path d="M1405 304C1405 310.627 1399.63 316 1393 316C1386.37 316 1381 310.627 1381 304C1381 297.373 1386.37 292 1393 292C1399.63 292 1405 297.373 1405 304Z"/>
+</mask>
+<path d="M1405 304C1405 310.627 1399.63 316 1393 316C1386.37 316 1381 310.627 1381 304C1381 297.373 1386.37 292 1393 292C1399.63 292 1405 297.373 1405 304Z" fill="#12151E" stroke="#606580" stroke-width="2" mask="url(#path-326-inside-3)"/>
+</g>
 <text id="text_24" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1344.93" y="309.161">F138</tspan></text>
 <path id="icon_22" d="M1393.75 299C1393.75 299 1391.5 299 1391.5 301.5C1391.5 304 1394.5 304 1394.5 306.5C1394.5 309 1392.25 309 1392.25 309" stroke="#606580" stroke-linecap="round"/>
 </g>
@@ -1494,7 +1509,12 @@
 </g>
 <path id="line_111_36" d="M1471 606H1489" stroke="#606580" stroke-linecap="round"/>
 <g id="element-1_82">
-<path id="circle_28" d="M1714.5 606C1714.5 612.351 1709.35 617.5 1703 617.5C1696.65 617.5 1691.5 612.351 1691.5 606C1691.5 599.649 1696.65 594.5 1703 594.5C1709.35 594.5 1714.5 599.649 1714.5 606Z" fill="#12151E" stroke="#4B5169"/>
+<g id="circle_28">
+<mask id="path-594-inside-4" fill="white">
+<path d="M1715 606C1715 612.627 1709.63 618 1703 618C1696.37 618 1691 612.627 1691 606C1691 599.373 1696.37 594 1703 594C1709.63 594 1715 599.373 1715 606Z"/>
+</mask>
+<path d="M1715 606C1715 612.627 1709.63 618 1703 618C1696.37 618 1691 612.627 1691 606C1691 599.373 1696.37 594 1703 594C1709.63 594 1715 599.373 1715 606Z" fill="#12151E" stroke="#4B5169" stroke-width="2" mask="url(#path-594-inside-4)"/>
+</g>
 <text id="text_56" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1723" y="611.161">PL2705</tspan></text>
 <path id="icon_40" d="M1702.25 611C1702.25 611 1704.5 611 1704.5 608.5C1704.5 606 1701.5 606 1701.5 603.5C1701.5 601 1703.75 601 1703.75 601" stroke="#606580" stroke-linecap="round"/>
 </g>
@@ -1734,7 +1754,7 @@
 <text id="text_value_14" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1616" y="423.161">12 000&#x442;</tspan></text>
 <rect x="1608.5" y="406.5" width="63" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_94">
+<g id="element-3_210">
 <rect x="1608.5" y="311.5" width="63" height="23" rx="1.5" fill="#1C1F2B"/>
 <text id="text_value_15" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1616" y="328.161">12 000&#x442;</tspan></text>
 <rect x="1608.5" y="311.5" width="63" height="23" rx="1.5" stroke="#606580"/>
@@ -1764,7 +1784,7 @@
 <text id="text_value_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1616" y="725.161">12 000&#x442;</tspan></text>
 <rect x="1608.5" y="708.5" width="63" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_95">
+<g id="element-3_211">
 <rect x="1608.5" y="775.5" width="63" height="23" rx="1.5" fill="#1C1F2B"/>
 <text id="text_value_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1616" y="792.161">12 000&#x442;</tspan></text>
 <rect x="1608.5" y="775.5" width="63" height="23" rx="1.5" stroke="#606580"/>

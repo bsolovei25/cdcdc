@@ -56,7 +56,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });
-        this.$encrypt = new JSEncrypt();
+        this.$encrypt = new JSEncrypt(null);
     }
 
     async authenticate(username: string, password: string): Promise<ITokenData> {

@@ -1,15 +1,9 @@
-import {
-    Component,
-    OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import {
-    FormControl,
-    FormGroup
-} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 
 @Component({
     selector: 'evj-evj-events-workspace-restrictions',
@@ -17,56 +11,36 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
     styleUrls: ['./evj-events-workspace-restrictions.component.scss'],
 })
 export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
-
     public users: IUser[];
 
-    public eventTypes: string[] = [
-        'Плановое',
-        'Внеплановое',
-    ]
+    public eventTypes: string[] = ['Плановое', 'Внеплановое'];
 
-    public types: string[] = [
-        'Динамическое оборудование',
-    ]
+    public types: string[] = ['Динамическое оборудование'];
 
-    public reasons: string[] = [
-        'Поломка',
-    ]
+    public reasons: string[] = ['Поломка'];
 
-    public constancies: string[] = [
-        'Новое',
-    ];
+    public constancies: string[] = ['Новое'];
 
-    public durations: string[] = [
-        'Краткосрочное',
-    ];
+    public durations: string[] = ['Краткосрочное'];
 
-    public economicEfficiencies: string[] = [
-        'Низкая',
-    ];
+    public economicEfficiencies: string[] = ['Низкая'];
 
-    public significances: string[] = [
-        'Малозначимое',
-    ];
+    public significances: string[] = ['Малозначимое'];
 
-    public form: FormGroup = new FormGroup(
-        {
-            eventType: new FormControl(),
-            type: new FormControl(),
-            reason: new FormControl(),
-            constancy: new FormControl(),
-            duration: new FormControl(),
-            economicEfficiency: new FormControl(),
-            significance: new FormControl(),
-            owner: new FormControl(),
-        });
+    public form: FormGroup = new FormGroup({
+        eventType: new FormControl(),
+        type: new FormControl(),
+        reason: new FormControl(),
+        constancy: new FormControl(),
+        duration: new FormControl(),
+        economicEfficiency: new FormControl(),
+        significance: new FormControl(),
+        owner: new FormControl(),
+    });
 
     private readonly SEPARATOR: string = '***';
 
-    constructor(
-        private ewService: EventsWorkspaceService,
-        private popoverRef: PopoverRef,
-    ) {
+    constructor(private ewService: EventsWorkspaceService, private popoverRef: PopoverRef) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.popoverRef.close('backdropClick', {});
         });
@@ -89,10 +63,18 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
             this.clearDescriptionLimitationsBySeparator(this.SEPARATOR);
 
             this.ewService.event.description =
-                this.ewService.event.description + strEnd +
-                this.SEPARATOR + strEnd +
-                strBeg + this.form.get('eventType').value + ' ограничение' + strEnd +
-                strBeg + 'Тип: ' + this.form.get('type').value + strEnd +
+                this.ewService.event.description +
+                strEnd +
+                this.SEPARATOR +
+                strEnd +
+                strBeg +
+                this.form.get('eventType').value +
+                ' ограничение' +
+                strEnd +
+                strBeg +
+                'Тип: ' +
+                this.form.get('type').value +
+                strEnd +
                 this.SEPARATOR;
 
             [
@@ -102,15 +84,13 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
                 'Экономическая эффективность: ' + this.form.get('economicEfficiency').value,
                 'Значимость: ' + this.form.get('significance').value,
                 'Владелец: ' + this.form.get('owner').value,
-            ].forEach(item => {
-                this.ewService.event.facts.push(
-                    {
-                        comment: item,
-                        displayName: null,
-                        createdAt: new Date(),
-                    }
-                );
-            })
+            ].forEach((item) => {
+                this.ewService.event.facts.push({
+                    comment: item,
+                    displayName: null,
+                    createdAt: new Date(),
+                });
+            });
         } catch (error) {
             console.error(error);
         }

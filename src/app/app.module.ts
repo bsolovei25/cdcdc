@@ -2,8 +2,8 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CoreModule } from './@core/core.module';
-import { SharedModule } from './@shared/shared.module';
+import { CoreModule } from '@core/core.module';
+import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AppConfigService } from '@core/service/app-config.service';
 import { RouterModule } from '@angular/router';
