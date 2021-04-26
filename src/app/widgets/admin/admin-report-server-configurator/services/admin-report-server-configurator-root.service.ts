@@ -23,9 +23,6 @@ export class AdminReportServerConfiguratorRootService {
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
-
-    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
-
     public getReportFileTemplate(): Promise<IReportFile[]> {
         return this.http.get<IReportFile[]>(this.restUrl + "/api/report-filetemplate/all").toPromise();
     }
