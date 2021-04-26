@@ -246,6 +246,7 @@ export class SouSchemaComponent implements OnChanges {
 
     private getElementMode(data: SouSectionData): TypeMode {
         const {isExceedingConfInterval, isEnable} = data;
+        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
         return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
     }
 
@@ -731,7 +732,7 @@ export class SouSchemaComponent implements OnChanges {
         switch (elementTypeId) {
             case 1:
                 return {
-                    lineLength: 17,
+                    lineLength: 15,
                     lineHeight: 14,
                 };
             case 3:
