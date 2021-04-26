@@ -53,6 +53,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     public readonly viewComponent: typeof SouMvpMnemonicSchemeViewComponent = SouMvpMnemonicSchemeViewComponent;
 
     public readonly settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
+    public readonly sectionNameMaxLengthTruncate: number = 14;
 
     // Суб-канал в вебсокетах
     subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
