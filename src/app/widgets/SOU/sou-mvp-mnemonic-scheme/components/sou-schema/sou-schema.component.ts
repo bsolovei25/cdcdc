@@ -46,7 +46,7 @@ export class SouSchemaComponent implements OnChanges {
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
     private typesNeedTextAnchorEnd: number[] = [15];
     private typeTextParams: {[typeId: number]: ITypeTextParams} = {
         1: {
@@ -71,13 +71,14 @@ export class SouSchemaComponent implements OnChanges {
             maxTextLength: 10,
         },
         12: {
-            lineLength: 6,
-            lineHeight: 14,
-            maxTextLength: 18,
+            maxTextLength: 7,
         },
         13: {
             lineLength: 7,
             lineHeight: 20,
+        },
+        16: {
+            maxTextLength: 17,
         },
     };
     private debugElementCode: number;
