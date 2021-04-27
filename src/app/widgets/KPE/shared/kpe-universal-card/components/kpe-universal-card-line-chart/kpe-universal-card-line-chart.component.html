@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="info-top">
+  <div class="info-top"  *ngIf="!onlyPercent">
     <span class="current">
       {{chartValues?.fact | spaceNumber}}
       <span
@@ -14,7 +14,7 @@
     </span>
     <span class="predict">{{chartValues?.predict | spaceNumber}}</span>
   </div>
-  <div class="diagram">
+  <div class="diagram" *ngIf="!onlyPercent">
     <div
       class="diagram__orangeThin"
       [style.left.%]="chartData.orangeThin.left"
@@ -60,7 +60,7 @@
     ></div>
   </div>
   <div class="info-bottom">
-    <span class="plan">{{chartValues?.plan | spaceNumber}}</span>
+    <span  *ngIf="!onlyPercent" class="plan">{{chartValues?.plan | spaceNumber}}</span>
     <span
       class="dev"
       [ngClass]="{

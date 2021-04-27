@@ -1262,7 +1262,7 @@ export const WIDGETS_LAZY = {
         itemRows: 13,
         minItemCols: 13,
         minItemRows: 13,
-        preview: 'default',
+        preview: 'sou-balance',
     },
 
     'sou-energetic': {
@@ -1274,7 +1274,7 @@ export const WIDGETS_LAZY = {
         itemRows: 5,
         minItemCols: 13,
         minItemRows: 5,
-        preview: 'default',
+        preview: 'sou-energetic',
     },
     'sou-main-screen': {
         import: async () => {
@@ -1285,7 +1285,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 30,
         minItemRows: 30,
-        preview: 'default',
+        preview: 'sou-main-screen',
     },
 
     'sou-main-screen-ud': {

@@ -34,10 +34,15 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SouSchemaComponent implements OnChanges {
+
     elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
+
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14];
+    private typesNeedTextAnchorEnd: number[] = [15];
+    private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
@@ -202,7 +207,17 @@ export class SouSchemaComponent implements OnChanges {
     // Обработка данных с бека
     // Тут можно замокать данные
     private processSectionsData(): void {
-        this.dataPark = this.sectionsData;
+        if (this.debugElementCode) {
+            this.dataPark = this.sectionsData.map((item: SouSectionData) => {
+                if (item?.code === this.debugElementCode) {
+                    console.log(`Отладка элемента: ${item.code}. Данные с бэка:`, item);
+                }
+
+                return item;
+            });
+        } else {
+            this.dataPark = this.sectionsData;
+        }
         this.updateSvgBySectionData(false);
     }
 
@@ -233,6 +248,7 @@ export class SouSchemaComponent implements OnChanges {
 
     private getElementMode(data: SouSectionData): TypeMode {
         const {isExceedingConfInterval, isEnable} = data;
+        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
         return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
     }
 
@@ -261,11 +277,13 @@ export class SouSchemaComponent implements OnChanges {
 
         // Обработка элементов схемы
         elements?.forEach((element: Element) => {
-            const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
-            const id = elMatch && elMatch[2] && parseInt(elMatch[2], 10);
-
+            const id = this.getElementId(element);
             this.prepareElement('reset', element);
             this.elementsMap.set(id, element);
+
+            if (this.debugElementCode && id === this.debugElementCode) {
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+            }
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`);
@@ -277,42 +295,41 @@ export class SouSchemaComponent implements OnChanges {
         sectionData?: SouSectionData,
     ): void {
         if (element?.children) {
-            let elementFull: IElementFull = {
-                sectionData,
-                rects: [],
-                points: [],
-                arrows: [],
-                texts: [],
-                circle: null,
-                textValue: null,
-                textPercent: null,
-                ellipse: null,
-                flag: true,
-            };
-            const children = Array.from(element?.children);
-            // Search
-            children?.forEach((elem) => {
-                elementFull = this.searchElementsInElement(elem, elementFull);
-            });
-            // add class and text to element
+            const elementFull = this.getElementFull(element, sectionData);
             this.addClassAndTextToElement(element, elementFull, mode);
-
-            // text-anchor для выравнивания текста по центру
-            if (this.doesElemNeedTextAnchor(element)) {
-                const textAnchorClassName = 'text-anchor';
-                this.addElemClass(elementFull?.textValue, [textAnchorClassName]);
-                this.addElemClass(elementFull?.textPercent, [textAnchorClassName]);
-                elementFull?.texts?.forEach((el: Element) => {
-                    this.addElemClass(el, [textAnchorClassName]);
-                });
-            }
 
             // Event
             if (sectionData) {
                 this.addElementClickListener(element, elementFull);
                 this.elementsFullMap.set(sectionData?.code, elementFull);
             }
+
+            // Применение класса для текстовых нод
+            this.setElementTextNodeClassIfNeed(element);
         }
+    }
+
+    // Распарсить элемент и заполнить IElementFull
+    private getElementFull(element: Element, sectionData: SouSectionData): IElementFull {
+        let elementFull: IElementFull = {
+            sectionData,
+            rects: [],
+            points: [],
+            arrows: [],
+            texts: [],
+            circle: null,
+            textValue: null,
+            textPercent: null,
+            ellipse: null,
+            flag: true,
+        };
+        const children = Array.from(element?.children);
+
+        children?.forEach((elem) => {
+            elementFull = this.searchElementsInElement(elem, elementFull);
+        });
+
+        return elementFull;
     }
 
     // Добавление класса и текста для элемента
@@ -644,33 +661,45 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Добавляет текст для текстовой ноды <text>
-    // @TODO Element можно заменить на SVGElement
-    private addTextToTextElem(textElem: Element, text: string): void {
+    private addTextToTextElem(textElem: SVGElement | Element, text: string): void {
         if (textElem?.children) {
             this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
-
             const children = Array.from(textElem?.children);
+            let truncatedText = text;
+
+            if (textParams?.maxTextLength && text?.length > textParams.maxTextLength) {
+                truncatedText = text.slice(0, textParams.maxTextLength - 3) + '...';
+                this.addTooltipToTextElem(textElem as SVGElement, text);
+            }
 
             if (text === '') {
                 children?.forEach((child: Element) => {
                     this.setTspanText(child, text);
                 });
             }
-            if (textParams?.lineLength && text.length > textParams.lineLength) {
+
+            if (textParams?.lineLength && truncatedText.length > textParams.lineLength) {
                 if (children.length > 1) {
                     children.forEach((child: SVGTextPositioningElement, index: number) => {
                         const from = textParams.lineLength * index;
                         const to = textParams.lineLength * (index + 1);
-                        this.setTspanText(child, text.slice(from, to).trim());
+                        this.setTspanText(child, truncatedText.slice(from, to).trim());
                     });
                 } else {
-                    this.setTspanText(children[0], text);
+                    this.setTspanText(children[0], truncatedText);
                 }
             } else {
-                this.setTspanText(children[0], text);
+                this.setTspanText(children[0], truncatedText);
             }
         }
+    }
+
+    private addTooltipToTextElem(textElem: SVGElement, tooltipText: string): void {
+        const titleElem = this.renderer.createElement('title', 'http://www.w3.org/2000/svg');
+        const text = this.renderer.createText(tooltipText);
+        this.renderer.appendChild(titleElem, text);
+        this.renderer.appendChild(textElem, titleElem);
     }
 
     // Сделать текст <text> многострочным для элементов определенных типов
@@ -680,7 +709,10 @@ export class SouSchemaComponent implements OnChanges {
         const lineOffsetTopPx = textParams?.lineHeight || 20;
 
         if (textParams?.lineLength) {
-            const linesCount = Math.ceil(text?.length / textParams.lineLength);
+            const textLength = (textParams.maxTextLength && (text?.length > textParams.maxTextLength))
+                ? textParams.maxTextLength
+                : text?.length;
+            const linesCount = Math.ceil(textLength / textParams.lineLength);
             const children = textElem?.children && Array.from(textElem.children) as SVGTextPositioningElement[];
 
             if (children?.length < linesCount) {
@@ -708,47 +740,79 @@ export class SouSchemaComponent implements OnChanges {
     private getTextElemLayoutParams(textElem: SVGElement): {
         lineLength: number, // Максимальное количество символов в строке
         lineHeight: number, // Высота новой строки при переносе
+        maxTextLength?: number, // Максимальное количество символов, которое не будет обрезаться
     } {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+        const textParamsByType = {
+            1: {
+                lineLength: 15,
+                lineHeight: 14,
+            },
+            2: {
+                lineLength: 17,
+                lineHeight: 14,
+                maxTextLength: 17 * 2,
+            },
+            3: {
+                lineLength: 23,
+                lineHeight: 12,
+            },
+            4: {
+                lineLength: 13,
+                lineHeight: 20,
+            },
+            12: {
+                lineLength: 6,
+                lineHeight: 14,
+                maxTextLength: 18,
+            },
+            13: {
+                lineLength: 7,
+                lineHeight: 20,
+            },
+        };
 
-        switch (elementTypeId) {
-            case 1:
-                return {
-                    lineLength: 17,
-                    lineHeight: 14,
-                };
-            case 3:
-                return {
-                    lineLength: 23,
-                    lineHeight: 12,
-                };
-            case 4:
-                return {
-                    lineLength: 13,
-                    lineHeight: 20,
-                };
-            case 13:
-                return {
-                    lineLength: 7,
-                    lineHeight: 20,
-                };
+        if (elementTypeId) {
+            return textParamsByType[elementTypeId];
         }
 
         return null;
     }
 
-    // Нужно ли этому элементу выравнивание текста по центру
-    private doesElemNeedTextAnchor(element: Element): boolean {
-        const typesNeedTextAnchor = [4, 13, 14];
-        const elementTypeId = this.getElementTypeId(element);
-        return elementTypeId && typesNeedTextAnchor.includes(elementTypeId);
+    // Возвращает ID элемента
+    private getElementId(element: SVGElement | Element): number {
+        const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
+        return elMatch && elMatch[2] && parseInt(elMatch[2], 10);
     }
 
     // Возвращает ID типа элемента
     private getElementTypeId(element: SVGElement | Element): number {
         const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
-        const typeId = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-        return typeId;
+        return elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+    }
+
+    // Установка класса для текстовой ноды внутри элемента если нужно (для выравнивания текста)
+    private setElementTextNodeClassIfNeed(element: SVGElement | Element): void {
+        const elementTypeId = this.getElementTypeId(element);
+        let className: string;
+
+        if (elementTypeId) {
+            if (this.typesNeedTextAnchorMiddle.includes(elementTypeId)) {
+                className = 'text-anchor-middle';
+            } else if (this.typesNeedTextAnchorEnd.includes(elementTypeId)) {
+                className = 'text-anchor-end';
+            }
+        }
+
+        if (className) {
+            const elementId = this.getElementId(element);
+            const elementFull = this.elementsFullMap.get(elementId);
+            this.addElemClass(elementFull?.textValue, [className]);
+            this.addElemClass(elementFull?.textPercent, [className]);
+            elementFull?.texts?.forEach((el: Element) => {
+                this.addElemClass(el, [className]);
+            });
+        }
     }
 
     searchArrow(elements: HTMLCollection): Element[] {
@@ -832,4 +896,5 @@ export class SouSchemaComponent implements OnChanges {
         }
 
     }
+
 }
