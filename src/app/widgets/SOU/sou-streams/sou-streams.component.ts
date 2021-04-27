@@ -16,7 +16,7 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit {
     public titlesOfTable: { name: string, widthOfBlock: string }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
 
-    public heightOfTable: number = 70;
+    public heightOfTable: number = 50;
 
     constructor(
         protected widgetService: WidgetService,
