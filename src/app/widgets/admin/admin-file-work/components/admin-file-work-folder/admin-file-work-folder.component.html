@@ -1,0 +1,35 @@
+<div class="item">
+  <div class="item__half">
+    <svg-icon class="type" src="{{folderIcon}}"></svg-icon>
+    <span>Мнемосхемы по установке ЭЛОУ-АВТ-10</span>
+  </div>
+  <div class="item__half">
+    <span>1 мар. 2021</span>
+  </div>
+  <div class="item__half">
+    <span>Иванов М.М.</span>
+  </div>
+  <div class="item__half">
+    <div class="date">1 МБ</div>
+  </div>
+  <div class="icons">
+    <div class="icon">
+      <svg-icon src="{{windowsIcon}}"></svg-icon>
+    </div>
+    <div class="icon">
+      <svg-icon
+        src="{{editIcon}}"
+        (click)="editFile()"
+      ></svg-icon>
+    </div>
+    <div class="icon">
+      <svg-icon src="{{trashIcon}}"></svg-icon>
+    </div>
+    <div class="icon">
+      <svg-icon
+        src="{{linkIcon}}"
+        (click)="getLink()"
+      ></svg-icon>
+    </div>
+  </div>
+</div>

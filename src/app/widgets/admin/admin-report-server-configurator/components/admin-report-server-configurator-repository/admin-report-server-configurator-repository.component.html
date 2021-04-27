@@ -1,18 +1,18 @@
 <div class="repository">
-    <div class="repository__header">
-        <evj-admin-report-server-configurator-repository-header
-        ></evj-admin-report-server-configurator-repository-header>
+  <div class="repository__header">
+    <evj-admin-report-server-configurator-repository-header></evj-admin-report-server-configurator-repository-header>
+  </div>
+  <div class="repository__address">
+    <evj-admin-report-server-configurator-repository-address></evj-admin-report-server-configurator-repository-address>
+  </div>
+  <div class="repository__body">
+    <div class="repository__body__menu" *ngIf="(helperService.currentTab | async) === 0">
+      <evj-admin-server-configurator-reference-menu
+        [data]="data"
+        [reports]="reports"
+      ></evj-admin-server-configurator-reference-menu>
     </div>
-    <div class="repository__address">
-        <evj-admin-report-server-configurator-repository-address
-        ></evj-admin-report-server-configurator-repository-address>
-    </div>
-    <div class="repository__body">
-        <div class="repository__body__menu">
-            <evj-admin-server-configurator-reference-menu
-            [data]="data"
-            [reports]="reports"
-            ></evj-admin-server-configurator-reference-menu>
-        </div>
-    </div>
+
+    <evj-admin-file-work *ngIf="(helperService.currentTab | async) === 1"></evj-admin-file-work>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy } from "@angular/core";
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IReportTemplate, ISystemOptions } from '../../models/admin-report-server-configurator.model';
@@ -12,7 +12,7 @@ import { AdminReportServerConfiguratorParametersSelectComponent } from './admin-
   styleUrls: ['./admin-report-server-configurator-parameters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminReportServerConfiguratorParametersComponent implements OnInit {
+export class AdminReportServerConfiguratorParametersComponent implements OnInit, OnDestroy {
 
   @Input() data: IReportTemplate = null;
   public form: FormGroup;
@@ -45,7 +45,7 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   ngOnDestroy(): void {
     this.arscService.headerSettingsPicker.unsubscribe();
   }
-    
+
   public openSelect(): void {
     const dialogRef = this.dialog.open(AdminReportServerConfiguratorParametersSelectComponent,
       {data: {data: this.data, options: this.options}});
@@ -63,11 +63,12 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   }
   public async systemOptions(): Promise<void> {
     const data = await this.arscRootService.getSystemOptions();
+    debugger;
     this.options = data;
     console.log(this.options);
   }
 
-  public submit() {
+  public submit(): void {
     console.log(this.form);
   }
 

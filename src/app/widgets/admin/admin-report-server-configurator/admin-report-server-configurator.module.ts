@@ -11,7 +11,7 @@ import { AdminServerConfiguratorReferenceMenuComponent } from './components/admi
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminReportServerConfiguratorRepositoryAddComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add/admin-report-server-configurator-repository-add.component';
 import { AdminReportNameConfiguratorComponent } from './components/admin-report-name-configurator/admin-report-name-configurator.component';
-import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminReportServerConfiguratorFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-congigurator-file/admin-report-server-configurator-file.component';
 import { AdminReportServerConfiguratorParametersComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters.component';
 import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
@@ -22,8 +22,7 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AdminReportServerConfiguratorListGroupComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-list-group/admin-report-server-configurator-list-group.component';
-
-
+import { AdminFileWorkModule } from "@widgets/admin/admin-file-work/admin-file-work.module";
 
 @NgModule({
   declarations: [
@@ -53,8 +52,9 @@ import { AdminReportServerConfiguratorListGroupComponent } from './components/ad
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
+    AdminFileWorkModule
   ]
 })
 export class AdminReportServerConfiguratorModule {
-  enterComponent = AdminReportServerConfiguratorComponent;
+    enterComponent = AdminReportServerConfiguratorComponent;
 }

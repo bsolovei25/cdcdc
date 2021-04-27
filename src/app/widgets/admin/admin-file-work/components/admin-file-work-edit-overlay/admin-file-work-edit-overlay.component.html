@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="header">
+    <svg-icon
+      [svgStyle]="{'width.px': 38, 'height.px': 38}"
+      src="{{editIcon}}"
+    ></svg-icon>
+    <span>Переименовать файл</span>
+    <div class="shadow"></div>
+    <svg-icon
+      class="close"
+      [svgStyle]="{'width.px': 21, 'height.px': 21}"
+      src="{{closeIcon}}"
+      (click)="closeDialog()"
+    ></svg-icon>
+  </div>
+  <div class="content">
+    <div class="file-name">
+      <span>Новое имя файла</span>
+      <div class="link">
+        <input type="text">
+      </div>
+    </div>
+    <div class="btn-container">
+      <div class="btn">Сохранить</div>
+      <div class="btn">Отменить</div>
+    </div>
+  </div>
+</div>
