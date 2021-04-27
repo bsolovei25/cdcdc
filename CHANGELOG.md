@@ -1,3 +1,22 @@
+# [1.20.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.19.0...v1.20.0) (2021-04-27)
+
+
+### Bug Fixes
+
+* **#1445:** Топливо, факел - исправления в мнемосхеме ([dcd0efa](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/dcd0efa83d96e72cb33be8d28c0b44f6b768fc64)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1612:** Исправлено отображение элементов кпа с100 ([de3294b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/de3294b375e92412ce01c1e650b1b254739233e1)), closes [#1612](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1612)
+* **#1654:** Исправления мнемосхемы сырьевой парк ([70c3e24](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/70c3e241e436bd710dc4f98e13c35f50e82334d0)), closes [#1654](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1654)
+* **#1709:** Обрезание текста по длине в названии секции ([3830674](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/38306748f6dfe878976edc51a5117c4e1e300ac8)), closes [#1709](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1709)
+* **ci:** correct global cache key ([d4b74e8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d4b74e8d7d3758949b9e8cd70facbb4f18bdb812))
+
+
+### Features
+
+* **#1257:** "КПЭ. Приведение к новому дизайну виджета по качеству" ([e157520](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e15752009391052eb2f2b8178bd22fed0d1f399c)), closes [#1257](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1257)
+* **#1665:** Обрезание текста по длине, показ тултипов, выравнивание по правому краю, исправления ([1bb6f2f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1bb6f2f84e9c87bc98ef609299b46bf8d53a10c7)), closes [#1665](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1665)
+* **#1702:** СОУ ГФУ-2 Удален поток из системы ([ab6db86](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ab6db86005d8d83aa1a5578f79bda9b23a253dd8)), closes [#1702](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1702)
+* **ci:** refrsh ([1d70f66](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1d70f66af90b3e9c72c33a819d56cf6713d46669))
+
 # [1.19.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.18.0...v1.19.0) (2021-04-23)
 
 
