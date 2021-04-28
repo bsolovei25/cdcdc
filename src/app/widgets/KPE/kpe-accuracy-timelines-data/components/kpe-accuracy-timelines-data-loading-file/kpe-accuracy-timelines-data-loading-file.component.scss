@@ -26,6 +26,8 @@
       font-size: 12px;
       line-height: 14px;
       color: var(--text-contrast-color);
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .file-loading {
