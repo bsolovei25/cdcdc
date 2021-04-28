@@ -72,8 +72,8 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
         this.isGraphDisplay = event;
     }
 
-    public toggleIsInitialDataShows(): void {
-        this.isInitialDataShow = !this.isInitialDataShow;
+    public toggleIsInitialDataShows(val: boolean): void {
+        this.isInitialDataShow = val;
         this.astueEfficiencyService.selectionFlow$.next([]);
         this.astueEfficiencyService.selectionUnit$.next([]);
     }

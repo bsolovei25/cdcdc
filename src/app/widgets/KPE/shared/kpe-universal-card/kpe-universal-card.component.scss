@@ -61,11 +61,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
+      background: var(--color-kpe-universal-card-bg-default);
       border-radius: 2px;
 
       font-size: 11px;
       line-height: 16px;
+
+      &.warning {
+        background: var(--color-kpe-universal-card-bg-warning);
+        color: var(--color-warning);
+      }
     }
 
     .line-diagram {

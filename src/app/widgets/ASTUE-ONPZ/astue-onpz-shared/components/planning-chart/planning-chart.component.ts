@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    Output,
+    Renderer2,
+    ViewChild
+} from "@angular/core";
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IProductionTrend, ProductionTrendType } from '../../../../../dashboard/models/LCO/production-trends.model';
@@ -25,6 +35,7 @@ export class PlanningChartComponent implements OnChanges {
         this.deltaCf = PlanningChartComponent.STEP_CF * value;
     }
     @Output() scrollData: EventEmitter<IChartMini[]> = new EventEmitter<IChartMini[]>(true);
+    @Output() public chartValue: EventEmitter<number> = new EventEmitter<number>();
 
     private dateTimeInterval: Date[] = null;
 
@@ -46,6 +57,9 @@ export class PlanningChartComponent implements OnChanges {
 
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
+    private curve: Selection;
+
+    private mousePosition: number | null = null;
 
     private padding: { left: number; right: number; top: number; bottom: number } = {
         left: 50,
@@ -63,7 +77,7 @@ export class PlanningChartComponent implements OnChanges {
         return this.widgetService.currentDates$.getValue();
     }
 
-    constructor(private widgetService: WidgetService) {}
+    constructor(private widgetService: WidgetService, private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
         this.initInterval();
@@ -103,6 +117,7 @@ export class PlanningChartComponent implements OnChanges {
         this.drawFutureRect();
         this.drawPoints();
         this.customizeAreas();
+        this.drawMouseGroup()
     }
 
     private initInterval(): void {
@@ -243,7 +258,7 @@ export class PlanningChartComponent implements OnChanges {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
+            this.curve = this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
 
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
@@ -501,10 +516,120 @@ export class PlanningChartComponent implements OnChanges {
         }
     }
 
+    private drawMouseGroup(): void {
+        // группа событий мыши
+        const mouseG = this.svg
+            .append('g')
+            .attr('class', 'mouse-over')
+            .attr('opacity', 1)
+            .style('color', 'white');
+
+        // лейбл с датой
+        mouseG
+            .append('text')
+            .attr('class', 'label-mouse')
+            .attr('text-anchor', 'start')
+            .attr('font-size', '12px')
+            .attr('x', 0)
+            .attr('y', this.chart.nativeElement.clientHeight - this.padding.bottom - 10)
+            .attr('fill', '#D7E2F2')
+            .text('');
+
+        // линия курсора
+        mouseG
+            .append('line')
+            .attr('class', 'mouse-line')
+            .attr('x1', 0)
+            .attr('x2', 0)
+            .attr('y1', this.scaleFuncs.y(this.dataMin))
+            .attr('y2', this.scaleFuncs.y(this.dataMax))
+            .style('stroke', 'currentColor')
+            .style('stroke-width', '1px');
+
+        // область для прослушивания событий мыши
+        const [[mouseListenArea]] = mouseG
+            .append('svg:rect')
+            .attr('width', this.graphMaxX)
+            .attr('height', this.graphMaxY)
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all')._groups;
+
+        this.listenMouseEvents(mouseListenArea);
+    }
+
+    private listenMouseEvents(element: HTMLElement): () => void {
+        const eventListeners: (() => void)[] = [];
+
+        eventListeners.push(
+            this.renderer.listen(element, 'mouseleave', () => {
+                this.toggleShowingValues('disable');
+                this.setChartInfoValues(0);
+                this.mousePosition = null;
+            }),
+            this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
+                const rect: DOMRect = element.getBoundingClientRect();
+                const formatDate = d3.timeFormat('%H:%M');
+
+                this.toggleShowingValues('enable');
+                this.mousePosition = event.clientX - rect.left;
+                this.setChartInfoValues(this.getValuesAtX(this.mousePosition));
+
+                this.svg.select('.mouse-line').attr('x1', this.mousePosition).attr('x2', this.mousePosition);
+                this.svg
+                    .select('.label-mouse')
+                    .attr('x', this.mousePosition + 10)
+                    .text(formatDate(this.scaleFuncs.x.invert(this.mousePosition)));
+            })
+        );
+
+        return () => eventListeners?.forEach((eventListener) => eventListener());
+    }
+
+    private getValuesAtX(xParam: number): number {
+        return this.yValueForX(xParam, this.curve);
+    }
+
+    private yValueForX(x: number, path: any): number {
+        const node = path.node();
+        const pathLength = node.getTotalLength();
+
+        if (pathLength <= 0) {
+            return;
+        }
+
+        let start = 0;
+        let end = pathLength;
+        let target = (start + end) / 2;
+
+        x = Math.max(x, node.getPointAtLength(0).x);
+        x = Math.min(x, node.getPointAtLength(pathLength).x);
+
+        while (target >= start && target <= pathLength) {
+            const pos = node.getPointAtLength(target);
+            if (Math.abs(pos.x - x) < 0.0001) {
+                return this.scaleFuncs.y.invert(pos.y);
+            } else if (pos.x > x) {
+                end = target;
+            } else {
+                start = target;
+            }
+            target = (start + end) / 2;
+        }
+    }
+
+    private setChartInfoValues(value: number): void {
+        this.chartValue.emit(value);
+    }
+
     private dropChart(): void {
         if (this.svg) {
             this.svg.remove();
             this.svg = undefined;
         }
+    }
+
+    private toggleShowingValues(actionType: 'enable' | 'disable'): void {
+        this.svg.select('.mouse-line').style('opacity', actionType === 'enable' ? 1 : 0);
+        this.svg.select('.label-mouse').style('opacity', actionType === 'enable' ? 1 : 0);
     }
 }

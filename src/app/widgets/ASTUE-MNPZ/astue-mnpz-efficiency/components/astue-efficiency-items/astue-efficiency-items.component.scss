@@ -24,9 +24,8 @@
   .header {
     border-radius: 2px;
     margin-bottom: 7px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px var(--gradient-main-color-1);
     display: flex;
-    background: var(--color-aw-header-bg);
     overflow: hidden;
 
     &__item {
@@ -38,17 +37,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--color-new-header-bg);
-      color: var(--color-text-sub);
+      background: var(--bg-header-color);
+      color: var(--text-main-color);
 
       &:hover {
         cursor: pointer;
-        color: var(--color-text-main);
+        color: var(--text-accent-color);
       }
 
       &_active {
-        border-bottom: 2px solid var(--color-new-header-active);
-        color: var(--color-text-main);
+        border-bottom: 2px solid var(--border-blue-color);
+        color: var(--text-accent-color);
 
         cursor: pointer;
       }
@@ -63,10 +62,10 @@
   .content {
     padding: 12px 0px;
     border-radius: 2px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 8px var(--gradient-main-color-1);
     display: flex;
     flex-direction: column;
-    background: var(--color-aw-container-body-transparent);
+    background: var(--bg-body-color);
     overflow: hidden;
   }
 }

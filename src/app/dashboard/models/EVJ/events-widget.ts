@@ -5,6 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
+export type RestrictionType = 'eventType' | 'type' | 'reason' | 'constancy' | 'duration' | 'economicEfficiency' | 'significance';
+
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
@@ -37,6 +39,20 @@ export interface IEventsWidgetNotificationPreview {
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
     retrievalEvents: IEventsWidgetNotificationPreview[];
+}
+
+export interface ISMPOData {
+    isCritical?: boolean;
+    isImportance?: boolean;
+    isNotNeedActivity?: boolean;
+    activePhase?: string;
+    activePhaseId?: number;
+    originalId?: string;
+    product?: string;
+    productGroup?: string;
+    secondDeviation?: string;
+    reasons?: IReason[];
+    events?: ICorrect[];
 }
 
 export interface IEventsWidgetNotification {
@@ -86,15 +102,7 @@ export interface IEventsWidgetNotification {
     productionTasks?: IEventProductionTask;
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
-    isImportance?: boolean;
-    isCritical?: boolean;
-    isNotNeedActivity?: boolean;
-    productGroup?: string;
-    activePhase?: string;
-    product?: string;
-    secondDeviation?: string;
-    reasons?: IReason[];
-    events?: ICorrect[];
+    smpo: ISMPOData;
 }
 
 export interface IEventsEjs {
@@ -324,6 +332,32 @@ export interface ISubcategory {
     isCanBeManuallySelected?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
+}
+
+export type IRestrictionItemList = {
+    [key in RestrictionType]: IRestriction;
+};
+
+export interface IRestrictionRequest {
+    id: number;
+    eventType: IRestrictionItem;
+    type: IRestrictionItem;
+    reason: IRestrictionItem;
+    constancy: IRestrictionItem;
+    duration: IRestrictionItem;
+    economicEfficiency: IRestrictionItem;
+    significance: IRestrictionItem;
+};
+
+export interface IRestrictionItem {
+    id: number,
+    type: string,
+    name: string
+}
+
+export interface IRestriction {
+    type: string,
+    restrictions: IRestrictionItem[]
 }
 
 export interface IReason {

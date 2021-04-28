@@ -53,6 +53,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     public readonly viewComponent: typeof SouMvpMnemonicSchemeViewComponent = SouMvpMnemonicSchemeViewComponent;
 
     public readonly settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
+    public readonly sectionNameMaxLengthTruncate: number = 14;
 
     // Суб-канал в вебсокетах
     subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
@@ -63,18 +64,32 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         unit: new FormControl(null),
         section: new FormControl(null),
     });
-    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] });
+    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] } as ISouOptions);
     selectionOptions: ISouSelectionOptions = {
-        manufactures$: this.options$.pipe(map((x) => x.manufactures)),
+        manufactures$: this.options$.pipe(
+            map((x) => {
+                return x.manufactures;
+            }),
+        ),
         units$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
-            map(([options, group]) => options.manufactures.find((x) => x.name === group?.manufacture)?.units ?? [])
+            map(([options, group]) =>
+                options
+                    ?.manufactures
+                    ?.find((x) => x.name === group?.manufacture)
+                    ?.units
+                ?? []
+            )
         ),
         sections$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
             map(
                 ([options, group]) =>
-                    options.manufactures
-                        .find((x) => x.name === group?.manufacture)
-                        ?.units?.find((x) => x.id === group?.unit)?.section ?? []
+                    options
+                        ?.manufactures
+                        ?.find((x) => x.name === group?.manufacture)
+                        ?.units
+                        ?.find((x) => x.id === group?.unit)
+                        ?.section
+                    ?? []
             )
         ),
     };
@@ -144,7 +159,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     protected dataHandler(ref: ISouOptions): void {
-        this.options$.next({ ...ref });
+        if (ref?.manufactures) {
+            this.options$.next({ ...ref });
+        }
     }
 
     public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {

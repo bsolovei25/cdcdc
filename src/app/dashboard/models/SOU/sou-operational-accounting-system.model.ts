@@ -1,5 +1,8 @@
 export interface ISouOptions {
     manufactures: ISouManufacture[];
+    isHistoricalDataSupported: boolean;
+    title: string;
+    widgetType: string;
 }
 
 export interface ISouManufacture {
@@ -187,3 +190,5 @@ export interface ISOUOperationalAccountingSystem {
     deltaHourByPercent: number;
     referenceBook: IReferenceBook;
 }
+
+export type SouSectionData = ISouFlowOut | ISouFlowIn | ISouObjects;

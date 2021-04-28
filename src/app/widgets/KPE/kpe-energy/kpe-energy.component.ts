@@ -88,36 +88,15 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
         return `min-width: ${height}px`;
     }
 
-    private getNameTab(key: string): string {
-        switch (key) {
-            case 'warm': {
-                return 'Тепловая энергия';
-            }
-            case 'water': {
-                return 'Обороная вода';
-            }
-            case 'steam': {
-                return 'Производство пара';
-            }
-            case 'fuel': {
-                return 'Топливо';
-            }
-            case '': {
-                return 'Электроэнергия';
-            }
-        }
-    }
-
     public getContentData(tab: IKpeEnergyTab): IKpeUniversalCardLineChart {
         return {
-            name: this.getNameTab(tab.type),
-            title: this.getNameTab(tab.type),
+            name: tab.title,
             percent: tab.percentage,
             percentStatus: 'default',
             deviationPlanPredict: tab.plan,
             deviationPlanPredictFact: tab.fact,
             fact: tab.fact,
-            percentageInfluence: tab.percentage,
+            percentageInfluence: +tab.percentage.toFixed(2),
             plan: tab.plan,
             planPredict: tab.plan,
             predict: tab.plan,

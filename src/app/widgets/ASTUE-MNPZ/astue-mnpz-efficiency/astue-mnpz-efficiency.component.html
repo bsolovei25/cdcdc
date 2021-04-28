@@ -1,17 +1,21 @@
 <div class="container pointer-events">
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
 
-  <evj-widget-header
-    [title]="widgetTitle"
-    [widgetType]="widgetType"
-    [units]="widgetUnits"
-    [code]="widgetCode"
-    [id]="widgetId"
-    [uniqId]="widgetUniqId"
-    [toggleAstue]="isInitialDataShow"
-    (toggleAstueChange)="toggleIsInitialDataShows()"
-  ></evj-widget-header>
-  <evj-frame-top></evj-frame-top>
+  <evj-contemporary-widget-header type="astue" [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
+    <div class="btn-container">
+      <div
+        class="btns"
+        (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
+      >
+        <div class="btn" [class.btn_active]="isInitialDataShow" (click)="toggleIsInitialDataShows(true)">
+          Исходные данные
+        </div>
+        <div class="btn" [class.btn_active]="!isInitialDataShow" (click)="toggleIsInitialDataShows(false)">
+          Планирование
+        </div>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
 
   <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngIf="data.length">
@@ -77,6 +81,4 @@
       </ng-container>
     </ng-container>
   </div>
-
-  <evj-frame-bottom></evj-frame-bottom>
 </div>

@@ -6,6 +6,7 @@ import { KpeGaugeChartMultiColor } from '../../../shared/kpe-gauge-chart-multi-c
 export interface IKpeGaugeChartPage {
     name: string;
     title?: string;
+    description?: string;
     value: number;
     deviation: number;
     debalancePercent: number;

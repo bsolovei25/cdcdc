@@ -24,14 +24,23 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     @Output()
     public selected: EventEmitter<string> = new EventEmitter();
 
+    @Output()
+    public fullObject: EventEmitter<any> = new EventEmitter();
+
     @Input()
     public disabled: boolean = false;
+
+    @Input()
+    public fieldName: string;
+
+    @Input()
+    public valueField: string;
 
     @Input()
     public initByDefault: boolean = true;
 
     @Input()
-    public items: string[] = [];
+    public items: Record<string, unknown>[] = [];
 
     constructor(@Optional() @Self() public ngControl: NgControl) {
         if (ngControl != null) {
@@ -40,7 +49,8 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     }
 
     public onSelected(event: MatSelectChange): void {
-        this.value = event.value;
+        this.value = this.valueField ? event.value[this.valueField] : event.value;
+        this.setValue(event.value);
     }
 
     get value(): string {
@@ -89,10 +99,17 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
         this.disabled = isDisabled;
     }
 
+    private setValue(value: object): void {
+        if (value) {
+            this.value = this.valueField ? value[this.valueField] : value;
+            this.fullObject.emit(value);
+        }
+    }
+
     private setDefaultValue(): void {
         if (!this.val && this.initByDefault) {
             setTimeout(() => {
-                this.value = this.items[0];
+                this.setValue(this.items[0]);
             });
         }
     }

@@ -329,7 +329,7 @@
 <path id="Vector_98" d="M33.9844 1238.62V1240.18" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="element-1_25">
+<g id="element-2_25">
 <g id="rect_8">
 <rect x="16" y="874" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="16" y="874" width="168" height="32" rx="2" stroke="#606580"/>
@@ -2073,7 +2073,7 @@
 <text id="percent_12" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1609" y="1153.16">&#x2014;</tspan></text>
 <circle id="ellipse_30" cx="1556" cy="1138" r="4" fill="white"/>
 </g>
-<g id="element-1_81">
+<g id="element-2_81">
 <g id="rect_32">
 <rect x="1842" y="900" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1842" y="900" width="168" height="32" rx="2" stroke="#606580"/>
@@ -2166,55 +2166,60 @@
 <path id="rect_39" d="M1956 1070.67H1896" stroke="#606580"/>
 <path id="rect_40" d="M1956 1233.56H1896" stroke="#606580"/>
 </g>
-<g id="element-3_46">
+<g id="element-14_46">
 <rect x="696.5" y="640.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_18" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="704" y="657.161">12 000.000&#x442;</tspan></text>
+<text id="text_value_18" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="741" y="657.161">12 000.000&#x442;</tspan></text>
 <rect x="696.5" y="640.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_54">
-<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_19" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="469.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_72">
-<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1340" y="403.161">12 000.000&#x442;</tspan></text>
-<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_58">
-<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="595.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_60">
-<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_22" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="655.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_62">
-<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_23" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="715.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_64">
-<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_24" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="775.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_48">
+<g id="element-14_48">
 <rect x="696.5" y="850.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_25" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="704" y="867.161">12 000.000&#x442;</tspan></text>
+<text id="text_value_19" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="741" y="867.161">12 000.000&#x442;</tspan></text>
 <rect x="696.5" y="850.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_84">
+<g id="element-14_72">
+<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1377" y="403.161">12 000.000&#x442;</tspan></text>
+<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_84">
 <rect x="1701.5" y="1126.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_26" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1709" y="1143.16">12 000.000&#x442;</tspan></text>
+<text id="text_value_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1746" y="1143.16">12 000.000&#x442;</tspan></text>
 <rect x="1701.5" y="1126.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_86">
+<g id="element-14_86">
 <rect x="1701.5" y="1186.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_27" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1709" y="1203.16">12 000.000&#x442;</tspan></text>
+<text id="text_value_22" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1746" y="1203.16">12 000.000&#x442;</tspan></text>
 <rect x="1701.5" y="1186.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_54">
+<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_23" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="469.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_56">
+<rect x="985.5" y="512.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_24" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="529.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="512.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_58">
+<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_25" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="595.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_60">
+<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_26" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="655.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_62">
+<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_27" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="715.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_64">
+<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_28" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="775.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
 <g id="Group 22904">
 <path id="line_dotted_51" d="M498 1171H1513" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>

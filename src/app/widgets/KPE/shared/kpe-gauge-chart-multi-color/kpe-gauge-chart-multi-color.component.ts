@@ -104,6 +104,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     }
 
     public ngOnInit(): void {
+        if (this.data) {
+            this.dataBind();
+        }
         this.chartInit();
     }
 
@@ -121,10 +124,22 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Если обратное заполнение, то "зеркалим" массив
         if (this.data?.zeroOn === 'Right') {
             return [...arr]
-                .map(item => Math.floor(item / maxBound * 100))
+                .map(item => {
+                    if (arr[arr.length - 1] !== 0) {
+                        // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
+                        return Math.floor((item - arr[arr.length - 1]) / (maxBound - arr[arr.length - 1]) * 100)
+                    } else {
+                       return Math.floor(item / maxBound * 100)
+                    }
+                })
                 .map(item => 100 - item);
         }
-        return [...arr].map(item => Math.floor(item / maxBound * 100));
+        if (arr[0] !== 0) {
+            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
+            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+        } else {
+            return [...arr].map(item => Math.floor(item / maxBound * 100));
+        }
 
     }
 
@@ -157,7 +172,6 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             value = this.data?.fact / maxBound * 100;
             boundEdge = this.chartConfig[this.type].bounds?.find(item => item > value);
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
-            boundEdge = this.chartConfig[this.type].bounds[index]
         }
         if (boundEdge || boundEdge === 0) {
             const color = this.data?.zeroOn === 'Right' ? this.chartConfig[this.type].colorBounds.reverse()[index] : this.chartConfig[this.type].colorBounds[index];
@@ -251,7 +265,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                     .arc()
                     .innerRadius(16)
                     .outerRadius(outerRadius - 10)
-                    .startAngle(0.5 * Math.PI)
+                    .startAngle(arrowAngle > 0 ? -0.5 * Math.PI : 0.5 * Math.PI)
                     .endAngle(-0.008 * Math.PI);
             }
             else {
@@ -345,8 +359,10 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-
-        if (!this.isPerformance) {
+        if (this.data?.description && this.type === 1) {
+            addText(this.data.description, 'desc', 30);
+        }
+        if (!this.isPerformance && this.type !== 1) {
             addText(gauge.unit, 'unit', 25);
         }
 
@@ -362,7 +378,10 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
+        if (this.data?.fact < this.data.plan) {
+            // если мы выполнили план, активной секции нет
+            drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
+        }
 
         // Края диаграммы
         const serifSize = Math.PI / 180;
@@ -374,14 +393,16 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Засечки на диаграмме
         // Если имеется массив bounds, то положение засечки секции рассчитывается по последнему значению диапозона
         if (this.chartConfig[this.type].bounds) {
-            this.chartConfig[this.type].bounds.forEach((bound, i) => {
-                const index = this.data?.zeroOn === 'Right' ? i : i - 1;
+            this.chartConfig[this.type].colorBounds.forEach((bound, i) => {
+                const index = this.data?.zeroOn === 'Right' ? i : i + 1;
                 const endBound = this.chartConfig[this.type].bounds[index];
                 if (!endBound) { return; }
                 const endRad = this.convertPercentToGrad(endBound) * (Math.PI / 180);
                 const sectionSerif = createPie(endRad - serifSize, endRad);
                 const className = this.data?.zeroOn === 'Right' ? colorBounds[index] : serifColorBounds[index - 1];
-                drawDiagram(`diagram-section-serif-${className}`, () => sectionSerif([null]), serifArc);
+                if (className) {
+                    drawDiagram(`diagram-section-serif-${className}`, () => sectionSerif([null]), serifArc);
+                }
             });
         } else {
             serifColorBounds.forEach((colorIndex, i) => {
