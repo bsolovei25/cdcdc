@@ -1,3 +1,10 @@
+## [1.20.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.0...v1.20.1) (2021-04-27)
+
+
+### Bug Fixes
+
+* **ci:** updated envs ([204fc21](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/204fc2156942ad439029569eab5652fe79bfbc30))
+
 # [1.20.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.19.0...v1.20.0) (2021-04-27)
 
 

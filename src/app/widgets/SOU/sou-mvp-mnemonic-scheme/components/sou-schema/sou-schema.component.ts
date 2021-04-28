@@ -25,6 +25,12 @@ interface IElementFull {
     flag: boolean;
 }
 
+interface ITypeTextParams {
+    lineLength?: number, // Макс. длина строки
+    lineHeight?: number, // Высота одной строки в пикселях
+    maxTextLength?: number, // Макс. длина текста до усечения
+}
+
 type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 
 @Component({
@@ -40,8 +46,41 @@ export class SouSchemaComponent implements OnChanges {
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
     private typesNeedTextAnchorEnd: number[] = [15];
+    private typeTextParams: {[typeId: number]: ITypeTextParams} = {
+        1: {
+            lineLength: 15,
+            lineHeight: 14,
+            maxTextLength: 30,
+        },
+        2: {
+            lineLength: 17,
+            lineHeight: 14,
+            maxTextLength: 17 * 2,
+        },
+        3: {
+            lineLength: 23,
+            lineHeight: 12,
+        },
+        4: {
+            lineLength: 13,
+            lineHeight: 20,
+        },
+        11: {
+            maxTextLength: 10,
+        },
+        12: {
+            maxTextLength: 7,
+        },
+        13: {
+            lineLength: 7,
+            lineHeight: 20,
+        },
+        16: {
+            maxTextLength: 17,
+        },
+    };
     private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
@@ -296,12 +335,17 @@ export class SouSchemaComponent implements OnChanges {
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
+            const elementId = this.getElementId(element);
+
+            if (elementFull) {
+                this.elementsFullMap.set(elementId, elementFull);
+            }
+
             this.addClassAndTextToElement(element, elementFull, mode);
 
             // Event
             if (sectionData) {
                 this.addElementClickListener(element, elementFull);
-                this.elementsFullMap.set(sectionData?.code, elementFull);
             }
 
             // Применение класса для текстовых нод
@@ -667,6 +711,7 @@ export class SouSchemaComponent implements OnChanges {
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
             const children = Array.from(textElem?.children);
             let truncatedText = text;
+            const lineLength = textParams?.lineLength;
 
             if (textParams?.maxTextLength && text?.length > textParams.maxTextLength) {
                 truncatedText = text.slice(0, textParams.maxTextLength - 3) + '...';
@@ -679,11 +724,11 @@ export class SouSchemaComponent implements OnChanges {
                 });
             }
 
-            if (textParams?.lineLength && truncatedText.length > textParams.lineLength) {
+            if (lineLength && truncatedText.length > lineLength) {
                 if (children.length > 1) {
                     children.forEach((child: SVGTextPositioningElement, index: number) => {
-                        const from = textParams.lineLength * index;
-                        const to = textParams.lineLength * (index + 1);
+                        const from = lineLength * index;
+                        const to = lineLength * (index + 1);
                         this.setTspanText(child, truncatedText.slice(from, to).trim());
                     });
                 } else {
@@ -707,12 +752,14 @@ export class SouSchemaComponent implements OnChanges {
     private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
         const textParams = this.getTextElemLayoutParams(textElem);
         const lineOffsetTopPx = textParams?.lineHeight || 20;
+        const lineLength = textParams?.lineLength;
+        const maxTextLength = textParams?.maxTextLength;
 
-        if (textParams?.lineLength) {
-            const textLength = (textParams.maxTextLength && (text?.length > textParams.maxTextLength))
-                ? textParams.maxTextLength
+        if (lineLength) {
+            const textLength = (maxTextLength && (text?.length > maxTextLength))
+                ? maxTextLength
                 : text?.length;
-            const linesCount = Math.ceil(textLength / textParams.lineLength);
+            const linesCount = Math.ceil(textLength / lineLength);
             const children = textElem?.children && Array.from(textElem.children) as SVGTextPositioningElement[];
 
             if (children?.length < linesCount) {
@@ -737,45 +784,11 @@ export class SouSchemaComponent implements OnChanges {
 
     // Возвращает параметры перестроения текста <text>
     // Или null если ограничений нет
-    private getTextElemLayoutParams(textElem: SVGElement): {
-        lineLength: number, // Максимальное количество символов в строке
-        lineHeight: number, // Высота новой строки при переносе
-        maxTextLength?: number, // Максимальное количество символов, которое не будет обрезаться
-    } {
+    private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
-        const textParamsByType = {
-            1: {
-                lineLength: 15,
-                lineHeight: 14,
-            },
-            2: {
-                lineLength: 17,
-                lineHeight: 14,
-                maxTextLength: 17 * 2,
-            },
-            3: {
-                lineLength: 23,
-                lineHeight: 12,
-            },
-            4: {
-                lineLength: 13,
-                lineHeight: 20,
-            },
-            12: {
-                lineLength: 6,
-                lineHeight: 14,
-                maxTextLength: 18,
-            },
-            13: {
-                lineLength: 7,
-                lineHeight: 20,
-            },
-        };
-
         if (elementTypeId) {
-            return textParamsByType[elementTypeId];
+            return this.typeTextParams[elementTypeId];
         }
-
         return null;
     }
 
