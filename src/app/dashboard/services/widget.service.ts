@@ -13,7 +13,6 @@ import { AuthService } from '@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
 import { IError } from '../models/@PLATFORM/error.model';
-import { isChildNodeOf } from 'codelyzer/util/isChildNodeOf';
 
 export interface IDatesInterval {
     fromDateTime: Date;
