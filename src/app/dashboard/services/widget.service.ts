@@ -13,6 +13,7 @@ import { AuthService } from '@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
 import { IError } from '../models/@PLATFORM/error.model';
+import { isChildNodeOf } from 'codelyzer/util/isChildNodeOf';
 
 export interface IDatesInterval {
     fromDateTime: Date;
@@ -65,7 +66,7 @@ export class WidgetService {
 
     // открытые каналы ws на текущем экране
     private openedWsChannels: {
-        [key: string]: { count: number; options: IWebSocketOptions<any>; parentChannelId?: string };
+        [key: string]: { count: number; options: IWebSocketOptions<any>; parentChannelId?: string; channelId?: string };
     } = {};
 
     constructor(
@@ -86,7 +87,7 @@ export class WidgetService {
                     let channelId = null;
                     if (!!this.openedWsChannels[channel].parentChannelId) {
                         widgetId = this.openedWsChannels[channel].parentChannelId;
-                        channelId = channel;
+                        channelId = this.openedWsChannels[channel].channelId;
                     }
                     this.wsAppendOptions(widgetId, this.openedWsChannels[channel]?.options, channelId);
                 }
@@ -168,20 +169,24 @@ export class WidgetService {
         }
     }
 
+    private getChannelId = (widgetId: string, channelId: string = ''): string => {
+        return `${widgetId}${channelId}`;
+    };
+
     getWidgetChannel(widgetId: string): Observable<IWidget> {
         return this.widgets.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
 
-    // TODO delete and change to getChannelLiveDataFromWs
     getWidgetLiveDataFromWS<T = any>(widgetId: string, widgetType: string): Observable<T> {
         if (!widgetId || !widgetType) {
             return;
         }
         this.wsConnect(widgetId);
-        if (this.openedWsChannels[widgetId]) {
-            this.openedWsChannels[widgetId].count++;
+        const id = this.getChannelId(widgetId);
+        if (this.openedWsChannels[id]) {
+            this.openedWsChannels[id].count++;
         } else {
-            this.openedWsChannels[widgetId] = {
+            this.openedWsChannels[id] = {
                 count: 1,
                 options: null,
             };
@@ -199,22 +204,25 @@ export class WidgetService {
             return;
         }
         this.wsConnect(widgetId, null, channelId);
-        if (this.openedWsChannels[channelId]) {
-            this.openedWsChannels[channelId].count++;
+        const id = this.getChannelId(widgetId, channelId);
+        if (this.openedWsChannels[id]) {
+            this.openedWsChannels[id].count++;
         } else {
-            this.openedWsChannels[channelId] = {
+            this.openedWsChannels[id] = {
                 count: 1,
                 parentChannelId: widgetId,
+                channelId,
                 options: null,
             };
         }
         return this.widgetsSocketObservable.pipe(
-            filter((ref) => ref?.channelId === channelId),
+            filter((ref) => ref?.channelId === channelId && ref?.widgetId === widgetId),
             map((ref) => ref?.data ?? null),
             filter((ref) => ref !== null)
         );
     }
 
+    // TODO: change channel
     setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
         if (!widgetId) {
             return;
@@ -271,14 +279,15 @@ export class WidgetService {
 
     // TODO
     public removeChannel(widgetId: string, channelId: string): void {
-        if (!this.openedWsChannels[channelId]) {
+        const id = this.getChannelId(widgetId, channelId);
+        if (!this.openedWsChannels[id]) {
             return;
         }
-        if (this.openedWsChannels[channelId].count <= 1) {
+        if (this.openedWsChannels[id].count <= 1) {
             this.wsDisconnect(widgetId, channelId);
-            delete this.openedWsChannels[channelId];
-        } else if (this.openedWsChannels[channelId]) {
-            this.openedWsChannels[channelId].count--;
+            delete this.openedWsChannels[id];
+        } else if (this.openedWsChannels[id]) {
+            this.openedWsChannels[id].count--;
         }
     }
 
@@ -426,7 +435,7 @@ export class WidgetService {
                 let channelId = null;
                 if (!!this.openedWsChannels[channel].parentChannelId) {
                     widgetId = this.openedWsChannels[channel].parentChannelId;
-                    channelId = channel;
+                    channelId = this.openedWsChannels[channel].channelId;
                 }
                 this.wsConnect(widgetId, this.openedWsChannels[channel]?.options, channelId);
             }
