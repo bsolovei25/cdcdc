@@ -1,3 +1,12 @@
+## [1.20.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.1...v1.20.2) (2021-04-28)
+
+
+### Bug Fixes
+
+* **#1587:** Исправленя отображения элементов КПА с100 ([4fe5e57](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4fe5e57387b2f47fb3856bd424e263412e296e26)), closes [#1587](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1587)
+* **#1592:** Удален поток из ГФУ-2 ([7a2cae7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7a2cae73cad7ba082826a3637257d5622dc1823c)), closes [#1592](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1592)
+* **#1665:** Исправлено отображение элементов ГФУ-2 ([473cecb](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/473cecb412f14b6ac463ae6d08409c9f4eeac5e3)), closes [#1665](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1665)
+
 ## [1.20.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.0...v1.20.1) (2021-04-27)
 
 
