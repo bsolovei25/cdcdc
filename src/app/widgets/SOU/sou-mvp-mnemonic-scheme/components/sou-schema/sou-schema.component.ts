@@ -278,7 +278,8 @@ export class SouSchemaComponent implements OnChanges {
 
         if (reload) {
             if (element?.children) {
-                this.addClassAndTextToElement(element, this.elementsFullMap?.get(sectionData?.code), mode);
+                const elementFull = this.elementsFullMap?.get(sectionData?.code);
+                this.addClassAndTextToElement(element, elementFull, mode);
             }
         } else {
             this.prepareElement(mode, element, sectionData);
@@ -369,8 +370,8 @@ export class SouSchemaComponent implements OnChanges {
         };
         const children = Array.from(element?.children);
 
-        children?.forEach((elem) => {
-            elementFull = this.searchElementsInElement(elem, elementFull);
+        children?.forEach((elementChild: SVGElement) => {
+            elementFull = this.recognizeElementChild(elementChild, elementFull);
         });
 
         return elementFull;
@@ -498,8 +499,8 @@ export class SouSchemaComponent implements OnChanges {
                         flag: true,
                     };
                     // Search
-                    elementsRelated?.forEach((elem) => {
-                        elementFullRelated = this.searchElementsInElement(elem, elementFullRelated);
+                    elementsRelated?.forEach((elem: SVGElement) => {
+                        elementFullRelated = this.recognizeElementChild(elem, elementFullRelated);
                     });
                     elementFullRelated?.rects?.forEach((item: Element) => {
                         this.setElementMode(item, mode);
@@ -525,8 +526,9 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
-    // Функция распознает, чем является элемент. Если чем то нужным, то кладет его в IElementFull
-    searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
+    // Функция распознает, потомка элемента схемы.
+    // Если он является чем то нужным, то кладет его в IElementFull
+    recognizeElementChild(element: SVGElement, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
         if (name?.includes('rect')) {
             if (element?.children?.length) {

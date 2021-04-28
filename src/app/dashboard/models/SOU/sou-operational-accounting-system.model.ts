@@ -1,5 +1,8 @@
 export interface ISouOptions {
     manufactures: ISouManufacture[];
+    isHistoricalDataSupported: boolean;
+    title: string;
+    widgetType: string;
 }
 
 export interface ISouManufacture {
