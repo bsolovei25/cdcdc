@@ -23,6 +23,7 @@ interface IElementFull {
     textPercent: Element;
     ellipse: Element;
     flag: boolean;
+    textParams?: ITypeTextParams;
 }
 
 interface ITypeTextParams {
@@ -335,6 +336,11 @@ export class SouSchemaComponent implements OnChanges {
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
+
+            if (this.debugElementCode && this.getElementId(element) === this.debugElementCode) {
+                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
+            }
+
             const elementId = this.getElementId(element);
 
             if (elementFull) {
@@ -547,6 +553,11 @@ export class SouSchemaComponent implements OnChanges {
             }
         } else if (name?.includes('point')) {
             elementFull?.points.push(element);
+        } else if (name?.includes('text-params_')) {
+            const textParams = this.parseTextParamsFromElementName(name);
+            if (textParams) {
+                elementFull.textParams = textParams;
+            }
         } else if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
@@ -563,6 +574,23 @@ export class SouSchemaComponent implements OnChanges {
             elementFull.ellipse = element;
         }
         return elementFull;
+    }
+
+    // Распознает индивидуальные настройки текста из id элемента
+    private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
+        const match = elementChildName.match(/text-params_(\w+)_(\d+)/i);
+        if (match && match[1] && match[2]) {
+            const paramName = match[1];
+            const value = parseInt(match[2], 10);
+
+            if (paramName && value) {
+                return {
+                    [paramName]: value,
+                };
+            }
+        }
+
+        return null;
     }
 
     // Добавляет отслеживание клика на элементе
@@ -786,9 +814,20 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+
         if (elementTypeId) {
-            return this.typeTextParams[elementTypeId];
+            const textParams = this.typeTextParams[elementTypeId];
+            const elementId = this.getElementId(textElem?.parentElement);
+            const elementFull = this.elementsFullMap.get(elementId);
+            const individualTextParams = elementFull?.textParams;
+
+            if (individualTextParams) {
+                return Object.assign(textParams, individualTextParams);
+            }
+
+            return textParams;
         }
+
         return null;
     }
 
