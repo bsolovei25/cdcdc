@@ -32,36 +32,37 @@
       </div>
     </div>
 
-    <div class="about-section__highlight">
-      <svg-icon
-        class="class=about-section__highlight__icon"
-        [src]="data['mainIconSrc']"
-        [ngStyle]="{ 'height.px':20 }"
-      ></svg-icon>
-      <span class="about-section__highlight__text"
-           [ngStyle]="{ 'color': data['highlight'].color }">
-        {{ data['highlight'].text }}
-      </span>
-    </div>
+    <div class="about-section__bottom-block">
+      <div class="about-section__highlight">
+        <svg-icon
+          class="class=about-section__highlight__icon"
+          [src]="data['mainIconSrc']"
+          [ngStyle]="{ 'height.px':20 }"
+        ></svg-icon>
+        <div class="about-section__highlight__text"
+             [ngStyle]="{ 'color': data['highlight'].color }">
+          {{ data['highlight'].text }}
+        </div>
+      </div>
 
-    <div *ngIf="data['isDocumentationButton']"
-      class="about-section__button">
-      <svg-icon
-        class="class=about-section__button__icon"
-        src="assets/icons/widgets/SOU/sou-workspace/doc.svg"
-        [ngStyle]="{ 'height.px':12 }"
-      ></svg-icon>
-      <span class="about-section__button__text">Паспортность</span>
+      <div *ngIf="data['isDocumentationButton']"
+        class="about-section__button">
+        <svg-icon
+          class="class=about-section__button__icon"
+          src="assets/icons/widgets/SOU/sou-workspace/doc.svg"
+          [ngStyle]="{ 'height.px':12 }"
+        ></svg-icon>
+        <div class="about-section__button__text">Паспортность</div>
+      </div>
     </div>
 
   </div>
   <div class="selectors-section">
 
     <div class="selectors-section__production">
-      <div class="selectors-section__production__label">Производство</div>
+      <div class="selectors-section__label">Производство</div>
       <div class="option-select">
         <div class="dropdown">
-          <div class="dropdown__marker"></div>
           <mat-select [placeholder]="data['selectors'].productionText" class="dropdown__select">
             <mat-option> Не выбрано</mat-option>
           </mat-select>
@@ -70,23 +71,21 @@
     </div>
 
     <div class="selectors-section__object">
-      <div class="selectors-section__object__label">Название объекта</div>
+      <div class="selectors-section__label">Название объекта</div>
       <div class="option-select">
         <div class="dropdown">
-          <div class="dropdown__marker"></div>
           <mat-select [placeholder]="data['selectors'].objectText" class="dropdown__select">
             <mat-option> Не выбрано</mat-option>
           </mat-select>
         </div>
       </div>
       <div class="option-select">
-        <svg-icon
-          class="class=about-section__highlight__icon"
-          [src]="data['mainIconSrc']"
-          [ngStyle]="{ 'height.px':20 }"
-        ></svg-icon>
         <div class="dropdown">
-          <div class="dropdown__marker"></div>
+          <svg-icon
+            class="selectors-section__icon"
+            [src]="data['mainIconSrc']"
+            [ngStyle]="{ 'height.px':20 }"
+          ></svg-icon>
           <mat-select [placeholder]="data['selectors'].objectDetailsText" class="dropdown__select">
             <mat-option> Не выбрано</mat-option>
           </mat-select>
@@ -95,12 +94,12 @@
     </div>
 
     <div class="selectors-section__product">
-      <div class="selectors-section__product__label">Продукт</div>
-      <div class="option-select"
-           [ngClass]="data['selectors'].product.isActive? 'selector-active': 'selector-disabled'">
-        <div class="dropdown">
-          <div class="dropdown__marker"></div>
-          <mat-select [placeholder]="data['selectors'].product.text" class="dropdown__select">
+      <div class="selectors-section__label">Продукт</div>
+      <div class="option-select">
+        <div class="dropdown"
+             [ngClass]="{selectorDisabled: !data['selectors'].product['isActive']}">
+          <mat-select [placeholder]="data['selectors'].product.text"
+                      class="dropdown__select">
             <mat-option> Не выбрано</mat-option>
           </mat-select>
         </div>

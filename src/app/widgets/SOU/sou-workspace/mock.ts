@@ -46,7 +46,7 @@ export const WORKSPACE_BAR_INFO = [
             objectText: 'Товарный парк',
             objectDetailsText: 'ЭЛОУ-АВТ-6',
             product: {
-                isActive: false,
+                isActive: true,
                 text: 'ДТ-А-К5 ГОСТ Р52368-2005 ПТФ'
             }
         }

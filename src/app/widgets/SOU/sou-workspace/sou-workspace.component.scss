@@ -49,3 +49,13 @@
     }
   }
 }
+
+.container {
+  display: flex;
+  height: 510px;
+  justify-content: space-between;
+}
+
+.info-bar {
+  width: 300px;
+}
