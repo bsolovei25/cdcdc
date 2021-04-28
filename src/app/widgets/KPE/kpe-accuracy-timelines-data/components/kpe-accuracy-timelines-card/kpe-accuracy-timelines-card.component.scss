@@ -51,7 +51,7 @@
         margin-left: -4px;
 
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
       }
 
@@ -65,20 +65,6 @@
         left: -19px;
       }
 
-      .influence {
-        width: 90px;
-        height: 20px;
-        border-radius: 2px;
-        background-color: var(--opacity-plan-20-color);
-        color: var(--index-plan-color);
-
-        font-size: 12px;
-        line-height: 14px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
       .timer-btn {
         font-size: 13px;
         line-height: 16px;
