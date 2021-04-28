@@ -356,7 +356,6 @@ export class WidgetService {
         });
         this.ws.subscribe(
             (msg) => {
-                console.log('message received');
                 if (msg?.error && this.configService.isErrorDisplay) {
                     this.materialController.openSnackBar(msg.error.message.message, 'error');
                 }
