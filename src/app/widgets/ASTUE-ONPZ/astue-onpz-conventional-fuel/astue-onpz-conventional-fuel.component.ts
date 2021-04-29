@@ -126,7 +126,11 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
             }),
             this.selectionForm.valueChanges
                 .pipe(debounceTime(100), distinctUntilChanged())
-                .subscribe((x) => {console.log(x); return this.astueOnpzConventionalFuelService.changeSelectedForm(x)})
+                .subscribe((x) => {
+                    console.log(x);
+                    this.astueOnpzService.setSelectedEnergyResource(x.resource);
+                    return this.astueOnpzConventionalFuelService.changeSelectedForm(x)
+                })
         );
     }
 
@@ -170,14 +174,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         this.isNewStructure = this.widgetType === 'ec-widget-conventional-fuel';
         this.options.isIconsShowing = !this.isPredictors;
 
-        if (this.isNewStructure) {
-            this.subscriptions.push(
-                this.virtualChannelSubscription = this.connectVirtualChannel().subscribe(res => {
-                this.setGraphData(res);
-            })
-            )
-        }
-
         this.subscriptions.push(
             this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
                 if (this.isPredictors) {
@@ -196,7 +192,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                 if (!this.isPredictors) {
                     return;
                 }
-                this.data = !!data ? this.multilineDataMapper(data) : [];
+                this.data = !!data ? this.multilineDataMapper(data) : this.isNewStructure ? this.data : [];
                 this.currentValues = {
                     plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
                     fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
@@ -205,8 +201,16 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
 
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
-            })
+            }),
         );
+
+        if (this.isNewStructure) {
+            this.subscriptions.push(
+                this.virtualChannelSubscription = this.connectVirtualChannel().subscribe(res => {
+                    this.setGraphData(res);
+                }),
+            );
+        }
     }
 
     get nextHourPlan(): number {
@@ -252,8 +256,8 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         if (this.isNewStructure) {
             if (!this.newStructureMenuData) {
                 this.newStructureMenuData = ref;
+                this.setFormValues(this.newStructureMenuData);
             }
-            this.setFormValues(this.newStructureMenuData);
         } else {
             this.setGraphData(ref);
         }
@@ -298,12 +302,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     }
 
     private connectVirtualChannel(): Observable<GraphStructure> {
-        return this.selectionForm.get('resource').valueChanges
+        return this.astueOnpzService.selectedEnergyResource
             .pipe(
                 switchMap((id: string): Subject<GraphStructure> => {
-                    this.virtualChannel?.dispose();
-                    this.data = [];
-                    this.astueOnpzService.setSelectedEnergyResource(id);
                     this.virtualChannel = new VirtualChannel<GraphStructure>(this.widgetService, {
                         channelId: this.widgetId,
                         subchannelId: id,
