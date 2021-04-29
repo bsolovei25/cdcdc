@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { IRestrictionItemList, IUser } from "@dashboard/models/EVJ/events-widget";
+import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
+import { EventService } from "@dashboard/services/widgets/EVJ/event.service";
+import { from, Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { SnackBarService } from "@dashboard/services/snack-bar.service";
 
 @Component({
     selector: 'evj-evj-events-workspace-restrictions',
@@ -13,21 +17,12 @@ import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
     public users: IUser[];
 
-    public eventTypes: string[] = ['Плановое', 'Внеплановое'];
+    public isLoading: boolean;
 
-    public types: string[] = ['Динамическое оборудование'];
-
-    public reasons: string[] = ['Поломка'];
-
-    public constancies: string[] = ['Новое'];
-
-    public durations: string[] = ['Краткосрочное'];
-
-    public economicEfficiencies: string[] = ['Низкая'];
-
-    public significances: string[] = ['Малозначимое'];
+    public restrictionList$: Observable<IRestrictionItemList>;
 
     public form: FormGroup = new FormGroup({
+        id: new FormControl(),
         eventType: new FormControl(),
         type: new FormControl(),
         reason: new FormControl(),
@@ -40,14 +35,16 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
 
     private readonly SEPARATOR: string = '***';
 
-    constructor(private ewService: EventsWorkspaceService, private popoverRef: PopoverRef) {
+    constructor(private ewService: EventsWorkspaceService, private popoverRef: PopoverRef, private eventService: EventService, private snackBar: SnackBarService) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.popoverRef.close('backdropClick', {});
         });
     }
 
     ngOnInit(): void {
-        this.fillForm();
+        this.isLoading = true;
+        this.restrictionList$ = this.getRestrictionList()
+            .pipe(tap((list) => this.fillForm(list)));
         this.users = this.popoverRef.data?.users;
         this.form.get('owner').setValue(this.users[0]?.displayName + ' ' + this.users[0]?.positionDescription);
     }
@@ -59,30 +56,34 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
     public accept(): void {
         const strBeg = ' - ';
         const strEnd = '\n';
+        if (!this.ewService.event.id) {
+            this.snackBar.openSnackBar('Для добавления ограничения необходимо сначала сохранить событие');
+            return;
+        }
         try {
+            this.isLoading = true;
             this.clearDescriptionLimitationsBySeparator(this.SEPARATOR);
-
             this.ewService.event.description =
                 this.ewService.event.description +
                 strEnd +
                 this.SEPARATOR +
                 strEnd +
                 strBeg +
-                this.form.get('eventType').value +
+                this.form.get('eventType').value?.name +
                 ' ограничение' +
                 strEnd +
                 strBeg +
                 'Тип: ' +
-                this.form.get('type').value +
+                this.form.get('type').value?.name +
                 strEnd +
                 this.SEPARATOR;
 
             [
-                'Причина: ' + this.form.get('reason').value,
-                'Постоянство: ' + this.form.get('constancy').value,
-                'Длительность: ' + this.form.get('duration').value,
-                'Экономическая эффективность: ' + this.form.get('economicEfficiency').value,
-                'Значимость: ' + this.form.get('significance').value,
+                'Причина: ' + this.form.get('reason').value?.name,
+                'Постоянство: ' + this.form.get('constancy').value?.name,
+                'Длительность: ' + this.form.get('duration').value?.name,
+                'Экономическая эффективность: ' + this.form.get('economicEfficiency').value?.name,
+                'Значимость: ' + this.form.get('significance').value?.name,
                 'Владелец: ' + this.form.get('owner').value,
             ].forEach((item) => {
                 this.ewService.event.facts.push({
@@ -94,7 +95,12 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
         } catch (error) {
             console.error(error);
         }
-        this.popoverRef.close();
+
+        this.sendRestriction()
+            .then(() => this.saveAcceptedEvent())
+            .then(() => this.isLoading = false)
+            .then(() => this.popoverRef.close())
+            .catch()
     }
 
     public discard(): void {
@@ -113,6 +119,25 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
         this.ewService.ewAlertInfo$.next(alertWindow);
     }
 
+    private sendRestriction(): Promise<unknown> {
+        return this.eventService.setRestrictions(this.ewService.event.id, this.form.value);
+    }
+
+    private saveAcceptedEvent(): Promise<unknown> {
+        this.ewService.event.isRestrictions = true;
+        return this.ewService.saveEvent();
+    }
+
+    private getRestrictionList(): Observable<IRestrictionItemList> {
+        return from(this.eventService.getRestrictions())
+            .pipe(map(restrictionItems => {
+                return restrictionItems.reduce((prev, curr) => {
+                    prev[curr.type] = { ...curr };
+                    return prev;
+                }, {}) as IRestrictionItemList;
+            }))
+    }
+
     private clearDescriptionLimitationsBySeparator(separator: string): void {
         const arr = this.ewService.event.description.split(separator);
         if (arr[1]) {
@@ -121,13 +146,15 @@ export class EvjEventsWorkspaceRestrictionsComponent implements OnInit {
         }
     }
 
-    private fillForm(): void {
-        this.form.get('eventType').setValue(this.eventTypes[0]);
-        this.form.get('type').setValue(this.types[0]);
-        this.form.get('reason').setValue(this.reasons[0]);
-        this.form.get('constancy').setValue(this.constancies[0]);
-        this.form.get('duration').setValue(this.durations[0]);
-        this.form.get('economicEfficiency').setValue(this.economicEfficiencies[0]);
-        this.form.get('significance').setValue(this.significances[0]);
+    private fillForm(restrictionList: IRestrictionItemList): void {
+        this.form.get('id').setValue(this.ewService.event.id);
+        this.form.get('eventType').setValue(restrictionList.eventType.restrictions[0]);
+        this.form.get('type').setValue(restrictionList.type.restrictions[0]);
+        this.form.get('reason').setValue(restrictionList.reason.restrictions[0]);
+        this.form.get('constancy').setValue(restrictionList.constancy.restrictions[0]);
+        this.form.get('duration').setValue(restrictionList.duration.restrictions[0]);
+        this.form.get('economicEfficiency').setValue(restrictionList.economicEfficiency.restrictions[0]);
+        this.form.get('significance').setValue(restrictionList.significance.restrictions[0]);
+        this.isLoading = false;
     }
 }

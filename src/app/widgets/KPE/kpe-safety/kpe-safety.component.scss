@@ -27,7 +27,7 @@
     flex-grow: 1;
     overflow: hidden;
     gap: 15px;
-    max-height: 40%;
+    min-height: 40%;
 
     &__gauge {
       height: 100%;
@@ -44,6 +44,7 @@
     padding-bottom: 15px;
     gap: 12px;
     min-height: 165px;
+    height: 100%;
     width: 100%;
 
     overflow-x: auto;
@@ -133,7 +134,8 @@
 
   &__diagram {
     flex-grow: 1;
-    width: 79px;
+    min-width: 55%;
+    max-width: 70%;
     overflow: hidden;
     margin: 0 auto;
   }

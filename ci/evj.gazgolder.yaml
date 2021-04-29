@@ -13,6 +13,10 @@ evj:
     state: true
     site: ingress-name
 
+  site:
+    proxy_pass:
+      route: "asplatform-gatewayrouting.dev-asplatform.svc.cluster.local"
+
   labels:
     project: evj
     environment: dev

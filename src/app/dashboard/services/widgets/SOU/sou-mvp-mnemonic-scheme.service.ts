@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ISouFlowIn, ISouFlowOut, ISouObjects } from '../../../models/SOU/sou-operational-accounting-system.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { ISouMvpMnemonicSchemeView } from "../../../../widgets/SOU/sou-mvp-mnemonic-scheme/components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component";
 
 interface ISouConfig {
     readonlyId: number;
@@ -12,6 +13,9 @@ interface ISouConfig {
     providedIn: 'root',
 })
 export class SouMvpMnemonicSchemeService {
+
+    data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
+
     selectedOptions$: BehaviorSubject<{ manufacture: string; unit: string }> = new BehaviorSubject<{
         manufacture: string;
         unit: string;

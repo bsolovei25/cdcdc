@@ -47,7 +47,7 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
-    public deviationDiagram: IKpeGaugeChartData = { plan: 100, fact: 100 };
+    public deviationDiagram: IKpeGaugeChartData;
 
     public cards: IKpeQualityCard[][] = [];
 

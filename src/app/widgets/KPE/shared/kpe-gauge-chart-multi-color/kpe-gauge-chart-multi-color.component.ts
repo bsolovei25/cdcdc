@@ -180,7 +180,6 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             const endActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : boundEdge) * (Math.PI / 180));
             this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
         } else if (!boundEdge) {
-            // возможно этот кейс больше не отрабатывает после перегонки баундов в %
             const color = this.data.zeroOn === 'Right' ? this.chartConfig[this.type]?.colorBounds[this.data?.colorBounds?.length - 1] : this.chartConfig[this.type]?.colorBounds[0];
             this.chartConfig[this.type].gauge.activeColorIndex = color ? color : this.chartConfig[this.type].gauge.activeColorIndex;
             const startActive = (this.convertPercentToGrad(this.data.zeroOn === 'Right' ? 0 : value) * (Math.PI / 180));
@@ -360,15 +359,20 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-        if (this.data?.description) {
-            addText(this.data.description, 'unit', 25);
+        if (this.data?.description && this.type === 1) {
+            addText(this.data.description, 'desc', 30);
         }
-        if (!this.isPerformance && !this.data?.description) {
+        if (!this.isPerformance && this.type !== 1) {
             addText(gauge.unit, 'unit', 25);
         }
 
         if (this.showAxisValues) {
-            const values = this.data?.bounds?.slice(1, -1) || [];
+            // В случае размера bounds более 4 берем значения второе и предпоследнее значение массива bounds
+            // В случае размера bounds менее 4 берем первое и последнее значение массива bounds
+            const values = this.data?.bounds?.length >= 4 ?
+                [this.data?.bounds[1], this.data?.bounds[this.data?.bounds.length - 2] ] :
+                [this.data?.bounds[0], this.data?.bounds[this.data?.bounds.length - 1] ] || [];
+
             const last = this.data?.bounds?.length ? this.data?.bounds[this.data?.bounds?.length - 1] : 100;
             const firstB = this.data?.zeroOn === 'Right' ? d3.max(values) || last : d3.min(values) || 0;
             const lastB = this.data?.zeroOn === 'Right' ? d3.min(values) || 0 : d3.max(values) || last;
@@ -395,7 +399,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // Если имеется массив bounds, то положение засечки секции рассчитывается по последнему значению диапозона
         if (this.chartConfig[this.type].bounds) {
             this.chartConfig[this.type].colorBounds.forEach((bound, i) => {
-                const index = this.data?.zeroOn === 'Right' ? i : i - 1;
+                const index = this.data?.zeroOn === 'Right' ? i : i + 1;
                 const endBound = this.chartConfig[this.type].bounds[index];
                 if (!endBound) { return; }
                 const endRad = this.convertPercentToGrad(endBound) * (Math.PI / 180);

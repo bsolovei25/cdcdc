@@ -42,6 +42,7 @@
 
                 <evj-kpe-gauge-chart-multi-color
                   *ngIf="displayNewDesign"
+                  [data]="deviationDiagram"
                   [type]="1"
                 ></evj-kpe-gauge-chart-multi-color>
               </div>
@@ -70,6 +71,7 @@
 
             <evj-kpe-gauge-chart-multi-color
               *ngIf="displayNewDesign"
+              [data]="deviationDiagram"
               [type]="2"
             ></evj-kpe-gauge-chart-multi-color>
           </div>
@@ -123,6 +125,7 @@
                   </div>
                 </div>
                 <evj-kpe-universal-card
+                  [onlyPercent]="true"
                   *ngIf="displayNewDesign"
                   [type]="2"
                   [gaugeChart]="card.gaugeChart"
