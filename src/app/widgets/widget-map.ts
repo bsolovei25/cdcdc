@@ -1307,7 +1307,7 @@ export const WIDGETS_LAZY = {
         module: 'SouStreamsModule',
         itemCols: 32,
         itemRows: 30,
-        minItemCols: 20,
+        minItemCols: 50,
         minItemRows: 20,
         preview: 'default',
     },
