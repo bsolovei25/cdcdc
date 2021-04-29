@@ -278,7 +278,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public async autoAssignShipments(): Promise<void> {
         let msg = 'Выберите Операцию из списка';
         if (this.selectedTransfer) {
-            const result = await this.oilOperationService.autoAssignShipments(this.selectedTransfer.id);
+            const result = await this.oilOperationService.autoAssignShipments();
             msg = result['messages'][0];
             await this.selectTransfer(this.selectedTransfer);
         }
