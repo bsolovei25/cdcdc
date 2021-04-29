@@ -1,20 +1,22 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { ChannelPlatform } from "@dashboard/models/@PLATFORM/channel-platform";
-import { WidgetService } from "@dashboard/services/widget.service";
-import { AsyncRender } from "@shared/functions/async-render.function";
-import { IAstueOnpzMainIndicatorsRaw } from "../../astue-onpz-main-indicators.interface";
+import { ChannelPlatform } from '@dashboard/models/@PLATFORM/channel-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
+import { AsyncRender } from '@shared/functions/async-render.function';
+import { IAstueOnpzMainIndicatorsRaw } from '../../astue-onpz-main-indicators.interface';
 
-import { BehaviorSubject } from "rxjs";
-import * as d3 from "d3";
+import { BehaviorSubject } from 'rxjs';
+import * as d3 from 'd3';
 
 @Component({
     selector: 'evj-astue-onpz-main-indicators-item',
     templateUrl: './astue-onpz-main-indicators-item.component.html',
     styleUrls: ['./astue-onpz-main-indicators-item.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AstueOnpzMainIndicatorsItemComponent extends ChannelPlatform<IAstueOnpzMainIndicatorsRaw> implements OnInit, OnDestroy {
+export class AstueOnpzMainIndicatorsItemComponent
+    extends ChannelPlatform<IAstueOnpzMainIndicatorsRaw>
+    implements OnInit, OnDestroy {
     @ViewChild('chart') chart: ElementRef;
 
     public data$: BehaviorSubject<IAstueOnpzMainIndicatorsRaw> = new BehaviorSubject<IAstueOnpzMainIndicatorsRaw>(null);
@@ -25,12 +27,13 @@ export class AstueOnpzMainIndicatorsItemComponent extends ChannelPlatform<IAstue
     constructor(
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
-        protected widgetService: WidgetService,
+        protected widgetService: WidgetService
     ) {
         super(widgetId, channelId, widgetService);
     }
 
     public ngOnInit(): void {
+        console.warn('channelId', this.channelId);
         super.ngOnInit();
         this.drawSvg();
     }
@@ -40,11 +43,12 @@ export class AstueOnpzMainIndicatorsItemComponent extends ChannelPlatform<IAstue
     }
 
     protected dataHandler(ref: IAstueOnpzMainIndicatorsRaw): void {
+        console.warn('dataHandler', ref);
         this.percent = ref.factValue / ref.planValue;
         this.percent = this.percent > 0 ? (this.percent > 1 ? 1 / this.percent : this.percent) : 0;
 
         this.data$.next(ref);
-        this.drawSvg()
+        this.drawSvg();
     }
 
     @AsyncRender
@@ -63,7 +67,9 @@ export class AstueOnpzMainIndicatorsItemComponent extends ChannelPlatform<IAstue
             .innerRadius(innerR)
             .outerRadius(outerR)
             .startAngle(0)
-            .endAngle(this.data$.value?.deviationValue || 0 < 0 ? 2 * Math.PI * this.percent : -2 * Math.PI * this.percent);
+            .endAngle(
+                this.data$.value?.deviationValue || 0 < 0 ? 2 * Math.PI * this.percent : -2 * Math.PI * this.percent
+            );
 
         const arcBg = d3
             .arc()
@@ -93,5 +99,4 @@ export class AstueOnpzMainIndicatorsItemComponent extends ChannelPlatform<IAstue
 
         g.append('path').attr('d', arcPlan).attr('class', 'diagram-inner');
     }
-
 }
