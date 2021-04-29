@@ -170,7 +170,7 @@ export class OilOperationsManualAssignComponent implements OnInit {
     private async fillLeftTable(lastId: number = 0): Promise<IOilShipment[]> {
         const options = this.getOptions();
         this.statistics.leftTable = await this.getStatistics('leftTable');
-        return await this.oilOperationService.getShipmentListByFilter(lastId, options);
+        return await this.oilOperationService.getShipmentListByRelation(lastId, options);
     }
 
     private async getStatistics(source: 'leftTable' | 'rightTable'): Promise<IOilShipmentStatistics> {
