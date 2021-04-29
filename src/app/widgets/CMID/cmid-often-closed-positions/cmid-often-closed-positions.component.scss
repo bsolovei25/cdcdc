@@ -15,6 +15,7 @@
   border: solid 1px var(--border-vidget-color);
   box-shadow: inset 0px -4px 8px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .header {
@@ -33,6 +34,7 @@
 
 .positions-list {
   min-width: 300px;
+  border-collapse: collapse;
   overflow: hidden;
 
   &__line {
@@ -80,4 +82,9 @@
     font-size: 15px;
     text-align: right;
   }
+}
+
+.border-overflow-spacing {
+  width: 100%;
+  height: 45px;
 }
