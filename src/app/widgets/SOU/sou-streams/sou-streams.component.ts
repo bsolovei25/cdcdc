@@ -1,11 +1,10 @@
 import {
     Component,
     OnInit,
-    ChangeDetectionStrategy,
     Inject,
     ViewChild,
     ElementRef,
-    AfterViewChecked, AfterViewInit, ChangeDetectorRef
+    AfterViewChecked, ChangeDetectorRef
 } from "@angular/core";
 import { WidgetService } from "@dashboard/services/widget.service";
 import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
@@ -19,7 +18,7 @@ import { TABLE_CELLS } from "@widgets/SOU/sou-streams/mock";
   templateUrl: './sou-streams.component.html',
   styleUrls: ['./sou-streams.component.scss']
 })
-export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit  {
+export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked  {
 
     public titlesOfTable: { name: string, widthOfBlock: string }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
@@ -49,5 +48,4 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     }
 
   protected dataHandler(ref: unknown): void {}
-
 }
