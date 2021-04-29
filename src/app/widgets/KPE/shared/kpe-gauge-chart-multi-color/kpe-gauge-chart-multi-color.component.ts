@@ -367,7 +367,12 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         }
 
         if (this.showAxisValues) {
-            const values = this.data?.bounds?.slice(1, -1) || [];
+            // В случае размера bounds более 4 берем значения второе и предпоследнее значение массива bounds
+            // В случае размера bounds менее 4 берем первое и последнее значение массива bounds
+            const values = this.data?.bounds?.length >= 4 ?
+                [this.data?.bounds[1], this.data?.bounds[this.data?.bounds.length - 2] ] :
+                [this.data?.bounds[0], this.data?.bounds[this.data?.bounds.length - 1] ] || [];
+
             const last = this.data?.bounds?.length ? this.data?.bounds[this.data?.bounds?.length - 1] : 100;
             const firstB = this.data?.zeroOn === 'Right' ? d3.max(values) || last : d3.min(values) || 0;
             const lastB = this.data?.zeroOn === 'Right' ? d3.min(values) || 0 : d3.max(values) || last;

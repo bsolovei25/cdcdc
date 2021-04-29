@@ -345,7 +345,7 @@ export class EventsWorkspaceService {
     public async saveEvent(): Promise<void> {
         this.isLoading = true;
         try {
-            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.checkEvent(this.event));
             if (!saveMethod) {
                 throw error('no save method');
             }
@@ -623,6 +623,7 @@ export class EventsWorkspaceService {
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }
+
     }
 
     public eventCompare(event1: IEventsWidgetNotification, event2: IEventsWidgetNotification): boolean {
@@ -683,5 +684,14 @@ export class EventsWorkspaceService {
             console.error(e);
             this.getResponsible$.next(null);
         }
+    }
+
+    private checkEvent(eventObj: IEventsWidgetNotification): IEventsWidgetNotification {
+        const event = {...eventObj};
+        if (eventObj.productionTasks?.subCategory?.id !== 1060) {
+            event.smpo = null;
+        }
+
+        return event;
     }
 }

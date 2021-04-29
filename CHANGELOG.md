@@ -1,3 +1,23 @@
+# [1.21.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.2...v1.21.0) (2021-04-29)
+
+
+### Bug Fixes
+
+* **#1405:** Реализовать виджет Точность и своевременность исходных данных КПЭ ([90f2b24](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/90f2b248f695380f159e4b095d9f957ac7300b04)), closes [#1405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1405)
+* **#1445:** Исправлено отображение элементов в изомалк топливо факел ([d2bd892](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d2bd8925889032796349e3e6cd998c8e5bcad3a1)), closes [#1445](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1445)
+* **#1654:** Исправлено отображение текста в Сырьевом парке ([0698d1b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0698d1bdabd97bfc7a1ee3097034b57e152a7166)), closes [#1654](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1654)
+* **#1720:** Исправлено отображение элементов в ТРХ 204 ([20c15c6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/20c15c6f79da2fc1cd90d75084749106974bf124)), closes [#1720](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1720)
+* **front#1715:** "Перенос на новую структуру данных af виджета astue-onpz-conventional-fuel (astue-onpz-conventional-fuel-predictors)" ([be6d72f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/be6d72fa9679231b2d7d1d3636bfca05c2d70adb)), closes [front#1715](https://gitlab.funcoff.club/front/issues/1715)
+
+
+### Features
+
+* **#1160:** Доработка БП по рабочей области событий Ограничения ([ef963ff](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ef963ff2fce3643fae4e20eccaacd9995c398d98)), closes [#1160](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1160)
+* **#1256:** КПЭ. Приведение к новому дизайну виджета по безопасности ([15a19d5](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/15a19d5e974db844d76bfb8d812712c82e724bbf)), closes [#1256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1256)
+* **#1258:** КПЭ. Приведение к новому дизайну виджета по энергетике ([f4ac271](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f4ac2718e6cf3541b015459bff762674c863d031)), closes [#1258](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1258)
+* **#1736:** КПЭ. Верстка виджетов с новыми спидометрами ([71cf5a0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/71cf5a0d870c24f393849b338e6883877f7bfd7c)), closes [#1736](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1736)
+* **front#1715:** "Перенос на новую структуру данных af виджета astue-onpz-conventional-fuel (astue-onpz-conventional-fuel-predictors)" ([101e671](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/101e67128a63a47114e2c24702935cc11f3776bd)), closes [front#1715](https://gitlab.funcoff.club/front/issues/1715)
+
 ## [1.20.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.1...v1.20.2) (2021-04-28)
 
 

@@ -129,7 +129,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                 .subscribe((x) => {
                     console.log(x);
                     this.astueOnpzService.setSelectedEnergyResource(x.resource);
-                    return this.astueOnpzConventionalFuelService.changeSelectedForm(x)
+                    return this.astueOnpzConventionalFuelService.changeSelectedForm(x);
                 })
         );
     }
@@ -259,7 +259,13 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                 this.setFormValues(this.newStructureMenuData);
             }
         } else {
-            this.setGraphData(ref);
+            if (!this.isPredictors) {
+                if (ref?.graphs) {
+                    this.data = this.multilineDataMapper(ref.graphs);
+                    return;
+                }
+                this.data = [];
+            }
         }
     }
 

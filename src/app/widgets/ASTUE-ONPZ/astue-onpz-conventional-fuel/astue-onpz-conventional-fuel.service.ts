@@ -83,9 +83,9 @@ export class AstueOnpzConventionalFuelService {
             return;
         }
         const ref = this.selectReferences$.getValue();
-        options.manufacture = ref?.manufacturies.find((x) => x.name === options.manufacture)?.id;
-        options.unit = ref?.units.find((x) => x.name === options.unit)?.id;
-        options.resource = ref?.energyResources.find((x) => x.name === options.resource)?.id;
+        options.manufacture = ref?.manufacturies.find((x) => x.id === options.manufacture)?.name;
+        options.unit = ref?.units.find((x) => x.id === options.unit)?.name;
+        options.resource = ref?.energyResources.find((x) => x.id === options.resource)?.name;
         this.setSelectedOptions(options);
     }
 
