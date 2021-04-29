@@ -287,10 +287,17 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
-    private getElementMode(data: SouSectionData): TypeMode {
-        const {isExceedingConfInterval, isEnable} = data;
-        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
-        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    private getElementMode(sectionData: SouSectionData): TypeMode {
+        const isMeasured = sectionData?.tolerance === 0; // Измеряемый
+        const {isExceedingConfInterval, isEnable} = sectionData;
+
+        if (isExceedingConfInterval && isEnable && isMeasured) {
+            return 'deviation';
+        } else if (!isEnable) {
+            return 'disabled';
+        }
+
+        return 'standard';
     }
 
     relatedArray(related: number[] | string): number[] {
