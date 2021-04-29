@@ -1,0 +1,23 @@
+.variation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &__value {
+    margin-left: 4px;
+    font-size: 11px;
+  }
+
+  &__arrow {
+    line-height: 6px;
+
+    &_down::ng-deep {
+      & > svg > path {
+        stroke: var(--index-error-color);
+      }
+    }
+  }
+}

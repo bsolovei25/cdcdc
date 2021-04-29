@@ -1,0 +1,16 @@
+<div class="variation" [ngStyle]="{ 'background-color': backgroundColor }">
+  <svg-icon *ngIf="isPositive; else arrowDown"
+            class="variation__arrow"
+            src="assets/icons/widgets/CMID/variation-arrrows/arrow-up.svg"
+            [svgStyle]="{ 'width.px': 8, 'height.px': 8 }">
+  </svg-icon>
+  <ng-template #arrowDown>
+    <svg-icon class="variation__arrow variation__arrow_down"
+              src="assets/icons/widgets/CMID/variation-arrrows/arrow-down.svg"
+              [svgStyle]="{ 'width.px': 8, 'height.px': 8 }">
+    </svg-icon>
+  </ng-template>
+  <span class="variation__value" [ngStyle]="{ 'color': valueColor }">
+    {{ value | number: '1.0-2' : 'en-US'}}
+  </span>
+</div>

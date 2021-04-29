@@ -1781,6 +1781,21 @@ export const WIDGETS_LAZY = {
     },
     //#endregion ED
 
+    //#region CMID
+
+    'cmid-close-reason': {
+        import: async () => {
+            return await import('src/app/widgets/CMID/cmid-close-reason/cmid-close-reason.module');
+        },
+        module: 'CmidCloseReasonModule',
+        itemCols: 13,
+        itemRows: 27,
+        minItemCols: 13,
+        minItemRows: 22,
+        preview: 'default',
+    },
+    //#endregion CMID
+
     //#region others
     'flame-diagram': {
         import: async () => {
