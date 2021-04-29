@@ -52,10 +52,16 @@
 
 .container {
   display: flex;
-  height: 510px;
+  height: 553px;
   justify-content: space-between;
 }
 
 .info-bar {
   width: 300px;
+}
+
+.default-img {
+  width: 100%;
+  background: url("../../../../assets/icons/widgets/SOU/sou-workspace/default.png") no-repeat #171A24;
+  background-size: contain;
 }
