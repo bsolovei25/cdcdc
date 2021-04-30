@@ -39,7 +39,27 @@ export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements
     ngOnInit(): void {
         super.widgetInit();
 
-        // Mocks
+        this.getMockData(); // Mocks
+        this.assignData();
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.cdRef.detach();
+    }
+
+    public toggleReasonStatistics(): void {
+        this.showReasonStatistics = !this.showReasonStatistics;
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+        this.cdRef.detectChanges();
+    }
+
+    protected dataHandler(ref: { data }): void { }
+
+    private getMockData(): void {
         this.vprValue = 92.7;
         this.operativeValue = 96.4;
         this.reasonGroups = [
@@ -73,25 +93,7 @@ export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements
                 type: 'Всего',
                 value: 55
         }];
-
-        this.assignData();
     }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.cdRef.detach();
-    }
-
-    public toggleReasonStatistics(): void {
-        this.showReasonStatistics = !this.showReasonStatistics;
-    }
-
-    protected async dataConnect(): Promise<void> {
-        super.dataConnect();
-        this.cdRef.detectChanges();
-    }
-
-    protected dataHandler(ref: { data }): void { }
 
     private assignData(): void {
         let sum = 0;

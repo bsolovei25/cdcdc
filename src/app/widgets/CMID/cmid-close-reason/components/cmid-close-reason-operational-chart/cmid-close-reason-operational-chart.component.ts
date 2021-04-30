@@ -58,7 +58,7 @@ export class CmidCloseReasonOperationalChartComponent {
             .outerRadius(99)
             .padAngle(0.02);
         
-        const amountToFillArc = 63;
+        const amountToFillArc = 63; // Количество штрихов для полного заполнения
         const arcData = this.fillArc(amountToFillArc);
 
         this.svgBody.append('g').attr('class', 'fill-arc');
@@ -110,18 +110,18 @@ export class CmidCloseReasonOperationalChartComponent {
 
         const criticalPathData = arcGenerator({
             startAngle: 3 * Math.PI / 2,
-            endAngle: 7.2,
+            endAngle: 7.2, // Заменить на более точные значения по процентам
             innerRadius: 78,
             outerRadius: 80
         });
         const warningPathData = arcGenerator({
-            startAngle: 7.2,
-            endAngle: 7.65,
+            startAngle: 7.2, //
+            endAngle: 7.65, //
             innerRadius: 78,
             outerRadius: 80
         });
         const finePathData = arcGenerator({
-            startAngle: 7.65,
+            startAngle: 7.65, //
             endAngle: 2 * Math.PI + Math.PI / 2,
             innerRadius: 78,
             outerRadius: 80
