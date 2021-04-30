@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3px;
+  padding: 3px 4px;
   border-radius: 2px;
   box-sizing: border-box;
 
@@ -16,19 +16,11 @@
 
     &_up {
       color: var(--index-green1-color);
-
-      &::ng-deep > svg > path {
-        stroke: currentColor;
-      }
     }
 
     &_down {
       transform: rotate(180deg);
       color: var(--index-error-color);
-
-      &::ng-deep > svg > path {
-        stroke: currentColor;
-      }
     }
   }
 }

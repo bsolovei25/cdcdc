@@ -9,6 +9,7 @@ import {
 
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
+import { CmidCloseReasonService } from '@dashboard/services/widgets/CMID/cmid-close-reason/services/cmid-close-reason.service';
 
 import { colors } from './cmid-close-reason.const';
 import { ICmidCloseReasonBar, ICmidCloseReasonCount } from './cmid-close-reason.interface';
@@ -29,6 +30,7 @@ export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements
     constructor(
         public cdRef: ChangeDetectorRef,
         public widgetService: WidgetService,
+        private cmidCloseReasonService: CmidCloseReasonService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -68,39 +70,10 @@ export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements
     protected dataHandler(ref: { data }): void { }
 
     private getMockData(): void {
-        this.vprValue = 92.7;
-        this.operativeValue = 96.4;
-        this.reasonGroups = [
-            {
-                name: 'Организационные',
-                value: 12
-            },
-            {
-                name: 'Технологические',
-                value: 6
-            },
-            {
-                name: 'Регламентные',
-                value: 8
-            },
-            {
-                name: 'КИП',
-                value: 24
-            }
-        ];
-        this.countStatistics = [
-            {
-                type: 'Несанкцион.',
-                value: 3
-            },
-            {
-                type: 'Просрочен.',
-                value: 17
-            },
-            {
-                type: 'Всего',
-                value: 55
-        }];
+        this.vprValue = this.cmidCloseReasonService.vprValue;
+        this.operativeValue = this.cmidCloseReasonService.operativeValue;
+        this.reasonGroups = this.cmidCloseReasonService.reasonGroups;
+        this.countStatistics = this.cmidCloseReasonService.countStatistics;
     }
 
     private assignData(): void {
