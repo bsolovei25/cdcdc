@@ -3,14 +3,23 @@
   <div class="outages" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <header class="outages__header">
       <div class="outages__settings">
-        <div class="outages__select outages__select_small">
-          <evj-dropdown></evj-dropdown>
+        <div class="outages__select outages__select_small select">
+          <mat-select placeholder="Завод" panelClass="mat-select-panel-custom" class="mat-select-custom">
+            <mat-option> Не выбрано </mat-option>
+            <mat-option *ngFor="let item of productions" [value]="item.id"> {{ item.value }} </mat-option>
+          </mat-select>
         </div>
-        <div class="outages__select">
-          <evj-dropdown></evj-dropdown>
+        <div class="outages__select select">
+          <mat-select placeholder="Все производства" panelClass="mat-select-panel-custom" class="mat-select-custom">
+            <mat-option> Не выбрано </mat-option>
+            <mat-option *ngFor="let item of productions" [value]="item.id"> {{ item.value }} </mat-option>
+          </mat-select>
         </div>
-        <div class="outages__select">
-          <evj-dropdown></evj-dropdown>
+        <div class="outages__select select">
+          <mat-select placeholder="Все установки" panelClass="mat-select-panel-custom" class="mat-select-custom">
+            <mat-option> Не выбрано </mat-option>
+            <mat-option *ngFor="let item of productions" [value]="item.id"> {{ item.value }} </mat-option>
+          </mat-select>
         </div>
         <evj-rect-button
           class="outages__button"

@@ -1,4 +1,7 @@
-import { INumberOfOutagesModel } from "@widgets/CMID/number-of-outages/models/number-of-outages.model";
+import {
+    INumberOfOutagesModel,
+    IProduction
+} from "@widgets/CMID/cmid-number-of-outages/models/cmid-number-of-outages.model";
 
 export const OUTAGES_MOCK: INumberOfOutagesModel[] = [
     {
@@ -99,5 +102,12 @@ export const OUTAGES_MOCK: INumberOfOutagesModel[] = [
                 ]
             }
         ]
+    }
+]
+
+export const PRODUCTIONS: IProduction[] = [
+    {
+        id: '1',
+        value: 'Manufacture 1'
     }
 ]

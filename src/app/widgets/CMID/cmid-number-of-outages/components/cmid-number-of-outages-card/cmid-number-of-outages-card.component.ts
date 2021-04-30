@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { INumberOfOutagesModel, IPlant } from "@widgets/CMID/number-of-outages/models/number-of-outages.model";
+import { INumberOfOutagesModel, IPlant } from "@widgets/CMID/cmid-number-of-outages/models/cmid-number-of-outages.model";
 
 @Component({
     selector: 'evj-number-of-outages-card',
-    templateUrl: './number-of-outages-card.component.html',
-    styleUrls: ['./number-of-outages-card.component.scss'],
+    templateUrl: './cmid-number-of-outages-card.component.html',
+    styleUrls: ['./cmid-number-of-outages-card.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NumberOfOutagesCardComponent {
+export class CmidNumberOfOutagesCardComponent {
     @Input() groups: INumberOfOutagesModel;
 
     getIconType(plant: IPlant): string {

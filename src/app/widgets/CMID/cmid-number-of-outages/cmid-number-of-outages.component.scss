@@ -32,6 +32,8 @@
   &__select {
     position: relative;
     max-width: 200px;
+    width: 100%;
+    flex: 1 0 auto;
 
     &_small {
       max-width: 97px;
@@ -102,5 +104,21 @@
 
   &_standard::before {
     background-color: var(--color-user-events-priority-standard);
+  }
+}
+
+.select {
+  display: flex;
+  height: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--bg-dashboard-color);
+  border: 1px solid var(--border-forms-color);
+  border-radius: 2px;
+  margin-left: auto;
+  padding: 0 12px;
+
+  .mat-select {
+    padding: 4px 0;
   }
 }

@@ -14,3 +14,8 @@ export interface IPlant {
     expired: number,
     total: number
 }
+
+export interface IProduction {
+    id: string,
+    value: string,
+}
