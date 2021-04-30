@@ -229,20 +229,26 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.sectionSubchannel$.next(subchannelSection?.id);
         if (unit?.balance === 'main') {
             const subchannel = subchannels.find((x) => x.unitName === unit?.name);
-            console.log('subchannel', subchannel);
-            console.log('unit', unit?.name);
+            // console.log('subchannel', subchannel);
+            // console.log('unit', unit?.name);
             this.footerSubchannel$.next(subchannel?.id);
         } else if (unit?.balance === 'section') {
             this.footerSubchannel$.next('section');
         }
     }
 
-    private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string } {
-        const manufacture = form.manufacture;
-        const unit = this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === form.unit)?.name;
-        const section = form.section;
+    private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string; section: string; } {
+        const unit = this.options$.value.manufactures
+            ?.flatMap((x) => x.units)
+            ?.find((x) => x.id === form.unit);
+        const section = unit?.section
+            ?.find((x) => x.id === form.section);
 
-        return { manufacture, unit };
+        return {
+            manufacture: form.manufacture,
+            unit: unit?.name,
+            section: section?.name,
+        };
     }
 
     private setDefaultSection(form: ISouSelectionOptionsForm): void {
