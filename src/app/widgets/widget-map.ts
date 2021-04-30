@@ -1312,6 +1312,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
 
+    'sou-workspace': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-workspace/sou-workspace.module');
+        },
+        module: 'SouWorkspaceModule',
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
+        preview: 'default',
+    },
+
     // #endregion SOU
 
     //#region ASTUE-MNPZ
