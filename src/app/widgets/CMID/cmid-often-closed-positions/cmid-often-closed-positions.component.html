@@ -4,30 +4,30 @@
                                 [uniqId]="widgetUniqId">
 </evj-contemporary-widget-header>
 <div class="container">
-  <div class="header">
-    <span class="header__content">
-      Позиция
-    </span>
-    <span class="header__content">
-      Кол-во отключений, шт.
-    </span>
-  </div>
-
-  <table class="positions-list">
-    <tr *ngFor="let position of positionsList" class="positions-list__line">
-      <td class="positions-list__position">
-        <div class="positions-list__position-content">
-          {{ position.name }}
-        </div>
-      </td>
-      <td class="positions-list__plant">
-        {{ position.plant }}
-      </td>
-      <td class="positions-list__count">
-        {{ position.closeCount }}
-      </td>
-    </tr>
-    <tr class="border-overflow-spacing">
-    </tr>
-  </table>
+  <div class="container-inner">
+    <div class="header">
+      <span class="header__content">
+        Позиция
+      </span>
+      <span class="header__content">
+        Кол-во отключений, шт.
+      </span>
+    </div>
+  
+    <table class="positions-list">
+      <tr *ngFor="let position of positionsList" class="positions-list__line">
+        <td class="positions-list__position">
+          <div class="positions-list__position-content">
+            {{ position.name }}
+          </div>
+        </td>
+        <td class="positions-list__plant">
+          {{ position.plant }}
+        </td>
+        <td class="positions-list__count">
+          {{ position.closeCount }}
+        </td>
+      </tr>
+    </table>
+  </div>  
 </div>
