@@ -1,0 +1,106 @@
+@import '../../../../theme/mixins/mixin-centering';
+
+:host {
+  --grid-gap: 16px;
+}
+
+.outages {
+  display: grid;
+  grid-row-gap: var(--grid-gap);
+
+  &__header {
+    padding: 8px 16px;
+    display: flex;
+    border: 1px solid var(--color-group-control-border-main);
+    background-color: var(--color-new-header-bg);
+  }
+
+  &__settings {
+    display: flex;
+
+    .button {
+      background-color: var(--gray-G9-color);
+    }
+
+    ::ng-deep {
+      .button {
+        background-color: var(--gray-G9-color);
+      }
+    }
+  }
+
+  &__select {
+    position: relative;
+    max-width: 200px;
+
+    &_small {
+      max-width: 97px;
+    }
+
+    & + & {
+      margin-left: 32px;
+
+      &::before {
+        position: absolute;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border: solid var(--border-forms-color);
+        border-width: 0 1px 1px 0;
+        transform: translateY(-50%) rotate(-45deg);
+        left: -22px;
+        top: 50%;
+      }
+    }
+  }
+
+  &__button {
+    margin-left: 28px;
+  }
+
+  &__statuses {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  &__status + &__status {
+    margin-left: 20px;
+  }
+
+  &__items {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: var(--grid-gap);
+  }
+}
+
+.status {
+  position: relative;
+  padding-left: 16px;
+
+  &::before {
+    @include center-y;
+
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 8px;
+    left: 0;
+    border-radius: 50%;
+  }
+
+  &_danger::before {
+    background-color: var(--color-user-events-priority-danger);
+  }
+
+  &_warning::before {
+    background-color: var(--color-user-events-priority-warning);
+  }
+
+  &_standard::before {
+    background-color: var(--color-user-events-priority-standard);
+  }
+}

@@ -1,0 +1,43 @@
+<div style="height: 100%; width: 100%" class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
+  <evj-widget-header-smp [uniqId]="widgetUniqId" *ngIf="isHover"></evj-widget-header-smp>
+  <div class="outages" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <header class="outages__header">
+      <div class="outages__settings">
+        <div class="outages__select outages__select_small">
+          <evj-dropdown></evj-dropdown>
+        </div>
+        <div class="outages__select">
+          <evj-dropdown></evj-dropdown>
+        </div>
+        <div class="outages__select">
+          <evj-dropdown></evj-dropdown>
+        </div>
+        <evj-rect-button
+          class="outages__button"
+          [type]="'primary'"
+          [textButton]="'Сохранить'"
+          (click)="onConfirmFilter()"
+        ></evj-rect-button>
+      </div>
+      <div class="outages__statuses">
+        <div class="outages__status status status_danger">
+          Несанкционированное откл.
+        </div>
+        <div class="outages__status status status_warning">
+          Просроченное откл.
+        </div>
+        <div class="outages__status status status_standard">
+          Всего откл.
+        </div>
+      </div>
+    </header>
+    <div class="outages__items">
+      <ng-container *ngFor="let outage of $outages | async">
+        <evj-number-of-outages-card
+          class="outages__item"
+          [groups]="outage">
+        </evj-number-of-outages-card>
+      </ng-container>
+    </div>
+  </div>
+</div>
