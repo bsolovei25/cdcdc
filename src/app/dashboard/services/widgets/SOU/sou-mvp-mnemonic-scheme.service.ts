@@ -16,9 +16,10 @@ export class SouMvpMnemonicSchemeService {
 
     data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
 
-    selectedOptions$: BehaviorSubject<{ manufacture: string; unit: string }> = new BehaviorSubject<{
+    selectedOptions$: BehaviorSubject<{ manufacture: string; unit: string; section: string }> = new BehaviorSubject<{
         manufacture: string;
         unit: string;
+        section: string;
     }>(null);
     selectedManufactures$: BehaviorSubject<{ index: number; name: string }> = new BehaviorSubject<{
         index: number;
