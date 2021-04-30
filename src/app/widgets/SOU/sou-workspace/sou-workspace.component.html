@@ -5,7 +5,9 @@
       [widgetTitle]="widgetTitle"
       icon="drop"
       type="astue">
-      <div class="header">
+      <div class="header"
+           (mousedown)="$event.stopPropagation()"
+           (touchstart)="$event.stopPropagation()">
 
         <div class="btn btn__blue btn__save">
           <svg-icon
@@ -38,7 +40,8 @@
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container">
+  <div class="container" (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
     <evj-sou-workspace-info-bar
       class="info-bar"
       [data]="workspaceBarInfo[0]">
