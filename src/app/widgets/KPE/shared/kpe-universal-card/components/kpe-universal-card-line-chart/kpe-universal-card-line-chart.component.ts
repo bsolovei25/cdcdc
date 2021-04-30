@@ -7,6 +7,7 @@ import { IKpeUniversalCardLineChart } from '../../kpe-universal-card.component';
     styleUrls: ['./kpe-universal-card-line-chart.component.scss'],
 })
 export class KpeUniversalCardLineChartComponent implements OnInit, OnChanges {
+    @Input() onlyPercent: boolean = false;
     @Input() set data(item: IKpeUniversalCardLineChart) {
         this.chartValues = item;
     }

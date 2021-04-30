@@ -101,8 +101,12 @@ $brownColor: #483628;
       }
     }
 
-    .text-anchor {
+    .text-anchor-middle {
       text-anchor: middle;
+    }
+
+    .text-anchor-end {
+      text-anchor: end;
     }
   }
 }

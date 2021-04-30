@@ -5,6 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
+export type RestrictionType = 'eventType' | 'type' | 'reason' | 'constancy' | 'duration' | 'economicEfficiency' | 'significance';
+
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
@@ -330,6 +332,32 @@ export interface ISubcategory {
     isCanBeManuallySelected?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
+}
+
+export type IRestrictionItemList = {
+    [key in RestrictionType]: IRestriction;
+};
+
+export interface IRestrictionRequest {
+    id: number;
+    eventType: IRestrictionItem;
+    type: IRestrictionItem;
+    reason: IRestrictionItem;
+    constancy: IRestrictionItem;
+    duration: IRestrictionItem;
+    economicEfficiency: IRestrictionItem;
+    significance: IRestrictionItem;
+};
+
+export interface IRestrictionItem {
+    id: number,
+    type: string,
+    name: string
+}
+
+export interface IRestriction {
+    type: string,
+    restrictions: IRestrictionItem[]
 }
 
 export interface IReason {

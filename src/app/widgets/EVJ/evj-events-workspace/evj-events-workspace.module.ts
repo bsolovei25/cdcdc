@@ -62,6 +62,7 @@ import { EvjEventsSmpoCorrectComponent } from './components/evj-events-smpo-corr
 import { EvjEventsSmpoCorrectMenuComponent } from './components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct-item/evj-events-smpo-correct-item.component';
 import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
     declarations: [
@@ -115,23 +116,24 @@ import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-s
         EvjEventsWorkspaceRestrictionsComponent,
         EvjSmpoEventCriticalComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AngularSvgIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatTooltipModule,
-        MatCheckboxModule,
-        MatRippleModule,
-        MatDialogModule,
-        NgxMatDatetimePickerModule,
-        MatDatepickerModule,
-        NgxMaskModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularSvgIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatRippleModule,
+    MatDialogModule,
+    NgxMatDatetimePickerModule,
+    MatDatepickerModule,
+    NgxMaskModule,
+    MatProgressSpinnerModule
+  ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },

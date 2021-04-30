@@ -25,6 +25,7 @@ variables:
   UNIT_TESTS_ON: "true"
   HELM_DEPLOY_ON: "true"
   SEMVER_EXPORT_ON: "true"
+  COMPILE_TARGET: "angular"
   
   
   # DOCKER BUILD LVL
@@ -35,7 +36,7 @@ variables:
 
   # service lvl
   SERVICE_NAME: "evj-front"
-  EXTERNAL_DOCKER_IMG: "onpz.local/cup/evj-front"
+  EXTERNAL_DOCKER_IMG: "onpz.local/evj/evj-front"
   TAG: "$CI_RELEASE_TAG"
   
   # deploy lvl

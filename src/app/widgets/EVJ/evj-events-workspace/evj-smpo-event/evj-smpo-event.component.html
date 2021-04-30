@@ -86,12 +86,12 @@
         <div class="row">
 
           <evj-smpo-event-datetimepicker
-            [date]="ewService.event.eventDateTime"
+            [(ngModel)]="ewService.event.eventDateTime"
             [label]="'Дата начала'"
             class="dtp-container"></evj-smpo-event-datetimepicker>
 
           <evj-smpo-event-datetimepicker
-            [date]="ewService.event.eventEndDateTime"
+            [(ngModel)]="ewService.event.eventEndDateTime"
             [label]="'Дата закрытия'"
             class="dtp-container"></evj-smpo-event-datetimepicker>
 
@@ -159,6 +159,7 @@
               </div>
             </div>
             <evj-events-smpo-reasons [items]="reasons"
+                                     [(ngModel)]="ewService.event.smpo.reasons"
                                      (onRemoveItem)="removeReason($event)" ></evj-events-smpo-reasons>
           </div>
         </div>
@@ -172,6 +173,7 @@
               </div>
             </div>
             <evj-events-smpo-events [items]="events"
+                                    [(ngModel)]="ewService.event.smpo.events"
                                     (onRemoveItem)="removeEvent($event)" ></evj-events-smpo-events>
           </div>
         </div>

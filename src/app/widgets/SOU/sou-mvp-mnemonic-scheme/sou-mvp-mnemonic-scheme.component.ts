@@ -8,7 +8,7 @@ import {
     ISouObjects,
     ISouOptions,
     ISouSection,
-    ISouUnit,
+    ISouUnit
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -46,13 +46,15 @@ type SouMvpMnemonicSchemeView = 'ab' | 'vb' | 'izomalk' | 'svg' | null;
     templateUrl: './sou-mvp-mnemonic-scheme.component.html',
     styleUrls: ['./sou-mvp-mnemonic-scheme.component.scss'],
     animations: animationsArray,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public readonly footerComponent: typeof SouMvpMnemonicSchemeFooterComponent = SouMvpMnemonicSchemeFooterComponent;
     public readonly viewComponent: typeof SouMvpMnemonicSchemeViewComponent = SouMvpMnemonicSchemeViewComponent;
 
     public readonly settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
+    public readonly sectionNameMaxLengthTruncate: number = 14;
+    private readonly emptyGuid: string = '00000000-0000-0000-0000-000000000000';
 
     // Суб-канал в вебсокетах
     subChannels$: BehaviorSubject<ISouSubchannel[]> = new BehaviorSubject<ISouSubchannel[]>([]);
@@ -61,22 +63,36 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     optionsGroup: FormGroup = new FormGroup({
         manufacture: new FormControl(null),
         unit: new FormControl(null),
-        section: new FormControl(null),
+        section: new FormControl(null)
     });
-    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] });
+    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] } as ISouOptions);
     selectionOptions: ISouSelectionOptions = {
-        manufactures$: this.options$.pipe(map((x) => x.manufactures)),
+        manufactures$: this.options$.pipe(
+            map((x) => {
+                return x.manufactures;
+            })
+        ),
         units$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
-            map(([options, group]) => options.manufactures.find((x) => x.name === group?.manufacture)?.units ?? [])
+            map(([options, group]) =>
+                options
+                    ?.manufactures
+                    ?.find((x) => x.name === group?.manufacture)
+                    ?.units
+                ?? []
+            )
         ),
         sections$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
             map(
                 ([options, group]) =>
-                    options.manufactures
-                        .find((x) => x.name === group?.manufacture)
-                        ?.units?.find((x) => x.id === group?.unit)?.section ?? []
+                    options
+                        ?.manufactures
+                        ?.find((x) => x.name === group?.manufacture)
+                        ?.units
+                        ?.find((x) => x.id === group?.unit)
+                        ?.section
+                    ?? []
             )
-        ),
+        )
     };
     chosenSetting$: Observable<number>;
 
@@ -93,7 +109,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         public widgetService: WidgetService,
         public mvpService: SouMvpMnemonicSchemeService,
         private injector: Injector,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -143,8 +158,26 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.loadState();
     }
 
-    protected dataHandler(ref: ISouOptions): void {
-        this.options$.next({ ...ref });
+    protected dataHandler(ref: ISouOptions | { section: { flowIn: ISouFlowIn[]; flowOut: ISouFlowOut[]; objects: ISouObjects[]; name: string }[] }): void {
+        if ('manufactures' in ref) {
+            this.options$.next({ ...ref });
+        }
+        if ('section' in ref) {
+            const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
+            const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
+
+            sectionsData?.forEach((x) => {
+                if (x.linkId === this.emptyGuid) {
+                    delete x.linkId;
+                }
+            });
+            this.mvpService.data$.next({
+                name: ref?.section?.[0]?.name ?? '',
+                flowIn,
+                sectionsData
+            });
+            this.mvpService.currentSection$.next(ref.section?.[0]);
+        }
     }
 
     public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
@@ -154,9 +187,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 { provide: 'channelId', useValue: channelId },
                 { provide: 'viewType', useValue: viewType },
                 { provide: 'unitName', useValue: this.getUnitNameById(this.optionsGroup.get('unit').value) },
-                { provide: 'sectionName', useValue: this.getSectionNameById(this.optionsGroup.get('section').value) },
+                { provide: 'sectionName', useValue: this.getSectionNameById(this.optionsGroup.get('section').value) }
             ],
-            parent: this.injector,
+            parent: this.injector
         });
     };
 
@@ -269,7 +302,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         };
         return {
             save: saveState,
-            load: loadState,
+            load: loadState
         };
     }
 
@@ -294,7 +327,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                     filter((value: ISouOptions) => {
                         return value?.manufactures?.length !== 0;
                     }),
-                    take(1),
+                    take(1)
                 )
                 .subscribe(resolve, reject);
         });

@@ -51,7 +51,15 @@
             [ngClass]="{ active: section.id === (optionsGroup.get('section').value) }"
             (click)="optionsGroup.get('section').setValue(section.id)"
           >
-            <span class="title" *ngIf="!!section?.name">{{ section?.name }}</span>
+            <span class="title" *ngIf="!!section?.name">
+              <ng-container *ngIf="section.name.length >= sectionNameMaxLengthTruncate">
+                <span
+                  [title]="section.name"
+                >{{ section.name | slice : 0 : sectionNameMaxLengthTruncate }}...</span>
+              </ng-container>
+
+              <ng-container *ngIf="section.name.length < sectionNameMaxLengthTruncate">{{ section.name }}</ng-container>
+            </span>
             <div
               class="value"
               [ngClass]="{noTrust: section?.countFlowExceedingConfInterval !== 0}"
