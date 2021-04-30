@@ -23,6 +23,7 @@ interface IElementFull {
     textPercent: Element;
     ellipse: Element;
     flag: boolean;
+    textParams?: ITypeTextParams;
 }
 
 interface ITypeTextParams {
@@ -278,17 +279,25 @@ export class SouSchemaComponent implements OnChanges {
 
         if (reload) {
             if (element?.children) {
-                this.addClassAndTextToElement(element, this.elementsFullMap?.get(sectionData?.code), mode);
+                const elementFull = this.elementsFullMap?.get(sectionData?.code);
+                this.addClassAndTextToElement(element, elementFull, mode);
             }
         } else {
             this.prepareElement(mode, element, sectionData);
         }
     }
 
-    private getElementMode(data: SouSectionData): TypeMode {
-        const {isExceedingConfInterval, isEnable} = data;
-        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
-        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    private getElementMode(sectionData: SouSectionData): TypeMode {
+        const isMeasured = sectionData?.tolerance === 0; // Измеряемый
+        const {isExceedingConfInterval, isEnable} = sectionData;
+
+        if (isExceedingConfInterval && isEnable && isMeasured) {
+            return 'deviation';
+        } else if (!isEnable) {
+            return 'disabled';
+        }
+
+        return 'standard';
     }
 
     relatedArray(related: number[] | string): number[] {
@@ -335,6 +344,11 @@ export class SouSchemaComponent implements OnChanges {
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
+
+            if (this.debugElementCode && this.getElementId(element) === this.debugElementCode) {
+                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
+            }
+
             const elementId = this.getElementId(element);
 
             if (elementFull) {
@@ -369,8 +383,8 @@ export class SouSchemaComponent implements OnChanges {
         };
         const children = Array.from(element?.children);
 
-        children?.forEach((elem) => {
-            elementFull = this.searchElementsInElement(elem, elementFull);
+        children?.forEach((elementChild: SVGElement) => {
+            elementFull = this.recognizeElementChild(elementChild, elementFull);
         });
 
         return elementFull;
@@ -498,8 +512,8 @@ export class SouSchemaComponent implements OnChanges {
                         flag: true,
                     };
                     // Search
-                    elementsRelated?.forEach((elem) => {
-                        elementFullRelated = this.searchElementsInElement(elem, elementFullRelated);
+                    elementsRelated?.forEach((elem: SVGElement) => {
+                        elementFullRelated = this.recognizeElementChild(elem, elementFullRelated);
                     });
                     elementFullRelated?.rects?.forEach((item: Element) => {
                         this.setElementMode(item, mode);
@@ -525,8 +539,9 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
-    // Функция распознает, чем является элемент. Если чем то нужным, то кладет его в IElementFull
-    searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
+    // Функция распознает, потомка элемента схемы.
+    // Если он является чем то нужным, то кладет его в IElementFull
+    recognizeElementChild(element: SVGElement, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
         if (name?.includes('rect')) {
             if (element?.children?.length) {
@@ -547,6 +562,11 @@ export class SouSchemaComponent implements OnChanges {
             }
         } else if (name?.includes('point')) {
             elementFull?.points.push(element);
+        } else if (name?.includes('text-params_')) {
+            const textParams = this.parseTextParamsFromElementName(name);
+            if (textParams) {
+                elementFull.textParams = textParams;
+            }
         } else if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
@@ -563,6 +583,23 @@ export class SouSchemaComponent implements OnChanges {
             elementFull.ellipse = element;
         }
         return elementFull;
+    }
+
+    // Распознает индивидуальные настройки текста из id элемента
+    private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
+        const match = elementChildName.match(/text-params_(\w+)_(\d+)/i);
+        if (match && match[1] && match[2]) {
+            const paramName = match[1];
+            const value = parseInt(match[2], 10);
+
+            if (paramName && value) {
+                return {
+                    [paramName]: value,
+                };
+            }
+        }
+
+        return null;
     }
 
     // Добавляет отслеживание клика на элементе
@@ -786,9 +823,20 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+
         if (elementTypeId) {
-            return this.typeTextParams[elementTypeId];
+            const textParams = this.typeTextParams[elementTypeId];
+            const elementId = this.getElementId(textElem?.parentElement);
+            const elementFull = this.elementsFullMap.get(elementId);
+            const individualTextParams = elementFull?.textParams;
+
+            if (individualTextParams) {
+                return Object.assign(textParams, individualTextParams);
+            }
+
+            return textParams;
         }
+
         return null;
     }
 

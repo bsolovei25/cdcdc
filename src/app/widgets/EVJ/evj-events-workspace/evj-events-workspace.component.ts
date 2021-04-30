@@ -216,6 +216,21 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         const heightPx = 587;
 
         const limitationWindowTarget = this.createOverlayTarget(heightPx);
+        if (limitationCheckbox) {
+            const removeLimitation: IAlertWindowModel = {
+                isShow: true,
+                questionText: `Вы уверены, что хотите снять ограничение?`,
+                acceptText: 'Да, снять ограничение',
+                cancelText: 'Отмена',
+                acceptFunction: async () => {
+                    this.ewService.event.isRestrictions = false;
+                    await this.ewService.saveEvent();
+                },
+                closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+            };
+            this.ewService.ewAlertInfo$.next(removeLimitation);
+            return;
+        }
 
         const popoverRef = this.popoverOverlayService.open({
             origin: limitationWindowTarget,

@@ -170,7 +170,7 @@ export class OilOperationsManualAssignComponent implements OnInit {
     private async fillLeftTable(lastId: number = 0): Promise<IOilShipment[]> {
         const options = this.getOptions();
         this.statistics.leftTable = await this.getStatistics('leftTable');
-        return await this.oilOperationService.getShipmentListByFilter(lastId, options);
+        return await this.oilOperationService.getShipmentListByRelation(lastId, options, this.selectedTransfer.id);
     }
 
     private async getStatistics(source: 'leftTable' | 'rightTable'): Promise<IOilShipmentStatistics> {
@@ -197,11 +197,15 @@ export class OilOperationsManualAssignComponent implements OnInit {
 
     private getOptions(): IOilOperationsOptions {
         const options: IOilOperationsOptions = {
-            StartTime: new Date(this.selectedTransfer.startTime),
-            EndTime: new Date(this.selectedTransfer.endTime),
             TankId: this.selectedTransfer.tank.id,
             Directions: [],
         };
+        if (this.selectedTransfer.startTime) {
+            options.StartTime = new Date(this.selectedTransfer.startTime);
+        }
+        if (this.selectedTransfer.endTime) {
+            options.EndTime = new Date(this.selectedTransfer.endTime);
+        }
         if (this.productFormControl.value && this.fieldFiltersCheckboxFormControl.value) {
             options.ProductName = this.productFormControl.value;
         }

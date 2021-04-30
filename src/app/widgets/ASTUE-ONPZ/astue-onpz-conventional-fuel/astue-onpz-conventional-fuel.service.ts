@@ -39,6 +39,12 @@ export class AstueOnpzConventionalFuelService {
         energyResources: [],
     });
 
+    public defaultSelectOptionsNewScheme: IAstueOnpzConventionalFuelSelectOptions = {
+        manufacture: 'Производство №1',
+        unit: 'АВТ-10',
+        resource: 'Потребление топлива', // ранее было просто "Топливо"
+    };
+
     public defaultSelectOptions: IAstueOnpzConventionalFuelSelectOptions = {
         manufacture: 'Производство №1',
         unit: 'АВТ-10',
@@ -53,6 +59,9 @@ export class AstueOnpzConventionalFuelService {
     ];
     public selectedOptions$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
         this.defaultSelectOptions
+    );
+    public selectedOptionsNewScheme$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
+        this.defaultSelectOptionsNewScheme
     );
 
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -74,9 +83,9 @@ export class AstueOnpzConventionalFuelService {
             return;
         }
         const ref = this.selectReferences$.getValue();
-        options.manufacture = ref.manufacturies.find((x) => x.id === options.manufacture)?.name;
-        options.unit = ref.units.find((x) => x.id === options.unit)?.name;
-        options.resource = ref.energyResources.find((x) => x.id === options.resource)?.name;
+        options.manufacture = ref?.manufacturies.find((x) => x.id === options.manufacture)?.name;
+        options.unit = ref?.units.find((x) => x.id === options.unit)?.name;
+        options.resource = ref?.energyResources.find((x) => x.id === options.resource)?.name;
         this.setSelectedOptions(options);
     }
 

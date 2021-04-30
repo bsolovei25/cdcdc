@@ -43,6 +43,11 @@
 
   &__body {
     padding: 30px 60px 35px;
+    min-height: 432px;
+    min-width: 390px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .form-row {
       display: flex;

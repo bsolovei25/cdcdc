@@ -6,10 +6,9 @@ import {
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import {
-    IMultiChartData,
     IMultiChartLine,
     IMultiChartTransfer,
-} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+} from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 
@@ -73,6 +72,9 @@ export class AstueOnpzService {
     public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(new Map());
     private colors: number = 6;
 
+    private selectedEnergyResource$: BehaviorSubject<string | null> = new BehaviorSubject<string>(null);
+    public selectedEnergyResource: Observable<string> = this.selectedEnergyResource$.asObservable();
+
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
     public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
@@ -98,6 +100,10 @@ export class AstueOnpzService {
     public setMultiLinePredictors(value: IMultiChartLine[]): void {
         const val = !!value ? value : null;
         this.multiLinePredictorsChart$.next(val);
+    }
+
+    public setSelectedEnergyResource(resourceId: string): void {
+        this.selectedEnergyResource$.next(resourceId);
     }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {

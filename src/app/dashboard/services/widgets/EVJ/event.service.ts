@@ -14,7 +14,10 @@ import {
     IEventsWidgetNotification,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions, IPhase,
-    IPriority, IReason,
+    IPriority,
+    IReason,
+    IRestriction,
+    IRestrictionRequest,
     ISaveMethodEvent,
     ISmotrReference,
     IStatus,
@@ -23,7 +26,6 @@ import {
     IUser
 } from "../../../models/EVJ/events-widget";
 import { AppConfigService } from '@core/service/app-config.service';
-import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 import { catchError } from "rxjs/operators";
 
 export interface IEventsFilter {
@@ -190,6 +192,26 @@ export class EventService {
         try {
             return await this.http
                 .get<ISubcategory[]>(`${this.restUrl}/api/notification-reference/subcategory`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getRestrictions(): Promise<IRestriction[]> {
+        try {
+            return await this.http
+                .get<IRestriction[]>(`${this.restUrl}/api/notification-reference/restrictions`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async setRestrictions(id: number, body: IRestrictionRequest): Promise<unknown> {
+        try {
+            return await this.http
+                .post<unknown>(`${this.restUrl}/api/notifications/${id}/restriction`, body)
                 .toPromise();
         } catch (error) {
             console.error(error);

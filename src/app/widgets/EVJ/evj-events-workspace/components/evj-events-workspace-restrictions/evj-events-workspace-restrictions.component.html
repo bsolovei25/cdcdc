@@ -23,175 +23,180 @@
       </div>
     </div>
     <div class="container__body">
-      <form [formGroup]="form">
-        <div class="form-row">
-          <div class="form-row__control">
-            <div class="title">
-              <span>Тип события</span>
+      <mat-spinner *ngIf="isLoading" diameter="100">
+      </mat-spinner>
+      <form *ngIf="(restrictionList$ | async) as restrictionList" [formGroup]="form">
+        <ng-container *ngIf="!isLoading">
+          <div class="form-row">
+            <div class="form-row__control">
+              <div class="title">
+                <span>Тип события</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="eventType">
+                      <ng-container *ngFor="let item of restrictionList.eventType.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="eventType">
-                    <ng-container *ngFor="let item of eventTypes">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
+            <div class="form-row__control">
+              <div class="title">
+                <span>Тип</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="type">
+                      <ng-container *ngFor="let item of restrictionList.type.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-          <div class="form-row__control">
-            <div class="title">
-              <span>Тип</span>
-            </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="type">
-                    <ng-container *ngFor="let item of types">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
+          <div class="form-row">
+            <div class="form-row__control">
+              <div class="title">
+                <span>Причина</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="reason">
+                      <ng-container *ngFor="let item of restrictionList.reason.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-row__control">
-            <div class="title">
-              <span>Причина</span>
+          <div class="form-row">
+            <div class="form-row__control">
+              <div class="title">
+                <span>Постоянство</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="constancy">
+                      <ng-container *ngFor="let item of restrictionList.constancy.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="reason">
-                    <ng-container *ngFor="let item of reasons">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
+            <div class="form-row__control">
+              <div class="title">
+                <span>Длительность</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="duration">
+                      <ng-container *ngFor="let item of restrictionList.duration.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-row__control">
-            <div class="title">
-              <span>Постоянство</span>
-            </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="constancy">
-                    <ng-container *ngFor="let item of constancies">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
+          <div class="form-row">
+            <div class="form-row__control">
+              <div class="title">
+                <span>Владелец</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="owner">
+                      <ng-container *ngFor="let item of users">
+                        <mat-option
+                          [value]="item.displayName + ' ' + item.positionDescription">{{ item.displayName + ' ' + item.positionDescription }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-          <div class="form-row__control">
-            <div class="title">
-              <span>Длительность</span>
+          <div class="form-row">
+            <div class="form-row__control">
+              <div class="title">
+                <span>Экономическая эффективность</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="economicEfficiency">
+                      <ng-container *ngFor="let item of restrictionList.economicEfficiency.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="duration">
-                    <ng-container *ngFor="let item of durations">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
+            <div class="form-row__control">
+              <div class="title">
+                <span>Значимость</span>
+              </div>
+              <div class="dropdown">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select formControlName="significance">
+                      <ng-container *ngFor="let item of restrictionList.significance.restrictions">
+                        <mat-option [value]="item">{{ item.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-row__control">
-            <div class="title">
-              <span>Владелец</span>
-            </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="owner">
-                    <ng-container *ngFor="let item of users">
-                      <mat-option
-                        [value]="item.displayName + ' ' + item.positionDescription">{{ item.displayName + ' ' + item.positionDescription }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-row__control">
-            <div class="title">
-              <span>Экономическая эффективность</span>
-            </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="economicEfficiency">
-                    <ng-container *ngFor="let item of economicEfficiencies">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="form-row__control">
-            <div class="title">
-              <span>Значимость</span>
-            </div>
-            <div class="dropdown">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select formControlName="significance">
-                    <ng-container *ngFor="let item of significances">
-                      <mat-option [value]="item">{{ item }}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="buttons-row">
-          <div class="buttons-row__control"
-               matRipple
-               matRippleColor="white"
-          >
-            <evj-rect-button
-              class="add-button"
-              textButton="Cбросить"
-              [isChangingState]="false"
-              [type]="'primary'"
-              (click)="discard()"
+          <div class="buttons-row">
+            <div class="buttons-row__control"
+                 matRipple
+                 matRippleColor="white"
             >
-            </evj-rect-button>
-          </div>
-          <div class="buttons-row__control"
-               matRipple
-               matRippleColor="white"
-          >
-            <evj-rect-button
-              class="add-button"
-              textButton="Cохранить"
-              [isChangingState]="false"
-              [type]="'primary'"
-              (click)="accept()"
+              <evj-rect-button
+                class="add-button"
+                textButton="Cбросить"
+                [isChangingState]="false"
+                [type]="'primary'"
+                (click)="discard()"
+              >
+              </evj-rect-button>
+            </div>
+            <div class="buttons-row__control"
+                 matRipple
+                 matRippleColor="white"
             >
-            </evj-rect-button>
+              <evj-rect-button
+                class="add-button"
+                textButton="Cохранить"
+                [isChangingState]="false"
+                [type]="'primary'"
+                (click)="accept()"
+              >
+              </evj-rect-button>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </form>
     </div>
   </div>
 </div>
+

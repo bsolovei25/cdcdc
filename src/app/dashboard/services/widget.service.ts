@@ -215,7 +215,7 @@ export class WidgetService {
             };
         }
         return this.widgetsSocketObservable.pipe(
-            filter((ref) => ref?.channelId === channelId && ref?.widgetId === widgetId),
+            filter((ref) => ref?.channelId === widgetId && ref?.subChannelId === channelId),
             map((ref) => ref?.data ?? null),
             filter((ref) => ref !== null)
         );
@@ -364,7 +364,6 @@ export class WidgetService {
         });
         this.ws.subscribe(
             (msg) => {
-                console.log('message received');
                 if (msg?.error && this.configService.isErrorDisplay) {
                     this.materialController.openSnackBar(msg.error.message.message, 'error');
                 }
