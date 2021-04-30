@@ -15,11 +15,12 @@ import { SouMvpMnemonicSchemeService } from '../../../../../../dashboard/service
 })
 export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, AfterViewInit {
     @ViewChild('chart') chart: ElementRef;
-    @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
+    @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number, disabledCircle?: boolean }) {
         if (data.sections) {
             this.sections = data.sections;
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
             this.code = data.code
+            this.disabledCircle = data.disabledCircle;
             this.drawSvg();
         }
     }
@@ -28,6 +29,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
     flowData: ISouFlowOut;
     sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[];
+    disabledCircle: boolean = false;
 
     public svg: any;
     public code: number;
