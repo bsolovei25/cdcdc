@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { WidgetService } from "@dashboard/services/widget.service";
 import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 
@@ -7,8 +7,7 @@ import { WORKSPACE_BAR_INFO } from "@widgets/SOU/sou-workspace/mock";
 @Component({
   selector: 'evj-sou-workspace',
   templateUrl: './sou-workspace.component.html',
-  styleUrls: ['./sou-workspace.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./sou-workspace.component.scss']
 })
 export class SouWorkspaceComponent extends WidgetPlatform implements OnInit {
 
