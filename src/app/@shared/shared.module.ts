@@ -63,7 +63,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SimpleButtonComponent } from './components/simple-button/simple-button.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { AccordionComponent } from './components/accordion/accordion.component';
-import {MatExpansionModule} from "@angular/material/expansion";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
     declarations: [
