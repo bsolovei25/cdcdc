@@ -67,6 +67,10 @@
     height: 1px;
     flex: 1;
     border-top: 1px solid var(--sou-mvp-color-border);
+
+    &--dashed {
+      border-top: 2px dashed var(--sou-mvp-color-border);
+    }
   }
 }
 
@@ -90,6 +94,7 @@
           .circleArrow {
             fill: var(--sou-mvp-color-bg-title);
           }
+
           .pathArrow {
             stroke: var(--sou-mvp-color-text-diagram-sub);
           }
@@ -100,6 +105,10 @@
 
   .line {
     border-top: 1px solid var(--sou-mvp-color-border-unactive);
+
+    &--dashed {
+      border-top: 2px dashed var(--sou-mvp-color-border-unactive);
+    }
   }
 }
 
@@ -122,6 +131,7 @@
           .circleArrow {
             fill: var(--sou-mvp-color-bg-active-spec);
           }
+
           .pathArrow {
             stroke: var(--sou-mvp-color-text-diagram-main);
           }
