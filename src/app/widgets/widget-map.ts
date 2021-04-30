@@ -394,13 +394,24 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'kpe-plan-enforceability',
     },
-    'kpe-execution-production-program': {
+    'kpe-execution-production-program(backup)': {
         import: async () => {
             return await import(
                 'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
             );
         },
         module: 'KpeExecutionProductionProgramModule',
+        itemCols: 21,
+        itemRows: 19,
+        minItemCols: 19,
+        minItemRows: 14,
+        preview: 'kpe-execution-production-program',
+    },
+    'kpe-execution-production-program': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-accuracy-timelines-data/kpe-accuracy-timelines-data.module');
+        },
+        module: 'KpeAccuracyTimelinesDataModule',
         itemCols: 21,
         itemRows: 19,
         minItemCols: 19,
@@ -515,7 +526,9 @@ export const WIDGETS_LAZY = {
     },
     'admin-report-server-configurator': {
         import: async () => {
-            return await import('src/app/widgets/admin/admin-report-server-configurator/admin-report-server-configurator.module');
+            return await import(
+                'src/app/widgets/admin/admin-report-server-configurator/admin-report-server-configurator.module'
+            );
         },
         module: 'AdminReportServerConfiguratorModule',
         itemCols: 60,
@@ -1385,7 +1398,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
-                );
+            );
         },
         module: 'AstueOnpzConventionalFuelModule',
         itemCols: 30,
@@ -1437,7 +1450,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
-                );
+            );
         },
         module: 'AstueOnpzMainIndicatorsModule',
         itemCols: 12,
@@ -1519,7 +1532,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
-                );
+            );
         },
         module: 'AstueOnpzPlanningChartsModule',
         itemCols: 30,
@@ -1559,7 +1572,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/astue-onpz-factory-analysis.module'
-                );
+            );
         },
         module: 'AstueOnpzFactoryAnalysisModule',
         itemCols: 24,
