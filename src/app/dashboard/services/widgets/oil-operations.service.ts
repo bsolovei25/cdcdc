@@ -79,13 +79,14 @@ export class OilOperationsService {
     public async getShipmentListByRelation(
         lastId: number,
         options: IOilOperationsOptions,
-        batchSize: number = this.BATCH_SIZE
+        transferId: number,
+        batchSize: number = this.BATCH_SIZE,
     ): Promise<IOilShipment[]> {
         try {
             return await this.http
                 .get<IOilShipment[]>(
                     this.restUrl +
-                    `/api/oil-control/shipments/byrelation/${options.TransferId}/transfer?${this.getOptionString(lastId, options, batchSize)}`
+                    `/api/oil-control/shipments/byrelation/${transferId}/transfer?${this.getOptionString(lastId, options, batchSize)}`
                 )
                 .toPromise();
         } catch (error) {
