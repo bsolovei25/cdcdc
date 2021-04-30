@@ -41,6 +41,7 @@
                 ></evj-kpe-gauge-chart>
 
                 <evj-kpe-gauge-chart-multi-color
+                  [hideDescription]="true"
                   *ngIf="displayNewDesign"
                   [data]="deviationDiagram"
                   [type]="1"
@@ -70,9 +71,10 @@
             ></evj-kpe-gauge-chart>
 
             <evj-kpe-gauge-chart-multi-color
+              [hideDescription]="true"
               *ngIf="displayNewDesign"
               [data]="deviationDiagram"
-              [type]="2"
+              [type]="1"
             ></evj-kpe-gauge-chart-multi-color>
           </div>
           <div class="quality__header__chart">
