@@ -9,7 +9,7 @@ import {
 
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
-import { OftenClosedPositionsService } from '@dashboard/services/widgets/CMID/often-closed-positions.service';
+import { OftenClosedPositionsService } from '@dashboard/services/widgets/CMID/cmid-often-closed-positions/often-closed-positions.service';
 
 import { ICmidOftenClosedPosition } from './cmid-often-closed-positions.interfaces';
 
@@ -35,110 +35,9 @@ export class CmidOftenClosedPositionsComponent extends WidgetPlatform<unknown> i
 
     ngOnInit(): void {
         super.widgetInit();
-        
-        // Often closed positions mock
-        this.positionsList = [
-            {
-                name: 'Test name',
-                plant: 'AA-12',
-                closeCount: 12
-            },
-            {
-                name: 'Very long Test name prototype 2',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'Just another plant',
-                plant: 'KVBJO-1040',
-                closeCount: 999
-            },
-            {
-                name: 'Simple name',
-                plant: '0',
-                closeCount: 999
-            },
-            {
-                name: '1',
-                plant: '-',
-                closeCount: 0
-            },
-            {
-                name: '',
-                plant: '',
-                closeCount: 0
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'Test name',
-                plant: 'AA-12',
-                closeCount: 12
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-            {
-                name: 'test',
-                plant: 'BC-04',
-                closeCount: 999
-            },
-        ];
+
+        // Mock
+        this.positionsList = this.oftenClosedPositionsService.positionsList;
     }
 
     ngOnDestroy(): void {
