@@ -30,6 +30,7 @@ interface IChartConfig {
 export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @ViewChild('chart') chart: ElementRef;
     @Input() type: number;
+    @Input() hideDescription: boolean = false;
     @Input() showAxisValues: boolean = true;
     @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
     @Input() data: IKpeGaugeChartPage | null = null;
@@ -359,10 +360,10 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-        if (this.data?.description && this.type === 1) {
+        if (this.data?.description && this.type === 1 && !this.hideDescription) {
             addText(this.data.description, 'desc', 30);
         }
-        if (!this.isPerformance && this.type !== 1) {
+        if (!this.isPerformance) {
             addText(gauge.unit, 'unit', 25);
         }
 
