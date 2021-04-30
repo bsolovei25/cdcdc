@@ -17,7 +17,7 @@ import { ICmidCloseReasonBar, ICmidCloseReasonCount } from './cmid-close-reason.
     selector: 'cmid-close-reason',
     templateUrl: './cmid-close-reason.component.html',
     styleUrls: ['./cmid-close-reason.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public vprValue: number = 0;
@@ -46,6 +46,14 @@ export class CmidCloseReasonComponent extends WidgetPlatform<unknown> implements
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.cdRef.detach();
+    }
+
+    public detectChangesOnMouseLeave() {
+        setTimeout(() => {
+            if (!super.isHover) {
+                this.cdRef.markForCheck();
+            }
+        }, 200);
     }
 
     public toggleReasonStatistics(): void {

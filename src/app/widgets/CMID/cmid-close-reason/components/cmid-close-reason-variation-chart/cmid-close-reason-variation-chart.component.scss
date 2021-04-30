@@ -14,9 +14,20 @@
   &__arrow {
     line-height: 6px;
 
-    &_down::ng-deep {
-      & > svg > path {
-        stroke: var(--index-error-color);
+    &_up {
+      color: var(--index-green1-color);
+
+      &::ng-deep > svg > path {
+        stroke: currentColor;
+      }
+    }
+
+    &_down {
+      transform: rotate(180deg);
+      color: var(--index-error-color);
+
+      &::ng-deep > svg > path {
+        stroke: currentColor;
       }
     }
   }

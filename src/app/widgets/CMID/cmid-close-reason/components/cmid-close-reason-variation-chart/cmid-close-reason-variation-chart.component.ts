@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
-import { VartiationColors } from './cmid-close-reason-variation-chart.enum';
+import { variationColors } from './cmid-close-reason-variation-chart.enum';
 
 @Component({
     selector: 'cmid-close-reason-variation-chart',
@@ -13,17 +13,19 @@ export class CmidCloseReasonVariationChartComponent implements OnInit {
 
     public backgroundColor: string;
     public valueColor: string;
+    public strokeColor: string;
 
     ngOnInit(): void {
         this.getColors();
     }
 
     private getColors(): void {
-        this.backgroundColor = this.isPositive
-            ? VartiationColors.backgroundPositive
-            : VartiationColors.backgroundNegative;
+        this.backgroundColor
+        = this.strokeColor = this.isPositive
+            ? variationColors.backgroundPositive
+            : variationColors.backgroundNegative;
         this.valueColor = this.isPositive
-            ? VartiationColors.valuePositive
-            : VartiationColors.valueNegative;
+            ? variationColors.valuePositive
+            : variationColors.valueNegative;
     }
 }

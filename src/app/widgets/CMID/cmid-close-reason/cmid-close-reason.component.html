@@ -1,6 +1,6 @@
 <div class="widget-container"
      (mouseenter)="onMouseEnter()"
-     (mouseleave)="onMouseExit()">
+     (mouseleave)="onMouseExit(); detectChangesOnMouseLeave()">
   <evj-widget-header-smp *ngIf="isHover" [uniqId]="widgetUniqId">
   </evj-widget-header-smp>
   <div class="container"
