@@ -1300,6 +1300,18 @@ export const WIDGETS_LAZY = {
         preview: 'sou-main-screen-ud',
     },
 
+    'sou-streams': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-streams/sou-streams.module');
+        },
+        module: 'SouStreamsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 50,
+        minItemRows: 20,
+        preview: 'default',
+    },
+
     'sou-workspace': {
         import: async () => {
             return await import('src/app/widgets/SOU/sou-workspace/sou-workspace.module');
