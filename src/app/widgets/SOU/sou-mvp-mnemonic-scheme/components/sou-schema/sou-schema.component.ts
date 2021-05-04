@@ -47,7 +47,7 @@ export class SouSchemaComponent implements OnChanges {
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
     private typeTextParams: {[typeId: number]: ITypeTextParams} = {
         1: {
@@ -80,6 +80,10 @@ export class SouSchemaComponent implements OnChanges {
         },
         16: {
             maxTextLength: 17,
+        },
+        17: {
+            lineLength: 10,
+            maxTextLength: 30,
         },
     };
     private debugElementCode: number;
@@ -587,7 +591,7 @@ export class SouSchemaComponent implements OnChanges {
 
     // Распознает индивидуальные настройки текста из id элемента
     private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
-        const match = elementChildName.match(/text-params_(\w+)_(\d+)/i);
+        const match = elementChildName.match(/text-params_(\w+)=(\d+)/i);
         if (match && match[1] && match[2]) {
             const paramName = match[1];
             const value = parseInt(match[2], 10);
@@ -744,8 +748,8 @@ export class SouSchemaComponent implements OnChanges {
     // Добавляет текст для текстовой ноды <text>
     private addTextToTextElem(textElem: SVGElement | Element, text: string): void {
         if (textElem?.children) {
-            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
+            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text, textParams);
             const children = Array.from(textElem?.children);
             let truncatedText = text;
             const lineLength = textParams?.lineLength;
@@ -786,8 +790,7 @@ export class SouSchemaComponent implements OnChanges {
 
     // Сделать текст <text> многострочным для элементов определенных типов
     // Если текст не помещается в одну стоку
-    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
-        const textParams = this.getTextElemLayoutParams(textElem);
+    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string, textParams: ITypeTextParams): void {
         const lineOffsetTopPx = textParams?.lineHeight || 20;
         const lineLength = textParams?.lineLength;
         const maxTextLength = textParams?.maxTextLength;
@@ -823,21 +826,22 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+        let textParams: ITypeTextParams = null;
 
         if (elementTypeId) {
-            const textParams = this.typeTextParams[elementTypeId];
+            textParams = this.typeTextParams[elementTypeId]
+                ? Object.assign({}, this.typeTextParams[elementTypeId])
+                : null;
             const elementId = this.getElementId(textElem?.parentElement);
             const elementFull = this.elementsFullMap.get(elementId);
             const individualTextParams = elementFull?.textParams;
 
             if (individualTextParams) {
-                return Object.assign(textParams, individualTextParams);
+                textParams = Object.assign(textParams, individualTextParams);
             }
-
-            return textParams;
         }
 
-        return null;
+        return textParams;
     }
 
     // Возвращает ID элемента
