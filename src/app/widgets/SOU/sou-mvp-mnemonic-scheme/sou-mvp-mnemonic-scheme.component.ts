@@ -6,7 +6,7 @@ import {
     ISouFlowOut,
     ISouManufacture,
     ISouObjects,
-    ISouOptions,
+    ISouOptions, ISOUSection,
     ISouSection,
     ISouUnit
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
@@ -158,7 +158,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         this.loadState();
     }
 
-    protected dataHandler(ref: ISouOptions | { section: { flowIn: ISouFlowIn[]; flowOut: ISouFlowOut[]; objects: ISouObjects[]; name: string }[] }): void {
+    protected dataHandler(ref: ISouOptions | { section: ISOUSection[] }): void {
         if ('manufactures' in ref) {
             this.options$.next({ ...ref });
         }
@@ -181,13 +181,16 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     public getInjector = (widgetId: string, channelId: string, viewType: SouMvpMnemonicSchemeView = null): Injector => {
+        const sectionId = this.optionsGroup.get('section').value;
+        const unitId = this.optionsGroup.get('unit').value;
+
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: widgetId },
                 { provide: 'channelId', useValue: channelId },
                 { provide: 'viewType', useValue: viewType },
-                { provide: 'unitName', useValue: this.getUnitNameById(this.optionsGroup.get('unit').value) },
-                { provide: 'sectionName', useValue: this.getSectionNameById(this.optionsGroup.get('section').value) }
+                { provide: 'unitName', useValue: this.getUnitNameById(unitId) },
+                { provide: 'svgName', useValue: this.getSvgNameBySectionId(sectionId) },
             ],
             parent: this.injector
         });
@@ -263,14 +266,18 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     private getUnitNameById(unitId: string): string {
-        return this.options$.value.manufactures?.flatMap((x) => x.units)?.find((x) => x.id === unitId)?.name ?? null;
+        return this.options$.value.manufactures
+            ?.flatMap((x) => x.units)
+            ?.find((x) => x.id === unitId)
+            ?.name ?? null;
     }
 
-    private getSectionNameById(sectionId: string): string {
+    private getSvgNameBySectionId(sectionId: string): string {
         return this.options$.value.manufactures
             ?.flatMap((m: ISouManufacture) => m.units)
             ?.flatMap((u: ISouUnit) => u.section)
-            ?.find((s: ISouSection) => s.id === sectionId)?.name ?? null;
+            ?.find((s: ISouSection) => s.id === sectionId)
+            ?.svgName ?? null;
     }
 
     private redirect(id: string): void {
