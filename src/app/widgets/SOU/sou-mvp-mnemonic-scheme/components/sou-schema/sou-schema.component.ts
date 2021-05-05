@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import file = CKEDITOR.ui.dialog.file;
 
 interface IElementFull {
     sectionData?: SouSectionData;
@@ -91,7 +92,7 @@ export class SouSchemaComponent implements OnChanges {
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
     @Input() unitName: string;
-    @Input() sectionName: string;
+    @Input() svgName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
@@ -119,48 +120,9 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     public get svgFileName(): string {
-        if (this.unitName) {
-            switch (this.unitName) {
-                case 'АССБ Авиасмеси':
-                    return 'ASSB-AviaSmesi';
-                case 'АССБ А-95':
-                    return 'ASSB-A-95';
-                case 'АССБ А-98':
-                    return 'ASSB-A-98';
-                case 'Насосная т.1163-1164 парк БГС':
-                    return 'Nasosnaya-park-BGS';
-                case 'Насосная т.1163-1164 парк А-95':
-                    return 'Nasosnaya-park-A-95';
-                case 'Насосная т.1163-1164 парк А-92':
-                    return 'Nasosnaya-park-A-92';
-                case 'ТСБ-1 Узел смешения нефти и КГС':
-                    return 'TSB-1-Usel';
-                case 'АВТ-10':
-                    return 'ABT-10-ELOU';
-                case 'ГФУ-2':
-                    return 'gfu-2';
-                case 'Коллектор Рефлюкса':
-                    return 'collector-ref';
-                case 'КПА С100':
-                    if (this.sectionName === 'КПА С100') {
-                        return 'kpa-c100';
-                    } else if (this.sectionName === 'Сырье с100') {
-                        return 'trx-tit-204';
-                    }
-                    break;
-                case 'Л-35/11-1000':
-                    return 'l-35-11-1000';
-                case 'Изомалк-2':
-                    if (this.sectionName === 'Топливо факел') {
-                        return 'izomalk-2-fuel';
-                    } else if (this.sectionName === 'Сырьевой парк') {
-                        return 'raw-materials-park-4022';
-                    }
-                    break;
-            }
-        }
-
-        return null;
+        return this.svgName
+            ? `${this.svgName}.svg`
+            : null;
     }
 
     private getSvgElement(): SVGElement {
@@ -179,7 +141,7 @@ export class SouSchemaComponent implements OnChanges {
         const wait = () => {
             const svg = this.getSvgElement();
             const svgFileName = this.svgFileName;
-            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
+            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName.replace('.svg', '')}`);
 
             if (foundKeyElem) {
                 processSvg();

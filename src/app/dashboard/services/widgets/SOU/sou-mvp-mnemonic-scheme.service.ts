@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ISouFlowIn, ISouFlowOut, ISouObjects } from '../../../models/SOU/sou-operational-accounting-system.model';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ISouMvpMnemonicSchemeView } from "../../../../widgets/SOU/sou-mvp-mnemonic-scheme/components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component";
 
 interface ISouConfig {
