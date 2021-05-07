@@ -1,3 +1,18 @@
+# [1.23.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.22.0...v1.23.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **#1587:** Исправлено отображение текстов КПА с100 ([f017204](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f017204ab0362782d2b8eeeece6bc0ff59e70e47)), closes [#1587](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1587)
+* **#1713:** Исправлено название файла мнемосхемы л-35-11-1000 ([bbbcfa4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bbbcfa4faa9e91be7a5c8f3b064c830e8a72e0d9)), closes [#1713](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1713)
+* **#1723:** Исправлено переключение основных показателей, при смене секции ([2eb72a3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/2eb72a3865d2cffbb395eda783e518ef07bc365b)), closes [#1723](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1723)
+
+
+### Features
+
+* **#1257:** КПЭ. Приведение к новому дизайну виджета по качеству ([d53f431](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d53f431d915c36a8cb4169d4e23321ecd8642ca1)), closes [#1257](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1257)
+* **#1713:** Мапинг мнемосхем по названию ([f5e5d37](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f5e5d37e68608f61c7c5e4648b9ae29bdb6203bd)), closes [#1713](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1713)
+
 # [1.22.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.21.0...v1.22.0) (2021-04-30)
 
 
