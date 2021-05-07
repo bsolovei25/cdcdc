@@ -1,3 +1,20 @@
+# [1.21.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.2...v1.21.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **conflicts:** cleaned up legacy pipelines; ([3bc098a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3bc098a6626482d3d5ce0a3e15c29d7e171bc0ef))
+* **env:** added env to release notes ([6716a7f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6716a7f50419e0d4862b10a73d1226ea91bc0b63))
+
+
+### Features
+
+* **#1160:** Доработка БП по рабочей области событий Ограничения ([ef963ff](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ef963ff2fce3643fae4e20eccaacd9995c398d98)), closes [#1160](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1160)
+* **front-release:** triggered from external build artifacts ([cea42ed](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cea42ed499bb4cf4f034f7503d1ce125aacc5ba4))
+* **front#1715:** "Перенос на новую структуру данных af виджета astue-onpz-conventional-fuel (astue-onpz-conventional-fuel-predictors)" ([101e671](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/101e67128a63a47114e2c24702935cc11f3776bd)), closes [front#1715](https://gitlab.funcoff.club/front/issues/1715)
+* **release-external:** add tst trigger job ([0e961b2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0e961b2767ed1c2f50c92210d65b12d6578d7a42))
+* **release-external:** add tst trigger job ([ba9dc8c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ba9dc8c824c158a032a338cad7469ff3eccc14d6))
+
 ## [1.20.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.20.1...v1.20.2) (2021-04-28)
 
 
