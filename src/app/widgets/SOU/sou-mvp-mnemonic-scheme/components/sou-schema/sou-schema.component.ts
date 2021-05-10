@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
-import file = CKEDITOR.ui.dialog.file;
 
 interface IElementFull {
     sectionData?: SouSectionData;
