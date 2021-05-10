@@ -7,11 +7,10 @@ import {
     Renderer2,
     ViewChild,
     SimpleChange,
-    SimpleChanges,
+    SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
-import file = CKEDITOR.ui.dialog.file;
 
 interface IElementFull {
     sectionData?: SouSectionData;
@@ -39,7 +38,7 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SouSchemaComponent implements OnChanges {
 
@@ -50,42 +49,42 @@ export class SouSchemaComponent implements OnChanges {
 
     private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
-    private typeTextParams: {[typeId: number]: ITypeTextParams} = {
+    private typeTextParams: { [typeId: number]: ITypeTextParams } = {
         1: {
             lineLength: 15,
             lineHeight: 14,
-            maxTextLength: 30,
+            maxTextLength: 30
         },
         2: {
             lineLength: 17,
             lineHeight: 14,
-            maxTextLength: 17 * 2,
+            maxTextLength: 17 * 2
         },
         3: {
             lineLength: 23,
-            lineHeight: 12,
+            lineHeight: 12
         },
         4: {
             lineLength: 13,
-            lineHeight: 20,
+            lineHeight: 20
         },
         11: {
-            maxTextLength: 10,
+            maxTextLength: 10
         },
         12: {
-            maxTextLength: 7,
+            maxTextLength: 7
         },
         13: {
             lineLength: 7,
-            lineHeight: 20,
+            lineHeight: 20
         },
         16: {
-            maxTextLength: 17,
+            maxTextLength: 17
         },
         17: {
             lineLength: 10,
-            maxTextLength: 30,
-        },
+            maxTextLength: 30
+        }
     };
     private debugElementCode: number;
 
@@ -96,7 +95,8 @@ export class SouSchemaComponent implements OnChanges {
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
@@ -255,7 +255,7 @@ export class SouSchemaComponent implements OnChanges {
 
     private getElementMode(sectionData: SouSectionData): TypeMode {
         const isMeasured = sectionData?.tolerance === 0; // Измеряемый
-        const {isExceedingConfInterval, isEnable} = sectionData;
+        const { isExceedingConfInterval, isEnable } = sectionData;
 
         if (isExceedingConfInterval && isEnable && isMeasured) {
             return 'deviation';
@@ -270,9 +270,9 @@ export class SouSchemaComponent implements OnChanges {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
         return typeof related === 'string'
             ? related
-                  .split(';')
-                  .map((value) => +value)
-                  .filter((value) => !isNaN(value))
+                .split(';')
+                .map((value) => +value)
+                .filter((value) => !isNaN(value))
             : related;
     }
 
@@ -286,7 +286,9 @@ export class SouSchemaComponent implements OnChanges {
         lines?.forEach((line: Element) => {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-            this.elementsMap.set(id, line);
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, line);
+            }
         });
 
         // Обработка элементов схемы
@@ -296,7 +298,7 @@ export class SouSchemaComponent implements OnChanges {
             this.elementsMap.set(id, element);
 
             if (this.debugElementCode && id === this.debugElementCode) {
-                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`, element);
             }
         });
 
@@ -306,7 +308,7 @@ export class SouSchemaComponent implements OnChanges {
     prepareElement(
         mode: TypeMode,
         element: Element,
-        sectionData?: SouSectionData,
+        sectionData?: SouSectionData
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
@@ -345,7 +347,7 @@ export class SouSchemaComponent implements OnChanges {
             textValue: null,
             textPercent: null,
             ellipse: null,
-            flag: true,
+            flag: true
         };
         const children = Array.from(element?.children);
 
@@ -360,7 +362,7 @@ export class SouSchemaComponent implements OnChanges {
     private addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: TypeMode,
+        mode: TypeMode
     ): void {
         this.addElemClass(element, ['element']);
 
@@ -475,7 +477,7 @@ export class SouSchemaComponent implements OnChanges {
                         textValue: null,
                         textPercent: null,
                         ellipse: null,
-                        flag: true,
+                        flag: true
                     };
                     // Search
                     elementsRelated?.forEach((elem: SVGElement) => {
@@ -560,7 +562,7 @@ export class SouSchemaComponent implements OnChanges {
 
             if (paramName && value) {
                 return {
-                    [paramName]: value,
+                    [paramName]: value
                 };
             }
         }
@@ -908,7 +910,7 @@ export class SouSchemaComponent implements OnChanges {
                 'standard-text',
                 'deviation-text',
                 'disabled-text',
-                'reset-text',
+                'reset-text'
             ]);
             this.addElemClass(element as Element, [`${mode}-text`]);
         } else {
@@ -917,7 +919,7 @@ export class SouSchemaComponent implements OnChanges {
                 'deviation',
                 'disabled',
                 'reset',
-                'active',
+                'active'
             ]);
             this.addElemClass(element as Element, [mode]);
         }
