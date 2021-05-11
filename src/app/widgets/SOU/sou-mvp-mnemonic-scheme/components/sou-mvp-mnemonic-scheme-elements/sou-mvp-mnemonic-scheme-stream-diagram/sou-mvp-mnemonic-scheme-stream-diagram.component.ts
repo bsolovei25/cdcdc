@@ -47,7 +47,11 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '22px').attr('height', '22px');
+        this.svg = d3
+            .select(this.chart?.nativeElement)
+            .append('svg')
+            .attr('width', '22px')
+            .attr('height', '22px');
 
         const arc = d3
             .arc()

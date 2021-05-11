@@ -7,7 +7,7 @@ import {
     Renderer2,
     ViewChild,
     SimpleChange,
-    SimpleChanges,
+    SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
@@ -38,7 +38,7 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SouSchemaComponent implements OnChanges {
 
@@ -47,51 +47,56 @@ export class SouSchemaComponent implements OnChanges {
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
-    private typeTextParams: {[typeId: number]: ITypeTextParams} = {
+    private typeTextParams: { [typeId: number]: ITypeTextParams } = {
         1: {
             lineLength: 15,
             lineHeight: 14,
-            maxTextLength: 30,
+            maxTextLength: 30
         },
         2: {
             lineLength: 17,
             lineHeight: 14,
-            maxTextLength: 17 * 2,
+            maxTextLength: 17 * 2
         },
         3: {
             lineLength: 23,
-            lineHeight: 12,
+            lineHeight: 12
         },
         4: {
             lineLength: 13,
-            lineHeight: 20,
+            lineHeight: 20
         },
         11: {
-            maxTextLength: 10,
+            maxTextLength: 10
         },
         12: {
-            maxTextLength: 7,
+            maxTextLength: 7
         },
         13: {
             lineLength: 7,
-            lineHeight: 20,
+            lineHeight: 20
         },
         16: {
-            maxTextLength: 17,
+            maxTextLength: 17
         },
+        17: {
+            lineLength: 10,
+            maxTextLength: 30
+        }
     };
     private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
     @Input() unitName: string;
-    @Input() sectionName: string;
+    @Input() svgName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
@@ -115,48 +120,9 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     public get svgFileName(): string {
-        if (this.unitName) {
-            switch (this.unitName) {
-                case 'АССБ Авиасмеси':
-                    return 'ASSB-AviaSmesi';
-                case 'АССБ А-95':
-                    return 'ASSB-A-95';
-                case 'АССБ А-98':
-                    return 'ASSB-A-98';
-                case 'Насосная т.1163-1164 парк БГС':
-                    return 'Nasosnaya-park-BGS';
-                case 'Насосная т.1163-1164 парк А-95':
-                    return 'Nasosnaya-park-A-95';
-                case 'Насосная т.1163-1164 парк А-92':
-                    return 'Nasosnaya-park-A-92';
-                case 'ТСБ-1 Узел смешения нефти и КГС':
-                    return 'TSB-1-Usel';
-                case 'АВТ-10':
-                    return 'ABT-10-ELOU';
-                case 'ГФУ-2':
-                    return 'gfu-2';
-                case 'Коллектор Рефлюкса':
-                    return 'collector-ref';
-                case 'КПА С100':
-                    if (this.sectionName === 'КПА С100') {
-                        return 'kpa-c100';
-                    } else if (this.sectionName === 'Сырье с100') {
-                        return 'trx-tit-204';
-                    }
-                    break;
-                case 'Л-35/11-1000':
-                    return 'l-35-11-1000';
-                case 'Изомалк-2':
-                    if (this.sectionName === 'Топливо факел') {
-                        return 'izomalk-2-fuel';
-                    } else if (this.sectionName === 'Сырьевой парк') {
-                        return 'raw-materials-park-4022';
-                    }
-                    break;
-            }
-        }
-
-        return null;
+        return this.svgName
+            ? `${this.svgName}.svg`
+            : null;
     }
 
     private getSvgElement(): SVGElement {
@@ -175,7 +141,7 @@ export class SouSchemaComponent implements OnChanges {
         const wait = () => {
             const svg = this.getSvgElement();
             const svgFileName = this.svgFileName;
-            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
+            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName.replace('.svg', '')}`);
 
             if (foundKeyElem) {
                 processSvg();
@@ -289,7 +255,7 @@ export class SouSchemaComponent implements OnChanges {
 
     private getElementMode(sectionData: SouSectionData): TypeMode {
         const isMeasured = sectionData?.tolerance === 0; // Измеряемый
-        const {isExceedingConfInterval, isEnable} = sectionData;
+        const { isExceedingConfInterval, isEnable } = sectionData;
 
         if (isExceedingConfInterval && isEnable && isMeasured) {
             return 'deviation';
@@ -304,9 +270,9 @@ export class SouSchemaComponent implements OnChanges {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
         return typeof related === 'string'
             ? related
-                  .split(';')
-                  .map((value) => +value)
-                  .filter((value) => !isNaN(value))
+                .split(';')
+                .map((value) => +value)
+                .filter((value) => !isNaN(value))
             : related;
     }
 
@@ -320,7 +286,9 @@ export class SouSchemaComponent implements OnChanges {
         lines?.forEach((line: Element) => {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-            this.elementsMap.set(id, line);
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, line);
+            }
         });
 
         // Обработка элементов схемы
@@ -330,7 +298,7 @@ export class SouSchemaComponent implements OnChanges {
             this.elementsMap.set(id, element);
 
             if (this.debugElementCode && id === this.debugElementCode) {
-                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`, element);
             }
         });
 
@@ -340,7 +308,7 @@ export class SouSchemaComponent implements OnChanges {
     prepareElement(
         mode: TypeMode,
         element: Element,
-        sectionData?: SouSectionData,
+        sectionData?: SouSectionData
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
@@ -379,7 +347,7 @@ export class SouSchemaComponent implements OnChanges {
             textValue: null,
             textPercent: null,
             ellipse: null,
-            flag: true,
+            flag: true
         };
         const children = Array.from(element?.children);
 
@@ -394,7 +362,7 @@ export class SouSchemaComponent implements OnChanges {
     private addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: TypeMode,
+        mode: TypeMode
     ): void {
         this.addElemClass(element, ['element']);
 
@@ -509,7 +477,7 @@ export class SouSchemaComponent implements OnChanges {
                         textValue: null,
                         textPercent: null,
                         ellipse: null,
-                        flag: true,
+                        flag: true
                     };
                     // Search
                     elementsRelated?.forEach((elem: SVGElement) => {
@@ -587,14 +555,14 @@ export class SouSchemaComponent implements OnChanges {
 
     // Распознает индивидуальные настройки текста из id элемента
     private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
-        const match = elementChildName.match(/text-params_(\w+)_(\d+)/i);
+        const match = elementChildName.match(/text-params_(\w+)=(\d+)/i);
         if (match && match[1] && match[2]) {
             const paramName = match[1];
             const value = parseInt(match[2], 10);
 
             if (paramName && value) {
                 return {
-                    [paramName]: value,
+                    [paramName]: value
                 };
             }
         }
@@ -744,8 +712,8 @@ export class SouSchemaComponent implements OnChanges {
     // Добавляет текст для текстовой ноды <text>
     private addTextToTextElem(textElem: SVGElement | Element, text: string): void {
         if (textElem?.children) {
-            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
+            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text, textParams);
             const children = Array.from(textElem?.children);
             let truncatedText = text;
             const lineLength = textParams?.lineLength;
@@ -786,8 +754,7 @@ export class SouSchemaComponent implements OnChanges {
 
     // Сделать текст <text> многострочным для элементов определенных типов
     // Если текст не помещается в одну стоку
-    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
-        const textParams = this.getTextElemLayoutParams(textElem);
+    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string, textParams: ITypeTextParams): void {
         const lineOffsetTopPx = textParams?.lineHeight || 20;
         const lineLength = textParams?.lineLength;
         const maxTextLength = textParams?.maxTextLength;
@@ -823,21 +790,22 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+        let textParams: ITypeTextParams = null;
 
         if (elementTypeId) {
-            const textParams = this.typeTextParams[elementTypeId];
+            textParams = this.typeTextParams[elementTypeId]
+                ? Object.assign({}, this.typeTextParams[elementTypeId])
+                : null;
             const elementId = this.getElementId(textElem?.parentElement);
             const elementFull = this.elementsFullMap.get(elementId);
             const individualTextParams = elementFull?.textParams;
 
             if (individualTextParams) {
-                return Object.assign(textParams, individualTextParams);
+                textParams = Object.assign(textParams, individualTextParams);
             }
-
-            return textParams;
         }
 
-        return null;
+        return textParams;
     }
 
     // Возвращает ID элемента
@@ -942,7 +910,7 @@ export class SouSchemaComponent implements OnChanges {
                 'standard-text',
                 'deviation-text',
                 'disabled-text',
-                'reset-text',
+                'reset-text'
             ]);
             this.addElemClass(element as Element, [`${mode}-text`]);
         } else {
@@ -951,7 +919,7 @@ export class SouSchemaComponent implements OnChanges {
                 'deviation',
                 'disabled',
                 'reset',
-                'active',
+                'active'
             ]);
             this.addElemClass(element as Element, [mode]);
         }

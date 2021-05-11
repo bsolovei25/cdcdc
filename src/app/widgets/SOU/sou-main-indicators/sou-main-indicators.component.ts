@@ -1,16 +1,14 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
-import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
-import { ISouMainIndicators } from '../../../dashboard/models/SOU/sou-main-indicators.model';
-import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic.model';
+import { ISouMainIndicators } from '@dashboard/models/SOU/sou-main-indicators.model';
 import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SouDetailTableComponent } from '../sou-operational-accounting-system/components/sou-detail-table/sou-detail-table.component';
-import { ISouIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
-import { table } from './mock';
+import { ISouIdent } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -21,9 +19,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(null);
 
     private set data(value: ISouMainIndicators) {
-        if (!!value) {
-            this.data$.next(value);
-        }
+        this.data$.next(value);
     }
 
     menu: string[] = ['Месяц', 'Вклад'];
@@ -58,7 +54,11 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             this.svg.remove();
         }
 
-        this.svg = d3.select(this.chart.nativeElement).append('svg').attr('width', '100px').attr('height', '100px');
+        this.svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
+            .attr('width', '100px')
+            .attr('height', '100px');
 
         const arcBg = d3
             .arc()
@@ -111,17 +111,19 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.mnemonicSchemeService.selectedOptions$.asObservable().subscribe((ref) => {
-                this.data = null;
-                if (!ref?.manufacture || !ref?.unit) {
-                    return;
-                }
-                this.setWsOptions(ref);
-            })
+            this.mnemonicSchemeService.selectedOptions$
+                .asObservable()
+                .subscribe((ref) => {
+                    this.data = null;
+                    if (!ref?.manufacture || !ref?.unit) {
+                        return;
+                    }
+                    this.setWsOptions(ref);
+                })
         );
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: ISouMainIndicators): void {
         this.data = ref;
         if (ref?.losses?.identifiedList.length) {
             this.identifiedList = ref.losses.identifiedList;
@@ -138,7 +140,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             data: [...this.identifiedList] as ISouIdent[],
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(() => {
             this.active = 0;
         });
     }
