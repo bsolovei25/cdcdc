@@ -1,5 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {IKpeGaugeChartPage} from "@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
+import {
+    IKpeGaugeChartPage,
+} from "@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
 interface IKpeUniversalCardConfig {
     gaugeWidth: number;
