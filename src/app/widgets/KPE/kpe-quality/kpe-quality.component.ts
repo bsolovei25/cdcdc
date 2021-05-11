@@ -6,7 +6,10 @@ import { IProductionTrend } from '../../../dashboard/models/LCO/production-trend
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';
-import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
+import {
+    IKpeGaugeChartData,
+    IKpeLineChartData
+} from "../shared/kpe-charts.model";
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
 import {IKpeUniversalCardLineChart} from "@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component";
 
