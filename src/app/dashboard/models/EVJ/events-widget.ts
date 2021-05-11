@@ -330,6 +330,7 @@ export interface ISubcategory {
     code?: string;
     description?: string;
     isCanBeManuallySelected?: boolean;
+    isVisibleToFilter?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
 }
