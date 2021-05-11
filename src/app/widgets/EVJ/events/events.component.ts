@@ -338,6 +338,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         const isCheckCategories: boolean =
             this.categories.some((x) => x.isActive && x.id === ref.notification.category.id) ||
             !this.categories.filter((x) => x.isActive).length;
+        this.getStats();
         let filtersIds: number[] = [];
         switch (this.filters.find((x) => x.isActive).code) {
             case 'all':

@@ -11,7 +11,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: auto;
 
   button {
     width: 100%;
@@ -74,6 +73,7 @@
 
   &__third {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -101,13 +101,30 @@
         align-items: center;
       }
 
+      .table {
+        width: 100%;
+        height: 185px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__group {
+          width: 100%;
+          height: 65px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
       .responsible {
         width: 100%;
         height: 100px;
         min-width: 200px;
         min-height: 100px;
-        margin-top: 3px;
-        margin-bottom: 23px;
+        margin-bottom: 14px;
+        margin-top: 6px;
       }
 
       .events-correct {
@@ -125,38 +142,27 @@
         align-items: center;
       }
 
-      .usual-text {
-        height: 64px;
-        width: 100%;
-        margin-bottom: 24px;
-      }
-      .vent-description {
-        height: 111px;
-        width: 100%;
-        margin-bottom: 24px;
-      }
-      .half-description {
-        height: 64px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 24px;
-        &__left {
-          margin-right: 5px;
-          height: 100%;
-          width: 100%;
-        }
-        &__right {
-          margin-left: 5px;
-          height: 100%;
-          width: 100%;
-        }
-      }
       .description {
-        height: 150px;
+        margin-top: 3px;
+        height: 160px;
         width: 100%;
         margin-bottom: 24px;
+        .extra-options {
+          width: 100%;
+          height: 18px;
+          padding-bottom: 2px;
+          display: flex;
+          justify-content: space-between;
+          &__name {
+            width: 100%;
+            padding-left: 30px;
+            font-size: 13px;
+            line-height: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
       }
 
       .facts {
@@ -179,32 +185,26 @@
   border: 1px solid rgba(92, 101, 133, 0.25);
   border-radius: 1px;
 }
-
-.standard {
-  display: flex;
-  align-items: center;
+.block {
   width: 100%;
   height: 100%;
-  color: var(--header-events-color-font-main);
-  border: 1px solid var(--color-astue-mat-select-border);
-  background-color: var(--header-events-color-bg-main);
-
-  ::ng-deep {
-    .mat-select-arrow {
-      background-color: var(--header-events-color-font-main) !important;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  &__position {
+    color: var(--header-events-color-font-standard);
   }
 }
 
 .standard {
   display: flex;
   align-items: center;
-  height: 100%;
   width: 100%;
+  height: 100%;
   position: absolute;
   top: -1px;
   left: -1px;
-  border-radius: 2px;
   color: var(--header-events-color-font-main);
   border: 1px solid var(--color-astue-mat-select-border);
   background-color: var(--header-events-color-bg-main);
@@ -224,7 +224,6 @@
   position: absolute;
   top: -1px;
   left: -1px;
-  border-radius: 2px;
   color: var(--evj-events-workspace-minor);
   border: 1px solid var(--evj-events-workspace-minor);
   background-color: var(--evj-events-workspace-minor-bg);
@@ -244,7 +243,6 @@
   position: absolute;
   top: -1px;
   left: -1px;
-  border-radius: 2px;
   color: var(--evj-events-workspace-critical);
   border: 1px solid var(--evj-events-workspace-critical);
   background-color: var(--evj-events-workspace-critical-bg);
@@ -255,14 +253,23 @@
     }
   }
 }
+
 .mat-form-category {
+  color: var(--header-events-color-font-main);
+  border: 1px solid var(--color-astue-mat-select-border);
+  background-color: var(--header-events-color-bg-main);
   border-radius: 2px;
+
+  ::ng-deep {
+    .mat-select-arrow {
+      background-color: var(--header-events-color-font-main) !important;
+    }
+  }
 }
 
 .event-mat-select {
   display: flex;
   align-items: center;
-  border: 1px solid var(--color-astue-mat-select-border);
   border-radius: 2px;
   height: 36px;
   min-width: 50px;
@@ -273,7 +280,6 @@
   }
 
   mat-label {
-    line-height: 16px;
     font-size: 17px !important;
     color: var(--color-text-sub);
   }
@@ -341,7 +347,6 @@
     margin-bottom: 5px;
     background-color: var(--color-border-unactive);
   }
-
   ::-webkit-scrollbar-track-piece {
     border: 1px solid #8c99b2;
     border-radius: 40px;
@@ -369,4 +374,15 @@
   margin-bottom: 2px;
   font-size: 13px;
   line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.value {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 2px;
 }
