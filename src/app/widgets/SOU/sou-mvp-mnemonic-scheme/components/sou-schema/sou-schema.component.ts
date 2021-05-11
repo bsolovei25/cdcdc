@@ -45,6 +45,9 @@ export class SouSchemaComponent implements OnChanges {
     elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
+    /*
+    * @deprecated похоже что это поле не нужно. Можно использовать sectionsData напрямую.
+    * */
     dataPark: SouSectionData[] = []; // Данные с бэка
 
     private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
@@ -100,6 +103,7 @@ export class SouSchemaComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
+        const sectionsDataChanges: SimpleChange = changes?.sectionsData;
 
         if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
             // Если не было выбрано установки или пришла установка но она не равна старой локальной
@@ -107,14 +111,7 @@ export class SouSchemaComponent implements OnChanges {
             this.resetComponent();
         }
 
-        if (this.dataPark?.length) {
-            // Если есть старые данные с бэка
-            // 1. Изменяем и дополняем
-            this.dataPark.push(...this.setNewDataToSchema());
-            // 2. Отрисовываем
-            this.updateSvgBySectionData(true);
-        } else if (this.elementsMap?.size) {
-            // Если данных с бэка небыло, то заполняем
+        if (sectionsDataChanges.previousValue !== sectionsDataChanges.currentValue) {
             this.processSectionsData();
         }
     }
@@ -192,9 +189,9 @@ export class SouSchemaComponent implements OnChanges {
         const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
         let countRepeat: number = 0;
         const arrayRepeat: number[] = [];
-        this.dataPark.forEach((value) => {
+        this.dataPark?.forEach((value) => {
             let idx = 0;
-            this.dataPark.forEach((value2) => {
+            this.dataPark?.forEach((value2) => {
                 if (value.code === value2.code) {
                     idx++;
                 }
@@ -214,7 +211,7 @@ export class SouSchemaComponent implements OnChanges {
     // Тут можно замокать данные
     private processSectionsData(): void {
         if (this.debugElementCode) {
-            this.dataPark = this.sectionsData.map((item: SouSectionData) => {
+            this.dataPark = this.sectionsData?.map((item: SouSectionData) => {
                 if (item?.code === this.debugElementCode) {
                     console.log(`Отладка элемента: ${item.code}. Данные с бэка:`, item);
                 }
@@ -232,7 +229,7 @@ export class SouSchemaComponent implements OnChanges {
         // tests
         this.testsToLogPanel();
         //
-        this.dataPark?.forEach((data) => {
+        this.sectionsData?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
             this.updateElementBySectionData(data, reload);
         });
