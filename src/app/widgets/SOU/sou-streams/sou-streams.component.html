@@ -130,8 +130,10 @@
           <td class="table__header__last-cells">Масса по источнику</td>
           <td class="table__header__last-cells">Масса по приёмнику</td>
           <td class="table__header__last-cells">Отклонение</td>
+
           <td class="graphic"
-            rowspan="2">
+              rowspan="2"
+              [ngStyle]="{ 'width.px': widthOfGraphic - 9 }">
             <svg-icon
               src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
               [ngStyle]="{ 'height.px':14 }"
@@ -179,7 +181,8 @@
       <cdk-virtual-scroll-viewport
         itemSize="20"
         class="table-viewport"
-        [ngStyle]="{ 'height': heightOfViewPort }">
+        [ngStyle]="{ 'height': heightOfViewPort,
+                      'width': widthOfTable }">
         <tbody>
           <tr *cdkVirtualFor="let row of tableRows; let i = index"
               class="table__row"
@@ -248,7 +251,8 @@
               </div>
             </td>
 
-            <td class="graphic">
+            <td class="graphic"
+                [ngStyle]="{ 'width.px': widthOfGraphic }">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
                 [ngStyle]="{ 'height.px':14 }"

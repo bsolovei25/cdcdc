@@ -191,7 +191,13 @@
     }
 
     .graphic {
-      padding: 0 24px 0 17px;
+
+      svg-icon {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 14px;
+      }
     }
 
     &__summ {
@@ -287,11 +293,11 @@
     }
 
     &__cell-default {
+      word-wrap: break-word;
       padding-left: 16px;
     }
 
     .graphic {
-      width: 70px;
 
       svg-icon {
         display: block;
