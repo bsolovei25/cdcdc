@@ -42,7 +42,6 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 })
 export class SouSchemaComponent implements OnChanges {
 
-    elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
     /*
@@ -103,15 +102,18 @@ export class SouSchemaComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
+        const svgNameChanges: SimpleChange = changes?.svgName;
+        const unitNameChanged = (unitNameChanges?.currentValue !== unitNameChanges?.previousValue);
+        const svgNameChanged = (svgNameChanges?.currentValue !== svgNameChanges?.previousValue);
         const sectionsDataChanges: SimpleChange = changes?.sectionsData;
 
-        if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
-            // Если не было выбрано установки или пришла установка но она не равна старой локальной
-            this.processSvgWhenItIsReady();
+        if (!this.unitName || unitNameChanged || svgNameChanged) {
+            // Если не было выбрано установки или она изменилась. Или изменилось svgName
             this.resetComponent();
+            this.processSvgWhenItIsReady();
         }
 
-        if (sectionsDataChanges.previousValue !== sectionsDataChanges.currentValue) {
+        if (sectionsDataChanges && sectionsDataChanges.previousValue !== sectionsDataChanges.currentValue) {
             this.processSectionsData();
         }
     }
@@ -127,7 +129,7 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
-    private processSvgWhenItIsReady(): void {
+    public processSvgWhenItIsReady(): void {
         const processSvg = () => {
             this.parseSvg();
             if (this.sectionsData?.length) {
@@ -178,8 +180,7 @@ export class SouSchemaComponent implements OnChanges {
         return newArray;
     }
 
-    resetComponent(): void {
-        this.elementsNode = [];
+    public resetComponent(): void {
         this.elementsMap.clear();
         this.elementsFullMap.clear();
     }
@@ -279,15 +280,6 @@ export class SouSchemaComponent implements OnChanges {
         const elements = svg.querySelectorAll('[id^=element-]');
         const lines = svg?.querySelectorAll(`[id^=line_]`);
 
-        // Обработка линий
-        lines?.forEach((line: Element) => {
-            const elMatch = line?.id?.match(/line_(\d+)/i);
-            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-            if (!this.elementsMap.get(id)) {
-                this.elementsMap.set(id, line);
-            }
-        });
-
         // Обработка элементов схемы
         elements?.forEach((element: Element) => {
             const id = this.getElementId(element);
@@ -296,6 +288,16 @@ export class SouSchemaComponent implements OnChanges {
 
             if (this.debugElementCode && id === this.debugElementCode) {
                 console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`, element);
+            }
+        });
+
+        // Обработка линий
+        lines?.forEach((line: Element) => {
+            const elMatch = line?.id?.match(/line_(\d+)/i);
+            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, line);
             }
         });
 
