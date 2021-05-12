@@ -48,6 +48,10 @@
 </g>
 </g>
 <g id="element-1_4">
+<g id="text-params_lineLength=16">
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 18 355)" fill="#272A38"/>
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 18 355)" stroke="#606580"/>
+</g>
 <g id="rect_2">
 <rect x="16" y="350" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="16" y="350" width="168" height="32" rx="2" stroke="#606580"/>

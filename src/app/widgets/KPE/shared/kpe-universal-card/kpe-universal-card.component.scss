@@ -4,6 +4,8 @@
 
 :host {
   flex: 1;
+  min-width: 100px;
+  max-width: calc(50% - 6px);
 }
 
 .container{

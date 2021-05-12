@@ -7,7 +7,7 @@ import {
     Renderer2,
     ViewChild,
     SimpleChange,
-    SimpleChanges,
+    SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
@@ -23,6 +23,7 @@ interface IElementFull {
     textPercent: Element;
     ellipse: Element;
     flag: boolean;
+    textParams?: ITypeTextParams;
 }
 
 interface ITypeTextParams {
@@ -37,125 +38,91 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SouSchemaComponent implements OnChanges {
 
-    elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
+    /*
+    * @deprecated похоже что это поле не нужно. Можно использовать sectionsData напрямую.
+    * */
     dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
-    private typeTextParams: {[typeId: number]: ITypeTextParams} = {
+    private typeTextParams: { [typeId: number]: ITypeTextParams } = {
         1: {
             lineLength: 15,
             lineHeight: 14,
-            maxTextLength: 30,
+            maxTextLength: 30
         },
         2: {
             lineLength: 17,
             lineHeight: 14,
-            maxTextLength: 17 * 2,
+            maxTextLength: 17 * 2
         },
         3: {
             lineLength: 23,
-            lineHeight: 12,
+            lineHeight: 12
         },
         4: {
             lineLength: 13,
-            lineHeight: 20,
+            lineHeight: 20
         },
         11: {
-            maxTextLength: 10,
+            maxTextLength: 10
         },
         12: {
-            maxTextLength: 7,
+            maxTextLength: 7
         },
         13: {
             lineLength: 7,
-            lineHeight: 20,
+            lineHeight: 20
         },
         16: {
-            maxTextLength: 17,
+            maxTextLength: 17
         },
+        17: {
+            lineLength: 10,
+            maxTextLength: 30
+        }
     };
     private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
     @Input() unitName: string;
-    @Input() sectionName: string;
+    @Input() svgName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
+        const svgNameChanges: SimpleChange = changes?.svgName;
+        const unitNameChanged = (unitNameChanges?.currentValue !== unitNameChanges?.previousValue);
+        const svgNameChanged = (svgNameChanges?.currentValue !== svgNameChanges?.previousValue);
+        const sectionsDataChanges: SimpleChange = changes?.sectionsData;
+        const chosenSettingChanges: SimpleChange = changes?.chosenSetting;
 
-        if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
-            // Если не было выбрано установки или пришла установка но она не равна старой локальной
-            this.processSvgWhenItIsReady();
+        if (!this.unitName || unitNameChanged || svgNameChanged) {
+            // Если не было выбрано установки или она изменилась. Или изменилось svgName
             this.resetComponent();
+            this.processSvgWhenItIsReady();
         }
 
-        if (this.dataPark?.length) {
-            // Если есть старые данные с бэка
-            // 1. Изменяем и дополняем
-            this.dataPark.push(...this.setNewDataToSchema());
-            // 2. Отрисовываем
-            this.updateSvgBySectionData(true);
-        } else if (this.elementsMap?.size) {
-            // Если данных с бэка небыло, то заполняем
+        if (sectionsDataChanges || chosenSettingChanges) {
             this.processSectionsData();
         }
     }
 
     public get svgFileName(): string {
-        if (this.unitName) {
-            switch (this.unitName) {
-                case 'АССБ Авиасмеси':
-                    return 'ASSB-AviaSmesi';
-                case 'АССБ А-95':
-                    return 'ASSB-A-95';
-                case 'АССБ А-98':
-                    return 'ASSB-A-98';
-                case 'Насосная т.1163-1164 парк БГС':
-                    return 'Nasosnaya-park-BGS';
-                case 'Насосная т.1163-1164 парк А-95':
-                    return 'Nasosnaya-park-A-95';
-                case 'Насосная т.1163-1164 парк А-92':
-                    return 'Nasosnaya-park-A-92';
-                case 'ТСБ-1 Узел смешения нефти и КГС':
-                    return 'TSB-1-Usel';
-                case 'АВТ-10':
-                    return 'ABT-10-ELOU';
-                case 'ГФУ-2':
-                    return 'gfu-2';
-                case 'Коллектор Рефлюкса':
-                    return 'collector-ref';
-                case 'КПА С100':
-                    if (this.sectionName === 'КПА С100') {
-                        return 'kpa-c100';
-                    } else if (this.sectionName === 'Сырье с100') {
-                        return 'trx-tit-204';
-                    }
-                    break;
-                case 'Л-35/11-1000':
-                    return 'l-35-11-1000';
-                case 'Изомалк-2':
-                    if (this.sectionName === 'Топливо факел') {
-                        return 'izomalk-2-fuel';
-                    } else if (this.sectionName === 'Сырьевой парк') {
-                        return 'raw-materials-park-4022';
-                    }
-                    break;
-            }
-        }
-
-        return null;
+        return this.svgName
+            ? `${this.svgName}.svg`
+            : null;
     }
 
     private getSvgElement(): SVGElement {
@@ -163,7 +130,7 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
-    private processSvgWhenItIsReady(): void {
+    public processSvgWhenItIsReady(): void {
         const processSvg = () => {
             this.parseSvg();
             if (this.sectionsData?.length) {
@@ -174,7 +141,7 @@ export class SouSchemaComponent implements OnChanges {
         const wait = () => {
             const svg = this.getSvgElement();
             const svgFileName = this.svgFileName;
-            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
+            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName.replace('.svg', '')}`);
 
             if (foundKeyElem) {
                 processSvg();
@@ -214,8 +181,7 @@ export class SouSchemaComponent implements OnChanges {
         return newArray;
     }
 
-    resetComponent(): void {
-        this.elementsNode = [];
+    public resetComponent(): void {
         this.elementsMap.clear();
         this.elementsFullMap.clear();
     }
@@ -225,9 +191,9 @@ export class SouSchemaComponent implements OnChanges {
         const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
         let countRepeat: number = 0;
         const arrayRepeat: number[] = [];
-        this.dataPark.forEach((value) => {
+        this.dataPark?.forEach((value) => {
             let idx = 0;
-            this.dataPark.forEach((value2) => {
+            this.dataPark?.forEach((value2) => {
                 if (value.code === value2.code) {
                     idx++;
                 }
@@ -247,7 +213,7 @@ export class SouSchemaComponent implements OnChanges {
     // Тут можно замокать данные
     private processSectionsData(): void {
         if (this.debugElementCode) {
-            this.dataPark = this.sectionsData.map((item: SouSectionData) => {
+            this.dataPark = this.sectionsData?.map((item: SouSectionData) => {
                 if (item?.code === this.debugElementCode) {
                     console.log(`Отладка элемента: ${item.code}. Данные с бэка:`, item);
                 }
@@ -265,7 +231,7 @@ export class SouSchemaComponent implements OnChanges {
         // tests
         this.testsToLogPanel();
         //
-        this.dataPark?.forEach((data) => {
+        this.sectionsData?.forEach((data) => {
             data.related = this.relatedArray(data?.related);
             this.updateElementBySectionData(data, reload);
         });
@@ -286,19 +252,26 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
-    private getElementMode(data: SouSectionData): TypeMode {
-        const {isExceedingConfInterval, isEnable} = data;
-        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
-        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    private getElementMode(sectionData: SouSectionData): TypeMode {
+        const isMeasured = sectionData?.tolerance === 0; // Измеряемый
+        const { isExceedingConfInterval, isEnable } = sectionData;
+
+        if (isExceedingConfInterval && isEnable && isMeasured) {
+            return 'deviation';
+        } else if (!isEnable) {
+            return 'disabled';
+        }
+
+        return 'standard';
     }
 
     relatedArray(related: number[] | string): number[] {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
         return typeof related === 'string'
             ? related
-                  .split(';')
-                  .map((value) => +value)
-                  .filter((value) => !isNaN(value))
+                .split(';')
+                .map((value) => +value)
+                .filter((value) => !isNaN(value))
             : related;
     }
 
@@ -308,13 +281,6 @@ export class SouSchemaComponent implements OnChanges {
         const elements = svg.querySelectorAll('[id^=element-]');
         const lines = svg?.querySelectorAll(`[id^=line_]`);
 
-        // Обработка линий
-        lines?.forEach((line: Element) => {
-            const elMatch = line?.id?.match(/line_(\d+)/i);
-            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-            this.elementsMap.set(id, line);
-        });
-
         // Обработка элементов схемы
         elements?.forEach((element: Element) => {
             const id = this.getElementId(element);
@@ -322,7 +288,17 @@ export class SouSchemaComponent implements OnChanges {
             this.elementsMap.set(id, element);
 
             if (this.debugElementCode && id === this.debugElementCode) {
-                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`, element);
+            }
+        });
+
+        // Обработка линий
+        lines?.forEach((line: Element) => {
+            const elMatch = line?.id?.match(/line_(\d+)/i);
+            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, line);
             }
         });
 
@@ -332,10 +308,15 @@ export class SouSchemaComponent implements OnChanges {
     prepareElement(
         mode: TypeMode,
         element: Element,
-        sectionData?: SouSectionData,
+        sectionData?: SouSectionData
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
+
+            if (this.debugElementCode && this.getElementId(element) === this.debugElementCode) {
+                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
+            }
+
             const elementId = this.getElementId(element);
 
             if (elementFull) {
@@ -366,7 +347,7 @@ export class SouSchemaComponent implements OnChanges {
             textValue: null,
             textPercent: null,
             ellipse: null,
-            flag: true,
+            flag: true
         };
         const children = Array.from(element?.children);
 
@@ -381,7 +362,7 @@ export class SouSchemaComponent implements OnChanges {
     private addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: TypeMode,
+        mode: TypeMode
     ): void {
         this.addElemClass(element, ['element']);
 
@@ -496,7 +477,7 @@ export class SouSchemaComponent implements OnChanges {
                         textValue: null,
                         textPercent: null,
                         ellipse: null,
-                        flag: true,
+                        flag: true
                     };
                     // Search
                     elementsRelated?.forEach((elem: SVGElement) => {
@@ -549,6 +530,11 @@ export class SouSchemaComponent implements OnChanges {
             }
         } else if (name?.includes('point')) {
             elementFull?.points.push(element);
+        } else if (name?.includes('text-params_')) {
+            const textParams = this.parseTextParamsFromElementName(name);
+            if (textParams) {
+                elementFull.textParams = textParams;
+            }
         } else if (name?.includes('text')) {
             if (name.includes('text_value')) {
                 elementFull.textValue = element;
@@ -565,6 +551,23 @@ export class SouSchemaComponent implements OnChanges {
             elementFull.ellipse = element;
         }
         return elementFull;
+    }
+
+    // Распознает индивидуальные настройки текста из id элемента
+    private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
+        const match = elementChildName.match(/text-params_(\w+)=(\d+)/i);
+        if (match && match[1] && match[2]) {
+            const paramName = match[1];
+            const value = parseInt(match[2], 10);
+
+            if (paramName && value) {
+                return {
+                    [paramName]: value
+                };
+            }
+        }
+
+        return null;
     }
 
     // Добавляет отслеживание клика на элементе
@@ -709,8 +712,8 @@ export class SouSchemaComponent implements OnChanges {
     // Добавляет текст для текстовой ноды <text>
     private addTextToTextElem(textElem: SVGElement | Element, text: string): void {
         if (textElem?.children) {
-            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
+            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text, textParams);
             const children = Array.from(textElem?.children);
             let truncatedText = text;
             const lineLength = textParams?.lineLength;
@@ -751,8 +754,7 @@ export class SouSchemaComponent implements OnChanges {
 
     // Сделать текст <text> многострочным для элементов определенных типов
     // Если текст не помещается в одну стоку
-    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
-        const textParams = this.getTextElemLayoutParams(textElem);
+    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string, textParams: ITypeTextParams): void {
         const lineOffsetTopPx = textParams?.lineHeight || 20;
         const lineLength = textParams?.lineLength;
         const maxTextLength = textParams?.maxTextLength;
@@ -788,10 +790,22 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+        let textParams: ITypeTextParams = null;
+
         if (elementTypeId) {
-            return this.typeTextParams[elementTypeId];
+            textParams = this.typeTextParams[elementTypeId]
+                ? Object.assign({}, this.typeTextParams[elementTypeId])
+                : null;
+            const elementId = this.getElementId(textElem?.parentElement);
+            const elementFull = this.elementsFullMap.get(elementId);
+            const individualTextParams = elementFull?.textParams;
+
+            if (individualTextParams) {
+                textParams = Object.assign(textParams, individualTextParams);
+            }
         }
-        return null;
+
+        return textParams;
     }
 
     // Возвращает ID элемента
@@ -896,7 +910,7 @@ export class SouSchemaComponent implements OnChanges {
                 'standard-text',
                 'deviation-text',
                 'disabled-text',
-                'reset-text',
+                'reset-text'
             ]);
             this.addElemClass(element as Element, [`${mode}-text`]);
         } else {
@@ -905,7 +919,7 @@ export class SouSchemaComponent implements OnChanges {
                 'deviation',
                 'disabled',
                 'reset',
-                'active',
+                'active'
             ]);
             this.addElemClass(element as Element, [mode]);
         }

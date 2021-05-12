@@ -1,0 +1,23 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Редактирова</div>
+    </div>
+    <div cdkDropList class="selection__body">
+        <mat-radio-group [(ngModel)]="data.periodType">
+            <ng-container *ngFor="let item of typeDate">
+                <div class="item">
+                    <mat-radio-button value="{{item.type}}" (change)="change($event)">{{item.name}}</mat-radio-button>
+                </div>
+            </ng-container>
+        </mat-radio-group>
+        <div class="date">
+            <evj-admin-rsc-datetimepicker [label]="'Начало'"></evj-admin-rsc-datetimepicker>
+            <evj-admin-rsc-datetimepicker [label]="'Конец'"></evj-admin-rsc-datetimepicker>
+        </div>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

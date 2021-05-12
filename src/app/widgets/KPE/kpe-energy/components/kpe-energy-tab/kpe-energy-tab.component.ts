@@ -9,6 +9,7 @@ export interface IKpeEnergyTab {
     plan: number;
     deviation?: number;
     percentage?: number;
+    percentageInfluence?: number;
     deviationPercentage?: number;
 }
 

@@ -223,7 +223,7 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .text('Фактическое')
                 .attr('text-anchor', 'start')
                 .attr('x', 70)
-                .attr('y', 45)
+                .attr('y', 15)
                 .style('font-size', '12px')
                 .style('fill', this.chartStroke.fact);
             legendG
@@ -231,7 +231,7 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .text('Плановое')
                 .attr('text-anchor', 'end')
                 .attr('x', this.graphMaxX - this.padding.left)
-                .attr('y', 45)
+                .attr('y', 15)
                 .style('font-size', '12px')
                 .style('fill', this.chartStroke.plan);
         }
