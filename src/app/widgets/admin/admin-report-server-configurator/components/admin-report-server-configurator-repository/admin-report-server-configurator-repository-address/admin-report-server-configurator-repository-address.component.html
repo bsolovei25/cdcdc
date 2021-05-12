@@ -1,3 +1,13 @@
-<div class="address">
-    Хранилище
+<div class="path">
+    <div class="address" (click)="mainPage()">
+        Хранилище
+    </div>
+    <ng-container *ngFor="let item of path">
+        <svg-icon
+        src="{{arrowsIcon}}"
+        ></svg-icon>
+        <div class="address" (click)="openFolder(item)">
+            {{item?.name}}
+        </div>
+    </ng-container>
 </div>
