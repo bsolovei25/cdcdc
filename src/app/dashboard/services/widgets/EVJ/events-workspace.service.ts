@@ -406,6 +406,10 @@ export class EventsWorkspaceService {
         this.event.deadline = new Date(date);
     }
 
+    public setStartToEvent(date: Date): void {
+        this.event.eventDateTime = new Date(date);
+    }
+
     public getUserAvatarUrl(user: IUser): string {
         return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
     }

@@ -50,16 +50,18 @@
           <ng-container [ngSwitch]="ewService?.event?.productionTasks?.subCategory?.id">
             <evj-shift-pass *ngSwitchCase="1010"></evj-shift-pass>
             <evj-smpo-event *ngSwitchCase="1060"></evj-smpo-event>
-            <evj-tasks-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-tasks-event>
+
+            <ng-container *ngIf="environmentName === 'MNPZ'">
+              <evj-evj-tasks-event-no-checkbox *ngSwitchDefault [noOverflow]="displayContainer"></evj-evj-tasks-event-no-checkbox>
+            </ng-container>
+            <ng-container *ngIf="environmentName !== 'MNPZ'">
+              <evj-tasks-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-tasks-event>
+            </ng-container>
+
           </ng-container>
-
-
         </ng-template>
 
-        <ng-template #tasks>
-
-        </ng-template>
-
+        <ng-template #tasks> </ng-template>
       </ng-container>
 
       <evj-asus-event *ngSwitchCase="5" [noOverflow]="displayContainer"></evj-asus-event>

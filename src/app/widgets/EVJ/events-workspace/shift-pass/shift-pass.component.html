@@ -18,14 +18,20 @@
         </mat-form-field>
       </evj-ui-block>
     </div>
-    <evj-ui-block status="{{ewService.event.priority.name}}" class="selects__item">
-      <mat-form-field class="{{ewService.event.priority.name}}">
-        <mat-label>Приоритет</mat-label>
-        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
-          <mat-option *ngFor="let p of ewService.priority" [value]="p">{{ ewService.priorities[p.name] }} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </evj-ui-block>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <mat-form-field class="status">
+          <mat-label>Статус</mat-label>
+          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.status" [compareWith]="compareFn">
+            <mat-option
+              *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent"
+              [value]="p"
+            >{{ ewService.statuses[p.name] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
     <div class="selects__item">
       <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
         <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
@@ -39,20 +45,6 @@
     </div>
   </div>
   <div class="workspace__selects-two selects--four">
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <mat-form-field class="status">
-          <mat-label>Статус</mat-label>
-          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.status" [compareWith]="compareFn">
-            <mat-option
-              *ngFor="let p of ewService.status| formatStatus:ewService.event.status:ewService.isCreateNewEvent"
-              [value]="p"
-              >{{ ewService.statuses[p.name] }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </evj-ui-block>
-    </div>
     <div class="selects__item">
       <evj-ui-block status="normal">
         <mat-form-field class="status" panelClass="status-select">
@@ -78,6 +70,17 @@
     <div class="creator" *ngIf="!ewService.isEditEvent">
       <div class="creator_title">Место</div>
       <div class="creator_body">{{ ewService.event.unit.name }}</div>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="deadline">
+          <div class="deadline__title">Начало события</div>
+          <evj-time-data-picker
+            [data]="ewService.event.eventDateTime"
+            (dateTimePicker)="dateTimePickerStart($event)"
+          ></evj-time-data-picker>
+        </div>
+      </evj-ui-block>
     </div>
     <div class="selects__item">
       <evj-ui-block status="normal">
