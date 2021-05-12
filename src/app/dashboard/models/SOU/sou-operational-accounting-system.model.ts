@@ -133,6 +133,7 @@ export interface ISouIdent {
     percentage: number;
     isHighlighted?: boolean;
     className?: string;
+    order?: number;
 }
 
 export interface ISOULosses {
