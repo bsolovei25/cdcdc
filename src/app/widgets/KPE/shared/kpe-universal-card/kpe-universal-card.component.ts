@@ -23,6 +23,7 @@ export interface IKpeUniversalCardLineChart{
     fact: number;
     percentageInfluence: number;
     plan: number;
+    isWarning?: boolean;
     planPredict: number;
     predict: number;
 }
