@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{'container_warning': contentData?.percentStatus === 'warning'}">
+<div class="container" [ngClass]="{'container_warning': contentData?.isWarning}">
   <div class="gauge" [style.width.%]="cardConfig[currentType].gaugeWidth">
     <evj-kpe-gauge-chart-multi-color
       [type]="currentType"
@@ -10,7 +10,7 @@
   <div class="content" [style.width.%]="100 - cardConfig[currentType].gaugeWidth">
     <span class="title">{{contentData?.name}}</span>
     <span class="subtitle">{{contentData?.title}}</span>
-    <div class="percent-info" [ngClass]="{'percent-info': contentData?.percentStatus, 'warning':  contentData?.percentStatus === 'warning'}">{{contentData?.percentageInfluence.toFixed(2)}}%</div>
+    <div class="percent-info" [ngClass]="{'percent-info': contentData?.percentStatus, 'warning':  contentData?.isWarning}">{{contentData?.percentageInfluence.toFixed(2)}}%</div>
     <div class="line-diagram" *ngIf="cardConfig[currentType].haveLineChart && !onlyPercent">
       <evj-kpe-universal-card-line-chart
         *ngIf="contentData"
