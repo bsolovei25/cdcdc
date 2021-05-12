@@ -106,6 +106,7 @@ export class SouSchemaComponent implements OnChanges {
         const unitNameChanged = (unitNameChanges?.currentValue !== unitNameChanges?.previousValue);
         const svgNameChanged = (svgNameChanges?.currentValue !== svgNameChanges?.previousValue);
         const sectionsDataChanges: SimpleChange = changes?.sectionsData;
+        const chosenSettingChanges: SimpleChange = changes?.chosenSetting;
 
         if (!this.unitName || unitNameChanged || svgNameChanged) {
             // Если не было выбрано установки или она изменилась. Или изменилось svgName
@@ -113,7 +114,7 @@ export class SouSchemaComponent implements OnChanges {
             this.processSvgWhenItIsReady();
         }
 
-        if (sectionsDataChanges && sectionsDataChanges.previousValue !== sectionsDataChanges.currentValue) {
+        if (sectionsDataChanges || chosenSettingChanges) {
             this.processSectionsData();
         }
     }
