@@ -78,6 +78,7 @@ export interface ICustomOptionsTemplate {
     source: string[];
     validationRule: string;
     type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
+    isActive?: boolean
 }
 
 export interface ISystemOptions {
@@ -144,4 +145,5 @@ export interface ICustomOptions {
     validateioRule: string;
     isRequired: boolean;
     sortOrder: number;
+    isActive?: boolean;
 }

@@ -1,3 +1,5 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { V } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
@@ -27,6 +29,10 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     this.arscService.reports$.subscribe(value => {
       this.templates = value;
     })
+    this.arscService.search$.subscribe(value => {
+      console.log(value);
+      this.data?.folders?.filter(x => x.name.toLowerCase().indexOf(value) > -1)
+    })
   }
 
   public openFolder(folder?: ITemplateFolder): void {
@@ -42,5 +48,9 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     this.arscService.reportParameters$.next(data);
     this.arscService.openParameters();
     this.arscService.headerSettingsPicker.next(1);
+  }
+
+  public drop(event: CdkDragDrop<any>) {
+    moveItemInArray(this.data?.folders, event.previousIndex, event.currentIndex);
   }
 }
