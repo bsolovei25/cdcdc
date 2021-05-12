@@ -1,3 +1,31 @@
+# [1.25.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.24.0...v1.25.0) (2021-05-12)
+
+
+### Bug Fixes
+
+* **#1587:** Исправления отображения мнемосхем, тесты svg мнемосъем ([1d00049](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1d000493704797cfb6b7ea1fd2377d1cbbcac1c5)), closes [#1587](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1587)
+* **#1604:** Реализовать возможность просмотра значений тренда по наведению мыши для трендов по предикторам ([87c4ccf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/87c4ccf4278829c66204c4ad2756695f4bb24e15)), closes [#1604](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1604)
+* **#1837:** Исправлено отображение сырьевого парка ([838b6b0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/838b6b06cd723c753bc4c7c52dbad9959f6cbc8e)), closes [#1837](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1837)
+* **#1838:** Исправлено отображение КПА с100 ([347b111](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/347b111319b9892275b00b0f0ca0bb02c15d9967)), closes [#1838](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1838)
+
+
+### Features
+
+* **SOU:** small fixes. [#1738](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1738) ([b85b844](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b85b844b12bade255218b302c704aee4ec9f2086))
+
+# [1.24.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.23.0...v1.24.0) (2021-05-12)
+
+
+### Bug Fixes
+
+* **#1836:** Исправлена ошибка отображения старых данных на ЭЛОУ-АВТ-10 ([d333b8e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d333b8eee18bbabcce795e8e762cd85023eeb5cc)), closes [#1836](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1836)
+
+
+### Features
+
+* **SOU:** adding sorting by order. [#1781](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1781) ([56b1b2a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/56b1b2ab71f17293a2424f741f8b4c40e57efc59))
+* **SOU:** improve sorting mechanism. [#1781](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1781) ([6e8bba2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6e8bba2060724737f850bc2efaf4fc8123c15002))
+
 # [1.23.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.22.0...v1.23.0) (2021-05-07)
 
 

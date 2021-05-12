@@ -1331,9 +1331,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'SouWorkspaceModule',
         itemCols: 30,
-        itemRows: 30,
+        itemRows: 22,
         minItemCols: 30,
-        minItemRows: 30,
+        minItemRows: 15,
         preview: 'default',
     },
 
