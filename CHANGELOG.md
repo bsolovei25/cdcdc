@@ -1,3 +1,16 @@
+# [1.24.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.23.0...v1.24.0) (2021-05-12)
+
+
+### Bug Fixes
+
+* **#1836:** Исправлена ошибка отображения старых данных на ЭЛОУ-АВТ-10 ([d333b8e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d333b8eee18bbabcce795e8e762cd85023eeb5cc)), closes [#1836](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1836)
+
+
+### Features
+
+* **SOU:** adding sorting by order. [#1781](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1781) ([56b1b2a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/56b1b2ab71f17293a2424f741f8b4c40e57efc59))
+* **SOU:** improve sorting mechanism. [#1781](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1781) ([6e8bba2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6e8bba2060724737f850bc2efaf4fc8123c15002))
+
 # [1.23.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.22.0...v1.23.0) (2021-05-07)
 
 
