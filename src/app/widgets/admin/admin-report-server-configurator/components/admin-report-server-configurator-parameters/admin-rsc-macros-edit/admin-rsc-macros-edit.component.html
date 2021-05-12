@@ -1,0 +1,15 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Редактирование макросов</div>
+    </div>
+    <div cdkDropList class="selection__body" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of macros" class="item" cdkDrag>
+            {{item.name}}
+        </div>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

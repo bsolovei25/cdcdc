@@ -33,7 +33,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     public allParameters: IKpeWorkspaceParameter[] = [];
     public dependentParameters: IKpeAllDependentParameters[] = [];
     public notificationParametersData: IKpeNotification;
-    public form: FormGroup;
+    public form: FormGroup = new FormGroup({});
     formArray: FormArray;
     public index: number = -1;
     public oldMessage: string = '';
