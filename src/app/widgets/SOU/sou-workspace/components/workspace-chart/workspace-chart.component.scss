@@ -1,0 +1,131 @@
+:host {
+  width: 100%;
+  height: 100%;
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.chart-section {
+  width: 100%;
+  height: 100%;
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    .graph-line {
+      &-fact,
+      &-plan,
+      &-lowerBorder,
+      &-higherBorder {
+        fill: none;
+        opacity: 1;
+        stroke: var(--index-fact-color);
+      }
+
+      &-fact,
+      &-plan {
+        stroke-width: 2;
+      }
+
+      &-lowerBorder,
+      &-higherBorder {
+        stroke-dasharray: 2 1;
+        stroke: var(--chart-axes-color);
+      }
+
+      &-plan {
+        stroke: var(--index-plan-color);
+      }
+
+      &_warning {
+        stroke: var(--index-error-color);
+      }
+
+      &_normal {
+        stroke: var(--index-green1-color);
+      }
+    }
+
+    .graph-area {
+      &-higherBorder,
+      &-lowerBorder {
+        fill: var(--chart-attantionZone-color);
+        opacity: 0.7;
+      }
+
+      &_warning {
+        fill: var(--index-error-color);
+        opacity: 0.2;
+      }
+
+      &_normal {
+        fill: var(--index-green1-color);
+        opacity: 0.2;
+      }
+    }
+
+    .label {
+      fill: var(--text-subscript-color);
+      font-size: 12px;
+    }
+
+    .point {
+      fill: var(--gray-G11-color);
+      stroke-width: 2;
+
+      &_plan {
+        stroke: var(--index-plan-color);
+      }
+
+      &_fact {
+        fill: var(--index-fact-color);
+      }
+    }
+
+    .future {
+      fill: var(--gray-G11-color);
+      opacity: 0.5;
+
+      &-line {
+        stroke: var(--chart-axes-color);
+        stroke-width: 2;
+      }
+
+      &-with-line {
+        stroke: var(--gray-G1-color);
+        stroke-width: 1;
+
+        &_hor {
+          stroke-width: 3;
+        }
+      }
+    }
+
+    .data {
+      fill: var(--gray-G10-color);
+
+      &-fact,
+      &-plan,
+      &-date {
+        font-size: 13px;
+        fill: var(--index-fact-color);
+      }
+
+      &-date {
+        font-size: 11px;
+      }
+
+      &-plan {
+        fill: var(--index-plan-color);
+      }
+
+      &-icon {
+        fill: var(--gray-G9-color);
+      }
+    }
+  }
+}
