@@ -139,8 +139,8 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .map(item => 100 - item);
         }
         if (arr[0] !== 0) {
-            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+            // если минимум не равен 0, отнимаем минимум от всех, что бы отразить проценты от 0
+            return [...arr].map(item => Math.floor(Math.floor(item - arr[0]) / (maxBound - arr[0]) * 100));
         } else {
             return [...arr].map(item => Math.floor(item / maxBound * 100));
         }
