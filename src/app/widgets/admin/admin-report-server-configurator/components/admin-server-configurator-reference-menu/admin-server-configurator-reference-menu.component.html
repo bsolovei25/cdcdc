@@ -5,22 +5,22 @@
     </div>
     <div class="menu__body" cdkDropList (cdkDropListDropped)="drop($event)">
             <evj-admin-report-server-configurator-file
-            *ngFor="let item of data?.folders" cdkDrag
+            *ngFor="let item of data?.folders | searching: search" cdkDrag
             (click)="openFolder(item)"
             [item]="item"
             ></evj-admin-report-server-configurator-file>
             <evj-admin-report-server-configurator-file
-            *ngFor="let item of reports" cdkDrag
+            *ngFor="let item of reports | searching: search" cdkDrag
             [report]="item"
             (click)="openTemplate(item)"
             ></evj-admin-report-server-configurator-file>
             <evj-admin-report-server-configurator-file
-            *ngFor="let item of childrens" cdkDrag
+            *ngFor="let item of childrens | searching: search" cdkDrag
             (click)="openFolder(item)"
             [childrens]="item"
             ></evj-admin-report-server-configurator-file>
             <evj-admin-report-server-configurator-file
-            *ngFor="let item of templates" cdkDrag
+            *ngFor="let item of templates | searching: search" cdkDrag
             (click)="openTemplate(item)"
             [templates]="item"
             ></evj-admin-report-server-configurator-file>

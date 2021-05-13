@@ -4,8 +4,8 @@ import { IReportTemplate } from "../models/admin-report-server-configurator.mode
 
 export class AdminReportConfiguratorService {
   public headerSettingsPicker: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  public folders$: BehaviorSubject<ITemplateFolder[] | IChildrenFolder[] | IFolder>
-    = new BehaviorSubject<ITemplateFolder[] | IChildrenFolder[] | IFolder>(null);
+  public folders$: BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]>
+    = new BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]>(null);
   public reports$: BehaviorSubject<ITemplate[]> = new BehaviorSubject<ITemplate[]>(null);
   public reportParameters$: BehaviorSubject<IReportTemplate> = new BehaviorSubject<IReportTemplate>(null);
   public address$: BehaviorSubject<ITemplateFolder> = new BehaviorSubject<ITemplateFolder>(null);

@@ -35,6 +35,7 @@ import { AdminRscParameterAutogenerationComponent } from './components/admin-rep
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AdminRscPathEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-path-edit/admin-rsc-path-edit.component';
 import { AdminRscCustomOptionsComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-custom-options/admin-rsc-custom-options.component';
+import { SearchPipe } from './shared/search.pipe';
 
 
 
@@ -61,7 +62,8 @@ import { AdminRscCustomOptionsComponent } from './components/admin-report-server
     AdminRscPeriodEditComponent,
     AdminRscParameterAutogenerationComponent,
     AdminRscPathEditComponent,
-    AdminRscCustomOptionsComponent
+    AdminRscCustomOptionsComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,10 @@ import { AdminRscCustomOptionsComponent } from './components/admin-report-server
     MatFormFieldModule,
     MatSelectModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+  ],
+  exports: [
+    SearchPipe
   ],
   providers: [
     AdminReportConfiguratorService

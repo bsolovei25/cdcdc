@@ -14,8 +14,10 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
 export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
   @Input() public data: IFolder;
   @Input() public reports: IReportTemplate[];
-  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[] | IFolder;
+  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[];
   @Input() public templates: ITemplate[];
+
+  public search: string = '';
 
   constructor(
     private arscService: AdminReportConfiguratorService,
@@ -30,8 +32,7 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
       this.templates = value;
     })
     this.arscService.search$.subscribe(value => {
-      console.log(value);
-      this.data?.folders?.filter(x => x.name.toLowerCase().indexOf(value) > -1)
+      this.search = value;
     })
   }
 
