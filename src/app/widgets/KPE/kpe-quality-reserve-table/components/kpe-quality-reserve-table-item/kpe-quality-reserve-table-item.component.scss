@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.table-content_wrapper {
+  position: relative;
+}
+
 .table-container {
   height: 100%;
   width: 100%;
@@ -45,6 +49,10 @@
       background: var(--color-kpe-quality-table-bg-main-warning);
     }
 
+    &.table-item {
+      margin-bottom: 32px;
+    }
+
     &::ng-deep thead {
       height: 54px;
 
@@ -60,6 +68,6 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 10%, rgba(0, 0, 0, 0) 100%);
 
   position: absolute;
-  top: 96px;
+  top: 51px;
   right: 0;
 }

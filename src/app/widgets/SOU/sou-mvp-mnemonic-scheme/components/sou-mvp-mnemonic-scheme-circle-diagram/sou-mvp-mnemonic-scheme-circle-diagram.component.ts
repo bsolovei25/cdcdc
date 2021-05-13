@@ -5,34 +5,46 @@ import { AsyncRender } from '../../../../../@shared/functions/async-render.funct
 import {
     ISouFlowIn,
     ISouFlowOut,
-    ISouObjects,
+    ISouObjects
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme-circle-diagram',
     templateUrl: './sou-mvp-mnemonic-scheme-circle-diagram.component.html',
-    styleUrls: ['./sou-mvp-mnemonic-scheme-circle-diagram.component.scss'],
+    styleUrls: ['./sou-mvp-mnemonic-scheme-circle-diagram.component.scss']
 })
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
     @ViewChild('chart') chart: ElementRef;
     @Input() noConnection: false;
-    @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number }) {
+
+    @Input() set data(data: {
+        sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number,
+        disabled?: boolean, rightLineDashed?: boolean
+    }) {
         if (data.sections) {
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
             this.code = data.code;
-            this.drawSvg();
+            this.disabled = data?.disabled;
+            this.rightLineDashed = data?.rightLineDashed;
+            if (!this.disabled) {
+                this.drawSvg();
+            }
         }
     }
 
     flowData: ISouFlowOut;
     public code: number;
+    public disabled: boolean = false;
+    rightLineDashed: boolean = false;
 
     public svg: any;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     @AsyncRender
     drawSvg(): void {
@@ -68,5 +80,6 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
         g.append('path').attr('d', arc).attr('class', 'diagram-value');
     }
 
-    ngAfterViewInit(): void {}
+    ngAfterViewInit(): void {
+    }
 }

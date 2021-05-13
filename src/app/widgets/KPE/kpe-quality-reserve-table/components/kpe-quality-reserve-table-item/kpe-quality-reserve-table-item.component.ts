@@ -1,13 +1,20 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { IQualityReserveTableData, IQualityReserveTableHeaders } from "../../kpe-quality-reserve-table.component";
-import { WidgetService } from "../../../../../dashboard/services/widget.service";
-import { ChannelPlatform } from "../../../../../dashboard/models/@PLATFORM/channel-platform";
+import { WidgetService } from "@dashboard/services/widget.service";
+import { ChannelPlatform } from "@dashboard/models/@PLATFORM/channel-platform";
 import { SpaceNumber } from "@shared/pipes/number-space.pipe";
 
+export interface IQualityReserveTablesGroup {
+    currentTables: IQualityReserveTableMain[];
+}
+
 export interface IQualityReserveTableMain {
+    name: string;
+    order: number;
     headers: IQualityReserveTableHeaders[];
     rows: IQualityReserveTableData[];
+    displayedColumns: string[];
 }
 
 @Component({
@@ -17,7 +24,7 @@ export interface IQualityReserveTableMain {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpeQualityReserveTableItemComponent
-    extends ChannelPlatform<IQualityReserveTableMain>
+    extends ChannelPlatform<IQualityReserveTablesGroup>
     implements OnInit, OnDestroy {
     public headers$: BehaviorSubject<IQualityReserveTableHeaders[]> = new BehaviorSubject<
         IQualityReserveTableHeaders[]
@@ -25,6 +32,8 @@ export class KpeQualityReserveTableItemComponent
     public data$: BehaviorSubject<IQualityReserveTableData[]> = new BehaviorSubject<IQualityReserveTableData[]>([]);
 
     public displayedColumns: string[];
+
+    public tables$: BehaviorSubject<IQualityReserveTablesGroup> = new BehaviorSubject<IQualityReserveTablesGroup>(null);
 
     constructor(
         protected widgetService: WidgetService,
@@ -43,19 +52,28 @@ export class KpeQualityReserveTableItemComponent
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: IQualityReserveTableMain): void {
-        this.headers$.next(ref.headers);
-
-        ref.rows.forEach((item) => {
-            item.cells.forEach((cell) => {
-                if (typeof cell.value === 'number') {
-                    cell.value = this.spaceNumber.transform(+cell.value, 1);
+    protected dataHandler(tables: IQualityReserveTablesGroup): void {
+        // Копия обьекта для работы с его полями (Уход от мутаций)
+        const ref = { ...tables };
+        if (ref.currentTables.length) {
+            ref.currentTables.forEach((table) => {
+                table.rows.forEach((item) => {
+                    item.cells.forEach((cell) => {
+                        if (typeof cell.value === 'number') {
+                            cell.value = this.spaceNumber.transform(+cell.value, 1);
+                        }
+                    });
+                });
+                // Использование поля name таблицы в качестве имени первого столбца
+                if (table.headers.length) {
+                    table.headers[0].name = table.name;
+                    table.displayedColumns = [... new Array(table.headers.length)].map((x, i) => '' + i)
                 }
             });
-        });
+        }
+        // Сортировка таблиц по полю order
+        ref.currentTables.sort((a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0));
 
-        this.data$.next(ref.rows);
-
-        this.displayedColumns = [... new Array(ref.headers.length)].map((x, i) => '' + i)
+        this.tables$.next(ref);
     }
 }

@@ -56,13 +56,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
 import { EvjEventsSmpoReasonsComponent } from './components/evj-events-smpo-reasons/evj-events-smpo-reasons.component';
 import { EvjEventsSmpoReasonsMenuComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu.component';
-import { EvjEventsSmpoReasonItemComponent } from "./components/evj-events-smpo-reasons/evj-events-smpo-reason-item/evj-events-smpo-reason-item.component";
+import { EvjEventsSmpoReasonItemComponent } from './components/evj-events-smpo-reasons/evj-events-smpo-reason-item/evj-events-smpo-reason-item.component';
 import { EvjEventsSmpoReasonsMenuItemComponent } from './components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
 import { EvjEventsSmpoCorrectComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct.component';
 import { EvjEventsSmpoCorrectMenuComponent } from './components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
 import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-correct/evj-events-smpo-correct-item/evj-events-smpo-correct-item.component';
 import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { EvjTasksEventNoCheckboxComponent } from './evj-tasks-event-no-checkbox/evj-tasks-event-no-checkbox.component';
 
 @NgModule({
     declarations: [
@@ -115,32 +116,33 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
         EvjEventsSmpoCorrectItemComponent,
         EvjEventsWorkspaceRestrictionsComponent,
         EvjSmpoEventCriticalComponent,
+        EvjTasksEventNoCheckboxComponent,
     ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AngularSvgIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatCheckboxModule,
-    MatRippleModule,
-    MatDialogModule,
-    NgxMatDatetimePickerModule,
-    MatDatepickerModule,
-    NgxMaskModule,
-    MatProgressSpinnerModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularSvgIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTooltipModule,
+        MatCheckboxModule,
+        MatRippleModule,
+        MatDialogModule,
+        NgxMatDatetimePickerModule,
+        MatDatepickerModule,
+        NgxMaskModule,
+        MatProgressSpinnerModule,
+    ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
-    exports: [EvjEventsWorkspaceComponent, EvjEventsWorkspaceSelectComponent],
+    exports: [EvjEventsWorkspaceComponent, EvjEventsWorkspaceSelectComponent, EvjTasksEventNoCheckboxComponent],
 })
 export class EvjEventsWorkspaceModule {
     enterComponent = EvjEventsWorkspaceComponent;

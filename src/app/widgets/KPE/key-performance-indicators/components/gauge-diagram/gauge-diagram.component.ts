@@ -19,6 +19,7 @@ export interface IKpeGaugeChartPage {
     unit?: string;
     type?: string;
     isUnitPercent?: boolean;
+    totalHour?: number
 }
 
 @Component({

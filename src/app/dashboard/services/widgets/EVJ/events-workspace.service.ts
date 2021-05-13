@@ -406,6 +406,10 @@ export class EventsWorkspaceService {
         this.event.deadline = new Date(date);
     }
 
+    public setStartToEvent(date: Date): void {
+        this.event.eventDateTime = new Date(date);
+    }
+
     public getUserAvatarUrl(user: IUser): string {
         return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
     }
@@ -557,7 +561,7 @@ export class EventsWorkspaceService {
                 this.status = data;
             }),
             this.eventService.getSubcategory().then((data) => {
-                this.subCategory = data.filter((item) => !!item.description);
+                this.subCategory = data.filter((item) => !!item.description && item.isVisibleToFilter);
             }),
             this.eventService.getUnits().then((data) => {
                 this.units = data;

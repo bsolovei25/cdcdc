@@ -1,0 +1,19 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Листы отчёта</div>
+    </div>
+    <div class="selection__body">
+        <div *ngFor="let item of sheets" class="item">
+            <div class="name">{{item.name}}</div>
+            <div class="cell">{{item.value}}</div>
+            <div class="cell">
+                <mat-checkbox [(ngModel)]="item.isView"></mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

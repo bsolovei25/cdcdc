@@ -33,6 +33,7 @@ import { TasksEventComponent } from './tasks-event/tasks-event.component';
 import { ShiftPassComponent } from './shift-pass/shift-pass.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EventsPlaceComponent } from './components/events-place/events-place.component';
+import { EvjEventsWorkspaceModule } from "@widgets/EVJ/evj-events-workspace/evj-events-workspace.module";
 
 @NgModule({
     declarations: [
@@ -60,18 +61,19 @@ import { EventsPlaceComponent } from './components/events-place/events-place.com
         ShiftPassComponent,
         EventsPlaceComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AngularSvgIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatTooltipModule,
-        MatCheckboxModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularSvgIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    EvjEventsWorkspaceModule
+  ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },

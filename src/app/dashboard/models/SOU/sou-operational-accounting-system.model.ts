@@ -22,6 +22,7 @@ export interface ISouSection {
     id: string;
     name: string;
     countFlowExceedingConfInterval?: number;
+    svgName: string;
 }
 
 export interface ISouFlowIn {
@@ -85,6 +86,7 @@ export interface ISouFlowOut {
 
 export interface ISOUSection {
     name: string;
+    svgName: string;
     flowIn: ISouFlowIn[];
     flowOut: ISouFlowOut[];
     objects: ISouObjects[];
@@ -131,6 +133,7 @@ export interface ISouIdent {
     percentage: number;
     isHighlighted?: boolean;
     className?: string;
+    order?: number;
 }
 
 export interface ISOULosses {

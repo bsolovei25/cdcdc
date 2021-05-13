@@ -92,6 +92,10 @@
     height: 1px;
     width: 30px;
     border-top: 1px solid var(--sou-mvp-color-border);
+
+    &--dashed {
+      border-top: 2px dashed var(--sou-mvp-color-border);
+    }
   }
 }
 
