@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+}
+
+.progress-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-vidget-color);
+  
+  &__value {
+    height: 4px;
+    background: var(--index-fact-color);
+    border-radius: 2px 0 0 2px;
+  }
+}

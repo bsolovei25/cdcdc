@@ -1,0 +1,142 @@
+<div class="widget-container"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseExit(); detectChangesOnMouseLeave()">
+  <evj-widget-header-smp *ngIf="isHover" [uniqId]="widgetUniqId">
+  </evj-widget-header-smp>
+  <div class="container"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+    <div class="section">
+      <div class="section__header">
+        <div class="section__label">
+          <span class="section__label-content">
+            Оперативный показатель
+          </span>
+          <span class="section__label-content section__label-content_gray">
+            , %
+          </span>
+        </div>
+      </div>
+      <div class="operational-chart">
+        <cmid-close-reason-operational-chart [operativeValue]="operativeValue">
+        </cmid-close-reason-operational-chart>
+        <cmid-close-reason-variation-chart class="variation-component variation-component_in-chart"
+                                           [value]="1.30"
+                                           [isPositive]="true">
+        </cmid-close-reason-variation-chart>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section__header section__header_mb8">
+        <div class="section__label">
+          <span class="section__label-content">
+            ВПР
+          </span>
+          <span class="section__label-content section__label-content_gray">
+            , %
+          </span>
+        </div>
+      </div>
+      <div class="vpr">
+        <div class="vpr__value-wrapper">
+          <div class="vpr__value">
+            {{ vprValue }}
+          </div>
+          <cmid-close-reason-variation-chart class="variation-component variation-component_ml8" [value]="1.30"
+                                                                                                 [isPositive]="true">
+          </cmid-close-reason-variation-chart>
+        </div>
+        <div class="vpr__chart">
+          <cmid-close-reason-vpr-chart [vprValue]="vprValue">
+          </cmid-close-reason-vpr-chart>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section__header  section__header_mb12">
+        <div class="section__label">
+          <span class="section__label-content">
+            Статистика отключений
+          </span>
+          <span class="section__label-content section__label-content_gray">
+            , шт.
+          </span>
+        </div>
+      </div>
+      <div class="count-statistics">
+        <div class="count-statistics__content">
+          <div class="count-statistics__label">
+            Несанкцион.
+          </div>
+          <div class="count-statistics__value-wrapper">
+            <div class="count-statistics__value count-statistics__value_critical">
+              3
+            </div>
+            <cmid-close-reason-variation-chart class="variation-component variation-component_ml8" [value]="1"
+                                                                                                   [isPositive]="false">
+            </cmid-close-reason-variation-chart>
+          </div>
+        </div>
+        <div class="count-statistics__content">
+          <div class="count-statistics__label">
+            Просрочен.
+          </div>
+          <div class="count-statistics__value-wrapper">
+            <div class="count-statistics__value count-statistics__value_warning">
+              17
+            </div>
+            <cmid-close-reason-variation-chart class="variation-component variation-component_ml8" [value]="1"
+                                                                                                   [isPositive]="true">
+            </cmid-close-reason-variation-chart>
+          </div>
+        </div>
+        <div class="count-statistics__content">
+          <div class="count-statistics__label">
+            Всего
+          </div>
+          <div class="count-statistics__value-wrapper">
+            <div class="count-statistics__value count-statistics__value_fine">
+              55
+            </div>
+            <cmid-close-reason-variation-chart class="variation-component variation-component_ml8" [value]="1.42"
+                                                                                                   [isPositive]="false">
+            </cmid-close-reason-variation-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section__header">
+        <div class="section__label">
+          <span class="section__label-content">
+            Причины отключения
+          </span>
+          <span class="section__label-content section__label-content_gray">
+            , шт.
+          </span>
+        </div>
+        <svg-icon class="section__show-content-arrow"
+                  [src]="'assets/icons/widgets/truncated-diagram/expand-panel.svg'"
+                  [svgStyle]="{ 'width.px':12, 'height.px':7 }"
+                  [ngClass]="{ 'section__show-content-arrow_rotate': showReasonStatistics }"
+                  (click)="toggleReasonStatistics()">
+        </svg-icon>
+      </div>
+      <div class="reason-statistics">
+        <div class="reason-statistics__chart">
+          <cmid-close-reason-groups-chart [reasonGroups]="reasonGroups">
+          </cmid-close-reason-groups-chart>
+        </div>
+        <div class="reason-statistics__list" [ngClass]="{ 'reason-statistics__list_hide': showReasonStatistics }">
+          <div *ngFor="let element of reasonGroups"
+               class="reason-statistics__list-element">
+            <div class="reason-statistics__marker"
+                 [ngStyle]="{ 'background-color': element.color }">
+            </div>
+            <div class="reason-statistics__type">{{ element.name }}</div>
+            <div class="reason-statistics__count">{{ element.value }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
