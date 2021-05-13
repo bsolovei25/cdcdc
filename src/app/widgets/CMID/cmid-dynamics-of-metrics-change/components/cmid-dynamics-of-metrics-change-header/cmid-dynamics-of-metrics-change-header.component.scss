@@ -1,0 +1,46 @@
+.internal-header {
+  display: flex;
+  align-items: center;
+
+  &__toggle {
+    position: relative;
+    padding: 11px 24px;
+    font-size: 13px;
+    line-height: 1.2;
+
+    &::before {
+      position: absolute;
+      content: '';
+      height: 2px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background-color: var(--color-aps-active);
+      visibility: hidden;
+    }
+
+    &_active::before {
+      visibility: visible;
+    }
+  }
+
+  &__select {
+    max-width: 167px;
+  }
+}
+
+.select {
+  display: flex;
+  height: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--bg-dashboard-color);
+  border: 1px solid var(--border-forms-color);
+  border-radius: 2px;
+  margin-left: auto;
+  padding: 0 12px;
+
+  .mat-select {
+    padding: 4px 0;
+  }
+}
