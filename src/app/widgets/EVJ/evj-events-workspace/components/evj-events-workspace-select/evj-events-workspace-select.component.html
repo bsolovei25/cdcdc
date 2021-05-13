@@ -63,11 +63,8 @@
         <ng-container *ngIf="ewService.isCreateNewEvent">
           <mat-option
             *ngFor="let item of (ewService.subCategoryFilter | async)" [value]="item"
-            [ngClass]="{
-              'hidden': item?.isVisibleToFilter
-            }"
           >
-            {{ item }}
+            {{ item.description }}
           </mat-option>
         </ng-container>
         <ng-container *ngIf="!ewService.isCreateNewEvent">
