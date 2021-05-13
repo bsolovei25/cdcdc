@@ -1,5 +1,4 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { V } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';

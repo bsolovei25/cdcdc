@@ -19,7 +19,7 @@
                 <div class="icon">
                     <svg-icon
                     src="{{trashIcon}}"
-                    (click)="deleteFolder(item)"
+                    (click)="item ? deleteFolder(item) : deleteReport(report)"
                     ></svg-icon>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="icon">
                     <svg-icon
-                    (click)="deleteFolder(childrens)"
+                    (click)="childrens ? deleteFolder(childrens) : deleteTemplate(templates)"
                     src="{{trashIcon}}"></svg-icon>
                 </div>
             </div>

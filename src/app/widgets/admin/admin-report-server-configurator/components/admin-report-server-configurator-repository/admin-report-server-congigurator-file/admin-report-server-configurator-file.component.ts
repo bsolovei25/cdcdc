@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IReportTemplate, ITemplate, ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
@@ -22,6 +22,8 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   @Input() childrens: ITemplateFolder = null;
   @Input() templates: ITemplate = null;
 
+  @Output() openFolder: EventEmitter<any>;
+
   constructor(
     public dialog: MatDialog,
     private arscRootService: AdminReportServerConfiguratorRootService
@@ -30,8 +32,12 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async editFile(item: IReportTemplate | ITemplate): Promise<void> {    
-    const res = await this.arscRootService.getReportFileNameOptions(item.id);
+  public openF(): void {
+    this.openFolder.emit()
+  }
+
+  public async editFile(item: IReportTemplate | ITemplate): Promise<void> {    
+    const res = await this.arscRootService.getReportFileNameOptions(item?.id);
     const dialogRef = this.dialog.open(AdminReportNameConfiguratorComponent, {
       data: {
         item,
@@ -58,4 +64,10 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
     this.arscRootService.deleteFolder(item.id);
   }
 
+  public async deleteTemplate(item: ITemplate): Promise<void> {
+    this.arscRootService.deleteReportFileTemplate(item.id);
+  }
+  public async deleteReport(item: IReportTemplate): Promise<void> {
+    this.arscRootService.deleteReportTemplate(item.id);
+  }
 }
