@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+}
+
+.line {
+  position: relative;
+  margin: auto 0;
+  width: 25px;
+  height: 1px;
+  background: var(--border-forms-color);
+
+  .circle {
+    position: absolute;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--gray-G11-color);
+    border: 1px solid var(--border-forms-color);
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    &__left {
+      left: -3px;
+    }
+
+    &__right {
+      right: -3px;
+    }
+  }
+}
