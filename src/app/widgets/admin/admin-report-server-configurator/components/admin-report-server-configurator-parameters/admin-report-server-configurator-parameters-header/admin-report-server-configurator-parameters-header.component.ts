@@ -15,6 +15,7 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
 
   public parameters: number = 1;
   public options: ISystemOptions[] = [];
+  public disable: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -25,6 +26,8 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   ngOnInit(): void {
     this.arscService.headerSettingsPicker.subscribe(value => {
       this.parameters = value;
+      value !== 1 && value !== 2 ? this.disable = true : this.disable = false;
+      
     });
     this.systemOptions();
   }

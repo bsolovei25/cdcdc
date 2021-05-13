@@ -41,5 +41,6 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     const data = await this.arscRootService.getTemplateFolder();
     this.arscService.folders$.next(data.folders);
     this.arscService.reports$.next(data.templates);
+    this.arscService.headerSettingsPicker.next(null);
   }
 }

@@ -87,5 +87,4 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
   public addReport(): void {
     this.dialog.open(AdminReportServerConfiguratorRepositoryAddFileComponent);
   }
-
 }
