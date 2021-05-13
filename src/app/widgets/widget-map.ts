@@ -1397,15 +1397,15 @@ export const WIDGETS_LAZY = {
     'ec-widget-conventional-fuel': {
         import: async () => {
             return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
-            );
+                'src/app/widgets/EC/ec-widget-conventional-fuel/ec-widget-conventional-fuel.module'
+                );
         },
-        module: 'AstueOnpzConventionalFuelModule',
+        module: 'EcWidgetConventionalFuelModule',
         itemCols: 30,
         itemRows: 18,
         minItemCols: 30,
         minItemRows: 16,
-        preview: 'astue-onpz-conventional-fuel',
+        preview: 'default',
     },
 
     'astue-onpz-predictors': {
@@ -1422,14 +1422,14 @@ export const WIDGETS_LAZY = {
 
     'ec-widget-predictors': {
         import: async () => {
-            return await import('src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module');
+            return await import('src/app/widgets/EC/ec-widget-predictors/ec-widget-predictors.module');
         },
-        module: 'AstueOnpzPredictorsModule',
+        module: 'EcWidgetPredictorsModule',
         itemCols: 13,
         itemRows: 10,
         minItemCols: 13,
         minItemRows: 10,
-        preview: 'astue-onpz-predictors',
+        preview: 'default',
     },
 
     'astue-onpz-main-indicators': {
@@ -1449,15 +1449,15 @@ export const WIDGETS_LAZY = {
     'ec-widget-main-indicators': {
         import: async () => {
             return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
-            );
+                'src/app/widgets/EC/ec-widget-main-indicators/ec-widget-main-indicators.module'
+                );
         },
-        module: 'AstueOnpzMainIndicatorsModule',
+        module: 'EcWidgetMainIndicatorsModule',
         itemCols: 12,
         itemRows: 8,
         minItemCols: 12,
         minItemRows: 8,
-        preview: 'astue-onpz-main-indicators',
+        preview: 'default',
     },
 
     'astue-onpz-product-charts': {
@@ -1531,15 +1531,15 @@ export const WIDGETS_LAZY = {
     'ec-widget-planing-charts': {
         import: async () => {
             return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
-            );
+                'src/app/widgets/EC/ec-widget-planing-charts/ec-widget-planing-charts.module'
+                );
         },
-        module: 'AstueOnpzPlanningChartsModule',
+        module: 'EcWidgetPlaningChartsModule',
         itemCols: 30,
         itemRows: 8,
         minItemCols: 25,
         minItemRows: 6,
-        preview: 'astue-onpz-planning-charts',
+        preview: 'default',
     },
 
     'astue-onpz-interactive-indicators': {
@@ -1571,15 +1571,15 @@ export const WIDGETS_LAZY = {
     'ec-widget-factor-analysis': {
         import: async () => {
             return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/astue-onpz-factory-analysis.module'
+                'src/app/widgets/EC/ec-widget-factor-analysis/ec-widget-factor-analysis.module'
             );
         },
-        module: 'AstueOnpzFactoryAnalysisModule',
+        module: 'EcWidgetFactorAnalysisModule',
         itemCols: 24,
         itemRows: 9,
         minItemCols: 24,
         minItemRows: 7,
-        preview: 'astue-onpz-factory-analysis',
+        preview: 'default',
     },
     'astue-onpz-mnemonic-furnace': {
         import: async () => {

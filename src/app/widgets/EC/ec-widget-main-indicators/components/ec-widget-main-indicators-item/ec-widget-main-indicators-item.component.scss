@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 30px;
+
+  &__container {
+    flex: 1;
+    padding: 30px 15px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    .diagram-circle {
+      ::ng-deep {
+        svg {
+          .diagram-inner {
+            fill: var(--index-plan-color);
+          }
+
+          .diagram-value {
+            fill: var(--index-fact-color);
+          }
+
+          .diagram-deviation {
+            fill: var(--index-error-color);
+          }
+        }
+      }
+    }
+
+    .info {
+      height: 140px;
+      min-width: 190px;
+      padding: 15px 10px;
+      margin-left: 20px;
+
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      &__item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .values {
+        display: flex;
+        font-size: 13px;
+        line-height: 16px;
+        margin-top: 6px;
+        color: var(--text-contrast-color);
+
+        &--fact {
+          .dot {
+            background-color: var(--index-fact-color);
+          }
+          .value {
+            color: var(--text-contrast-color);
+          }
+        }
+
+        &--plan {
+          .dot {
+            background-color: var(--index-plan-color);
+          }
+          .value {
+            color: var(--text-contrast-color);
+          }
+        }
+
+        .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          display: inline-block;
+          align-self: center;
+          margin-right: 10px;
+        }
+
+        .unit {
+          margin-left: 5px;
+          color: var(--text-main-color);
+        }
+      }
+
+      .description {
+        font-size: 13px;
+        line-height: 16px;
+
+        color: var(--text-main-color);
+      }
+    }
+
+    .diagram-inner-text {
+      height: 140px;
+      width: 140px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      position: absolute;
+      left: 15px;
+
+      .percent {
+        font-size: 26px;
+        line-height: 31px;
+
+        &-warning {
+          color: var(--index-error-color);
+        }
+      }
+
+      .unit {
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--text-main-color);
+      }
+    }
+
+    .custom-bg {
+      position: absolute;
+      left: 3px;
+      fill: var(--border-vidget-color);
+    }
+  }
+}

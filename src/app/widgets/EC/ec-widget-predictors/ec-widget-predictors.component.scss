@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+
+  &-body {
+    height: calc(100% - 40px);
+    width: 100%;
+    padding: 3px;
+
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-body-color);
+    border: 1px solid var(--border-vidget-color);
+
+    overflow: hidden;
+    .content {
+      height: 100%;
+    }
+  }
+}

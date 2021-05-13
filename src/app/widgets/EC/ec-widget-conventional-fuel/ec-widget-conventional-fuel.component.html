@@ -148,13 +148,13 @@
           <span class="unit"> {{ card.units }} </span>
         </div>
       </div>
-      <evj-astue-onpz-multi-chart
+      <evj-ec-widget-multi-chart
         class="chart"
         [data]="data"
         [colors]="colors"
         [options]="options"
         [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
-      ></evj-astue-onpz-multi-chart>
+      ></evj-ec-widget-multi-chart>
       <evj-smart-scroll
         [limits]="scrollLimits"
         [data]="scrollData"
@@ -169,6 +169,6 @@
     </div>
   </ng-container>
   <ng-template #planChart>
-    <evj-astue-onpz-big-planning-chart></evj-astue-onpz-big-planning-chart>
+    <evj-ec-widget-big-planning-chart></evj-ec-widget-big-planning-chart>
   </ng-template>
 </div>

@@ -1,0 +1,6 @@
+<div class="bar-tooltip-container bar-tooltip-triangle__{{position}}" *ngIf="title">
+  <div class="bar-tooltip__title" [class.margin-bottom]="value"> {{ title }} </div>
+  <div class="bar-tooltip__value" *ngIf="value"> {{ value }}
+    <span class="bar-tooltip__unit"> {{ unit }} </span>
+  </div>
+</div>

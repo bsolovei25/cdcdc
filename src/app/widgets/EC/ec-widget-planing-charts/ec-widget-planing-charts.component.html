@@ -1,0 +1,20 @@
+<div class="container">
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+  </evj-widget-header-smp>
+  <div
+    class="content"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+    *ngIf="!!data"
+  >
+    <ng-container *ngFor="let item of data">
+      <evj-ec-widget-planning-card
+        class="content__item"
+        [data]="item"
+        [color]="colors?.get(item?.tag)"
+      ></evj-ec-widget-planning-card>
+    </ng-container>
+  </div>
+</div>
