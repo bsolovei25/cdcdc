@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IReportTemplate } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder } from '../../models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
+import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-repository',
@@ -9,12 +10,10 @@ import { AdminReportServerConfiguratorRootService } from '../../services/admin-r
   styleUrls: ['./admin-report-server-configurator-repository.component.scss']
 })
 export class AdminReportServerConfiguratorRepositoryComponent implements OnInit {
-  
-  public data: IFolder;
-  public reports: IReportTemplate[];
 
   constructor(
     private arscRootService: AdminReportServerConfiguratorRootService,
+    private arscService: AdminReportConfiguratorService
     ) { }
 
   ngOnInit(): void {
@@ -24,13 +23,11 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
 
   public async templateFolder(): Promise<void> {
     const data = await this.arscRootService.getTemplateFolder();
-    this.data = data;
-    console.log(data);
+    this.arscService.data = data;
   }
 
   public async reportTemplate(): Promise<void> {
     const data = await this.arscRootService.getReportTemplate();
-    this.reports = data.filter(value => !value.folderId);
-    console.log(data);
+    this.arscService.reports = data.filter(value => !value.folderId);
   }
 }

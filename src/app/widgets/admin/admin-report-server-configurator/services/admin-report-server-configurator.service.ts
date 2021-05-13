@@ -3,6 +3,8 @@ import { BehaviorSubject } from "rxjs";
 import { IReportTemplate } from "../models/admin-report-server-configurator.model";
 
 export class AdminReportConfiguratorService {
+  public data: IFolder;
+  public reports: IReportTemplate[];
   public headerSettingsPicker: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public folders$: BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]>
     = new BehaviorSubject<ITemplateFolder[] | IChildrenFolder[]>(null);

@@ -11,16 +11,13 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
   styleUrls: ['./admin-server-configurator-reference-menu.component.scss']
 })
 export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
-  @Input() public data: IFolder;
-  @Input() public reports: IReportTemplate[];
   @Input() public childrens: ITemplateFolder[] | IChildrenFolder[];
   @Input() public templates: ITemplate[];
 
   public search: string = '';
 
   constructor(
-    private arscService: AdminReportConfiguratorService,
-    private arscRootService: AdminReportServerConfiguratorRootService
+    public arscService: AdminReportConfiguratorService,
   ) { }
 
   ngOnInit(): void {
@@ -35,22 +32,7 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     })
   }
 
-  public openFolder(folder?: ITemplateFolder): void {
-    this.data = null;
-    this.reports = null;
-    this.arscService.folders$.next(folder.childFolders);
-    this.arscService.reports$.next(folder.templates);
-    this.arscService.address$.next(folder)
-  }
-
-  public async openTemplate(template: IReportTemplate): Promise<void> {
-    const data = await this.arscRootService.getReporting(template.id);
-    this.arscService.reportParameters$.next(data);
-    this.arscService.openParameters();
-    this.arscService.headerSettingsPicker.next(1);
-  }
-
   public drop(event: CdkDragDrop<any>) {
-    moveItemInArray(this.data?.folders, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.arscService.data?.folders, event.previousIndex, event.currentIndex);
   }
 }

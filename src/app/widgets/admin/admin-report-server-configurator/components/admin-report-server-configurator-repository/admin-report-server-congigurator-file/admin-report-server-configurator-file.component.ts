@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IReportTemplate, ITemplate, ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
+import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 import { AdminReportNameConfiguratorComponent } from '../../admin-report-name-configurator/admin-report-name-configurator.component';
 
 @Component({
@@ -22,19 +23,15 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   @Input() childrens: ITemplateFolder = null;
   @Input() templates: ITemplate = null;
 
-  @Output() openFolder: EventEmitter<any>;
-
   constructor(
     public dialog: MatDialog,
-    private arscRootService: AdminReportServerConfiguratorRootService
+    private arscRootService: AdminReportServerConfiguratorRootService,
+    public arscService: AdminReportConfiguratorService
   ) { }
 
   ngOnInit(): void {
   }
 
-  public openF(): void {
-    this.openFolder.emit()
-  }
 
   public async editFile(item: IReportTemplate | ITemplate): Promise<void> {    
     const res = await this.arscRootService.getReportFileNameOptions(item?.id);
@@ -58,6 +55,21 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
         item.name = name;
       }
     });
+  }
+
+  public openFolder(folder?: ITemplateFolder): void {
+    this.arscService.data = null;
+    this.arscService.reports = null;
+    this.arscService.folders$.next(folder.childFolders);
+    this.arscService.reports$.next(folder.templates);
+    this.arscService.address$.next(folder)
+  }
+
+  public async openTemplate(template: IReportTemplate | ITemplate): Promise<void> {
+    const data = await this.arscRootService.getReporting(template.id);
+    this.arscService.reportParameters$.next(data);
+    this.arscService.openParameters();
+    this.arscService.headerSettingsPicker.next(1);
   }
 
   public async deleteFolder(item: ITemplateFolder): Promise<void> {
