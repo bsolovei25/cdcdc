@@ -38,6 +38,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> im
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, id, uniqId);
+        console.log('widgetId ', this.widgetId)
     }
 
     ngOnInit(): void {

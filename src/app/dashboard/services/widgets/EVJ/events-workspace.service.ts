@@ -406,6 +406,10 @@ export class EventsWorkspaceService {
         this.event.deadline = new Date(date);
     }
 
+    public setStartToEvent(date: Date): void {
+        this.event.eventDateTime = new Date(date);
+    }
+
     public getUserAvatarUrl(user: IUser): string {
         return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
     }
@@ -557,7 +561,7 @@ export class EventsWorkspaceService {
                 this.status = data;
             }),
             this.eventService.getSubcategory().then((data) => {
-                this.subCategory = data.filter((item) => !!item.description);
+                this.subCategory = data.filter((item) => !!item.description && item.isVisibleToFilter);
             }),
             this.eventService.getUnits().then((data) => {
                 this.units = data;
@@ -678,10 +682,10 @@ export class EventsWorkspaceService {
 
     public async getAutoResponsible(unitId: number): Promise<void> {
         try {
-            const data = await this.eventService.getResponsible(unitId);
-            this.getResponsible$.next(data);
-        } catch (e) {
-            console.error(e);
+            const responsibleUserId = await this.eventService.getResponsibleUserId(unitId);
+            const responsibleUser = await this.eventService.getResponsibleUser(responsibleUserId.userId);
+            this.getResponsible$.next(responsibleUser);
+        } catch {
             this.getResponsible$.next(null);
         }
     }

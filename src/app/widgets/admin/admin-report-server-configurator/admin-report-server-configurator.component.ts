@@ -12,7 +12,7 @@ export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unkno
   constructor(
     protected widgetService: WidgetService,
     @Inject('widgetId') public id: string,
-    @Inject('uniqId') public uniqId: string
+    @Inject('uniqId') public uniqId: string,
   ) {
     super(widgetService, id, uniqId);
   }

@@ -1,0 +1,9 @@
+<div class="variation" [ngStyle]="{ 'background-color': backgroundColor }">
+  <svg-icon [ngClass]="{ 'variation__arrow_up': isPositive, 'variation__arrow_down': !isPositive }"
+            class="variation__arrow"
+            src="assets/icons/widgets/CMID/variation-arrows/variation-arrow.svg">
+  </svg-icon>
+  <span class="variation__value" [ngStyle]="{ 'color': valueColor }">
+    {{ value | number: '1.0-2' : 'en-US' }}
+  </span>
+</div>

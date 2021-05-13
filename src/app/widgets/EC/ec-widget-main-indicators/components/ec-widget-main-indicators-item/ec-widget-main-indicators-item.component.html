@@ -1,0 +1,38 @@
+<div class="diagram">
+  <div class="diagram__container">
+    <svg-icon
+      src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/customBg.svg"
+      class="custom-bg"
+    ></svg-icon>
+    <div class="diagram-circle" #chart></div>
+    <ng-container  *ngIf="(data$ | async) as data" >
+      <div class="diagram-inner-text">
+          <span
+            class="percent"
+            [ngClass]="{
+              'percent-warning': data?.deviationValue !== 0
+            }"
+          >{{data?.deviationValue > 0 ? '+' : ''}}{{data?.deviationValue}}</span>
+        <span class="unit">{{data?.engUnits}}</span>
+      </div>
+      <div class="info">
+        <div class="info__item">
+          <span class="description">Факт</span>
+          <div class="values values--fact">
+            <span class="dot"></span>
+            <span class="value">{{data?.factValue}}</span>
+            <span class="unit">{{data?.engUnits}}</span>
+          </div>
+        </div>
+        <div class="info__item">
+          <span class="description">План</span>
+          <div class="values values--plan">
+            <span class="dot"></span>
+            <span class="value">{{data?.planValue}}</span>
+            <span class="unit">{{data?.engUnits}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

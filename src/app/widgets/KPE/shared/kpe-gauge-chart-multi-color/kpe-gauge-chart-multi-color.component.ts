@@ -1,7 +1,9 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
-import { IKpeGaugeChartPage } from '../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
+import {
+    IKpeGaugeChartPage,
+} from "../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
 export type KpeGaugeChartMultiColor = 'Red' | 'Yellow' | 'Blue' | 'Green';
 
@@ -33,6 +35,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @Input() hideDescription: boolean = false;
     @Input() showAxisValues: boolean = true;
     @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
+    @Input() isFactInChartCenter: boolean = true; // в некоторых виджетах в "главном" спидометре в центре выводится fact, в остальных - totalHour
     @Input() data: IKpeGaugeChartPage | null = null;
 
     readonly chartConfig: IChartConfig[] = [
@@ -136,8 +139,8 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .map(item => 100 - item);
         }
         if (arr[0] !== 0) {
-            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+            // если минимум не равен 0, отнимаем минимум от всех, что бы отразить проценты от 0
+            return [...arr].map(item => Math.floor(Math.floor(item - arr[0]) / (maxBound - arr[0]) * 100));
         } else {
             return [...arr].map(item => Math.floor(item / maxBound * 100));
         }
@@ -146,7 +149,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds)
-        this.chartConfig[this.type].gauge.total = this.data?.fact;
+        this.chartConfig[this.type].gauge.total = this.isFactInChartCenter
+            ? this.data?.fact
+            : this.data?.totalHour;
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds?.slice(0, -1);

@@ -201,6 +201,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         if (!form) {
             return null;
         }
+
         const manufactureName = form.manufacture?.toLowerCase();
         const unitName = this.options$.value.manufactures
             ?.flatMap((x) => x.units)
@@ -211,10 +212,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             ?.flatMap((x) => x.section)
             ?.find((x) => x.id === form.section)
             ?.name?.toLowerCase();
+
         if (!manufactureName || !unitName || !sectionName) {
             return null;
-        }
-        if (sectionName.includes('изомалк')) {
+        } else if (sectionName.includes('изомалк')) {
             return 'izomalk';
         } else if (sectionName.includes('аб')) {
             return 'ab';

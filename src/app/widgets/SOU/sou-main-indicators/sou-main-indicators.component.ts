@@ -127,6 +127,9 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
         this.data = ref;
         if (ref?.losses?.identifiedList.length) {
             this.identifiedList = ref.losses.identifiedList;
+            this.identifiedList.sort(( a, b) =>
+                a.order - b.order
+            )
         }
         this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
     }
