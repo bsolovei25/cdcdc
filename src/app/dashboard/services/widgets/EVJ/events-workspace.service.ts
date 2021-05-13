@@ -682,10 +682,10 @@ export class EventsWorkspaceService {
 
     public async getAutoResponsible(unitId: number): Promise<void> {
         try {
-            const data = await this.eventService.getResponsible(unitId);
-            this.getResponsible$.next(data);
-        } catch (e) {
-            console.error(e);
+            const responsibleUserId = await this.eventService.getResponsibleUserId(unitId);
+            const responsibleUser = await this.eventService.getResponsibleUser(responsibleUserId.userId);
+            this.getResponsible$.next(responsibleUser);
+        } catch {
             this.getResponsible$.next(null);
         }
     }
