@@ -1,6 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
-import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
@@ -11,7 +10,7 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
   styleUrls: ['./admin-server-configurator-reference-menu.component.scss']
 })
 export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
-  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[];
+  @Input() public childrens: ITemplateFolder[];
   @Input() public templates: ITemplate[];
 
   public search: string = '';
@@ -33,11 +32,9 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
   }
 
   public drop(event: CdkDragDrop<ITemplateFolder[]>) {
-    console.log(event.item);
-    
       transferArrayItem(
         this.arscService.data?.folders,
-        this.arscService.data?.folders,
+        this.arscService.data?.folders[event.currentIndex].childFolders,
         event.previousIndex,
         event.currentIndex
       );

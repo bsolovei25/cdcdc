@@ -31,7 +31,7 @@ export interface IReportTemplate {
 }
 
 export interface ITemplateFolder {
-    childFolders: IChildrenFolder[];
+    childFolders: ITemplateFolder[];
     id: number;
     name: string;
     templates: ITemplate[];
@@ -52,12 +52,12 @@ export interface ITemplate {
     name: string;
 }
 
-export interface IChildrenFolder {
-    childFolders: IChildrenFolder[];
-    id: number;
-    name: string;
-    templates: ITemplate;
-}
+// export interface IChildrenFolder {
+//     childFolders: IChildrenFolder[];
+//     id: number;
+//     name: string;
+//     templates: ITemplate;
+// }
 
 export interface ISystemOptionsTemplate {
     id?: number;
