@@ -49,6 +49,14 @@
       background: var(--color-kpe-quality-table-bg-main-warning);
     }
 
+    .warning-cell {
+      background: var(--index-error-color);
+    }
+
+    .danger-cell {
+      background: var(--index-critical-color);
+    }
+
     &.table-item {
       margin-bottom: 32px;
     }
