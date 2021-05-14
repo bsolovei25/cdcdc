@@ -117,6 +117,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
+            this.colors?.set('avt-10-fuel-consumption-PlanValue', 2);
             this.startDrawChart();
         } else {
             this.destroySvg();
