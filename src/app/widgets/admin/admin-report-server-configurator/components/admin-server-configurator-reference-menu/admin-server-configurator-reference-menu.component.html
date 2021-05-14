@@ -5,7 +5,7 @@
     </div>
     <div class="menu__body"  cdkDropListGroup>
         <evj-admin-report-server-configurator-file *ngFor="let item of arscService.data?.folders | searching: search"
-            cdkDrag [item]="item" id="item-list" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)" cdkDropList>
+            cdkDrag [item]="item" id="item-list" (cdkDropListDropped)="drop($event)" cdkDropList>
         </evj-admin-report-server-configurator-file>
         <evj-admin-report-server-configurator-file *ngFor="let item of arscService.reports | searching: search" cdkDrag
             [report]="item">

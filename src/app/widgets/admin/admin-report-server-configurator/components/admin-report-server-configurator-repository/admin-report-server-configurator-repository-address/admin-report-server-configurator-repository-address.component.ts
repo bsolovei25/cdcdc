@@ -12,7 +12,7 @@ import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-serv
 })
 export class AdminReportServerConfiguratorRepositoryAddressComponent implements OnInit {
 
-  public readonly arrowsIcon="assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg";
+  public readonly arrowsIcon = "assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg";
   public path: ITemplateFolder[] = [];
 
   constructor(
@@ -24,10 +24,10 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     this.arscService.address$.subscribe(value => {
       if (value) {
         this.path.push(value);
-      }      
+      }
     })
     console.log(this.path);
-    
+
   }
 
   public openFolder(item: ITemplateFolder): void {
@@ -35,7 +35,7 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     this.arscService.reports$.next(item.templates);
     const idx = this.path.findIndex(v => v?.id === item?.id);
     this.path.splice(idx + 1, this.path?.length);
-    console.log(item);    
+    console.log(item);
   }
 
   public async mainPage(): Promise<void> {
@@ -45,15 +45,4 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     this.arscService.reports$.next(data.templates);
     this.arscService.headerSettingsPicker.next(null);
   }
-
-  public drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-        transferArrayItem(event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex);
-    }
-}
 }

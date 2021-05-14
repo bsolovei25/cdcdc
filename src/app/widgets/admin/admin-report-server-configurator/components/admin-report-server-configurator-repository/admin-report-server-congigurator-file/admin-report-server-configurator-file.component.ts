@@ -4,6 +4,7 @@ import { IReportTemplate, ITemplate, ITemplateFolder } from '@widgets/admin/admi
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 import { AdminReportNameConfiguratorComponent } from '../../admin-report-name-configurator/admin-report-name-configurator.component';
+import { AdminRscRepositoryEditComponent } from '../admin-rsc-repository-edit/admin-rsc-repository-edit.component';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-file',
@@ -32,6 +33,27 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public editFolder(item: ITemplateFolder) {
+    const dialogRef = this.dialog.open(AdminRscRepositoryEditComponent, {
+      data: {
+        item
+      }
+    });
+    const name = item.name;
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          // Редактировать
+        } catch {
+          item.name = name;
+        }
+        item.name = result.result.item.name;
+      } else {
+        item.name = name;
+      }
+    });
+  }
 
   public async editFile(item: IReportTemplate | ITemplate): Promise<void> {    
     const res = await this.arscRootService.getReportFileNameOptions(item?.id);

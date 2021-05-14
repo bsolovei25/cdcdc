@@ -36,6 +36,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AdminRscPathEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-path-edit/admin-rsc-path-edit.component';
 import { AdminRscCustomOptionsComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-custom-options/admin-rsc-custom-options.component';
 import { SearchPipe } from './shared/search.pipe';
+import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
 
 
 
@@ -63,7 +64,8 @@ import { SearchPipe } from './shared/search.pipe';
     AdminRscParameterAutogenerationComponent,
     AdminRscPathEditComponent,
     AdminRscCustomOptionsComponent,
-    SearchPipe
+    SearchPipe,
+    AdminRscRepositoryEditComponent
   ],
   imports: [
     CommonModule,

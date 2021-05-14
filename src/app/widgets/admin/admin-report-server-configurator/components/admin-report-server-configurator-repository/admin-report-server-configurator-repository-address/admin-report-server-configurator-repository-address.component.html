@@ -4,7 +4,7 @@
     </div>
     <div class="others" *ngFor="let item of path">
         <svg-icon src="{{arrowsIcon}}"></svg-icon>
-        <div class="address" (click)="openFolder(item)" cdkDropList id="address-list">
+        <div class="address" cdkDropListGroup (click)="openFolder(item)" cdkDropList id="address-list">
             {{item?.name}}
         </div>
     </div>
