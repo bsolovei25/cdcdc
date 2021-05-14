@@ -1,41 +1,16 @@
 <div class="widget-container">
   <evj-contemporary-widget-header
     [uniqId]="uniqId"
-    [widgetTitle]="(viewType$ | async) === 'Furnace' ? null : widgetTitle"
+    [widgetTitle]="widgetTitle"
     icon="squares"
     type="astue"
   >
-    <!--<div *ngIf="(viewType$ | async) === 'Furnace'" class="header-container">-->
-      <!--<evj-ec-widget-factor-analysis-header-->
-        <!--[reference]="selectionReference"-->
-        <!--[page]="pageType$ | async"-->
-        <!--(changePage)="changePage($event)"-->
-      <!--&gt;</evj-ec-widget-factor-analysis-header>-->
-    <!--</div>-->
-    <!--<div style="flex-grow: 1"></div>-->
-    <!--<svg-icon-->
-      <!--style="cursor: pointer; margin-left: 10px"-->
-      <!--src="assets/icons/print.svg"-->
-      <!--(mousedown)="$event.stopPropagation()"-->
-      <!--(touchstart)="$event.stopPropagation()"-->
-      <!--(click)="takeScreenshot()"-->
-    <!--&gt;</svg-icon>-->
   </evj-contemporary-widget-header>
 
   <div #chart class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <ng-container [ngSwitch]="pageType$ | async">
       <evj-ec-widget-factor-analysis-page
-        *ngSwitchCase="'bar'"
-        [@rightTrigger]
         class="factor-analysis"
         [dataTemp]="barData"
-        [isUnit]="(viewType$ | async) !== 'Furnace'"
       ></evj-ec-widget-factor-analysis-page>
-      <!--<div *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis">-->
-        <!--<ng-container *ngIf="selectedChannelId">-->
-          <!--<ng-container *ngComponentOutlet="chartPageComponent; injector: (widgetId | fn:getInjector );"></ng-container>-->
-        <!--</ng-container>-->
-      <!--</div>-->
-    </ng-container>
   </div>
 </div>
