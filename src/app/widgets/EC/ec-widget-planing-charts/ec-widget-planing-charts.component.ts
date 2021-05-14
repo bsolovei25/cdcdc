@@ -12,6 +12,10 @@ import { combineLatest, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
 
+export interface IPlanningChartPayLoad {
+    graphs: IPlanningChart[];
+}
+
 export interface IPlanningChart {
     tag: string;
     title: string;
@@ -29,7 +33,7 @@ export interface IPlanningChart {
 export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
     colors: Map<string, number>;
-    private virtualChannels: any[] = [];
+    private virtualChannels: VirtualChannel<IPlanningChartPayLoad>[] = [];
     private predictorsId: string[] = [];
     private virtualChannelSubscription: Subscription[] = [];
 
@@ -90,7 +94,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
 
                 predictorsId.forEach(id => {
                     this.virtualChannels.push(
-                        new VirtualChannel<any>(this.widgetService, {
+                        new VirtualChannel<IPlanningChartPayLoad>(this.widgetService, {
                             channelId: this.widgetId,
                             subchannelId: id,
                         })
@@ -100,12 +104,12 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
                 const virtualChannelsSubj = this.virtualChannels.map(item => item.data$)
 
                 this.virtualChannelSubscription.push(
-                    combineLatest(virtualChannelsSubj).subscribe((ref: any[]) => {
+                    combineLatest(virtualChannelsSubj).subscribe((ref) => {
                         const planningCharts = ref.map(item => item.graphs[0])
-                        const multiLineCharts = ref.map(item => item.multiLineChart)
+                        // const multiLineCharts = ref.map(item => item.multiLineChart)
 
                         this.data = planningCharts;
-                        this.astueOnpzService.setMultiLinePredictors(multiLineCharts);
+                        // this.astueOnpzService.setMultiLinePredictors(multiLineCharts);
                     })
                 )
             } else {
