@@ -1,3 +1,22 @@
+# [1.27.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.26.0...v1.27.0) (2021-05-14)
+
+
+### Bug Fixes
+
+* **front#1862:** Исправление выводов в элементах на л35 сырьевой парк ([f9a4cec](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f9a4cecf90dc06b583f82bb383c57dfe9d58a0be)), closes [front#1862](https://gitlab.funcoff.club/front/issues/1862)
+* **Notifications:** добавлено новое определение ответственного при ручном создании события. front[#1667](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1667) ([90033b5](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/90033b5576e7f4e61ecc78d37084b672b7e1382f))
+
+
+### Features
+
+* **#1699:** added service and fixed svg ([bcba1a7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bcba1a7765e6a4d9ca165ae9da438ff24f2497fc))
+* **#1699:** implemented close reason widget ([f0684ab](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f0684ab1991de6143f7b6b35577e461939433fad))
+* **#1699:** refactoring and comments ([42a3169](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/42a3169f5727d3408316c56d20d7731930b314db)), closes [#1699](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1699)
+* **#1699:** refactoring and fixes ([f069896](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f069896fd2b8ac1013b9a3764b992b83a7a90924)), closes [#1699](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1699)
+* **#1699:** returned config.json ([ce6bf9a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ce6bf9ae0bd65b1e631e4dfc9d645e2c8e6ec1c2)), closes [#1699](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1699)
+* **ЦМИД:** Вёрстка виджета Динамика изменения метрик [#1700](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1700) ([b382c72](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b382c7217399ccb90f2be1f51dbaeb03642dc718))
+* **ЦМИД:** Добавил виджеты в widget-map [#1700](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1700) ([25ec10b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/25ec10b476a348a286ec32a4ca7e13522c877c84))
+
 # [1.26.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.25.0...v1.26.0) (2021-05-13)
 
 
