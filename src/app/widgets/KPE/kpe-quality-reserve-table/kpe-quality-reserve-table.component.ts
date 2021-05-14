@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, Injector, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit } from "@angular/core";
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { BehaviorSubject } from 'rxjs';
 import { KpeQualityReserveTableItemComponent } from "./components/kpe-quality-reserve-table-item/kpe-quality-reserve-table-item.component";
+import { KpeQualityReserveTableService } from "@dashboard/services/widgets/KPE/kpe-quality-reserve-table.service";
 
 export interface IQualityReserveTableTabs {
     title: string;
@@ -31,13 +32,14 @@ export interface IQualityReserveTableDataRow {
 export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> implements OnInit {
     public tabsList$: BehaviorSubject<IQualityReserveTableTabs[]> = new BehaviorSubject<IQualityReserveTableTabs[]>([]);
     public currentTab: number = 1;
-
+    public defaultUnits: number = 1;
     public displayedColumns: string[];
-
     public readonly specialComponent: typeof KpeQualityReserveTableItemComponent = KpeQualityReserveTableItemComponent;
+    public selectedOption: number;
 
     constructor(
         protected widgetService: WidgetService,
+        private kpeQualityReserveTableService: KpeQualityReserveTableService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private injector: Injector
@@ -61,7 +63,6 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
     private async getSubChannels(): Promise<void> {
         const subChannels = await this.widgetService.getAvailableChannels<IQualityReserveTableTabs>(this.widgetId);
         this.tabsList$.next(subChannels);
-        
     }
 
     public getInjector = (widgetId: string, channelId: string): Injector => {
@@ -74,5 +75,13 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
         });
     };
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+        this.selectedOption = ref.currentTab.defaultUnits ?? this.defaultUnits; // если defaultUnits не приходят или приходят пустые, то используем по умолчанию, которые 0
+        this.kpeQualityReserveTableService.selectFilter(this.selectedOption);
+    }
+
+    public changeUnits($event: number): void {
+        this.selectedOption = $event;
+        this.kpeQualityReserveTableService.selectFilter(this.selectedOption);
+    }
 }
