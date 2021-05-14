@@ -1,0 +1,19 @@
+<div class="cmid-widget">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="null">
+    <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/header/chart_squares.svg"></svg-icon>
+    <evj-cmid-dynamics-of-metrics-change-header
+      class="cmid-widget__header"
+      [page]="pageType$ | async"
+      (changePage)="changePage($event)">
+    </evj-cmid-dynamics-of-metrics-change-header>
+  </evj-contemporary-widget-header>
+
+  <ng-container [ngSwitch]="pageType$ | async">
+    <div *ngSwitchCase="pageTypes.DYNAMICS" class="cmid-widget__chart-wrapper">
+      <evj-cmid-dynamics-of-metrics-change-chart class="cmid-widget__chart"></evj-cmid-dynamics-of-metrics-change-chart>
+    </div>
+    <div *ngSwitchCase="pageTypes.STATISTICS">
+      Widget 'Статистика причин отключения" should be here.
+    </div>
+  </ng-container>
+</div>

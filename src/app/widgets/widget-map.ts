@@ -1839,6 +1839,28 @@ export const WIDGETS_LAZY = {
         minItemRows: 6,
         preview: 'default',
     },
+    'cmid-number-of-outages': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-number-of-outages/cmid-number-of-outages.module');
+        },
+        module: 'CmidNumberOfOutagesModule',
+        itemCols: 25,
+        itemRows: 30,
+        minItemCols: 25,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'cmid-dynamics-of-metrics-change': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-dynamics-of-metrics-change/cmid-dynamics-of-metrics-change.module');
+        },
+        module: 'CmidDynamicsOfMetricsChangeModule',
+        itemCols: 50,
+        itemRows: 10,
+        minItemCols: 50,
+        minItemRows: 10,
+        preview: 'default',
+    },
     //#endregion CMID
 
     //#region others
