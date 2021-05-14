@@ -81,6 +81,9 @@ export class SouSchemaComponent implements OnChanges {
             lineLength: 7,
             lineHeight: 20
         },
+        14: {
+            maxTextLength: 12,
+        },
         16: {
             maxTextLength: 17
         },
@@ -286,12 +289,11 @@ export class SouSchemaComponent implements OnChanges {
     ): void {
         if (element?.children) {
             const elementFull = this.getElementFull(element, sectionData);
+            const elementId = this.getElementId(element);
 
-            if (this.debugElementCode && this.getElementId(element) === this.debugElementCode) {
+            if (this.debugElementCode && elementId === this.debugElementCode) {
                 console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
             }
-
-            const elementId = this.getElementId(element);
 
             if (elementFull) {
                 this.elementsFullMap.set(elementId, elementFull);
