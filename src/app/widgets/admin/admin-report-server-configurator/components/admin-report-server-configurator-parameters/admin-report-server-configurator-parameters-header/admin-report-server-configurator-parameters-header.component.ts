@@ -26,8 +26,8 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   ngOnInit(): void {
     this.arscService.headerSettingsPicker.subscribe(value => {
       this.parameters = value;
-      value !== 1 && value !== 2 ? this.disable = true : this.disable = false;
-      
+      value === 0 ? this.disable = true : this.disable = false;
+      console.log(value);
     });
     this.systemOptions();
   }
@@ -53,6 +53,5 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   public async systemOptions(): Promise<void> {
     const data = await this.arscRootService.getSystemOptions();
     this.options = data;
-    console.log(this.options);
   }
 }

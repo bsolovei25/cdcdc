@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
@@ -32,7 +32,14 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     })
   }
 
-  public drop(event: CdkDragDrop<any>) {
-    moveItemInArray(this.arscService.data?.folders, event.previousIndex, event.currentIndex);
+  public drop(event: CdkDragDrop<ITemplateFolder[]>) {
+    console.log(event.item);
+    
+      transferArrayItem(
+        this.arscService.data?.folders,
+        this.arscService.data?.folders,
+        event.previousIndex,
+        event.currentIndex
+      );
   }
 }

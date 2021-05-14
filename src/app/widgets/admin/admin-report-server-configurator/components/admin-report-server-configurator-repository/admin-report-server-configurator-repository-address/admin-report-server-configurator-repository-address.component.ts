@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
@@ -29,11 +30,12 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     
   }
 
-  public openFolder(item: ITemplateFolder ): void {
+  public openFolder(item: ITemplateFolder): void {
     this.arscService.folders$.next(item.childFolders);
     this.arscService.reports$.next(item.templates);
     const idx = this.path.findIndex(v => v?.id === item?.id);
-    this.path.splice(idx + 1, this.path.length);
+    this.path.splice(idx + 1, this.path?.length);
+    console.log(item);    
   }
 
   public async mainPage(): Promise<void> {
@@ -43,4 +45,15 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     this.arscService.reports$.next(data.templates);
     this.arscService.headerSettingsPicker.next(null);
   }
+
+  public drop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+        transferArrayItem(event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
+    }
+}
 }

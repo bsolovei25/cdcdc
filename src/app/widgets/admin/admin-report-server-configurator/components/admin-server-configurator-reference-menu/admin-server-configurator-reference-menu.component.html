@@ -3,10 +3,12 @@
         <div class="menu__header__name">Название</div>
         <div class="menu__header__name">Последнее изменение</div>
     </div>
-    <div class="menu__body" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="menu__body" cdkDropList>
         <evj-admin-report-server-configurator-file *ngFor="let item of arscService.data?.folders | searching: search"
-            cdkDrag [item]="item"></evj-admin-report-server-configurator-file>
-        <evj-admin-report-server-configurator-file *ngFor="let item of arscService.reports | searching: search" cdkDrag>
+            cdkDrag [item]="item" id="item-list" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+        </evj-admin-report-server-configurator-file>
+        <evj-admin-report-server-configurator-file *ngFor="let item of arscService.reports | searching: search" cdkDrag
+            [report]="item">
         </evj-admin-report-server-configurator-file>
         <evj-admin-report-server-configurator-file *ngFor="let item of childrens | searching: search" cdkDrag
             [childrens]="item"></evj-admin-report-server-configurator-file>

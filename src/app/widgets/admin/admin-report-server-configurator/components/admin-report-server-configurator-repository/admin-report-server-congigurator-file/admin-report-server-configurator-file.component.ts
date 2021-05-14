@@ -77,7 +77,7 @@ export class AdminReportServerConfiguratorFileComponent implements OnInit {
   }
 
   public async deleteTemplate(item: ITemplate): Promise<void> {
-    this.arscRootService.deleteReportFileTemplate(item.id);
+    this.arscRootService.deleteReportTemplate(item.id);
   }
   public async deleteReport(item: IReportTemplate): Promise<void> {
     this.arscRootService.deleteReportTemplate(item.id);

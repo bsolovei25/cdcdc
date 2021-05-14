@@ -19,6 +19,7 @@ export class AdminRscCustomOptionsComponent implements OnInit {
     sortOrder: 'Сортировка',
   };
   public arrayOptions = [];
+  public panelOpenState: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<AdminRscCustomOptionsComponent>,

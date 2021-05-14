@@ -1,5 +1,5 @@
 <div class="settings">
-    <div class="settings__switch">
+    <div class="settings__switch"  [ngClass]="{'disable': disable}">
         <div class="case"
         [ngClass]="{'clicked': parameters === 1}"
         (click)="openParameters()"
@@ -9,8 +9,8 @@
         (click)="openAccessLevel()"
         >Уровень доступа</div>
     </div>
-    <div class="settings__buttons">
-        <evj-simple-button class="button" (click)="openSelect()">
+    <div class="settings__buttons" >
+        <evj-simple-button class="button" (click)="openSelect()" [ngClass]="{'disable': disable}">
             Изменить параметры
         </evj-simple-button>
         <evj-simple-button class="button">
