@@ -8,7 +8,8 @@
             {{table.headers[+column].name}} <span>{{table.headers[+column]?.unit}}</span>
           </th>
           <td mat-cell *matCellDef="let element" [class.warning]="element.cells[+column]?.isWarning">
-            {{element.cells[+column]?.value}}
+            <span *ngIf="(chosenFilter === 0) || (+column === 0)">{{element.cells[+column]?.value}}</span>
+            <span *ngIf="(chosenFilter === 1) && (+column !== 0)">{{element.cells[+column]?.valueInUnits}}</span>
           </td>
         </ng-container>
 

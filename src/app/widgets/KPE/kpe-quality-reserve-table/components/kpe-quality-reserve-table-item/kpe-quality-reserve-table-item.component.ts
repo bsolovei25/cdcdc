@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { IQualityReserveTableData, IQualityReserveTableHeaders } from "../../kpe-quality-reserve-table.component";
 import { WidgetService } from "@dashboard/services/widget.service";
 import { ChannelPlatform } from "@dashboard/models/@PLATFORM/channel-platform";
 import { SpaceNumber } from "@shared/pipes/number-space.pipe";
+import { KpeQualityReserveTableService } from "@dashboard/services/widgets/KPE/kpe-quality-reserve-table.service";
 
 export interface IQualityReserveTablesGroup {
     currentTables: IQualityReserveTableMain[];
@@ -21,7 +22,7 @@ export interface IQualityReserveTableMain {
     selector: 'evj-kpe-quality-reserve-table-item',
     templateUrl: './kpe-quality-reserve-table-item.component.html',
     styleUrls: ['./kpe-quality-reserve-table-item.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpeQualityReserveTableItemComponent
     extends ChannelPlatform<IQualityReserveTablesGroup>
@@ -34,9 +35,12 @@ export class KpeQualityReserveTableItemComponent
     public displayedColumns: string[];
 
     public tables$: BehaviorSubject<IQualityReserveTablesGroup> = new BehaviorSubject<IQualityReserveTablesGroup>(null);
+    public chosenFilter: number;
 
     constructor(
         protected widgetService: WidgetService,
+        private kpeQualityReserveTableService: KpeQualityReserveTableService,
+        private changeDetectorRef: ChangeDetectorRef,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
         private spaceNumber: SpaceNumber
@@ -46,6 +50,12 @@ export class KpeQualityReserveTableItemComponent
 
     ngOnInit(): void {
         super.ngOnInit();
+        this.subscriptions.push(
+            this.kpeQualityReserveTableService.chosenFilter$.subscribe((filter) => {
+                this.chosenFilter = filter;
+                this.changeDetectorRef.markForCheck();
+            })
+        )
     }
 
     ngOnDestroy(): void {
