@@ -174,6 +174,7 @@ export class WorkspaceChartComponent implements OnChanges {
         [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
         this.dataMin -= (this.dataMax - this.dataMin) * this.deltaCf;
         this.dataMax += (this.dataMax - this.dataMin) * this.deltaCf;
+
         this.dateMax = d3.max(maxDate);
         this.dateMin = d3.min(minDate);
     }
@@ -202,8 +203,8 @@ export class WorkspaceChartComponent implements OnChanges {
         } else {
             this.axis.axisX = d3
                 .axisBottom(this.scaleFuncs.x)
-                .ticks(12)
-                .tickFormat(d3.timeFormat('%H'))
+                .ticks(26)
+                .tickFormat(d3.timeFormat('%H:%M'))
                 .tickSizeOuter(0);
         }
         this.axis.axisY = d3.axisLeft(this.scaleFuncs.y).ticks(5).tickSize(0);
@@ -312,16 +313,16 @@ export class WorkspaceChartComponent implements OnChanges {
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
 
-        this.svg.selectAll('g.axisY g.tick')._groups[0].forEach((g, idx) => {
-            if (idx % 2) {
-                g.remove();
-            }
-        });
-        this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
-            if (idx % 2 && this.currentDates && !this.isWithPicker) {
-                g.remove();
-            }
-        });
+        // this.svg.selectAll('g.axisY g.tick')._groups[0].forEach((g, idx) => {
+        //     if (idx % 2) {
+        //         g.remove();
+        //     }
+        // });
+        // this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
+        //     if (idx % 2 && this.currentDates && !this.isWithPicker) {
+        //         g.remove();
+        //     }
+        // });
     }
 
     private dropChart(): void {
