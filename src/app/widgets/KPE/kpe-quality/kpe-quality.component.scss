@@ -269,6 +269,14 @@
   }
 }
 
+::ng-deep {
+  .quality__header__gauge .chart {
+    .desc {
+      fill: var(--gray-G7-color) !important;
+    }
+  }
+}
+
 /*.unit-selector {
   display: flex;
   justify-content: center;
