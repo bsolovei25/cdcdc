@@ -1887,4 +1887,18 @@ export const WIDGETS_LAZY = {
         preview: 'unity-template',
     },
     //#endregion others
+
+    //#region EC
+    'ec-widget-table-model': {
+        import: async () => {
+            return await import('src/app/widgets/EC/ec-widget-table-model/ec-widget-table-model.module');
+        },
+        module: 'EcWidgetTableModelModule',
+        itemCols: 20,
+        itemRows: 10,
+        minItemCols: 20,
+        minItemRows: 10,
+        preview: 'ec-widget-table-model'
+    },
+    // #endregion EC
 };
