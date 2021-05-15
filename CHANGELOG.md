@@ -1,3 +1,19 @@
+# [1.28.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.27.0...v1.28.0) (2021-05-15)
+
+
+### Bug Fixes
+
+* **front#1587:** КПА с100 исправлено отображение элементов ([eead236](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/eead236b72748e5bfbbd7701b3354013d4f144c6)), closes [front#1587](https://gitlab.funcoff.club/front/issues/1587)
+* **KPE:** КПЭ. Запас по качеству. Окрашивание ячеек. front[#1812](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1812) ([6507f77](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6507f77f71fbef9b54da2c1956b03776e549e9d7))
+
+
+### Features
+
+* **EC:** Реализация нового виджета Показатели front[#1860](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1860) ([4fd5679](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4fd56797873986b728013317499f39b31de97396))
+* **front#1873:** Добавлена поддержка отображение не измеряемых линий из related ([983f310](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/983f31056cb05e163f8a408a89ca29245e6ab0c5)), closes [front#1873](https://gitlab.funcoff.club/front/issues/1873)
+* **KPE:**  Запас по качеству. Вывод значений в натуральных единицах. front[#1805](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1805) ([41f2756](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/41f2756eb71d2003f1f57931ab42144d76448b1b))
+* **KPE:**  КПЭ. Приведение к новому дизайну виджета по качеству front[#1257](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1257) ([f5f0c16](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f5f0c16a4c5c3459189435cf0bfc0a2139116419))
+
 # [1.27.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.26.0...v1.27.0) (2021-05-14)
 
 
