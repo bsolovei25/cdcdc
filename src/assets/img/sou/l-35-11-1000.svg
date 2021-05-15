@@ -317,40 +317,36 @@
 <circle id="border_13" cx="665" cy="1066" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_34" d="M1113 326H1153" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_14">
 <g id=".template on&#38;off_14">
 <circle id="border_14" cx="1106" cy="326" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_35" d="M1113 973L1153 973" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_36" d="M1177 973L1296 973" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_34" d="M1113 973L1153 973" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_35" d="M1177 973L1296 973" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_15">
 <g id=".template on&#38;off_15">
 <circle id="border_15" cx="1106" cy="973" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_37" d="M1113 452H1153" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_16">
 <g id=".template on&#38;off_16">
 <circle id="border_16" cx="1106" cy="452" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_38" d="M1113 384H1153" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_17">
 <g id=".template on&#38;off_17">
 <circle id="border_17" cx="1106" cy="384" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_39" d="M1113 510H1153" stroke="#606580" stroke-linecap="round"/>
 <path id="line_1002" d="M1177 326H1296" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_40" d="M1177 452H1296" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_41" d="M1177 384H1296" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_42" d="M1177 510H1296" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_36" d="M1177 452H1296" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_37" d="M1177 384H1296" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_38" d="M1177 510H1296" stroke="#606580" stroke-linecap="round"/>
 <path id="line_1001" d="M1113 326H1153" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_43" d="M1113 452H1153" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_44" d="M1113 384H1153" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_45" d="M1113 510H1153" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_39" d="M1113 452H1153" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_40" d="M1113 384H1153" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_41" d="M1113 510H1153" stroke="#606580" stroke-linecap="round"/>
 <g id="Group 22958">
 <g id=".start&#38;end_13">
 <path id="Rectangle 7354_13" d="M1412 323L1418 326L1412 329V326V323Z" fill="#606580"/>
@@ -361,13 +357,13 @@
 <g id=".start&#38;end_14">
 <path id="Rectangle 7354_14" d="M1412 449L1418 452L1412 455V452V449Z" fill="#606580"/>
 </g>
-<path id="line_65_46" d="M1385 452H1412" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_42" d="M1385 452H1412" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id="Group 22959">
 <g id=".start&#38;end_15">
 <path id="Rectangle 7354_15" d="M1412 381L1418 384L1412 387V384V381Z" fill="#606580"/>
 </g>
-<path id="line_65_47" d="M1385 384H1412" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_43" d="M1385 384H1412" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id=".on&#38;off_18">
 <g id=".template on&#38;off_18">
@@ -375,12 +371,12 @@
 </g>
 </g>
 <g id="Group 22961">
-<path id="line_65_48" d="M1385 510H1412" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_44" d="M1385 510H1412" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end_16">
 <path id="Rectangle 7354_16" d="M1412 507L1418 510L1412 513V510V507Z" fill="#606580"/>
 </g>
 </g>
-<path id="line_65_49" d="M1113 1035H1153" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_45" d="M1113 1035H1153" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_19">
 <g id=".template on&#38;off_19">
 <circle id="border_19" cx="1106" cy="1035" r="6.5" fill="#1C1F2B" stroke="#606580"/>
@@ -392,15 +388,15 @@
 <circle id="border_20" cx="1106" cy="1093" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_65_50" d="M1113 1151H1153" stroke="#606580" stroke-linecap="round"/>
-<path id="line_65_51" d="M1177 1035H1296" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_46" d="M1113 1151H1153" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_47" d="M1177 1035H1296" stroke="#606580" stroke-linecap="round"/>
 <path id="line_dotted_5" d="M1177 1093H1296" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
-<path id="line_65_52" d="M1177 1151H1296" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_48" d="M1177 1151H1296" stroke="#606580" stroke-linecap="round"/>
 <g id="Group 22964">
 <g id=".start&#38;end_17">
 <path id="Rectangle 7354_17" d="M1415 1032L1421 1035L1415 1038V1035V1032Z" fill="#606580"/>
 </g>
-<path id="line_65_53" d="M1385 1035H1416" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_49" d="M1385 1035H1416" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id="Group 22965">
 <g id=".start&#38;end_18">
@@ -414,7 +410,7 @@
 </g>
 </g>
 <g id="Group 22966">
-<path id="line_65_54" d="M1385 1151H1416" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_50" d="M1385 1151H1416" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end_19">
 <path id="Rectangle 7354_19" d="M1415 1148L1421 1151L1415 1154V1151V1148Z" fill="#606580"/>
 </g>
@@ -433,15 +429,15 @@
 </g>
 </g>
 <g id="Group 22963">
-<path id="line_65_55" d="M1385 973L1404 973" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_51" d="M1385 973L1404 973" stroke="#606580" stroke-linecap="round"/>
 <g id="Arrow">
 <g id=".template arrow">
-<path id="line_65_56" d="M1051 802L1404 802" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_52" d="M1051 802L1404 802" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <g id="Arrow_2">
 <g id=".template arrow_2">
-<path id="line_65_57" d="M1051 764H1068" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_53" d="M1051 764H1068" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end_21">
 <path id="Rectangle 7354_21" d="M1065 761L1071 764L1065 767V764V761Z" fill="#606580"/>
 </g>
@@ -449,7 +445,7 @@
 </g>
 <g id="Arrow_3">
 <g id=".template arrow_3">
-<path id="line_65_58" d="M1404 973L1404 839" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_54" d="M1404 973L1404 839" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <g id="Arrow_4">
@@ -459,7 +455,7 @@
 </g>
 <g id="Arrow_5">
 <g id=".template arrow_5">
-<path id="line_65_59" d="M1051 802L1051 764" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_55" d="M1051 802L1051 764" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <path id="Ellipse 2109" d="M1404 829C1401.24 829 1399 831.239 1399 834C1399 836.761 1401.24 839 1404 839" stroke="#606580" stroke-linecap="round"/>
@@ -1134,7 +1130,7 @@
 <g id=".start&#38;end_22">
 <path id="Rectangle 7354_22" d="M1065 1063L1071 1066L1065 1069V1066V1063Z" fill="#606580"/>
 </g>
-<path id="line_65_60" d="M1029 1066L1065 1066" stroke="#606580" stroke-linecap="round"/>
+<path id="line_65_56" d="M1029 1066L1065 1066" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id="element-3_6">
 <g id="rect_16">
