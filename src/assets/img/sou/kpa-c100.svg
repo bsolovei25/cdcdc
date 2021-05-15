@@ -641,7 +641,7 @@
 </g>
 <text id="text_percent_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="113.161">99%</tspan></text>
 <text id="text_12" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="93.1606">FR35</tspan></text>
-<circle id="ellipse_2" cx="600" cy="98" r="4" fill="white"/>
+<circle id="ellipse_2" cx="600" cy="101" r="4" fill="white"/>
 </g>
 <path id="line_111_82" d="M648 101L744 101" stroke="#606580" stroke-linecap="round"/>
 <g id="Group 22866">
@@ -675,7 +675,7 @@
 </g>
 <text id="text_percent_3" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="186.161">99%</tspan></text>
 <text id="text_13" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="166.161">FR34</tspan></text>
-<circle id="ellipse_3" cx="968" cy="171" r="4" fill="white"/>
+<circle id="ellipse_3" cx="968" cy="174" r="4" fill="white"/>
 </g>
 <g id="element-11_14">
 <circle id="circle_12" cx="1004" cy="232" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -702,7 +702,7 @@
 </g>
 <text id="text_percent_4" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="244.161">0%</tspan></text>
 <text id="text_14" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="224.161">FR34-1</tspan></text>
-<circle id="ellipse_4" cx="968" cy="229" r="4" fill="white"/>
+<circle id="ellipse_4" cx="968" cy="232" r="4" fill="white"/>
 </g>
 <g id="element-11_20">
 <circle id="circle_13" cx="1004" cy="300" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -729,7 +729,7 @@
 </g>
 <text id="text_percent_5" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="312.161">99%</tspan></text>
 <text id="text_15" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="292.161">FR17.3</tspan></text>
-<circle id="ellipse_5" cx="968" cy="297" r="4" fill="white"/>
+<circle id="ellipse_5" cx="968" cy="300" r="4" fill="white"/>
 </g>
 <g id="element-11_23">
 <circle id="circle_14" cx="1004" cy="358" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -756,7 +756,7 @@
 </g>
 <text id="text_percent_6" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="370.161">0%</tspan></text>
 <text id="text_16" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="350.161">FR17.2</tspan></text>
-<circle id="ellipse_6" cx="968" cy="355" r="4" fill="white"/>
+<circle id="ellipse_6" cx="968" cy="358" r="4" fill="white"/>
 </g>
 <g id="element-11_26">
 <circle id="circle_15" cx="1004" cy="418" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -783,7 +783,7 @@
 </g>
 <text id="text_percent_7" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="430.161">0%</tspan></text>
 <text id="text_17" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="410.161">FR17.1</tspan></text>
-<circle id="ellipse_7" cx="968" cy="415" r="4" fill="white"/>
+<circle id="ellipse_7" cx="968" cy="418" r="4" fill="white"/>
 </g>
 <g id="element-11_32">
 <circle id="circle_16" cx="1004" cy="487" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -864,7 +864,7 @@
 </g>
 <text id="text_percent_10" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="624.161">99%</tspan></text>
 <text id="text_20" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="604.161">FR44-1</tspan></text>
-<circle id="ellipse_10" cx="968" cy="609" r="4" fill="white"/>
+<circle id="ellipse_10" cx="968" cy="612" r="4" fill="white"/>
 </g>
 <g id="element-11_44">
 <circle id="circle_19" cx="1004" cy="669" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -891,7 +891,7 @@
 </g>
 <text id="text_percent_11" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="681.161">99%</tspan></text>
 <text id="text_21" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="661.161">FR45</tspan></text>
-<circle id="ellipse_11" cx="968" cy="666" r="4" fill="white"/>
+<circle id="ellipse_11" cx="968" cy="669" r="4" fill="white"/>
 </g>
 <g id="element-11_59">
 <circle id="circle_20" cx="1004" cy="855" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -918,7 +918,7 @@
 </g>
 <text id="text_percent_12" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="867.161">99%</tspan></text>
 <text id="text_22" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="847.161">FR30-1</tspan></text>
-<circle id="ellipse_12" cx="968" cy="852" r="4" fill="white"/>
+<circle id="ellipse_12" cx="968" cy="855" r="4" fill="white"/>
 </g>
 <g id="element-11_65">
 <circle id="circle_21" cx="1004" cy="971" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -945,7 +945,7 @@
 </g>
 <text id="text_percent_13" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="983.161">0%</tspan></text>
 <text id="text_23" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="963.161">FR30.3</tspan></text>
-<circle id="ellipse_13" cx="968" cy="968" r="4" fill="white"/>
+<circle id="ellipse_13" cx="968" cy="971" r="4" fill="white"/>
 </g>
 <g id="element-11_62">
 <circle id="circle_22" cx="1004" cy="913" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -972,7 +972,7 @@
 </g>
 <text id="text_percent_14" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="925.161">0%</tspan></text>
 <text id="text_24" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="905.161">FR30.2</tspan></text>
-<circle id="ellipse_14" cx="968" cy="910" r="4" fill="white"/>
+<circle id="ellipse_14" cx="968" cy="913" r="4" fill="white"/>
 </g>
 <g id="element-11_17">
 <circle id="circle_23" cx="636" cy="358" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -999,7 +999,7 @@
 </g>
 <text id="text_percent_15" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="370.161">99%</tspan></text>
 <text id="text_25" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="350.161">FR17</tspan></text>
-<circle id="ellipse_15" cx="600" cy="355" r="4" fill="white"/>
+<circle id="ellipse_15" cx="600" cy="358" r="4" fill="white"/>
 </g>
 <g id="element-11_29">
 <circle id="circle_24" cx="636" cy="514" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1026,7 +1026,7 @@
 </g>
 <text id="text_percent_16" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="526.161">99%</tspan></text>
 <text id="text_26" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="506.161">FR122</tspan></text>
-<circle id="ellipse_16" cx="600" cy="511" r="4" fill="white"/>
+<circle id="ellipse_16" cx="600" cy="514" r="4" fill="white"/>
 </g>
 <g id="element-11_56">
 <circle id="circle_25" cx="636" cy="1031" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1053,7 +1053,7 @@
 </g>
 <text id="text_percent_17" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="1043.16">99%</tspan></text>
 <text id="text_27" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="1023.16">FR30</tspan></text>
-<circle id="ellipse_17" cx="600" cy="1028" r="4" fill="white"/>
+<circle id="ellipse_17" cx="600" cy="1031" r="4" fill="white"/>
 </g>
 <g id="element-11_83">
 <circle id="circle_26" cx="636" cy="1394" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1080,7 +1080,7 @@
 </g>
 <text id="text_percent_18" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="1406.16">99%</tspan></text>
 <text id="text_28" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="652" y="1386.16">FR43</tspan></text>
-<circle id="ellipse_18" cx="600" cy="1391" r="4" fill="white"/>
+<circle id="ellipse_18" cx="600" cy="1394" r="4" fill="white"/>
 </g>
 <g id="element-3_3">
 <g id="rect_4">
@@ -1149,7 +1149,7 @@
 </g>
 <text id="text_percent_23" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1043.16">0%</tspan></text>
 <text id="text_33" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1023.16">FR30.4</tspan></text>
-<circle id="ellipse_19" cx="968" cy="1028" r="4" fill="white"/>
+<circle id="ellipse_19" cx="968" cy="1031" r="4" fill="white"/>
 </g>
 <g id="element-11_71">
 <circle id="circle_28" cx="1004" cy="1151" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1176,7 +1176,7 @@
 </g>
 <text id="text_percent_24" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1163.16">0%</tspan></text>
 <text id="text_34" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1143.16">FR30.4</tspan></text>
-<circle id="ellipse_20" cx="968" cy="1148" r="4" fill="white"/>
+<circle id="ellipse_20" cx="968" cy="1151" r="4" fill="white"/>
 </g>
 <g id="element-11_74">
 <circle id="circle_29" cx="1293" cy="1091" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1203,7 +1203,7 @@
 </g>
 <text id="text_percent_25" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1103.16">0%</tspan></text>
 <text id="text_35" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1083.16">FR31.1</tspan></text>
-<circle id="ellipse_21" cx="1257" cy="1088" r="4" fill="white"/>
+<circle id="ellipse_21" cx="1257" cy="1091" r="4" fill="white"/>
 </g>
 <g id="element-11_77">
 <circle id="circle_30" cx="1293" cy="1151" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1230,7 +1230,7 @@
 </g>
 <text id="text_percent_26" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1163.16">0%</tspan></text>
 <text id="text_36" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1143.16">FR31.2</tspan></text>
-<circle id="ellipse_22" cx="1257" cy="1148" r="4" fill="white"/>
+<circle id="ellipse_22" cx="1257" cy="1151" r="4" fill="white"/>
 </g>
 <g id="element-11_80">
 <circle id="circle_31" cx="1293" cy="1211" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1257,7 +1257,7 @@
 </g>
 <text id="text_percent_27" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1223.16">0%</tspan></text>
 <text id="text_37" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1309" y="1203.16">FR31.3</tspan></text>
-<circle id="ellipse_23" cx="1257" cy="1208" r="4" fill="white"/>
+<circle id="ellipse_23" cx="1257" cy="1211" r="4" fill="white"/>
 </g>
 <g id="element-11_86">
 <circle id="circle_32" cx="1004" cy="1277" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1284,7 +1284,7 @@
 </g>
 <text id="text_percent_28" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1289.16">0%</tspan></text>
 <text id="text_38" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1269.16">FR31.4</tspan></text>
-<circle id="ellipse_24" cx="968" cy="1274" r="4" fill="white"/>
+<circle id="ellipse_24" cx="968" cy="1277" r="4" fill="white"/>
 </g>
 <g id="element-11_89">
 <circle id="circle_33" cx="1004" cy="1337" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1311,7 +1311,7 @@
 </g>
 <text id="text_percent_29" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1349.16">0%</tspan></text>
 <text id="text_39" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1329.16">FR43.1</tspan></text>
-<circle id="ellipse_25" cx="968" cy="1334" r="4" fill="white"/>
+<circle id="ellipse_25" cx="968" cy="1337" r="4" fill="white"/>
 </g>
 <g id="element-11_92">
 <circle id="circle_34" cx="1004" cy="1394" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1338,7 +1338,7 @@
 </g>
 <text id="text_percent_30" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1406.16">99%</tspan></text>
 <text id="text_40" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1386.16">FR43-2</tspan></text>
-<circle id="ellipse_26" cx="968" cy="1390" r="4" fill="white"/>
+<circle id="ellipse_26" cx="968" cy="1393" r="4" fill="white"/>
 </g>
 <g id="element-11_95">
 <circle id="circle_35" cx="1004" cy="1453" r="11.5" fill="#1C1F2B" stroke="#606580"/>
@@ -1365,7 +1365,7 @@
 </g>
 <text id="text_percent_31" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1465.16">0%</tspan></text>
 <text id="text_41" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1020" y="1445.16">FR43-4</tspan></text>
-<circle id="ellipse_27" cx="968" cy="1450" r="4" fill="white"/>
+<circle id="ellipse_27" cx="968" cy="1453" r="4" fill="white"/>
 </g>
 <g id="element-11_98">
 <circle id="circle_36" cx="1004" cy="1513" r="11.5" fill="#1C1F2B" stroke="#606580"/>
