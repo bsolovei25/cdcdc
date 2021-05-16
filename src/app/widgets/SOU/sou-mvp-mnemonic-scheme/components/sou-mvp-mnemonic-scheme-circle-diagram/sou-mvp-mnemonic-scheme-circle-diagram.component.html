@@ -1,6 +1,7 @@
 <div class="main-container">
   <div
     class="line"
+    [class.line--dashed]="disabled && !rightLineDashed"
     [ngClass]="{
     selectedLine: code === mvpService.selectedCode
   }"
@@ -16,7 +17,7 @@
     }"
   >
     <div class="circle" #chart>
-      <div class="diagram-values">
+      <div class="diagram-values" *ngIf="!disabled">
         <span class="value">{{flowData?.tolerance | number:'0.0-0'}}</span>
         <span class="percent">%</span>
       </div>
@@ -29,6 +30,7 @@
   <div
     *ngIf="!noConnection"
     class="line"
+    [class.line--dashed]="rightLineDashed"
     [ngClass]="{
       enableLine: !flowData?.isEnable,
       selectedLine: code === mvpService.selectedCode

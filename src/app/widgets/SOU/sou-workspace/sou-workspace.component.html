@@ -1,0 +1,55 @@
+<div class="widget">
+  <div>
+    <evj-contemporary-widget-header
+      [uniqId]="uniqId"
+      [widgetTitle]="widgetTitle"
+      icon="drop"
+      type="astue">
+      <div class="header"
+           (mousedown)="$event.stopPropagation()"
+           (touchstart)="$event.stopPropagation()">
+
+        <div class="btn btn__blue btn__save">
+          <svg-icon
+            class="btn__icon"
+            src="assets/icons/widgets/SOU/sou-workspace/save.svg"
+            [ngStyle]="{ 'height.px':16 }"
+          ></svg-icon>
+          <span>Сохранить</span>
+        </div>
+
+        <div class="btn btn__reload">
+          <svg-icon
+            class="btn__icon"
+            src="assets/icons/widgets/SOU/sou-workspace/reload_play.svg"
+            [ngStyle]="{ 'height.px':16 }"
+          ></svg-icon>
+          <span>Обнулить</span>
+        </div>
+
+        <div class="btn btn__close">
+          <svg-icon
+            class="btn__icon"
+            src="assets/icons/widgets/SOU/sou-workspace/cross_close_circle.svg"
+            [ngStyle]="{ 'height.px':16 }"
+          ></svg-icon>
+          <span>Закрыть</span>
+        </div>
+
+      </div>
+    </evj-contemporary-widget-header>
+  </div>
+
+  <div class="container" (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+    <evj-sou-workspace-info-bar
+      class="info-bar"
+      [data]="workspaceBarInfo[0]">
+    </evj-sou-workspace-info-bar>
+    <div class="default-img"></div>
+    <evj-sou-workspace-info-bar
+      class="info-bar"
+      [data]="workspaceBarInfo[1]">
+    </evj-sou-workspace-info-bar>
+  </div>
+</div>

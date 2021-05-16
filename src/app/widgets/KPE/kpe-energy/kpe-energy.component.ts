@@ -96,7 +96,7 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
             deviationPlanPredict: tab.plan,
             deviationPlanPredictFact: tab.fact,
             fact: tab.fact,
-            percentageInfluence: +tab.percentage.toFixed(2),
+            percentageInfluence: +tab.percentageInfluence.toFixed(2),
             plan: tab.plan,
             planPredict: tab.plan,
             predict: tab.plan,

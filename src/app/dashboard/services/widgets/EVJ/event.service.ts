@@ -14,7 +14,11 @@ import {
     IEventsWidgetNotification,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions, IPhase,
-    IPriority, IReason,
+    IPriority,
+    IReason,
+    IResponsibleUserId,
+    IRestriction,
+    IRestrictionRequest,
     ISaveMethodEvent,
     ISmotrReference,
     IStatus,
@@ -23,7 +27,6 @@ import {
     IUser
 } from "../../../models/EVJ/events-widget";
 import { AppConfigService } from '@core/service/app-config.service';
-import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 import { catchError } from "rxjs/operators";
 
 export interface IEventsFilter {
@@ -190,6 +193,26 @@ export class EventService {
         try {
             return await this.http
                 .get<ISubcategory[]>(`${this.restUrl}/api/notification-reference/subcategory`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getRestrictions(): Promise<IRestriction[]> {
+        try {
+            return await this.http
+                .get<IRestriction[]>(`${this.restUrl}/api/notification-reference/restrictions`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async setRestrictions(id: number, body: IRestrictionRequest): Promise<unknown> {
+        try {
+            return await this.http
+                .post<unknown>(`${this.restUrl}/api/notifications/${id}/restriction`, body)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -556,9 +579,17 @@ export class EventService {
         this.filterEvent.unitNames = units;
     }
 
-    public async getResponsible(unitId: number): Promise<IUser> {
+    public async getResponsibleUserId(unitId: number): Promise<IResponsibleUserId> {
         try {
-            return this.http.get<IUser>(this.restUrl + `/api/notifications/${unitId}/responsible`).toPromise();
+            return this.http.get<IResponsibleUserId>(this.restUrl + `/api/reception-pass/Shift/unit/${unitId}/getresponsible`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getResponsibleUser(responsibleUserId: number): Promise<IUser> {
+        try {
+            return this.http.get<IUser>(this.restUrl + `/api/user-management/user/${responsibleUserId}`).toPromise();
         } catch (error) {
             console.error(error);
         }

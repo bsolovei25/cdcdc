@@ -1,0 +1,48 @@
+<div class="content-container">
+  <div class="search-container">
+    <div class="search">
+      <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-predictors/search.svg"></svg-icon>
+      <form [formGroup]="form">
+        <input type="text" placeholder="Поиск" formControlName="search" />
+      </form>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content-block">
+      <div class="dropdown-container" *ngFor="let group of dataGroup$ | async; let i = index">
+        <div
+          *ngIf="!group.isFiltered"
+          class="dropdown-header"
+          (click)="onClickRow(i)"
+          [ngClass]="{
+            'dropdown-header_expanded': group.isExpanded,
+            'dropdown-header_expanded-one': group.predictors.length === 1
+          }"
+        >
+          <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-predictors/plus.svg"></svg-icon>
+          <span class="dropdown-header__name">{{group.name}}</span>
+        </div>
+        <div class="items-list" [@rows]="group.isExpanded ? 'expanded' : 'collapsed'">
+          <div class="items-container">
+            <ng-container *ngFor="let item of group.predictors">
+              <div class="dropdown-item" *ngIf="!item.isFiltered">
+                <div class="dropdown-item__dash"></div>
+                <div
+                  class="dropdown-item__content"
+                  (click)="changeToggle(item, colors?.get(item.tag))"
+                  class="item_active--{{ colors?.get(item.tag) }}"
+                  [class.item_unactive]="!selectPredictors.isSelected(item.id)"
+                  [style.pointerEvents]="!selectPredictors.isSelected(item.id) && selectPredictors.selected.length > 4 ? 'none' : 'auto'"
+                >
+                  <span class="name">{{item.label}}</span>
+                  <span class="tag">{{item.tag}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="box-helper" *ngIf="group.isExpanded"></div>
+      </div>
+    </div>
+  </div>
+</div>

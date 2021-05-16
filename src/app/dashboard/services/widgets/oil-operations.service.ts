@@ -76,6 +76,25 @@ export class OilOperationsService {
         }
     }
 
+    public async getShipmentListByRelation(
+        lastId: number,
+        options: IOilOperationsOptions,
+        transferId: number,
+        batchSize: number = this.BATCH_SIZE,
+    ): Promise<IOilShipment[]> {
+        try {
+            return await this.http
+                .get<IOilShipment[]>(
+                    this.restUrl +
+                    `/api/oil-control/shipments/byrelation/${transferId}/transfer?${this.getOptionString(lastId, options, batchSize)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<IOilShipment[]>((resolve) => []);
+        }
+    }
+
     public async getShipmentStatistic(options: IOilOperationsOptions): Promise<IOilShipmentStatistics> {
         try {
             return await this.http
@@ -174,10 +193,21 @@ export class OilOperationsService {
         }
     }
 
-    public async autoAssignShipments<T>(transferIdParam: number): Promise<T> {
+    public async autoAssignShipmentsByTrasferId<T>(transferIdParam: number): Promise<T> {
         try {
             return await this.http
                 .put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null)
+                .toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>((resolve) => []);
+        }
+    }
+
+    public async autoAssignShipments<T>(): Promise<T> {
+        try {
+            return await this.http
+                .put<T>(`${this.restUrl}/api/oil-control/transfers/auto-relation`, null)
                 .toPromise();
         } catch (e) {
             console.error(e);

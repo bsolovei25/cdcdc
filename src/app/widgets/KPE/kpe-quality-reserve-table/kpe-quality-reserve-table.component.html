@@ -11,9 +11,15 @@
           {{tab?.title}}
         </div>
       </div>
-      <div class="unit" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-        <div class="unit__value">%</div>
-        <div class="unit__description">ед.изм</div>
+      <div class="filter" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div>
+          <input id="percentage" type="radio" name="filter-option" [value]="0" [(ngModel)]="selectedOption" (ngModelChange)="changeUnits($event)">
+          <label for="percentage" class="filter__option">%</label>
+        </div>
+        <div>
+          <input id="units" type="radio" class="filter__option" name="filter-option" [value]="1" [(ngModel)]="selectedOption" (ngModelChange)="changeUnits($event)">
+          <label for="units" class="filter__option">ед.изм</label>
+        </div>
       </div>
       <div class="btn-list" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div class="btn">
@@ -30,7 +36,7 @@
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="shadow"></div>
     <ng-container
-      *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (tabsList$ | async)[currentTab]?.id);"
+      *ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (tabsList$ | async)[currentTab]?.id)"
     ></ng-container>
   </div>
 </div>

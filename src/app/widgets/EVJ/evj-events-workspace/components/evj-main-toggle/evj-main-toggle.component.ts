@@ -166,13 +166,14 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
     public isLimitationAvailable(): boolean {
         const categoryId = this.ewService.event?.category?.id;
         const subCategoryId = this.ewService.event?.productionTasks?.subCategory?.id;
-        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010);
+        const eventId = this.ewService.event?.id;
+        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010 || !eventId);
     }
 
     public emitAction(event: Event): void {
         event.preventDefault();
         if (this.ewService.event) {
-            this.limitationCheckbox.emit(true);
+            this.limitationCheckbox.emit(this.ewService.event?.isRestrictions);
         } else {
             this.snackBar.openSnackBar('Выберите или создайте Новое событие');
         }

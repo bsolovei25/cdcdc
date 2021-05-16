@@ -1,0 +1,16 @@
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="squares"
+    type="astue"
+  >
+  </evj-contemporary-widget-header>
+
+  <div #chart class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <evj-ec-widget-factor-analysis-page
+        class="factor-analysis"
+        [dataTemp]="barData"
+      ></evj-ec-widget-factor-analysis-page>
+  </div>
+</div>

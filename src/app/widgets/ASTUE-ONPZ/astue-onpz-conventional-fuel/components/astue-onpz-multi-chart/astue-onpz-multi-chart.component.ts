@@ -387,7 +387,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             item.graph.forEach((point) => {
                 item.transformedGraph.push({
                     x: this.scaleFuncs.x(point.timeStamp),
-                    y: item.scaleY(point.value),
+                    y: item.scaleY(point.value || 0),
                 });
             });
         };

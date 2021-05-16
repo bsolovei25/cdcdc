@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="card__header header">
+      <div
+        class="header__tag"
+        style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(info.tag) }})"
+        style.color="var(--color-astue-tag-{{ colors?.get(info.tag) }})"
+      >
+        {{info?.tag}}
+      </div>
+      <div class="header__title">{{info?.title}}</div>
+      <div style="flex-grow: 1"></div>
+      <div class="header__title">{{info?.unitName}}</div>
+    </div>
+    <div class="card-border">
+      <div class="card__legend legend">
+        <div class="legend__units">{{info?.units}}</div>
+        <div class="legend__buttons">
+          <svg-icon
+            (click)="scale = false"
+            class="button"
+            src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/plus.svg"
+          ></svg-icon>
+          <svg-icon
+            (click)="scale = true"
+            class="button"
+            src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"
+          ></svg-icon>
+        </div>
+        <div class="card__info info">
+          <div class="info__label">
+            Значение: <br />
+          </div>
+          <div class="info__values">
+            <span class="info__value">{{ chartValue | number:'0.0-2' || '---' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card__chart">
+        <evj-planning-chart
+          [data]="data"
+          [isSpline]="false"
+          [isWithPicker]="true"
+          [intervalHours]="[12, 72]"
+          [size]="scaleCounter"
+          [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
+          (scrollData)="scrollData = $event"
+          (chartValue)="setChartValues($event)"
+        ></evj-planning-chart>
+      </div>
+      <div class="card__scroll">
+        <evj-smart-scroll
+          [limits]="scrollLimits"
+          [data]="scrollData"
+          [(sbThumbLeft)]="sbLeft"
+          [(sbThumbWidth)]="sbWidth"
+        ></evj-smart-scroll>
+      </div>
+    </div>
+  </div>
+</div>

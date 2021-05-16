@@ -62,6 +62,8 @@ import { AddWordWrapPipe } from './pipes/add-word-wrap.pipe';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SimpleButtonComponent } from './components/simple-button/simple-button.component';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { AccordionComponent } from './components/accordion/accordion.component';
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
     declarations: [
@@ -113,6 +115,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
         AddWordWrapPipe,
         SimpleButtonComponent,
         DropdownComponent,
+        AccordionComponent,
     ],
     exports: [
         HeaderComponent,
@@ -158,6 +161,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
         AddWordWrapPipe,
         SimpleButtonComponent,
         DropdownComponent,
+        AccordionComponent,
     ],
     imports: [
         CommonModule,
@@ -178,6 +182,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
         NgxMatNativeDateModule,
         NgxMatMomentModule,
         MatRippleModule,
+        MatExpansionModule,
     ],
     providers: [
         SpaceNumber,
