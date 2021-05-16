@@ -210,8 +210,8 @@ export class SouSchemaComponent implements OnChanges {
 
         this.testsToLogPanel();
 
-        this.sectionsData?.forEach((data) => {
-            data.related = this.relatedArray(data?.related);
+        this.sectionsData?.forEach((data: SouSectionData) => {
+            data.related = this.parseRelatedArray(data?.related);
             this.updateElementBySectionData(data);
         });
     }
@@ -219,9 +219,25 @@ export class SouSchemaComponent implements OnChanges {
     // Ищет элемент в svg по данным с бека и обновляет его
     private updateElementBySectionData(sectionData: SouSectionData): void {
         const element = this.elementsMap.get(sectionData?.code);
-        const mode = this.getElementMode(sectionData);
-        const isNotMeasured = !this.isStreamMeasured(sectionData);
-        this.prepareElement(element, mode, sectionData, isNotMeasured);
+
+        if (element?.children) {
+            const elementId = this.getElementId(element);
+            const elementFull = this.getElementFull(element, sectionData);
+            const isNotMeasured = !this.isStreamMeasured(sectionData);
+            const mode = this.getElementMode(sectionData);
+
+            if (this.debugElementCode && elementId === this.debugElementCode) {
+                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
+            }
+
+            if (elementFull) {
+                this.elementsFullMap.set(elementId, elementFull);
+            }
+
+            this.addClassAndTextToElement(element, mode, elementFull, isNotMeasured);
+            this.addElementClickListenerIfNeed(element, elementFull);
+            this.setElementTextNodeClassIfNeed(element);
+        }
     }
 
     private getElementMode(sectionData: SouSectionData): TypeMode {
@@ -236,12 +252,7 @@ export class SouSchemaComponent implements OnChanges {
         return 'standard';
     }
 
-    // Поток измеряемый
-    private isStreamMeasured(sectionData: SouSectionData): boolean {
-        return sectionData?.tolerance === 0;
-    }
-
-    relatedArray(related: number[] | string): number[] {
+    private parseRelatedArray(related: number[] | string): number[] {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
         return typeof related === 'string'
             ? related
@@ -260,7 +271,6 @@ export class SouSchemaComponent implements OnChanges {
         // Обработка элементов схемы
         elements?.forEach((element: Element) => {
             const id = this.getElementId(element);
-            this.prepareElement(element, 'reset');
             this.elementsMap.set(id, element);
 
             if (this.debugElementCode && id === this.debugElementCode) {
@@ -279,36 +289,6 @@ export class SouSchemaComponent implements OnChanges {
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`);
-    }
-
-    prepareElement(
-        element: Element,
-        mode: TypeMode,
-        sectionData?: SouSectionData,
-        isNotMeasured?: boolean,
-    ): void {
-        if (element?.children) {
-            const elementFull = this.getElementFull(element, sectionData);
-            const elementId = this.getElementId(element);
-
-            if (this.debugElementCode && elementId === this.debugElementCode) {
-                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
-            }
-
-            if (elementFull) {
-                this.elementsFullMap.set(elementId, elementFull);
-            }
-
-            this.addClassAndTextToElement(element, mode, elementFull, isNotMeasured);
-
-            // Event
-            if (sectionData) {
-                this.addElementClickListener(element, elementFull);
-            }
-
-            // Применение класса для текстовых нод
-            this.setElementTextNodeClassIfNeed(element);
-        }
     }
 
     // Распарсить элемент и заполнить IElementFull
@@ -482,7 +462,7 @@ export class SouSchemaComponent implements OnChanges {
             }
 
             if (elementFull.textPercent) {
-                if ('tolerance' in sectionData) {
+                if (sectionData.tolerance) {
                     const data = sectionData as ISouFlowIn | ISouFlowOut;
                     this.addTextToTextElem(elementFull.textPercent, `${data?.tolerance}%`);
                 } else if ('valueMomentPercent' in sectionData) {
@@ -575,7 +555,7 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Добавляет отслеживание клика на элементе
-    private addElementClickListener(element: Element, elementFull: IElementFull): void {
+    private addElementClickListenerIfNeed(element: Element, elementFull: IElementFull): void {
         if (elementFull?.flag) {
             elementFull.flag = false;
 
@@ -826,6 +806,11 @@ export class SouSchemaComponent implements OnChanges {
 
     private isElementLine(element: SVGElement | Element): boolean {
         return element?.getAttribute('id').includes('line');
+    }
+
+    // Поток измеряемый
+    private isStreamMeasured(sectionData: SouSectionData): boolean {
+        return sectionData?.tolerance === 0;
     }
 
     // Установка класса для текстовой ноды внутри элемента если нужно (для выравнивания текста)
