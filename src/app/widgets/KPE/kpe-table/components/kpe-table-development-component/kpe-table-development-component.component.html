@@ -111,10 +111,8 @@
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
               [ngClass]="{
-                'expanded-column__warning': column.id === '9' && elementChildren.deviationColor === '2'
-                || column.id === '10' && elementChildren.deviationColor !== '0',
+                'expanded-column__warning': column.id === '9' && elementChildren.deviationColor === '2',
                 'expanded-column__danger': column.id === '9' && elementChildren.deviationColor === '1'
-                || column.id === '10' && elementChildren.deviationColor !== '0'
                 }"
               [matTooltip]="elementChildren?.name"
             >
