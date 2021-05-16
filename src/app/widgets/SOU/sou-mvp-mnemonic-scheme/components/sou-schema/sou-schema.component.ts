@@ -147,7 +147,8 @@ export class SouSchemaComponent implements OnChanges {
         const wait = () => {
             const svg = this.getSvgElement();
             const svgFileName = this.svgFileName;
-            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName.replace('.svg', '')}`);
+            const keyElemSelector = `#element-1_1__${svgFileName.replace('.svg', '')}`;
+            const foundKeyElem = svgFileName && svg?.querySelector(keyElemSelector);
 
             if (foundKeyElem) {
                 processSvg();

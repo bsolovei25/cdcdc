@@ -1,6 +1,8 @@
 import { SimpleChange, SimpleChanges } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { SharedModule } from '@shared/shared.module';
 import { SouSchemaComponent } from './sou-schema.component';
 
 let component: SouSchemaComponent;
@@ -13,14 +15,16 @@ describe('SouSchemaComponent', () => {
                 SouSchemaComponent,
             ],
             imports: [
-                HttpClientModule,
+                HttpClientTestingModule,
+                AngularSvgIconModule,
+                SharedModule,
             ]
         });
         fixture = TestBed.createComponent(SouSchemaComponent);
         component = fixture.componentInstance;
         component.sectionsData = [];
-        component.unitName = 'test_unit_name_0';
-        component.svgName = 'test_svg_name_0';
+        component.unitName = 'kpa-c100';
+        component.svgName = 'kpa-c100';
         fixture.detectChanges();
     });
 
@@ -46,8 +50,8 @@ describe('SouSchemaComponent', () => {
     it('Should call svg parsing when @input svgName changes', () => {
         const spy = spyOn(component, 'processSvgWhenItIsReady');
         const previousValue = undefined;
-        const nextValue= 'test_svg_name';
-        component.svgName = 'test_unit_name';
+        const nextValue= 'gfu-2';
+        component.svgName = 'gfu-2';
         const changes: SimpleChanges = {
             svgName: new SimpleChange(previousValue, nextValue, true),
         };
