@@ -1,3 +1,10 @@
+## [1.28.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.0...v1.28.1) (2021-05-16)
+
+
+### Bug Fixes
+
+* **ci:** rhel docker image for okd ([c9d224d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c9d224d7f67829af900ca445d63f2b1b173bffbc))
+
 # [1.28.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.27.0...v1.28.0) (2021-05-15)
 
 
