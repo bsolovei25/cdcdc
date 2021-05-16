@@ -9,7 +9,7 @@ import {
     Inject,
     ViewChildren,
     QueryList,
-    HostListener,
+    HostListener
 } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { GridsterConfig, GridsterItem, GridType, GridsterItemComponent } from 'angular-gridster2';
@@ -122,7 +122,7 @@ export interface IActionCombobox {
 
 const fadeAnimation = trigger('fadeAnimation', [
     transition(':enter', [style({ opacity: 0, height: 0 }), animate('100ms', style({ opacity: 1, height: 10 }))]),
-    transition(':leave', [style({ opacity: 1, height: 10 }), animate('100ms', style({ opacity: 0, height: 0 }))]),
+    transition(':leave', [style({ opacity: 1, height: 10 }), animate('100ms', style({ opacity: 0, height: 0 }))])
 ]);
 
 @Component({
@@ -130,7 +130,7 @@ const fadeAnimation = trigger('fadeAnimation', [
     templateUrl: './workflow.component.html',
     styleUrls: ['./workflow.component.scss'],
     animations: [fadeAnimation],
-    providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
+    providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }]
 })
 export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     public ColWidth: number = 1;
@@ -163,13 +163,15 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         emailToArray: [],
         emailCopy: new FormControl(''),
         emailCopyArray: [],
-        emailBody: '',
+        emailBody: ''
     };
 
     alertWindow: IAlertWindowModel;
     alertInput: IAlertInputModel;
 
     alertWorkspaceTable: IWorkspaceTable;
+    heightModal: number;
+    intervalModal: any;
 
     leaderLine = [];
 
@@ -245,9 +247,9 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             start: this.startDrag.bind(this),
             stop: this.stopDrag.bind(this),
             dropOverItems: true,
-            dropOverItemsCallback: this.overItems.bind(this),
+            dropOverItemsCallback: this.overItems.bind(this)
         },
-        swap: false,
+        swap: false
     };
 
     resize: boolean = true;
@@ -293,7 +295,6 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         private renderer: Renderer2,
         private workflowService: WorkflowService,
         private snackBar: SnackBarService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -333,7 +334,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         });
     }
 
-    protected dataHandler(ref: unknown): void {}
+    protected dataHandler(ref: unknown): void {
+    }
 
     resetScenario(isDeleteLeaderLine: boolean = true): void {
         if (isDeleteLeaderLine) {
@@ -346,7 +348,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             emailToArray: [],
             emailCopy: new FormControl(''),
             emailCopyArray: [],
-            emailBody: '',
+            emailBody: ''
         };
         this.comboAction = null;
         this.emailAction = [];
@@ -459,7 +461,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
                 previousScenarioAction: sort.previousScenarioAction ?? '',
-                nextScenarioAction: sort.nextScenarioAction ?? '',
+                nextScenarioAction: sort.nextScenarioAction ?? ''
             });
             x += 4;
         });
@@ -474,7 +476,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
                 previousScenarioAction: sort.previousScenarioAction ?? '',
-                nextScenarioAction: sort.nextScenarioAction ?? '',
+                nextScenarioAction: sort.nextScenarioAction ?? ''
             });
             x += 4;
         });
@@ -501,7 +503,7 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                                 {
                                     size: this.LEADER_LINE_HEIGHT,
                                     color: 'white',
-                                    startSocket: 'auto',
+                                    startSocket: 'auto'
                                 }
                             );
                             this.leaderLine.push(leaderLine);
@@ -647,10 +649,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                 });
                 this.putConnect(this.items);
             },
-            closeFunction: () => {},
+            closeFunction: () => {
+            },
             cancelFunction: () => {
                 this.alertWindow = null;
-            },
+            }
         };
         this.alertWindow = windowsParam;
     }
@@ -695,9 +698,9 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
         });
         const body: ICreateConnection = {
             scenario: {
-                name: this.chooseScenarios.name,
+                name: this.chooseScenarios.name
             },
-            actions: [...arr],
+            actions: [...arr]
         };
         try {
             this.isLoading = true;
@@ -727,10 +730,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                     this.alertWindow = null;
                     this.putConnect(arr);
                 },
-                closeFunction: () => {},
+                closeFunction: () => {
+                },
                 cancelFunction: () => {
                     this.alertWindow = null;
-                },
+                }
             };
             this.alertWindow = windowsParam;
         }
@@ -815,7 +819,8 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
 
                 this.items.push(item);
                 this.snackBar.openSnackBar('Действие добавлено в сценарий');
-            } catch (error) {}
+            } catch (error) {
+            }
         }
         this.dragItem = null;
     }
@@ -849,10 +854,11 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
                     this.isLoading = false;
                 }
             },
-            closeFunction: () => {},
+            closeFunction: () => {
+            },
             cancelFunction: () => {
                 this.alertWindow = null;
-            },
+            }
         };
         this.alertWindow = windowsParam;
     }
@@ -1005,7 +1011,6 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
-        console.log(this.content?.nativeElement?.getBoundingClientRect()?.height);
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
@@ -1020,8 +1025,12 @@ export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit
             },
             cancelFunction: () => {
                 this.alertWorkspaceTable = null;
-            },
+                clearInterval(this.intervalModal);
+            }
         };
+        this.intervalModal = setInterval(() => {
+            this.heightModal = this.content?.nativeElement?.getBoundingClientRect()?.height;
+        }, 500);
         this.alertWorkspaceTable = workspaceTable;
     }
 
