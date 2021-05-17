@@ -394,10 +394,6 @@ export class SouSchemaComponent implements OnChanges {
                         this.setElementMode(elementFullRelated?.circle, mode);
                     }
 
-                    if (this.debugElementCode && this.debugElementCode === this.getElementId(element)) {
-                        console.log(`Отладка элемента: ${this.debugElementCode}. RELATED:`, elementRelated, elementFullRelated, this.isElementLine(elementRelated), isNotMeasured);
-                    }
-
                     if (this.isElementLine(elementRelated)) {
                         this.setElementMode(elementRelated, mode, undefined, isNotMeasured);
                     }
@@ -435,6 +431,45 @@ export class SouSchemaComponent implements OnChanges {
         return null;
     }
 
+    private getElementValuePercent(sectionData: SouSectionData): string {
+        const element = this.elementsMap.get(sectionData?.code);
+        const elementTypeId = this.getElementTypeId(element);
+
+        if (elementTypeId === 11) {
+            if ('tolerance' in sectionData) {
+                return String(sectionData.tolerance);
+            }
+        }
+
+        if ('valueMomentPercent' in sectionData) {
+            switch (this.chosenSetting) {
+                case 0:
+                    return String(sectionData.valueMomentPercent);
+                case 1:
+                    return String(sectionData.valueByHourPercent);
+                case 2:
+                    return String(sectionData.valueTankPercent);
+            }
+        } else if ('tolerance' in sectionData) {
+            return String(sectionData.tolerance);
+        }
+    }
+
+    private getElementValue(sectionData: SouSectionData): string {
+        if ('valueByHour' in sectionData) {
+            switch (this.chosenSetting) {
+                case 0:
+                    return String(sectionData.valueMoment);
+                case 1:
+                    return String(sectionData.valueByHour);
+                case 2:
+                    return String(sectionData.valueTank);
+            }
+        } else if ('value' in sectionData) {
+            return String(sectionData.value);
+        }
+    }
+
     // Обновляет текстовые значения элемента
     private updateElementValue(element: SVGElement | Element, mode: TypeMode): void {
         const elementId = this.getElementId(element);
@@ -442,46 +477,14 @@ export class SouSchemaComponent implements OnChanges {
         const sectionData = elementFull?.sectionData;
 
         if (sectionData) {
-            if (elementFull.textValue) {
-                if ('valueByHour' in sectionData) {
-                    let valueMet: number = 0;
-                    switch (this.chosenSetting) {
-                        case 0:
-                            valueMet = sectionData?.valueMoment;
-                            break;
-                        case 1:
-                            valueMet = sectionData?.valueByHour;
-                            break;
-                        case 2:
-                            valueMet = sectionData?.valueTank;
-                            break;
-                    }
-                    this.addTextToTextElem(elementFull?.textValue, `${String(valueMet)} тн`);
-                } else if ('value' in sectionData) {
-                    this.addTextToTextElem(elementFull?.textValue, `${String(sectionData?.value)} т`);
-                }
+            if (elementFull?.textValue) {
+                const value = this.getElementValue(sectionData);
+                this.addTextToTextElem(elementFull.textValue, `${value} т`);
             }
 
-            if (elementFull.textPercent) {
-                if (sectionData.tolerance) {
-                    const data = sectionData as ISouFlowIn | ISouFlowOut;
-                    this.addTextToTextElem(elementFull.textPercent, `${data?.tolerance}%`);
-                } else if ('valueMomentPercent' in sectionData) {
-                    let valueMet: number = 0;
-                    const data = sectionData as ISouFlowIn | ISouFlowOut;
-                    switch (this.chosenSetting) {
-                        case 0:
-                            valueMet = data?.valueMomentPercent;
-                            break;
-                        case 1:
-                            valueMet = data?.valueByHourPercent;
-                            break;
-                        case 2:
-                            valueMet = data?.valueTankPercent;
-                            break;
-                    }
-                    this.addTextToTextElem(elementFull.textPercent, `${String(valueMet)}%`);
-                }
+            if (elementFull?.textPercent) {
+                const valuePercent = this.getElementValuePercent(sectionData);
+                this.addTextToTextElem(elementFull.textPercent, `${valuePercent}%`);
             }
         } else {
             this.addTextToTextElem(elementFull?.textValue, '0 тн');
