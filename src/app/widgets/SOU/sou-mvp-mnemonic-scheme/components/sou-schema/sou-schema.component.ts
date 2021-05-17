@@ -406,25 +406,24 @@ export class SouSchemaComponent implements OnChanges {
     private getElementText(element: SVGElement | Element): string {
         const elementId = this.getElementId(element);
         const elementFull = this.elementsFullMap?.get(elementId);
-        const elementSectionData = elementFull?.sectionData;
+        const sectionData = elementFull?.sectionData;
 
-        if (elementSectionData) {
-            const elementTypeId = this.getElementTypeId(element);
-            const sectionDataAsFlowInOut = elementSectionData as ISouFlowIn | ISouFlowOut;
+        if (sectionData) {
+            // const elementTypeId = this.getElementTypeId(element);
+            // const sectionDataAsFlowInOut = elementSectionData as ISouFlowIn | ISouFlowOut;
 
-            switch (elementTypeId) {
-                case 3:
-                    return sectionDataAsFlowInOut.productName || '';
+            // switch (elementTypeId) {
+            //     case 3:
+            //         return sectionDataAsFlowInOut.productName || '';
+            //
+            //     case 11:
+            //         return sectionDataAsFlowInOut.tag || '';
+            // }
 
-                case 11:
-                    return sectionDataAsFlowInOut.tag || '';
-            }
-
-            if ('productName' in elementSectionData) {
-                return elementSectionData?.productName;
+            if ('productName' in sectionData) {
+                return sectionData.productName;
             } else {
-                const sectionData = elementSectionData as ISouObjects;
-                return sectionData?.name;
+                return sectionData.name;
             }
         }
 
