@@ -35,7 +35,6 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public showCurrent: boolean = true;
 
     public isPredictors: boolean = false;
-    public isNewStructure: boolean = false;
     public options: IMultiChartOptions = {
         isIconsShowing: false,
     };
@@ -48,11 +47,6 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public sbWidth: number = 100;
     public sbLeft: number = 0;
     public scrollLimits: IDatesInterval = null;
-
-    // public selectFuel: FormControl = new FormControl({
-    //     value: '',
-    //     disabled: false,
-    // });
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
@@ -171,7 +165,6 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     protected dataConnect(): void {
         super.dataConnect();
         this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors' || this.widgetType === 'ec-widget-conventional-fuel';
-        this.isNewStructure = this.widgetType === 'ec-widget-conventional-fuel';
         this.options.isIconsShowing = !this.isPredictors;
 
         this.subscriptions.push(
@@ -188,32 +181,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                 this.unitName = options.unitName;
                 this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
             }),
-            // this.astueOnpzService.multiLinePredictors.subscribe((data) => {
-            //     if (!this.isPredictors) {
-            //         return;
-            //     }
-            //     console.log(data)
-            //     // this.data = !!data ? this.multilineDataMapper(data) : this.isNewStructure ? this.data : [];
-            //     this.currentValues = {
-            //         plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
-            //         fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
-            //     };
-            // }),
 
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
                 // this.colors.set('avt-10-fuel-consumption-PlanValue', 2)
             }),
         );
-
-        // if (this.isNewStructure) {
-        //     this.subscriptions.push(
-        //         this.connectVirtualChannel().subscribe(res => {
-        //             console.log('-------------------------------')
-        //             this.setGraphData(res);
-        //         }),
-        //     );
-        // }
 
         this.astueOnpzService.predictorsOptions$.subscribe(predictors => {
             const predictorsId = predictors?.predictors.map(predictor => predictor?.id);
@@ -231,6 +204,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
                 const virtualChannelsSubj = this.virtualChannels.map(item => item.data$);
 
+                // Подписка на графики предикторов
                 this.virtualChannelSubscription.push(
                     combineLatest([...virtualChannelsSubj, this.connectConventionFuelChannel()])
                         .subscribe((ref) => {
@@ -270,19 +244,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.astueOnpzService.sharedPlanningGraph$.next(null);
         this.astueOnpzService.multilineChartIndicatorTitle$.next('');
         this.astueOnpzService.multilineChartTransfer.next(null);
-        // this.virtualChannelSubscription?.unsubscribe();
         this.virtualChannel?.dispose();
         this.unSubscribeVirtualChannels();
-    }
-
-    private setGraphData(ref: { graphs: IMultiChartLine[] }): void {
-        if (!this.isPredictors || this.isNewStructure) {
-            if (ref?.graphs) {
-                this.data = this.multilineDataMapper(ref.graphs);
-                return;
-            }
-            this.data = [];
-        }
     }
 
     private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {
@@ -297,20 +260,10 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     }
 
     protected dataHandler(ref): void {
-        // if (this.isNewStructure) {
-            if (!this.newStructureMenuData) {
-                this.newStructureMenuData = ref;
-                this.setFormValues(this.newStructureMenuData);
-            }
-        // } else {
-        //     if (!this.isPredictors) {
-        //         if (ref?.graphs) {
-        //             this.data = this.multilineDataMapper(ref.graphs);
-        //             return;
-        //         }
-        //         this.data = [];
-        //     }
-        // }
+        if (!this.newStructureMenuData) {
+            this.newStructureMenuData = ref;
+            this.setFormValues(this.newStructureMenuData);
+        }
     }
 
     private setFormValues(ref: {menu: IAstueOnpzReferences}): void {
