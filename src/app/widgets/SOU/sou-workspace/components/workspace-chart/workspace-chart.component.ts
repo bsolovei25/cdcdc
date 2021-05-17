@@ -10,7 +10,6 @@ import {
 } from "@angular/core";
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { IProductionTrend, ProductionTrendType } from "@dashboard/models/LCO/production-trends.model";
 import { IChartD3, IChartMini } from "@shared/interfaces/smart-scroll.model";
 import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
 import { AsyncRender } from "@shared/functions/async-render.function";
@@ -95,7 +94,6 @@ export class WorkspaceChartComponent implements OnChanges {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        console.log(this.data);
         if (!!this.data.length) {
             this.startDrawChart();
         } else {
@@ -112,10 +110,7 @@ export class WorkspaceChartComponent implements OnChanges {
         this.transformData();
         this.drawGridlines();
         this.drawChart();
-        // this.drawMask();
         this.drawAxisLabels();
-        // this.drawFutureRect();
-        // this.customizeAreas();
     }
 
     private initInterval(): void {
@@ -278,7 +273,26 @@ export class WorkspaceChartComponent implements OnChanges {
                     .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .style('color', 'var(--border-vidget-color)');
+            .style('color', 'var(--chart-segment-color)');
+
+        const yscale = d3.scaleLinear()
+            .range([251 , 0]);
+        const line = this.svg
+            .append('g')
+            .attr('class', 'yAxis')
+            .attr('transform', `translate(50,0)`)
+            .call(
+                d3
+                    .axisLeft(yscale)
+                    .tickSize(0)
+                    .tickValues([])
+            )
+            .style('color', 'var(--text-subscript-color)');
+
+        // line.select("path").attr("marker-end",
+        //     "url(#triangle)").attr('markerHeight', 5)
+        //     .attr('markerWidth', 5);
+
         this.svg
             .append('g')
             .attr('class', 'grid')
@@ -290,7 +304,7 @@ export class WorkspaceChartComponent implements OnChanges {
                     .tickSize(-(this.graphMaxX - this.padding.left - this.padding.right))
                     .tickFormat('')
             )
-            .style('color', 'var(--border-vidget-color)');
+            .style('color', 'var(--chart-segment-color)');
     }
 
     private drawAxisLabels(): void {
@@ -312,17 +326,6 @@ export class WorkspaceChartComponent implements OnChanges {
         const translateY: string = `translate(${this.padding.left},0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
-
-        // this.svg.selectAll('g.axisY g.tick')._groups[0].forEach((g, idx) => {
-        //     if (idx % 2) {
-        //         g.remove();
-        //     }
-        // });
-        // this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
-        //     if (idx % 2 && this.currentDates && !this.isWithPicker) {
-        //         g.remove();
-        //     }
-        // });
     }
 
     private dropChart(): void {

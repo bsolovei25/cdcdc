@@ -1,6 +1,6 @@
 export const CHART_DATA = [
     {
-        graphType: 'plan',
+        graphType: 'lowerBorder',
         graph: [
             {
                 value: 219,
