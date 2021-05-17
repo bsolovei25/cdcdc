@@ -184,7 +184,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
-                // this.colors.set('avt-10-fuel-consumption-PlanValue', 2)
+                this.colors.set('avt-10-fuel-consumption-PlanValue', 2)
             }),
         );
 
