@@ -14,31 +14,40 @@
       <div class="counter-card card">
         <div class="card__title">План-план\План-факт</div>
         <div class="card__value">
-          {{labels?.periodPlanPlan?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.periodPlanPlan?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.periodPlanPlan?.statusName">{{labels?.periodPlanPlan?.statusName}}</div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-план\Факт</div>
         <div class="card__value">
-          {{labels?.periodPlanFact?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.periodPlanFact?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.periodPlanFact?.statusName">{{labels?.periodPlanFact?.statusName}}</div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-факт\Факт</div>
         <div class="card__value">
-          {{labels?.periodDeviations?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.periodDeviations?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.periodDeviations?.statusName">{{labels?.periodDeviations?.statusName}}</div>
       </div>
       <div class="counter-card card_single">
         <div class="card__value">
-          {{labels?.periodCounter?.value}}
-          <div class="unit">{{unit}}</div></div>
+          <div class="value">
+            {{labels?.periodCounter?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="counters__header">
@@ -49,31 +58,39 @@
       <div class="counter-card card">
         <div class="card__title">План-план\План-факт</div>
         <div class="card__value">
-          {{labels?.currentPlanPlan?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.currentPlanPlan?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.currentPlanPlan?.statusName">{{labels?.currentPlanPlan?.statusName}}</div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-план\Факт</div>
         <div class="card__value">
-          {{labels?.currentPlanFact?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.currentPlanFact?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.currentPlanFact?.statusName">{{labels?.currentPlanFact?.statusName}}</div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-факт\Факт</div>
         <div class="card__value">
-          {{labels?.currentDeviation?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.currentDeviation?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
         <div class="label" *ngIf="labels?.currentDeviation?.statusName">{{labels?.currentDeviation?.statusName}}</div>
       </div>
       <div class="counter-card card_single">
         <div class="card__value">
-          {{labels?.currentValue?.value}}
-          <div class="unit">{{unit}}</div>
+          <div class="value">
+            {{labels?.currentValue?.value | number : '1.0-2'}}
+            <span class="unit">{{unit}}</span>
+          </div>
         </div>
       </div>
     </div>
