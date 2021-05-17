@@ -27,6 +27,14 @@ import { CHART_DATA } from "@widgets/SOU/sou-workspace/components/workspace-char
 })
 export class WorkspaceChartComponent implements OnChanges {
 
+    public selectedPeriod: IDatesInterval =
+        { fromDateTime: new Date(2020, 2, 4, 15),
+            toDateTime: new Date(2020, 2, 7, 20) };
+
+    public sbLeft: number = 0;
+
+    public sbWidth: number = 100;
+
     @Input() private scroll: { left: number; right: number } = { left: 0, right: 0 };
     @Input() private data = CHART_DATA;
     @Input() private isSpline: boolean = false;

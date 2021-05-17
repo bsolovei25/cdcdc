@@ -1,5 +1,39 @@
 <div class="chart-section">
-  <div class="chart-section__toggle"></div>
+  <div class="chart-section__info">
+    <div class="chart-section__info__legends">
+      <svg-icon
+        class="chart-section__info__legends__icon"
+        src="assets/icons/widgets/SOU/sou-workspace/legend_1.svg"
+        [ngStyle]="{ 'height.px':10 }"
+      ></svg-icon>
+      <span class="chart-section__info__legends__text">Наименование легенды</span>
+      <svg-icon
+        class="chart-section__info__legends__icon"
+        src="assets/icons/widgets/SOU/sou-workspace/legend_2.svg"
+        [ngStyle]="{ 'height.px':10 }"
+      ></svg-icon>
+      <span class="chart-section__info__legends__text">Наименование легенды</span>
+    </div>
+    <div class="chart-section__info__toggle">
+      <div class="toggle-block">
+        <input id="toggle1" type="radio" name="radio" value="1" checked>
+        <label for="toggle1" class="toggle1">Источник</label>
+      </div>
+      <div class="toggle-block">
+        <input id="toggle2" type="radio" name="radio" value="2">
+        <label for="toggle2" class="toggle2">Приемник</label>
+      </div>
+    </div>
+  </div>
   <div class="chart" #chart></div>
+  <div class="chart-section__scroll">
+    <evj-smart-scroll
+      class="chart-section__scroll__smart"
+      [limits]="selectedPeriod"
+      [data]="data[0].graph"
+      [(sbThumbLeft)]="sbLeft"
+      [(sbThumbWidth)]="sbWidth"
+    ></evj-smart-scroll>
+  </div>
   <div class="chart-section__button"></div>
 </div>
