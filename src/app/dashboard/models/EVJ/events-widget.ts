@@ -536,3 +536,7 @@ export interface IKpeAdditionalParameter {
     dependentParameters: IKpeAllDependentParameters[];
     selectedParameter: IKpeWorkspaceParameter;
 }
+
+export interface IResponsibleUserId {
+    userId: number;
+}

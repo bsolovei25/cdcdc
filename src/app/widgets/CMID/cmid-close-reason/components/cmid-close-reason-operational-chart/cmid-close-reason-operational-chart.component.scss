@@ -1,0 +1,58 @@
+:host::ng-deep {
+  $scale: 1.5;
+  $transform: translate(50%, 92%) scale($scale);
+  .fill-arc {
+    transform: $transform;
+    fill: var(--gray-G1-color);
+  }
+  .background-arc {
+    transform: $transform;
+    fill: var(--gray-G10-color);
+  }
+
+  .deviation-arc {
+    transform: $transform;
+    fill: var(--gray-G10-color);
+  }
+
+  .performance-arc {
+    transform: $transform;
+
+    &_critical {
+      fill: var(--opacity-red-20-color);
+    }
+
+    &_warning {
+      fill: var(--opacity-orange-20-color);
+    }
+
+    &_fine {
+      fill: var(--opacity-green-20-color);
+    }
+  }
+
+  .vpr-label {
+    transform: translate(50%, 53%) scale($scale);
+    font-size: 13px;
+    fill: var(--text-subscript-color);
+  }
+
+  .vpr-value {
+    transform: translate(50%, 82%) scale($scale);
+    font-size: 29px;
+    fill: var(--text-contrast-color);
+  }
+
+  .percent-value {
+    font-size: 9px;
+    fill: var(--text-subscript-color);
+
+    &_min {
+      transform: translate(12.5%, 100%) scale($scale);
+    }
+
+    &_max {
+      transform: translate(87.5%, 100%) scale($scale);
+    }
+  }
+}

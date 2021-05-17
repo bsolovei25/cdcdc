@@ -1,0 +1,118 @@
+@mixin text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 13px;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+	border: 3.5px solid transparent;
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--gray-G12-color);
+  border-radius: 10px;
+  border: 3px solid var(--bg-body-color);
+}
+
+.container {
+  position: relative;
+  flex: 1;
+  background: var(--bg-body-color);
+  border: solid 1px var(--border-vidget-color);
+  border-top: none;
+  box-shadow: inset 0px -4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.container-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-vidget-color);
+  
+  &__content {
+    color: var(--text-main-color);
+    font-size: 9px;
+  }
+}
+
+.positions-list {
+  width: 100%;
+  min-width: 300px;
+  border-collapse: collapse;
+  overflow: hidden;
+
+  &__line {
+    & td {
+      padding: 12px 4px;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border-vidget-color);
+
+      &:first-child {
+        padding-left: 15px;
+      }
+      
+      &:last-child {
+        padding-right: 15px;
+      }
+    }
+
+    &:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__position {
+    width: 40px;
+  }
+
+  &__position-content {
+    @include text-overflow;
+
+    display: inline-block;
+    max-width: 140px;
+    padding: 4px 8px;
+    background-color: var(--gray-G9-color);
+    color: var(--text-contrast-color);
+    font-size: 13px;
+  }
+
+  &__plant {
+    @include text-overflow();
+
+    max-width: 60px;
+    color: var(--text-main-color);
+    font-size: 11px;
+  }
+
+  &__count {
+    min-width: 1px;
+    color: var(--text-subscript-color);
+    font-size: 15px;
+    text-align: right;
+  }
+}

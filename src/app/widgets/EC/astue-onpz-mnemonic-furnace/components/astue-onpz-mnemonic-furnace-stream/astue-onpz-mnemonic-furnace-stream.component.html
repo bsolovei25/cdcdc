@@ -1,0 +1,13 @@
+<div class="container" [ngClass]="'container__' + data.type + ' ' + 'container__' + (data?.streamType || 'norm')">
+  <div class="number">
+    <div class="number__text">{{ data?.count || '-' }}</div>
+  </div>
+  <div class="label">
+    <div class="label__wrapper">
+      <div class="label__text">{{ data?.title || '-' }}</div>
+    </div>
+  </div>
+  <div class="value">
+    <div class="value__text">{{ data?.value + ' ' + data?.unit }}</div>
+  </div>
+</div>

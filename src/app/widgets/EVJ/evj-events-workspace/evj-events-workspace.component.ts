@@ -26,6 +26,10 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events-workspace-restrictions/evj-events-workspace-restrictions.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 
+export interface IEnvironmentName {
+    EnvironmentName: 'MNPZ' | 'ONPZ' | 'APS';
+}
+
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './evj-events-workspace.component.html',
@@ -38,7 +42,7 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
         },
     ],
 })
-export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class EvjEventsWorkspaceComponent extends WidgetPlatform<IEnvironmentName> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
@@ -51,6 +55,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
 
     @Input()
     public displayContainer: boolean = true;
+    public environmentName: 'MNPZ' | 'ONPZ' | 'APS';
 
     constructor(
         public ewService: EventsWorkspaceService,
@@ -87,6 +92,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.environmentName = this.attributes.EnvironmentName;
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {

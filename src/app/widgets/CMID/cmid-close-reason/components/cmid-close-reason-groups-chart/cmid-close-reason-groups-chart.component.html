@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="progress-bar">
+    <div *ngFor="let bar of reasonGroups" class="progress-bar__value"
+         [ngStyle]="{ 'width': bar.width + '%', 'background': bar.color }">
+    </div>
+  </div>
+</div>

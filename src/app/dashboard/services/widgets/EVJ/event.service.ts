@@ -16,6 +16,7 @@ import {
     IEventsWidgetOptions, IPhase,
     IPriority,
     IReason,
+    IResponsibleUserId,
     IRestriction,
     IRestrictionRequest,
     ISaveMethodEvent,
@@ -578,9 +579,17 @@ export class EventService {
         this.filterEvent.unitNames = units;
     }
 
-    public async getResponsible(unitId: number): Promise<IUser> {
+    public async getResponsibleUserId(unitId: number): Promise<IResponsibleUserId> {
         try {
-            return this.http.get<IUser>(this.restUrl + `/api/notifications/${unitId}/responsible`).toPromise();
+            return this.http.get<IResponsibleUserId>(this.restUrl + `/api/reception-pass/Shift/unit/${unitId}/getresponsible`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getResponsibleUser(responsibleUserId: number): Promise<IUser> {
+        try {
+            return this.http.get<IUser>(this.restUrl + `/api/user-management/user/${responsibleUserId}`).toPromise();
         } catch (error) {
             console.error(error);
         }

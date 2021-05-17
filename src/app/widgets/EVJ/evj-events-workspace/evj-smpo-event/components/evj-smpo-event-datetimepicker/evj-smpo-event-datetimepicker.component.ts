@@ -14,6 +14,9 @@ export class EvjSmpoEventDatetimepickerComponent implements ControlValueAccessor
     public label: string = 'Срок выполнения';
 
     @Input()
+    public emptyDateAvailable: boolean;
+
+    @Input()
     public disabled: boolean = false;
 
     @Output()
@@ -26,9 +29,11 @@ export class EvjSmpoEventDatetimepickerComponent implements ControlValueAccessor
     }
 
     set value(val: string | Date) {
-        this.date = val;
-        this.onChange(val);
-        this.onTouched();
+        if (val) {
+            this.date = val;
+            this.onChange(val);
+            this.onTouched();
+        }
     }
 
     constructor(@Optional() @Self() public ngControl: NgControl) {

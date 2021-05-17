@@ -1,0 +1,35 @@
+<div class="container" *ngIf="graphData">
+  <div class="left-wrapper">
+    <div class="top">
+      <div class="shadow"></div>
+      <evj-ec-widget-factor-analysis-chart
+        [graphData]="graphData"
+        [selectedPeriod]="selectedPeriod"
+        [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
+        (planFactValues)="setPlanFactValues($event)"
+      ></evj-ec-widget-factor-analysis-chart>
+    </div>
+    <div class="bottom">
+      <div class="border"></div>
+      <div class="scroll">
+        <evj-smart-scroll
+          [limits]="selectedPeriod"
+          [data]="scrollData"
+          [(sbThumbLeft)]="sbLeft"
+          [(sbThumbWidth)]="sbWidth"
+        ></evj-smart-scroll>
+      </div>
+    </div>
+  </div>
+  <div class="right-wrapper">
+    <evj-ec-widget-factor-analysis-chart-info
+      type="fact"
+      [value]="countedValues.fact !== 0 ? countedValues.fact : graphData?.currentFact"
+    ></evj-ec-widget-factor-analysis-chart-info>
+    <evj-ec-widget-factor-analysis-chart-info
+      type="plan"
+      [value]="countedValues.plan !== 0 ? countedValues.plan : graphData?.currentPlan"
+    ></evj-ec-widget-factor-analysis-chart-info>
+    <evj-ec-widget-factor-analysis-chart-info type="interval"></evj-ec-widget-factor-analysis-chart-info>
+  </div>
+</div>

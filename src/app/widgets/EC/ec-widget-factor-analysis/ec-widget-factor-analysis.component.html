@@ -1,0 +1,24 @@
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="squares"
+    type="astue"
+  >
+    <div style="flex-grow: 1"></div>
+    <svg-icon
+      style="cursor: pointer; margin-left: 10px"
+      src="assets/icons/print.svg"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      (click)="takeScreenshot()"
+    ></svg-icon>
+  </evj-contemporary-widget-header>
+
+  <div #chart class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <evj-ec-widget-factor-analysis-page
+        class="factor-analysis"
+        [dataTemp]="barData"
+      ></evj-ec-widget-factor-analysis-page>
+  </div>
+</div>

@@ -5,10 +5,11 @@ import { AngularSvgIconModule } from "angular-svg-icon";
 import { SharedModule } from "@shared/shared.module";
 import { MatTableModule } from '@angular/material/table';
 import { KpeQualityReserveTableItemComponent } from './components/kpe-quality-reserve-table-item/kpe-quality-reserve-table-item.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [KpeQualityReserveTableComponent, KpeQualityReserveTableItemComponent],
-    imports: [CommonModule, AngularSvgIconModule, SharedModule, MatTableModule],
+  imports: [CommonModule, AngularSvgIconModule, SharedModule, MatTableModule, FormsModule]
 })
 export class KpeQualityReserveTableModule {
     enterComponent: typeof KpeQualityReserveTableComponent = KpeQualityReserveTableComponent;
