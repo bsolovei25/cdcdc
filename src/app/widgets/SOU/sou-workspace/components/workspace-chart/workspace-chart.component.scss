@@ -121,6 +121,27 @@
       }
     }
   }
+
+  &__button {
+    height: 24px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 98px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 2px;
+
+    color: var(--gray-G1-color);
+    background-color: var(--index-plan-color);
+    padding: 0 13px;
+
+    &__icon {
+      margin-right: 9px;
+    }
+  }
 }
 
 .chart {
@@ -240,4 +261,5 @@
     }
   }
 }
+
 
