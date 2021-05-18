@@ -1825,9 +1825,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/CMID/cmid-close-reason/cmid-close-reason.module');
         },
         module: 'CmidCloseReasonModule',
-        itemCols: 13,
+        itemCols: 11,
         itemRows: 27,
-        minItemCols: 13,
+        minItemCols: 11,
         minItemRows: 22,
     },
     'cmid-often-closed-positions': {
