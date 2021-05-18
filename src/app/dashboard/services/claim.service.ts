@@ -21,6 +21,16 @@ export enum EnumClaimScreens {
 export enum EnumClaimGlobal {
     EventsDelete = 'eventsDelete',
     EventsChangeCategory = 'eventsChangeCategory',
+    ChangeShiftAdmin = 'shiftChangeStatusNotConfirm',
+}
+
+export interface IUserClaim<T = unknown> {
+    claimCategory: string;
+    claimCategoryName: string;
+    claimName: string;
+    claimType: string;
+    specification: string;
+    value: T;
 }
 
 export interface IClaimAll {
@@ -42,6 +52,7 @@ export class ClaimService {
     public claimScreens$: BehaviorSubject<EnumClaimScreens[]> = new BehaviorSubject<EnumClaimScreens[]>([]);
 
     public claimGlobal$: BehaviorSubject<EnumClaimGlobal[]> = new BehaviorSubject<EnumClaimGlobal[]>([]);
+    public allUserClaims$: BehaviorSubject<IUserClaim[]> = new BehaviorSubject<IUserClaim[]>([]);
 
     private readonly restUrl: string;
 
@@ -81,6 +92,7 @@ export class ClaimService {
 
     public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
+        this.allUserClaims$.next(allUserClaims?.data ?? []);
         console.log('allUserClaims', allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
         const claimsGlobal: EnumClaimGlobal[] = [];
