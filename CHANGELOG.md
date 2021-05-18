@@ -1,3 +1,19 @@
+## [1.28.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.1...v1.28.2) (2021-05-18)
+
+
+### Bug Fixes
+
+* **ASTUE-MNPZ:** Сокращение значений до 2 знаков после целой части и изменение верстки для правильного отображения больших значений. front[#1790](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1790) ([a25c673](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a25c6737ba501ae80e145d774646e446726c676e))
+* **EC:** Реализовать возможность просмотра значений тренда по наведению мыши для трендов по предикторам front[#1604](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1604) ([2c7bb56](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/2c7bb56701da8db8ca3c3ab14e1349cf18ca0726))
+* **front#1862:** СОУ исправлены выводы данных на мнемосхеме ([6fde447](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6fde4479d160ee12bb4cb97ee7bbc0382cd901ff)), closes [front#1862](https://gitlab.funcoff.club/front/issues/1862)
+* **front#1873:** СОУ Добавлены id лининй для л-35, возвращен вывод названий элементов ([ba543a5](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ba543a5e6b042756709293070a3696fd94b0b664)), closes [front#1873](https://gitlab.funcoff.club/front/issues/1873)
+* **front#1873:** СОУ индикация линий л35 ([c802819](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c80281931a36d81255afa75d3a26a64f5edc4ab3)), closes [front#1873](https://gitlab.funcoff.club/front/issues/1873)
+* **front#1888:** СОУ замена элементов на КПА с100 ([9df6ac7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9df6ac749b2f23a2c28489c1a4eb4273a5a21f9a)), closes [front#1888](https://gitlab.funcoff.club/front/issues/1888)
+* **front#1901:** СОУ исправлены выводы значений в элементах ([9f54046](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9f540467e7b60fbba9f6bc78bef2f4c05082e12b)), closes [front#1901](https://gitlab.funcoff.club/front/issues/1901)
+* **KPE:** КПЭ. Расчет отклонений. Колонка 10 не окрашивается. [#1804](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1804) ([7bd53dd](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7bd53dd10b9a48aa5dd388c68a0ce5c93675c9cf))
+* **ManualInput:** добавил tooltip для текста. front[#1595](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1595) ([8d1f140](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8d1f140189327fad79830b770aa1a1616d48a3e0))
+* **workflow:** Исправление workflow ([9a07e41](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9a07e4141223ffc7aa3830fe363722424cce34d3))
+
 ## [1.28.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.0...v1.28.1) (2021-05-16)
 
 
