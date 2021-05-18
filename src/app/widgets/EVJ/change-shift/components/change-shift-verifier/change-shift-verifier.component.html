@@ -6,45 +6,96 @@
   </div>
 
   <div class="info">
-    <ng-container *ngIf="!!_member">
-      <ng-container *ngIf="_member?.user; else role">
-        <div class="item">
-          <div class="title"> ФИО </div>
-          <div class="field"> <span> {{ _member?.user?.displayName || '---' }} </span> </div>
-        </div>
+    <ng-container *ngIf="!isAdminClaim; else admin">
+      <ng-container *ngIf="!!_member">
+        <ng-container *ngIf="_member?.user; else role">
+          <div class="item">
+            <div class="title"> ФИО </div>
+            <div class="field"> <span> {{ _member?.user?.displayName || '---' }} </span> </div>
+          </div>
 
-        <div class="item">
-          <div class="title"> Должность | роль </div>
-          <div class="field"> <span> {{ _member?.unitRole?.name || '---' }} </span> </div>
-        </div>
+          <div class="item">
+            <div class="title"> Должность | роль </div>
+            <div class="field"> <span> {{ _member?.unitRole?.name || '---' }} </span> </div>
+          </div>
+        </ng-container>
+
+        <ng-template #role>
+          <div class="item">
+            <div class="title"> Выберите роль </div>
+            <div class="field">
+              <mat-select
+                [formControl]="roleControl"
+                placeholder="Выберите роль"
+                panelClass="mat-select-panel-custom"
+                class="mat-select-custom"
+              >
+                <mat-option *ngFor="let role of availableRoles$ | async" [value]="role.id"> {{ role.name }} </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </ng-template>
       </ng-container>
 
-      <ng-template #role>
-        <div class="item">
-          <div class="title"> Выберите роль </div>
-          <div class="field">
-            <mat-select
-              [formControl]="roleControl"
-              placeholder="Выберите роль"
-              panelClass="mat-select-panel-custom"
-              class="mat-select-custom"
-            >
-              <mat-option *ngFor="let role of availableRoles$ | async" [value]="role.id"> {{ role.name }} </mat-option>
-            </mat-select>
-          </div>
+      <div class="item">
+        <div class="title"> {{ !!_member ? 'Приложите карту к считывателю' : 'Используйте USB-ключ для авторизации' }} </div>
+        <div class="field" [class]="'field__' + (result$ | async)">
+          <ng-container *ngTemplateOutlet="result; context: {$implicit: result$ | async}"></ng-container>
+          <ng-template #result let-res>
+            <span> {{ !(res) ? 'Не выполнено' : ((res) === 'error' ? 'Не успешно' : 'Успешно') }} </span>
+          </ng-template>
         </div>
-      </ng-template>
-    </ng-container>
-
-    <div class="item">
-      <div class="title"> {{ !!_member ? 'Приложите карту к считывателю' : 'Используйте USB-ключ для авторизации' }} </div>
-      <div class="field" [class]="'field__' + (result$ | async)">
-        <ng-container *ngTemplateOutlet="result; context: {$implicit: result$ | async}"></ng-container>
-        <ng-template #result let-res>
-          <span> {{ !(res) ? 'Не выполнено' : ((res) === 'error' ? 'Не успешно' : 'Успешно') }} </span>
-        </ng-template>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #admin>
+      <div class="item">
+        <div class="title"> Выберите установку </div>
+        <div class="field">
+          <mat-select
+            [formControl]="unitControl"
+            placeholder="Выберите установку"
+            panelClass="mat-select-panel-custom"
+            class="mat-select-custom"
+          >
+            <mat-option> Все </mat-option>
+            <mat-option *ngFor="let unit of units$ | async" [value]="unit.id"> {{ unit.name }} </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title"> Выберите пользователя </div>
+        <div class="field">
+          <mat-select
+            [formControl]="memberControl"
+            placeholder="Выберите пользователя"
+            panelClass="mat-select-panel-custom"
+            class="mat-select-custom"
+          >
+            <mat-option *ngFor="let member of filteredMembers$ | async" [value]="member.id"> {{ member.displayName }} </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title"> Выберите роль </div>
+        <div class="field">
+          <mat-select
+            [formControl]="roleControl"
+            placeholder="Выберите роль"
+            panelClass="mat-select-panel-custom"
+            class="mat-select-custom"
+          >
+            <mat-option *ngFor="let role of availableRoles$ | async" [value]="role.id"> {{ role.name }} </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="item item__horizontal">
+        <evj-simple-button
+          [disabled]="!(isAdminApplyValidate$ | async)"
+          (click)="adminApply()"
+        > Принять </evj-simple-button>
+        <evj-simple-button (click)="close()"> Отмена </evj-simple-button>
+      </div>
+    </ng-template>
   </div>
 
   <div class="error" [style.opacity]="!!(resultMessage$ | async) ? 100 : 0">

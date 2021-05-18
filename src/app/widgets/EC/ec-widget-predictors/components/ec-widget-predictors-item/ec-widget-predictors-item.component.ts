@@ -9,6 +9,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { PREDICTORS_GROUP_DATA } from '@widgets/ASTUE-ONPZ/astue-onpz-predictors/components/mock';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { IPredictorsResponse } from "@widgets/EC/ec-widget-predictors/ec-widget-predictors.component";
 
 @Component({
     selector: 'evj-ec-widget-predictors-item',
@@ -27,8 +28,8 @@ import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 export class EcWidgetPredictorsItemComponent
     extends ChannelPlatform<{ predictors: IPredictors[] }>
     implements OnInit, OnDestroy {
-    @Input('data') public dataGroup$: BehaviorSubject<IPredictorsGroup[]> = new BehaviorSubject<IPredictorsGroup[]>(
-        PREDICTORS_GROUP_DATA
+    @Input('data') public dataGroup$: BehaviorSubject<IPredictorsResponse> = new BehaviorSubject<IPredictorsResponse>(
+        null
     );
 
     public selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
@@ -61,10 +62,11 @@ export class EcWidgetPredictorsItemComponent
             this.form.valueChanges.pipe(debounceTime(400), distinctUntilChanged()).subscribe((val) => {
                 const data = this.dataGroup$.getValue();
 
-                data.forEach((item, i) => {
+                data.predictorsGroups.forEach((item, i) => {
                     let searchCount = 0;
                     item.predictors.forEach((predictor) => {
-                        if (predictor.name.toLowerCase().indexOf(val.search.toLowerCase()) === -1) {
+                        if (predictor.name.toLowerCase().indexOf(val.search.toLowerCase()) === -1
+                            && predictor.label.toLowerCase().indexOf(val.search.toLowerCase()) === -1) {
                             predictor.isFiltered = true;
                         } else {
                             predictor.isFiltered = false;
@@ -73,6 +75,15 @@ export class EcWidgetPredictorsItemComponent
                     });
                     item.isFiltered = !searchCount;
                     searchCount = 0;
+                });
+
+                data.predictors.forEach(item => {
+                    if (item.name.toLowerCase().indexOf(val.search.toLowerCase()) === -1
+                        && item.label.toLowerCase().indexOf(val.search.toLowerCase()) === -1) {
+                        item.isFiltered = true;
+                    } else {
+                        item.isFiltered = false;
+                    }
                 });
 
                 this.dataGroup$.next(data);
@@ -120,12 +131,17 @@ export class EcWidgetPredictorsItemComponent
         const arr: IAstueOnpzPredictor[] = [];
         this.selectPredictors.selected.forEach((id) => {
             let el: IPredictors;
-            this.dataGroup$.getValue().some((group) => {
+            this.dataGroup$.getValue().predictorsGroups.some((group) => {
                 const res = group.predictors.find((value) => value.id === id);
                 if (!!res) {
                     el = res;
                 }
                 return res;
+            });
+            this.dataGroup$.getValue().predictors.forEach((res) => {
+                if (res.id === id) {
+                    el = res;
+                }
             });
             arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
             if (!this.astueOnpzService.colors$.getValue()?.has(el?.tag)) {
@@ -138,8 +154,8 @@ export class EcWidgetPredictorsItemComponent
     }
 
     public onClickRow(index: number): void {
-        const currentValue: IPredictorsGroup[] = this.dataGroup$.getValue();
-        currentValue[index].isExpanded = !currentValue[index].isExpanded;
+        const currentValue: IPredictorsResponse = this.dataGroup$.getValue();
+        currentValue.predictorsGroups[index].isExpanded = !currentValue.predictorsGroups[index].isExpanded;
         this.dataGroup$.next(currentValue);
     }
 }

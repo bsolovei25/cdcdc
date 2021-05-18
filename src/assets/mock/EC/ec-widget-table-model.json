@@ -1,7 +1,7 @@
 [
   {
     "name": "Сырье",
-    "countExceeding": 0,
+    "countExceeding": 3,
     "items": [
       {
         "name": "Загрузка печи по продукту",
@@ -64,7 +64,7 @@
   },
   {
     "name": "Воздух  ",
-    "countExceeding": 1,
+    "countExceeding": 0,
     "items": [
       {
         "name": "Температура воздуха на горение в печи",

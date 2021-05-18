@@ -61,6 +61,10 @@ export class ChangShiftRolesPersonComponent implements OnInit, OnDestroy {
             this.changeShiftHelperService.isBaseRole(roles.find((r) => r.id === x)?.type)
         );
         const currentRole = this.formGroup.get('userRole').value;
+        if (!roles.some((x) => x.id === currentRole) && !!currentRole) {
+            this.formGroup.get('userRole').setValue(undefined);
+            return;
+        }
         const selectedRoles = membersRoles.filter((x) => x !== currentRole);
         roles = roles.filter((x) => selectedRoles.findIndex((r) => r === x.id) === -1);
         this.availableRoles$.next(roles);

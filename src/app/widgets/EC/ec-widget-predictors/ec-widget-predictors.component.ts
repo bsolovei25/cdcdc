@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Injector,
@@ -13,7 +12,7 @@ import { EcWidgetService } from '../ec-widget-shared/ec-widget.service';
 import { EcWidgetConventionalFuelService } from '../ec-widget-conventional-fuel/ec-widget-conventional-fuel.service';
 import { EcWidgetPredictorsItemComponent } from './components/ec-widget-predictors-item/ec-widget-predictors-item.component';
 import { BehaviorSubject, combineLatest, Observable, Subject } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
 
 export interface IPredictors {
@@ -38,6 +37,7 @@ export interface IPredictorsGroup {
 
 export interface IPredictorsResponse {
     predictorsGroups: IPredictorsGroup[]
+    predictors: IPredictors[]
 }
 
 // interface IChannel {
@@ -59,16 +59,14 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
     // public subchannelId$: BehaviorSubject<string | null>;
     // public channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject<IChannel[]>([]);
 
-    private virtualChannel: VirtualChannel<any>;
-    public data$: BehaviorSubject<IPredictorsGroup[]> = new BehaviorSubject<IPredictorsGroup[]>(null);
+    private virtualChannel: VirtualChannel<IPredictorsResponse>;
+    public data$: BehaviorSubject<IPredictorsResponse> = new BehaviorSubject<IPredictorsResponse>(null);
     private needUpdateData: boolean;
 
     constructor(
         private conventionalFuelService: EcWidgetConventionalFuelService,
         protected widgetService: WidgetService,
         private astueOnpzService: EcWidgetService,
-        // private cdRef: ChangeDetectorRef,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         // private injector: Injector,
@@ -115,9 +113,9 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
         // );
 
         this.subscriptions.push(
-            this.connectVirtualChannel().subscribe(res => {
+            this.connectVirtualChannel().subscribe((res: IPredictorsResponse) => {
                 if (this.needUpdateData) {
-                    this.data$.next(res.predictorsGroups)
+                    this.data$.next(res);
                     this.needUpdateData = false;
                 }
             }),

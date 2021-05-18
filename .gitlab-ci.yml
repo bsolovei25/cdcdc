@@ -72,7 +72,7 @@ variables:
   SR_IS_EXPORTING: "true"
   SR_IS_ALERTING: "true"
   SR_SEMVER_RELEASE_DRY_RUN: "false"
-  EXTERNAL_REGISTRY: "onpz.local/asplatform"
+  EXTERNAL_REGISTRY: "oms02-nex01.gazprom-neft.local:5000/asplatform"
 
 
 stages:
