@@ -255,11 +255,16 @@ export class SouSchemaComponent implements OnChanges {
 
     private parseRelatedArray(related: number[] | string): number[] {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
+        if (related === '') {
+            return [];
+        }
+
         return typeof related === 'string'
             ? related
                 .split(';')
-                .map((value) => +value)
-                .filter((value) => !isNaN(value))
+                .filter((value: string) => value !== '')
+                .map((value: string) => +value)
+                .filter((value: number) => !isNaN(value))
             : related;
     }
 
