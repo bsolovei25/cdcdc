@@ -284,7 +284,7 @@ export class WorkspaceChartComponent implements OnChanges {
             .style('color', 'var(--chart-segment-color)');
 
         const yscale = d3.scaleLinear()
-            .range([251 , 0]);
+            .range([231 , 0]);
         const line = this.svg
             .append('g')
             .attr('class', 'yAxis')
