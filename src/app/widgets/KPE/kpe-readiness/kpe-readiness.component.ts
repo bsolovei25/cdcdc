@@ -6,9 +6,9 @@ import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-devia
 import { IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
-import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
+import { IKpeWidgetAttributes } from '../kpe-quality/kpe-quality.component';
 import { IKpeGaugeChartPage } from '@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
-import { IKpeUniversalCardLineChart } from "@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component";
+import { IKpeUniversalCardLineChart } from '@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component';
 
 export interface IKpeGaugeCard {
     chartPage: IKpeGaugeChartPage;
@@ -61,7 +61,12 @@ export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> 
 
     public diagram: IKpeGaugeChartPage;
 
-    public margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 30, left: 40 };
+    public margin: { top: number; right: number; bottom: number; left: number } = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40,
+    };
 
     public displayedMonth: Date;
 
@@ -95,6 +100,16 @@ export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> 
             this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
         }
         this.gaugeCards = ref.gaugeCards as IKpeGaugeCard[];
+
+        // TODO Временный костыль для работы isWarning, пока не добавят поле в обьект linePage
+        this.gaugeCards = this.gaugeCards.map((card) => ({
+                ...card,
+                linePage: {
+                    ...card.linePage,
+                    isWarning: card.chartPage.isWarning,
+                },
+        }));
+
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
         // TODO get from back
         this.chartCards.forEach((x) => (x.progressChart.deviationPercentage = 100 - x.progressChart.percentage));
