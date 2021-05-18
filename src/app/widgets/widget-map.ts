@@ -1833,9 +1833,9 @@ export const WIDGETS_LAZY = {
     'cmid-often-closed-positions': {
         import: async () => await import('src/app/widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.module'),
         module: 'CmidOftenClosedPositionsModule',
-        itemCols: 15,
+        itemCols: 11,
         itemRows: 30,
-        minItemCols: 15,
+        minItemCols: 11,
         minItemRows: 6,
         preview: 'default',
     },
