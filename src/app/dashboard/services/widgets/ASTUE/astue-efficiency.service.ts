@@ -108,7 +108,7 @@ export class AstueEfficiencyService {
         this.unitsFlowsMap = {};
         this.currentFlow = null;
         this.selection$.next();
-        this.selectionUnit$.next(null);
+        this.cardSelection.clear();
     }
 
     public clearOpenedUnits(): void {
