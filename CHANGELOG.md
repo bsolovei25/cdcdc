@@ -1,3 +1,10 @@
+## [1.28.3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.2...v1.28.3) (2021-05-18)
+
+
+### Bug Fixes
+
+* **ci:** registry for new okd envs ([6781b54](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6781b54f026a25ee4413d70d8f248d3be85dbe66))
+
 ## [1.28.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.1...v1.28.2) (2021-05-18)
 
 
