@@ -64,11 +64,10 @@
               <div class="table__body__row table__body__row__children__column">
                 <span>{{elementChildren.unitsOfMeasure}}</span>
               </div>
-              <div class="table__body__row table__body__row__children__column">
-                <div class="value" [class.warning]="checkDeviation(elementChildren.plan, elementChildren.fact)">
+              <div class="table__body__row table__body__row__children__column" [class.warning-bgd]="checkDeviation(elementChildren.plan, elementChildren.fact)">
+                <div class="value">
                   <span>{{elementChildren.plan.toFixed(1)}}</span>
                 </div>
-
               </div>
               <div class="table__body__row table__body__row__children__column">
                 <div class="value active">
