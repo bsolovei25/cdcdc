@@ -14,16 +14,14 @@
       ></svg-icon>
       <span class="chart-section__info__legends__text">Наименование легенды</span>
     </div>
-    <div class="chart-section__info__toggle">
-      <div class="toggle-block">
-        <input id="toggle1" type="radio" name="radio" value="1" checked>
-        <label for="toggle1" class="toggle1">Источник</label>
-      </div>
-      <div class="toggle-block">
-        <input id="toggle2" type="radio" name="radio" value="2">
-        <label for="toggle2" class="toggle2">Приемник</label>
-      </div>
-    </div>
+
+    <label class="chart-section__info__switch">
+      <input type="checkbox">
+      <span class="slider round"></span>
+      <label class="label">Источник</label>
+      <label class="checked-label">Приемник</label>
+    </label>
+
   </div>
   <div class="chart" #chart></div>
   <div class="chart-section__scroll">

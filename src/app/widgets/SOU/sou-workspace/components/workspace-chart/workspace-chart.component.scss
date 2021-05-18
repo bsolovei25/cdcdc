@@ -16,6 +16,7 @@
 
   &__info {
     display: flex;
+    justify-content: space-between;
     padding-bottom: 40px;
 
     &__legends {
@@ -31,42 +32,70 @@
       }
     }
 
-    &__toggle {
-      display: flex;
-      margin-right: 8px;
-      margin-left: 8px;
+    &__switch {
+      position: relative;
+      display: inline-block;
+      width: 213px;
+      height: 20px;
 
-      .toggle-block {
-        display: inline-block;
+      input {display:none;}
 
-        .toggle1 {
-          width: 106px;
-          text-align: center;
-        }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        width: 50px;
+        top: -4px;
+        left: 68px;
+        right: 0;
+        bottom: 0;
+        background-color: var(--index-plan-color);
+        border: 1px solid var(--index-blue1-color);
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
 
-        .toggle2 {
-          width: 190px;
-          text-align: center;
-        }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 1px;
+        bottom: 1px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
 
-        input[type=radio] {
-          display: none;
-        }
 
-        label {
-          display: inline-block;
-          cursor: pointer;
-          line-height: 24px;
-          border: 1px solid var(--sou-mvp-color-border);
-          border-radius: 2px;
-          user-select: none;
-        }
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
 
-        input[type=radio]:checked + label {
-          background: var(--color-sou-toggle-background);
-          color: var(--color-text-main);
-          border: 1px solid var(--color-sou-toggle-border);
-        }
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+
+      .label {
+        color: var(--text-contrast-color);
+      }
+
+      .checked-label {
+        position: absolute;
+        left: 133px;
+      }
+
+      input:checked ~ .checked-label {
+        color: var(--text-contrast-color);
+      }
+
+      input:checked ~ .label {
+        color: var(--text-main-color);
       }
     }
   }
