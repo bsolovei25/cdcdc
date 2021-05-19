@@ -99,6 +99,8 @@
     <div class="units" *ngIf="flowUnits">{{flowUnits}}</div>
     <div class="graph__container">
       <evj-line-chart-shared
+        [showAstueLegend]="true"
+        [astueLegendUnit]="unit"
         [data]="data"
         [isShowingLegend]="true"
         [limits]="selectedPeriod"
