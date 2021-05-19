@@ -99,17 +99,6 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
         private astueOnpzConventionalFuelService: EcWidgetConventionalFuelService
     ) {}
 
-    private tempFunction(): void {
-        // TODO: change scale function -> transform data -> draw chart ->
-        // this.svg
-        //     .select('axisX')
-        //     .attr('transform', translate)
-        //     .attr('class', axis)
-        //     .call(this.axis[axis])
-        //     .selectAll('text')
-        //     .attr('class', 'label');
-    }
-
     // TODO think about it
     public ngOnInit(): void {
         this.subscriptions.push(this.widgetService.currentDates$.subscribe((ref) => !!ref));
