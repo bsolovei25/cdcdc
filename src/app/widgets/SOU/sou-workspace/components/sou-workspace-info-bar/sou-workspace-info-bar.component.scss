@@ -32,7 +32,14 @@
     padding-bottom: 4px;
 
     &__highlight {
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       padding-left: 8px;
+      margin-bottom: -3px;
       color: var(--text-contrast-color);
     }
   }
