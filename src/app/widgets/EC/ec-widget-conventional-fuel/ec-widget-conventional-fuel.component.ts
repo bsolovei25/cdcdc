@@ -231,7 +231,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     }
 
     get nextHourPlan(): number {
-        return this.data?.find((x) => x.graphType === 'plan')?.nextPlanValue ?? null;
+        return this.data?.find((x) => x.multiChartTypes === 'plan')?.currentValue ?? null;
     }
 
     get nextPlanValue(): number {
