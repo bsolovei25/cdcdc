@@ -15,6 +15,8 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
+    @Input() public showAstueLegend: boolean = false;
+    @Input() public astueLegendUnit: string = 'ед.изм.';
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
@@ -222,7 +224,7 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .append('text')
                 .text('Фактическое')
                 .attr('text-anchor', 'start')
-                .attr('x', 70)
+                .attr('x', 90)
                 .attr('y', 15)
                 .style('font-size', '12px')
                 .style('fill', this.chartStroke.fact);
@@ -232,6 +234,28 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .attr('text-anchor', 'end')
                 .attr('x', this.graphMaxX - this.padding.left)
                 .attr('y', 15)
+                .style('font-size', '12px')
+                .style('fill', this.chartStroke.plan);
+        }
+    }
+
+    private drawAstueLegend(): void {
+        if (this.showAstueLegend) {
+            const legendG = this.svg.append('g').attr('class', 'graph-legend');
+            legendG
+                .append('text')
+                .text('Расход, ' + this.astueLegendUnit)
+                .attr('text-anchor', 'end')
+                .attr('x', this.padding.left + 20)
+                .attr('y', 7)
+                .style('font-size', '12px')
+                .style('fill', this.chartStroke.plan);
+            legendG
+                .append('text')
+                .text('Время, дата/часы')
+                .attr('text-anchor', 'end')
+                .attr('x', this.graphMaxX - 15)
+                .attr('y', this.graphMaxY - this.padding.top + 15)
                 .style('font-size', '12px')
                 .style('fill', this.chartStroke.plan);
         }
@@ -248,7 +272,13 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('font-size', '12px')
             .style('fill', 'var(--text-main-color)');
 
-        this.svg.select('g.axis path').remove();
+        if (!this.showAstueLegend) {
+            this.svg.select('g.axis path').remove();
+        } else {
+            this.svg.select('g.axis path')
+                .attr('transform', `translate(-50,0)`)
+                .attr('style', `color: var(--index-plan-color);`);
+        }
 
         // отрисовка оси х
         this.svg
@@ -297,6 +327,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
         this.drawGridLines();
         this.drawLegend();
+        this.drawAstueLegend();
     }
 
     // отрисовка стрелок на осях
@@ -322,6 +353,17 @@ export class LineChartComponent implements OnChanges, OnInit {
             .append('polygon')
             .attr('points', `${points}`)
             .style('fill', 'currentColor');
+
+        if (this.showAstueLegend) {
+            this.svg
+                .select(`g.axis:first-of-type`)
+                .append('g')
+                .attr('opacity', 1)
+                .attr('transform', `translate(-50,${this.padding.top}) rotate(-90 0 0)`)
+                .append('polygon')
+                .attr('points', `${points}`)
+                .style('fill', 'var(--index-plan-color)');
+        }
     }
 
     // отрисовка сетки координат
