@@ -48,7 +48,7 @@
       </div>
       <div class="readiness__main">
         <ng-container *ngFor="let card of cardsList">
-          <div class="readiness__main__gauge element-container" [ngClass]="{'element-container_warning': displayNewDesign}">
+          <div class="readiness__main__gauge element-container" [ngClass]="{'element-container_warning': card.isWarning}">
             <div class="gauge-card">
               <div class="gauge-card__content">
                 <div class="gauge-card__units" [ngClass]="{unitsNewDesign: displayNewDesign}">
