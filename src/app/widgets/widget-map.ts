@@ -1894,9 +1894,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/EC/ec-widget-table-model/ec-widget-table-model.module');
         },
         module: 'EcWidgetTableModelModule',
-        itemCols: 20,
+        itemCols: 15,
         itemRows: 10,
-        minItemCols: 20,
+        minItemCols: 15,
         minItemRows: 10,
         preview: 'ec-widget-table-model'
     },
