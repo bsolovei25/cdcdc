@@ -253,12 +253,14 @@
           padding-left: 22px;
           margin: 0;
           justify-content: flex-start;
+          background: var(--bg-body-color);
         }
         &:nth-child(2) {
           position: sticky;
           z-index: 104;
           left: 275px;
           margin-left: 0;
+          background: var(--bg-body-color);
         }
         &:last-child {
           margin-right: 0;
@@ -405,6 +407,7 @@
           align-items: flex-start;
           color: var(--text-contrast-color);
           overflow: hidden;
+          background: var(--bg-body-table-row-item);
 
           .status {
             margin-top: 4px;
@@ -415,6 +418,7 @@
           z-index: 5;
           left: 275px;
           margin-left: 0;
+          background: var(--bg-body-table-row-item);
         }
         &:last-child {
           margin-right: 0;
