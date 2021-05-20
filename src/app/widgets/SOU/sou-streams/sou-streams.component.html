@@ -109,13 +109,15 @@
   <div class="table-block"
        [ngStyle]="{ 'height': heightOfTable }">
     <div class="table">
-      <thead class="table__header">
+      <thead class="table__header"
+             [ngStyle]="{'width': widthOfTable }"
+      >
         <tr>
           <td class="table__header__first-cell"
               rowspan="2"
           >Операция</td>
           <td *ngFor="let title of titlesOfTable"
-              [ngStyle]="{ 'width': title.widthOfBlock }"
+              [class]="title.hasOwnProperty('bigBlock')? 'big-main':'main'"
               rowspan="2">
             <div class="table__header__main-cell">
               <span>{{ title.name }}</span>
