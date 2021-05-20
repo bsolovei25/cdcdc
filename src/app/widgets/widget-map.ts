@@ -1318,7 +1318,7 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-streams/sou-streams.module');
         },
         module: 'SouStreamsModule',
-        itemCols: 32,
+        itemCols: 30,
         itemRows: 30,
         minItemCols: 50,
         minItemRows: 20,
