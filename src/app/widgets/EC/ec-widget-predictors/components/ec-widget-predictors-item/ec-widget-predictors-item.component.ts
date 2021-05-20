@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { PREDICTORS_GROUP_DATA } from '@widgets/ASTUE-ONPZ/astue-onpz-predictors/components/mock';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { IPredictorsResponse } from "@widgets/EC/ec-widget-predictors/ec-widget-predictors.component";
 
 @Component({
@@ -28,9 +28,7 @@ import { IPredictorsResponse } from "@widgets/EC/ec-widget-predictors/ec-widget-
 export class EcWidgetPredictorsItemComponent
     extends ChannelPlatform<{ predictors: IPredictors[] }>
     implements OnInit, OnDestroy {
-    @Input('data') public dataGroup$: BehaviorSubject<IPredictorsResponse> = new BehaviorSubject<IPredictorsResponse>(
-        null
-    );
+    @Input('data') public dataGroup$: BehaviorSubject<IPredictorsResponse> = new BehaviorSubject<IPredictorsResponse>(null);
 
     public selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
     // public dataGroup$: BehaviorSubject<IPredictorsGroup[]> = new BehaviorSubject<IPredictorsGroup[]>(
@@ -87,6 +85,10 @@ export class EcWidgetPredictorsItemComponent
                 });
 
                 this.dataGroup$.next(data);
+            }),
+
+            this.astueOnpzService.selectedEnergyResource$.subscribe(() => {
+                this.selectPredictors.clear();
             })
         );
     }
@@ -124,6 +126,7 @@ export class EcWidgetPredictorsItemComponent
     }
 
     public changeToggle(item: IPredictors, color: number): void {
+        this.astueOnpzService.setSelectedPredictor(item.id);
         this.selectPredictors.toggle(item.id);
         if (!this.selectPredictors.isSelected(item.id)) {
             this.astueOnpzService.deleteTagToColor(color, item.tag);

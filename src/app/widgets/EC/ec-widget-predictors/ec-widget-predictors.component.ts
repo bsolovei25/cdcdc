@@ -11,9 +11,10 @@ import { WidgetService } from '@dashboard/services/widget.service';
 import { EcWidgetService } from '../ec-widget-shared/ec-widget.service';
 import { EcWidgetConventionalFuelService } from '../ec-widget-conventional-fuel/ec-widget-conventional-fuel.service';
 import { EcWidgetPredictorsItemComponent } from './components/ec-widget-predictors-item/ec-widget-predictors-item.component';
-import { BehaviorSubject, combineLatest, Observable, Subject } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { BehaviorSubject, Subscription } from "rxjs"
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
+import { IAstueOnpzFactoryAnalysisBarResponse } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model";
+import { astueOnpzFactoryAnalysisBarMapper } from "@widgets/EC/ec-widget-factor-analysis/functions/ec-widget-factor-analysis.function";
 
 export interface IPredictors {
     isHidden: boolean;
@@ -62,6 +63,7 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
     private virtualChannel: VirtualChannel<IPredictorsResponse>;
     public data$: BehaviorSubject<IPredictorsResponse> = new BehaviorSubject<IPredictorsResponse>(null);
     private needUpdateData: boolean;
+    private virtualChannelSubscription: Subscription;
 
     constructor(
         private conventionalFuelService: EcWidgetConventionalFuelService,
@@ -84,7 +86,8 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.astueOnpzService.clearColors();
-        this.virtualChannel?.dispose()
+        this.virtualChannel?.dispose();
+        this.virtualChannelSubscription?.unsubscribe();
     }
 
     protected dataConnect(): void {
@@ -113,13 +116,27 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
         // );
 
         this.subscriptions.push(
-            this.connectVirtualChannel().subscribe((res: IPredictorsResponse) => {
-                if (this.needUpdateData) {
-                    this.data$.next(res);
-                    this.needUpdateData = false;
-                }
-            }),
-        );
+            this.astueOnpzService.selectedEnergyResource$.subscribe(energyResourceId => {
+                this.data$.next(null);
+                this.virtualChannel?.dispose();
+                this.virtualChannelSubscription?.unsubscribe();
+                this.astueOnpzService.clearColors();
+                this.needUpdateData = true;
+
+                this.virtualChannel = new VirtualChannel<IPredictorsResponse>(this.widgetService, {
+                    channelId: this.widgetId,
+                    subchannelId: energyResourceId
+                });
+
+                this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
+                    if (this.needUpdateData) {
+                        this.data$.next(res);
+                        this.needUpdateData = false;
+                    }
+                })
+
+            })
+        )
     }
 
     // setOptionsWs(predictorWidgetId: string): void {
@@ -142,21 +159,4 @@ export class EcWidgetPredictorsComponent extends WidgetPlatform<unknown> impleme
     //         parent: this.injector,
     //     });
     // };
-
-    private connectVirtualChannel(): Observable<IPredictorsResponse> {
-        return this.astueOnpzService.selectedEnergyResource$
-            .pipe(
-                switchMap((id: string): Subject<IPredictorsResponse> => {
-                    this.needUpdateData = true;
-                    if (!id) {
-                        this.data$.next(null)
-                    }
-                    this.virtualChannel = new VirtualChannel<IPredictorsResponse>(this.widgetService, {
-                        channelId: this.widgetId,
-                        subchannelId: id,
-                    });
-                    return this.virtualChannel.data$
-                })
-            )
-    }
 }

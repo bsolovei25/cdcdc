@@ -79,6 +79,8 @@ export class EcWidgetService {
     public selectedEnergyResource$: BehaviorSubject<string | null> = new BehaviorSubject<string>(null);
     public selectedEnergyResource: Observable<string> = this.selectedEnergyResource$.asObservable();
 
+    public  selectedPredictor$: BehaviorSubject<string | null> = new BehaviorSubject<string|null>(null);
+
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
     public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
@@ -108,6 +110,10 @@ export class EcWidgetService {
 
     public setSelectedEnergyResource(resourceId: string): void {
         this.selectedEnergyResource$.next(resourceId);
+    }
+
+    public setSelectedPredictor(predictorId: string): void {
+        this.selectedPredictor$.next(predictorId);
     }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {

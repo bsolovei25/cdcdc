@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { astueOnpzFactoryAnalysisBarMapper } from './functions/ec-widget-factor-analysis.function';
@@ -14,8 +14,8 @@ import { HttpClient } from '@angular/common/http';
 import { ScreenshotMaker } from '@core/classes/screenshot.class';
 import { ReportsService } from '@dashboard/services/widgets/admin-panel/reports.service';
 import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
-import { switchMap } from "rxjs/operators";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
+import { IAstueOnpzMainIndicatorsRaw } from "@widgets/EC/ec-widget-main-indicators/ec-widget-main-indicators.interface";
 
 @Component({
     selector: 'evj-ec-widget-factor-analysis',
@@ -32,6 +32,7 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     private virtualChannel: VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>;
+    private virtualChannelSubscription: Subscription;
 
     constructor(
         private http: HttpClient,
@@ -55,15 +56,29 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.virtualChannel?.dispose();
+        this.virtualChannelSubscription?.unsubscribe();
     }
 
     protected dataConnect(): void {
         super.dataConnect();
+
         this.subscriptions.push(
-            this.connectVirtualChannel().subscribe(ref => {
-                this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
-            }),
-        );
+            this.astueOnpzService.selectedEnergyResource$.subscribe(energyResourceId => {
+                this.barData = null;
+                this.virtualChannel?.dispose();
+                this.virtualChannelSubscription?.unsubscribe();
+
+                this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
+                    channelId: this.widgetId,
+                    subchannelId: energyResourceId
+                });
+
+                this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
+                    this.barData = astueOnpzFactoryAnalysisBarMapper(res);
+                })
+
+            })
+        )
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
@@ -76,23 +91,5 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
         const screenshotHelper = new ScreenshotMaker();
         const screenshot = await screenshotHelper.takeScreenshot(this.chartContainer.nativeElement);
         await this.reportService.sendScreenshot(screenshot);
-    }
-
-    private connectVirtualChannel(): Observable<IAstueOnpzFactoryAnalysisBarResponse> {
-        return this.astueOnpzService.selectedEnergyResource$
-            .pipe(
-                switchMap((id: string): Subject<IAstueOnpzFactoryAnalysisBarResponse> => {
-                    if (!id) {
-                        this.barData = null
-                    }
-
-                    this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
-                        channelId: this.widgetId,
-                        subchannelId: id,
-                    });
-
-                    return this.virtualChannel.data$;
-                })
-            )
     }
 }

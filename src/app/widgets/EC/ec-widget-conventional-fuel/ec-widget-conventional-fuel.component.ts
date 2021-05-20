@@ -1,22 +1,23 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
-import { IDatesInterval, WidgetService } from '@dashboard/services/widget.service';
-import { IMultiChartLine } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { UserSettingsService } from '@dashboard/services/user-settings.service';
-import { EcWidgetService } from '../ec-widget-shared/ec-widget.service';
-import { IMultiChartOptions } from './components/ec-widget-multi-chart/ec-widget-multi-chart.component';
-import { IChartMini } from '@shared/interfaces/smart-scroll.model';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
+import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
+import { IMultiChartLine } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model";
+import { UserSettingsService } from "@dashboard/services/user-settings.service";
+import { EcWidgetService } from "../ec-widget-shared/ec-widget.service";
+import { IMultiChartOptions } from "./components/ec-widget-multi-chart/ec-widget-multi-chart.component";
+import { IChartMini } from "@shared/interfaces/smart-scroll.model";
 import {
     EcWidgetConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
-    IAstueOnpzReferenceModel, IAstueOnpzReferences
-} from './ec-widget-conventional-fuel.service';
-import { BehaviorSubject, combineLatest, Observable, Subject, Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { ScreenshotMaker } from '@core/classes/screenshot.class';
-import { ReportsService } from '@dashboard/services/widgets/admin-panel/reports.service';
-import { VirtualChannel } from '@shared/classes/virtual-channel.class';
+    IAstueOnpzReferenceModel,
+    IAstueOnpzReferences
+} from "./ec-widget-conventional-fuel.service";
+import { BehaviorSubject, combineLatest, Observable, Subscription } from "rxjs";
+import { FormControl, FormGroup } from "@angular/forms";
+import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
+import { ScreenshotMaker } from "@core/classes/screenshot.class";
+import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
+import { VirtualChannel } from "@shared/classes/virtual-channel.class";
 
 type MenuStructure = { menu: IAstueOnpzReferences };
 type GraphStructure = { graphs: IMultiChartLine[] };
@@ -80,13 +81,9 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.selectionForm.get('unit').valueChanges,
     ]).pipe(map(([resources, unit]) => resources?.filter((r) => r.parentId === unit)));
 
-    private virtualChannel: VirtualChannel<GraphStructure>;
-
-    private virtualChannelSubscription: Subscription[] = [];
-
     private newStructureMenuData: MenuStructure | null = null;
-
-    private virtualChannels: VirtualChannel<GraphStructure>[] = []
+    private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
+    private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
 
     constructor(
         private reportService: ReportsService,
@@ -184,50 +181,98 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
-                this.colors.set('avt-10-fuel-consumption-PlanValue', 2)
             }),
+
+            this.astueOnpzService.selectedPredictor$
+                .pipe(filter(data => Boolean(data)))
+                .subscribe(predictorId => {
+                    const isDeletePredictor = this.data.findIndex(ref => ref.subchannelId === predictorId) !== -1;
+
+                    if (isDeletePredictor) {
+                        this.unSubscribeVirtualChannel(predictorId);
+                    } else {
+                        this.setPredictorData(predictorId);
+                    }
+                }),
+
+            this.astueOnpzService.selectedEnergyResource$
+                .subscribe(energyResourceId => {
+                    this.data = [];
+                    this.predictors$.next(null);
+                    this.paddingLeft$.next(0)
+                    this.unSubscribeVirtualChannels();
+
+                    if (energyResourceId) {
+                        this.setEnergyResourceId(energyResourceId);
+                    }
+                })
         );
-
-        this.astueOnpzService.predictorsOptions$.subscribe(predictors => {
-            const predictorsId = predictors?.predictors.map(predictor => predictor?.id);
-            if (predictorsId?.length) {
-                this.unSubscribeVirtualChannels();
-
-                predictorsId.forEach(id => {
-                    this.virtualChannels.push(
-                        new VirtualChannel <GraphStructure>(this.widgetService, {
-                            channelId: this.widgetId,
-                            subchannelId: id,
-                        })
-                    )
-                });
-
-                const virtualChannelsSubj = this.virtualChannels.map(item => item.data$);
-
-                // Подписка на графики предикторов
-                this.virtualChannelSubscription.push(
-                    combineLatest([...virtualChannelsSubj, this.connectConventionFuelChannel()])
-                        .subscribe((ref) => {
-                        this.data = ref.map(item => this.multilineDataMapper(item.graphs)).flat(1);
-                    })
-                )
-            } else {
-                this.unSubscribeVirtualChannels();
-                this.virtualChannelSubscription.push(
-                    this.connectConventionFuelChannel().subscribe(res => {
-                        this.data = this.multilineDataMapper(res.graphs)
-                    })
-                )
-            }
-        })
     }
 
-    private  unSubscribeVirtualChannels(): void {
-        this.virtualChannelSubscription.forEach(sub => sub.unsubscribe())
-        this.virtualChannels.forEach(sub => sub?.dispose())
+    private setEnergyResourceId(energyResourceId: string): void {
+        this.virtualChannelSubscriptions.push({
+            subchannelId: energyResourceId,
+            subscription: this.createVirtualChannel(energyResourceId).data$.subscribe(res => {
+                const data = this.multilineDataMapper(res.graphs);
+
+                data.map(item => {
+                    item.subchannelId = energyResourceId;
+                    return item;
+                });
+                this.data = this.data.filter(ref => ref.subchannelId !== energyResourceId);
+                this.data = [...this.data, ...data];
+            })
+        });
+    }
+
+    private setPredictorData(predictorId: string): void {
+        this.virtualChannelSubscriptions.push({
+            subchannelId: predictorId,
+            subscription: this.createVirtualChannel(predictorId).data$.subscribe(res => {
+                const data = this.multilineDataMapper(res.graphs);
+
+                data[0].subchannelId = predictorId;
+                this.data = this.data.filter(ref => ref.subchannelId !== predictorId);
+                this.data = [...this.data, data[0]];
+            })
+        });
+    }
+
+    private createVirtualChannel(subchannelId: string): VirtualChannel<GraphStructure> {
+        const virtualChannel = new VirtualChannel<GraphStructure>(this.widgetService, {
+            subchannelId,
+            channelId: this.widgetId,
+        });
+
+        this.virtualChannels.push({
+            subchannelId,
+            virtualChannel,
+        });
+
+        return virtualChannel;
+    }
+
+    private unSubscribeVirtualChannel(predictorId: string): void {
+        this.data = this.data.filter(ref => ref.subchannelId !== predictorId);
+        this.virtualChannelSubscriptions = this.virtualChannelSubscriptions.filter(ref => {
+            if (ref.subchannelId === predictorId) {
+                ref.subscription.unsubscribe();
+            }
+            return ref.subchannelId !== predictorId;
+        });
+        this.virtualChannels = this.virtualChannels.filter(ref => {
+            if (ref.subchannelId === predictorId) {
+                ref.virtualChannel.dispose();
+            }
+            return ref.subchannelId !== predictorId;
+        });
+    }
+
+    private unSubscribeVirtualChannels(): void {
+        this.virtualChannelSubscriptions.forEach(ref => ref.subscription.unsubscribe());
+        this.virtualChannels.forEach(sub => sub.virtualChannel.dispose());
+        this.virtualChannelSubscriptions = [];
         this.virtualChannels = [];
-        this.virtualChannelSubscription = [];
-        this.data = [];
     }
 
     get nextHourPlan(): number {
@@ -244,7 +289,6 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.astueOnpzService.sharedPlanningGraph$.next(null);
         this.astueOnpzService.multilineChartIndicatorTitle$.next('');
         this.astueOnpzService.multilineChartTransfer.next(null);
-        this.virtualChannel?.dispose();
         this.unSubscribeVirtualChannels();
     }
 
@@ -302,18 +346,5 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public mouseLeaveGraph(): void {
         this.onMouseExit();
         this.showCurrent = true;
-    }
-
-    private connectConventionFuelChannel(): Observable<GraphStructure> {
-        return this.astueOnpzService.selectedEnergyResource$
-            .pipe(
-                switchMap((id: string): Subject<GraphStructure> => {
-                    this.virtualChannel = new VirtualChannel<GraphStructure>(this.widgetService, {
-                        channelId: this.widgetId,
-                        subchannelId: id,
-                    });
-                    return this.virtualChannel.data$
-                })
-            )
     }
 }
