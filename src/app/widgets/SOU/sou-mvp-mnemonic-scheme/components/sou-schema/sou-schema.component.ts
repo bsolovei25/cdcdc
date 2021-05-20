@@ -10,7 +10,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { ISouFlowIn, ISouFlowOut, SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
     code: number;
@@ -425,8 +425,11 @@ export class SouSchemaComponent implements OnChanges {
 
             if ('productName' in sectionData) {
                 return sectionData.productName;
-            } else {
+            } else if ('name' in sectionData) {
                 return sectionData.name;
+            } else if ('tag' in sectionData) {
+                const sectionDataAsFlowInOut = sectionData as ISouFlowIn | ISouFlowOut;
+                return sectionDataAsFlowInOut.tag;
             }
         }
 
