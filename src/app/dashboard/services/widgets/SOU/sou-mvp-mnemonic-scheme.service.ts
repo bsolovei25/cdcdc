@@ -25,12 +25,13 @@ export class SouMvpMnemonicSchemeService {
         index: number;
         name: string;
     }>(null);
-    currentSection$: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);
+    currentSection$: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null); // Должно быть ISOUOperationalAccountingSystem вместо unknown
     chosenSetting$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
     redirectId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISouFlowOut;
+    public sectionNameForRedirect: string;
     private configSou: ISouConfig[] = [];
 
     constructor(private http: HttpClient) {
