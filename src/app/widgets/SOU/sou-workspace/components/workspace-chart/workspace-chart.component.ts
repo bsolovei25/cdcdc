@@ -35,8 +35,9 @@ export class WorkspaceChartComponent implements OnChanges {
 
     public sbWidth: number = 100;
 
+    public data = CHART_DATA;
+
     @Input() private scroll: { left: number; right: number } = { left: 0, right: 0 };
-    @Input() private data = CHART_DATA;
     @Input() private isSpline: boolean = false;
     @Input() private isWithPicker: boolean = false;
     @Input() private intervalHours: number[] = [];
