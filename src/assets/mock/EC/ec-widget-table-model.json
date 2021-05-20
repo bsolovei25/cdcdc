@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Сырье",
+    "countExceeding": 3,
+    "items": [
+      {
+        "name": "Загрузка печи по продукту",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 306,
+        "plan": 300
+      },
+      {
+        "name": "Загрузка печи по продукту",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 307,
+        "plan": 300
+      },
+      {
+        "name": "Температура продукта на входе в печь   ",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 294,
+        "plan": 300
+      },
+      {
+        "name": "Температура продукта на входе в печь   ",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 293,
+        "plan": 300
+      },
+      {
+        "name": "Температура продукта на выходе из печи",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 224.9,
+        "plan": 224.9
+      },
+      {
+        "name": "Доля отгона сырья",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 524.9,
+        "plan": 224.9
+      }
+    ]
+  },
+  {
+    "name": "Топливо газообразное",
+    "countExceeding": 0,
+    "items": []
+  },
+  {
+    "name": "Жидкое топливо",
+    "countExceeding": 0,
+    "items": []
+  },
+  {
+    "name": "Дымовые газы",
+    "countExceeding": 0,
+    "items": []
+  },
+  {
+    "name": "Воздух  ",
+    "countExceeding": 0,
+    "items": [
+      {
+        "name": "Температура воздуха на горение в печи",
+        "id": "",
+        "unitsOfMeasure": "Ед. изм.",
+        "fact": 224.9,
+        "plan": 224.9
+      }
+    ]
+  }
+]

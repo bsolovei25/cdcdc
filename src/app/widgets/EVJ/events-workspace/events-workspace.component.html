@@ -44,6 +44,12 @@
           </evj-shift-pass>
         </ng-template>
         <ng-template #usual>
+          <ng-container *ngIf="environmentName === 'MNPZ'">
+            <evj-evj-tasks-event-no-checkbox *ngSwitchDefault [noOverflow]="displayContainer"></evj-evj-tasks-event-no-checkbox>
+          </ng-container>
+          <ng-container *ngIf="environmentName !== 'MNPZ'">
+            <evj-tasks-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-tasks-event>
+          </ng-container>
           <evj-tasks-event [noOverflow]="displayContainer"></evj-tasks-event>
         </ng-template>
       </ng-container>

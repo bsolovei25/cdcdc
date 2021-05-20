@@ -1,0 +1,18 @@
+<div class="container" [class.container__wide]="data?.type === 'sum'">
+  <ng-container *ngIf="data">
+    <div class="top" evjFactoryAnalysisTooltip position="bottom" [title]="data.title">
+      <div class="top__title">{{ data.title }}</div>
+    </div>
+    <div class="main">
+      <ng-container *ngIf="!isMultiple(data); else multiBlocks">
+        <evj-ec-widget-factor-analysis-bar [data]="data"></evj-ec-widget-factor-analysis-bar>
+      </ng-container>
+      <ng-template #multiBlocks>
+        <evj-ec-widget-factor-analysis-bar-multi-level
+          [totalValue]="data.value"
+          [groupData]="data"
+        ></evj-ec-widget-factor-analysis-bar-multi-level>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

@@ -51,6 +51,7 @@ export class EvjSmpoEventCriticalComponent implements OnChanges, ControlValueAcc
 
     public writeValue(obj: boolean): void {
         this.val = obj;
+        this.onChange(obj);
     }
 
     public onChange = (fn: boolean) => {};

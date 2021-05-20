@@ -29,4 +29,5 @@ export type ApsHeaderIconType =
     | 'pie'
     | 'setting'
     | 'people'
-    | 'calculator';
+    | 'calculator'
+    | 'pump';

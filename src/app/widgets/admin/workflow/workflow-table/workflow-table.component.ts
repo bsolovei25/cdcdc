@@ -3,6 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EventService } from 'src/app/dashboard/services/widgets/EVJ/event.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
+import { HostListener } from '@angular/core';
 
 export interface IWorkspaceTable {
     height?: number;
@@ -17,7 +18,7 @@ interface IUserWorkspaceTable extends IUser {
 @Component({
     selector: 'evj-workflow-table',
     templateUrl: './workflow-table.component.html',
-    styleUrls: ['./workflow-table.component.scss'],
+    styleUrls: ['./workflow-table.component.scss']
 })
 export class WorkflowTableComponent implements OnInit, AfterContentInit {
     private dataSourceLocal: IUserWorkspaceTable[] = [];
@@ -45,13 +46,23 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
         }
     }
 
+    @Input() set height(event: number) {
+        if (event) {
+            setTimeout(() => {
+                this.renderer.setStyle(this.tank.nativeElement, 'height', `${event - 80}px`);
+            }, 100);
+        }
+    }
+
     constructor(
         private eventService: EventService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private renderer: Renderer2
-    ) {}
+    ) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     ngAfterContentInit() {
         if (this.localeData?.height) {
@@ -67,7 +78,8 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
         this.localeData.cancelFunction();
     }
 
-    onNoClick(): void {}
+    onNoClick(): void {
+    }
 
     searchInput(event): void {
         this.dataSource = this.dataSourceLocal?.filter(

@@ -47,6 +47,14 @@
       font-size: 14px;
       gap: 9px;
 
+      &__horizontal {
+        flex-flow: row !important;
+
+        evj-simple-button {
+          width: 100%;
+        }
+      }
+
       .title {
         color: var(--text-main-color);
       }
