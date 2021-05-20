@@ -1,0 +1,24 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Автогенерация</div>
+    </div>
+    <div cdkDropList class="selection__body">
+        <div class="item" *ngFor="let item of autogeneration">
+            {{item.name}}
+            <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="date">
+            <evj-admin-rsc-datetimepicker
+            [label]="'Начало'"
+            ></evj-admin-rsc-datetimepicker>
+            <evj-admin-rsc-datetimepicker
+            [label]="'Конец'"
+            ></evj-admin-rsc-datetimepicker>
+        </div>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 <div
   (click)="mvpService.redirectMnemonic(flowData?.linkId)"
   class="container" [ngClass]="{off:!flowData?.isEnable}">
-  <div class="line">
+  <div class="line" [class.line--dashed]="lineDashed">
     <div class="connection-circle"></div>
   </div>
   <div class="title">

@@ -1,0 +1,30 @@
+<div class="container" [ngClass]="'container__' + data.main.streamType">
+  <div class="block">
+    <div class="line line__vertical"></div>
+    <div class="line line__horizontal"></div>
+
+    <div class="title">{{ data?.title || '-' }}, {{ data?.main?.unit || '-' }}</div>
+    <div class="streams">
+      <div class="wrapper">
+        <evj-astue-onpz-mnemonic-furnace-popup-stream
+          *ngFor="let stream of (data?.streams || []); let idx = index"
+          [data]="{ idx: idx + 1, data: stream }"
+        ></evj-astue-onpz-mnemonic-furnace-popup-stream>
+      </div>
+    </div>
+  </div>
+  <div class="circle">
+    <svg-icon
+      class="border border__top"
+      src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/circle.svg"
+    ></svg-icon>
+    <svg-icon
+      class="border border__bottom"
+      src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/circle.svg"
+    ></svg-icon>
+    <div class="inner-circle">
+      <div class="value">{{ data?.main?.value || '-' }}</div>
+      <div class="unit">{{ data?.main?.unit || '-' }}</div>
+    </div>
+  </div>
+</div>

@@ -140,8 +140,6 @@
         line-height: 16px;
 
         margin-left: 5px;
-        display: flex;
-        align-items: flex-end;
       }
     }
   }
@@ -159,9 +157,6 @@
     }
 
     &__value {
-      font-size: 18px;
-      color: var(--text-contrast-color);
-
       display: flex;
       justify-content: flex-start;
     }
@@ -195,6 +190,12 @@
       height: 80%;
       align-self: center;
     }
+  }
+
+  .value {
+    font-size: 18px;
+    color: var(--text-contrast-color);
+    word-break: break-all;
   }
 
   .units {

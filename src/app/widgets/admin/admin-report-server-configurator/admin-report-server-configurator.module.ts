@@ -15,11 +15,24 @@ import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminReportServerConfiguratorFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-congigurator-file/admin-report-server-configurator-file.component';
 import { AdminReportServerConfiguratorParametersComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters.component';
 import { AdminReportServerConfiguratorParametersHeaderComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-header/admin-report-server-configurator-parameters-header.component';
-import { AdminReportServerConfiguratorParametersChangeComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-change/admin-report-server-configurator-parameters-change.component';
 import { AdminReportServerConfiguratorParametersSelectComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-parameters-select/admin-report-server-configurator-parameters-select.component';
 import { AdminReportServerConfiguratorAccessComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-access/admin-report-server-configurator-access.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AdminReportConfiguratorService } from './services/admin-report-server-configurator.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { AdminReportServerConfiguratorAccessDeniedComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-access-denied/admin-report-server-configurator-access-denied.component';
+import { AdminRscMacrosEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-macros-edit/admin-rsc-macros-edit.component';
+import { AdminRscAutogenerationComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-autogeneration/admin-rsc-autogeneration.component';
+import { AdminRscDatetimepickerComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-datetimepicker/admin-rsc-datetimepicker.component';
+import { AdminRscReportSheetComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-report-sheet/admin-rsc-report-sheet.component';
+import { AdminRscPeriodEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-period-edit/admin-rsc-period-edit.component';
+import { MatRadioButton, MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { AdminRscParameterAutogenerationComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-parameter-autogeneration/admin-rsc-parameter-autogeneration.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -35,10 +48,16 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
     AdminReportServerConfiguratorFileComponent,
     AdminReportServerConfiguratorParametersComponent,
     AdminReportServerConfiguratorParametersHeaderComponent,
-    AdminReportServerConfiguratorParametersChangeComponent,
     AdminReportServerConfiguratorParametersSelectComponent,
     AdminReportServerConfiguratorAccessComponent,
     AdminReportServerConfiguratorRepositoryAddFileComponent,
+    AdminReportServerConfiguratorAccessDeniedComponent,
+    AdminRscMacrosEditComponent,
+    AdminRscAutogenerationComponent,
+    AdminRscDatetimepickerComponent,
+    AdminRscReportSheetComponent,
+    AdminRscPeriodEditComponent,
+    AdminRscParameterAutogenerationComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +66,17 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
     MatRippleModule,
     OverlayModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatExpansionModule
+  ],
+  providers: [
+    AdminReportConfiguratorService
   ]
 })
 export class AdminReportServerConfiguratorModule {

@@ -8,6 +8,7 @@ import {
     IChangeShiftVerifier,
 } from '../change-shift.interfaces';
 import { AppConfigService } from '@core/service/app-config.service';
+import { IUnitEvents, IUser } from '@dashboard/models/EVJ/events-widget';
 
 @Injectable({
     providedIn: 'root',
@@ -38,6 +39,15 @@ export class ChangeShiftApiService {
         return await this.http
             .post<IChangeShiftVerifier>(`${this.restUrl}/ShiftConfirm/${shiftId}/widgetId/${widgetId}/${type}`, body)
             .toPromise();
+    }
+
+    public async applyShiftConfirmed(
+        shiftId: number,
+        type: 'accept' | 'pass',
+        comment: string
+    ): Promise<IChangeShiftModel> {
+        const body = { comment };
+        return await this.http.put<IChangeShiftModel>(`${this.restUrl}/Shift/${shiftId}/${type}`, body).toPromise();
     }
 
     public async getShiftById(shiftId: number): Promise<IChangeShiftModel> {
@@ -101,6 +111,13 @@ export class ChangeShiftApiService {
             .toPromise();
     }
 
+    public async addUserToRoleConfirmed(shiftId: number, roleId: number, userId: number): Promise<IChangeShiftModel> {
+        const body = {};
+        return await this.http
+            .put<IChangeShiftModel>(`${this.restUrl}/ShiftMember/shift/${shiftId}/role/${roleId}/user/${userId}`, body)
+            .toPromise();
+    }
+
     public async progressMember(
         shiftId: number,
         memberId: number,
@@ -113,6 +130,13 @@ export class ChangeShiftApiService {
                 `${this.restUrl}/ShiftMemberConfirm/shift/${shiftId}/passed-member/${memberId}/widgetId/${widgetId}`,
                 body
             )
+            .toPromise();
+    }
+
+    public async progressMemberConfirmed(shiftId: number, memberId: number): Promise<IChangeShiftModel> {
+        const body = {};
+        return await this.http
+            .put<IChangeShiftModel>(`${this.restUrl}/ShiftMember/shift/${shiftId}/passed-member/${memberId}`, body)
             .toPromise();
     }
 
@@ -129,5 +153,28 @@ export class ChangeShiftApiService {
                 body
             )
             .toPromise();
+    }
+
+    public async deleteMemberConfirmed(shiftId: number, memberId: number): Promise<IChangeShiftModel> {
+        const body = {};
+        return await this.http
+            .put<IChangeShiftModel>(`${this.restUrl}/ShiftMember/shift/${shiftId}/absent-member/${memberId}`, body)
+            .toPromise();
+    }
+
+    public async getAllUsers(): Promise<IUser[]> {
+        try {
+            return await this.http.get<IUser[]>(`${this.restUrlPrefix}/api/user-management/users`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getAllUnits(): Promise<IUnitEvents[]> {
+        try {
+            return this.http.get<IUnitEvents[]>(`${this.restUrlPrefix}/api/notification-reference/units`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 }

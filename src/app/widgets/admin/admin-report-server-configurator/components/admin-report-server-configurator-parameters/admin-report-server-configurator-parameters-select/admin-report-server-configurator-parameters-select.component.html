@@ -5,14 +5,17 @@
         <svg-icon class="close" src="{{closePopupIcon}}" (click)="onClose()"></svg-icon>
     </div>
     <div class="selection__body">
-        <ng-container *ngFor="let item of items">
-            <div class="item">
-                параметр
+        <ng-container *ngFor="let item of data.options">
+            <div class="item"
+            [ngClass]="{'item__active': item.isActive}"
+            (click)="chooseParameter(item)"
+            >
+                <span>{{item.name}}</span>
             </div>
         </ng-container>
     </div>
     <div class="selection__footer">
-        <evj-simple-button>
+        <evj-simple-button (click)="onSave()">
             Принять
         </evj-simple-button>
     </div>

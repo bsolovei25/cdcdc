@@ -111,10 +111,8 @@
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
               [ngClass]="{
-                'expanded-column__warning': column.id === '9' && elementChildren.deviationColor !== '0'
-                || column.id === '10' && elementChildren.deviationColor !== '0',
-                'expanded-column__danger': column.id === '9' && elementChildren.deviationColor !== '0'
-                || column.id === '10' && elementChildren.deviationColor !== '0'
+                'expanded-column__warning': column.id === '9' && elementChildren.deviationColor === '2',
+                'expanded-column__danger': column.id === '9' && elementChildren.deviationColor === '1'
                 }"
               [matTooltip]="elementChildren?.name"
             >
@@ -125,8 +123,8 @@
               >
                 <svg-icon
                   class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.deviationColor === '1'"
-                  [class.table__body__column__row-title-children__left-block--first__danger]="elementChildren.deviationColor === '2'"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.deviationColor === '2'"
+                  [class.table__body__column__row-title-children__left-block--first__danger]="elementChildren.deviationColor === '1'"
                   [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
                   [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.deviationColor === '1'"
                   [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.deviationColor === '2'"

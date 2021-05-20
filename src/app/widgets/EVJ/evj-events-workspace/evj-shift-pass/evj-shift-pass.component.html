@@ -21,20 +21,7 @@
     </div>
 
     <div class="workspace__select-container">
-      <div class="mat-form-category">
-        <div class="event-mat-select">
-          <div class="{{ewService.event.priority.name}}">
-            <mat-form-field appearance="none">
-              <mat-label>Приоритет</mat-label>
-              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
-                <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                  >{{ ewService.priorities[p.name] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
+      <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
     </div>
 
     <div class="workspace__select-container-right">
@@ -52,7 +39,11 @@
           ></evj-events-workspace-select>
         </div>
         <div class="workspace__select-container-right">
-          <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
+          <evj-events-workspace-datetimepicker
+            [label]="'Срок выполнения'"
+            [date]="ewService.event.deadline"
+          >
+          </evj-events-workspace-datetimepicker>
         </div>
       </div>
 

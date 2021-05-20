@@ -22,6 +22,7 @@ import { ChangeShiftHelperService } from './services/change-shift-helper.service
 import { ChangeShiftKeeperService } from './services/change-shift-keeper.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
+import { ClaimService } from '@dashboard/services/claim.service';
 
 @Component({
     selector: 'evj-change-shift',
@@ -71,6 +72,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         private materialController: SnackBarService,
         public changeShiftHelperService: ChangeShiftHelperService,
         public changeShiftKeeperService: ChangeShiftKeeperService,
+        private claimService: ClaimService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -86,6 +88,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.addVerifyListener();
     }
 
     public ngOnDestroy(): void {
@@ -97,17 +100,40 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.changeShiftKeeperService.widgetId = this.widgetId;
         this.unitId = await this.changeShiftKeeperService.getUnitId(this.widgetId);
         const shiftType = this.changeShiftHelperService.getShiftTypeByName(this.widgetType);
+        this.checkClaims(this.unitId);
         this.shiftType$.next(shiftType);
         await this.changeShiftKeeperService.loadShift(this.unitId, shiftType);
     }
 
     protected dataHandler(ref: { data: IChangeShiftVerifier }): void {
-        const value = ref?.data;
-        this.changeShiftKeeperService.verifyAction$.next(value);
-        if ((value?.type === 'shift' && value?.isConfirmed) || value.type === 'refresh') {
-            const event = new CustomEvent('change-shift-update');
-            document.dispatchEvent(event);
-        }
+        this.changeShiftKeeperService.verifyAction$.next(ref?.data);
+    }
+
+    private addVerifyListener(): void {
+        this.subscriptions.push(
+            this.changeShiftKeeperService.verifyAction$.subscribe((value) => {
+                if ((value?.type === 'shift' && value?.isConfirmed) || value.type === 'refresh') {
+                    const event = new CustomEvent('change-shift-update');
+                    document.dispatchEvent(event);
+                }
+            })
+        );
+    }
+
+    private checkClaims(unitId: number): void {
+        this.subscriptions.push(
+            this.claimService.allUserClaims$.subscribe((x) => {
+                const res = !!(
+                    x.find(
+                        (c) =>
+                            c.claimType === 'shiftChangeStatusNotConfirm' &&
+                            c.claimCategory === 'allow' &&
+                            +c.value === unitId
+                    ) ?? null
+                );
+                this.changeShiftKeeperService.isAdminClaim = res;
+            })
+        );
     }
 
     async onSendMessage(isRequired: boolean = false): Promise<void> {

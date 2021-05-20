@@ -7,13 +7,13 @@ import {
     Renderer2,
     ViewChild,
     SimpleChange,
-    SimpleChanges,
+    SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
-    sectionData?: SouSectionData;
+    code: number;
     rects: Element[];
     points: Element[];
     arrows: Element[];
@@ -38,125 +38,90 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SouSchemaComponent implements OnChanges {
 
-    elementsNode: Element[] = []; // все элементы
     elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
-    dataPark: SouSectionData[] = []; // Данные с бэка
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
-    private typeTextParams: {[typeId: number]: ITypeTextParams} = {
+    private typeTextParams: { [typeId: number]: ITypeTextParams } = {
         1: {
             lineLength: 15,
             lineHeight: 14,
-            maxTextLength: 30,
+            maxTextLength: 30
         },
         2: {
             lineLength: 17,
             lineHeight: 14,
-            maxTextLength: 17 * 2,
+            maxTextLength: 17 * 2
         },
         3: {
             lineLength: 23,
-            lineHeight: 12,
+            lineHeight: 12
         },
         4: {
             lineLength: 13,
-            lineHeight: 20,
+            lineHeight: 20
         },
         11: {
-            maxTextLength: 10,
+            maxTextLength: 10
         },
         12: {
-            maxTextLength: 7,
+            maxTextLength: 7
         },
         13: {
             lineLength: 7,
-            lineHeight: 20,
+            lineHeight: 20
+        },
+        14: {
+            maxTextLength: 12,
         },
         16: {
-            maxTextLength: 17,
+            maxTextLength: 17
         },
+        17: {
+            lineLength: 10,
+            maxTextLength: 30
+        }
     };
     private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
     @Input() unitName: string;
-    @Input() sectionName: string;
+    @Input() svgName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
-    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {}
+    constructor(public mvpService: SouMvpMnemonicSchemeService, public renderer: Renderer2) {
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const unitNameChanges: SimpleChange = changes?.unitName;
+        const svgNameChanges: SimpleChange = changes?.svgName;
+        const unitNameChanged = (unitNameChanges?.currentValue !== unitNameChanges?.previousValue);
+        const svgNameChanged = (svgNameChanges?.currentValue !== svgNameChanges?.previousValue);
+        const sectionsDataChanges: SimpleChange = changes?.sectionsData;
+        const chosenSettingChanges: SimpleChange = changes?.chosenSetting;
 
-        if (!this.unitName || unitNameChanges?.currentValue !== unitNameChanges?.previousValue) {
-            // Если не было выбрано установки или пришла установка но она не равна старой локальной
-            this.processSvgWhenItIsReady();
+        if (!this.unitName || unitNameChanged || svgNameChanged) {
+            // Если не было выбрано установки или она изменилась. Или изменилось svgName
             this.resetComponent();
+            this.processSvgWhenItIsReady();
         }
 
-        if (this.dataPark?.length) {
-            // Если есть старые данные с бэка
-            // 1. Изменяем и дополняем
-            this.dataPark.push(...this.setNewDataToSchema());
-            // 2. Отрисовываем
-            this.updateSvgBySectionData(true);
-        } else if (this.elementsMap?.size) {
-            // Если данных с бэка небыло, то заполняем
+        if (sectionsDataChanges || chosenSettingChanges) {
             this.processSectionsData();
         }
     }
 
     public get svgFileName(): string {
-        if (this.unitName) {
-            switch (this.unitName) {
-                case 'АССБ Авиасмеси':
-                    return 'ASSB-AviaSmesi';
-                case 'АССБ А-95':
-                    return 'ASSB-A-95';
-                case 'АССБ А-98':
-                    return 'ASSB-A-98';
-                case 'Насосная т.1163-1164 парк БГС':
-                    return 'Nasosnaya-park-BGS';
-                case 'Насосная т.1163-1164 парк А-95':
-                    return 'Nasosnaya-park-A-95';
-                case 'Насосная т.1163-1164 парк А-92':
-                    return 'Nasosnaya-park-A-92';
-                case 'ТСБ-1 Узел смешения нефти и КГС':
-                    return 'TSB-1-Usel';
-                case 'АВТ-10':
-                    return 'ABT-10-ELOU';
-                case 'ГФУ-2':
-                    return 'gfu-2';
-                case 'Коллектор Рефлюкса':
-                    return 'collector-ref';
-                case 'КПА С100':
-                    if (this.sectionName === 'КПА С100') {
-                        return 'kpa-c100';
-                    } else if (this.sectionName === 'Сырье с100') {
-                        return 'trx-tit-204';
-                    }
-                    break;
-                case 'Л-35/11-1000':
-                    return 'l-35-11-1000';
-                case 'Изомалк-2':
-                    if (this.sectionName === 'Топливо факел') {
-                        return 'izomalk-2-fuel';
-                    } else if (this.sectionName === 'Сырьевой парк') {
-                        return 'raw-materials-park-4022';
-                    }
-                    break;
-            }
-        }
-
-        return null;
+        return this.svgName
+            ? `${this.svgName}.svg`
+            : null;
     }
 
     private getSvgElement(): SVGElement {
@@ -164,9 +129,11 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
-    private processSvgWhenItIsReady(): void {
+    public processSvgWhenItIsReady(): void {
         const processSvg = () => {
             this.parseSvg();
+            this.resetSvg();
+
             if (this.sectionsData?.length) {
                 this.processSectionsData();
             }
@@ -175,7 +142,8 @@ export class SouSchemaComponent implements OnChanges {
         const wait = () => {
             const svg = this.getSvgElement();
             const svgFileName = this.svgFileName;
-            const foundKeyElem = svgFileName && svg?.querySelector(`#element-1_1__${svgFileName}`);
+            const keyElemSelector = `#element-1_1__${svgFileName.replace('.svg', '')}`;
+            const foundKeyElem = svgFileName && svg?.querySelector(keyElemSelector);
 
             if (foundKeyElem) {
                 processSvg();
@@ -189,46 +157,25 @@ export class SouSchemaComponent implements OnChanges {
         wait();
     }
 
-    // Изменение отрисованых данных и дополнение новых (WEBSOCKET)
-    setNewDataToSchema(): SouSectionData[] {
-        const newArray = [];
-        this.sectionsData?.forEach((value) => {
-            const element = this.dataPark.find((park) => value?.code === park?.code);
-            if (element) {
-                element.isExceedingConfInterval = value?.isExceedingConfInterval;
-                element.isEnable = value?.isEnable;
-                element.related = value?.related;
-                if ('productName' in value && 'productName' in element) {
-                    element.productName = value?.productName;
-                    element.valueTank = value?.valueTank;
-                    element.valueMoment = value?.valueMoment;
-                    element.valueByHour = value?.valueByHour;
-                }
-                if ('name' in value && 'name' in element) {
-                    element.name = value?.name;
-                }
-            } else {
-                newArray.push(value);
-            }
-        });
-
-        return newArray;
-    }
-
-    resetComponent(): void {
-        this.elementsNode = [];
+    public resetComponent(): void {
         this.elementsMap.clear();
         this.elementsFullMap.clear();
     }
 
+    public resetSvg(): void {
+        this.elementsMap?.forEach((element: Element) => {
+            this.addClassAndTextToElement(element, 'reset');
+        });
+    }
+
     testsToLogPanel(): void {
-        const countZeroId = this.dataPark?.filter((value) => value?.code === 0)?.length;
-        const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
+        const countZeroId = this.sectionsData?.filter((value) => value?.code === 0)?.length;
+        const countIsActive = this.sectionsData?.filter((value) => value?.isEnable === true)?.length;
         let countRepeat: number = 0;
         const arrayRepeat: number[] = [];
-        this.dataPark.forEach((value) => {
+        this.sectionsData?.forEach((value) => {
             let idx = 0;
-            this.dataPark.forEach((value2) => {
+            this.sectionsData?.forEach((value2) => {
                 if (value.code === value2.code) {
                     idx++;
                 }
@@ -238,7 +185,7 @@ export class SouSchemaComponent implements OnChanges {
                 arrayRepeat.push(value.code);
             }
         });
-        console.log(`Данные: ${this.dataPark?.length}`);
+        console.log(`Данные: ${this.sectionsData?.length}`);
         console.log(`Данных (code = 0) - ${countZeroId}`);
         console.log(`Данных (isActive = true) - ${countIsActive}`);
         console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
@@ -248,58 +195,63 @@ export class SouSchemaComponent implements OnChanges {
     // Тут можно замокать данные
     private processSectionsData(): void {
         if (this.debugElementCode) {
-            this.dataPark = this.sectionsData.map((item: SouSectionData) => {
+            this.sectionsData = this.sectionsData?.map((item: SouSectionData) => {
                 if (item?.code === this.debugElementCode) {
                     console.log(`Отладка элемента: ${item.code}. Данные с бэка:`, item);
                 }
 
                 return item;
             });
-        } else {
-            this.dataPark = this.sectionsData;
         }
-        this.updateSvgBySectionData(false);
-    }
 
-    // Обновляет svg по данным с бека
-    updateSvgBySectionData(reload: boolean): void {
-        // tests
         this.testsToLogPanel();
-        //
-        this.dataPark?.forEach((data) => {
-            data.related = this.relatedArray(data?.related);
-            this.updateElementBySectionData(data, reload);
+
+        this.sectionsData?.forEach((data: SouSectionData) => {
+            data.related = this.parseRelatedArray(data?.related);
+            this.updateElementBySectionData(data);
         });
     }
 
     // Ищет элемент в svg по данным с бека и обновляет его
-    private updateElementBySectionData(sectionData: SouSectionData, reload: boolean): void {
+    private updateElementBySectionData(sectionData: SouSectionData): void {
         const element = this.elementsMap.get(sectionData?.code);
-        const mode = this.getElementMode(sectionData);
 
-        if (reload) {
-            if (element?.children) {
-                const elementFull = this.elementsFullMap?.get(sectionData?.code);
-                this.addClassAndTextToElement(element, elementFull, mode);
-            }
-        } else {
-            this.prepareElement(mode, element, sectionData);
+        if (element?.children) {
+            const isNotMeasured = !this.isStreamMeasured(sectionData);
+            const mode = this.getElementMode(sectionData);
+            const elementId = this.getElementId(element);
+            const elementFull = this.elementsFullMap?.get(elementId);
+
+            this.addClassAndTextToElement(element, mode, elementFull, isNotMeasured);
+            this.addElementClickListenerIfNeed(element, elementFull);
+            this.setElementTextNodeClassIfNeed(element);
         }
     }
 
-    private getElementMode(data: SouSectionData): TypeMode {
-        const {isExceedingConfInterval, isEnable} = data;
-        // return !isEnable ? 'disabled' : isExceedingConfInterval ? 'deviation' : 'standard';
-        return isExceedingConfInterval ? 'deviation' : isEnable ? 'standard' : 'disabled';
+    private getElementMode(sectionData: SouSectionData): TypeMode {
+        const { isExceedingConfInterval, isEnable } = sectionData;
+
+        if (isExceedingConfInterval && isEnable && this.isStreamMeasured(sectionData)) {
+            return 'deviation';
+        } else if (!isEnable) {
+            return 'disabled';
+        }
+
+        return 'standard';
     }
 
-    relatedArray(related: number[] | string): number[] {
+    private parseRelatedArray(related: number[] | string): number[] {
         // Данные с бэка пример - "12;34;45", также сюда приходят данные обработанные [12,45,51]
+        if (related === '') {
+            return [];
+        }
+
         return typeof related === 'string'
             ? related
-                  .split(';')
-                  .map((value) => +value)
-                  .filter((value) => !isNaN(value))
+                .split(';')
+                .filter((value: string) => value !== '')
+                .map((value: string) => +value)
+                .filter((value: number) => !isNaN(value))
             : related;
     }
 
@@ -309,61 +261,43 @@ export class SouSchemaComponent implements OnChanges {
         const elements = svg.querySelectorAll('[id^=element-]');
         const lines = svg?.querySelectorAll(`[id^=line_]`);
 
+        // Обработка элементов схемы
+        elements?.forEach((element: Element) => {
+            const id = this.getElementId(element);
+            this.elementsMap.set(id, element);
+
+            if (this.debugElementCode && id === this.debugElementCode) {
+                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`, element);
+            }
+
+            const elementFull = this.parseElementFull(element);
+
+            if (this.debugElementCode && id === this.debugElementCode) {
+                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
+            }
+
+            if (elementFull) {
+                this.elementsFullMap.set(id, elementFull);
+            }
+        });
+
         // Обработка линий
         lines?.forEach((line: Element) => {
             const elMatch = line?.id?.match(/line_(\d+)/i);
             const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
-            this.elementsMap.set(id, line);
-        });
 
-        // Обработка элементов схемы
-        elements?.forEach((element: Element) => {
-            const id = this.getElementId(element);
-            this.prepareElement('reset', element);
-            this.elementsMap.set(id, element);
-
-            if (this.debugElementCode && id === this.debugElementCode) {
-                console.log(`Отладка элемента: ${id}. Элемент на мнемосхеме:`,  element);
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, line);
             }
         });
 
         console.log(`Элементов и линий: ${this.elementsMap?.size}`);
     }
 
-    prepareElement(
-        mode: TypeMode,
-        element: Element,
-        sectionData?: SouSectionData,
-    ): void {
-        if (element?.children) {
-            const elementFull = this.getElementFull(element, sectionData);
-
-            if (this.debugElementCode && this.getElementId(element) === this.debugElementCode) {
-                console.log(`Отладка элемента: ${this.debugElementCode}. Заполнен IElementFull:`, elementFull);
-            }
-
-            const elementId = this.getElementId(element);
-
-            if (elementFull) {
-                this.elementsFullMap.set(elementId, elementFull);
-            }
-
-            this.addClassAndTextToElement(element, elementFull, mode);
-
-            // Event
-            if (sectionData) {
-                this.addElementClickListener(element, elementFull);
-            }
-
-            // Применение класса для текстовых нод
-            this.setElementTextNodeClassIfNeed(element);
-        }
-    }
-
     // Распарсить элемент и заполнить IElementFull
-    private getElementFull(element: Element, sectionData: SouSectionData): IElementFull {
+    private parseElementFull(element: Element): IElementFull {
         let elementFull: IElementFull = {
-            sectionData,
+            code: this.getElementId(element),
             rects: [],
             points: [],
             arrows: [],
@@ -372,7 +306,7 @@ export class SouSchemaComponent implements OnChanges {
             textValue: null,
             textPercent: null,
             ellipse: null,
-            flag: true,
+            flag: true
         };
         const children = Array.from(element?.children);
 
@@ -386,9 +320,14 @@ export class SouSchemaComponent implements OnChanges {
     // Добавление класса и текста для элемента
     private addClassAndTextToElement(
         element: Element,
-        elementFull: IElementFull,
         mode: TypeMode,
+        elementFull?: IElementFull,
+        isNotMeasured?: boolean,
     ): void {
+        if (!elementFull) {
+            elementFull = this.elementsFullMap?.get(this.getElementId(element));
+        }
+
         this.addElemClass(element, ['element']);
 
         elementFull?.rects?.forEach((item: Element) => {
@@ -400,14 +339,11 @@ export class SouSchemaComponent implements OnChanges {
         elementFull?.texts?.forEach((item: Element) => {
             this.setElementMode(item, mode, true);
 
-            if (elementFull?.sectionData) {
-                if ('productName' in elementFull?.sectionData) {
-                    this.addTextToTextElem(item, String(elementFull?.sectionData?.productName));
-                } else {
-                    this.addTextToTextElem(item, String(elementFull?.sectionData?.name));
-                }
-            } else {
-                this.addTextToTextElem(item, String(name));
+            if (this.getSectionDataByElement(element)) {
+                const elementText = this.getElementText(element);
+                this.addTextToTextElem(item, elementText);
+            } else if (mode === 'reset') {
+                this.addTextToTextElem(item, '');
             }
         });
         elementFull?.arrows?.forEach((item: Element) => {
@@ -420,80 +356,18 @@ export class SouSchemaComponent implements OnChanges {
             this.setElementMode(elementFull?.ellipse, mode);
         }
 
-        // Percent
-        if (elementFull?.sectionData) {
-            if ('tolerance' in elementFull?.sectionData) {
-                if (elementFull?.textPercent) {
-                    this.addTextToTextElem(elementFull.textPercent, `${String(elementFull?.sectionData?.tolerance)}%`);
-                    this.setElementMode(elementFull?.textPercent, mode, true);
-                }
-            }
-            if ('valueMomentPercent' in elementFull?.sectionData) {
-                let valueMet: number = 0;
-                switch (this.chosenSetting) {
-                    case 0:
-                        valueMet = elementFull?.sectionData?.valueMomentPercent;
-                        break;
-                    case 1:
-                        valueMet = elementFull?.sectionData?.valueByHourPercent;
-                        break;
-                    case 2:
-                        valueMet = elementFull?.sectionData?.valueTankPercent;
-                        break;
-                }
-                if (elementFull?.textPercent) {
-                    this.addTextToTextElem(elementFull.textPercent, `${String(valueMet)}%`);
-                    this.setElementMode(elementFull?.textPercent, mode, true);
-                }
-                this.setElementMode(elementFull?.textPercent, mode, true);
-            }
-        } else {
-            this.addTextToTextElem(
-                elementFull?.textPercent,
-                elementFull?.sectionData?.tolerance
-                    ? `${String(elementFull?.sectionData?.tolerance)}%`
-                    : `0%`
-            );
-            if (elementFull?.textPercent) {
-                this.setElementMode(elementFull?.textPercent, mode, true);
-            }
-        }
+        this.updateElementValue(element, mode);
 
-        // Value
-        if (elementFull?.sectionData) {
-            if ('valueByHour' in elementFull?.sectionData) {
-                let valueMet: number = 0;
-                switch (this.chosenSetting) {
-                    case 0:
-                        valueMet = elementFull?.sectionData?.valueMoment;
-                        break;
-                    case 1:
-                        valueMet = elementFull?.sectionData?.valueByHour;
-                        break;
-                    case 2:
-                        valueMet = elementFull?.sectionData?.valueTank;
-                        break;
-                }
-                this.addTextToTextElem(elementFull?.textValue, `${String(valueMet)} тн`);
-                if (elementFull?.textValue) {
-                    this.setElementMode(elementFull?.textValue, mode, true);
-                }
-            }
-            if ('value' in elementFull?.sectionData) {
-                this.addTextToTextElem(elementFull?.textValue, `${String(elementFull?.sectionData?.value)} т`);
-            }
-        } else {
-            this.addTextToTextElem(elementFull?.textValue, `0 тн`);
-            this.setElementMode(elementFull?.textValue, mode, true);
-        }
+        const sectionData = this.getSectionDataByElement(element);
 
         // related elements
-        if (typeof elementFull?.sectionData?.related === 'object') {
-            elementFull?.sectionData?.related.forEach((id) => {
+        if (typeof sectionData?.related === 'object') {
+            sectionData?.related.forEach((id) => {
                 const elementRelated = this.elementsMap.get(id);
                 if (elementRelated?.children) {
                     const elementsRelated = Array.from(elementRelated?.children);
                     let elementFullRelated: IElementFull = {
+                        code: id,
                         rects: [],
                         points: [],
                         arrows: [],
@@ -502,12 +376,13 @@ export class SouSchemaComponent implements OnChanges {
                         textValue: null,
                         textPercent: null,
                         ellipse: null,
-                        flag: true,
+                        flag: true
                     };
                     // Search
                     elementsRelated?.forEach((elem: SVGElement) => {
                         elementFullRelated = this.recognizeElementChild(elem, elementFullRelated);
                     });
+
                     elementFullRelated?.rects?.forEach((item: Element) => {
                         this.setElementMode(item, mode);
                     });
@@ -524,12 +399,102 @@ export class SouSchemaComponent implements OnChanges {
                         this.setElementMode(elementFullRelated?.circle, mode);
                     }
 
-                    if (elementRelated.getAttribute('id').includes('line')) {
-                        this.setElementMode(elementRelated, mode);
+                    if (this.isElementLine(elementRelated)) {
+                        this.setElementMode(elementRelated, mode, undefined, isNotMeasured);
                     }
                 }
             });
         }
+    }
+
+    // Возвращает текст который должен отображаться в тексте (названии) элемента
+    private getElementText(element: SVGElement | Element): string {
+        const sectionData = this.getSectionDataByElement(element);
+
+        if (sectionData) {
+            // const elementTypeId = this.getElementTypeId(element);
+            // const sectionDataAsFlowInOut = elementSectionData as ISouFlowIn | ISouFlowOut;
+
+            // switch (elementTypeId) {
+            //     case 3:
+            //         return sectionDataAsFlowInOut.productName || '';
+            //
+            //     case 11:
+            //         return sectionDataAsFlowInOut.tag || '';
+            // }
+
+            if ('productName' in sectionData) {
+                return sectionData.productName;
+            } else {
+                return sectionData.name;
+            }
+        }
+
+        return null;
+    }
+
+    private getElementValuePercent(sectionData: SouSectionData): string {
+        const element = this.elementsMap.get(sectionData?.code);
+        const elementTypeId = this.getElementTypeId(element);
+
+        if (elementTypeId === 11) {
+            if ('tolerance' in sectionData) {
+                return String(sectionData.tolerance);
+            }
+        }
+
+        if ('valueMomentPercent' in sectionData) {
+            switch (this.chosenSetting) {
+                case 0:
+                    return String(sectionData.valueMomentPercent);
+                case 1:
+                    return String(sectionData.valueByHourPercent);
+                case 2:
+                    return String(sectionData.valueTankPercent);
+            }
+        } else if ('tolerance' in sectionData) {
+            return String(sectionData.tolerance);
+        }
+    }
+
+    private getElementValue(sectionData: SouSectionData): string {
+        if ('valueByHour' in sectionData) {
+            switch (this.chosenSetting) {
+                case 0:
+                    return String(sectionData.valueMoment);
+                case 1:
+                    return String(sectionData.valueByHour);
+                case 2:
+                    return String(sectionData.valueTank);
+            }
+        } else if ('value' in sectionData) {
+            return String(sectionData.value);
+        }
+    }
+
+    // Обновляет текстовые значения элемента
+    private updateElementValue(element: SVGElement | Element, mode: TypeMode): void {
+        const elementId = this.getElementId(element);
+        const elementFull = this.elementsFullMap?.get(elementId);
+        const sectionData = this.getSectionDataByElement(element);
+
+        if (sectionData) {
+            if (elementFull?.textValue) {
+                const value = this.getElementValue(sectionData);
+                this.addTextToTextElem(elementFull.textValue, `${value} т`);
+            }
+
+            if (elementFull?.textPercent) {
+                const valuePercent = this.getElementValuePercent(sectionData);
+                this.addTextToTextElem(elementFull.textPercent, `${valuePercent}%`);
+            }
+        } else {
+            this.addTextToTextElem(elementFull?.textValue, '0 тн');
+            this.addTextToTextElem(elementFull?.textPercent, '0%');
+        }
+
+        this.setElementMode(elementFull?.textValue, mode, true);
+        this.setElementMode(elementFull?.textPercent, mode, true);
     }
 
     // Функция распознает, потомка элемента схемы.
@@ -580,14 +545,14 @@ export class SouSchemaComponent implements OnChanges {
 
     // Распознает индивидуальные настройки текста из id элемента
     private parseTextParamsFromElementName(elementChildName: string): ITypeTextParams {
-        const match = elementChildName.match(/text-params_(\w+)_(\d+)/i);
+        const match = elementChildName.match(/text-params_(\w+)=(\d+)/i);
         if (match && match[1] && match[2]) {
             const paramName = match[1];
             const value = parseInt(match[2], 10);
 
             if (paramName && value) {
                 return {
-                    [paramName]: value,
+                    [paramName]: value
                 };
             }
         }
@@ -596,14 +561,16 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Добавляет отслеживание клика на элементе
-    private addElementClickListener(element: Element, elementFull: IElementFull): void {
+    private addElementClickListenerIfNeed(element: Element, elementFull: IElementFull): void {
         if (elementFull?.flag) {
             elementFull.flag = false;
 
+            const sectionData = this.getSectionDataByElement(element);
+
             if (
-                'name' in elementFull.sectionData ||
-                'productName' in elementFull.sectionData ||
-                'linkId' in elementFull.sectionData
+                'name' in sectionData ||
+                'productName' in sectionData ||
+                'linkId' in sectionData
             ) {
                 const handler = this.getElementClickHandler(elementFull);
                 element.removeEventListener('click', handler);
@@ -616,12 +583,13 @@ export class SouSchemaComponent implements OnChanges {
     private getElementClickHandler(elementFull: IElementFull): () => void {
         return () => {
             console.log('click', elementFull);
-            this.mvpService.redirectMnemonic(elementFull.sectionData.linkId);
+            const sectionData = this.getSectionDataByCode(elementFull.code);
+            this.mvpService.redirectMnemonic(sectionData.linkId);
             this.elementActive(elementFull);
-            if (typeof elementFull.sectionData.related === 'object') {
-                elementFull.sectionData?.related?.forEach((value) => {
+            if (typeof sectionData.related === 'object') {
+                sectionData?.related?.forEach((value) => {
                     const element = this.elementsMap.get(value);
-                    if (element && element.getAttribute('id')?.includes('line')) {
+                    if (this.isElementLine(element)) {
                         this.lineActive(element, elementFull);
                     } else {
                         const elFull = this.elementsFullMap.get(value);
@@ -635,14 +603,15 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     lineActive(line: Element, elementFull: IElementFull): void {
-        if (!this.hasElemClass(line, `${elementFull?.sectionData?.code}`)) {
-            this.addElemClass(line, [`${elementFull?.sectionData?.code}`, 'active']);
+        const sectionData = this.getSectionDataByCode(elementFull.code);
+        if (!this.hasElemClass(line, `${sectionData?.code}`)) {
+            this.addElemClass(line, [`${sectionData?.code}`, 'active']);
         } else {
             const count = this.countElementsInClassList(line);
             if (count > 1) {
-                this.removeElemClass(line, [`${elementFull.sectionData.code}`]);
+                this.removeElemClass(line, [`${sectionData?.code}`]);
             } else {
-                this.removeElemClass(line, [`${elementFull.sectionData.code}`, 'active']);
+                this.removeElemClass(line, [`${sectionData?.code}`, 'active']);
             }
         }
     }
@@ -663,20 +632,22 @@ export class SouSchemaComponent implements OnChanges {
     elementActive(elementFull: IElementFull, element?: IElementFull): void {
         const active = 'active';
         const relatedOrNormal = element ? element : elementFull;
+        const sectionData = this.getSectionDataByCode(relatedOrNormal?.code);
+
         elementFull.rects.forEach((item: Element) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
-                if ('productName' in relatedOrNormal.sectionData && !element) {
-                    this.mvpService.openPopup(this.dataPark, relatedOrNormal?.sectionData?.code);
+            if (!this.hasElemClass(item, `${sectionData?.code}`)) {
+                this.addElemClass(item, [`${sectionData?.code}`, active]);
+                if ('productName' in sectionData && !element) {
+                    this.mvpService.openPopup(this.sectionsData, sectionData?.code);
                 }
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
+                    this.removeElemClass(item, [`${sectionData?.code}`, active]);
                 }
-                if ('productName' in relatedOrNormal?.sectionData && !element) {
+                if ('productName' in sectionData && !element) {
                     if (this.mvpService?.isOpenPopup) {
                         this.mvpService?.closePopup();
                     }
@@ -684,50 +655,50 @@ export class SouSchemaComponent implements OnChanges {
             }
         });
         elementFull.points.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
+            if (!this.hasElemClass(item, `${sectionData?.code}`)) {
+                this.addElemClass(item, [`${sectionData?.code}`, active]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, active]);
+                    this.removeElemClass(item, [`${sectionData?.code}`, active]);
                 }
             }
         });
         elementFull.texts.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-text`]);
+            if (!this.hasElemClass(item, `${sectionData?.code}`)) {
+                this.addElemClass(item, [`${sectionData?.code}`, `${active}-text`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-text`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`, `${active}-text`]);
                 }
             }
         });
         elementFull.arrows.forEach((item) => {
-            if (!this.hasElemClass(item, `${relatedOrNormal?.sectionData?.code}`)) {
-                this.addElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-arrow`]);
+            if (!this.hasElemClass(item, `${sectionData?.code}`)) {
+                this.addElemClass(item, [`${sectionData?.code}`, `${active}-arrow`]);
             } else {
                 const count = this.countElementsInClassList(item);
                 if (count > 1) {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`]);
                 } else {
-                    this.removeElemClass(item, [`${relatedOrNormal?.sectionData?.code}`, `${active}-arrow`]);
+                    this.removeElemClass(item, [`${sectionData?.code}`, `${active}-arrow`]);
                 }
             }
         });
 
-        if (!this.hasElemClass(elementFull.circle, `${relatedOrNormal?.sectionData?.code}`)) {
-            this.addElemClass(elementFull.circle, [`${relatedOrNormal?.sectionData?.code}`, active]);
+        if (!this.hasElemClass(elementFull.circle, `${sectionData?.code}`)) {
+            this.addElemClass(elementFull.circle, [`${sectionData?.code}`, active]);
         } else {
             const count = this.countElementsInClassList(elementFull?.circle);
             if (count > 1) {
-                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.sectionData?.code}`]);
+                this.removeElemClass(elementFull?.circle, [`${sectionData?.code}`]);
             } else {
-                this.removeElemClass(elementFull?.circle, [`${relatedOrNormal?.sectionData?.code}`, active]);
+                this.removeElemClass(elementFull?.circle, [`${sectionData?.code}`, active]);
             }
         }
         this.toggleElemClass(elementFull?.textPercent, 'active-text');
@@ -737,11 +708,12 @@ export class SouSchemaComponent implements OnChanges {
     // Добавляет текст для текстовой ноды <text>
     private addTextToTextElem(textElem: SVGElement | Element, text: string): void {
         if (textElem?.children) {
-            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text);
+            this.clearTextInTextElem(textElem);
             const textParams = this.getTextElemLayoutParams(textElem as SVGElement);
+            this.makeTextElemMultilineIfNeed(textElem as SVGElement, text, textParams);
             const children = Array.from(textElem?.children);
-            let truncatedText = text;
             const lineLength = textParams?.lineLength;
+            let truncatedText = text;
 
             if (textParams?.maxTextLength && text?.length > textParams.maxTextLength) {
                 truncatedText = text.slice(0, textParams.maxTextLength - 3) + '...';
@@ -754,7 +726,7 @@ export class SouSchemaComponent implements OnChanges {
                 });
             }
 
-            if (lineLength && truncatedText.length > lineLength) {
+            if (lineLength && truncatedText?.length > lineLength) {
                 if (children.length > 1) {
                     children.forEach((child: SVGTextPositioningElement, index: number) => {
                         const from = lineLength * index;
@@ -770,6 +742,15 @@ export class SouSchemaComponent implements OnChanges {
         }
     }
 
+    // Добавляет текст для текстовой ноды <text>
+    private clearTextInTextElem(textElem: SVGElement | Element): void {
+        if (textElem?.children) {
+            Array.from(textElem.children).forEach((tspan: SVGElement) => {
+                this.setTspanText(tspan, '');
+            });
+        }
+    }
+
     private addTooltipToTextElem(textElem: SVGElement, tooltipText: string): void {
         const titleElem = this.renderer.createElement('title', 'http://www.w3.org/2000/svg');
         const text = this.renderer.createText(tooltipText);
@@ -779,8 +760,7 @@ export class SouSchemaComponent implements OnChanges {
 
     // Сделать текст <text> многострочным для элементов определенных типов
     // Если текст не помещается в одну стоку
-    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string): void {
-        const textParams = this.getTextElemLayoutParams(textElem);
+    private makeTextElemMultilineIfNeed(textElem: SVGElement, text: string, textParams: ITypeTextParams): void {
         const lineOffsetTopPx = textParams?.lineHeight || 20;
         const lineLength = textParams?.lineLength;
         const maxTextLength = textParams?.maxTextLength;
@@ -816,21 +796,22 @@ export class SouSchemaComponent implements OnChanges {
     // Или null если ограничений нет
     private getTextElemLayoutParams(textElem: SVGElement): ITypeTextParams {
         const elementTypeId = this.getElementTypeId(textElem?.parentElement);
+        let textParams: ITypeTextParams = null;
 
         if (elementTypeId) {
-            const textParams = this.typeTextParams[elementTypeId];
+            textParams = this.typeTextParams[elementTypeId]
+                ? Object.assign({}, this.typeTextParams[elementTypeId])
+                : null;
             const elementId = this.getElementId(textElem?.parentElement);
             const elementFull = this.elementsFullMap.get(elementId);
             const individualTextParams = elementFull?.textParams;
 
             if (individualTextParams) {
-                return Object.assign(textParams, individualTextParams);
+                textParams = Object.assign(textParams, individualTextParams);
             }
-
-            return textParams;
         }
 
-        return null;
+        return textParams;
     }
 
     // Возвращает ID элемента
@@ -843,6 +824,15 @@ export class SouSchemaComponent implements OnChanges {
     private getElementTypeId(element: SVGElement | Element): number {
         const elMatch = element?.id?.match(/element-(\d+)_(\d+)/i);
         return elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+    }
+
+    private isElementLine(element: SVGElement | Element): boolean {
+        return element?.getAttribute('id').includes('line');
+    }
+
+    // Поток измеряемый
+    private isStreamMeasured(sectionData: SouSectionData): boolean {
+        return sectionData?.tolerance === 0;
     }
 
     // Установка класса для текстовой ноды внутри элемента если нужно (для выравнивания текста)
@@ -922,20 +912,30 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Заполнение tspan элемента текстом
-    private setTspanText(element: Element, text: string): void {
+    private setTspanText(element: SVGElement | Element, text: string): void {
         if (element) {
             this.renderer.setProperty(element, 'innerHTML', text);
         }
     }
 
     // Задает режим отображения элемента
-    private setElementMode(element: SVGElement | Element, mode: TypeMode, textPostfix?: boolean): void {
+    private setElementMode(element: SVGElement | Element, mode: TypeMode, textPostfix?: boolean, isNotMeasured?: boolean): void {
+
+        if (isNotMeasured !== undefined && this.isElementLine(element)) {
+            if (isNotMeasured) {
+                this.addElemClass(element, ['not-measured-line']);
+            } else {
+                this.removeElemClass(element, ['not-measured-line']);
+            }
+
+        }
+
         if (textPostfix) {
             this.removeElemClass(element, [
                 'standard-text',
                 'deviation-text',
                 'disabled-text',
-                'reset-text',
+                'reset-text'
             ]);
             this.addElemClass(element as Element, [`${mode}-text`]);
         } else {
@@ -944,11 +944,20 @@ export class SouSchemaComponent implements OnChanges {
                 'deviation',
                 'disabled',
                 'reset',
-                'active',
+                'active'
             ]);
             this.addElemClass(element as Element, [mode]);
         }
 
+    }
+
+    private getSectionDataByElement(element: SVGElement | Element): SouSectionData {
+        const elementId = this.getElementId(element);
+        return this.getSectionDataByCode(elementId);
+    }
+
+    private getSectionDataByCode(code: number): SouSectionData {
+        return this.sectionsData?.find((d: SouSectionData) => d.code === code);
     }
 
 }

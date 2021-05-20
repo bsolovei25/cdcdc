@@ -6,8 +6,10 @@ import {
     ChangeShiftStatus,
     ChangeShiftType,
     ChangeShiftUserStatus,
+    ChangeShiftVerifierType,
     IChangeShiftMember,
     IChangeShiftModel,
+    IChangeShiftVerifier,
 } from '../change-shift.interfaces';
 
 @Injectable({
@@ -127,5 +129,23 @@ export class ChangeShiftHelperService {
             statuses = [...statuses, 'main', 'delete'];
         }
         return statuses;
+    }
+
+    public getCustomVerifyAction(
+        isConfirmed: boolean,
+        type: ChangeShiftVerifierType = null
+    ): Promise<IChangeShiftVerifier> {
+        return new Promise<IChangeShiftVerifier>((resolve) =>
+            resolve({
+                id: 1,
+                widgetId: null,
+                isConfirmed,
+                shiftId: null,
+                memberId: null,
+                roleId: null,
+                message: null,
+                type,
+            })
+        );
     }
 }

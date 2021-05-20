@@ -5,6 +5,7 @@
 :host {
   flex: 1;
   min-width: 100px;
+  max-width: calc(50% - 6px);
 }
 
 .container{
@@ -76,6 +77,8 @@
 
     .line-diagram {
       width: 100%;
+      padding: 0 2px;
+      overflow: hidden;
     }
 
     .month-indicators {

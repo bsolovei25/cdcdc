@@ -93,7 +93,9 @@
       ></evj-events-smotr-icon>
     </div>
 
-    <div class="workspace__select-container-right">
+    <div class="workspace__select-container-right"
+      *ngIf="false"
+    >
       <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"></evj-events-workspace-select>
     </div>
   </div>
@@ -216,10 +218,18 @@
         ></evj-events-reasons-single>
       </div>
       <div class="event-correct">
-        <div class="title">
+        <div class="title title_events">
           <span>Корректирующие мероприятия</span>
+          <div class="add-event">
+            <svg-icon src="assets/icons/widgets/EVJ/evj-events-workspace/plus.svg"
+                      (click)="openEventsList()">
+            </svg-icon>
+          </div>
         </div>
-        <evj-events-correct></evj-events-correct>
+        <evj-events-smpo-events [items]="events"
+                                (onRemoveItem)="removeEvent($event)"
+                                [(ngModel)]="ewService.event.smotr.events">
+        </evj-events-smpo-events>
       </div>
     </div>
   </div>

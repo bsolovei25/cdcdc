@@ -10,7 +10,7 @@
 
   <evj-frame-top></evj-frame-top>
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
-  <evj-workflow-table [data]="alertWorkspaceTable"></evj-workflow-table>
+  <evj-workflow-table [data]="alertWorkspaceTable" [height]="heightModal"></evj-workflow-table>
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" #content>
     <div class="workflow">
@@ -142,20 +142,22 @@
             <div class="workflow__scenario__body__bottom" #splitBottom>
               <!-- Combo -->
               <ng-container *ngFor="let item of comboAction">
-                <div class="combo-box_title">
-                  {{ item.description }}
-                </div>
-                <div class="combo-box">
-                  <mat-form-field class="combo-box_selectbox">
-                    <mat-select
-                      [(ngModel)]="item.value"
-                      panelClass="combo-box_selectbox"
-                      (selectionChange)="chooseActionScenario($event, item)"
-                    >
-                      <mat-option *ngFor="let p of item.source" [value]="p">{{p.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+                <ng-container *ngIf="item.name !== 'NotificationsEventType'">
+                  <div class="combo-box_title">
+                    {{ item.description }}
+                  </div>
+                  <div class="combo-box">
+                    <mat-form-field class="combo-box_selectbox">
+                      <mat-select
+                        [(ngModel)]="item.value"
+                        panelClass="combo-box_selectbox"
+                        (selectionChange)="chooseActionScenario($event, item)"
+                      >
+                        <mat-option *ngFor="let p of item.source" [value]="p">{{p.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </ng-container>
               </ng-container>
               <!-- Email -->
               <div class="email" *ngIf="emailAction.length > 0">

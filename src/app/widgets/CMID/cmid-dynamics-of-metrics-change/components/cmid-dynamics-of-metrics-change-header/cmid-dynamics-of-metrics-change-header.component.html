@@ -1,0 +1,24 @@
+<header class="internal-header">
+  <div class="internal-header__toggle"
+    [class.internal-header__toggle_active]="page === pageTypes.DYNAMICS"
+    (click)="changePage.emit(pageTypes.DYNAMICS)"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <span>Динамика изменения метрик</span>
+  </div>
+  <div class="internal-header__toggle"
+    [class.internal-header__toggle_active]="page === pageTypes.STATISTICS"
+    (click)="changePage.emit(pageTypes.STATISTICS)"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <span>Статистика причин отключения</span>
+  </div>
+  <div class="internal-header__select select">
+    <mat-select placeholder="ВПР" panelClass="mat-select-panel-custom" class="mat-select-custom">
+      <mat-option> Не выбрано </mat-option>
+      <mat-option [value]="'Пункт 1'">Пункт 1</mat-option>
+    </mat-select>
+  </div>
+</header>

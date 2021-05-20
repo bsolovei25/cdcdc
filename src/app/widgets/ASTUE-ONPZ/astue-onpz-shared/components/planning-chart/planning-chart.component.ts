@@ -257,9 +257,11 @@ export class PlanningChartComponent implements OnChanges {
                 .y0((item: IChartD3) => item.y)
                 .y1(this.padding.top)
                 .curve(curve);
-
-            this.curve = this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
-
+            if (chart.graphType === 'fact') {
+                this.curve = this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
+            } else {
+                this.svg.append('path').attr('class', `graph-line-${chart.graphType}`).attr('d', line(chart.graph));
+            }
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
                 this.svg.append('path').attr('class', `graph-area-${chart.graphType}`).attr('d', areaFn(chart.graph));
@@ -606,7 +608,7 @@ export class PlanningChartComponent implements OnChanges {
 
         while (target >= start && target <= pathLength) {
             const pos = node.getPointAtLength(target);
-            if (Math.abs(pos.x - x) < 0.0001) {
+            if (Math.abs(pos.x - x) < 0.1) {
                 return this.scaleFuncs.y.invert(pos.y);
             } else if (pos.x > x) {
                 end = target;

@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg-body-color);
+
+    border: 1px solid var(--border-vidget-color);
+    border-radius: 0px 0px 2px 2px;
+
+  }
+}
