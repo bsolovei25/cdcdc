@@ -147,6 +147,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 .subscribe((x) => this.optionsGroup.get('section').setValue(null))
         );
         this.chosenSetting$ = this.mvpService.chosenSetting$;
+        this.redirectToSectionNameIfNeed();
     }
 
     protected dataConnect(): void {
@@ -280,26 +281,25 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             ?.svgName ?? null;
     }
 
-    private redirect(id: string): void {
+     private redirect(sectionId: string): void {
         this.mvpService.dropRedirectMnemonic();
 
         this.waitForOptionsReady()
             .then(() => {
-                const section: string = id;
                 const unit: string = this.options$?.value?.manufactures
                     ?.flatMap((x) => x.units)
-                    ?.find((x) => x?.section?.findIndex((s) => s.id === id) !== -1)?.id;
+                    ?.find((x) => x?.section?.findIndex((s) => s.id === sectionId) !== -1)?.id;
                 const manufacture: string = this.options$?.value?.manufactures?.find(
                     (x) => x.units?.findIndex((u) => u?.id === unit) !== -1
                 )?.name;
 
-                if (!manufacture || !unit || !section) {
-                    console.warn('redirect mnemonic: no such reference', id);
+                if (!manufacture || !unit || !sectionId) {
+                    console.warn('redirect mnemonic: no such reference', sectionId);
                     return;
                 }
                 this.optionsGroup.get('manufacture').setValue(manufacture);
                 this.optionsGroup.get('unit').setValue(unit);
-                this.optionsGroup.get('section').setValue(section);
+                this.optionsGroup.get('section').setValue(sectionId);
             });
     }
 
@@ -344,5 +344,27 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 )
                 .subscribe(resolve, reject);
         });
+    }
+
+    // Если было задано название секции, в которую нужно сделать редирект
+    private redirectToSectionNameIfNeed(): void {
+        if (this.mvpService.sectionNameForRedirect) {
+            this.waitForOptionsReady()
+                .then((options: ISouOptions) => {
+                    const section = options?.manufactures
+                        ?.flatMap((m: ISouManufacture) => m.units)
+                        ?.flatMap((u: ISouUnit) => u.section)
+                        ?.find((s: ISouSection) => s.name === this.mvpService.sectionNameForRedirect);
+
+                    if (section?.id) {
+                        this.redirect(section.id)
+                    }
+
+                    this.mvpService.sectionNameForRedirect = null;
+                })
+                .catch(() => {
+                    this.mvpService.sectionNameForRedirect = null;
+                });
+        }
     }
 }
