@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
 
 export interface IMenuItem {
-    id: number;
+    id: number | string;
     name: string;
     isSelected?: boolean;
 }

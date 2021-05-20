@@ -1,0 +1,6 @@
+<div class="container" [ngClass]="'container__' + (data?.streamType || 'norm')">
+  <ng-container *ngIf="data">
+    <div class="value">{{ data?.value || '-' }}</div>
+    <div class="unit">{{ data?.unit || '-' }}</div>
+  </ng-container>
+</div>

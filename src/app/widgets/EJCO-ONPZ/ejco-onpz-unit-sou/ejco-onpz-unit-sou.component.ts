@@ -1,8 +1,9 @@
 import { Component, Inject, OnDestroy, AfterViewInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 import { EjcoOnpzHelperService } from '../ejco-onpz-shared/ejco-onpz-helper.service';
-import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { UserSettingsService } from '@dashboard/services/user-settings.service';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 export interface IEjcoOnpzUnit {
     caption: string;
@@ -38,6 +39,7 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
         public widgetService: WidgetService,
         public ejcoOnpzHelperService: EjcoOnpzHelperService,
         private userSettingsService: UserSettingsService,
+        private souMvpMnemonicSchemeService: SouMvpMnemonicSchemeService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -50,8 +52,8 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
     }
 
     public handleTabClick(): void {
+        this.souMvpMnemonicSchemeService.sectionNameForRedirect = this.currentTab;
         this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system-main');
-        return;
     }
 
     public toggleTab(unitCaption: string): void {

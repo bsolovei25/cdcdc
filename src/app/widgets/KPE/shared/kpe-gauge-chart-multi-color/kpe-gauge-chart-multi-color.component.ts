@@ -139,12 +139,13 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .map(item => 100 - item);
         }
         if (arr[0] !== 0) {
-            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+            // если минимум не равен 0, отнимаем минимум от максимального значения и находим цену деления
+            const valDivision = (maxBound - arr[0]) / 100;
+            // делим текущее значение за вычетом минимального значения на цену деления и получаем процент текущего значения
+            return [...arr].map(item => Math.floor((item - arr[0]) / valDivision));
         } else {
             return [...arr].map(item => Math.floor(item / maxBound * 100));
         }
-
     }
 
     private dataBind(): void {
@@ -158,7 +159,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getFactPercent(this.data?.fact, maxBound, this.data?.zeroOn));
         this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
         this.chartConfig[this.type].gauge.unit = this.data?.unit;
-
+        if (this.data.bounds.length === 5) {
+            console.log(this.limitArray(this.data.bounds), this.data);
+        }
         // Данные для активной области
         let value;
         let boundEdge;
@@ -389,7 +392,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        if (this.data?.fact < this.data.plan) {
+        if (this.data?.fact < this.data?.plan) {
             // если мы выполнили план, активной секции нет
             drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
         }

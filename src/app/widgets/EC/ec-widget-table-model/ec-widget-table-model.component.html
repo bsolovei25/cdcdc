@@ -1,0 +1,83 @@
+<evj-contemporary-widget-header icon="parameter" type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
+  <div class="header-container">
+    <div class="mat-select-container">
+      <div class="dropdown">
+        <mat-select class="dropdown__select" placeholder="Параметры">
+          <mat-option> Не выбрано</mat-option>
+          <mat-option [value]="1">1</mat-option>
+          <mat-option [value]="2">2</mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+<div class="container">
+  <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="table">
+      <div class="table__header">
+        <div class="table__header__title">
+          <span>Параметры</span>
+        </div>
+        <div class="table__header__title">
+        </div>
+        <div class="table__header__title">
+          <span>Факт</span>
+        </div>
+        <div class="table__header__title">
+          <span>Модель</span>
+        </div>
+      </div>
+      <div class="table__body">
+        <ng-container *ngFor="let element of data">
+          <div class="table__body__row" (click)="onClickTr($event, element)">
+            <div class="table__body__row__column">
+              <svg-icon
+                [src]="expandedElement.isSelected(element.name)
+                 ? 'assets/icons/SVG/arrow_bottom.svg'
+                 : 'assets/icons/SVG/arrow_right.svg'"
+                class="panel__header_arrow"
+              >
+              </svg-icon>
+              <div class="table__body__row__column-title">
+                <div class="table__body__column__row-title__text__name">
+                  <span>{{ element.name }}</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <span [ngClass]="{'warning': element.countExceeding > 0}">
+                  Отклонений: {{ element.countExceeding }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngFor="let elementChildren of element.items;  index as i;">
+            <div
+              *ngIf="expandedElement.isSelected(element.name)"
+              class="table__body__row table__body__row__children"
+              (click)="onClickRow($event, elementChildren)"
+            >
+              <div class="table__body__row table__body__row__children__column">
+                <span>{{ elementChildren.name }}</span>
+              </div>
+              <div class="table__body__row table__body__row__children__column">
+                <span>{{elementChildren.unitsOfMeasure}}</span>
+              </div>
+              <div class="table__body__row table__body__row__children__column" [class.warning-bgd]="checkDeviation(elementChildren.plan, elementChildren.fact)">
+                <div class="value">
+                  <span>{{elementChildren.plan.toFixed(1)}}</span>
+                </div>
+              </div>
+              <div class="table__body__row table__body__row__children__column">
+                <div class="value active">
+                  <span>{{elementChildren.fact.toFixed(1) }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

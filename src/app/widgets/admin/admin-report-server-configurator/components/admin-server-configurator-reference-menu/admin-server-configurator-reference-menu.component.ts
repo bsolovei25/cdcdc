@@ -1,5 +1,5 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
-import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
@@ -10,14 +10,13 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
   styleUrls: ['./admin-server-configurator-reference-menu.component.scss']
 })
 export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
-  @Input() public data: IFolder;
-  @Input() public reports: IReportTemplate[];
-  @Input() public childrens: ITemplateFolder[] | IChildrenFolder[] | IFolder;
+  @Input() public childrens: ITemplateFolder[];
   @Input() public templates: ITemplate[];
 
+  public search: string = '';
+
   constructor(
-    private arscService: AdminReportConfiguratorService,
-    private arscRootService: AdminReportServerConfiguratorRootService
+    public arscService: AdminReportConfiguratorService,
   ) { }
 
   ngOnInit(): void {
@@ -27,20 +26,17 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     this.arscService.reports$.subscribe(value => {
       this.templates = value;
     })
+    this.arscService.search$.subscribe(value => {
+      this.search = value;
+    })
   }
 
-  public openFolder(folder?: ITemplateFolder): void {
-    this.data = null;
-    this.reports = null;
-    this.arscService.folders$.next(folder.childFolders);
-    this.arscService.reports$.next(folder.templates);
-    this.arscService.address$.next(folder)
-  }
-
-  public async openTemplate(template: IReportTemplate): Promise<void> {
-    const data = await this.arscRootService.getReporting(template.id);
-    this.arscService.reportParameters$.next(data);
-    this.arscService.openParameters();
-    this.arscService.headerSettingsPicker.next(1);
+  public drop(event: CdkDragDrop<ITemplateFolder[]>) {
+      transferArrayItem(
+        this.arscService.data?.folders,
+        this.arscService.data?.folders[event.currentIndex].childFolders,
+        event.previousIndex,
+        event.currentIndex
+      );
   }
 }

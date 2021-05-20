@@ -55,6 +55,10 @@ export interface ISMPOData {
     events?: ICorrect[];
 }
 
+export interface ISmotrData {
+    events?: ICorrect[];
+}
+
 export interface IEventsWidgetNotification {
     id?: number;
     parentId?: number;
@@ -103,6 +107,7 @@ export interface IEventsWidgetNotification {
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
     smpo: ISMPOData;
+    smotr?: ISmotrData;
 }
 
 export interface IEventsEjs {
@@ -362,12 +367,12 @@ export interface IRestriction {
 }
 
 export interface IReason {
-    id: number;
+    id: number | string;
     name: string;
 }
 
 export interface ICorrect {
-    id: number;
+    id: number | string;
     name: string;
 }
 
@@ -535,4 +540,8 @@ export interface IKpeAdditionalParameter {
     createdBy: number;
     dependentParameters: IKpeAllDependentParameters[];
     selectedParameter: IKpeWorkspaceParameter;
+}
+
+export interface IResponsibleUserId {
+    userId: number;
 }
