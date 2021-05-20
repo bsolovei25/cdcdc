@@ -7,10 +7,9 @@ import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 
 import { IAstueOnpzMainIndicatorsRaw, IChannel } from "./ec-widget-main-indicators.interface";
 
-import { BehaviorSubject, combineLatest, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
 import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
-import { switchMap } from "rxjs/operators";
 
 
 @Component({
@@ -21,12 +20,12 @@ import { switchMap } from "rxjs/operators";
 })
 export class EcWidgetMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     // public specialComponent: typeof EcWidgetMainIndicatorsItemComponent = EcWidgetMainIndicatorsItemComponent;
-    public subchannelId$: BehaviorSubject<string | null>;
     // public subchannelId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     // private channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject<IChannel[]>([]);
     private virtualChannel: VirtualChannel<IAstueOnpzMainIndicatorsRaw>;
     public data$: BehaviorSubject<IAstueOnpzMainIndicatorsRaw> = new BehaviorSubject<IAstueOnpzMainIndicatorsRaw>(null);
+    private virtualChannelSubscription: Subscription;
 
     constructor(
         @Inject('widgetId') public id: string,
@@ -55,13 +54,12 @@ export class EcWidgetMainIndicatorsComponent extends WidgetPlatform<unknown> imp
         //     }),
         // );
         // this.getSubchannels().then();
-        this.subchannelId$ = this.astueOnpzService.selectedEnergyResource$;
-        // this.astueOnpzService.selectedEnergyResource$.subscribe(res => this.subchannelId$.next(res))
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.virtualChannel?.dispose()
+        this.virtualChannel?.dispose();
+        this.virtualChannelSubscription?.unsubscribe();
     }
 
     // public getInjector = (widgetId: string, channelId: string): Injector => {
@@ -78,12 +76,30 @@ export class EcWidgetMainIndicatorsComponent extends WidgetPlatform<unknown> imp
         // if (this.widgetType !== 'ec-widget-main-indicators') {
         //     super.dataConnect();
         // } else {
-            this.subscriptions.push(
-                this.connectVirtualChannel().subscribe(res => {
+        //     this.subscriptions.push(
+        //         this.connectVirtualChannel().subscribe(res => {
+        //             this.data$.next(res)
+        //         })
+        //     )
+        // }
+
+        this.subscriptions.push(
+            this.astueOnpzService.selectedEnergyResource$.subscribe(energyResourceId => {
+                this.data$.next(null);
+                this.virtualChannel?.dispose();
+                this.virtualChannelSubscription?.unsubscribe();
+
+                this.virtualChannel = new VirtualChannel<IAstueOnpzMainIndicatorsRaw>(this.widgetService, {
+                    channelId: this.widgetId,
+                    subchannelId: energyResourceId
+                });
+
+                this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
                     this.data$.next(res)
                 })
-            )
-        // }
+
+            })
+        )
     }
 
     protected dataHandler(ref: IAstueOnpzMainIndicatorsRaw): void {}
@@ -92,22 +108,4 @@ export class EcWidgetMainIndicatorsComponent extends WidgetPlatform<unknown> imp
     //     const channels = await this.widgetService.getAvailableChannels<IChannel>(this.widgetId);
     //     this.channels$.next(channels);
     // }
-
-    private connectVirtualChannel(): Observable<IAstueOnpzMainIndicatorsRaw> {
-        return this.astueOnpzService.selectedEnergyResource$
-            .pipe(
-                switchMap((id: string): Subject<IAstueOnpzMainIndicatorsRaw> => {
-                    if (!id) {
-                        this.data$.next(null)
-                    }
-
-                    this.virtualChannel = new VirtualChannel<IAstueOnpzMainIndicatorsRaw>(this.widgetService, {
-                        channelId: this.widgetId,
-                        subchannelId: id
-                    });
-                    return this.virtualChannel.data$
-                })
-            )
-    }
-
 }
