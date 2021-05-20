@@ -191,7 +191,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                     if (isDeletePredictor) {
                         this.unSubscribeVirtualChannel(predictorId);
                     } else {
-                        this.setPredictorData(predictorId);
+                        this.setGraphsData(predictorId);
                     }
                 }),
 
@@ -203,37 +203,28 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                     this.unSubscribeVirtualChannels();
 
                     if (energyResourceId) {
-                        this.setEnergyResourceId(energyResourceId);
+                        this.setGraphsData(energyResourceId);
                     }
                 })
         );
     }
 
-    private setEnergyResourceId(energyResourceId: string): void {
+    private setGraphsData(id: string): void {
         this.virtualChannelSubscriptions.push({
-            subchannelId: energyResourceId,
-            subscription: this.createVirtualChannel(energyResourceId).data$.subscribe(res => {
+            subchannelId: id,
+            subscription: this.createVirtualChannel(id).data$.subscribe(res => {
                 const data = this.multilineDataMapper(res.graphs);
 
                 data.map(item => {
-                    item.subchannelId = energyResourceId;
+                    item.subchannelId = id;
                     return item;
                 });
-                this.data = this.data.filter(ref => ref.subchannelId !== energyResourceId);
+                this.data = this.data.filter(ref => ref.subchannelId !== id);
                 this.data = [...this.data, ...data];
-            })
-        });
-    }
-
-    private setPredictorData(predictorId: string): void {
-        this.virtualChannelSubscriptions.push({
-            subchannelId: predictorId,
-            subscription: this.createVirtualChannel(predictorId).data$.subscribe(res => {
-                const data = this.multilineDataMapper(res.graphs);
-
-                data[0].subchannelId = predictorId;
-                this.data = this.data.filter(ref => ref.subchannelId !== predictorId);
-                this.data = [...this.data, data[0]];
+                this.currentValues = {
+                    plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
+                    fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+                };
             })
         });
     }

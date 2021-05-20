@@ -842,13 +842,6 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 });
             }
         });
-        this.astueOnpzConventionalFuelService.predictorsInfo$.next({
-            fact,
-            plan,
-            factModel,
-            predictors: [...values],
-            units,
-        });
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
