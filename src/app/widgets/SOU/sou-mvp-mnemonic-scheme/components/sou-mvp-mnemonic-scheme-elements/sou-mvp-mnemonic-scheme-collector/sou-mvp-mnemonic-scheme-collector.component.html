@@ -16,9 +16,10 @@
   </div>
   <div class="line-container">
     <div
+      *ngFor="let item of outputArr; index as index"
       class="line"
       [style.borderColor]="flowData?.isEnable? 'var(--sou-mvp-color-border)' : 'var(--sou-mvp-color-border-unactive)'"
-      *ngFor="let item of outputArr"
+      [class.line--dashed]="dashedLine.includes(index + 1)"
     ></div>
   </div>
 </div>

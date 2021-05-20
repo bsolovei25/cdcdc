@@ -41,6 +41,11 @@ export class EvjSmpoEventComponent implements OnInit, OnDestroy {
         this.getReasonsList();
         this.getEventsList();
         this.getPhasesList();
+
+        if (this.ewService.event.id) {
+            this.reasons = this.ewService.event.smpo.reasons;
+            this.events = this.ewService.event.smpo.events;
+        }
     }
 
     public ngOnDestroy(): void {}

@@ -30,13 +30,11 @@ export class SouMvpMnemonicSchemeFooterComponent
         if (this.channelId === 'section') {
             this.subscriptions.push(
                 this.mvpService.currentSection$.subscribe((x) => {
-                    console.log('section data', x);
                     this.data$.next({ ...(x as ISOUOperationalAccountingSystem) });
                 })
             );
             return;
         }
-        console.log('footer', this.channelId);
         super.ngOnInit();
     }
 

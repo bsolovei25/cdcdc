@@ -45,7 +45,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
-    currentDate: boolean = false;
+    isCurrentDate: boolean = false;
 
     private subscriptions: Subscription[] = [];
 
@@ -69,8 +69,17 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                 this.dataMapping();
                 this.defineDates();
                 this.defineSum();
-                this.currentDate = this.widgetService.currentDates$.getValue() === null;
-            })
+            }),
+            this.widgetService.currentDates$.subscribe(value => {
+                    if (value) {
+                        const delta = value.toDateTime.getTime() - value.fromDateTime.getTime();
+                        const day = 24 * 60 * 60 * 1000; // день в миллисекундах
+                        this.isCurrentDate = delta <= day;
+                    } else {
+                        this.isCurrentDate = true;
+                    }
+                }
+            )
         );
     }
 

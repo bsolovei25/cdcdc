@@ -1,0 +1,29 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Наборы значений параметров для автогенерации</div>
+    </div>
+    <div cdkDropList class="selection__body">
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            *ngFor="let item of pathData">
+            <mat-expansion-panel-header class="item">
+                <mat-panel-title>
+                    {{item.name}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container *ngFor="let p of item.catalog">
+                <table class="user">
+                    <td class="mail">{{p.mail}}</td>
+                    <td class="checkbox">
+                        <mat-checkbox [(ngModel)]="p.active"></mat-checkbox>
+                    </td>
+                </table>
+            </ng-container>
+        </mat-expansion-panel>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

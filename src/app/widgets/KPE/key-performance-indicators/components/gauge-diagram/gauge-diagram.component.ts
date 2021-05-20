@@ -14,11 +14,13 @@ export interface IKpeGaugeChartPage {
     colorBounds: KpeGaugeChartMultiColor[];
     bounds: number[];
     zeroOn: 'Left' | 'Right';
+    isWarning?: boolean;
     fact?: number;
     plan?: number;
     unit?: string;
     type?: string;
     isUnitPercent?: boolean;
+    totalHour?: number
 }
 
 @Component({

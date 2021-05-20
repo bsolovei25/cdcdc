@@ -1,3 +1,5 @@
+import { ISouIdent } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+
 export interface ISouMainIndicators {
     reductionSpeed?: ISouMainIndicatorsSpeed;
     reductionQuality?: ISouMainIndicatorsQuality;
@@ -31,6 +33,7 @@ export interface ISouMainIndicatorsLosses extends ISouMainIndicatorsBlock {
     sum: ISouMainIndicatorsLossesCard;
     identified: ISouMainIndicatorsLossesCard;
     unidentified: ISouMainIndicatorsLossesCard;
+    identifiedList: ISouIdent[];
 }
 
 export interface ISouMainIndicatorsLossesCard {

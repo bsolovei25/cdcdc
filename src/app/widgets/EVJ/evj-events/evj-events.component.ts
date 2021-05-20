@@ -374,6 +374,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             this.categories.some((x) => x.isActive && x.id === ref.notification.category.id) ||
             !this.categories.filter((x) => x.isActive).length;
         let filtersIds: number[] = [];
+        this.getStats().then();
         // Событие
         // 3001 - new - Новое
         // 3002 - inWork - В работе

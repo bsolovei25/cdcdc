@@ -62,19 +62,19 @@
       }"
     ></evj-sou-mvp-mnemonic-scheme-collector>
     <div class="special-line-container">
-      <div class="line">
+      <div class="line line--dashed">
         <div class="connection-circle"></div>
       </div>
-      <div class="line">
+      <div class="line line--dashed ">
         <div class="connection-circle"></div>
       </div>
-      <div class="line">
+      <div class="line line--dashed">
         <div class="connection-circle"></div>
       </div>
-      <div class="line">
+      <div class="line line--dashed">
         <div class="connection-circle"></div>
       </div>
-      <div class="line">
+      <div class="line line--dashed">
         <div class="connection-circle"></div>
       </div>
     </div>
@@ -88,7 +88,7 @@
         }"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-      <div class="line"></div>
+      <div class="line line--dashed"></div>
       <evj-sou-mvp-mnemonic-scheme-output
         [data]="{
           sections: sections,
@@ -105,7 +105,7 @@
         }"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-      <div class="line"></div>
+      <div class="line line--dashed"></div>
       <evj-sou-mvp-mnemonic-scheme-output
         [data]="{
           sections: sections,
@@ -118,11 +118,12 @@
       <evj-sou-mvp-mnemonic-scheme-stream-diagram
         [data]="{
           sections: sections,
-          code: 190
+          code: 190,
+          disabledCircle: true
         }"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-      <div class="line"></div>
+      <div class="line line--dashed"></div>
       <evj-sou-mvp-mnemonic-scheme-output
         [data]="{
           sections: sections,
@@ -146,7 +147,7 @@
       <div class="stream__item">
         <div class="vertical-custom-connection">
           <div class="connection-circle"></div>
-          <div class="line"></div>
+          <div class="line line--dashed"></div>
         </div>
         <evj-sou-mvp-mnemonic-scheme-collector
           [style.height.%]="100"
@@ -154,6 +155,7 @@
             sections: sections,
             code: 191
           }"
+          [dashedLine]="[1]"
           [outCount]="1"
           [inCount]="0"
         ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -162,7 +164,8 @@
         <evj-sou-mvp-mnemonic-scheme-stream-diagram
           [data]="{
             sections: sections,
-            code: 192
+            code: 192,
+            disabledCircle: true
           }"
           [choosenSetting]="choosenSetting"
         ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -185,7 +188,7 @@
         }"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-      <div class="line"></div>
+      <div class="line line--dashed"></div>
       <evj-sou-mvp-mnemonic-scheme-simple-output
         [data]="{
           sections: sections,
@@ -233,6 +236,7 @@
         sections: sections,
         code: 183
       }"
+      [dashedLine]="[1,2,3,4]"
       [outCount]="4"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -246,7 +250,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 194
+        code: 194,
+        disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -254,7 +259,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 195
+        code: 195,
+        disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -287,21 +293,24 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 215
+        code: 215,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 216
+        code: 216,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 217
+        code: 217,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -345,6 +354,7 @@
       [style.height.%]="100"
       [outCount]="3"
       [inCount]="2"
+      [dashedLine]="[1]"
       [data]="{
         sections: sections,
         code: 184
@@ -355,7 +365,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 198
+        code: 198,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -363,7 +374,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 199
+        code: 199,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -371,7 +383,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 200
+        code: 200,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -380,21 +393,24 @@
     <evj-sou-mvp-mnemonic-scheme-simple-output
       [data]="{
         sections: sections,
-        code: 218
+        code: 218,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-simple-output>
 
     <evj-sou-mvp-mnemonic-scheme-simple-output
       [data]="{
         sections: sections,
-        code: 219
+        code: 219,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-simple-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 220
+        code: 220,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -440,6 +456,7 @@
         sections: sections,
         code: 185
       }"
+      [dashedLine]="[2]"
       [outCount]="2"
       [inCount]="2"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -456,7 +473,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 202
+        code: 202,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -472,7 +490,8 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 222
+        code: 222,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -503,6 +522,7 @@
         sections: sections,
         code: 186
       }"
+      [dashedLine]="[1,2,3,4,5]"
       [outCount]="5"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -511,7 +531,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 203
+        code: 203,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -519,7 +540,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 204
+        code: 204,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -527,7 +549,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 205
+        code: 205,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -535,7 +558,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 206
+        code: 206,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -543,7 +567,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 207
+        code: 207,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -552,35 +577,40 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 223
+        code: 223,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 224
+        code: 224,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 225
+        code: 225,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 226
+        code: 226,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 227
+        code: 227,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -591,7 +621,9 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 179
+        code: 179,
+        disabled: true,
+        rightLineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -611,6 +643,7 @@
         sections: sections,
         code: 187
       }"
+      [dashedLine]="[1,2]"
       [outCount]="2"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -619,7 +652,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 208
+        code: 208,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -627,7 +661,8 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 209
+        code: 209,
+         disabledCircle: true
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
@@ -636,14 +671,16 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 228
+        code: 228,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 229
+        code: 229,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -654,7 +691,9 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 180
+        code: 180,
+        disabled: true,
+        rightLineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -672,7 +711,8 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 230
+        code: 230,
+        lineDashed: true
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>

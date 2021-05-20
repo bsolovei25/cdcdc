@@ -1,0 +1,54 @@
+@import "../../../../../../../theme/mixins/mixins-text-overflow";
+
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  width: 122px;
+  height: 55px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  background: var(--bg-body-color);
+  border-radius: 0 2px 2px 0;
+  border-left: solid 2px;
+
+  .title {
+    color: var(--text-main-color);
+    font-size: 12px;
+  }
+
+  .value {
+    font-size: 14px;
+    @include text-overflow;
+    -webkit-line-clamp: 1;
+  }
+
+  &__plan {
+    border-color: rgb(var(--index-plan-color));
+
+    .value {
+      color: rgb(var(--index-plan-color));
+    }
+  }
+
+  &__fact {
+    border-color: var(--index-fact-color);
+
+    .value {
+      color: var(--index-fact-color);
+    }
+  }
+
+  &__interval {
+    border-color: var(--border-forms-color);
+
+    .value {
+      color: var(--border-forms-color);
+
+      &::before {
+        content: "+-";
+        margin-right: -3px;
+      }
+    }
+  }
+}

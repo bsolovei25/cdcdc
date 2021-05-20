@@ -1,0 +1,19 @@
+.cmid-widget {
+  height: 100%;
+  border: 1px solid var(--gray-G10-color);
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &__header {
+    margin-left: 13px;
+    width: 100%;
+  }
+
+  &__chart-wrapper {
+    height: 100%;
+  }
+
+  &__chart {
+    height: 100%;
+  }
+}

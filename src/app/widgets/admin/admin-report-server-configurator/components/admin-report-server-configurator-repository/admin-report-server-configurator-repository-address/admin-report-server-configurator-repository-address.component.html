@@ -1,3 +1,11 @@
-<div class="address">
-    Хранилище
+<div class="path">
+    <div class="address" (click)="mainPage()">
+        Хранилище
+    </div>
+    <div class="others" *ngFor="let item of path">
+        <svg-icon src="{{arrowsIcon}}"></svg-icon>
+        <div class="address" cdkDropListGroup (click)="openFolder(item)" cdkDropList id="address-list">
+            {{item?.name}}
+        </div>
+    </div>
 </div>

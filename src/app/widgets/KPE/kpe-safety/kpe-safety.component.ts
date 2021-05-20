@@ -21,6 +21,7 @@ export interface IKpeSafetyCard {
     percentageInfluence?: number;
     fact: number;
     plan: number;
+    isWarning?: boolean;
     percentage?: number;
     deviationPercentage?: number;
 }

@@ -1,0 +1,60 @@
+@import "../../../../../../../theme/mixins/mixins-text-overflow";
+
+.container {
+  display: flex;
+  flex-flow: column;
+  width: 65px;
+  height: 100%;
+
+  &__wide {
+    width: 72px;
+  }
+
+  .top {
+    display: flex;
+    height: 26px;
+    width: 100%;
+    margin-bottom: 9px;
+
+    &__title {
+      font-size: 11px;
+      max-height: 2.4em;
+      cursor: pointer;
+      margin: auto;
+      color: var(--text-subscript-color);
+      text-align: center;
+      @include text-overflow-old;
+    }
+
+    //&__title {
+    //  cursor: pointer;
+    //  margin: auto;
+    //  color: var(--astue-onpz-factory-analisys-label);
+    //  font-size: 11px;
+    //  text-align: center;
+    //  @include text-overflow;
+    //  -webkit-line-clamp: 2;
+    //
+    //  &:hover {
+    //    text-decoration: underline;
+    //  }
+    //}
+  }
+
+  .main {
+    &:hover {
+      background: var(--gray-G12-50-color) !important;
+      z-index: 1;
+    }
+    flex-grow: 1;
+    padding: 0 10px;
+    transition: all 0.2s;
+  }
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--gray-G12-color);
+  box-shadow: 0 0 20px var(--gradient-main-color-1);
+  color: var(--text-contrast-color) !important;
+}

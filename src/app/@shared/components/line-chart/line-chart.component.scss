@@ -16,7 +16,7 @@
 
   ::ng-deep {
     .longer-rect {
-      fill: transparent;
+      fill: var(--bg-body-color);
     }
 
     .longer-rect-default {

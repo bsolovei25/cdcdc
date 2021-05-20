@@ -127,7 +127,7 @@
                       [class.items_selected]="i.id === data[historicalDataIndx.machineIdx]?.groups[historicalDataIndx.groupIdx].params[historicalDataIndx.paramsIdx]?.id"
                     >
                       <div class="item-block">
-                        <div class="name">
+                        <div appTooltip textTooltip='{{i?.name}}' class="name">
                           <span>{{i?.name}}</span>
                         </div>
                         <div class="item-block__value">{{i.unit}}.</div>

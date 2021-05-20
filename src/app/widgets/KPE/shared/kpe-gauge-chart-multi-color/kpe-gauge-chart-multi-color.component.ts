@@ -1,7 +1,9 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
-import { IKpeGaugeChartPage } from '../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
+import {
+    IKpeGaugeChartPage,
+} from "../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 
 export type KpeGaugeChartMultiColor = 'Red' | 'Yellow' | 'Blue' | 'Green';
 
@@ -30,8 +32,10 @@ interface IChartConfig {
 export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @ViewChild('chart') chart: ElementRef;
     @Input() type: number;
+    @Input() hideDescription: boolean = false;
     @Input() showAxisValues: boolean = true;
     @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
+    @Input() isFactInChartCenter: boolean = true; // в некоторых виджетах в "главном" спидометре в центре выводится fact, в остальных - totalHour
     @Input() data: IKpeGaugeChartPage | null = null;
 
     readonly chartConfig: IChartConfig[] = [
@@ -135,24 +139,29 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .map(item => 100 - item);
         }
         if (arr[0] !== 0) {
-            // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-            return [...arr].map(item => Math.floor((item - arr[arr.length - 1]) / maxBound * 100));
+            // если минимум не равен 0, отнимаем минимум от максимального значения и находим цену деления
+            const valDivision = (maxBound - arr[0]) / 100;
+            // делим текущее значение за вычетом минимального значения на цену деления и получаем процент текущего значения
+            return [...arr].map(item => Math.floor((item - arr[0]) / valDivision));
         } else {
             return [...arr].map(item => Math.floor(item / maxBound * 100));
         }
-
     }
 
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds)
-        this.chartConfig[this.type].gauge.total = this.data?.fact;
+        this.chartConfig[this.type].gauge.total = this.isFactInChartCenter
+            ? this.data?.fact
+            : this.data?.totalHour;
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds?.slice(0, -1);
         this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getFactPercent(this.data?.fact, maxBound, this.data?.zeroOn));
         this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
         this.chartConfig[this.type].gauge.unit = this.data?.unit;
-
+        if (this.data.bounds.length === 5) {
+            console.log(this.limitArray(this.data.bounds), this.data);
+        }
         // Данные для активной области
         let value;
         let boundEdge;
@@ -359,10 +368,10 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         drawCircle(width / 2 - 18, 'circle__dark');
         addText('' + gauge.total, 'total', -2);
         addText('' + gauge.deviation, 'deviation', 9);
-        if (this.data?.description && this.type === 1) {
+        if (this.data?.description && this.type === 1 && !this.hideDescription) {
             addText(this.data.description, 'desc', 30);
         }
-        if (!this.isPerformance && this.type !== 1) {
+        if (!this.isPerformance) {
             addText(gauge.unit, 'unit', 25);
         }
 
@@ -383,7 +392,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        if (this.data?.fact < this.data.plan) {
+        if (this.data?.fact < this.data?.plan) {
             // если мы выполнили план, активной секции нет
             drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
         }

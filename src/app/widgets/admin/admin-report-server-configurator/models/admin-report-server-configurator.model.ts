@@ -21,6 +21,7 @@ export interface IReportTemplate {
     description: string;
     fileId: string;
     fileTemplate?: IReportFile;
+    folderId: number;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
     periodType?: 'year' | 'month' | 'day' | 'timePeriod' | 'datePeriod' | 'exactTime' | 'none';
@@ -30,7 +31,7 @@ export interface IReportTemplate {
 }
 
 export interface ITemplateFolder {
-    childFolders: IChildrenFolder[];
+    childFolders: ITemplateFolder[];
     id: number;
     name: string;
     templates: ITemplate[];
@@ -51,12 +52,12 @@ export interface ITemplate {
     name: string;
 }
 
-export interface IChildrenFolder {
-    childFolders: IChildrenFolder[];
-    id: number;
-    name: string;
-    templates: ITemplate;
-}
+// export interface IChildrenFolder {
+//     childFolders: IChildrenFolder[];
+//     id: number;
+//     name: string;
+//     templates: ITemplate;
+// }
 
 export interface ISystemOptionsTemplate {
     id?: number;
@@ -77,6 +78,7 @@ export interface ICustomOptionsTemplate {
     source: string[];
     validationRule: string;
     type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
+    isActive?: boolean
 }
 
 export interface ISystemOptions {
@@ -143,4 +145,5 @@ export interface ICustomOptions {
     validateioRule: string;
     isRequired: boolean;
     sortOrder: number;
+    isActive?: boolean;
 }

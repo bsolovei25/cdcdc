@@ -311,7 +311,7 @@ export class LimitsChartComponent implements OnChanges {
 
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
             return this.scaleFuncs.y.invert(
-                findCursorPosition(this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp), type, this.svg, this.padding).y
+                findCursorPosition(this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp), type, this.svg, this.padding)?.y || 0
             );
         };
 

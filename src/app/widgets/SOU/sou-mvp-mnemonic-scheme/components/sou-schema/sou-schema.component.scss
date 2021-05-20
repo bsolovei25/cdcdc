@@ -101,6 +101,12 @@ $brownColor: #483628;
       }
     }
 
+    .not-measured {
+      &-line {
+        stroke-dasharray: 5px;
+      }
+    }
+
     .text-anchor-middle {
       text-anchor: middle;
     }

@@ -1,0 +1,81 @@
+.outage-card {
+  min-width: 295px;
+  width: 100%;
+  border: 1px solid var(--color-group-control-border-main);
+  border-radius: 2px;
+
+  .mat-accordion {
+    &::ng-deep {
+      .mat-expansion-panel.mat-expansion-panel {
+        &:last-of-type {
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+
+        &:first-of-type {
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+        }
+      }
+    }
+  }
+}
+
+.outage-table {
+  &__header,
+  &__row {
+    border-bottom: 1px solid var(--color-group-control-border-main);
+  }
+
+  &__header {
+    padding: 9px;
+    display: flex;
+    font-size: 9px;
+    line-height: 12px;
+    justify-content: space-between;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px 8px 8px;
+
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+.outage {
+  &__name {
+    display: flex;
+    align-items: center;
+    color: var(--text-contrast-color);
+
+    &::ng-deep {
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &__value {
+    display: inline-block;
+
+    & + & {
+      margin-left: 24px;
+    }
+
+    &_unauthorized {
+      color: var(--color-user-events-priority-danger);
+    }
+
+    &_expired {
+      color: var(--color-user-events-priority-warning);
+    }
+
+    &_total {
+      color: var(--text-contrast-color);
+    }
+  }
+}

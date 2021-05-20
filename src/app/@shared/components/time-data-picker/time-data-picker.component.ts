@@ -37,6 +37,7 @@ export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
 export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Inject('isDateTime') isDateTime: boolean = false;
     @Input() data: any;
+    @Input() emptyDateAvailable: boolean = false;
     @Input() public disabled: boolean = false;
     @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
 
@@ -65,6 +66,10 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     public ngOnChanges(): void {
+        if (this.emptyDateAvailable && !this.data) {
+            this.dateControl = new FormControl({ value: null, disabled: false });
+            return;
+        }
         this.inputDate = new Date(this.data);
         this.dateControl = new FormControl({ value: this.inputDate, disabled: false });
     }
