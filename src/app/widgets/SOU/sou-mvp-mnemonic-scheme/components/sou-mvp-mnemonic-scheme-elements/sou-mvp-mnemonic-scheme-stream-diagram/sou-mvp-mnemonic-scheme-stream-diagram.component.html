@@ -8,8 +8,8 @@
   (click)="elementClick(sections, code)"
 >
   <div class="diagram-container">
-    <div *ngIf="!disabledCircle" class="diagram" #chart></div>
-    <div *ngIf="!disabledCircle" class="diagram-values">
+    <div *ngIf="!disabledCircle && flowData?.tolerance" class="diagram" #chart></div>
+    <div *ngIf="!disabledCircle && flowData?.tolerance" class="diagram-values">
       <span class="value">{{flowData?.tolerance}}</span>
       <span class="unit">%</span>
     </div>
