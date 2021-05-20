@@ -1,0 +1,34 @@
+<div class="selection">
+    <div class="selection__header">
+        <div class="title">Наборы значений параметров для автогенерации</div>
+    </div>
+    <div cdkDropList class="selection__body">
+
+        <mat-expansion-panel hideToggle (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            *ngFor="let item of data.userOptions">
+
+            <mat-expansion-panel-header class="item">
+                <mat-panel-title>
+                    {{item.name}}
+                </mat-panel-title>
+                <mat-checkbox [disabled]="true" [ngModel]="item.isActive"></mat-checkbox>
+            </mat-expansion-panel-header>
+            <table class="value">
+                <tbody>
+                    <tr *ngFor="let element of item | keyvalue; index as index">
+                        <td>{{optionsName[element.key]}}</td>
+                        <td>{{element.value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <mat-action-row>
+                <evj-simple-button (click)="chooseParameter(item)">{{item.isActive ? 'Удалить' : 'Добавить'}}</evj-simple-button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </div>
+    <div class="selection__footer">
+        <evj-simple-button (click)="onSave()">
+            Принять
+        </evj-simple-button>
+    </div>
+</div>

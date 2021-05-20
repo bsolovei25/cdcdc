@@ -38,14 +38,11 @@ export class AdminReportServerConfiguratorParametersSelectComponent implements O
   }
 
   public chooseParameter(item: ISystemOptions): void {
-    console.log(item);
-
     item.isActive = !item.isActive;
     const systemOptionsTemplate: ISystemOptionsTemplate = {
       templateSystemOption: item,
       value: item.defaultValue
     }
-
     if (item.isActive) {
       this.data.data.systemOptions.push(systemOptionsTemplate);
     }

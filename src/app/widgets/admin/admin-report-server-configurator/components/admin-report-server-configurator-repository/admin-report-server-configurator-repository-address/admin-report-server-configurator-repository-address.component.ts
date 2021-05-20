@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
@@ -11,7 +12,7 @@ import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-serv
 })
 export class AdminReportServerConfiguratorRepositoryAddressComponent implements OnInit {
 
-  public readonly arrowsIcon="assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg";
+  public readonly arrowsIcon = "assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg";
   public path: ITemplateFolder[] = [];
 
   constructor(
@@ -23,17 +24,18 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     this.arscService.address$.subscribe(value => {
       if (value) {
         this.path.push(value);
-      }      
+      }
     })
     console.log(this.path);
-    
+
   }
 
-  public openFolder(item: ITemplateFolder ): void {
+  public openFolder(item: ITemplateFolder): void {
     this.arscService.folders$.next(item.childFolders);
     this.arscService.reports$.next(item.templates);
     const idx = this.path.findIndex(v => v?.id === item?.id);
-    this.path.splice(idx + 1, this.path.length);
+    this.path.splice(idx + 1, this.path?.length);
+    console.log(item);
   }
 
   public async mainPage(): Promise<void> {
@@ -41,5 +43,6 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     const data = await this.arscRootService.getTemplateFolder();
     this.arscService.folders$.next(data.folders);
     this.arscService.reports$.next(data.templates);
+    this.arscService.headerSettingsPicker.next(null);
   }
 }
