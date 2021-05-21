@@ -56,7 +56,7 @@
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
             <mat-option
-              *ngFor="let p of ewService.subCategoryFilter | async"
+              *ngFor="let p of ewService.tasksSubCategoryFilter | async"
               [value]="p"
               >{{ p.description }}
             </mat-option>

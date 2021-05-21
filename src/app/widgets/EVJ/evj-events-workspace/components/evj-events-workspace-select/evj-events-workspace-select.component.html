@@ -62,7 +62,7 @@
         <mat-option [value]="null"> Не выбрано</mat-option>
         <ng-container *ngIf="ewService.isCreateNewEvent">
           <mat-option
-            *ngFor="let item of (ewService.subCategoryFilter | async)" [value]="item"
+            *ngFor="let item of (ewService.tasksSubCategoryFilter | async)" [value]="item"
           >
             {{ item.description }}
           </mat-option>
@@ -82,7 +82,7 @@
       >
         <mat-option [value]="null"> Не выбрано</mat-option>
         <mat-option
-          *ngFor="let item of ewService.subCategoryFilter | async"
+          *ngFor="let item of ewService.tasksSubCategoryFilter | async"
           [value]="item"
         >
           {{ item.description }}

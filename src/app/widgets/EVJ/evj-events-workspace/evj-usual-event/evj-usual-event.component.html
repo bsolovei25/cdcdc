@@ -5,56 +5,55 @@
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <div class="workspace__header">
-    <div class="select-container">
-      <div class="title">
-        <span>Категория</span>
-      </div>
-      <div class="mat-form-category">
-        <div class="event-mat-select">
-          <mat-form-field appearance="none">
-            <mat-select
-              [(ngModel)]="ewService.event.category"
-              [compareWith]="compareFn"
-              (selectionChange)="ewService.changeCategory()"
-              [disabled]="!ewService.isCategoryEdit"
-            >
-              <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
-                {{ ewService.categories[item.name] }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-
-    <div class="select-container">
-      <div class="mat-form-category">
-        <div class="event-mat-select">
-          <div class="{{ewService.event.priority.name}}">
-            <mat-form-field appearance="none">
-              <mat-label>Приоритет</mat-label>
-              <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
-                <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                  >{{ ewService.priorities[p.name] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="select-container"
-         *ngIf="false"
-    >
-      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"> </evj-events-workspace-select>
+    <div class="select-container" *ngIf="false">
+      <evj-events-workspace-select [label]="'Событие'" [dataType]="'event'"></evj-events-workspace-select>
     </div>
   </div>
 
   <div class="workspace__third">
     <ng-container *ngIf="ewService.event.category.name === 'equipmentStatus' else other">
       <div class="workspace__third__right">
+        <div class="select-group">
+          <div class="select-container">
+            <div class="title">
+              <span>Категория</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select
+                    [(ngModel)]="ewService.event.category"
+                    [compareWith]="compareFn"
+                    (selectionChange)="ewService.changeCategory()"
+                    [disabled]="!ewService.isCategoryEdit"
+                  >
+                    <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
+                      {{ ewService.categories[item.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="place-date">
+          <div *ngIf="ewService.event.category.name === 'equipmentStatus'"
+               class="select-container">
+            <div class="title">
+              <span>Подкатегория</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select [(ngModel)]="ewService.event.subcategory" [compareWith]="compareFn">
+                    <mat-option *ngFor="let subcategory of (ewService.equipmentStatusSubCategoryFilter | async)" [value]="subcategory">
+                      {{ subcategory.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
           <div class="select-container">
             <ng-container *ngIf="ewService.event.category.code !== '2' else subcategories">
               <div class="title">
@@ -70,10 +69,6 @@
                 </div>
               </div>
             </ng-container>
-          </div>
-
-          <div class="select-container">
-            <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
           </div>
         </div>
         <div class="place-date">
@@ -143,6 +138,30 @@
     </ng-container>
     <ng-template #other>
       <div class="workspace__third__right">
+        <div class="select-group">
+          <div class="select-container">
+            <div class="title">
+              <span>Категория</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select
+                    [(ngModel)]="ewService.event.category"
+                    [compareWith]="compareFn"
+                    (selectionChange)="ewService.changeCategory()"
+                    [disabled]="!ewService.isCategoryEdit"
+                  >
+                    <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
+                      {{ ewService.categories[item.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="place-date">
           <div class="select-container">
             <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
@@ -160,9 +179,22 @@
               </div>
             </ng-container>
           </div>
-
-          <div class="select-container">
-            <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
+          <div *ngIf="ewService.event.category.name === 'safety'"
+               class="select-container">
+            <div class="title">
+              <span>Подкатегория</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select [(ngModel)]="ewService.event.subcategory" [compareWith]="compareFn">
+                    <mat-option *ngFor="let subcategory of (ewService.safetySubCategoryFilter | async)" [value]="subcategory">
+                      {{ subcategory.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -207,6 +239,27 @@
     </ng-template>
 
     <div class="workspace__third__right">
+      <div class="select-group">
+        <div class="select-container">
+          <div class="mat-form-category">
+            <div class="event-mat-select">
+              <div class="{{ewService.event.priority.name}}">
+                <mat-form-field appearance="none">
+                  <mat-label>Приоритет</mat-label>
+                  <mat-select [(ngModel)]="ewService.event.priority" [compareWith]="compareFn">
+                    <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                      >{{ ewService.priorities[p.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="select-container">
+          <evj-events-workspace-select [label]="'Статус'" [dataType]="'status'"></evj-events-workspace-select>
+        </div>
+      </div>
       <div class="place-date">
         <div class="select-container">
           <div class="creator">
