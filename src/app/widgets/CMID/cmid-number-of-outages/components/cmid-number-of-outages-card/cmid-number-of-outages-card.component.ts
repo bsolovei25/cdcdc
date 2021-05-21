@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { INumberOfOutagesModel, IPlant } from "@widgets/CMID/cmid-number-of-outages/models/cmid-number-of-outages.model";
-import { OutageIconClassesList } from "@widgets/CMID/cmid-number-of-outages/components/cmid-number-of-outages-card/enums/outage-icon-classes";
+import { CmidNumberOfOutageIconClasses } from "@widgets/CMID/cmid-number-of-outages/components/cmid-number-of-outages-card/types/cmid-number-of-outage-icon-classes";
 
 @Component({
     selector: 'evj-number-of-outages-card',
@@ -11,7 +11,7 @@ import { OutageIconClassesList } from "@widgets/CMID/cmid-number-of-outages/comp
 export class CmidNumberOfOutagesCardComponent {
     @Input() groups: INumberOfOutagesModel;
 
-    public readonly outageIconClasses: { [key in OutageIconClassesList]: string } = {
+    public readonly outageIconClasses: { [key in CmidNumberOfOutageIconClasses]: string } = {
         unauthorized: 'outage__icon_unauthorized',
         expired: 'outage__icon_expired',
         active: 'outage__icon_active'
