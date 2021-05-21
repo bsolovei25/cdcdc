@@ -1857,7 +1857,7 @@ export const WIDGETS_LAZY = {
         module: 'CmidDynamicsOfMetricsChangeModule',
         itemCols: 50,
         itemRows: 10,
-        minItemCols: 50,
+        minItemCols: 25,
         minItemRows: 10,
         preview: 'default',
     },
