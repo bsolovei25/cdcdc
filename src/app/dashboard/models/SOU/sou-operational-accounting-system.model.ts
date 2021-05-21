@@ -34,7 +34,8 @@ export interface ISouFlowIn {
     valueMoment: number;
     valueByHour: number;
     valueTank: number;
-    tolerance: number;
+    tolerance: number; //  Уровень доверия
+    isMeasurable: boolean // Поток измеряемый
     tag: string;
     isEnable: boolean;
     valueMomentPercent: number;
@@ -68,7 +69,8 @@ export interface ISouFlowOut {
     valueMoment: number;
     valueByHour: number;
     valueTank: number;
-    tolerance: number;
+    tolerance: number; //  Уровень доверия
+    isMeasurable: boolean // Поток измеряемый
     tag: string;
     isEnable: boolean;
     accuracy: number;
@@ -124,7 +126,8 @@ export interface ISouObjects {
     selected?: boolean;
     value: number;
     linkId?: string;
-    tolerance?: number;
+    tolerance?: number; //  Уровень доверия
+    isMeasurable?: boolean // Поток измеряемый
 }
 
 export interface ISouIdent {

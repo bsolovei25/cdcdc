@@ -101,9 +101,13 @@ $brownColor: #483628;
       }
     }
 
-    .not-measured {
+    .not-measurable {
       &-line {
         stroke-dasharray: 2px 4px;
+      }
+
+      &-text {
+        fill: $lightBlueColor;
       }
     }
 
