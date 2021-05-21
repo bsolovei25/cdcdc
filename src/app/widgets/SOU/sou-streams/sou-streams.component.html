@@ -19,8 +19,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Производство" class="dropdown__select">
+              <mat-select placeholder="Производство" class="dropdown__select" formControlName="manufacture">
                 <mat-option>Не выбрано</mat-option>
+                <mat-option *ngFor="let manufacture of selectionOptions.manufactures$ | async" [value]="manufacture.name">
+                  {{manufacture.name}}
+                </mat-option>
               </mat-select>
             </div>
           </div>
@@ -34,8 +37,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Товарный парк" class="dropdown__select">
-                <mat-option> Не выбрано</mat-option>
+              <mat-select placeholder="Товарный парк" class="dropdown__select" formControlName="unit">
+                <mat-option>Не выбрано</mat-option>
+                <mat-option *ngFor="let unit of selectionOptions.units$ | async" [value]="unit.id">
+                  {{ unit.name }}
+                </mat-option>
               </mat-select>
             </div>
           </div>
@@ -49,8 +55,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Резервуары" class="dropdown__select">
+              <mat-select placeholder="Резервуары" class="dropdown__select" formControlName="reservoir">
                 <mat-option>Не выбрано</mat-option>
+                <mat-option *ngFor="let reservoir of selectionOptions.reservoirs$ | async" [value]="reservoir.id">
+                  {{ reservoir.name }}
+                </mat-option>
               </mat-select>
             </div>
           </div>
