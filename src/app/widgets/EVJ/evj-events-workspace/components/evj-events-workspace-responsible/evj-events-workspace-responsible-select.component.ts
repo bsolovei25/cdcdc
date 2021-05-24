@@ -55,7 +55,8 @@ export class EvjEventsWorkspaceResponsibleSelectComponent implements OnInit {
         }
         let value = this.filter.value.trim();
         if (!value || value === '') {
-            this.users = this.ewService.users;
+            this.ewService.getUnitResponsibleUsers(this.ewService.event.unit.id)
+                .then((value) => this.users = value);
             return;
         } else {
             value = value.toLowerCase();
