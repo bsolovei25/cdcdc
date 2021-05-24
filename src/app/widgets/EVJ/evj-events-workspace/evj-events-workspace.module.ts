@@ -64,6 +64,7 @@ import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-
 import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EvjTasksEventNoCheckboxComponent } from './evj-tasks-event-no-checkbox/evj-tasks-event-no-checkbox.component';
+import { EvjEventsWorkspaceClaimCheckbox } from './components/evj-events-workspace-claim-checkbox/evj-events-workspace-claim-checkbox.component';
 
 @NgModule({
     declarations: [
@@ -117,6 +118,7 @@ import { EvjTasksEventNoCheckboxComponent } from './evj-tasks-event-no-checkbox/
         EvjEventsWorkspaceRestrictionsComponent,
         EvjSmpoEventCriticalComponent,
         EvjTasksEventNoCheckboxComponent,
+        EvjEventsWorkspaceClaimCheckbox
     ],
     imports: [
         CommonModule,
