@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 
@@ -51,18 +51,18 @@ export class EcWidgetConventionalFuelService {
         resource: 'Топливо',
     };
 
-    public readonly selectFuelReference: string[] = [
-        'Топливо',
-        'Потребление тепла',
-        'Выработка тепла',
-        'Потребление электроэнергии',
-    ];
+    // public readonly selectFuelReference: string[] = [
+    //     'Топливо',
+    //     'Потребление тепла',
+    //     'Выработка тепла',
+    //     'Потребление электроэнергии',
+    // ];
     public selectedOptions$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
         this.defaultSelectOptions
     );
-    public selectedOptionsNewScheme$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
-        this.defaultSelectOptionsNewScheme
-    );
+    // public selectedOptionsNewScheme$: BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions> = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(
+    //     this.defaultSelectOptionsNewScheme
+    // );
 
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     public predictorsInfo$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(

@@ -5,7 +5,6 @@ import { IProductionTrend } from "../../../dashboard/models/LCO/production-trend
 import { EcWidgetService } from "../ec-widget-shared/ec-widget.service";
 import {
     EcWidgetConventionalFuelService,
-    IAstueOnpzConventionalFuelSelectOptions
 } from "../ec-widget-conventional-fuel/ec-widget-conventional-fuel.service";
 import { Subscription } from "rxjs";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
@@ -39,7 +38,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
     constructor(
         private conventionalFuelService: EcWidgetConventionalFuelService,
         protected widgetService: WidgetService,
-        private astueOnpzService: EcWidgetService,
+        private ecWidgetService: EcWidgetService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -53,37 +52,17 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.astueOnpzService.setMultiLinePredictors(null);
+        this.ecWidgetService.setMultiLinePredictors(null);
         this.unSubscribeVirtualChannels()
     }
 
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            // combineLatest([this.astueOnpzService.predictorsOptions$, this.conventionalFuelService.selectedOptions$])
-            //     .pipe(
-            //         filter((x) => !!x[0] && !!x[1]),
-            //         map((x) => {
-            //             return {
-            //                 predictor: x[0],
-            //                 select: x[1],
-            //             };
-            //         }),
-            //         debounceTime(700),
-            //         distinctUntilChanged()
-            //     )
-            //     .subscribe((ref) => {
-            //         console.warn(ref);
-            //         this.setOptionsWs(
-            //             ref.predictor?.predictors.map((predictor) => predictor?.id),
-            //             ref.predictor?.predictorWidgetId,
-            //             ref.select
-            //         );
-            //     }),
-            this.astueOnpzService.colors$.subscribe((value) => {
+            this.ecWidgetService.colors$.subscribe((value) => {
                 this.colors = value;
             }),
-            this.astueOnpzService.selectedPredictor$
+            this.ecWidgetService.selectedPredictor$
                 .pipe(filter(data => Boolean(data)))
                 .subscribe(predictorId => {
                     const isDeletePredictor = this.data.findIndex(ref => ref.predictorId === predictorId) !== -1;
@@ -94,7 +73,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
                         this.setData(predictorId);
                     }
                 }),
-            this.astueOnpzService.selectedEnergyResource$.subscribe(() => {
+            this.ecWidgetService.selectedEnergyResource$.subscribe(() => {
                 this.data = [];
                 this.unSubscribeVirtualChannels();
             })
@@ -152,28 +131,5 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
         this.virtualChannels = [];
     }
 
-    // protected dataHandler(ref: {
-    //     graphs: IPlanningChart[];
-    //     subscriptionOptions: any;
-    //     multiLineChart: IMultiChartLine[];
-    // }): void {
-    //     // this.data = ref?.graphs;
-    //     // this.astueOnpzService.setMultiLinePredictors(ref?.multiLineChart);
-    // }
-
     protected dataHandler(): void {}
-
-    setOptionsWs(
-        predictorIds: string[],
-        predictorWidgetId: string,
-        selectInfo: IAstueOnpzConventionalFuelSelectOptions
-    ): void {
-        this.widgetService.setChannelLiveDataFromWsOptions(this.id, {
-            predictorWidgetId,
-            predictorIds,
-            manufactureName: selectInfo.manufacture,
-            unitName: selectInfo.unit,
-            subcategoryName: selectInfo.resource,
-        });
-    }
 }
