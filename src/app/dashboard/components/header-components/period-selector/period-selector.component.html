@@ -15,6 +15,7 @@
         <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
           <evj-time-data-picker
             [data]="fromDate"
+            [showSeconds]="true"
             (dateTimePicker)="dateTimePickerInput($event, true)"
           ></evj-time-data-picker>
         </div>
@@ -25,6 +26,7 @@
         <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
           <evj-time-data-picker
             [data]="toDate"
+            [showSeconds]="true"
             (dateTimePicker)="dateTimePickerInput($event, false)"
           ></evj-time-data-picker>
         </div>
