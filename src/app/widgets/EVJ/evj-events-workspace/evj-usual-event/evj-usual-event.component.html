@@ -163,22 +163,6 @@
         </div>
 
         <div class="place-date">
-          <div class="select-container">
-            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
-              <div class="title">
-                <span>Тип оборудования</span>
-              </div>
-              <div class="mat-form-category">
-                <div class="event-mat-select">
-                  <mat-form-field appearance="none">
-                    <mat-select [(ngModel)]="ewService.event.equipmentCategory" [compareWith]="compareFn">
-                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </ng-container>
-          </div>
           <div *ngIf="ewService.event.category.name === 'safety'"
                class="select-container">
             <div class="title">
@@ -195,6 +179,22 @@
                 </mat-form-field>
               </div>
             </div>
+          </div>
+          <div class="select-container">
+            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+              <div class="title">
+                <span>Тип оборудования</span>
+              </div>
+              <div class="mat-form-category">
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select [(ngModel)]="ewService.event.equipmentCategory" [compareWith]="compareFn">
+                      <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p">{{ p.name }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
 
