@@ -69,19 +69,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         resource: new FormControl(null),
     });
 
-    public manufacturesReference$: Observable<
-        IAstueOnpzReferenceModel[]
-    > = this.ecWidgetConventionalFuelService.selectReferences$.pipe(map((x) => x?.manufacturies));
-    public unitsReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
-        this.ecWidgetConventionalFuelService.selectReferences$.pipe(map((x) => x?.units)),
-        this.selectionForm.get('manufacture').valueChanges,
-    ]).pipe(map(([units, manufacture]) => units?.filter((u) => u.parentId === manufacture)));
-    public resourcesReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
-        this.ecWidgetConventionalFuelService.selectReferences$.pipe(map((x) => x?.energyResources)),
-        this.selectionForm.get('unit').valueChanges,
-    ]).pipe(map(([resources, unit]) => resources?.filter((r) => r.parentId === unit)));
-
-    private newStructureMenuData: MenuStructure | null = null;
+    public newStructureMenuData: MenuStructure | null = null;
     private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
     private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
 
