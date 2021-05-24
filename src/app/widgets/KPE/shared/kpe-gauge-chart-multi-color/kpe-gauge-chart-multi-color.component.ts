@@ -125,13 +125,15 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         // перегоняем массив в процентном соотношении до 100
         if (!arr) return [];
         const maxBound = Math.max.apply(null, arr)
+        const minBound = Math.min.apply(null, arr)
         // Если обратное заполнение, то "зеркалим" массив
         if (this.data?.zeroOn === 'Right') {
-            return [...arr]
-                .map(item => {
+            return arr.map(item => {
                     if (arr[arr.length - 1] !== 0) {
-                        // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-                        return Math.floor((item - arr[arr.length - 1]) / (maxBound - arr[arr.length - 1]) * 100)
+                        // если минимум не равен 0, отнимаем миниальное значение от максимального и находим цену деления
+                        // которую используем что бы найти процент текущего значения
+                        const valDivision = (maxBound - minBound) / 100;
+                        return Math.floor((item - minBound) / valDivision)
                     } else {
                        return Math.floor(item / maxBound * 100)
                     }
@@ -142,9 +144,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             // если минимум не равен 0, отнимаем минимум от максимального значения и находим цену деления
             const valDivision = (maxBound - arr[0]) / 100;
             // делим текущее значение за вычетом минимального значения на цену деления и получаем процент текущего значения
-            return [...arr].map(item => Math.floor((item - arr[0]) / valDivision));
+            return arr.map(item => Math.floor((item - arr[0]) / valDivision));
         } else {
-            return [...arr].map(item => Math.floor(item / maxBound * 100));
+            return arr.map(item => Math.floor(item / maxBound * 100));
         }
     }
 
@@ -159,7 +161,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getFactPercent(this.data?.fact, maxBound, this.data?.zeroOn));
         this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
         this.chartConfig[this.type].gauge.unit = this.data?.unit;
-        if (this.data.bounds.length === 5) {
+        if (this.data.bounds[0] === 200 && this.data.bounds[1] === 700) {
             console.log(this.limitArray(this.data.bounds), this.data);
         }
         // Данные для активной области
