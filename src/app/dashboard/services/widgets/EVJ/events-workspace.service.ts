@@ -696,6 +696,14 @@ export class EventsWorkspaceService {
         }
     }
 
+    public async getUnitResponsibleUsers(unitId: number): Promise<IUser[]> {
+        try {
+            return await this.eventService.getUnitResponsibleUsers(unitId);
+        } catch {
+            console.log(error);
+        }
+    }
+
     private checkEvent(eventObj: IEventsWidgetNotification): IEventsWidgetNotification {
         const event = {...eventObj};
         if (eventObj.productionTasks?.subCategory?.id !== 1060) {
