@@ -42,20 +42,12 @@
             <div class="title">
               <span>Подкатегория</span>
             </div>
-            <div class="mat-form-category">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select [(ngModel)]="ewService.event.subcategory" [compareWith]="compareFn">
-                    <mat-option *ngFor="let subcategory of (ewService.equipmentStatusSubCategoryFilter | async)" [value]="subcategory">
-                      {{ subcategory.description }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
+            <evj-events-workspace-select [dataType]="'subCategoriesFilter'"
+                                         [categoryTypeSet]="'equipmentStatus'">
+            </evj-events-workspace-select>
           </div>
           <div class="select-container">
-            <ng-container *ngIf="ewService.event.category.code !== '2' else subcategories">
+            <ng-container *ngIf="ewService.event.category.code !== '2' else tasksSubcategories">
               <div class="title">
                 <span>Тип оборудования</span>
               </div>
@@ -165,23 +157,15 @@
         <div class="place-date">
           <div *ngIf="ewService.event.category.name === 'safety'"
                class="select-container">
-            <div class="title">
-              <span>Подкатегория</span>
-            </div>
-            <div class="mat-form-category">
-              <div class="event-mat-select">
-                <mat-form-field appearance="none">
-                  <mat-select [(ngModel)]="ewService.event.subcategory" [compareWith]="compareFn">
-                    <mat-option *ngFor="let subcategory of (ewService.safetySubCategoryFilter | async)" [value]="subcategory">
-                      {{ subcategory.description }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+              <div class="title">
+                <span>Подкатегория</span>
               </div>
-            </div>
+              <evj-events-workspace-select [dataType]="'subCategoriesFilter'"
+                                           [categoryTypeSet]="'safety'">
+              </evj-events-workspace-select>
           </div>
           <div class="select-container">
-            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+            <ng-container *ngIf="ewService.event.category.code!=='2' else tasksSubcategories">
               <div class="title">
                 <span>Тип оборудования</span>
               </div>
@@ -324,9 +308,11 @@
   </div>
 </div>
 
-<ng-template #subcategories>
+<ng-template #tasksSubcategories>
   <div class="title">
     <span>Подкатегория</span>
   </div>
-  <evj-events-workspace-select [dataType]="'subCategoriesFilter'"></evj-events-workspace-select>
+  <evj-events-workspace-select [dataType]="'subCategoriesFilter'"
+                               [categoryTypeSet]="'tasks'">
+  </evj-events-workspace-select>
 </ng-template>
