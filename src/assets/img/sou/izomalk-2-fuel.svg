@@ -330,7 +330,7 @@
 </g>
 </g>
 <g id="element-2_25">
-<g id="text-params_lineLength_21">
+<g id="text-params_lineLength=21">
 <rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 19 878)" fill="#272A38"/>
 <rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 19 878)" stroke="#606580"/>
 </g>
@@ -2096,7 +2096,7 @@
 <circle id="ellipse_30" cx="1556" cy="1138" r="4" fill="white"/>
 </g>
 <g id="element-2_81">
-<g id="text-params_lineLength_21_2">
+<g id="text-params_lineLength=21_2">
 <rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 1845 904)" fill="#272A38"/>
 <rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 1845 904)" stroke="#606580"/>
 </g>
