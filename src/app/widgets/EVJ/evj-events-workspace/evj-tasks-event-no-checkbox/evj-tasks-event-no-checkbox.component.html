@@ -48,7 +48,7 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+          <ng-container *ngIf="ewService.event.category.code!=='2' else tasksSubcategories">
             <div class="title">
               <span>Тип оборудования</span>
             </div>
@@ -75,14 +75,14 @@
       </div>
       <div class="description">
         <div class="extra-options">
-          <div class="title" *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
+          <div class="title" *ngIf="ewService.event?.subCategory.id === 1000">
             <span>Распоряжение</span>
           </div>
           <div
             class="title"
-            *ngIf="ewService.event?.productionTasks.subCategory.id === 1020 ||
-              ewService.event?.productionTasks.subCategory.id === 1030 ||
-              ewService.event?.productionTasks.subCategory.id === 1040"
+            *ngIf="ewService.event?.subCategory.id === 1020 ||
+              ewService.event?.subCategory.id === 1030 ||
+              ewService.event?.subCategory.id === 1040"
           >
             <span>Краткое описание</span>
           </div>
@@ -142,16 +142,16 @@
         <div class="table__group">
           <div class="workspace__select-container-left">
             <div class="name">Создано:</div>
-            <div class="value">{{(ewService.event.productionTasks.createdAt | date: "yyyy.MM.dd | HH:mm") || '-'}}</div>
+            <div class="value">{{(ewService.event?.productionTasks?.createdAt | date: "yyyy.MM.dd | HH:mm") || '-'}}</div>
           </div>
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
             <div class="value">
               <div class="block">
-                <span>{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</span>
-                <ng-container *ngIf="ewService.event.productionTasks?.createdBy?.positionDescription">
+                <span>{{ewService.event?.productionTasks?.createdBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event?.productionTasks?.createdBy?.positionDescription">
                   <span class="block__position"
-                  >{{ewService.event.productionTasks?.createdBy?.positionDescription}}</span
+                  >{{ewService.event?.productionTasks?.createdBy?.positionDescription}}</span
                   >
                 </ng-container>
               </div>
@@ -163,7 +163,7 @@
           <div class="workspace__select-container-left">
             <div class="name">Принято в работу:</div>
             <div class="value">
-              {{(ewService.event.productionTasks.acceptedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
+              {{(ewService.event?.productionTasks?.acceptedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
             </div>
           </div>
 
@@ -171,10 +171,10 @@
             <div class="name">Автор:</div>
             <div class="value">
               <div class="block">
-                <span>{{ewService.event.productionTasks?.acceptedBy?.displayName || '-'}}</span>
-                <ng-container *ngIf="ewService.event.productionTasks?.acceptedBy?.positionDescription">
+                <span>{{ewService.event?.productionTasks?.acceptedBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event?.productionTasks?.acceptedBy?.positionDescription">
                   <span class="block__position"
-                  >{{ewService.event.productionTasks?.acceptedBy?.positionDescription}}</span
+                  >{{ewService.event?.productionTasks?.acceptedBy?.positionDescription}}</span
                   >
                 </ng-container>
               </div>
@@ -185,16 +185,16 @@
         <div class="table__group">
           <div class="workspace__select-container-left">
             <div class="name">Закрыто:</div>
-            <div class="value">{{(ewService.event.productionTasks?.closedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}</div>
+            <div class="value">{{(ewService.event?.productionTasks?.closedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}</div>
           </div>
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
             <div class="value">
               <div class="block">
-                <span>{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</span>
-                <ng-container *ngIf="ewService.event.productionTasks?.closedBy?.positionDescription">
+                <span>{{ewService.event?.productionTasks?.closedBy?.displayName || '-'}}</span>
+                <ng-container *ngIf="ewService.event?.productionTasks?.closedBy?.positionDescription">
                   <span class="block__position"
-                  >{{ewService.event.productionTasks?.closedBy?.positionDescription}}</span
+                  >{{ewService.event?.productionTasks?.closedBy?.positionDescription}}</span
                   >
                 </ng-container>
               </div>
@@ -212,8 +212,13 @@
   </div>
 </div>
 
-<ng-template #subcategories>
-  <evj-events-workspace-select [label]="'Подкатегория'" [dataType]="'subCategories'"></evj-events-workspace-select>
+<ng-template #tasksSubcategories>
+  <div class="title">
+    <span>Подкатегория</span>
+  </div>
+  <evj-events-workspace-select [dataType]="'subCategoriesFilter'"
+                               [categoryTypeSet]="'tasks'">
+  </evj-events-workspace-select>
 </ng-template>
 
 <evj-evj-events-workspace-extra-options
