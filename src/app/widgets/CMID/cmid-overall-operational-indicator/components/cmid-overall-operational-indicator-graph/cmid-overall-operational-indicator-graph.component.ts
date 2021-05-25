@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { ICmidMultichartModel } from '../../models/cmid-overall-operational-indicator.model';
+import { ICmidMultichartDataModel, ICmidMultichartModel } from '../../models/cmid-overall-operational-indicator.model';
 
 @Component({
     selector: 'evj-cmid-metrics-of-change-graph-multiline',
@@ -77,17 +77,21 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
     private initScale(): void {
         const minYValues = [];
         const maxYValues = [];
+        const minXValues = [];
+        const maxXValues = [];
         const axisData = this.data.map((item: ICmidMultichartModel) => {
             return item.graph;
         })
-        axisData.forEach(item => {
+        axisData.forEach((item: ICmidMultichartDataModel[]) => {
             minYValues.push(Math.min(...item.map(d => d.value)));
             maxYValues.push(Math.max(...item.map(d => d.value)));
+            minXValues.push(new Date(Math.min.apply(null, item.map(d => new Date(d.timeStamp)))));
+            maxXValues.push(new Date(Math.max.apply(null, item.map(d => new Date(d.timeStamp)))));
         })
         this.width = this.chartElem.nativeElement.getBoundingClientRect().width;
         this.height = this.chartElem.nativeElement.getBoundingClientRect().height;
-        this.scaleFunc.x = d3.scaleTime().domain([new Date('2021-05-01'), new Date('2021-05-31')]).range([0, this.width])
-        this.scaleFunc.y = d3.scaleLinear().domain([Math.max(...maxYValues), Math.min(...minYValues)]).range([0, this.height])
+        this.scaleFunc.x = d3.scaleTime().domain([Math.min(...minXValues), Math.max(...maxXValues)]).range([0, this.width]);
+        this.scaleFunc.y = d3.scaleLinear().domain([Math.max(...maxYValues), Math.min(...minYValues)]).range([0, this.height]);
     }
 
     private initAxes(): void {
