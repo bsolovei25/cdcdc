@@ -54,7 +54,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         } else {
             this.widthOfTable = '1943.2px';
         }
-        console.log(this.widthOfGraphic);
         this.cdr.detectChanges();
     }
 
