@@ -1,0 +1,91 @@
+@import '../../../../../../theme/mixins/mixin-centering';
+
+:host * {
+  box-sizing: border-box;
+}
+
+.chips-autocomplete {
+  position: relative;
+  width: 100%;
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 16px;
+    padding: 4px 22px 4px 4px;
+    background-color: var(--index-plan-color);
+    color: var(--text-accent-color);
+    border-radius: 2px;
+    border: none;
+    font-size: 11px;
+    line-height: 1.5;
+    pointer-events: all;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 6px;
+      width: 1px;
+      height: 10px;
+      content: '';
+      background-color: var(--text-accent-color);
+    }
+
+    &::after {
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    &::before {
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &__list {
+    @include center-y;
+
+    display: flex;
+    width: 100%;
+    padding-left: 8px;
+    margin: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  &__items {
+    margin-left: 12px;
+
+    & + & {
+      margin-left: 5px;
+    }
+  }
+
+  &__field {
+    height: 24px;
+    width: 100%;
+    padding: 0 8px;
+    background-color: var(--bg-dashboard-color);
+    border: thin solid var(--border-forms-color);
+    border-radius: 2px;
+
+    &::placeholder {
+      color: var(--text-main-color);
+    }
+  }
+}
+
+::ng-deep {
+  .cdk-overlay-pane {
+    .mat-autocomplete-panel.mat-autocomplete-visible {
+      background-color: var(--color-bg-main);
+    }
+
+    .mat-option {
+      line-height: 36px;
+      height: 34px;
+      padding: 0 6px;
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import '../../../../../../theme/mixins/mixin-centering';
+
+.graph-multiline {
+  padding: 16px;
+  height: 250px;
+
+  &__chart {
+    .axis .tick line {
+      visibility: hidden;
+    }
+  }
+
+  &__groups {
+    margin-left: 20px;
+  }
+}
+
+.group {
+  display: flex;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 0;
+
+  &__item {
+    position: relative;
+    padding-left: 13px;
+
+    & + & {
+      margin-left: 15px;
+    }
+  }
+
+  &__color {
+    @include center-xy;
+
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    left: 0;
+    border-radius: 50%;
+  }
+}
