@@ -17,6 +17,7 @@ import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators"
 import { ScreenshotMaker } from "@core/classes/screenshot.class";
 import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
+import {IAstueOnpzReferenceModel} from "@widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service";
 
 type MenuStructure = { menu: IAstueOnpzReferences };
 type GraphStructure = { graphs: IMultiChartLine[] };
@@ -315,6 +316,14 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.selectionForm.get('manufacture').setValue(this.selectionForm.value.manufacture ?? manufactureId);
         this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);
         this.selectionForm.get('resource').setValue(this.selectionForm.value.resource ?? resourceId);
+    }
+
+    public getMenuUnits(): IAstueOnpzReferenceModel[] {
+        return this.newStructureMenuData?.menu.units.filter(item => item.parentId === this.selectionForm.get('manufacture').value);
+    }
+
+    public getEnergyResource(): IAstueOnpzReferenceModel[] {
+        return this.newStructureMenuData?.menu.energyResources.filter(item => item.parentId === this.selectionForm.get('unit').value);
     }
 
     public goToMainScreen(): void {
