@@ -75,17 +75,10 @@
   }
 }
 
-::ng-deep {
-  .cdk-overlay-pane {
-    .mat-autocomplete-panel.mat-autocomplete-visible {
-      background-color: var(--color-bg-main);
-    }
-
-    .mat-option {
-      line-height: 36px;
-      height: 34px;
-      padding: 0 6px;
-      font-size: 12px;
-    }
-  }
+.mat-option {
+  height: 34px;
+  padding: 0 6px;
+  line-height: 36px;
+  font-size: 12px;
+  background-color: var(--color-bg-main)
 }
