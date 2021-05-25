@@ -1,0 +1,113 @@
+.operation {
+  display: flex;
+
+  &__svg {
+    width: 260px;
+    height: 260px;
+    position: relative;
+    background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-1.svg");
+
+    &__button {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+    }
+  }
+
+  .max-svg {
+    width: 280px;
+    height: 280px;
+  }
+
+  &__source {
+    padding-top: 9px;
+
+    &__weight {
+      margin-left: 55px;
+    }
+
+    &__start-operation {
+      margin-left: 55px;
+    }
+  }
+
+  &__center-block {
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--gray-G7-color);
+    border-radius: 50% 50%;
+  }
+
+  &__block {
+    width: 185px;
+    display: flex;
+    position: relative;
+    border: 1px solid var(--gray-G7-color);
+    border-radius: 2px;
+    background-color: var(--gray-G10-color);
+  }
+
+  &__img-block {
+    width: 34px;
+    text-align: center;
+    padding-top: 8px;
+    background-color: var(--opacity-plan-20-color);
+    border-right: 1px solid var(--gray-G7-color);
+  }
+
+  &__info-block {
+    padding-left: 8px;
+  }
+
+  &__edit-block {
+    position: absolute;
+    right: 8px;
+    line-height: 34px;
+  }
+
+  &__title {
+    font-size: 11px;
+    line-height: 8px;
+    padding-top: 4px;
+    padding-bottom: 2px;
+    color: var(--text-subscript-color);
+  }
+
+  &__text {
+    color: var(--text-contrast-color);
+    padding-bottom: 2px;
+  }
+
+  .line {
+
+    &__vertical-dotted {
+      height: 93px;
+      margin-left: 148px;
+      border-left: 1px dashed var(--gray-G7-color);
+    }
+
+    &__horizontal {
+      display: flex;
+
+      &__small {
+        margin-top: 2px;
+        border-top: 1px solid var(--gray-G7-color);
+        width: 145px;
+      }
+
+      &__big {
+        margin-top: 2px;
+        border-top: 1px solid var(--gray-G7-color);
+        width: 146px;
+      }
+    }
+
+    &__dot {
+      width: 5px;
+      height: 4px;
+      border: 1px solid var(--gray-G7-color);
+      border-radius: 50% 50%;
+    }
+  }
+}
+

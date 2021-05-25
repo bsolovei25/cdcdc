@@ -1,23 +1,62 @@
 <div class="operation">
-  <div class="operation__svg">
+  <div class="operation__svg max-svg">
     <svg-icon
-      src="assets/icons/widgets/SOU/sou-workspace/operation-1.svg"
-      [ngStyle]="{ 'height.px':260 }"
-    ></svg-icon>
+      src="assets/icons/widgets/SOU/sou-workspace/chart_mountain.svg"
+      class="operation__svg__button">
+    </svg-icon>
   </div>
   <div class="operation__source">
-    <div class="operation__source__weight"></div>
-    <div class="operation__source__start-operation"></div>
+
+    <div class="operation__source__weight operation__block">
+      <div class="operation__img-block">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-workspace/mass_meter.svg">
+        </svg-icon>
+      </div>
+      <div class="operation__info-block">
+        <div class="operation__title">Масса по источнику</div>
+        <div class="operation__text">45.32</div>
+      </div>
+    </div>
+
+    <div class="line__vertical-dotted"></div>
+    <div class="line__horizontal">
+      <div class="line__horizontal__small"></div>
+      <div class="line__dot"></div>
+      <div class="line__horizontal__big"></div>
+    </div>
+    <div class="line__vertical-dotted"></div>
+
+    <div class="operation__source__start-operation operation__block">
+      <div class="operation__img-block">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-workspace/timer.svg">
+        </svg-icon>
+      </div>
+      <div class="operation__info-block">
+        <div class="operation__title">Начало операции</div>
+        <div class="operation__text">15.02.2021, 09:00</div>
+      </div>
+      <div class="operation__edit-block">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-workspace/edit_pen.svg"
+          [ngStyle]="{ 'height.px':12 }">
+        </svg-icon>
+      </div>
+    </div>
+
   </div>
+
   <div class="operation__center-block"></div>
+
   <div class="operation__receiver">
     <div class="operation__receiver__weight"></div>
     <div class="operation__receiver__end-operation"></div>
   </div>
   <div class="operation__svg">
-    <svg-icon
+    <img
       src="assets/icons/widgets/SOU/sou-workspace/operation-2.svg"
       [ngStyle]="{ 'height.px':260 }"
-    ></svg-icon>
+    />
   </div>
 </div>
