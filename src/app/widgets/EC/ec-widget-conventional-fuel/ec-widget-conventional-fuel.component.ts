@@ -9,10 +9,9 @@ import { IChartMini } from "@shared/interfaces/smart-scroll.model";
 import {
     EcWidgetConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
-    IAstueOnpzReferenceModel,
     IAstueOnpzReferences
 } from "./ec-widget-conventional-fuel.service";
-import { BehaviorSubject, combineLatest, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
 import { ScreenshotMaker } from "@core/classes/screenshot.class";
@@ -201,7 +200,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.virtualChannelSubscriptions.push({
             subchannelId: id,
             subscription: this.createVirtualChannel(id).data$.subscribe(res => {
-                const data = this.multilineDataMapper(res.graphs);
+                const halfChartsData = res.graphs.map(item => {
+                    item.graph = item.graph.filter((ref, index) => index % 2  === 0);
+                    return item;
+                });
+
+                const data = this.multilineDataMapper(halfChartsData);
 
                 data.map(item => {
                     item.subchannelId = id;

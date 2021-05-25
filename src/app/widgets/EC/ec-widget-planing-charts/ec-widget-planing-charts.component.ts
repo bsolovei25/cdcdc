@@ -94,6 +94,8 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
         this.virtualChannelSubscriptions.push({
             predictorId,
             subscription: virtualChannel.data$.subscribe(res => {
+                const halfChartsData = res.graphs[0].graph[0].graph.filter((val, index) => index % 2  === 0);
+                res.graphs[0].graph[0].graph = halfChartsData;
                 const data = res.graphs[0];
                 const predictorIndex = this.data.findIndex(ref => ref.predictorId === predictorId);
 
