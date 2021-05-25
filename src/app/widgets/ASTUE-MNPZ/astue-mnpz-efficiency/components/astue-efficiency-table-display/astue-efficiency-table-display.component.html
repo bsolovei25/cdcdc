@@ -114,7 +114,8 @@
                     <input
                       type="text"
                       class="cell__input"
-                      [(ngModel)]="value.value"
+                      [ngModel]="value.value | number:'1.0-2'"
+                      (ngModelChange)="value.value=$event"
                       [disabled]="!value.isEditable"
                       placeholder="Введите значение"
                       (focus)="$event.target.select()"

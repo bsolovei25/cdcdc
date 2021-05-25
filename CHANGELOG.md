@@ -1,3 +1,50 @@
+# [1.29.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.3...v1.29.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* **#1386:** Редирект с виджета на мнемосхему ([bdebd25](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bdebd25bbaeae3344ea73e4600cf8bc0d19e26a2)), closes [#1386](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1386)
+* **ASTUE:** Исправление выхода линий за график при скролле. front[#1789](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1789) ([c279d4c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c279d4c0bd8295d008779984b9808961f39a5ea3))
+* **ASTUE:** Исправление наплыва столбцов друг на друга. front[#1788](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1788) ([7b799e4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7b799e4c091ff8f3fffa531c1b7de6f370416880))
+* **ASTUE:** исправление отображения дат в таблице. front[#1852](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1852) ([25d5eb7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/25d5eb7994525be50f228c020f26d878373578eb))
+* **ASTUE:** Очистка выбранных установок. front[#1791](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1791) ([0309313](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03093131cdab6569946dd3bc7b041ba1f82ded2b))
+* **ASTUE:** Снятие выделения с потоков. front[#1791](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1791) ([6b90c8b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6b90c8bfe595e9c7e63069ee5e5bf87177500355))
+* **CMID:** Изменил размер виджета. front[#1699](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1699) ([e423c12](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e423c128d75dbc8b92bd94a8c5aef8250ef86d5e))
+* **CMID:** Изменил ширину виджета и добавил тень к заголовкам. front[#1697](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1697) ([ef21d7c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ef21d7ce6350663778d1ee2ab9fb18e3cb22adec))
+* **CMID:** Фиксированный заголовок при скролле. front[#1697](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1697) ([ad977d7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ad977d7a0a6a16309836116af49d89831ab77db7))
+* **EC:** поставил проверку значения и дефолтный 0[#1886](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1886) ([fe69f7c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/fe69f7cdca56202d44e1beaafc8af764659546f0))
+* **EC:** Реализация нового виджета Показатели front[#1860](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1860) ([d7d1a3f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d7d1a3f404e22a743e3d971241911b36eb1e2fbc))
+* **front#1587:** СОУ исправлена индикация элементов  кпа с100 ([4b4771e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4b4771e4eb1e8844fb0e3c0cdd49ee0e8a27b846)), closes [front#1587](https://gitlab.funcoff.club/front/issues/1587)
+* **front#1730:** СОУ гфу-2 изменено отображение элементов ([2e5a11f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/2e5a11f6fc9fd0ce7fe3e0083c605961a391ea8e)), closes [front#1730](https://gitlab.funcoff.club/front/issues/1730)
+* **front#1730:** СОУ Добавлены id линий гфу-2 ([3e629cf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3e629cfac30849f144591797122205b1c0b0a928)), closes [front#1730](https://gitlab.funcoff.club/front/issues/1730)
+* **front#1862:** СОУ вывод tag на мнемосхемах ([5fe4385](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5fe4385ed522bc8fc661afae1dedfa2094eb7908)), closes [front#1862](https://gitlab.funcoff.club/front/issues/1862)
+* **front#1873:** СОУ изменен вид линий неизмеряемых потоков ([41189dc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/41189dc40a3331a809d1c78a745b8f6962558374)), closes [front#1873](https://gitlab.funcoff.club/front/issues/1873)
+* **front#1912:** СОУ исправлена ошибка обновления текста в элементах мнемосхемы ([19cc344](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/19cc344ecf197b75f73c2ab8c0fa00b9f523d9d0)), closes [front#1912](https://gitlab.funcoff.club/front/issues/1912)
+* **front#1920:** СОУ исправление переходов между мнемосхемами ([774df74](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/774df74eb50d5abb1f2cbbcde0d85da0e4383cad)), closes [front#1920](https://gitlab.funcoff.club/front/issues/1920)
+* **front#1928:** СОУ изомалк-2 убран tolerance для неизмеряемых потоков ([3ef6468](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3ef64689f67de52e4ca6dc4e32907e7d669e2fdc)), closes [front#1928](https://gitlab.funcoff.club/front/issues/1928)
+* **karma:** increased timeouts for karma runner ([be5b47f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/be5b47f69fd262da709ee4bd3c61cc9d843b88e8))
+* **SMPO:** Создать новую подкатегорию СМПО категории Производственные задания front[#1496](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1496) ([467d46c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/467d46ce36d3d23d5ad88704c45449fcbcf9b21c))
+
+
+### Features
+
+* **#1822:** КПЭ. Спидометры. Вывод рамки и окрашивание процента влияния ([d2245ec](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d2245ec39d6b092b51c85533fbaaec97cc660552)), closes [#1822](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1822)
+* **front#1888:** СОУ добавлены id линий для кпа с100 ([2074846](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/207484647462eb58967521b70662f916a59d65e3)), closes [front#1888](https://gitlab.funcoff.club/front/issues/1888)
+* **KPE:** КПЭ. Спидометры. Вывод рамки и окрашивание процента влияния front[#1822](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1822) ([9cf77ef](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9cf77ef9ec831c1f5dc25bd40deb93ce08e768dd))
+* **Notifications:** Добавил поле Корректирующие мероприятия, исправил высоту секций в категории СМОТР. front[#1889](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1889) ([1b6f552](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1b6f55230917eb835a0ce9eed0eeb14406241bb7))
+* **SOU:** add axis. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([286cd9b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/286cd9bef5067c9dfea6d9da4997d9b49fcea4e4))
+* **SOU:** add button. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859)" ([d288a1e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d288a1e084ad9dab69a4a743ec73e1a545066348))
+* **SOU:** add legents. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([f15343d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f15343dacaaa40eda641c28a4d7f5a11f57448b4))
+* **SOU:** add tooltip for product name. [#1738](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1738) ([b308bd1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b308bd1b0a157569f81331d6618cfcbf6e579866))
+* **SOU:** add vertical axis. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([cb7455f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cb7455f5d49624b5e1704134c763857c424752ff))
+* **SOU:** add width adaptivity and small changes. [#1658](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1658) ([bcf239f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bcf239f72b69a0fce69ef84bff91094bcb082562))
+* **SOU:** create structure of open trend chart. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([7ae7a9c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7ae7a9c7fa83cf4efcc97940f04f35e04f822d3b))
+* **SOU:** create toggle. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([bafb757](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bafb757a6faed0071156f943df8c5f231ec192be))
+* **SOU:** fix axis. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([8a922c5](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8a922c59a3da5a8be9b83858bc4f0af3417ff07b))
+* **SOU:** fix bug with adaptivity and prepare config file for BE. [#1658](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1658) ([9ff681b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9ff681b51ed1e01a92d8aa485c5cbfc5b771a60a))
+* **SOU:** fix bugs. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([6bb1ad8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6bb1ad83bfc4e68aa0de6cf07c315e75770918aa))
+* **SOU:** resolve conflicts. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([65a9d2e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/65a9d2ed74ca8fe6833777c75e4b92544832ae97))
+
 ## [1.28.3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.2...v1.28.3) (2021-05-18)
 
 

@@ -8,14 +8,12 @@ import {
     IAstueOnpzFactoryAnalysisBarResponse,
     IAstueOnpzFactoryAnalysisDiagram,
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
-import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { EcWidgetConventionalFuelService } from '../ec-widget-conventional-fuel/ec-widget-conventional-fuel.service';
 import { HttpClient } from '@angular/common/http';
 import { ScreenshotMaker } from '@core/classes/screenshot.class';
 import { ReportsService } from '@dashboard/services/widgets/admin-panel/reports.service';
 import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
-import { IAstueOnpzMainIndicatorsRaw } from "@widgets/EC/ec-widget-main-indicators/ec-widget-main-indicators.interface";
 
 @Component({
     selector: 'evj-ec-widget-factor-analysis',
@@ -38,9 +36,8 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
         private http: HttpClient,
         private reportService: ReportsService,
         private conventionalFuelService: EcWidgetConventionalFuelService,
-        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
-        private astueOnpzService: EcWidgetService,
+        private ecWidgetService: EcWidgetService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -50,7 +47,7 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subchannelId$ = this.astueOnpzService.selectedEnergyResource$;
+        this.subchannelId$ = this.ecWidgetService.selectedEnergyResource$;
     }
 
     ngOnDestroy(): void {
@@ -63,7 +60,7 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
         super.dataConnect();
 
         this.subscriptions.push(
-            this.astueOnpzService.selectedEnergyResource$.subscribe(energyResourceId => {
+            this.ecWidgetService.selectedEnergyResource$.subscribe(energyResourceId => {
                 this.barData = null;
                 this.virtualChannel?.dispose();
                 this.virtualChannelSubscription?.unsubscribe();

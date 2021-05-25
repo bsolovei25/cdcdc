@@ -50,14 +50,14 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public scrollLimits: IDatesInterval = null;
 
     get planningChart(): boolean {
-        return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
+        return !!this.ecWidgetService.sharedPlanningGraph$.getValue();
     }
 
     get scrollData(): IChartMini[] {
         return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
-    public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService.paddingLegend$;
+    public paddingLeft$: BehaviorSubject<number> = this.ecWidgetConventionalFuelService.paddingLegend$;
 
     public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(
         null
@@ -69,19 +69,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         resource: new FormControl(null),
     });
 
-    public manufacturesReference$: Observable<
-        IAstueOnpzReferenceModel[]
-    > = this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x?.manufacturies));
-    public unitsReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
-        this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x?.units)),
-        this.selectionForm.get('manufacture').valueChanges,
-    ]).pipe(map(([units, manufacture]) => units?.filter((u) => u.parentId === manufacture)));
-    public resourcesReference$: Observable<IAstueOnpzReferenceModel[]> = combineLatest([
-        this.astueOnpzConventionalFuelService.selectReferences$.pipe(map((x) => x?.energyResources)),
-        this.selectionForm.get('unit').valueChanges,
-    ]).pipe(map(([resources, unit]) => resources?.filter((r) => r.parentId === unit)));
-
-    private newStructureMenuData: MenuStructure | null = null;
+    public newStructureMenuData: MenuStructure | null = null;
     private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
     private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
 
@@ -90,9 +78,9 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         protected widgetService: WidgetService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private astueOnpzService: EcWidgetService,
+        private ecWidgetService: EcWidgetService,
         private userSettingsService: UserSettingsService,
-        public astueOnpzConventionalFuelService: EcWidgetConventionalFuelService,
+        public ecWidgetConventionalFuelService: EcWidgetConventionalFuelService,
         private changeDetection: ChangeDetectorRef
     ) {
         super(widgetService, id, uniqId);
@@ -103,13 +91,13 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref)),
-            this.astueOnpzConventionalFuelService.predictorsInfo$.subscribe((x) => {
+            this.ecWidgetConventionalFuelService.predictorsInfo$.subscribe((x) => {
                 setTimeout(() => {
                     this.predictors$.next(x);
                     this.changeDetection.detectChanges();
                 });
             }),
-            this.astueOnpzConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
+            this.ecWidgetConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
             this.selectionForm.get('manufacture').valueChanges.subscribe((x) => {
                 this.selectionForm.get('unit').setValue(null);
                 this.selectionForm.get('resource').setValue(null);
@@ -120,8 +108,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
             this.selectionForm.valueChanges
                 .pipe(debounceTime(100), distinctUntilChanged())
                 .subscribe((x) => {
-                    this.astueOnpzService.setSelectedEnergyResource(x.resource);
-                    return this.astueOnpzConventionalFuelService.changeSelectedForm(x);
+                    this.ecWidgetService.setSelectedEnergyResource(x.resource);
+                    return this.ecWidgetConventionalFuelService.changeSelectedForm(x);
                 })
         );
     }
@@ -130,19 +118,19 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         if (!widgetId) {
             return;
         }
-        const ref = await this.astueOnpzConventionalFuelService.getSelectionReferences(widgetId);
+        const ref = await this.ecWidgetConventionalFuelService.getSelectionReferences(widgetId);
 
         const manufactureId = ref?.manufacturies.find(
-            (item) => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.manufacture
+            (item) => item.name === this.ecWidgetConventionalFuelService.defaultSelectOptions.manufacture
         )?.id;
         const unitId = ref?.units.find(
             (item) =>
-                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.unit &&
+                item.name === this.ecWidgetConventionalFuelService.defaultSelectOptions.unit &&
                 item.parentId === manufactureId
         )?.id;
         const resId = ref?.energyResources.find(
             (item) =>
-                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptions.resource &&
+                item.name === this.ecWidgetConventionalFuelService.defaultSelectOptions.resource &&
                 item.parentId === unitId
         )?.id;
 
@@ -150,7 +138,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);
         this.selectionForm.get('resource').setValue(this.selectionForm.value.resource ?? resId);
 
-        this.astueOnpzConventionalFuelService.selectReferences$.next(ref);
+        this.ecWidgetConventionalFuelService.selectReferences$.next(ref);
     }
 
     async takeScreenshot(): Promise<void> {
@@ -165,13 +153,13 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.options.isIconsShowing = !this.isPredictors;
 
         this.subscriptions.push(
-            this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
+            this.ecWidgetService.multilineChartIndicatorTitle$.subscribe((title) => {
                 if (this.isPredictors) {
                     return;
                 }
                 this.widgetTitle = title;
             }),
-            this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+            this.ecWidgetService.sharedIndicatorOptions.subscribe((options) => {
                 if (this.isPredictors) {
                     return;
                 }
@@ -179,11 +167,11 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                 this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
             }),
 
-            this.astueOnpzService.colors$.subscribe((value) => {
+            this.ecWidgetService.colors$.subscribe((value) => {
                 this.colors = value;
             }),
 
-            this.astueOnpzService.selectedPredictor$
+            this.ecWidgetService.selectedPredictor$
                 .pipe(filter(data => Boolean(data)))
                 .subscribe(predictorId => {
                     const isDeletePredictor = this.data.findIndex(ref => ref.subchannelId === predictorId) !== -1;
@@ -191,11 +179,11 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                     if (isDeletePredictor) {
                         this.unSubscribeVirtualChannel(predictorId);
                     } else {
-                        this.setPredictorData(predictorId);
+                        this.setGraphsData(predictorId);
                     }
                 }),
 
-            this.astueOnpzService.selectedEnergyResource$
+            this.ecWidgetService.selectedEnergyResource$
                 .subscribe(energyResourceId => {
                     this.data = [];
                     this.predictors$.next(null);
@@ -203,37 +191,28 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                     this.unSubscribeVirtualChannels();
 
                     if (energyResourceId) {
-                        this.setEnergyResourceId(energyResourceId);
+                        this.setGraphsData(energyResourceId);
                     }
                 })
         );
     }
 
-    private setEnergyResourceId(energyResourceId: string): void {
+    private setGraphsData(id: string): void {
         this.virtualChannelSubscriptions.push({
-            subchannelId: energyResourceId,
-            subscription: this.createVirtualChannel(energyResourceId).data$.subscribe(res => {
+            subchannelId: id,
+            subscription: this.createVirtualChannel(id).data$.subscribe(res => {
                 const data = this.multilineDataMapper(res.graphs);
 
                 data.map(item => {
-                    item.subchannelId = energyResourceId;
+                    item.subchannelId = id;
                     return item;
                 });
-                this.data = this.data.filter(ref => ref.subchannelId !== energyResourceId);
+                this.data = this.data.filter(ref => ref.subchannelId !== id);
                 this.data = [...this.data, ...data];
-            })
-        });
-    }
-
-    private setPredictorData(predictorId: string): void {
-        this.virtualChannelSubscriptions.push({
-            subchannelId: predictorId,
-            subscription: this.createVirtualChannel(predictorId).data$.subscribe(res => {
-                const data = this.multilineDataMapper(res.graphs);
-
-                data[0].subchannelId = predictorId;
-                this.data = this.data.filter(ref => ref.subchannelId !== predictorId);
-                this.data = [...this.data, data[0]];
+                this.currentValues = {
+                    plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
+                    fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+                };
             })
         });
     }
@@ -285,10 +264,10 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.astueOnpzService.dropDataStream();
-        this.astueOnpzService.sharedPlanningGraph$.next(null);
-        this.astueOnpzService.multilineChartIndicatorTitle$.next('');
-        this.astueOnpzService.multilineChartTransfer.next(null);
+        this.ecWidgetService.dropDataStream();
+        this.ecWidgetService.sharedPlanningGraph$.next(null);
+        this.ecWidgetService.multilineChartIndicatorTitle$.next('');
+        this.ecWidgetService.multilineChartTransfer.next(null);
         this.unSubscribeVirtualChannels();
     }
 
@@ -314,20 +293,20 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         const menu = ref?.menu;
 
         const manufactureId = menu?.manufacturies.find(
-            (item) => item.name === this.astueOnpzConventionalFuelService.defaultSelectOptionsNewScheme.manufacture
+            (item) => item.name === this.ecWidgetConventionalFuelService.defaultSelectOptionsNewScheme.manufacture
         )?.id;
         const unitId = menu?.units.find(
             (item) =>
-                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptionsNewScheme.unit &&
+                item.name === this.ecWidgetConventionalFuelService.defaultSelectOptionsNewScheme.unit &&
                 item.parentId === manufactureId
         )?.id;
         const resourceId = menu?.energyResources.find(
             (item) =>
-                item.name === this.astueOnpzConventionalFuelService.defaultSelectOptionsNewScheme.resource &&
+                item.name === this.ecWidgetConventionalFuelService.defaultSelectOptionsNewScheme.resource &&
                 item.parentId === unitId
         )?.id;
 
-        this.astueOnpzConventionalFuelService.selectReferences$.next(menu);
+        this.ecWidgetConventionalFuelService.selectReferences$.next(menu);
 
         this.selectionForm.get('manufacture').setValue(this.selectionForm.value.manufacture ?? manufactureId);
         this.selectionForm.get('unit').setValue(this.selectionForm.value.unit ?? unitId);

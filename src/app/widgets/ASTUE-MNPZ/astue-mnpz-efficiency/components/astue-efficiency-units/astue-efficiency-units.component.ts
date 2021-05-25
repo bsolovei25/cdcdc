@@ -100,6 +100,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
     public onClickSelectAll(): void {
         if (this.unitSelection.selected.length === this.units.length) {
             this.AsEfService.selectionUnit$.next(null);
+            this.AsEfService.selectionFlow$.next(null);
             this.unitSelection.clear();
             this.AsEfService.clearUnits();
         } else {

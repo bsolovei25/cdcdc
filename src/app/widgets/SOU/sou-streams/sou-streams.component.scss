@@ -153,9 +153,11 @@
   border-bottom: 1px solid var(--color-sou-table-border);
   border-collapse: collapse;
   min-width: 1943.2px;
+  //width: 1943.2px;
 
   &__header {
     height: 65px;
+    width: 1943.2px;
     text-align: center;
     background-color: var(--color-sou-bg-light);
 
@@ -164,8 +166,18 @@
     }
 
     &__first-cell {
-      width: 94px;
+      min-width: 94px;
       height: 65px;
+    }
+
+    .main {
+      min-width: 137px;
+      width: 137px;
+    }
+
+    .big-main {
+      min-width: 196px;
+      width: 196px;
     }
 
     &__main-cell {
@@ -186,7 +198,7 @@
     }
 
     &__last-cells {
-      width: 140px;
+      min-width: 140px;
       text-align: center;
     }
 

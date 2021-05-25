@@ -27,7 +27,7 @@
       <mat-select
         class="dropdown__select"
         (selectionChange)="selectionChange($event.value)"
-        [value]="mnemonicFurnaceService.selectedItem$ | async"
+        [value]="ecWidgetService.selectedItem$ | async"
       >
         <mat-option *ngFor="let ref of reference" [value]="ref.id">{{ref.name}}</mat-option>
       </mat-select>

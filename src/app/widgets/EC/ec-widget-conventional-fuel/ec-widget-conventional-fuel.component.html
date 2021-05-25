@@ -14,7 +14,7 @@
           <div class="dropdown">
             <mat-select placeholder="Производство" class="dropdown__select" [formControlName]="'manufacture'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let manufacture of manufacturesReference$ | async" [value]="manufacture.id">{{ manufacture.name }}</mat-option>
+              <mat-option *ngFor="let manufacture of newStructureMenuData?.menu.manufacturies" [value]="manufacture.id">{{ manufacture.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="dropdown">
             <mat-select placeholder="Установка" class="dropdown__select" [formControlName]="'unit'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let unit of unitsReference$ | async" [value]="unit.id">{{ unit.name }}</mat-option>
+              <mat-option *ngFor="let unit of newStructureMenuData?.menu.units" [value]="unit.id">{{ unit.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="dropdown">
             <mat-select placeholder="Энергоресурс" class="dropdown__select" [formControlName]="'resource'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let resource of resourcesReference$ | async" [value]="resource.id">{{ resource.name }}</mat-option>
+              <mat-option *ngFor="let resource of newStructureMenuData?.menu.energyResources" [value]="resource.id">{{ resource.name }}</mat-option>
             </mat-select>
           </div>
         </div>
