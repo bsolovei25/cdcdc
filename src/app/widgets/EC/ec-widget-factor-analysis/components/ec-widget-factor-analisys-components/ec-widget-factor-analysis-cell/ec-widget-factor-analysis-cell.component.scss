@@ -1,13 +1,18 @@
 @import "../../../../../../../theme/mixins/mixins-text-overflow";
 
+:host {
+  width: 100%;
+}
+
 .container {
   display: flex;
   flex-flow: column;
-  width: 65px;
+  min-width: 65px;
   height: 100%;
+  width: 100%;
 
   &__wide {
-    width: 72px;
+    min-width: 72px;
   }
 
   .top {
