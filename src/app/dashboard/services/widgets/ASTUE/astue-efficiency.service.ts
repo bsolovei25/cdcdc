@@ -28,6 +28,8 @@ export class AstueEfficiencyService {
     public selectionUnit$: BehaviorSubject<IAsEfUnitNew[]> = new BehaviorSubject<IAsEfUnitNew[]>(null);
     public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<IAsPlanningTable[]>(null);
 
+    public data: BehaviorSubject<IAsEfProduct[]> = new BehaviorSubject<IAsEfProduct[]>(null);
+
     private readonly restUrl: string;
 
     get currentUnit(): IAsEfUnitNew {
