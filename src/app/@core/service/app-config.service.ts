@@ -32,6 +32,13 @@ export class AppConfigService {
         return this.appConfig.restUrl;
     }
 
+    get cmidUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.cmidUrl;
+    }
+
     get shiftFree(): string {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');
