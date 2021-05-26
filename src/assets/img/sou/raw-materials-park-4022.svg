@@ -838,7 +838,7 @@
 <text id="text_29" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="16" letter-spacing="0em"><tspan x="854.312" y="388.852">P-1</tspan></text>
 <text id="text_value_21" fill="#0089FF" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="14" letter-spacing="0em"><tspan x="854.251" y="439.058">12 047 &#x442;</tspan></text>
 </g>
-<g id="element-4_34_2">
+<g id="element-4_35">
 <rect id="bg_7" x="809.5" y="480.5" width="89" height="119" rx="5.5" fill="#272A38" stroke="#4B5169"/>
 <path id="bg_8" d="M813 565H895V592C895 594.209 893.209 596 891 596H817C814.791 596 813 594.209 813 592V565Z" fill="#0089FF" fill-opacity="0.2"/>
 <line id="Bottom-line_4" x1="809" y1="583.5" x2="899" y2="583.5" stroke="#4B5169" stroke-dasharray="2 2"/>
