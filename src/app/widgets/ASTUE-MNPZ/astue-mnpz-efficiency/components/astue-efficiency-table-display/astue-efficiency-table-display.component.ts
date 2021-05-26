@@ -79,7 +79,12 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                         this.isCurrentDate = true;
                     }
                 }
-            )
+            ),
+            this.AsEfService.data.subscribe(value => {
+                if (value) {
+                    this.dataMapping();
+                }
+            })
         );
     }
 
