@@ -1,3 +1,21 @@
+# [1.31.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.30.0...v1.31.0) (2021-05-26)
+
+
+### Bug Fixes
+
+* **EC:** "Починить структуру виджета условного топлива" front[#1995](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1995) ([788f744](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/788f744102fc4d036b44b8a477ae815d92a1247d))
+* **EC:** Уменьшение количества точек на графиках в 2 раза. [#1930](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1930) ([06f618b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/06f618bd44494a18ed828561dfbc7ae4ee720bea))
+* **front#1997:** СОУ Исправлены выводы в элементах ([6c2e53e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6c2e53e356c930097c60173b0d1e12f0e78f59e7)), closes [front#1997](https://gitlab.funcoff.club/front/issues/1997)
+* **front#2005:** СОУ Исправлена индикация элоу авт-10 ([60e92e2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/60e92e2fd12c28d414dc4f4d4a131d5f7056af51)), closes [front#2005](https://gitlab.funcoff.club/front/issues/2005)
+* **Notifications:** Внесены правки по верстке в рабочую область событий. Убран скролл при растягивании виджета на весь экран по вертикали. front[#1919](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1919) ([eab0572](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/eab0572144b2abbb0effedd350bfbebede48bc87))
+
+
+### Features
+
+* **front#1978:** СОУ Добавлены id линий на мнемосхемах ([5274f32](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5274f32af7897b650e06d781629a0c0b2611bbe7)), closes [front#1978](https://gitlab.funcoff.club/front/issues/1978)
+* **SOU:** add removing axis labels for small screen. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([61b6a7d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/61b6a7dae59e8097432ce5c2246fe34079babcca))
+* **SOU:** remove console.loges. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([850a013](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/850a01375846c597726530c1195939e58aabaf42))
+
 # [1.30.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.29.0...v1.30.0) (2021-05-25)
 
 
