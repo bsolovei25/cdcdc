@@ -2,8 +2,13 @@
   <div class="initial-data__header header">Исходные данные</div>
   <div class="initial-data__table table">
     <div class="table__header table-header">
-      <div class="table-header__item">Наименование</div>
-      <div class="table-header__item">Итого</div>
+      <div class="table-header__block">
+        <div class="table-header__item">Наименование</div>
+      </div>
+      <div class="table-header__block">
+        <div class="table-header__item">Мгновенные</div>
+        <div class="table-header__item">Накопительные</div>
+      </div>
     </div>
     <div class="table__block" *ngFor="let block of data">
       <evj-astue-efficiency-inintial-data-block
