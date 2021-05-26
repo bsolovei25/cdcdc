@@ -94,10 +94,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref)),
             this.ecWidgetConventionalFuelService.predictorsInfo$.subscribe((x) => {
-                setTimeout(() => {
-                    this.predictors$.next(x);
-                    this.changeDetection.detectChanges();
-                });
+                this.predictors$.next(x);
+                this.changeDetection.detectChanges();
             }),
             this.ecWidgetConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
             this.selectionForm.get('manufacture').valueChanges.subscribe((x) => {
