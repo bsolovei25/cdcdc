@@ -141,11 +141,11 @@
         </div>
         <div
           class="card card__tag"
-          *ngFor="let card of (predictors$ | async)?.predictors"
+          *ngFor="let card of (predictorsCurrentValue$ | async)?.predictors"
           [style.border-color]="card.color"
         >
           <span class="value"> {{ card.val | number:'0.0-2' }} </span>
-          <span class="unit"> {{ card.units }} </span>
+          <span class="unit"> {{ card?.units }} </span>
         </div>
       </div>
       <evj-ec-widget-multi-chart

@@ -7,6 +7,7 @@ import {
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AppConfigService } from '@core/service/app-config.service';
 import { HttpClient } from "@angular/common/http";
+import { lineColors } from "@widgets/EC/ec-widget-shared/constants/colors.const";
 
 export type AstueOnpzConsumptionIndicatorsWidgetType = 'Deviation' | 'Consumption';
 
@@ -32,6 +33,16 @@ export interface IAstueOnpzPredictor {
     colorIndex: number;
 }
 
+export interface IPredictorsLabelsData {
+    predictors: IPredictorCurrentValue[];
+}
+
+export interface IPredictorCurrentValue {
+    val: number;
+    color: string;
+    units?: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -46,6 +57,7 @@ export class EcWidgetService {
     public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<IMultiChartTransfer>(
         null
     );
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null)
 
     private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
@@ -122,5 +134,20 @@ export class EcWidgetService {
     public clearColors(): void {
         this.colors = 6;
         this.colors$.next(new Map());
+    }
+
+    public setPredictorsCurrentValue(data: IPlanningChart[]): void {
+        const currentValues: IPredictorsLabelsData = {predictors: []};
+        const colors = this.colors$.getValue();
+
+        data.forEach( ({currentFactValue, tag, units}) => {
+            currentValues.predictors.push({
+                val: currentFactValue,
+                color: lineColors[colors.get(tag)],
+                units,
+            })
+        });
+
+        this.predictorsCurrentValue$.next(currentValues);
     }
 }

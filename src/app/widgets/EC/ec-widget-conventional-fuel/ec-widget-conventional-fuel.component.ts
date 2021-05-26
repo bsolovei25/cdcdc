@@ -3,7 +3,7 @@ import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
 import { IMultiChartLine } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model";
 import { UserSettingsService } from "@dashboard/services/user-settings.service";
-import { EcWidgetService } from "../ec-widget-shared/ec-widget.service";
+import { EcWidgetService, IPredictorsLabelsData } from "../ec-widget-shared/ec-widget.service";
 import { IMultiChartOptions } from "./components/ec-widget-multi-chart/ec-widget-multi-chart.component";
 import { IChartMini } from "@shared/interfaces/smart-scroll.model";
 import {
@@ -13,7 +13,7 @@ import {
 } from "./ec-widget-conventional-fuel.service";
 import { BehaviorSubject, Subscription } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
-import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 import { ScreenshotMaker } from "@core/classes/screenshot.class";
 import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
@@ -72,6 +72,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public newStructureMenuData: MenuStructure | null = null;
     private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
     private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
+
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
 
     constructor(
         private reportService: ReportsService,
@@ -333,10 +335,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public mouseOnGraph(): void {
         this.onMouseEnter();
         this.showCurrent = false;
+        this.predictorsCurrentValue$ = this.predictors$;
     }
 
     public mouseLeaveGraph(): void {
         this.onMouseExit();
         this.showCurrent = true;
+        this.predictorsCurrentValue$ = this.ecWidgetService.predictorsCurrentValue$;
     }
 }
