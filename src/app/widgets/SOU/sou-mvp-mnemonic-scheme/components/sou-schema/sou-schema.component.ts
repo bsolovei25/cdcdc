@@ -87,7 +87,7 @@ export class SouSchemaComponent implements OnChanges {
             maxTextLength: 30
         }
     };
-    private debugElementCode: number = 5;
+    private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
@@ -131,6 +131,7 @@ export class SouSchemaComponent implements OnChanges {
     // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
     public processSvgWhenItIsReady(): void {
         const processSvg = () => {
+            console.log('SVG name:', this.svgName);
             this.parseSvg();
             this.resetSvg();
 
@@ -437,16 +438,12 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     private getElementValuePercent(sectionData: SouSectionData): string {
-        // const element = this.elementsMap.get(sectionData?.code);
-        // const elementTypeId = this.getElementTypeId(element);
-        //
-        // if (elementTypeId === 11) {
-        //     if (this.isStreamMeasurable(sectionData)) {
-        //         return String(sectionData.tolerance);
-        //     } else {
-        //         return '-';
-        //     }
-        // }
+        const element = this.elementsMap.get(sectionData?.code);
+        const elementTypeId = this.getElementTypeId(element);
+
+        if (elementTypeId === 11) {
+            return String(sectionData.tolerance);
+        }
 
         if ('valueMomentPercent' in sectionData) {
             switch (this.chosenSetting) {
@@ -484,25 +481,31 @@ export class SouSchemaComponent implements OnChanges {
         const sectionData = this.getSectionDataByElement(element);
 
         if (sectionData) {
-            if (elementFull?.textValue) {
-                const value = this.getElementValue(sectionData);
-                this.addTextToTextElem(elementFull.textValue, `${value} т`);
-            }
+            const elementTypeId = this.getElementTypeId(element);
 
-            if (elementFull?.textPercent) {
-                const elementTypeId = this.getElementTypeId(element);
-                if (elementTypeId === 11) {
-                    if (this.isStreamMeasurable(sectionData)) {
-                        this.removeElemClass(elementFull?.textPercent, ['not-measurable-text']);
-                        const valuePercent = this.getElementValuePercent(sectionData);
-                        this.addTextToTextElem(elementFull.textPercent, `${valuePercent}%`);
-                    } else {
-                        this.addElemClass(elementFull?.textPercent, ['not-measurable-text']);
-                        this.addTextToTextElem(elementFull.textPercent, '—');
-                    }
+            if (elementTypeId === 11) {
+                // Элемент 11 типа автоматически меняет вид (не)измеряемого
+                if (this.isStreamMeasurable(sectionData)) {
+                    this.removeElemClass(elementFull?.textPercent, ['not-measurable-text']);
+                    this.addTextToTextElem(
+                        elementFull.textPercent,
+                        `${this.getElementValuePercent(sectionData)}%`,
+                    );
                 } else {
-                    const valuePercent = this.getElementValuePercent(sectionData);
-                    this.addTextToTextElem(elementFull.textPercent, `${valuePercent}%`);
+                    this.addElemClass(elementFull?.textPercent, ['not-measurable-text']);
+                    this.addTextToTextElem(elementFull.textPercent, '—');
+                }
+            } else {
+                if (elementFull?.textValue) {
+                    const value = this.getElementValue(sectionData);
+                    this.addTextToTextElem(elementFull.textValue, `${value} т`);
+                }
+
+                if (elementFull?.textPercent) {
+                    this.addTextToTextElem(
+                        elementFull.textPercent,
+                        `${this.getElementValuePercent(sectionData)}%`,
+                    );
                 }
             }
         } else {
