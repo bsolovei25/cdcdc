@@ -69,6 +69,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
 
                     if (isDeletePredictor) {
                         this.unSubscribeVirtualChannel(predictorId);
+                        this.ecWidgetService.setPredictorsCurrentValue(this.data);
                     } else {
                         this.setData(predictorId);
                     }
@@ -106,6 +107,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
                 } else {
                     this.data = [...this.data, data];
                 }
+                this.ecWidgetService.setPredictorsCurrentValue(this.data);
             })
         });
     }
