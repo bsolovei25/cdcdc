@@ -11,6 +11,9 @@ export interface IKpeEnergyTab {
     percentage?: number;
     percentageInfluence?: number;
     deviationPercentage?: number;
+    deviationPlanPredict?: number;
+    deviationPlanPredictFact?: number;
+    predict?: number;
 }
 
 @Component({
