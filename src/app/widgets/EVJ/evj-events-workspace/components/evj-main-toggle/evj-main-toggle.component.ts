@@ -73,8 +73,6 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
 
     public limitationFormControl: FormControl = new FormControl();
 
-    public isClaimRestriction: boolean = false;
-
     constructor(
         public overlayService: OverlayService,
         public widgetService: WidgetService,
@@ -99,7 +97,6 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
                 this.claimWidgets = data;
             })
         );
-        this.checkClaim();
     }
 
     public ngOnDestroy(): void {
@@ -170,7 +167,9 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
         const categoryId = this.ewService.event?.category?.id;
         const subCategoryId = this.ewService.event?.subCategory?.id;
         const eventId = this.ewService.event?.id;
-        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010 || !eventId);
+        const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsResrictions');
+        const restriction = claim?.claimCategory === 'allow';
+        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010 || !eventId || !restriction);
     }
 
     public emitAction(event: Event): void {
@@ -181,14 +180,4 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
             this.snackBar.openSnackBar('Выберите или создайте Новое событие');
         }
     }
-
-    private checkClaim(): void {
-        this.subscriptions.push(
-            this.claimService.allUserClaims$.subscribe((x) => {
-                const restriction = x.find((claim) => claim.claimType === 'eventsResrictions');
-                this.isClaimRestriction = restriction?.claimCategory === 'allow' ? true : false;
-            })
-        );
-    }
 }
-
