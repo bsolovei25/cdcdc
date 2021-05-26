@@ -27,12 +27,12 @@
   <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="quality">
       <ng-container *ngIf="displayMode === 'planFeasibility'">
-        <ng-container *ngFor="let main of cards | slice:0:1; trackBy: trackByFuncMain">
+        <ng-container *ngFor="let main of cards$ | async | slice:0:1; trackBy: trackByFuncMain">
           <ng-container *ngFor="let card of main | slice:0:2; trackBy: trackByFuncCard">
             <div class="diagram-item">
               <div class="gauge" #gauge [style]="chartWidth(gauge)">
                 <evj-kpe-gauge-chart
-                  *ngIf="!displayNewDesign"
+                  *ngIf="!(displayNewDesign$ | async)"
                   [fact]="card.gaugeChart.fact"
                   [plan]="card.gaugeChart.plan"
                   [noDeviation]="true"
@@ -41,8 +41,8 @@
                 ></evj-kpe-gauge-chart>
 
                 <evj-kpe-gauge-chart-multi-color
-                  *ngIf="displayNewDesign"
-                  [data]="deviationDiagram"
+                  *ngIf="(displayNewDesign$ | async)"
+                  [data]="deviationDiagram$ | async"
                   [type]="1"
                 ></evj-kpe-gauge-chart-multi-color>
               </div>
@@ -58,10 +58,10 @@
       </ng-container>
 
       <ng-container *ngIf="displayMode !== 'planFeasibility'">
-        <div class="quality__header" *ngIf="!!deviationDiagram">
+        <div class="quality__header" *ngIf="(deviationDiagram$ | async) as deviationDiagram">
           <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
             <evj-kpe-gauge-chart
-              *ngIf="!displayNewDesign"
+              *ngIf="!(displayNewDesign$ | async)"
               background="dark"
               [fact]="deviationDiagram?.fact"
               [plan]="deviationDiagram?.plan"
@@ -70,23 +70,23 @@
             ></evj-kpe-gauge-chart>
 
             <evj-kpe-gauge-chart-multi-color
-              *ngIf="displayNewDesign"
+              *ngIf="(displayNewDesign$ | async)"
               [data]="deviationDiagram"
               [type]="1"
             ></evj-kpe-gauge-chart-multi-color>
           </div>
           <div class="quality__header__chart">
             <evj-kpe-deviation-diagram
-              [data]="deviationChartData"
-              [currentMonth]="displayedMonth"
+              [data]="deviationChartData$ | async"
+              [currentMonth]="displayedMonth$ | async"
             ></evj-kpe-deviation-diagram>
           </div>
         </div>
-        <ng-container *ngFor="let main of cards; trackBy: trackByFuncMain">
+        <ng-container *ngFor="let main of cards$ | async; trackBy: trackByFuncMain">
           <ng-container *ngIf="displayMode === 'tiled'">
             <div class="quality__main">
               <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
-                <div *ngIf="!displayNewDesign" class="quality__main__gauge element-container">
+                <div *ngIf="!(displayNewDesign$ | async)" class="quality__main__gauge element-container">
                   <div class="card">
                     <div class="card__content">
                       <div class="card__gauge-diagram">
@@ -126,7 +126,7 @@
                 </div>
                 <evj-kpe-universal-card
                   [onlyPercent]="true"
-                  *ngIf="displayNewDesign"
+                  *ngIf="(displayNewDesign$ | async)"
                   [type]="2"
                   [gaugeChart]="card.gaugeChart"
                   [contentData]="getContentData(card.gaugeChart, card.description)"
@@ -137,7 +137,7 @@
           <ng-container *ngIf="displayMode === 'line'">
             <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
               <div class="quality__main">
-                <div *ngIf="!displayNewDesign" class="quality__main__gauge__line element-container">
+                <div *ngIf="!(displayNewDesign$ | async)" class="quality__main__gauge__line element-container">
                   <div class="card">
                     <div class="card__content">
                       <div class="card__gauge-diagram">
@@ -176,7 +176,7 @@
                   </div>
                 </div>
                 <evj-kpe-universal-card
-                  *ngIf="displayNewDesign"
+                  *ngIf="(displayNewDesign$ | async)"
                   [type]="1"
                   [gaugeChart]="{
                     fact: engUnitsComparator.isEngUnitsPercent(card.gaugeChart?.title) ? card.gaugeChart?.percentage : card.gaugeChart?.fact,

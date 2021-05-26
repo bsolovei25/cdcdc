@@ -73,6 +73,8 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
 
     public limitationFormControl: FormControl = new FormControl();
 
+    public isClaimRestriction: boolean = false;
+
     constructor(
         public overlayService: OverlayService,
         public widgetService: WidgetService,
@@ -97,6 +99,7 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
                 this.claimWidgets = data;
             })
         );
+        this.checkClaim();
     }
 
     public ngOnDestroy(): void {
@@ -177,6 +180,15 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
         } else {
             this.snackBar.openSnackBar('Выберите или создайте Новое событие');
         }
+    }
+
+    private checkClaim(): void {
+        this.subscriptions.push(
+            this.claimService.allUserClaims$.subscribe((x) => {
+                const restriction = x.find((claim) => claim.claimType === 'eventsResrictions');
+                this.isClaimRestriction = restriction?.claimCategory === 'allow' ? true : false;
+            })
+        );
     }
 }
 
