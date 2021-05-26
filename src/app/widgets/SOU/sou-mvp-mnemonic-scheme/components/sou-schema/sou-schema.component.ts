@@ -87,7 +87,7 @@ export class SouSchemaComponent implements OnChanges {
             maxTextLength: 30
         }
     };
-    private debugElementCode: number = 5;
+    private debugElementCode: number;
 
     @Input() sectionsData: SouSectionData[];
     @Input() chosenSetting: number = 1;
