@@ -116,13 +116,13 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
             name: tab.title,
             percent: tab.percentage,
             percentStatus: 'default',
-            deviationPlanPredict: tab.plan,
-            deviationPlanPredictFact: tab.fact,
+            deviationPlanPredict: tab.deviationPlanPredict,
+            deviationPlanPredictFact: tab.deviationPlanPredictFact,
             fact: tab.fact,
             percentageInfluence: +tab.percentageInfluence.toFixed(2),
             plan: tab.plan,
             planPredict: tab.plan,
-            predict: tab.plan,
+            predict: tab.predict,
         }
     }
 }
