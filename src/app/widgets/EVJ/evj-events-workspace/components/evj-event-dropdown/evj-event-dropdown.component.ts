@@ -28,6 +28,9 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     public fullObject: EventEmitter<any> = new EventEmitter();
 
     @Input()
+    public selectedFirst: boolean = true;
+
+    @Input()
     public disabled: boolean = false;
 
     @Input()
