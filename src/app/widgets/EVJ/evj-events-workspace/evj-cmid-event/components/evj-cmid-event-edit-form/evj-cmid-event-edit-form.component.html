@@ -1,18 +1,20 @@
 <div class="event-card">
   <section class="event-card__section">
     <div class="row">
+      <form [formGroup]="filterForm">
       <evj-event-dropdown fieldName="name"
-                          [formControl]="selectPlant"
+                          formControlName="selectPlant"
                           [items]="plants$ | async" [disabled]="true" style="width: 127px;">Предприятие:
       </evj-event-dropdown>
       <evj-event-dropdown fieldName="name"
-                          [formControl]="selectManufacture"
+                          formControlName="selectManufacture"
                           [items]="manufactures$ | async" style="width: 300px;">Производство:
       </evj-event-dropdown>
       <evj-event-dropdown fieldName="name"
-                          [formControl]="selectSetup"
+                          formControlName="selectSetup"
                           [items]="setups$ | async" style="width: 127px;">Установка:
       </evj-event-dropdown>
+      </form>
     </div>
   </section>
 
@@ -59,7 +61,7 @@
     <h2>Позиции для отключения</h2>
     <div class="row">
       <div class="row__title">
-        <span>Позиции КД ПАЗ по установке {{ selectSetup.value.name }}:</span>
+        <span>Позиции КД ПАЗ по установке {{ filterForm.get('selectSetup').value.name }}:</span>
       </div>
     </div>
     <div class="row">

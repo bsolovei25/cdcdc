@@ -5,6 +5,9 @@ export interface ICmidEventChip {
     description?: string;
     position?: string;
     piTag?: string;
+    positionDescription?: string;
+    positionId?: string;
+    positionName?: string;
 }
 
 

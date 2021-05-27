@@ -82,7 +82,7 @@ export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnI
 
     public selectItem(item: IPlanItem, status: boolean): void {
         item.selected = status;
-        const foundedItem = Array.from(this.selectedItems).find((el) => item.id === el.id);
+        const foundedItem = Array.from(this.selectedItems).find((el) => item.positionId === el.positionId);
 
         if (foundedItem) {
             item = foundedItem;
