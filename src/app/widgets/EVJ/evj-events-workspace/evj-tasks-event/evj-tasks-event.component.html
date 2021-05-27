@@ -48,7 +48,7 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+          <ng-container *ngIf="ewService.event.category.code!=='2' else tasksSubcategories">
             <div class="title">
               <span>Тип оборудования</span>
             </div>
@@ -75,22 +75,22 @@
       </div>
       <div class="description">
         <div class="extra-options">
-          <div class="title" *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
+          <div class="title" *ngIf="ewService.event?.subCategory.id === 1000">
             <span>Распоряжение</span>
           </div>
           <div
             class="title"
-            *ngIf="ewService.event?.productionTasks.subCategory.id === 1020 ||
-              ewService.event?.productionTasks.subCategory.id === 1030 ||
-              ewService.event?.productionTasks.subCategory.id === 1040"
+            *ngIf="ewService.event?.subCategory.id === 1020 ||
+              ewService.event?.subCategory.id === 1030 ||
+              ewService.event?.subCategory.id === 1040"
           >
             <span>Краткое описание</span>
           </div>
-          <div class="extra-options__name" *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
+          <div class="extra-options__name" *ngIf="ewService.event?.subCategory.id === 1000">
             <span>Дополнительные параметры</span>
           </div>
           <mat-checkbox
-            *ngIf="ewService.event?.productionTasks.subCategory.id === 1000"
+            *ngIf="ewService.event.subCategory?.id === 1000"
             class="checkbox"
             color="primary"
             [formControl]="kpeAdditionalParameter"
@@ -223,8 +223,13 @@
   </div>
 </div>
 
-<ng-template #subcategories>
-  <evj-events-workspace-select [label]="'Подкатегория'" [dataType]="'subCategories'"></evj-events-workspace-select>
+<ng-template #tasksSubcategories>
+  <div class="title">
+    <span>Подкатегория</span>
+  </div>
+  <evj-events-workspace-select [dataType]="'subCategoriesFilter'"
+                               [categoryTypeSet]="'tasks'">
+  </evj-events-workspace-select>
 </ng-template>
 
 <evj-evj-events-workspace-extra-options

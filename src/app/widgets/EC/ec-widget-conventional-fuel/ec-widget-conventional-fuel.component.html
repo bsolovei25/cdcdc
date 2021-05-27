@@ -29,7 +29,7 @@
           <div class="dropdown">
             <mat-select placeholder="Установка" class="dropdown__select" [formControlName]="'unit'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let unit of newStructureMenuData?.menu.units" [value]="unit.id">{{ unit.name }}</mat-option>
+              <mat-option *ngFor="let unit of getMenuUnits()" [value]="unit.id">{{ unit.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="dropdown">
             <mat-select placeholder="Энергоресурс" class="dropdown__select" [formControlName]="'resource'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let resource of newStructureMenuData?.menu.energyResources" [value]="resource.id">{{ resource.name }}</mat-option>
+              <mat-option *ngFor="let resource of getEnergyResource()" [value]="resource.id">{{ resource.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -141,11 +141,11 @@
         </div>
         <div
           class="card card__tag"
-          *ngFor="let card of (predictors$ | async)?.predictors"
+          *ngFor="let card of (predictorsCurrentValue$ | async)?.predictors"
           [style.border-color]="card.color"
         >
           <span class="value"> {{ card.val | number:'0.0-2' }} </span>
-          <span class="unit"> {{ card.units }} </span>
+          <span class="unit"> {{ card?.units }} </span>
         </div>
       </div>
       <evj-ec-widget-multi-chart

@@ -21,7 +21,7 @@ export class EcWidgetBigPlanningChartComponent extends WidgetPlatform implements
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
     public colors: Map<string, number>;
-    public scaleCounter: number = 20;
+    public scaleCounter: number = 5;
     public chartValue: number = 0;
 
     set scale(isMinus: boolean) {

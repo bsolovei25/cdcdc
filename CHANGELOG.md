@@ -1,3 +1,48 @@
+# [1.31.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.30.0...v1.31.0) (2021-05-26)
+
+
+### Bug Fixes
+
+* **EC:** "Починить структуру виджета условного топлива" front[#1995](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1995) ([788f744](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/788f744102fc4d036b44b8a477ae815d92a1247d))
+* **EC:** Уменьшение количества точек на графиках в 2 раза. [#1930](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1930) ([06f618b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/06f618bd44494a18ed828561dfbc7ae4ee720bea))
+* **front#1997:** СОУ Исправлены выводы в элементах ([6c2e53e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6c2e53e356c930097c60173b0d1e12f0e78f59e7)), closes [front#1997](https://gitlab.funcoff.club/front/issues/1997)
+* **front#2005:** СОУ Исправлена индикация элоу авт-10 ([60e92e2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/60e92e2fd12c28d414dc4f4d4a131d5f7056af51)), closes [front#2005](https://gitlab.funcoff.club/front/issues/2005)
+* **Notifications:** Внесены правки по верстке в рабочую область событий. Убран скролл при растягивании виджета на весь экран по вертикали. front[#1919](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1919) ([eab0572](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/eab0572144b2abbb0effedd350bfbebede48bc87))
+
+
+### Features
+
+* **front#1978:** СОУ Добавлены id линий на мнемосхемах ([5274f32](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5274f32af7897b650e06d781629a0c0b2611bbe7)), closes [front#1978](https://gitlab.funcoff.club/front/issues/1978)
+* **SOU:** add removing axis labels for small screen. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([61b6a7d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/61b6a7dae59e8097432ce5c2246fe34079babcca))
+* **SOU:** remove console.loges. [#1859](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1859) ([850a013](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/850a01375846c597726530c1195939e58aabaf42))
+
+# [1.30.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.29.0...v1.30.0) (2021-05-25)
+
+
+### Bug Fixes
+
+* **ASTUE:** Удаление графиков. front[#1791](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1791) ([84a8f5c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/84a8f5c59a9d82b5762580ddd48caf6452d2e636))
+* **EC:** В условном топливе сбрасывается верхнее меню после отображения графика предиктора. [#1930](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1930) ([0c6e904](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0c6e9041ba92454520fadcd3965099e30c927086))
+* **EC:** Очистка кода виджетов EC от старой логики, подписок, сервисов. [#1969](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1969) ([e8a4910](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e8a49104a62839a6248cc9d3393b9fedb1dc467d))
+* **front#1898:** Испавлена верстка панели администратора ([d0c786e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d0c786e3409a9b2dc1fec644c1d18cc0aa1bc615)), closes [front#1898](https://gitlab.funcoff.club/front/issues/1898)
+* **front#1928:** СОУ Исправлено отображение изомалк-2 ([523a803](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/523a8034d85a9e2a4bad0e852261d3b495b0c8e4)), closes [front#1928](https://gitlab.funcoff.club/front/issues/1928)
+* **front#1967:** СОУ использование свойства isMeasurable в мнемосхемах ([c59dbca](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c59dbcab5d1806c25c5e883603b329201e4efca5)), closes [front#1967](https://gitlab.funcoff.club/front/issues/1967)
+* **front#1970:** СОУ исправлено отображение ГФУ2 ([08efd30](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/08efd30ee45c122f8f9a91059f47ec4093f5df05)), closes [front#1970](https://gitlab.funcoff.club/front/issues/1970)
+* **Notifications:** Расширены карточки Безопасность и Состояние оборудования полем Подкатегория. Внесены правки в уже существующую реализацию Подкатегорий. front[#1579](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1579) ([13d3320](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/13d33202162e7e7fc7a05d72534605073b453d46))
+* **Notifications:** Расширены карточки Безопасность и Состояние оборудования полем Подкатегория. Внесены правки в уже существующую реализацию Подкатегорий. front[#1579](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1579) ([2dfe739](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/2dfe739d0efc529d09e50fe693aab7ac90932b10))
+* **Notifications:** События. Настроить сортировку в списке ответственных. front[#1829](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1829) ([cccdf39](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cccdf39f8b40bd0f359cb448fb0faa70a9607c7a))
+
+
+### Features
+
+* **front#1802:** Добавлен выбор секунд в контрол выбора периода ([b7a9b90](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b7a9b90469029c5c24dd7d79dbac63d1435d82f1)), closes [front#1802](https://gitlab.funcoff.club/front/issues/1802)
+* **Notifications:** Добавлен Claim и checkbox в соответствии с ограничениями пользователя. front[#1826](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1826) ([05f6065](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/05f60654c911ff9fe50e7f2732ceb2685451bb14))
+* **SOU:** change product name. [#1738](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1738) ([3de965b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3de965b9da5e818b665ef4dd10ca694ced0b008a))
+* **SOU:** fix bug with product name abbreviation. [#1738](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1738) ([c698af2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c698af201c44a6dad167b2a150c964aa8da85925))
+* **ЦМИД:** Виджет Количество отключений. Рефакторинг [#1698](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1698) ([8a45b4b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8a45b4b2b6067baed0695614a8684978d095e77c))
+* **ЦМИД:** Использовал словарь вместо emun [#1787](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1787) ([1ebc207](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1ebc2073feaa1a560e4a06876df49dba91d86c67))
+* **ЦМИД:** Оптимизировал SVG [#1787](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1787) ([c0dd6d4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c0dd6d42dc2b0968463d595e0eac35816806c2c1))
+
 # [1.29.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.28.3...v1.29.0) (2021-05-21)
 
 

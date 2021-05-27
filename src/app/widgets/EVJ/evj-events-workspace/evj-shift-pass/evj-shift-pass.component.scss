@@ -1,3 +1,9 @@
+:host {
+  display: block;
+  height: calc(100% - 15px);
+  padding-bottom: 15px;
+}
+
 .workspace {
   height: 100%;
   font-family: Tahoma, sans-serif;
@@ -78,6 +84,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
+    gap: 10px;
 
     &__right {
       flex-grow: 1;
@@ -88,9 +95,6 @@
       justify-content: flex-start;
       font-size: 13px;
       line-height: 16px;
-
-      padding-right: 5px;
-      padding-left: 5px;
 
       .place-date {
         width: 100%;

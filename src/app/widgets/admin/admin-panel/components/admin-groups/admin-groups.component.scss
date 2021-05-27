@@ -86,7 +86,7 @@
       justify-content: flex-start;
       align-items: center;
 
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: hidden;
     }
 
@@ -180,7 +180,7 @@
           align-items: flex-start;
           flex-wrap: wrap;
 
-          overflow-y: scroll;
+          overflow-y: auto;
           overflow-x: hidden;
 
           * {

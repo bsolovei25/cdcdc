@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 import { WidgetService } from "@dashboard/services/widget.service";
@@ -23,8 +23,9 @@ export interface IKpeEnergy {
     selector: 'evj-kpe-energy',
     templateUrl: './kpe-energy.component.html',
     styleUrls: ['./kpe-energy.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, AfterViewInit {
+export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit {
     // static true fix expression has been checked
     @ViewChild('gauge', { static: true })
     public gaugeElement: ElementRef;
@@ -49,7 +50,6 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
         private http: HttpClient,
         protected widgetService: WidgetService,
         private kpeHelperService: KpeHelperService,
-        private cdr: ChangeDetectorRef,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -58,10 +58,6 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
 
     public ngOnInit(): void {
         super.widgetInit();
-    }
-
-    public ngAfterViewInit(): void {
-        this.cdr.detectChanges();
     }
 
     public trackByIndex(index: number): number {
@@ -116,13 +112,14 @@ export class KpeEnergyComponent extends WidgetPlatform<IKpeWidgetAttributes> imp
             name: tab.title,
             percent: tab.percentage,
             percentStatus: 'default',
-            deviationPlanPredict: tab.plan,
-            deviationPlanPredictFact: tab.fact,
+            deviationPlanPredict: tab.deviationPlanPredict,
+            deviationPlanPredictFact: tab.deviationPlanPredictFact,
             fact: tab.fact,
             percentageInfluence: +tab.percentageInfluence.toFixed(2),
+            isWarning: tab.isWarning,
             plan: tab.plan,
             planPredict: tab.plan,
-            predict: tab.plan,
+            predict: tab.predict,
         }
     }
 }

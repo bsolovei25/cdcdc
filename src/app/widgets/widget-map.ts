@@ -1901,4 +1901,62 @@ export const WIDGETS_LAZY = {
         preview: 'ec-widget-table-model'
     },
     // #endregion EC
+
+    //#region SUUTP
+    'suutp-equipment-factory-state': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 60,
+        itemRows: 12,
+        minItemCols: 21,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-catalytic-cracking': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-fractions-processing': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-kupn': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-primary-processes': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    }
+    //#region SUUTP
 };

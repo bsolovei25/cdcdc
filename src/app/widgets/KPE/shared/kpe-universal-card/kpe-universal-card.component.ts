@@ -47,6 +47,7 @@ export class KpeUniversalCardComponent implements OnInit, OnChanges {
         percentageInfluence: 0,
         plan: 0,
         planPredict: 0,
+        isWarning: false,
         predict: 0,
     };
 
