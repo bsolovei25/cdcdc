@@ -1,11 +1,17 @@
 <div class="event-card">
   <section class="event-card__section">
     <div class="row">
-      <evj-event-dropdown [items]="['ОНПЗ']" [disabled]="true" style="width: 127px;">Предприятие:
+      <evj-event-dropdown fieldName="name"
+                          [formControl]="selectPlant"
+                          [items]="plants$ | async" [disabled]="true" style="width: 127px;">Предприятие:
       </evj-event-dropdown>
-      <evj-event-dropdown [items]="['Производство 1']" [disabled]="true" style="width: 300px;">Производство:
+      <evj-event-dropdown fieldName="name"
+                          [formControl]="selectManufacture"
+                          [items]="manufactures$ | async" style="width: 300px;">Производство:
       </evj-event-dropdown>
-      <evj-event-dropdown [items]="['АВТ-10']" style="width: 127px;">Установка:
+      <evj-event-dropdown fieldName="name"
+                          [formControl]="selectSetup"
+                          [items]="setups$ | async" style="width: 127px;">Установка:
       </evj-event-dropdown>
     </div>
   </section>
@@ -53,14 +59,13 @@
     <h2>Позиции для отключения</h2>
     <div class="row">
       <div class="row__title">
-        <span>Позиции КД ПАЗ по установке АВТ-10:</span>
+        <span>Позиции КД ПАЗ по установке {{ selectSetup.value.name }}:</span>
       </div>
     </div>
     <div class="row">
-      <evj-cmid-event-plan-table></evj-cmid-event-plan-table>
-    </div>
-    <div class="row">
-      <evj-cmid-event-chips [toggleValue]="toggleValue"></evj-cmid-event-chips>
+      <evj-cmid-event-plan-table [formControl]="kdcards"
+                                 (onSearch)="searchPosition($event)"
+                                 [items]="positions$ | async"></evj-cmid-event-plan-table>
     </div>
 
     <div class="row">

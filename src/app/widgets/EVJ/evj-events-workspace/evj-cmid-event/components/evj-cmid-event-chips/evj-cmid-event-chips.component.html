@@ -7,6 +7,7 @@
       <span>{{ chip.name }}</span>
       <svg-icon
         *ngIf="enableControls"
+        (click)="$event.stopPropagation(); removeItem(chip)"
         class="icon"
         src="assets/icons/widgets/workspace/cmid/chips-close.svg"
       ></svg-icon>
@@ -15,7 +16,7 @@
   <!--<div class="add-chip" *ngIf="enableControls">
     <svg-icon class="add-chip" src="assets/icons/widgets/workspace/cmid/chips-add.svg"></svg-icon>
   </div>-->
-  <div class="counter" *ngIf="enableTitles">
-    <span><span class="selected">5</span> / 602</span>
+  <div class="counter" *ngIf="enableTitles && chips?.length">
+    <span class="selected">{{ chips.length }} / {{ totalCount }} </span>
   </div>
 </div>

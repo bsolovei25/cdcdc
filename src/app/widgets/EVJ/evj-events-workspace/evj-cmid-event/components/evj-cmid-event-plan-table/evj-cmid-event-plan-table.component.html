@@ -1,43 +1,30 @@
 <div class="container">
-  <div class="container__header">
+  <div [class.disabled]="!list?.length" class="container__header">
     <div>
-      <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
+      <mat-checkbox class="checkbox" [(ngModel)]="selectAllControl" (change)="changeSelectAll($event)" color="primary"></mat-checkbox>
       <label>Выбрать все</label>
     </div>
     <div class="search">
       <div class="custom-input">
         <svg-icon class="custom-input__icon" src="assets/icons/widgets/workspace/cmid/search.svg"></svg-icon>
-        <input type="text" placeholder="Поиск..."/>
+        <input type="text" [formControl]="searchControl" placeholder="Поиск..." />
       </div>
     </div>
   </div>
   <div class="container__table">
-    <div class="row active">
-      <div class="row__column name">
-        <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
-        <label>K_DBL_D161</label>
-      </div>
-      <div class="row__column description">
-        <span>Дымосос Д161</span>
-      </div>
-    </div>
-    <div class="row active highlight">
-      <div class="row__column name">
-        <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
-        <label>K_DBL_D161</label>
-      </div>
-      <div class="row__column description">
-        <span>Дымосос Д161</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="row__column name">
-        <mat-checkbox class="checkbox" color="primary"></mat-checkbox>
-        <label>K_DBL_FI30A</label>
-      </div>
-      <div class="row__column description">
-        <span>Горячая струя в П-101_1 поток (л.1/9-1)_дубль</span>
-      </div>
-    </div>
+    <!-- TODO: Уточнить почему активное и хайлайт -->
+
+    <evj-cmid-event-plan-table-item
+      *ngFor="let item of list"
+      (onSelect)="selectItem(item, $event)"
+      [selected]="item.selected"
+      [class.active]="false"
+      [class.highlight]="false"
+      [item]="item"
+    >
+    </evj-cmid-event-plan-table-item>
   </div>
+</div>
+<div class="row">
+  <evj-cmid-event-chips [chips]="val" [totalCount]="list?.length || 0" (onRemoveItem)="removeItem($event)"></evj-cmid-event-chips>
 </div>
