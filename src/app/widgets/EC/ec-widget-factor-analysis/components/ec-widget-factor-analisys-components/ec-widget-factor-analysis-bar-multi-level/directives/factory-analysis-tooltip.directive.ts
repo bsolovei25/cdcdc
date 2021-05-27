@@ -66,7 +66,7 @@ export class FactoryAnalysisTooltipDirective implements OnInit, OnDestroy {
         tooltipRef.instance.unit = this.unit;
     }
 
-    @HostListener('mouseout')
+    @HostListener('mouseleave')
     public hide(): void {
         this.overlayRef.detach();
     }
