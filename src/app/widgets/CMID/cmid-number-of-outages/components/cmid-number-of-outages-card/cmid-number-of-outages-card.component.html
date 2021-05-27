@@ -14,19 +14,21 @@
           <ng-container *ngFor="let plant of manufacture?.plants">
             <div class="outage-table__row outage">
               <div class="outage__name">
-                <svg-icon [src]="'assets/icons/widgets/CMID/number-of-outages/' + getIconType(plant)"></svg-icon>
+                <svg-icon class="outage__icon"
+                          [src]="'assets/icons/widgets/CMID/number-of-outages/plant-default.svg'"
+                          [class]="getIconClass(plant)"></svg-icon>
                 {{plant.name}}
               </div>
               <div class="outage__data">
-                  <span class="outage__value" [ngClass]="{'outage__value_unauthorized': plant.unauthorized > 0 }">
+                <span class="outage__value" [class.outage__value_unauthorized]="plant.unauthorized > 0">
                     {{plant.unauthorized}}
-                  </span>
-                <span class="outage__value" [ngClass]="{'outage__value_expired': plant.expired > 0 }">
+                </span>
+                <span class="outage__value" [class.outage__value_expired]="plant.expired > 0">
                     {{plant.expired}}
-                  </span>
-                <span class="outage__value" [ngClass]="{'outage__value_total': plant.total > 0 }">
+                </span>
+                <span class="outage__value" [class.outage__value_total]="plant.total > 0">
                     {{plant.total}}
-                  </span>
+                </span>
               </div>
             </div>
           </ng-container>

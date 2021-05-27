@@ -46,7 +46,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<IEnvironmentName
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
-        const flagSubcat: boolean = this.ewService.event?.productionTasks?.subCategory?.id === 1000;
+        const flagSubcat: boolean = this.ewService.event?.subCategory?.id === 1000;
         const flagNew: boolean = this.ewService.event?.status?.name === 'new';
         const message: string = flagNew ? 'В работу' : 'Завершить';
 

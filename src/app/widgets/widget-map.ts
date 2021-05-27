@@ -1318,7 +1318,7 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-streams/sou-streams.module');
         },
         module: 'SouStreamsModule',
-        itemCols: 32,
+        itemCols: 30,
         itemRows: 30,
         minItemCols: 50,
         minItemRows: 20,
@@ -1330,9 +1330,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-workspace/sou-workspace.module');
         },
         module: 'SouWorkspaceModule',
-        itemCols: 30,
+        itemCols: 50,
         itemRows: 22,
-        minItemCols: 30,
+        minItemCols: 45,
         minItemRows: 15,
         preview: 'default',
     },
@@ -1857,7 +1857,7 @@ export const WIDGETS_LAZY = {
         module: 'CmidDynamicsOfMetricsChangeModule',
         itemCols: 50,
         itemRows: 10,
-        minItemCols: 50,
+        minItemCols: 25,
         minItemRows: 10,
         preview: 'default',
     },
@@ -1901,4 +1901,62 @@ export const WIDGETS_LAZY = {
         preview: 'ec-widget-table-model'
     },
     // #endregion EC
+
+    //#region SUUTP
+    'suutp-equipment-factory-state': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 60,
+        itemRows: 12,
+        minItemCols: 21,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-catalytic-cracking': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-fractions-processing': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-kupn': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'suutp-equipment-primary-processes': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
+        },
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
+    }
+    //#region SUUTP
 };

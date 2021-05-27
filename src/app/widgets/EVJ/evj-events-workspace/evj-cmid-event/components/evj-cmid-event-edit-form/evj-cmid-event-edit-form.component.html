@@ -18,10 +18,16 @@
       <div class="column__block">
         <div class="row">
           <evj-cmid-event-toggle (value)="setToggleValue($event)"></evj-cmid-event-toggle>
-          <evj-event-dropdown [items]="['Технологические']">Тип причины отключения:</evj-event-dropdown>
+          <evj-event-dropdown
+            [formControl]="typeOfReasonControl"
+            fieldName="tripReasonName"
+            [items]="typeOfReason$ | async">Тип причины отключения:</evj-event-dropdown>
         </div>
         <div class="row">
-          <evj-event-dropdown [items]="['Неисправность технологического оборудования']">Причина отключения:
+          <evj-event-dropdown
+            fieldName="name"
+            [formControl]="reasonsOfDisconnectControl"
+            [items]="reasonsOfDisconnect$ | async">Причина отключения:
           </evj-event-dropdown>
         </div>
       </div>

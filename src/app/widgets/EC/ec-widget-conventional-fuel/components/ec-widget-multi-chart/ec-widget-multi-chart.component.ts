@@ -25,19 +25,11 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 import { EcWidgetService } from '../../../ec-widget-shared/ec-widget.service';
 import { EcWidgetConventionalFuelService } from '../../ec-widget-conventional-fuel.service';
+import { lineColors } from "@widgets/EC/ec-widget-shared/constants/colors.const";
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
     isIconsShowing?: boolean;
 }
-
-const lineColors: { [key: string]: string } = {
-    1: 'var(--data-c5-color)',
-    2: 'var(--index-plan-color)',
-    3: 'var(--index-blue1-color)',
-    4: 'var(--data-c3-color)',
-    5: 'var(--data-c7-color)',
-    6: 'var(--data-c1-color)',
-};
 
 @Component({
     selector: 'evj-ec-widget-multi-chart',
@@ -841,13 +833,6 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                     iconType: chart.graphType ?? 'volume',
                 });
             }
-        });
-        this.astueOnpzConventionalFuelService.predictorsInfo$.next({
-            fact,
-            plan,
-            factModel,
-            predictors: [...values],
-            units,
         });
     }
 

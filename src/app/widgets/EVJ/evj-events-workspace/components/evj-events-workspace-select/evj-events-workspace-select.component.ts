@@ -23,7 +23,6 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
         | 'status'
         | 'priorities'
         | 'categories'
-        | 'subCategories'
         | 'subCategoriesFilter'
         | 'eventType'
         | 'place'
@@ -41,10 +40,26 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     @Input()
     public disabled: boolean = false;
 
+    @Input() public set categoryTypeSet(category: string) {
+        switch (category) {
+            case 'tasks':
+                this.categoryType = 'tasksSubcategoryFilter'
+                break;
+            case 'safety':
+                this.categoryType = 'safetySubcategoryFilter'
+                break;
+            case 'equipmentStatus':
+                this.categoryType = 'equipmentStatusSubcategoryFilter'
+                break;
+        }
+    }
+
     @Output()
     public onValueChange: EventEmitter<string | number | IEventsWorkspaceSelectValue> = new EventEmitter<
         string | number | IEventsWorkspaceSelectValue
     >();
+
+    public categoryType: string;
 
     constructor(public ewService: EventsWorkspaceService) {}
 

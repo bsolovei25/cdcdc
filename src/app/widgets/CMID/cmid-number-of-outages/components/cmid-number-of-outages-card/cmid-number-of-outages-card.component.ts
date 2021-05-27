@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { INumberOfOutagesModel, IPlant } from "@widgets/CMID/cmid-number-of-outages/models/cmid-number-of-outages.model";
+import { CmidNumberOfOutageIconClasses } from "@widgets/CMID/cmid-number-of-outages/components/cmid-number-of-outages-card/types/cmid-number-of-outage-icon-classes";
 
 @Component({
     selector: 'evj-number-of-outages-card',
@@ -10,17 +11,21 @@ import { INumberOfOutagesModel, IPlant } from "@widgets/CMID/cmid-number-of-outa
 export class CmidNumberOfOutagesCardComponent {
     @Input() groups: INumberOfOutagesModel;
 
-    getIconType(plant: IPlant): string {
+    public readonly outageIconClasses: { [key in CmidNumberOfOutageIconClasses]: string } = {
+        unauthorized: 'outage__icon_unauthorized',
+        expired: 'outage__icon_expired',
+        active: 'outage__icon_active'
+    };
+
+    getIconClass(plant: IPlant): string {
         if (plant.unauthorized > 0) {
-            return 'plant-unauthorized.svg'
+            return this.outageIconClasses.unauthorized;
         }
         if (plant.unauthorized === 0 && plant.expired > 0) {
-            return 'plant-expired.svg'
+            return this.outageIconClasses.expired;
         }
         if (plant.expired === 0 && plant.total > 0) {
-            return 'plant-active.svg'
+            return this.outageIconClasses.active;
         }
-
-        return 'plant-default.svg'
     }
 }

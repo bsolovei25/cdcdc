@@ -114,24 +114,28 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartInit();
     }
 
-    private getFactPercent(fact: number, plan: number, zeroOn: 'Right' | 'Left'): number {
-        let per;
-        per = zeroOn === 'Right' ? 100 - (fact / plan * 100 > 100 ? 99 : fact / plan * 100) : fact / plan * 100;
-        per = per > 100 ? 100 : per < -100 ? -100 : per;
-        return per || 0;
+    private getTotalHourPercent(totalHour: number, maxBound: number, minBound: number, zeroOn: 'Right' | 'Left'): number {
+        // Получаем цену деления
+        const divisionValue = (maxBound - minBound) / 100;
+        // Получаем текущий процент totalHour
+        const currentPercent = (totalHour - minBound) / divisionValue;
+        // В случае с началом О на правой стороне отнимаем от 100 полученый результат - что дает реверсивное положение
+        return zeroOn === 'Left' ? currentPercent : 100 - (currentPercent >= 100 ? 99 : currentPercent );
     }
 
     private limitArray(arr: number[]): number[] {
         // перегоняем массив в процентном соотношении до 100
         if (!arr) return [];
         const maxBound = Math.max.apply(null, arr)
+        const minBound = Math.min.apply(null, arr)
         // Если обратное заполнение, то "зеркалим" массив
         if (this.data?.zeroOn === 'Right') {
-            return [...arr]
-                .map(item => {
+            return arr.map(item => {
                     if (arr[arr.length - 1] !== 0) {
-                        // если минимум не равин 0, отнимаем минимум от всех, что бы отразить проценты от 0
-                        return Math.floor((item - arr[arr.length - 1]) / (maxBound - arr[arr.length - 1]) * 100)
+                        // если минимум не равен 0, отнимаем миниальное значение от максимального и находим цену деления
+                        // которую используем что бы найти процент текущего значения
+                        const valDivision = (maxBound - minBound) / 100;
+                        return Math.floor((item - minBound) / valDivision)
                     } else {
                        return Math.floor(item / maxBound * 100)
                     }
@@ -142,26 +146,25 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             // если минимум не равен 0, отнимаем минимум от максимального значения и находим цену деления
             const valDivision = (maxBound - arr[0]) / 100;
             // делим текущее значение за вычетом минимального значения на цену деления и получаем процент текущего значения
-            return [...arr].map(item => Math.floor((item - arr[0]) / valDivision));
+            return arr.map(item => Math.floor((item - arr[0]) / valDivision));
         } else {
-            return [...arr].map(item => Math.floor(item / maxBound * 100));
+            return arr.map(item => Math.floor(item / maxBound * 100));
         }
     }
 
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds)
+        const minBound = Math.min.apply(null, this.data?.bounds)
         this.chartConfig[this.type].gauge.total = this.isFactInChartCenter
             ? this.data?.fact
             : this.data?.totalHour;
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds?.slice(0, -1);
-        this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getFactPercent(this.data?.fact, maxBound, this.data?.zeroOn));
+        this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getTotalHourPercent(this.data?.totalHour, maxBound, minBound, this.data.zeroOn));
         this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
         this.chartConfig[this.type].gauge.unit = this.data?.unit;
-        if (this.data.bounds.length === 5) {
-            console.log(this.limitArray(this.data.bounds), this.data);
-        }
+        
         // Данные для активной области
         let value;
         let boundEdge;
@@ -392,7 +395,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        if (this.data?.fact < this.data.plan) {
+        if (this.data?.fact < this.data?.plan) {
             // если мы выполнили план, активной секции нет
             drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
         }

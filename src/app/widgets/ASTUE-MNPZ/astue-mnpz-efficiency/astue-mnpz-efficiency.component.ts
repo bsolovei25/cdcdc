@@ -65,6 +65,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
 
     protected dataHandler(ref: { products: IAsEfProduct[] }): void {
         this.data = ref.products;
+        this.astueEfficiencyService.data.next(ref.products);
         this.isLoading = false;
     }
 

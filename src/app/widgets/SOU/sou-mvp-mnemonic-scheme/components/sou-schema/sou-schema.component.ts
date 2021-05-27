@@ -10,7 +10,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { ISouFlowIn, ISouFlowOut, SouSectionData } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 
 interface IElementFull {
     code: number;
@@ -131,6 +131,7 @@ export class SouSchemaComponent implements OnChanges {
     // Ждет пока загрузится svg, проверяет ключевой элемент и запускает обработку svg
     public processSvgWhenItIsReady(): void {
         const processSvg = () => {
+            console.log('SVG name:', this.svgName);
             this.parseSvg();
             this.resetSvg();
 
@@ -217,12 +218,12 @@ export class SouSchemaComponent implements OnChanges {
         const element = this.elementsMap.get(sectionData?.code);
 
         if (element?.children) {
-            const isNotMeasured = !this.isStreamMeasured(sectionData);
+            const isNotMeasurable = !this.isStreamMeasurable(sectionData);
             const mode = this.getElementMode(sectionData);
             const elementId = this.getElementId(element);
             const elementFull = this.elementsFullMap?.get(elementId);
 
-            this.addClassAndTextToElement(element, mode, elementFull, isNotMeasured);
+            this.addClassAndTextToElement(element, mode, elementFull, isNotMeasurable);
             this.addElementClickListenerIfNeed(element, elementFull);
             this.setElementTextNodeClassIfNeed(element);
         }
@@ -231,7 +232,7 @@ export class SouSchemaComponent implements OnChanges {
     private getElementMode(sectionData: SouSectionData): TypeMode {
         const { isExceedingConfInterval, isEnable } = sectionData;
 
-        if (isExceedingConfInterval && isEnable && this.isStreamMeasured(sectionData)) {
+        if (isExceedingConfInterval && isEnable && this.isStreamMeasurable(sectionData)) {
             return 'deviation';
         } else if (!isEnable) {
             return 'disabled';
@@ -322,7 +323,7 @@ export class SouSchemaComponent implements OnChanges {
         element: Element,
         mode: TypeMode,
         elementFull?: IElementFull,
-        isNotMeasured?: boolean,
+        isNotMeasurable?: boolean,
     ): void {
         if (!elementFull) {
             elementFull = this.elementsFullMap?.get(this.getElementId(element));
@@ -356,9 +357,9 @@ export class SouSchemaComponent implements OnChanges {
             this.setElementMode(elementFull?.ellipse, mode);
         }
 
-        this.updateElementValue(element, mode);
-
         const sectionData = this.getSectionDataByElement(element);
+
+        this.updateElementValue(element, mode);
 
         // related elements
         if (typeof sectionData?.related === 'object') {
@@ -400,7 +401,7 @@ export class SouSchemaComponent implements OnChanges {
                     }
 
                     if (this.isElementLine(elementRelated)) {
-                        this.setElementMode(elementRelated, mode, undefined, isNotMeasured);
+                        this.setElementMode(elementRelated, mode, undefined, isNotMeasurable);
                     }
                 }
             });
@@ -425,8 +426,11 @@ export class SouSchemaComponent implements OnChanges {
 
             if ('productName' in sectionData) {
                 return sectionData.productName;
-            } else {
+            } else if ('name' in sectionData) {
                 return sectionData.name;
+            } else if ('tag' in sectionData) {
+                const sectionDataAsFlowInOut = sectionData as ISouFlowIn | ISouFlowOut;
+                return sectionDataAsFlowInOut.tag;
             }
         }
 
@@ -438,9 +442,7 @@ export class SouSchemaComponent implements OnChanges {
         const elementTypeId = this.getElementTypeId(element);
 
         if (elementTypeId === 11) {
-            if ('tolerance' in sectionData) {
-                return String(sectionData.tolerance);
-            }
+            return String(sectionData.tolerance);
         }
 
         if ('valueMomentPercent' in sectionData) {
@@ -479,14 +481,32 @@ export class SouSchemaComponent implements OnChanges {
         const sectionData = this.getSectionDataByElement(element);
 
         if (sectionData) {
-            if (elementFull?.textValue) {
-                const value = this.getElementValue(sectionData);
-                this.addTextToTextElem(elementFull.textValue, `${value} т`);
-            }
+            const elementTypeId = this.getElementTypeId(element);
 
-            if (elementFull?.textPercent) {
-                const valuePercent = this.getElementValuePercent(sectionData);
-                this.addTextToTextElem(elementFull.textPercent, `${valuePercent}%`);
+            if (elementTypeId === 11) {
+                // Элемент 11 типа автоматически меняет вид (не)измеряемого
+                if (this.isStreamMeasurable(sectionData)) {
+                    this.removeElemClass(elementFull?.textPercent, ['not-measurable-text']);
+                    this.addTextToTextElem(
+                        elementFull.textPercent,
+                        `${this.getElementValuePercent(sectionData)}%`,
+                    );
+                } else {
+                    this.addElemClass(elementFull?.textPercent, ['not-measurable-text']);
+                    this.addTextToTextElem(elementFull.textPercent, '—');
+                }
+            } else {
+                if (elementFull?.textValue) {
+                    const value = this.getElementValue(sectionData);
+                    this.addTextToTextElem(elementFull.textValue, `${value} т`);
+                }
+
+                if (elementFull?.textPercent) {
+                    this.addTextToTextElem(
+                        elementFull.textPercent,
+                        `${this.getElementValuePercent(sectionData)}%`,
+                    );
+                }
             }
         } else {
             this.addTextToTextElem(elementFull?.textValue, '0 тн');
@@ -831,8 +851,12 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Поток измеряемый
-    private isStreamMeasured(sectionData: SouSectionData): boolean {
-        return sectionData?.tolerance === 0;
+    private isStreamMeasurable(sectionData: SouSectionData): boolean {
+        if ('isMeasurable' in sectionData) {
+            return sectionData?.isMeasurable;
+        }
+
+        return true;
     }
 
     // Установка класса для текстовой ноды внутри элемента если нужно (для выравнивания текста)
@@ -919,13 +943,13 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     // Задает режим отображения элемента
-    private setElementMode(element: SVGElement | Element, mode: TypeMode, textPostfix?: boolean, isNotMeasured?: boolean): void {
+    private setElementMode(element: SVGElement | Element, mode: TypeMode, textPostfix?: boolean, isNotMeasurable?: boolean): void {
 
-        if (isNotMeasured !== undefined && this.isElementLine(element)) {
-            if (isNotMeasured) {
-                this.addElemClass(element, ['not-measured-line']);
+        if (isNotMeasurable !== undefined && this.isElementLine(element)) {
+            if (isNotMeasurable) {
+                this.addElemClass(element, ['not-measurable-line']);
             } else {
-                this.removeElemClass(element, ['not-measured-line']);
+                this.removeElemClass(element, ['not-measurable-line']);
             }
 
         }

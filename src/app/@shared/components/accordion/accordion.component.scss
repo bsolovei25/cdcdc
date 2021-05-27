@@ -13,7 +13,8 @@
       line-height: 16px;
 
       svg {
-        margin-right: 12px;
+        width: 16px;
+        height: 16px;
       }
     }
 
@@ -36,6 +37,11 @@
     .mat-expansion-panel-body {
       padding: 0;
     }
+  }
+
+  .svg-icon {
+    margin-right: 12px;
+    color: var(--gray-G7-color);
   }
 }
 

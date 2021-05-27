@@ -236,13 +236,13 @@
         width: 115px;
         min-width: 115px;
         height: 40px;
-
-        margin: 0px 1px;
+        
         display: flex;
         justify-content: center;
         align-items: center;
         color: var(--text-subscript-color);
         font-size: 12px;
+        background: var(--bg-body-color);
 
         &:nth-child(1) {
           position: sticky;

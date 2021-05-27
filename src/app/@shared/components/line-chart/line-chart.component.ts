@@ -56,7 +56,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     public readonly padding: { [key: string]: number } = {
         top: 20,
         right: 65,
-        bottom: 30,
+        bottom: 40,
         left: 65,
     };
 

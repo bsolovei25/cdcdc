@@ -86,6 +86,7 @@
   background: var(--evj-events-workspace-responsible-bg);
   border: 1px solid rgba(96, 101, 128, 0.25);
   border-radius: 2px;
+  box-sizing: border-box;
 
   ::ng-deep {
     .card-normal {

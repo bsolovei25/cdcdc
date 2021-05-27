@@ -18,16 +18,16 @@
 <text id="text" transform="translate(569 489) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="52.4668" y="13.1606">PL3903.1</tspan></text>
 <rect x="561" y="299" width="32" height="194" rx="2" stroke="#606580"/>
 </g>
-<path id="line_29" d="M601 395L611 395" stroke="#606580" stroke-linecap="round"/>
-<path id="line_29_2" d="M635 395L683 395" stroke="#606580" stroke-linecap="round"/>
-<path id="line_29_3" d="M707 395L758 395" stroke="#606580" stroke-linecap="round"/>
+<path id="line_106" d="M601 395L611 395" stroke="#606580" stroke-linecap="round"/>
+<path id="line_107" d="M635 395L683 395" stroke="#606580" stroke-linecap="round"/>
+<path id="line_108" d="M707 395L758 395" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off">
 <g id=".template on&#38;off">
 <circle id="border" cx="594" cy="395" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
 <g id="Group 23050">
-<path id="line_29_4" d="M928 395L950 395" stroke="#606580" stroke-linecap="round"/>
+<path id="line_109" d="M928 395L950 395" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end">
 <path id="Rectangle 7354" d="M950 392L956 395L950 398V395V392Z" fill="#606580"/>
 </g>
@@ -94,20 +94,20 @@
 <path id="Vector_21" d="M44.4383 450.201C45.101 450.201 45.6383 449.664 45.6383 449.001C45.6383 448.338 45.101 447.801 44.4383 447.801C43.7755 447.801 43.2383 448.338 43.2383 449.001C43.2383 449.664 43.7755 450.201 44.4383 450.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<path id="line_dotted" d="M239 364H264" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_100" d="M239 364H264" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_2">
 <g id=".template on&#38;off_2">
 <circle id="border_2" cx="232" cy="364" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_27" d="M239 450H264" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
-<path id="line_dotted_2" d="M434 364H452" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
-<path id="line_27_2" d="M434 450H452" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_101" d="M239 450H264" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_102" d="M434 364H452" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_103" d="M434 450H452" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id="Group 23048">
 <g id=".start&#38;end_2">
 <path id="Rectangle 7354_2" d="M554 361L560 364L554 367V364V361Z" fill="#606580"/>
 </g>
-<path id="line_dotted_3" d="M476 364H554" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_104" d="M476 364H554" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 </g>
 <g id=".on&#38;off_3">
 <g id=".template on&#38;off_3">
@@ -115,7 +115,7 @@
 </g>
 </g>
 <g id="Group 23049">
-<path id="line_27_3" d="M476 450H554" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_105" d="M476 450H554" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".start&#38;end_3">
 <path id="Rectangle 7354_3" d="M554 447L560 450L554 453V450V447Z" fill="#606580"/>
 </g>
@@ -126,33 +126,33 @@
 <path id="rect_5" d="M1018 675H958" stroke="#606580"/>
 <text id="text_4" transform="translate(972 477) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="0.112793" y="13.1606">&#x411;&#x43b;&#x43e;&#x43a; &#x42d;&#x41b;&#x41e;&#x423;&#10;</tspan><tspan x="9.9834" y="29.1606"> &#x410;&#x412;&#x422;-10</tspan></text>
 </g>
-<path id="line_30" d="M1025 331H1034" stroke="#606580" stroke-linecap="round"/>
+<path id="line_110" d="M1025 331H1034" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_4">
 <g id=".template on&#38;off_4">
 <circle id="border_4" cx="1018" cy="331" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_31" d="M1025 407H1034" stroke="#606580" stroke-linecap="round"/>
+<path id="line_111" d="M1025 407H1034" stroke="#606580" stroke-linecap="round"/>
 <g id=".on&#38;off_5">
 <g id=".template on&#38;off_5">
 <circle id="border_5" cx="1018" cy="407" r="6.5" fill="#1C1F2B" stroke="#606580"/>
 </g>
 </g>
-<path id="line_32" d="M1025 483H1034" stroke="#606580" stroke-linecap="round"/>
-<path id="line_30_2" d="M1058 331H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
-<path id="line_31_2" d="M1058 407H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
-<path id="line_32_2" d="M1058 483H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_112" d="M1025 483H1034" stroke="#606580" stroke-linecap="round"/>
+<path id="line_dotted_113" d="M1058 331H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_114" d="M1058 407H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
+<path id="line_dotted_115" d="M1058 483H1138" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id="Group 23045">
 <g id=".start&#38;end_4">
 <path id="Rectangle 7354_4" d="M1353 328L1359 331L1353 334V331V328Z" fill="#606580"/>
 </g>
-<path id="line_30_3" d="M1308 331H1353" stroke="#606580" stroke-linecap="round"/>
+<path id="line_116" d="M1308 331H1353" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id="Group 23046">
 <g id=".start&#38;end_5">
 <path id="Rectangle 7354_5" d="M1353 404L1359 407L1353 410V407V404Z" fill="#606580"/>
 </g>
-<path id="line_31_3" d="M1308 407H1353" stroke="#606580" stroke-linecap="round"/>
+<path id="line_117" d="M1308 407H1353" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id=".on&#38;off_6">
 <g id=".template on&#38;off_6">
@@ -160,7 +160,7 @@
 </g>
 </g>
 <g id="Group 23047">
-<path id="line_32_3" d="M1308 483H1353" stroke="#606580" stroke-linecap="round"/>
+<path id="line_118" d="M1308 483H1353" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end_6">
 <path id="Rectangle 7354_6" d="M1353 480L1359 483L1353 486V483V480Z" fill="#606580"/>
 </g>

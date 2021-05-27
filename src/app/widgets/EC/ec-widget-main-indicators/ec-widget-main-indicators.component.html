@@ -7,9 +7,6 @@
   ></evj-contemporary-widget-header>
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="" style="height: 100%">
-      <!--<ng-container style="height: 100%"-->
-                    <!--*ngComponentOutlet="specialComponent; injector: (widgetId | fn:getInjector : (subchannelId$ | async));"-->
-      <!--&gt;</ng-container>-->
       <evj-ec-widget-main-indicators-item style="height: 100%" [data$]="data$"></evj-ec-widget-main-indicators-item>
     </div>
   </div>

@@ -24,7 +24,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="!displayNewDesign" class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+<div *ngIf="!(displayNewDesign$ | async)" class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="unit-selector">
     <div
       [ngClass]="engUnitsComparator.isEngUnitsPercent('key') ? 'unit-selector__unit' : 'unit-selector__sign'"
@@ -41,7 +41,7 @@
   </div>
 
   <div class="diagram-container">
-    <evj-kpe-gauge-diagram [data]="diagramData"></evj-kpe-gauge-diagram>
+    <evj-kpe-gauge-diagram [data]="diagramData$ | async"></evj-kpe-gauge-diagram>
   </div>
 
   <div class="circle1">
@@ -74,6 +74,6 @@
     </svg>
   </div>
 </div>
-<div  *ngIf="displayNewDesign" class="wrapper">
-  <evj-kpe-performance-indicator-item [data]="diagramData"></evj-kpe-performance-indicator-item>
+<div  *ngIf="displayNewDesign$ | async" class="wrapper">
+  <evj-kpe-performance-indicator-item [data]="diagramData$ | async"></evj-kpe-performance-indicator-item>
 </div>
