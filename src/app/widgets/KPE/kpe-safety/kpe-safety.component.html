@@ -48,7 +48,8 @@
       </div>
       <div class="readiness__main">
         <ng-container *ngFor="let card of (cardList$ | async); trackBy: trackByIndex">
-          <div class="readiness__main__gauge element-container" [ngClass]="{'element-container_warning': (displayNewDesign$ | async)}">
+          <div class="readiness__main__gauge element-container"
+               [ngClass]="{'element-container_warning': card.isWarning}">
             <div class="gauge-card">
               <div class="gauge-card__content">
                 <div class="gauge-card__units" [ngClass]="{unitsNewDesign: (displayNewDesign$ | async)}">
@@ -67,7 +68,12 @@
                     %
                   </div>
                   <!--Новый дизайн-->
-                  <div class="percent-info"  *ngIf="(displayNewDesign$ | async)" [ngClass]="['percent-info', percentData.percentStatus]">
+                  <div
+                    class="percent-info"
+                    *ngIf="!(displayNewDesign$ | async)"
+                    [class.warning]="card.isWarning"
+                    [class.default]="!card.isWarning"
+                  >
                     {{card.percentageInfluence}}%
                   </div>
                 </div>

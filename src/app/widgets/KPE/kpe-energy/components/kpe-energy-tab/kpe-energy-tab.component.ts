@@ -7,6 +7,7 @@ export interface IKpeEnergyTab {
     type: 'electricity' | 'fuel' | 'steam' | 'warm' | 'water';
     fact: number;
     plan: number;
+    isWarning: boolean;
     deviation?: number;
     percentage?: number;
     percentageInfluence?: number;
