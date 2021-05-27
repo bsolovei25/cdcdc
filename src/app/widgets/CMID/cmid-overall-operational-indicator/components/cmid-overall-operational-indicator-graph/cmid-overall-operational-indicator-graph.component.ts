@@ -6,8 +6,8 @@ import {
     Renderer2,
     ViewChild,
     OnChanges,
-    SimpleChange
-} from '@angular/core';
+    SimpleChange, HostListener
+} from "@angular/core";
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICmidMultichartDataModel, ICmidMultichartModel } from '../../models/cmid-overall-operational-indicator.model';
@@ -38,6 +38,7 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
     private svgInner: d3Selection;
     private width: number = null;
     private height: number = null;
+    private normalizeNumber: number = 55;
     private mouseLeaveUnlistener: () => void;
     private mouseMoveUnlistener: () => void;
     private mousePosition: number | null = null;
@@ -45,31 +46,41 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
     constructor(public chartElem: ElementRef, private renderer: Renderer2) {
     }
 
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.graphInit();
+    }
+
     ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
         if (changes.data) {
-            this.dropChart();
-            this.initSvg();
-            this.initScale();
-            this.initAxes();
-            this.drawLines(this.data);
-            this.drawGridLines();
+            this.graphInit();
         } else {
             this.dropChart();
         }
+    }
+
+    private graphInit(): void {
+        this.dropChart();
+        this.initSvg();
+        this.initScale();
+        this.initAxes();
+        this.drawLines(this.data);
+        this.drawGridLines();
     }
 
     private initSvg(): void {
         this.svg = d3
             .select(this.chartElem.nativeElement)
             .select('.graph-multiline__chart')
+            .style('height', `calc(100% - ${this.normalizeNumber}px)`)
             .append('svg')
             .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("preserveAspectRatio", "xMinYMin")
+            .attr("preserveAspectRatio", "none")
             .attr("height", '100%')
             .attr("width", '100%')
             .attr(
                 'viewBox',
-                `0 0 ${this.svgWrapper.nativeElement.getBoundingClientRect().width + 30} ${this.svgWrapper.nativeElement.getBoundingClientRect().height + 30}`
+                `0 0 ${this.svgWrapper.nativeElement.getBoundingClientRect().width + this.normalizeNumber} ${this.svgWrapper.nativeElement.getBoundingClientRect().height + this.normalizeNumber}`
             );
         this.svgInner = this.svg.append('g').attr('class', 'graph__lines').style('transform', 'translateY(5px)');
     }

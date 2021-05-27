@@ -1,8 +1,12 @@
 @import '../../../../../../theme/mixins/mixin-centering';
 
+:host * {
+  box-sizing: border-box;
+}
+
 .graph-multiline {
   padding: 16px;
-  height: 250px;
+  height: 100%;
 
   &__chart {
     .axis .tick line {
