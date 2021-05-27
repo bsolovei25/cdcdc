@@ -6,8 +6,9 @@ import {
     Renderer2,
     ViewChild,
     OnChanges,
-    SimpleChange, HostListener
-} from "@angular/core";
+    SimpleChange,
+    HostListener
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICmidMultichartDataModel, ICmidMultichartModel } from '../../models/cmid-overall-operational-indicator.model';
@@ -74,10 +75,10 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
             .select('.graph-multiline__chart')
             .style('height', `calc(100% - ${this.normalizeNumber}px)`)
             .append('svg')
-            .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("preserveAspectRatio", "none")
-            .attr("height", '100%')
-            .attr("width", '100%')
+            .attr('xmlns', 'http://www.w3.org/2000/svg')
+            .attr('preserveAspectRatio', 'none')
+            .attr('height', '100%')
+            .attr('width', '100%')
             .attr(
                 'viewBox',
                 `0 0 ${this.svgWrapper.nativeElement.getBoundingClientRect().width + this.normalizeNumber} ${this.svgWrapper.nativeElement.getBoundingClientRect().height + this.normalizeNumber}`
@@ -108,13 +109,13 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
     private initAxes(): void {
         this.axes.axisX = d3.axisBottom().scale(this.scaleFunc.x).ticks(31).tickFormat(d3.timeFormat('%d'));
         this.axes.axisY = d3.axisLeft().scale(this.scaleFunc.y);
-        this.svgInner.append("g")
-            .attr("class", "axis")
+        this.svgInner.append('g')
+            .attr('class', 'axis')
             .style('transform', 'translate(' + this.padding.left + 'px, ' + (this.height) + 'px)')
             .call(this.axes.axisX);
-        this.svgInner.append("g")
-            .attr("class", "axis")
-            .style("transform", 'translate(' + this.padding.left + 'px,  0)')
+        this.svgInner.append('g')
+            .attr('class', 'axis')
+            .style('transform', 'translate(' + this.padding.left + 'px,  0)')
             .call(this.axes.axisY);
     }
 
@@ -153,15 +154,15 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
             .tickSize(-this.height)
             .ticks(32)
             .scale(this.scaleFunc.x);
-        this.svg.append("g")
-            .attr("class", "grid")
+        this.svg.append('g')
+            .attr('class', 'grid')
             .style('transform', 'translate(' + this.padding.left + 'px, ' + '5px)')
             .style('color', 'var(--chart-segment-color)')
             .call(this.gridLinesY)
             .select('.domain')
             .style('visibility', 'hidden');
-        this.svg.append("g")
-            .attr("class", "grid")
+        this.svg.append('g')
+            .attr('class', 'grid')
             .style('transform', 'translate(' + this.padding.left + 'px, ' + (this.height + 5) + 'px)')
             .style('color', 'var(--chart-segment-color)')
             .call(this.gridLinesX)
