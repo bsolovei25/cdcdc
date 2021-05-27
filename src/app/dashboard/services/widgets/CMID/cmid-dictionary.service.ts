@@ -244,7 +244,7 @@ export class CmidDictionaryService {
 
     public getKdpazCard(manufacture: string, unit: string): Observable<any> {
         return this.http
-            .get(`${this.restUrl}/api/cmid-kdpaz/card/position-list/manufacture/${manufacture}/plant/${unit}`)
+            .get(`${this.restUrl}/api/cmid-kdpaz/card/position-list/manufacture/${manufacture}/unit/${unit}`)
             .pipe(tap(console.log));
     }
 
