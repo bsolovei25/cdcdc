@@ -10,7 +10,7 @@ import {
 import { map, tap } from 'rxjs/operators';
 
 const MockPlants = {
-    '1': [{ id: '1', name: 'ОНПЗ' }]
+    '1': [{ id: '1', name: 'ФСБ' }]
 };
 
 const MockSetups = {
@@ -239,12 +239,12 @@ export class CmidDictionaryService {
 
     constructor(public http: HttpClient, private configService: AppConfigService) {
         this.cmidUrl = this.configService.cmidUrl;
-        this.restUrl = this.configService.cmidUrl;
+        this.restUrl = this.configService.restUrl;
     }
 
     public getKdpazCard(manufacture: string, plant: string): Observable<any> {
         return this.http
-            .get(`${this.cmidUrl}/api/KdpazCard/card/position-list/{manufacture}/plant/{plant}`)
+            .get(`${this.restUrl}/api/cmid-kdpaz/card/position-list/${manufacture}/plant/${plant}`)
             .pipe(tap(console.log));
     }
 

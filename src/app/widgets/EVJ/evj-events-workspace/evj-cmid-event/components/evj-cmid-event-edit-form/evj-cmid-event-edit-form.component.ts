@@ -5,7 +5,7 @@ import { CmidEventToogleValue } from "../../components/evj-cmid-event-toggle/evj
 import { CmidDictionaryService } from "@dashboard/services/widgets/CMID/cmid-dictionary.service";
 import { Observable } from "rxjs";
 import { IDirectoryData, IDirectoryRow } from "@dashboard/services/widgets/CMID/cmid-dictionary.interface";
-import { FormControl } from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take-until-destroed.function";
 
 @DecorateUntilDestroy()
@@ -33,9 +33,11 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public typeOfReasonControl: FormControl = new FormControl();
     public reasonsOfDisconnectControl: FormControl = new FormControl();
 
-    public selectPlant: FormControl = new FormControl({ value: { id: '1', name: 'ОНПЗ' }, disabled: false });
-    public selectManufacture: FormControl = new FormControl({ value: '', disabled: false });
-    public selectSetup: FormControl = new FormControl({ value: '', disabled: false });
+    public filterForm: FormGroup = new FormGroup({
+        selectPlant: new FormControl({ value: { id: '1', name: 'ФСБ' }, disabled: false }),
+        selectManufacture: new FormControl({ value: '', disabled: false }),
+        selectSetup: new FormControl({ value: '', disabled: false }),
+    });
     public kdcards: FormControl = new FormControl({ value: '', disabled: false });
 
     constructor(public ewService: EventsWorkspaceService,
@@ -45,12 +47,17 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
         this.subscriptionToTypeOfReasonControls();
         this.subscriptionToManufactureControl();
         this.subscriptionToSetupControl();
+        this.subscriptionToPositions();
     }
 
     public ngOnDestroy(): void {}
 
+    public getPositions(manufacture: string, plant: string): void {
+        this.positions$ = this.cmidDictionaryService.getKdpazCard(manufacture, plant);
+    }
+
     public searchPosition(query: string): void {
-        this.positions$ = this.cmidDictionaryService.getPositions(this.selectSetup.value.id, query);
+        this.positions$ = this.cmidDictionaryService.getPositions(this.filterForm.get('selectSetup').value.id, query);
     }
 
     public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
@@ -79,8 +86,21 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
         this.toggleValue = action;
     }
 
+    private subscriptionToPositions(): void {
+        this.filterForm.valueChanges
+            .pipe(takeUntilDestroyed(this))
+            .subscribe(({ id }) => {
+                const manufacture = this.filterForm.get('selectManufacture').value.name;
+                const plant = this.filterForm.get('selectPlant').value.name;
+                console.log(manufacture, plant);
+                if (manufacture && plant) {
+                    this.getPositions(manufacture, plant);
+                }
+            });
+    }
+
     private subscriptionToManufactureControl(): void {
-        this.selectManufacture.valueChanges
+        this.filterForm.get('selectManufacture').valueChanges
             .pipe(takeUntilDestroyed(this))
             .subscribe(({ id }) => {
                 this.setups$ = this.cmidDictionaryService.getSetups(id);
@@ -88,7 +108,7 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     }
 
     private subscriptionToSetupControl(): void {
-        this.selectSetup.valueChanges
+        this.filterForm.get('selectSetup').valueChanges
             .pipe(takeUntilDestroyed(this))
             .subscribe(({ id }) => {
                 this.positions$ = this.cmidDictionaryService.getPositions(id);
