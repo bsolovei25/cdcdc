@@ -365,7 +365,12 @@ export class WidgetService {
         this.ws.subscribe(
             (msg) => {
                 if (msg?.error && this.configService.isErrorDisplay) {
-                    this.materialController.openSnackBar(msg.error.message.message, 'error');
+                    const type = msg.error.message.type;
+                    if (type === 'message') {
+                        console.warn('477', msg.error.message.message);
+                    } else {
+                        this.materialController.openSnackBar(msg.error.message.message, type);
+                    }
                 }
                 if (this.reconnectWsTimer) {
                     clearTimeout(this.reconnectWsTimer);
