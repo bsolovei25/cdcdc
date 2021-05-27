@@ -34,7 +34,7 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public reasonsOfDisconnectControl: FormControl = new FormControl();
 
     public filterForm: FormGroup = new FormGroup({
-        selectPlant: new FormControl({ value: { id: '1', name: 'ФСБ' }, disabled: false }),
+        selectPlant: new FormControl({ value: { id: '1', name: 'ОНПЗ' }, disabled: false }),
         selectManufacture: new FormControl({ value: '', disabled: false }),
         selectSetup: new FormControl({ value: '', disabled: false }),
     });
@@ -52,8 +52,8 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {}
 
-    public getPositions(manufacture: string, plant: string): void {
-        this.positions$ = this.cmidDictionaryService.getKdpazCard(manufacture, plant);
+    public getPositions(manufacture: string, unit: string): void {
+        this.positions$ = this.cmidDictionaryService.getKdpazCard(manufacture, unit);
     }
 
     public searchPosition(query: string): void {
@@ -91,10 +91,9 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
             .pipe(takeUntilDestroyed(this))
             .subscribe(({ id }) => {
                 const manufacture = this.filterForm.get('selectManufacture').value.name;
-                const plant = this.filterForm.get('selectPlant').value.name;
-                console.log(manufacture, plant);
-                if (manufacture && plant) {
-                    this.getPositions(manufacture, plant);
+                const unit = this.filterForm.get('selectSetup').value.name;
+                if (manufacture && unit) {
+                    this.getPositions(manufacture, unit);
                 }
             });
     }
