@@ -2,7 +2,7 @@
   <div class="cells">
     <ng-content></ng-content>
   </div>
-  <div class="footer">
+  <div class="footer" evjFactoryAnalysisTooltip position="bottom" [title]="data?.title">
     <div class="footer__title">{{ data?.title }}</div>
   </div>
 </div>
