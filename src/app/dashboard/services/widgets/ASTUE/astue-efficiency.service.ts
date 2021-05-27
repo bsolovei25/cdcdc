@@ -124,6 +124,7 @@ export class AstueEfficiencyService {
                 this.unitsFlowsMap[unit.name] = [];
             }
         });
+        this.selectionUnit$.next([...units]);
         this.selection$.next();
     }
 
