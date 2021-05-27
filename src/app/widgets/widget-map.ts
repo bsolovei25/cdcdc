@@ -1330,9 +1330,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-workspace/sou-workspace.module');
         },
         module: 'SouWorkspaceModule',
-        itemCols: 50,
+        itemCols: 40,
         itemRows: 22,
-        minItemCols: 45,
+        minItemCols: 62,
         minItemRows: 15,
         preview: 'default',
     },
