@@ -1,0 +1,23 @@
+.section {
+  width: 1000px;
+  height: 60vh;
+}
+
+.header {
+  background-color: var(--bg-header-color);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+
+  &__title-block {
+    display: flex;
+  }
+
+  &__icon {
+    padding-right: 13px;
+  }
+
+  &__title {
+    color: var(--gray-G1-color);
+  }
+}
