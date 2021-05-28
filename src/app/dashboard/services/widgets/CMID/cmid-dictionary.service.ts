@@ -28,7 +28,7 @@ export class CmidDictionaryService {
         return (
             this.http
                 .get<IPlanItem[]>(
-                    `${this.cmidUrl}/api/KdpazCard/card/position-list/manufacture/${manufacture}/unit/${plant}`
+                    `${this.restUrl}/api/cmid-kdpaz/card/position-list/manufacture/${manufacture}/unit/${plant}`
                 )
                 // кешируем ответ для работы поиска на фронте
                 .pipe(tap((cards) => (this.kdpazCards = cards)))
