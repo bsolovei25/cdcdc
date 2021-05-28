@@ -188,15 +188,9 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                         item.graph,
                         domainDates[0],
                         domainDates[1],
-                        item.graphType === 'plan'
+                        true
                     ))
             );
-            const factChart = this.data?.find((x) => x.graphType === 'fact')?.graph;
-            if (!!factChart?.length) {
-                this.data.find((x) => x.graphType === 'fact').graph = factChart.filter(
-                    (x) => x.timeStamp.getTime() < new Date().getTime()
-                );
-            }
         }
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
         if (filterData.length !== this.data.length) {
