@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { AppConfigService } from "@core/service/app-config.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AppConfigService } from '@core/service/app-config.service';
 import {
     IReportFile,
     IReportTemplate,
@@ -9,19 +9,8 @@ import {
     IFileTemplate,
     IPostSystemOptionsTemplate,
     ICustomOptionsTemplate,
-    ICustomOptions
-} from "../models/admin-report-server-configurator.model";
-import { BehaviorSubject } from "rxjs";
-import {
-    IReportFile,
-    IReportTemplate,
-    ISystemOptions,
-    IFolder,
-    IFileTemplate,
-    IPostSystemOptionsTemplate,
-    ICustomOptionsTemplate,
-    ICustomOptions
-} from "../models/admin-report-server-configurator.model";
+    ICustomOptions,
+} from '@dashboard/models/ADMIN/report-server.model';
 
 @Injectable({
     providedIn: 'root',
@@ -32,6 +21,7 @@ export class AdminReportServerConfiguratorRootService {
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
+
     public getReportFileTemplate(): Promise<IReportFile[]> {
         return this.http.get<IReportFile[]>(this.restUrl + '/api/report-filetemplate/all').toPromise();
     }
@@ -62,21 +52,21 @@ export class AdminReportServerConfiguratorRootService {
         return this.http.get<IFolder>(this.restUrl + '/api/report-folders/all').toPromise();
     }
 
-    public postReportFileTemplate(body): Promise<IFileTemplate> {
+    public postReportFileTemplate(body: unknown): Promise<IFileTemplate> {
         return this.http.post<IFileTemplate>(this.restUrl + '/api/report-filetemplate/loaded', body).toPromise();
     }
 
-    public postSystemOptions(id, options): Promise<IPostSystemOptionsTemplate> {
+    public postSystemOptions(id: unknown, options: unknown): Promise<IPostSystemOptionsTemplate> {
         return this.http
             .post<IPostSystemOptionsTemplate>(this.restUrl + '/api/report-template/' + id + '/system-options', options)
             .toPromise();
     }
 
-    public putReportFileTemplate(filetemplate): Promise<IReportTemplate> {
+    public putReportFileTemplate(filetemplate: unknown): Promise<IReportTemplate> {
         return this.http.put<IReportTemplate>(this.restUrl + '/api/report-filetemplate', filetemplate).toPromise();
     }
 
-    public putReportTemplate(template): Promise<IReportTemplate> {
+    public putReportTemplate(template: unknown): Promise<IReportTemplate> {
         return this.http.put<IReportTemplate>(this.restUrl + '/api/report-template', template).toPromise();
     }
 
@@ -84,34 +74,34 @@ export class AdminReportServerConfiguratorRootService {
         return this.http.delete<IReportTemplate>(this.restUrl + '/api/report-template/' + id).toPromise();
     }
 
-    public postReportTemplate(template): Promise<IReportTemplate> {
+    public postReportTemplate(template: unknown): Promise<IReportTemplate> {
         return this.http.post<IReportTemplate>(this.restUrl + '/api/report-template', template).toPromise();
     }
 
-    public postTemplateFolder(folder): Promise<any> {
-        return this.http.post<any>(this.restUrl + '/api/report-folders', folder).toPromise();
+    public postTemplateFolder(folder: unknown): Promise<unknown> {
+        return this.http.post<unknown>(this.restUrl + '/api/report-folders', folder).toPromise();
     }
 
-    public putFolderTemplate(folder: { name: string, parentFolderId: number, id: number }): Promise<any> {
-        return this.http.put<any>(this.restUrl + "/api/report-folders", folder).toPromise();
+    public putFolderTemplate(folder: { name: string, parentFolderId: number, id: number }): Promise<unknown> {
+        return this.http.put<unknown>(this.restUrl + '/api/report-folders', folder).toPromise();
     }
 
-    public deleteReportFileTemplate(id: number): Promise<any> {
-        return this.http.delete<any>(this.restUrl + '/api/report-filetemplate/' + id).toPromise();
+    public deleteReportFileTemplate(id: number): Promise<unknown> {
+        return this.http.delete<unknown>(this.restUrl + '/api/report-filetemplate/' + id).toPromise();
     }
 
-    public deleteFolder(id: number): Promise<any> {
-        return this.http.delete<any>(this.restUrl + '/api/report-folders/' + id).toPromise();
+    public deleteFolder(id: number): Promise<unknown> {
+        return this.http.delete<unknown>(this.restUrl + '/api/report-folders/' + id).toPromise();
     }
 
-    public pushReportFile(file: File): Promise<any> {
+    public pushReportFile(file: File): Promise<unknown> {
         const body: FormData = new FormData();
         body.append('uploadFile', file, file.name);
-        return this.http.post<any>(this.restUrl + '/api/file-storage', body).toPromise();
+        return this.http.post<unknown>(this.restUrl + '/api/file-storage', body).toPromise();
     }
 
-    public postCustomOptions(id, options): Promise<any> {
-        return this.http.post<any>(this.restUrl + '/api/report-template/' + id + '/options', options).toPromise();
+    public postCustomOptions(id: unknown, options: unknown): Promise<unknown> {
+        return this.http.post<unknown>(this.restUrl + '/api/report-template/' + id + '/options', options).toPromise();
     }
 
     public getReportFileNameOptions(templateId: number): Promise<ICustomOptionsTemplate> {

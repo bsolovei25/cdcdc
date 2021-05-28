@@ -69,7 +69,7 @@ import { AdminRscRepositoryEditComponent } from './components/admin-report-serve
     AdminRscPathEditComponent,
     AdminRscCustomOptionsComponent,
     SearchPipe,
-    AdminRscRepositoryEditComponent
+    AdminRscRepositoryEditComponent,
     AdminReportServerConfiguratorListGroupComponent,
   ],
   imports: [
@@ -92,7 +92,7 @@ import { AdminRscRepositoryEditComponent } from './components/admin-report-serve
     SearchPipe
   ],
   providers: [
-    AdminReportConfiguratorService
+    AdminReportConfiguratorService,
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,

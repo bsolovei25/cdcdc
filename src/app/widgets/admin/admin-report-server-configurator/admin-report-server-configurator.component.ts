@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { AdminReportConfiguratorService } from "@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service";
+import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 
 @Component({
     selector: 'evj-admin-report-server-configurator',
@@ -10,6 +10,7 @@ import { AdminReportConfiguratorService } from "@widgets/admin/admin-report-serv
 })
 export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public tabs: string[] = ['Конфигуратор сервера отчетов', 'Работа с файлами'];
+
     constructor(
         protected widgetService: WidgetService,
         public helperService: AdminReportConfiguratorService,
@@ -23,9 +24,11 @@ export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unkno
         super.widgetInit();
     }
 
-    ngOnDestroy(): void {}
+    ngOnDestroy(): void {
+    }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+    }
 
     public changeTab(tabIndex: number): void {
         this.helperService.currentTab.next(tabIndex);
