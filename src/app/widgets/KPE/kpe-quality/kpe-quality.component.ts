@@ -144,6 +144,7 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
                 ...x,
                 gaugeChart: {
                     ...x.gaugeChart,
+                    colorBounds: x.gaugeChart.zeroOn === 'Right' ? x.gaugeChart.colorBounds.reverse() : x.gaugeChart.colorBounds,
                     deviationPercentage: 100 - x.gaugeChart.percentage
                 }
             }))

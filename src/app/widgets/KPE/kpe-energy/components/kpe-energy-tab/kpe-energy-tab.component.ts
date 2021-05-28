@@ -14,6 +14,8 @@ export interface IKpeEnergyTab {
     deviationPercentage?: number;
     deviationPlanPredict?: number;
     deviationPlanPredictFact?: number;
+    colorBounds?: string[]
+    zeroOn: string;
     predict?: number;
 }
 
