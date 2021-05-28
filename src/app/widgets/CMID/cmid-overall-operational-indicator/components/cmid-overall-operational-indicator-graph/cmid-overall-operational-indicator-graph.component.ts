@@ -73,7 +73,7 @@ export class CmidOverallOperationalIndicatorGraphComponent implements OnChanges 
         this.svg = d3
             .select(this.chartElem.nativeElement)
             .select('.graph-multiline__chart')
-            .style('height', `calc(100% - ${this.normalizeNumber}px)`)
+            .style('height', 'calc(100% - 15px)')
             .append('svg')
             .attr('xmlns', 'http://www.w3.org/2000/svg')
             .attr('preserveAspectRatio', 'none')

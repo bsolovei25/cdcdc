@@ -16,6 +16,7 @@
     [placeholder]="!this.graphLines.length ? 'Выберите показатели' : null"
     [formControl]="filterControl"
     [matAutocomplete]="auto">
+  <span class="chips-autocomplete__arrow" [class.chips-autocomplete__arrow_toggled]="auto.isOpen"></span>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectOption($event)">
     <mat-option *ngFor="let lines of filterItems" [value]="lines">
       {{lines.label}}

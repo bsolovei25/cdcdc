@@ -74,6 +74,23 @@
       color: var(--text-main-color);
     }
   }
+
+  &__arrow {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 8px;
+    top: 3px;
+    border: solid var(--text-main-color);
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    transform: rotate(45deg);
+
+    &_toggled {
+      transform: rotate(-135deg);
+      transform-origin: 7px 9px;
+    }
+  }
 }
 
 .mat-option {

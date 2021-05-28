@@ -6,7 +6,9 @@
 
 .graph-multiline {
   padding: 16px;
-  height: 100%;
+  height: calc(100% - 55px);
+  background-color: var(--bg-body-color);
+  border: 1px solid var(--border-vidget-color);
 
   &__chart {
     .axis .tick line {
