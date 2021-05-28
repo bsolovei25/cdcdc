@@ -1879,9 +1879,20 @@ export const WIDGETS_LAZY = {
         },
         module: 'CmidDynamicsOfMetricsChangeModule',
         itemCols: 50,
-        itemRows: 11,
+        itemRows: 10,
         minItemCols: 50,
-        minItemRows: 11,
+        minItemRows: 10,
+        preview: 'default',
+    },
+    'cmid-overall-operational-indicator': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-overall-operational-indicator/cmid-overall-operational-indicator.module');
+        },
+        module: 'CmidOverallOperationalIndicatorModule',
+        itemCols: 42,
+        itemRows: 15,
+        minItemCols: 42,
+        minItemRows: 15,
         preview: 'default',
     },
     'cmid-mnpz-production-map': {

@@ -10,6 +10,7 @@
         "statements"
       ]
     },
+    "quotemark": [true, "single"],
     "array-type": [true, "array"],
     "file-name-casing": [
       true,

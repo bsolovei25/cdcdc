@@ -1,0 +1,11 @@
+<div #svgWrapper class="graph-multiline">
+  <div class="graph-multiline__chart"></div>
+  <ul class="graph-multiline__groups group">
+    <ng-container *ngFor="let group of data" >
+      <li *ngIf="group.visible" class="group__item">
+        <div class="group__color" [style.background-color]="group.color"></div>
+        {{group.label}}
+      </li>
+    </ng-container>
+  </ul>
+</div>
