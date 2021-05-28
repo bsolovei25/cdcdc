@@ -367,7 +367,7 @@ export class WidgetService {
                 if (msg?.error && this.configService.isErrorDisplay) {
                     const type = msg.error.message.type;
                     if (type === 'message') {
-                        console.warn('477', msg.error.message.message);
+                        console.warn('477', msg.error.messages);
                     } else {
                         this.materialController.openSnackBar(msg.error.message.message, type);
                     }
