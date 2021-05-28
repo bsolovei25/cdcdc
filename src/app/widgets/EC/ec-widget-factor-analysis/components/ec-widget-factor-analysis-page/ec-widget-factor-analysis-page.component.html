@@ -18,7 +18,7 @@
     <ng-container *ngFor="let group of data.groups">
       <evj-ec-widget-factor-analysis-group
         [data]="group"
-        [style.flex-grow]="group.diagrams.length > 1 ? 7 : 1"
+        [style.flex-grow]="group.diagrams.length || 1"
       >
         <ng-container *ngFor="let bar of group.diagrams">
           <evj-ec-widget-factor-analysis-cell [data]="bar"></evj-ec-widget-factor-analysis-cell>
