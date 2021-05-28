@@ -1884,6 +1884,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 11,
         preview: 'default',
     },
+    'cmid-mnpz-production-map': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-mnpz-production-map/cmid-mnpz-production-map.module');
+        },
+        module: 'CmidMnpzProductionMapModule',
+        itemCols: 35,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 20,
+        preview: 'default',
+    },
     //#endregion CMID
 
     //#region others
