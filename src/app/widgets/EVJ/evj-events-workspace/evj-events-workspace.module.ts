@@ -64,7 +64,8 @@ import { EvjEventsSmpoCorrectItemComponent } from './components/evj-events-smpo-
 import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-smpo-event-critical/evj-smpo-event-critical.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EvjTasksEventNoCheckboxComponent } from './evj-tasks-event-no-checkbox/evj-tasks-event-no-checkbox.component';
-import { EvjEventsWorkspaceClaimCheckbox } from './components/evj-events-workspace-claim-checkbox/evj-events-workspace-claim-checkbox.component';
+import { CmidDictionaryService } from "@dashboard/services/widgets/CMID/cmid-dictionary.service";
+import { EvjCmidEventPlanTableItemComponent } from './evj-cmid-event/components/evj-cmid-event-plan-table/evj-cmid-event-plan-table-item/evj-cmid-event-plan-table-item.component';
 
 @NgModule({
     declarations: [
@@ -118,7 +119,8 @@ import { EvjEventsWorkspaceClaimCheckbox } from './components/evj-events-workspa
         EvjEventsWorkspaceRestrictionsComponent,
         EvjSmpoEventCriticalComponent,
         EvjTasksEventNoCheckboxComponent,
-        EvjEventsWorkspaceClaimCheckbox
+        EvjCmidEventPlanTableItemComponent,
+        EvjTasksEventNoCheckboxComponent
     ],
     imports: [
         CommonModule,
@@ -143,6 +145,7 @@ import { EvjEventsWorkspaceClaimCheckbox } from './components/evj-events-workspa
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
+        CmidDictionaryService
     ],
     exports: [EvjEventsWorkspaceComponent, EvjEventsWorkspaceSelectComponent, EvjTasksEventNoCheckboxComponent],
 })

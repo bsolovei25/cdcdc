@@ -1,22 +1,8 @@
+:host * {
+  box-sizing: border-box;
+}
+
 .linechart {
-  height: 210px;
-
-  &::ng-deep {
-    .tick {
-      line{
-        color: rgba(96, 101, 128, 0.25);
-      }
-
-      .domain {
-        stroke-width: 0;
-      }
-    }
-  }
+  padding: 16px;
+  height: 100%;
 }
-
-.grid {
-  .domain {
-    visibility: hidden;
-  }
-}
-

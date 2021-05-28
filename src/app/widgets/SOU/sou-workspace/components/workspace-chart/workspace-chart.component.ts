@@ -78,7 +78,7 @@ export class WorkspaceChartComponent implements OnChanges {
     private deltaCf: number = 0.1;
     private static STEP_CF: number = 0.05;
 
-    private readonly topMargin: number = 25;
+    private firstTimeSmallChart: boolean = true;
 
     private get currentDates(): IDatesInterval {
         return this.widgetService.currentDates$.getValue();
@@ -298,10 +298,6 @@ export class WorkspaceChartComponent implements OnChanges {
             )
             .style('color', 'var(--text-subscript-color)');
 
-        // line.select("path").attr("marker-end",
-        //     "url(#triangle)").attr('markerHeight', 5)
-        //     .attr('markerWidth', 5);
-
         this.svg
             .append('g')
             .attr('class', 'grid')
@@ -329,6 +325,17 @@ export class WorkspaceChartComponent implements OnChanges {
             const axisG = this.svg.select(`g.${axis}`);
             axisG.select('path.domain').remove();
             axisG.selectAll('g.tick line').remove();
+
+            if (this.chart.nativeElement.clientWidth < 800 && this.firstTimeSmallChart) {
+                this.firstTimeSmallChart = false;
+                this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
+                    if (!(idx % 2)) {
+                        g.remove();
+                    }
+                });
+            } else {
+                this.firstTimeSmallChart = true;
+            }
         };
 
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;

@@ -75,9 +75,9 @@ export class EventsWorkspaceService {
     public priority: IPriority[] = [];
     public status: IStatus[] = [];
     public subCategory$: BehaviorSubject<ISubcategory[]> = new BehaviorSubject<ISubcategory[]>([]);
-    public tasksSubCategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.tasks);
-    public safetySubCategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.safety);
-    public equipmentStatusSubCategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.equipmentStatus);
+    public tasksSubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.tasks);
+    public safetySubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.safety);
+    public equipmentStatusSubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.equipmentStatus);
     public users: IUser[] = [];
     public category: ICategory[] = [];
     public equipmentCategory: ICategory[] = [];
@@ -487,7 +487,7 @@ export class EventsWorkspaceService {
                 name: null,
                 code: null,
             },
-            subcategory: null,
+            subCategory: null,
             description: '',
             deviationReason: '',
             directReasons: '',
@@ -629,7 +629,7 @@ export class EventsWorkspaceService {
 
     public async changeCategory(): Promise<void> {
         if (this.event.category.name === 'tasks') {
-            this.event.productionTasks.subCategory = this.subCategory?.find((value) => value.code === '0');
+            this.event.subCategory = this.subCategory?.find((value) => value.code === '0');
         }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -706,7 +706,7 @@ export class EventsWorkspaceService {
 
     private checkEvent(eventObj: IEventsWidgetNotification): IEventsWidgetNotification {
         const event = {...eventObj};
-        if (eventObj.productionTasks?.subCategory?.id !== 1060) {
+        if (eventObj?.subCategory?.id !== 1060) {
             event.smpo = null;
         }
 

@@ -5,7 +5,7 @@ export interface IError {
 }
 
 export interface IMessage {
-    type: 'Info' | 'Message' | 'Warning' | 'Error';
+    type: 'info' | 'message' | 'warning' | 'error';
     message: string;
     httpCode: number;
 }

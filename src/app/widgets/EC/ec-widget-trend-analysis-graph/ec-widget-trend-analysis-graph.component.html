@@ -1,0 +1,22 @@
+<evj-contemporary-widget-header icon="chart" type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
+  <div class="header-container">
+
+  </div>
+</evj-contemporary-widget-header>
+<div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div class="chart" #chart></div>
+  <div class="container__toggle-box">
+    <div class="container__toggle-box__wrapper" [style.border-left]="'4px solid ' + box.color" *ngFor="let box of data">
+      <div class="container__toggle-box-title">
+        <div class="title">{{box.title}}</div>
+        <div *ngIf="box.unit">,</div>
+        <div class="unit">{{box.unit}}</div>
+      </div>
+      <div class="container__toggle-box-plan">{{box.plan}}</div>
+      <div class="container__toggle-box-toggle">
+        <mat-slide-toggle (ngModelChange)="startDrawChart()" [(ngModel)]="box.showGraph"
+                          disableRipple="true"></mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</div>

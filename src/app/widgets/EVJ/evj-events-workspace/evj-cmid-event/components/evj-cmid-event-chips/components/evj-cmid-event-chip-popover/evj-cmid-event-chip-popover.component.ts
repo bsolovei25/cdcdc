@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PopoverRef} from '@shared/components/popover-overlay/popover-overlay.ref';
-import {ICmidEventChip} from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/components/evj-cmid-event-chips/evj-cmid-event-chips.component';
+import { ICmidEventChip } from "@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface";
 
 @Component({
     selector: 'evj-cmid-event-chip-popover',

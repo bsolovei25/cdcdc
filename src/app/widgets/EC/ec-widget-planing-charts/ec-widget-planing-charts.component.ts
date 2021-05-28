@@ -69,6 +69,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
 
                     if (isDeletePredictor) {
                         this.unSubscribeVirtualChannel(predictorId);
+                        this.ecWidgetService.setPredictorsCurrentValue(this.data);
                     } else {
                         this.setData(predictorId);
                     }
@@ -94,6 +95,8 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
         this.virtualChannelSubscriptions.push({
             predictorId,
             subscription: virtualChannel.data$.subscribe(res => {
+                const halfChartsData = res.graphs[0].graph[0].graph.filter((val, index) => index % 2  === 0);
+                res.graphs[0].graph[0].graph = halfChartsData;
                 const data = res.graphs[0];
                 const predictorIndex = this.data.findIndex(ref => ref.predictorId === predictorId);
 
@@ -104,6 +107,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
                 } else {
                     this.data = [...this.data, data];
                 }
+                this.ecWidgetService.setPredictorsCurrentValue(this.data);
             })
         });
     }

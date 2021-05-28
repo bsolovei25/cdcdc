@@ -9,8 +9,11 @@ export interface IKpeGaugeChartData {
     plan: number;
     deviation?: number;
     title?: string;
+    zeroOn?: string;
+    colorBounds?: string[];
     unit?: string;
     isWarning?: boolean;
     percentage?: number;
     deviationPercentage?: number;
+    percentageInfluence?: number;
 }

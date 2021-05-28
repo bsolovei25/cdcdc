@@ -1,0 +1,24 @@
+<div class="widget-container"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseExit()">
+    <evj-widget-header-smp *ngIf="isHover" [uniqId]="widgetUniqId">
+    </evj-widget-header-smp>
+    <div class="container"
+         (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
+        <div class="container-inner">
+            <svg-icon class="container-inner__img" src="assets/pic/pulse-line.svg"></svg-icon>
+            <div class="description">
+                <div class="description__header">
+                    <span class="description__title">Эксплуатационная готовность</span>
+                    <span class="description__value">{{ countStatistic }}%</span>
+                </div>
+
+                <div class="description__chart">
+                    <cmid-operational-readiness-vpr-chart [countStatistic]="countStatistic">
+                    </cmid-operational-readiness-vpr-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

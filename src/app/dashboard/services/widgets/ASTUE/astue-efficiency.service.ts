@@ -28,6 +28,10 @@ export class AstueEfficiencyService {
     public selectionUnit$: BehaviorSubject<IAsEfUnitNew[]> = new BehaviorSubject<IAsEfUnitNew[]>(null);
     public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<IAsPlanningTable[]>(null);
 
+    public data: BehaviorSubject<IAsEfProduct[]> = new BehaviorSubject<IAsEfProduct[]>(null);
+
+    public productId: string;
+
     private readonly restUrl: string;
 
     get currentUnit(): IAsEfUnitNew {
@@ -51,6 +55,7 @@ export class AstueEfficiencyService {
 
     constructor(private snackbar: SnackBarService, public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
+        this.selectionUnit$.subscribe(value => console.log(value));
     }
 
     public isCardOpen(unitName: string): boolean {
@@ -122,6 +127,7 @@ export class AstueEfficiencyService {
                 this.unitsFlowsMap[unit.name] = [];
             }
         });
+        this.selectionUnit$.next([...units]);
         this.selection$.next();
     }
 

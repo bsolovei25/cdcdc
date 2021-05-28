@@ -1,5 +1,9 @@
 @import "../../../../../../../theme/mixins/mixins-text-overflow";
 
+:host {
+  flex: 1 0 0;
+}
+
 .container {
   display: flex;
   flex-flow: column;
@@ -9,6 +13,7 @@
   .cells {
     display: flex;
     flex-grow: 1;
+    justify-content: center;
   }
 
   .footer {
@@ -24,6 +29,7 @@
       color: var(--text-subscript-color);
       @include text-overflow-old;
       max-height: 2.4em;
+      cursor: pointer;
     }
   }
 }

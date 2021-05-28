@@ -3,21 +3,21 @@ import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
 import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
 import { IMultiChartLine } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model";
 import { UserSettingsService } from "@dashboard/services/user-settings.service";
-import { EcWidgetService } from "../ec-widget-shared/ec-widget.service";
+import { EcWidgetService, IPredictorsLabelsData } from "../ec-widget-shared/ec-widget.service";
 import { IMultiChartOptions } from "./components/ec-widget-multi-chart/ec-widget-multi-chart.component";
 import { IChartMini } from "@shared/interfaces/smart-scroll.model";
 import {
     EcWidgetConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
-    IAstueOnpzReferenceModel,
     IAstueOnpzReferences
 } from "./ec-widget-conventional-fuel.service";
-import { BehaviorSubject, combineLatest, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
-import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 import { ScreenshotMaker } from "@core/classes/screenshot.class";
 import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
+import {IAstueOnpzReferenceModel} from "@widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service";
 
 type MenuStructure = { menu: IAstueOnpzReferences };
 type GraphStructure = { graphs: IMultiChartLine[] };
@@ -73,6 +73,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
     private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
 
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
+
     constructor(
         private reportService: ReportsService,
         protected widgetService: WidgetService,
@@ -92,10 +94,8 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref)),
             this.ecWidgetConventionalFuelService.predictorsInfo$.subscribe((x) => {
-                setTimeout(() => {
-                    this.predictors$.next(x);
-                    this.changeDetection.detectChanges();
-                });
+                this.predictors$.next(x);
+                this.changeDetection.detectChanges();
             }),
             this.ecWidgetConventionalFuelService.predictorsId$.subscribe(this.loadReferences.bind(this)),
             this.selectionForm.get('manufacture').valueChanges.subscribe((x) => {
@@ -201,7 +201,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.virtualChannelSubscriptions.push({
             subchannelId: id,
             subscription: this.createVirtualChannel(id).data$.subscribe(res => {
-                const data = this.multilineDataMapper(res.graphs);
+                const halfChartsData = res.graphs.map(item => {
+                    item.graph = item.graph.filter((ref, index) => index % 2  === 0);
+                    return item;
+                });
+
+                const data = this.multilineDataMapper(halfChartsData);
 
                 data.map(item => {
                     item.subchannelId = id;
@@ -313,6 +318,14 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.selectionForm.get('resource').setValue(this.selectionForm.value.resource ?? resourceId);
     }
 
+    public getMenuUnits(): IAstueOnpzReferenceModel[] {
+        return this.newStructureMenuData?.menu.units.filter(item => item.parentId === this.selectionForm.get('manufacture').value);
+    }
+
+    public getEnergyResource(): IAstueOnpzReferenceModel[] {
+        return this.newStructureMenuData?.menu.energyResources.filter(item => item.parentId === this.selectionForm.get('unit').value);
+    }
+
     public goToMainScreen(): void {
         this.userSettingsService.loadScreenByWidget('astue-onpz-menu-structure');
     }
@@ -320,10 +333,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public mouseOnGraph(): void {
         this.onMouseEnter();
         this.showCurrent = false;
+        this.predictorsCurrentValue$ = this.predictors$;
     }
 
     public mouseLeaveGraph(): void {
         this.onMouseExit();
         this.showCurrent = true;
+        this.predictorsCurrentValue$ = this.ecWidgetService.predictorsCurrentValue$;
     }
 }
