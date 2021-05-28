@@ -204,7 +204,7 @@ export class LineChartComponent implements OnInit, OnChanges {
                     .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .style('color', 'var(--border-vidget-color)');
+
         const yGrid = this.svg
             .append('g')
             .attr('class', 'grid')
@@ -216,7 +216,13 @@ export class LineChartComponent implements OnInit, OnChanges {
                     .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
                     .tickFormat('')
             )
-            .style('color', 'var(--border-vidget-color)');
+
+        xGrid
+            .select("g.tick line")
+            .attr("stroke", "var(--chart-axes-color)")
+        yGrid
+            .select("g.tick line")
+            .attr("stroke", "var(--chart-axes-color)")
     }
 
     private drawMinMaxLines(): void {
