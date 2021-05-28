@@ -1,0 +1,15 @@
+<div class="widget-container">
+    <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="view_table" type="cmid">
+        <div class="content-container">
+            <div class="content-container__checkbox"
+                 (mousedown)="$event.stopPropagation()"
+                 (touchstart)="$event.stopPropagation()">
+            <mat-checkbox class="checkbox-icon" color="primary" [(ngModel)]="hideEmptyItems">
+                <span class="checkbox-span">Только с отклонениями</span>
+            </mat-checkbox>
+            </div>
+        </div>
+    </evj-contemporary-widget-header>
+
+    <cmid-factor-analysis-items [hideEmptyItems]="hideEmptyItems" [data]="data"></cmid-factor-analysis-items>
+</div> 
