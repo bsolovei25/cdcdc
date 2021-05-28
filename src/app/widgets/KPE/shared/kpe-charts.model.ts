@@ -13,4 +13,5 @@ export interface IKpeGaugeChartData {
     isWarning?: boolean;
     percentage?: number;
     deviationPercentage?: number;
+    percentageInfluence?: number;
 }
