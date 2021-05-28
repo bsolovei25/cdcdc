@@ -23,9 +23,11 @@
                     ></svg-icon>
                 </div>
             </div>
-        </div>
-    </div>
-</ng-container>
+            <div class="icon">
+                <svg-icon (click)="childrens ? deleteFolder(childrens) : deleteTemplate(templates)" src="{{trashIcon}}">
+                </svg-icon>
+            </div>
+        </ng-container>
 <ng-container *ngIf="childrens || templates">
     <div class="item">
         <div class="item__half">
@@ -53,3 +55,56 @@
         </div>
     </div>
 </ng-container>
+    </div>
+</ng-container>
+
+
+<!--<ng-container *ngIf="item || report">-->
+<!--  <div class="block">-->
+<!--    <div class="item" (click)="item ? openFolder(item) : openTemplate(report)">-->
+<!--      <div class="item__half">-->
+<!--        <svg-icon class="type" src="{{item ? folderIcon : reportIcon}}"></svg-icon>-->
+<!--        <span>{{item ? item?.name : report?.name}}</span>-->
+<!--      </div>-->
+<!--      <div class="item__half">-->
+<!--        <div class="date">{{item ? '' : report?.createdAt | date: "d MMMM y"}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="icons">-->
+<!--      <div class="icon">-->
+<!--        <svg-icon src="{{windowsIcon}}"></svg-icon>-->
+<!--      </div>-->
+<!--      <div class="icon">-->
+<!--        <svg-icon src="{{editIcon}}" (click)="item ? editFolder(item) : editFile(report)"></svg-icon>-->
+<!--      </div>-->
+<!--      <div class="icon">-->
+<!--        <svg-icon src="{{trashIcon}}" (click)="item ? deleteFolder(item) : deleteReport(report)"></svg-icon>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->
+<!--<ng-container *ngIf="childrens || templates">-->
+<!--  <div class="block">-->
+<!--    <div class="item" (click)="childrens ? openFolder(childrens) : openTemplate(templates)">-->
+<!--      <div class="item__half">-->
+<!--        <svg-icon class="type" src="{{childrens ? folderIcon : reportIcon}}"></svg-icon>-->
+<!--        <span>{{childrens ? childrens?.name : templates?.name}}</span>-->
+<!--      </div>-->
+<!--      <div class="item__half">-->
+<!--        <div class="date">{{childrens ? '' : report?.createdAt | date: "d MMMM y"}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="icons">-->
+<!--      <div class="icon">-->
+<!--        <svg-icon src="{{windowsIcon}}"></svg-icon>-->
+<!--      </div>-->
+<!--      <div class="icon">-->
+<!--        <svg-icon src="{{editIcon}}" (click)="editFile(templates)"></svg-icon>-->
+<!--      </div>-->
+<!--      <div class="icon">-->
+<!--        <svg-icon (click)="childrens ? deleteFolder(childrens) : deleteTemplate(templates)" src="{{trashIcon}}">-->
+<!--        </svg-icon>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->

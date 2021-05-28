@@ -28,7 +28,7 @@ export class VirtualChannel<T> {
     private init(): void {
         try {
             this.connectChannel(this.channelId, this.subchannelId, this.widgetType)
-                .pipe(takeUntil(this.wsSubscription$))
+                ?.pipe(takeUntil(this.wsSubscription$))
                 .subscribe(this.setData.bind(this));
         } catch (e) {
             console.warn('VirtualChannel.init', e);

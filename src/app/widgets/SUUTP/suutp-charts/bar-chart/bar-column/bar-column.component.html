@@ -1,0 +1,25 @@
+<div class="bar-column">
+
+  <div class="bar-column__black-area">
+  </div>
+
+  <ng-container *ngFor="let percentValue of linesPercents">
+    <div class="bar-column__line" [style.top]="percentValue + '%'"></div>
+  </ng-container>
+  <div class="bar-column__bar" [style.height]="barData.value + '%'">
+    <p class="bar-column__value">
+      {{ barData.value }}%
+    </p>
+
+    <p class="bar-column__date">
+      {{ barData.date | date: 'dd.MM.yyyy'}}
+    </p>
+  </div>
+
+  <div class="bar-column__horizontal-line upper-horizontal-line">
+  </div>
+
+  <div class="bar-column__horizontal-line lower-horizontal-line">
+  </div>
+
+</div>

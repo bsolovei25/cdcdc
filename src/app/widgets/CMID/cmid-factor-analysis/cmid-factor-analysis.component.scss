@@ -1,0 +1,31 @@
+.widget-container {
+    background-color: var(--bg-header-color);
+}
+
+.checkbox-span {
+    font-family: Tahoma;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;  
+    color: var(--gray-G4-color);
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+
+    &__checkbox {
+      display: flex;
+      align-items: center;
+      margin-left: 25px;
+    }
+
+    .checkbox-icon {
+      font-family: "Tahoma";
+      font-size: 12px;
+      margin-left: 90px;
+      color: var(--color-aps-text-chart);
+    }
+}

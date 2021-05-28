@@ -6,11 +6,11 @@
     border: 1px solid var(--chart-segment-color);
     border-radius: 2px;
     box-sizing: border-box;
-    min-height: 285px;
+    min-height: 394px;
   }
 
   &_card-list {
-    max-height: 285px;
+    max-height: 243px;
     overflow: auto;
   }
 }

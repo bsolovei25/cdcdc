@@ -1,0 +1,113 @@
+<div class="info-bar">
+  <div class="about-section"
+       [ngStyle]="{ 'backgroundImage': 'url(' + data['backgroundImgSrc'] + ')' }">
+
+    <div class="about-section__subtitle"
+         [ngStyle]="{ 'color': data['mainColor'] }">
+      {{ data['subTitle'] }}
+    </div>
+
+    <div class="about-section__title">
+      {{ data['title'] }}
+    </div>
+
+    <div class="about-section__details">
+      <div *ngIf="data['details'].productName" class="about-section__detail">
+        Продукт:
+        <p class="about-section__detail__highlight"
+           [matTooltip]="data['details'].productName">
+          {{ data['details'].productName }}
+        </p>
+      </div>
+      <div *ngIf="data['details'].productOverflow" class="about-section__detail">
+        Взлив:
+        <span class="about-section__detail__highlight">
+          {{ data['details'].productOverflow.split(' ')[0] }}
+        </span>
+        {{ data['details'].productOverflow.split(' ')[1] }}
+      </div>
+      <div *ngIf="data['details'].productWeight" class="about-section__detail">
+        Масса:
+        <span class="about-section__detail__highlight">
+           {{ data['details'].productWeight.split(' ')[0] }}
+        </span>
+        {{ data['details'].productWeight.split(' ')[1] }}
+      </div>
+    </div>
+
+    <div class="about-section__bottom-block">
+      <div class="about-section__highlight">
+        <svg-icon
+          class="class=about-section__highlight__icon"
+          [src]="data['mainIconSrc']"
+          [ngStyle]="{ 'height.px':20 }"
+        ></svg-icon>
+        <div class="about-section__highlight__text"
+             [ngStyle]="{ 'color': data['highlight'].color }">
+          {{ data['highlight'].text }}
+        </div>
+      </div>
+
+      <div *ngIf="data['isDocumentationButton']"
+        class="about-section__button">
+        <svg-icon
+          class="class=about-section__button__icon"
+          src="assets/icons/widgets/SOU/sou-workspace/doc.svg"
+          [ngStyle]="{ 'height.px':12 }"
+        ></svg-icon>
+        <div class="about-section__button__text">Паспортность</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="selectors-section">
+
+    <div class="selectors-section__production">
+      <div class="selectors-section__label">Производство</div>
+      <div class="option-select">
+        <div class="dropdown">
+          <mat-select [placeholder]="data['selectors'].productionText" class="dropdown__select">
+            <mat-option> Не выбрано</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="selectors-section__object">
+      <div class="selectors-section__label">Название объекта</div>
+      <div class="option-select">
+        <div class="dropdown">
+          <mat-select [placeholder]="data['selectors'].objectText" class="dropdown__select">
+            <mat-option> Не выбрано</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="option-select">
+        <div class="dropdown">
+          <svg-icon
+            class="selectors-section__icon"
+            [src]="data['mainIconSrc']"
+            [ngStyle]="{ 'height.px':20 }"
+          ></svg-icon>
+          <mat-select [placeholder]="data['selectors'].objectDetailsText" class="dropdown__select">
+            <mat-option> Не выбрано</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="selectors-section__product">
+      <div class="selectors-section__label">Продукт</div>
+      <div class="option-select">
+        <div class="dropdown"
+             [ngClass]="{selectorDisabled: !data['selectors'].product['isActive']}">
+          <mat-select [placeholder]="data['selectors'].product.text"
+                      class="dropdown__select">
+            <mat-option> Не выбрано</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

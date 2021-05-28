@@ -6,7 +6,7 @@ import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects,
-    SouSectionData,
+    SouSectionData
 } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
@@ -19,12 +19,12 @@ export interface ISouMvpMnemonicSchemeView {
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme-view',
     templateUrl: './sou-mvp-mnemonic-scheme-view.component.html',
-    styleUrls: ['./sou-mvp-mnemonic-scheme-view.component.scss'],
+    styleUrls: ['./sou-mvp-mnemonic-scheme-view.component.scss']
 })
 export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> implements OnInit, OnDestroy {
     private readonly emptyGuid: string = '00000000-0000-0000-0000-000000000000';
 
-    public data$: BehaviorSubject<ISouMvpMnemonicSchemeView> = new BehaviorSubject<ISouMvpMnemonicSchemeView>(null);
+    public data$: BehaviorSubject<ISouMvpMnemonicSchemeView>;
     chosenSetting$: Observable<number>;
     @ViewChild('schema') public schemaContainer: ElementRef;
 
@@ -35,7 +35,7 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
         @Inject('channelId') public channelId: string,
         @Inject('viewType') public viewType: string,
         @Inject('unitName') public unitName: string,
-        @Inject('sectionName') public sectionName: string,
+        @Inject('svgName') public svgName: string,
     ) {
         super(widgetId, channelId, widgetService);
     }
@@ -44,23 +44,25 @@ export class SouMvpMnemonicSchemeViewComponent extends ChannelPlatform<unknown> 
         super.ngOnInit();
         console.log('inject', { channelId: this.channelId, view: this.viewType });
         this.chosenSetting$ = this.mvpService.chosenSetting$;
+        this.data$ = this.mvpService.data$;
+
     }
 
     protected dataHandler(ref: { section: { flowIn: ISouFlowIn[]; flowOut: ISouFlowOut[]; objects: ISouObjects[]; name: string }[] }): void {
-        const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
-        const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
-
-        sectionsData?.forEach((x) => {
-            if (x.linkId === this.emptyGuid) {
-                delete x.linkId;
-            }
-        });
-        this.data$.next({
-            name: ref?.section?.[0]?.name ?? '',
-            flowIn,
-            sectionsData,
-        });
-        this.mvpService.currentSection$.next(ref.section?.[0]);
+        // const flowIn = ref.section?.flatMap((x) => x.flowIn) ?? [];
+        // const sectionsData = ref.section?.flatMap((x) => [...x.flowIn, ...x.flowOut, ...x.objects]) ?? [];
+        //
+        // sectionsData?.forEach((x) => {
+        //     if (x.linkId === this.emptyGuid) {
+        //         delete x.linkId;
+        //     }
+        // });
+        // this.mvpService.data$.next({
+        //     name: ref?.section?.[0]?.name ?? "",
+        //     flowIn,
+        //     sectionsData
+        // });
+        // this.mvpService.currentSection$.next(ref.section?.[0]);
     }
 
     ngOnDestroy(): void {

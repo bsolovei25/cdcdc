@@ -15,6 +15,8 @@ export interface IMultiChartLine {
     graphStyle?: string;
     nextPlanValue?: number; // только для плана
     currentValue?: number;
+    subchannelId?: string;
+    multiChartTypes?: string;
 }
 
 export interface IMultiChartData extends IMultiChartLine {

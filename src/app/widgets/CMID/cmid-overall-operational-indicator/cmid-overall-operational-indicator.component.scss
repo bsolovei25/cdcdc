@@ -1,0 +1,25 @@
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &__head {
+    display: flex;
+    align-items: center;
+
+    svg-icon {
+      width: 16px;
+    }
+  }
+
+  &__groups {
+    margin-right: 35px;
+    max-width: 384px;
+    width: 100%;
+  }
+
+  &__title {
+    margin-left: 13px;
+    color: var(--text-accent-color);
+  }
+}

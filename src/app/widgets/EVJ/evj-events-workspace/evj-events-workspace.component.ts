@@ -26,6 +26,10 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { EvjEventsWorkspaceRestrictionsComponent } from './components/evj-events-workspace-restrictions/evj-events-workspace-restrictions.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 
+export interface IEnvironmentName {
+    EnvironmentName: 'MNPZ' | 'ONPZ' | 'APS';
+}
+
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './evj-events-workspace.component.html',
@@ -38,11 +42,11 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
         },
     ],
 })
-export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class EvjEventsWorkspaceComponent extends WidgetPlatform<IEnvironmentName> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
-        const flagSubcat: boolean = this.ewService.event?.productionTasks?.subCategory?.id === 1000;
+        const flagSubcat: boolean = this.ewService.event?.subCategory?.id === 1000;
         const flagNew: boolean = this.ewService.event?.status?.name === 'new';
         const message: string = flagNew ? 'В работу' : 'Завершить';
 
@@ -51,6 +55,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
 
     @Input()
     public displayContainer: boolean = true;
+    public environmentName: 'MNPZ' | 'ONPZ' | 'APS';
 
     constructor(
         public ewService: EventsWorkspaceService,
@@ -87,6 +92,7 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.environmentName = this.attributes.EnvironmentName;
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
@@ -216,6 +222,21 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         const heightPx = 587;
 
         const limitationWindowTarget = this.createOverlayTarget(heightPx);
+        if (limitationCheckbox) {
+            const removeLimitation: IAlertWindowModel = {
+                isShow: true,
+                questionText: `Вы уверены, что хотите снять ограничение?`,
+                acceptText: 'Да, снять ограничение',
+                cancelText: 'Отмена',
+                acceptFunction: async () => {
+                    this.ewService.event.isRestrictions = false;
+                    await this.ewService.saveEvent();
+                },
+                closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+            };
+            this.ewService.ewAlertInfo$.next(removeLimitation);
+            return;
+        }
 
         const popoverRef = this.popoverOverlayService.open({
             origin: limitationWindowTarget,

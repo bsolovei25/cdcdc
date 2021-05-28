@@ -15,6 +15,7 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
 
   public parameters: number = 1;
   public options: ISystemOptions[] = [];
+  public disable: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -25,6 +26,7 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   ngOnInit(): void {
     this.arscService.headerSettingsPicker.subscribe(value => {
       this.parameters = value;
+      value === 0 ? this.disable = true : this.disable = false;
     });
     this.systemOptions();
   }
@@ -32,7 +34,7 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   ngOnDestroy(): void {
     this.arscService.headerSettingsPicker.unsubscribe();
   }
-  
+
   public openSelect(): void {
     const dialogRef = this.dialog.open(AdminReportServerConfiguratorParametersSelectComponent, {data: this.options});
 
@@ -50,6 +52,5 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   public async systemOptions(): Promise<void> {
     const data = await this.arscRootService.getSystemOptions();
     this.options = data;
-    console.log(this.options);
   }
 }

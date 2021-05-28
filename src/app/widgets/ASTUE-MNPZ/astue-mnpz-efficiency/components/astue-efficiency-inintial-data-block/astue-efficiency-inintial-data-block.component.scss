@@ -59,7 +59,7 @@
 
     .cell {
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       background: var(--gray-G10-color);
 
@@ -75,14 +75,12 @@
     height: 100%;
     margin: 1px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     font-size: 12px;
     background: var(--gray-G10-50-color);
 
-    &:first-child {
-      margin-left: 0;
-    }
     &:last-child {
       margin-right: 0;
     }
@@ -105,7 +103,6 @@
     }
 
     &_value {
-      padding-left: 23px;
       color: var(--text-main-color);
     }
   }
@@ -113,10 +110,9 @@
   .name {
     flex-grow: 1;
     height: 100%;
+    width: 120px;
     min-width: 100px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    line-height: 3em;
 
     overflow: hidden;
     text-overflow: ellipsis;

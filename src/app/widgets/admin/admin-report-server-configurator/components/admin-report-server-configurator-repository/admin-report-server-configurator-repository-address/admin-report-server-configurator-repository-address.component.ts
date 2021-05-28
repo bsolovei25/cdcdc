@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
@@ -13,7 +14,8 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
     public readonly arrowsIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg';
     public path: ITemplateFolder[] = [];
 
-    constructor(
+    public readonly arrowsIcon = "assets/icons/widgets/admin/admin-report-server-configurator/path-arrows.svg";
+  public path: ITemplateFolder[] = [];constructor(
         public arscService: AdminReportConfiguratorService,
         public arscRootService: AdminReportServerConfiguratorRootService
     ) {}
@@ -39,5 +41,6 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
         const data = await this.arscRootService.getTemplateFolder();
         this.arscService.folders$.next(data.folders);
         this.arscService.reports$.next(data.templates);
+        this.arscService.headerSettingsPicker.next(null);
     }
 }

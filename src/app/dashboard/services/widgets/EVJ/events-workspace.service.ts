@@ -64,15 +64,20 @@ export class EventsWorkspaceService {
     //#endregion
 
     public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<IEventsWidgetAttributes>(null);
+    
+    private readonly parentCategoryId = {
+        safety: 1002,
+        tasks: 1003,
+        equipmentStatus: 1004
+    }
 
     //#region REFERENCES
     public priority: IPriority[] = [];
     public status: IStatus[] = [];
     public subCategory$: BehaviorSubject<ISubcategory[]> = new BehaviorSubject<ISubcategory[]>([]);
-    public subCategoryFilter: Observable<ISubcategory[]> = this.subCategory$.asObservable().pipe(
-        filter((item) => item !== null),
-        map((cs) => cs.filter((c) => c.isCanBeManuallySelected))
-    );
+    public tasksSubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.tasks);
+    public safetySubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.safety);
+    public equipmentStatusSubcategoryFilter: Observable<ISubcategory[]> = this.getSubcategoryFilter(this.parentCategoryId.equipmentStatus);
     public users: IUser[] = [];
     public category: ICategory[] = [];
     public equipmentCategory: ICategory[] = [];
@@ -345,7 +350,7 @@ export class EventsWorkspaceService {
     public async saveEvent(): Promise<void> {
         this.isLoading = true;
         try {
-            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.checkEvent(this.event));
             if (!saveMethod) {
                 throw error('no save method');
             }
@@ -404,6 +409,10 @@ export class EventsWorkspaceService {
 
     public setDeadlineToEvent(date: Date): void {
         this.event.deadline = new Date(date);
+    }
+
+    public setStartToEvent(date: Date): void {
+        this.event.eventDateTime = new Date(date);
     }
 
     public getUserAvatarUrl(user: IUser): string {
@@ -478,6 +487,7 @@ export class EventsWorkspaceService {
                 name: null,
                 code: null,
             },
+            subCategory: null,
             description: '',
             deviationReason: '',
             directReasons: '',
@@ -536,7 +546,8 @@ export class EventsWorkspaceService {
                 subCategory: null,
             },
             eventEndDateTime: null,
-            smpo: {}
+            smpo: {},
+            smotr: {}
         };
     }
 
@@ -557,7 +568,7 @@ export class EventsWorkspaceService {
                 this.status = data;
             }),
             this.eventService.getSubcategory().then((data) => {
-                this.subCategory = data.filter((item) => !!item.description);
+                this.subCategory = data.filter((item) => !!item.description && item.isVisibleToFilter);
             }),
             this.eventService.getUnits().then((data) => {
                 this.units = data;
@@ -618,7 +629,7 @@ export class EventsWorkspaceService {
 
     public async changeCategory(): Promise<void> {
         if (this.event.category.name === 'tasks') {
-            this.event.productionTasks.subCategory = this.subCategory?.find((value) => value.code === '0');
+            this.event.subCategory = this.subCategory?.find((value) => value.code === '0');
         }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -677,11 +688,37 @@ export class EventsWorkspaceService {
 
     public async getAutoResponsible(unitId: number): Promise<void> {
         try {
-            const data = await this.eventService.getResponsible(unitId);
-            this.getResponsible$.next(data);
-        } catch (e) {
-            console.error(e);
+            const responsibleUserId = await this.eventService.getResponsibleUserId(unitId);
+            const responsibleUser = await this.eventService.getResponsibleUser(responsibleUserId.userId);
+            this.getResponsible$.next(responsibleUser);
+        } catch {
             this.getResponsible$.next(null);
         }
+    }
+
+    public async getUnitResponsibleUsers(unitId: number): Promise<IUser[]> {
+        try {
+            return await this.eventService.getUnitResponsibleUsers(unitId);
+        } catch {
+            console.log(error);
+        }
+    }
+
+    private checkEvent(eventObj: IEventsWidgetNotification): IEventsWidgetNotification {
+        const event = {...eventObj};
+        if (eventObj?.subCategory?.id !== 1060) {
+            event.smpo = null;
+        }
+
+        return event;
+    }
+
+    private getSubcategoryFilter(parentCategoryId: number): Observable<ISubcategory[]> {
+        return this.subCategory$.asObservable().pipe(
+            filter((item) => item !== null),
+            map((subcategories) => subcategories.filter(
+                (subcategory) => subcategory.isCanBeManuallySelected && (subcategory.parentCategoryId === parentCategoryId)
+            ))
+        );
     }
 }

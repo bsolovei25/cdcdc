@@ -11,10 +11,12 @@
       class="gauge__chart"
       [type]="1"
       [showAxisValues]="false"
+      [hideDescription]="true"
       [isPerformance]="true"
       [data]="internalData"
     ></evj-kpe-gauge-chart-multi-color>
     <span class="main-text">{{ data?.name }}</span>
+    <span class="main-description">{{ data?.description }}</span>
 
     <span class="axis__value axis__value_1">{{ getExtremumValue('min') }}</span>
     <span class="axis__value axis__value_2">{{ getExtremumValue('max') }}</span>

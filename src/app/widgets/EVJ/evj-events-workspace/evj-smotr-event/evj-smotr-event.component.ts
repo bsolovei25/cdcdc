@@ -1,14 +1,18 @@
 import {
     ChangeDetectorRef,
     Component,
+    ElementRef,
     EventEmitter,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
     Output,
+    Renderer2,
     SimpleChanges,
 } from '@angular/core';
+import { DecorateUntilDestroy, takeUntilDestroyed } from '@shared/functions/take-until-destroed.function';
+import { map } from 'rxjs/operators';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
@@ -16,8 +20,12 @@ import { WidgetService } from '../../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../../dashboard/services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../../../dashboard/services/claim.service';
 import { IEjcoOnpzUnit } from '../../../EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { EvjEventsSmpoCorrectMenuComponent } from '../components/evj-events-smpo-correct-menu/evj-events-smpo-correct-menu.component';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
+import { IMenuItem } from '../components/evj-events-smpo-reasons-menu/evj-events-smpo-reasons-menu-item/evj-events-smpo-reasons-menu-item.component';
 
+@DecorateUntilDestroy()
 @Component({
     selector: 'evj-smotr-event',
     templateUrl: './evj-smotr-event.component.html',
@@ -73,13 +81,20 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     public isReasonsPopupOpen: boolean = false;
 
     public graph: any;
+    
+    private eventsList: IMenuItem[] = [];
+    public events: IMenuItem[] = [];
 
     constructor(
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService,
         private chDet: ChangeDetectorRef,
-        public ewService: EventsWorkspaceService
+        public ewService: EventsWorkspaceService,
+        private eventService: EventService,
+        private popoverOverlayService: PopoverOverlayService,
+        private renderer: Renderer2,
+        private hostElement: ElementRef
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -96,6 +111,11 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
                 this.claimWidgets = data;
             })
         );
+
+        this.getEventsList();
+        if (this.ewService.event.id) {
+            this.events = this.ewService.event.smotr.events;
+        }
     }
 
     public ngOnDestroy(): void {
@@ -190,5 +210,60 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
 
     public overlayChartClose(): void {
         this.ewService.isOverlayChartOpen = false;
+    }
+
+    private eventsList$(): Observable<IMenuItem[]> {
+        return this.eventService.getSmotrCorrects()
+            .pipe(
+                map((corrects) => corrects.map((correct) => ({ ...correct, isSelected: false })) as IMenuItem[])
+            );
+    }
+
+    private getEventsList(): void {
+        this.eventsList$()
+        .pipe(takeUntilDestroyed(this))
+        .subscribe((list) => {
+            this.eventsList = list;
+        });
+    }
+
+    public removeEvent(event: IMenuItem): void {
+        this.events = this.events.filter((currentEvent) => currentEvent.id !== event.id);
+        this.getEventsList();
+        this.ewService.event.smotr.events = this.events;
+    }
+
+    public openEventsList(): void {
+        const heightPx = 435;
+        const widthPx = 369;
+
+        const limitationWindowTarget = this.createOverlayTarget(heightPx, widthPx);
+        const popoverRef = this.popoverOverlayService.open({
+            content: EvjEventsSmpoCorrectMenuComponent,
+            origin: limitationWindowTarget,
+            width: widthPx,
+            position: 'end',
+            height: heightPx,
+            data: this.eventsList,
+        });
+
+        popoverRef.afterClosed$
+            .pipe(takeUntilDestroyed(this))
+            .subscribe((res) => {
+            this.renderer.removeChild(this.hostElement.nativeElement, limitationWindowTarget);
+            if (res.type !== 'backdropClick') {
+                this.events = res?.data;
+                this.ewService.event.smotr.events = this.events;
+            }
+        });
+    }
+
+    private createOverlayTarget(height: number, width: number): HTMLElement {
+        const limitationWindowTarget = this.renderer.createElement('div');
+        this.renderer.setStyle(limitationWindowTarget, 'position', `absolute`);
+        this.renderer.setStyle(limitationWindowTarget, 'right', `calc(50% - ${width}px / 2)`);
+        this.renderer.setStyle(limitationWindowTarget, 'top', `calc(50% + ${height}px / 2)`);
+        this.renderer.appendChild(this.hostElement.nativeElement, limitationWindowTarget);
+        return limitationWindowTarget;
     }
 }

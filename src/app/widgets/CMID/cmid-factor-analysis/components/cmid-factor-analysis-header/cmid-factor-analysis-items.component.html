@@ -1,0 +1,96 @@
+<div class="table-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="row row__border">
+        <div class="table-body__column table-body__column_first">
+            <svg-icon class="table-body__icon" src="assets/pic/npz.svg"></svg-icon>
+            <span class="table-body__name">{{dataHeader.name}}</span>
+        </div>
+        <div class="table-body__column" *ngFor="let item of dataHeader.list">
+            <a class="table-body__column_href" href={{item.link}}>{{item.name}}</a>
+        </div>
+    </div>
+    <div class="row__body">
+        <ng-container *ngFor="let element of dataContent.filter(filter)">
+            <div class="row">
+                <div class="table-body__column table-body__column_first" (click)="element.expand = !element.expand">
+                    <ng-container *ngIf="element.expand && element.list;else exist">
+                        <svg-icon class="table-body__arrow_down" src="assets/pic/arrow-down-simple.svg"></svg-icon>
+                        <span [class.table-body__span_color]="element.list" class="table-body__span">{{ element.name }}</span>
+                    </ng-container>
+                    <ng-template #exist>
+                        <svg-icon class="table-body__arrow_right" src="assets/pic/arrow-right-simple.svg"></svg-icon>
+                        <span [class.table-body__span_color]="element.list" class="table-body__span">{{ element.name }}</span>
+                    </ng-template>
+                </div>
+                <div [class.table-body__color_orange]="element.shield_set !== '-' || 0" 
+                     class="table-body__column table-body__column_item"
+                    >{{ element.shield_set }}
+                </div>
+                <div [class.table-body__color_orange]="element.shield !== '-' || 0" 
+                     class="table-body__column table-body__column_item"
+                    >{{ element.shield }}
+                </div>
+                <div [class.table-body__color_orange]="element.eco_leaf !== '-' || 0" 
+                     class="table-body__column table-body__column_item"
+                    >{{ element.eco_leaf }}
+                </div>
+                <div [class.table-body__color]="element.timer_return !== '-'" 
+                     class="table-body__column table-body__column_item"
+                    >{{ element.timer_return }}
+                </div>
+            </div>
+            <ng-container *ngIf="element.expand">
+                <ng-container *ngFor="let elementInner of element.list.filter(filter)">
+                    <div class="row row__inner">
+                        <div class="table-body__column table-body__column_first" (click)="elementInner.expand = !elementInner.expand">
+                            <ng-container *ngIf="elementInner.expand else closeList">
+                                <svg-icon class="table-body__arrow_down row__inner_first" 
+                                          *ngIf="elementInner.list" 
+                                          src="assets/pic/arrow-down-simple.svg"
+                                ></svg-icon>
+                                <span class="row__inner_span">{{ elementInner.name }}</span>
+                            </ng-container>
+                            <ng-template #closeList>
+                                <svg-icon class="table-body__arrow_right row__inner_first" 
+                                          *ngIf="elementInner.list" 
+                                          src="assets/pic/arrow-right-simple.svg"
+                                ></svg-icon>
+                                <span class="row__inner_span">{{ elementInner.name }}</span>
+                            </ng-template>
+                        </div>
+                        <div [class.table-body__color_orange]="elementInner.shield !== '-' || 0" 
+                             class="table-body__column table-body__column_item"
+                        >{{ elementInner.shield }}</div>
+                        <div [class.table-body__color_orange]="elementInner.shield_set !== '-' || 0" 
+                             class="table-body__column table-body__column_item"
+                        >{{ elementInner.shield_set }}</div>
+                        <div [class.table-body__color_orange]="elementInner.eco_leaf !== '-' || 0" 
+                             class="table-body__column table-body__column_item"
+                        >{{ elementInner.eco_leaf }}</div>
+                        <div [class.table-body__color]="elementInner.timer_return !== '-'" 
+                             class="table-body__column table-body__column_item"
+                        >{{ elementInner.timer_return }}</div>
+                    </div>
+                    <ng-container *ngIf="elementInner.expand">
+                        <div class="row row__inner_last" *ngFor="let deepInnerEl of elementInner.list.filter(filter)">
+                            <div class="table-body__column table-body__column_first">
+                                <span class="sub-item-2">{{ deepInnerEl.name }}</span>
+                            </div>
+                            <div [class.table-body__color_orange]="deepInnerEl.shield !== '-' || 0" 
+                                 class="table-body__column table-body__column_item"
+                            >{{ deepInnerEl.shield }}</div>
+                            <div [class.table-body__color_orange]="deepInnerEl.shield_set !== '-' || 0" 
+                                 class="table-body__column table-body__column_item"
+                            >{{ deepInnerEl.shield_set }}</div>
+                            <div [class.table-body__color_orange]="deepInnerEl.eco_leaf !== '-' || 0" 
+                                 class="table-body__column table-body__column_item"
+                            >{{ deepInnerEl.eco_leaf }}</div>
+                            <div [class.table-body__color]="deepInnerEl.timer_return === '-'" 
+                                 class="table-body__column table-body__column_item"
+                            >{{ deepInnerEl.timer_return }}</div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

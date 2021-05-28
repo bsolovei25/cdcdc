@@ -1,0 +1,21 @@
+<div class="bar-chart">
+  <div class="y-axis">
+    <div class="y-axis__values" >
+      <ng-container *ngFor="let percentValue of [0, 20, 40, 60, 80, 100]">
+        <div class="y-axis__value" [style.top]="percentValue + '%'">
+          {{ 100 - percentValue }}%
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="y-axis__axis">
+      <div class="y-axis__arrow"></div>
+      <div class="y-axis__line"></div>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let barColumn of data">
+    <evj-bar-column [barData]="barColumn">
+    </evj-bar-column>
+  </ng-container>
+</div>

@@ -43,8 +43,9 @@ $border-size: 4px;
 :host {
   position: relative;
   display: block;
-  height: 100%;
+  height: calc(100% - 15px);
   width: 100%;
+  padding-bottom: 15px;
 }
 
 .workspace {
@@ -77,8 +78,8 @@ $border-size: 4px;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+    gap: 10px;
+    padding: 0 5px;
   }
 
   .select-container {
@@ -89,7 +90,6 @@ $border-size: 4px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 5px;
   }
 
   &__third {
@@ -114,17 +114,24 @@ $border-size: 4px;
       padding-right: 5px;
       padding-left: 5px;
 
-      .place-date {
+      .select-group {
+        display: flex;
+        gap: 10px;
         width: 100%;
         height: 60px;
+      }
+
+      .place-date {
+        width: 100%;
+        height: 59px;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        gap: 10px;
       }
 
       .responsible {
-        width: 100%;
         height: 100px;
         min-width: 200px;
         min-height: 100px;
@@ -134,8 +141,7 @@ $border-size: 4px;
 
       .events-correct {
         width: 100%;
-        height: 100%;
-        min-height: 200px;
+        min-height: 425px;
       }
 
       .event-input {
@@ -149,16 +155,16 @@ $border-size: 4px;
 
       .description {
         margin-top: 4px;
-        height: 160px;
+        min-height: 158px;
         width: 100%;
         margin-bottom: 24px;
       }
 
       .description-equipment {
         margin-top: 2px;
-        height: 102px;
+        min-height: 100px;
         width: 100%;
-        margin-bottom: 24px;
+        margin-bottom: 25px;
       }
 
       .facts {
@@ -168,7 +174,7 @@ $border-size: 4px;
       }
 
       .comments {
-        height: 301px;
+        height: 203px;
         width: 100%;
       }
     }

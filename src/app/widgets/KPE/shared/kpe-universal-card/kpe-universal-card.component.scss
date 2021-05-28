@@ -4,6 +4,8 @@
 
 :host {
   flex: 1;
+  min-width: 100px;
+  max-width: calc(50% - 6px);
 }
 
 .container{
@@ -61,15 +63,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
+      background: var(--color-kpe-universal-card-bg-default);
       border-radius: 2px;
 
       font-size: 11px;
       line-height: 16px;
+
+      &.warning {
+        background: var(--color-kpe-universal-card-bg-warning);
+        color: var(--color-warning);
+      }
     }
 
     .line-diagram {
       width: 100%;
+      padding: 0 2px;
+      overflow: hidden;
     }
 
     .month-indicators {

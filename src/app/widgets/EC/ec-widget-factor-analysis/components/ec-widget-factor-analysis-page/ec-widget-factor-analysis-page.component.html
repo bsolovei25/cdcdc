@@ -1,0 +1,44 @@
+<div class="container">
+  <div #grid class="grid">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+  <div class="legend">
+    <div *ngIf="!isUnit" class="legend__units">кг ут/ч</div>
+    <ng-container *ngIf="legendValues$ | async">
+      <div class="legend__value-wrapper" *ngFor="let value of (legendValues$ | async)">
+        <div class="legend__value">{{ (value | number: "0.1-1") || 0 }}</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="group-divider"></div>
+  <div class="scroll-wrapper" *ngIf="data">
+    <ng-container *ngFor="let group of data.groups">
+      <evj-ec-widget-factor-analysis-group
+        [data]="group"
+        [style.flex-grow]="group.diagrams.length || 1"
+      >
+        <ng-container *ngFor="let bar of group.diagrams">
+          <evj-ec-widget-factor-analysis-cell [data]="bar"></evj-ec-widget-factor-analysis-cell>
+          <ng-container *ngIf="bar !== group.diagrams[group.diagrams.length - 1]">
+            <ng-container *ngTemplateOutlet="cellDivider"></ng-container>
+          </ng-container>
+        </ng-container>
+      </evj-ec-widget-factor-analysis-group>
+      <ng-container *ngTemplateOutlet="groupDivider"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #groupDivider>
+  <div class="group-divider">
+    <div class="triangle triangle__left"></div>
+    <div class="triangle triangle__right"></div>
+  </div>
+</ng-template>
+
+<ng-template #cellDivider>
+  <div class="cell-divider"></div>
+</ng-template>

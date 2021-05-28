@@ -5,6 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
+export type RestrictionType = 'eventType' | 'type' | 'reason' | 'constancy' | 'duration' | 'economicEfficiency' | 'significance';
+
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
@@ -53,6 +55,10 @@ export interface ISMPOData {
     events?: ICorrect[];
 }
 
+export interface ISmotrData {
+    events?: ICorrect[];
+}
+
 export interface IEventsWidgetNotification {
     id?: number;
     parentId?: number;
@@ -77,6 +83,7 @@ export interface IEventsWidgetNotification {
     description: string; // Описание
     comments?: IMessage[]; // Комментарий оператора
     category: ICategory;
+    subCategory?: ISubcategory;
     statusName?: string;
     positionNumber?: string;
     severity?: string;
@@ -101,6 +108,7 @@ export interface IEventsWidgetNotification {
     kpeAdditionalParameter?: IKpeAdditionalParameter;
     isRestrictions?: boolean;
     smpo: ISMPOData;
+    smotr?: ISmotrData;
 }
 
 export interface IEventsEjs {
@@ -328,17 +336,44 @@ export interface ISubcategory {
     code?: string;
     description?: string;
     isCanBeManuallySelected?: boolean;
+    isVisibleToFilter?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
 }
 
-export interface IReason {
+export type IRestrictionItemList = {
+    [key in RestrictionType]: IRestriction;
+};
+
+export interface IRestrictionRequest {
     id: number;
+    eventType: IRestrictionItem;
+    type: IRestrictionItem;
+    reason: IRestrictionItem;
+    constancy: IRestrictionItem;
+    duration: IRestrictionItem;
+    economicEfficiency: IRestrictionItem;
+    significance: IRestrictionItem;
+};
+
+export interface IRestrictionItem {
+    id: number,
+    type: string,
+    name: string
+}
+
+export interface IRestriction {
+    type: string,
+    restrictions: IRestrictionItem[]
+}
+
+export interface IReason {
+    id: number | string;
     name: string;
 }
 
 export interface ICorrect {
-    id: number;
+    id: number | string;
     name: string;
 }
 
@@ -506,4 +541,8 @@ export interface IKpeAdditionalParameter {
     createdBy: number;
     dependentParameters: IKpeAllDependentParameters[];
     selectedParameter: IKpeWorkspaceParameter;
+}
+
+export interface IResponsibleUserId {
+    userId: number;
 }

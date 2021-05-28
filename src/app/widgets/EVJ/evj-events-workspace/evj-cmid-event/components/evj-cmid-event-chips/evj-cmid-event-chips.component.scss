@@ -10,8 +10,11 @@
 .chips {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 24px;
+  max-height: 90px;
+  overflow: auto;
 
   .chip {
     font-size: 13px;

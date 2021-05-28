@@ -36,6 +36,8 @@
   --index-plan-color: #0089ff; /*План 1*/
   --index-error-color: #f7931e; /*Отклонения*/
   --index-critical-color: #ff1d25; /*Критические отклонения*/
+  --index-active-color: #8c99b2; /*Активные отклонения*/
+  --index-default-color: #4b5169; /*Дефолтный цвет отклонений*/
   --index-green1-color: #00a73d; /*Зеленый*/
   --index-prediction-color: #a2e2ff; /*План 2*/
   --index-blue1-color: #0f62fe; /*Синий*/
@@ -44,6 +46,10 @@
   --chart-segment-color: rgba(215, 226, 242, 0.75); /*- Cегменты и Будующий период*/
   --chart-background-color: rgba(245, 248, 253, 0.5); /*- Бэкграунд графика'>*/
   --chart-attantionZone-color: rgba(140, 153, 178, 0.1); /*-Зоны внимания*/
+  --chart-limits-color: #F7931E; /*Линии, показывающие верхнюю и нижнюю границы на графиках*/
+  --chart-limits-area: rgba(18, 21, 30, 1); /*Часть графика от нижней до верхней границы*/
+  --chart-shift-lines-color: #0089FF; /*Линии на графиках, показывающие смены*/
+  --chart-bar-color: #0089FF; /*Столбцы*/
   /*Прозрачность*/
   --opacity-plan-20-color: rgba(0, 137, 255, 0.2); /*20% прозрачность плана*/
   --opacity-fact-20-color: rgba(140, 153, 178, 0.2); /*20% прозрачность факта*/

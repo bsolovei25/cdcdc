@@ -12,6 +12,16 @@ import {
     ICustomOptions
 } from "../models/admin-report-server-configurator.model";
 import { BehaviorSubject } from "rxjs";
+import {
+    IReportFile,
+    IReportTemplate,
+    ISystemOptions,
+    IFolder,
+    IFileTemplate,
+    IPostSystemOptionsTemplate,
+    ICustomOptionsTemplate,
+    ICustomOptions
+} from "../models/admin-report-server-configurator.model";
 
 @Injectable({
     providedIn: 'root',

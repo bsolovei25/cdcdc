@@ -31,7 +31,9 @@
             <div class="title">
               <span>Подкатегория</span>
             </div>
-            <evj-events-workspace-select dataType="subCategoriesFilter"></evj-events-workspace-select>
+            <evj-events-workspace-select dataType="subCategoriesFilter"
+                                         [categoryTypeSet]="'tasks'">
+            </evj-events-workspace-select>
           </div>
           <div class="select-container">
             <div class="title">
@@ -43,9 +45,7 @@
         </div>
         <div class="row">
           <div class="text">
-            <div class="text__title">
-              <span>Краткое описание</span>
-            </div>
+            <span>Краткое описание</span>
             <evj-event-description
               [description]="ewService.event.description"
               [isRetrievalEvent]="false"
@@ -54,11 +54,9 @@
             ></evj-event-description>
           </div>
         </div>
-        <div class="row">
+        <div class="row row_facts">
           <div class="row__container">
-            <div class="chat-title">
-              <span>Установленные факты</span>
-            </div>
+            <span>Установленные факты</span>
             <evj-chat
               [messages]="ewService.event.facts"
               dataTitle="Установленные факты"
@@ -67,7 +65,7 @@
             ></evj-chat>
           </div>
         </div>
-        <div class="row">
+        <div class="row row_comments">
           <div class="row__container">
             <div class="chat-title">
               <span>Комментарии</span>
@@ -86,13 +84,14 @@
         <div class="row">
 
           <evj-smpo-event-datetimepicker
-            [date]="ewService.event.eventDateTime"
+            [(ngModel)]="ewService.event.eventDateTime"
             [label]="'Дата начала'"
             class="dtp-container"></evj-smpo-event-datetimepicker>
 
           <evj-smpo-event-datetimepicker
-            [date]="ewService.event.eventEndDateTime"
+            [(ngModel)]="ewService.event.eventEndDateTime"
             [label]="'Дата закрытия'"
+            [emptyDateAvailable]="true"
             class="dtp-container"></evj-smpo-event-datetimepicker>
 
         </div>
@@ -103,11 +102,11 @@
             [items]="phasesList"
           >Активная фаза</evj-event-dropdown>
         </div>
-        <div class="column">
+        <div class="column column_gap">
           <div class="column__block">
             <div class="row">
               <div class="row__title">
-                <span>ID в системе-источнике</span>
+                <div>ID в системе-источнике</div>
               </div>
             </div>
             <div class="row">
@@ -119,7 +118,7 @@
           <div class="column__block">
             <div class="row">
               <div class="row__title">
-                <span>Группа</span>
+                <div>Группа</div>
               </div>
             </div>
             <div class="row">
@@ -131,7 +130,7 @@
         </div>
         <div class="row">
           <div class="row__title">
-            <span>Продукт</span>
+            <div>Продукт</div>
           </div>
         </div>
         <div class="row">
@@ -141,7 +140,7 @@
         </div>
         <div class="row">
           <div class="row__title">
-            <span>Отклонение 2-го уровня</span>
+            <div>Отклонение 2-го уровня</div>
           </div>
         </div>
         <div class="row">
@@ -159,11 +158,12 @@
               </div>
             </div>
             <evj-events-smpo-reasons [items]="reasons"
+                                     [(ngModel)]="ewService.event.smpo.reasons"
                                      (onRemoveItem)="removeReason($event)" ></evj-events-smpo-reasons>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row row_corrects">
           <div class="reasons h-auto">
             <div class="title">
               <span>Корректирующие мероприятия</span>
@@ -172,6 +172,7 @@
               </div>
             </div>
             <evj-events-smpo-events [items]="events"
+                                    [(ngModel)]="ewService.event.smpo.events"
                                     (onRemoveItem)="removeEvent($event)" ></evj-events-smpo-events>
           </div>
         </div>

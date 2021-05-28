@@ -14,7 +14,7 @@ export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unkno
         protected widgetService: WidgetService,
         public helperService: AdminReportConfiguratorService,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
     ) {
         super(widgetService, id, uniqId);
     }

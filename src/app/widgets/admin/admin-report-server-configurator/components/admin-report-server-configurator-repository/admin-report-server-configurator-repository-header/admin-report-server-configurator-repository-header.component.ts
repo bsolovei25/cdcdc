@@ -1,7 +1,11 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AdminReportServerConfiguratorRepositoryAddFileComponent } from '../admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
 import { AdminReportServerConfiguratorRepositoryAddComponent } from '../admin-report-server-configurator-repository-add/admin-report-server-configurator-repository-add.component';
 import { AdminReportConfiguratorService } from "@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service";
@@ -18,12 +22,26 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
     public readonly folderIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/folder.svg';
     public readonly reportIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/report.svg';
 
-    @ViewChild('button', { static: true }) private buttonRef: ElementRef<HTMLButtonElement>;
+    public form: FormGroup = new FormGroup({
+    'search': new FormControl(''),
+  });
+  private subscribe$: Subject<null> = new Subject<null>();@ViewChild('button', { static: true }) private buttonRef: ElementRef<HTMLButtonElement>;
     @ViewChild(TemplateRef, { static: true }) private templateRef: TemplateRef<HTMLElement>;
 
-    constructor(public dialog: MatDialog, private overlay: Overlay, private viewContainerRef: ViewContainerRef, public helperService: AdminReportConfiguratorService) {}
+  constructor(
+    public dialog: MatDialog,
+    private overlay: Overlay,
+    private viewContainerRef: ViewContainerRef,
+    private arscService: AdminReportConfiguratorService,
+    public helperService: AdminReportConfiguratorService,
+    ) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {this.form.get('search').valueChanges
+      .pipe(takeUntil(this.subscribe$))
+      .subscribe((x) => (
+        this.arscService.search$.next(x)
+      ));
+  }
 
     public addFile(): void {
         const positionStrategyBuilder = this.overlay.position();

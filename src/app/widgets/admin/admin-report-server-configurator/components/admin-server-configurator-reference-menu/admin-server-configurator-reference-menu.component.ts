@@ -3,6 +3,11 @@ import { IChildrenFolder } from '@dashboard/models/ADMIN/report-server.model';
 import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, Input, OnInit } from '@angular/core';
+import { IFolder, IReportTemplate, ITemplateFolder, ITemplate } from '../../models/admin-report-server-configurator.model';
+import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
+import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
 
 @Component({
   selector: 'evj-admin-server-configurator-reference-menu',
@@ -10,11 +15,13 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
   styleUrls: ['./admin-server-configurator-reference-menu.component.scss']
 })
 export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
-  @Input() public data: IFolder;
-  @Input() public reports: IReportTemplate[];
 
+    @Input() public data: IFolder;
+  @Input() public reports: IReportTemplate[];
   @Input() public childrens: ITemplateFolder[] | IChildrenFolder[] | IFolder;
   @Input() public templates: ITemplate[];
+
+    public search: string = '';
 
   constructor(
     private arscService: AdminReportConfiguratorService,
@@ -27,7 +34,10 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     });
     this.arscService.reports$.subscribe(value => {
       this.templates = value;
-    })
+    });
+      this.arscService.search$.subscribe(value => {
+          this.search = value;
+      });
   }
 
   public openFolder(folder?: ITemplateFolder): void {
@@ -43,4 +53,13 @@ export class AdminServerConfiguratorReferenceMenuComponent implements OnInit {
     const data = await this.arscRootService.getReporting(template.id);
     this.arscService.reportParameters$.next(data)
   }
+
+    public drop(event: CdkDragDrop<ITemplateFolder[]>) {
+        transferArrayItem(
+            this.arscService.data?.folders,
+            this.arscService.data?.folders[event.currentIndex].childFolders,
+            event.previousIndex,
+            event.currentIndex
+        );
+    }
 }

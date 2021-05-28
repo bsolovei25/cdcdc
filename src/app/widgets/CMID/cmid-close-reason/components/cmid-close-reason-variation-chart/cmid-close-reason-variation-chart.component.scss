@@ -1,0 +1,26 @@
+.variation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 4px;
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &__value {
+    margin-left: 4px;
+    font-size: 11px;
+  }
+
+  &__arrow {
+    line-height: 6px;
+
+    &_up {
+      color: var(--index-green1-color);
+    }
+
+    &_down {
+      transform: rotate(180deg);
+      color: var(--index-error-color);
+    }
+  }
+}

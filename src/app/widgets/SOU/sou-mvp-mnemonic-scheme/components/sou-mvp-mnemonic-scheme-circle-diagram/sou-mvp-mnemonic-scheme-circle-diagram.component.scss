@@ -195,6 +195,10 @@
 
   position: relative;
 
+  &--dashed {
+    border: 1px dashed var(--sou-mvp-color-border);
+  }
+
   .connection-circle {
     height: 8px;
     width: 8px;
@@ -212,6 +216,10 @@
     top: -4px;
     left: -4px;
     z-index: 1;
+
+    &.enabled {
+      background-color: var(--sou-mvp-color-white);
+    }
   }
 }
 

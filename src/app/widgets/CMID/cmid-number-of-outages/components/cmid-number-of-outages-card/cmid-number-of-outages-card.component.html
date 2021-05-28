@@ -1,0 +1,39 @@
+<section class="outage-card">
+  <mat-accordion class="outage-card__body">
+    <ng-container *ngFor="let manufacture of groups?.manufactures">
+      <evj-accordion class="outage-card__name" [title]="manufacture.name" [isSingle]="groups?.manufactures.length === 1">
+        <div class="outage-card__body outage-table">
+          <div class="outage-table__header">
+            <div class="outage-table__column">
+              Объекты
+            </div>
+            <div class="outage-table__column">
+              Несанкционирован. / Просрочено / Всего
+            </div>
+          </div>
+          <ng-container *ngFor="let plant of manufacture?.plants">
+            <div class="outage-table__row outage">
+              <div class="outage__name">
+                <svg-icon class="outage__icon"
+                          [src]="'assets/icons/widgets/CMID/number-of-outages/plant-default.svg'"
+                          [class]="getIconClass(plant)"></svg-icon>
+                {{plant.name}}
+              </div>
+              <div class="outage__data">
+                <span class="outage__value" [class.outage__value_unauthorized]="plant.unauthorized > 0">
+                    {{plant.unauthorized}}
+                </span>
+                <span class="outage__value" [class.outage__value_expired]="plant.expired > 0">
+                    {{plant.expired}}
+                </span>
+                <span class="outage__value" [class.outage__value_total]="plant.total > 0">
+                    {{plant.total}}
+                </span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </evj-accordion>
+    </ng-container>
+  </mat-accordion>
+</section>

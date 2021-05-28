@@ -1,14 +1,15 @@
-import { Component, Inject, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '@dashboard/services/widget.service';
-import { IProductionTrend } from '@dashboard/models/LCO/production-trends.model';
-import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
-import { IKpeLineChartData } from '../shared/kpe-charts.model';
-import { KpeHelperService } from '../shared/kpe-helper.service';
-import { KpeEngUnitsComparator } from '../shared/kpe-eng-units-comparator';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, QueryList, ViewChildren } from "@angular/core";
+import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
+import { WidgetService } from "@dashboard/services/widget.service";
+import { IProductionTrend } from "@dashboard/models/LCO/production-trends.model";
+import { IDeviationDiagramData } from "../shared/kpe-deviation-diagram/kpe-deviation-diagram.component";
+import { IKpeLineChartData } from "../shared/kpe-charts.model";
+import { KpeHelperService } from "../shared/kpe-helper.service";
+import { KpeEngUnitsComparator } from "../shared/kpe-eng-units-comparator";
 import { IKpeWidgetAttributes } from "../kpe-quality/kpe-quality.component";
-import { IKpeGaugeChartPage } from '@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
+import { IKpeGaugeChartPage } from "@widgets/KPE/key-performance-indicators/components/gauge-diagram/gauge-diagram.component";
 import { IKpeUniversalCardLineChart } from "@widgets/KPE/shared/kpe-universal-card/kpe-universal-card.component";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 
 export interface IKpeGaugeCard {
     chartPage: IKpeGaugeChartPage;
@@ -44,26 +45,39 @@ export interface IKpeReadinessGauge {
     selector: 'evj-kpe-readiness',
     templateUrl: './kpe-readiness.component.html',
     styleUrls: ['./kpe-readiness.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> implements OnInit, OnDestroy {
+    @ViewChildren('gauge') gauge: HTMLDivElement;
     @ViewChildren('gauges')
     public gaugesElements: QueryList<HTMLDivElement>;
 
     public lineChartData: IProductionTrend[] = [];
 
-    public deviationChartData: IDeviationDiagramData[] = [];
+    // Subjects for change data state
+    private deviationChartDataSubject$: BehaviorSubject<IDeviationDiagramData[]> = new BehaviorSubject([]);
+    private gaugeCardsSubject$: BehaviorSubject<IKpeGaugeCard[]> = new BehaviorSubject([]);
+    private chartCardSubject$: Subject<IKpeReadinessChartCard> = new Subject();
+    private chartCardsSubject$: BehaviorSubject<IKpeReadinessChartCard[] | IKpeReadinessChartCard[][]> = new BehaviorSubject(null);
+    private diagramSubject$: Subject<IKpeGaugeChartPage> = new Subject();
 
-    public gaugeCards: IKpeGaugeCard[];
+    private displayedMonthSubject$: Subject<Date> = new Subject();
+    // Observables for transfer data state to components
+    public deviationChartData$: Observable<IDeviationDiagramData[]> = this.deviationChartDataSubject$.asObservable();
+    public gaugeCards$: Observable<IKpeGaugeCard[]> = this.gaugeCardsSubject$.asObservable();
+    public chartCard$: Observable<IKpeReadinessChartCard> = this.chartCardSubject$.asObservable();
+    public chartCards$: Observable<IKpeReadinessChartCard[] | IKpeReadinessChartCard[][]> = this.chartCardsSubject$.asObservable();
+    public diagram$: Observable<IKpeGaugeChartPage> = this.diagramSubject$.asObservable();
+    public displayedMonth$: Observable<Date> = this.displayedMonthSubject$.asObservable();
+    private displayNewDesignSubject$: Subject<boolean> = new BehaviorSubject(false);
+    public displayNewDesign$: Observable<boolean> = this.displayNewDesignSubject$.asObservable();
 
-    public chartCard: IKpeReadinessChartCard;
-
-    public chartCards: IKpeReadinessChartCard[] | IKpeReadinessChartCard[][];
-
-    public diagram: IKpeGaugeChartPage;
-
-    public margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 30, left: 40 };
-
-    public displayedMonth: Date;
+    public margin: { top: number; right: number; bottom: number; left: number } = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40,
+    };
 
     displayMode: 'tiled' | 'line';
 
@@ -89,38 +103,70 @@ export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> 
         super.ngOnDestroy();
     }
 
+    public trackByIndex(index: number): number {
+        return index;
+    }
+
     protected dataHandler(ref: IKpeReadinessData): void {
         this.displayMode = ref.displayMode;
         if (!!ref?.deviationChart) {
-            this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
+            this.deviationChartDataSubject$.next(this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart));
         }
-        this.gaugeCards = ref.gaugeCards as IKpeGaugeCard[];
-        this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
-        // TODO get from back
-        this.chartCards.forEach((x) => (x.progressChart.deviationPercentage = 100 - x.progressChart.percentage));
+        this.gaugeCardsSubject$.next(this.setIsWarning(ref).gaugeCards as IKpeGaugeCard[])
+        this.chartCardsSubject$.next(this.setDeviationPercentage(ref).chartCards as IKpeReadinessChartCard[]);
 
-        if (this.chartCards.length > 0) {
+        if (ref.chartCards.length > 0) {
             if (this.displayMode === 'line') {
-                this.chartCard = this.chartCards[0];
+                this.chartCardSubject$.next(this.chartCardsSubject$.value[0] as IKpeReadinessChartCard);
             } else {
-                this.chartCard = this.chartCards.shift();
+                this.chartCardSubject$.next(this.chartCardsSubject$.value.shift() as IKpeReadinessChartCard);
             }
         }
-        this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(
-            this.chartCards,
+
+        this.chartCardsSubject$.next(this.kpeHelperService.sortArray<IKpeReadinessChartCard>(
+            this.chartCardsSubject$.value as IKpeReadinessChartCard[],
             2
-        ) as IKpeReadinessChartCard[][];
-        this.diagram = ref.deviationDiagram;
+        ) as IKpeReadinessChartCard[][]);
+
+        this.diagramSubject$.next(ref.deviationDiagram);
+
         ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
-                this.displayedMonth = new Date(data.graph?.[0]?.timeStamp);
+                this.displayedMonthSubject$.next(new Date(data.graph?.[0]?.timeStamp));
             }
         });
     }
 
+    private setIsWarning(srcArr: IKpeReadinessData): IKpeReadinessData {
+        // TODO Временный костыль для работы isWarning, пока не добавят поле в обьект linePage
+        return {
+            ...srcArr,
+            gaugeCards: srcArr.gaugeCards.map(card => ({
+             ...card,
+                linePage: {
+                 ...card.linePage,
+                    isWarning: card.chartPage.isWarning
+                }
+            }))
+        }
+    }
+
+    private setDeviationPercentage(srcArr: IKpeReadinessData): IKpeReadinessData {
+        return {
+            ...srcArr,
+            chartCards: srcArr.chartCards.map(x => ({
+                ...x,
+                progressChart: {
+                    ...x.progressChart,
+                    deviationPercentage: 100 - x.progressChart.percentage
+                },
+            }))
+        };
+    }
+
     protected dataConnect(): void {
         super.dataConnect();
-        this.displayNewDesign = this.attributes.IsDesign;
+        this.displayNewDesignSubject$.next(this.attributes.IsDesign);
     }
 
     public gaugeWidth(container: HTMLDivElement): string {
@@ -148,8 +194,8 @@ export class KpeReadinessComponent extends WidgetPlatform<IKpeWidgetAttributes> 
         }
 
         let width: number;
-        if (this.gaugeCards.length > 0) {
-            width = container?.offsetWidth / this.gaugeCards.length;
+        if (this.gaugeCardsSubject$.value.length > 0) {
+            width = container?.offsetWidth / this.gaugeCardsSubject$.value.length;
         } else {
             width = container?.offsetWidth / 4;
         }

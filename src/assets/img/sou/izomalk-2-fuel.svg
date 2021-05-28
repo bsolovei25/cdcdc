@@ -329,7 +329,11 @@
 <path id="Vector_98" d="M33.9844 1238.62V1240.18" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="element-1_25">
+<g id="element-2_25">
+<g id="text-params_lineLength=21">
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 19 878)" fill="#272A38"/>
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 19 878)" stroke="#606580"/>
+</g>
 <g id="rect_8">
 <rect x="16" y="874" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="16" y="874" width="168" height="32" rx="2" stroke="#606580"/>
@@ -816,11 +820,11 @@
 <g id="Naming=In">
 <g id="oven">
 <g id="Union">
-<mask id="path-344-inside-1" fill="white">
+<mask id="path-345-inside-1" fill="white">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1195.31 759H1144.69L1136.25 771V801L1125 819V884.5C1125 885.605 1125.9 886.5 1127 886.5H1213C1214.1 886.5 1215 885.605 1215 884.5V819L1203.75 801V771L1195.31 759Z"/>
 </mask>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1195.31 759H1144.69L1136.25 771V801L1125 819V884.5C1125 885.605 1125.9 886.5 1127 886.5H1213C1214.1 886.5 1215 885.605 1215 884.5V819L1203.75 801V771L1195.31 759Z" fill="#272A38"/>
-<path d="M1144.69 759V758H1144.17L1143.87 758.425L1144.69 759ZM1195.31 759L1196.13 758.425L1195.83 758H1195.31V759ZM1136.25 771L1135.43 770.425L1135.25 770.684V771H1136.25ZM1136.25 801L1137.1 801.53L1137.25 801.287V801H1136.25ZM1125 819L1124.15 818.47L1124 818.713V819H1125ZM1215 819H1216V818.713L1215.85 818.47L1215 819ZM1203.75 801H1202.75V801.287L1202.9 801.53L1203.75 801ZM1203.75 771H1204.75V770.684L1204.57 770.425L1203.75 771ZM1144.69 760H1195.31V758H1144.69V760ZM1137.07 771.575L1145.51 759.575L1143.87 758.425L1135.43 770.425L1137.07 771.575ZM1137.25 801V771H1135.25V801H1137.25ZM1125.85 819.53L1137.1 801.53L1135.4 800.47L1124.15 818.47L1125.85 819.53ZM1126 884.5V819H1124V884.5H1126ZM1127 885.5C1126.45 885.5 1126 885.052 1126 884.5H1124C1124 886.157 1125.34 887.5 1127 887.5V885.5ZM1213 885.5H1127V887.5H1213V885.5ZM1214 884.5C1214 885.052 1213.55 885.5 1213 885.5V887.5C1214.66 887.5 1216 886.157 1216 884.5H1214ZM1214 819V884.5H1216V819H1214ZM1202.9 801.53L1214.15 819.53L1215.85 818.47L1204.6 800.47L1202.9 801.53ZM1202.75 771V801H1204.75V771H1202.75ZM1194.49 759.575L1202.93 771.575L1204.57 770.425L1196.13 758.425L1194.49 759.575Z" fill="#606580" mask="url(#path-344-inside-1)"/>
+<path d="M1144.69 759V758H1144.17L1143.87 758.425L1144.69 759ZM1195.31 759L1196.13 758.425L1195.83 758H1195.31V759ZM1136.25 771L1135.43 770.425L1135.25 770.684V771H1136.25ZM1136.25 801L1137.1 801.53L1137.25 801.287V801H1136.25ZM1125 819L1124.15 818.47L1124 818.713V819H1125ZM1215 819H1216V818.713L1215.85 818.47L1215 819ZM1203.75 801H1202.75V801.287L1202.9 801.53L1203.75 801ZM1203.75 771H1204.75V770.684L1204.57 770.425L1203.75 771ZM1144.69 760H1195.31V758H1144.69V760ZM1137.07 771.575L1145.51 759.575L1143.87 758.425L1135.43 770.425L1137.07 771.575ZM1137.25 801V771H1135.25V801H1137.25ZM1125.85 819.53L1137.1 801.53L1135.4 800.47L1124.15 818.47L1125.85 819.53ZM1126 884.5V819H1124V884.5H1126ZM1127 885.5C1126.45 885.5 1126 885.052 1126 884.5H1124C1124 886.157 1125.34 887.5 1127 887.5V885.5ZM1213 885.5H1127V887.5H1213V885.5ZM1214 884.5C1214 885.052 1213.55 885.5 1213 885.5V887.5C1214.66 887.5 1216 886.157 1216 884.5H1214ZM1214 819V884.5H1216V819H1214ZM1202.9 801.53L1214.15 819.53L1215.85 818.47L1204.6 800.47L1202.9 801.53ZM1202.75 771V801H1204.75V771H1202.75ZM1194.49 759.575L1202.93 771.575L1204.57 770.425L1196.13 758.425L1194.49 759.575Z" fill="#606580" mask="url(#path-345-inside-1)"/>
 </g>
 </g>
 <g id="icon_21">
@@ -1776,6 +1780,24 @@
 <text id="percent" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="236" y="289.161">&#x2014;</tspan></text>
 <circle id="ellipse_19" cx="184" cy="274" r="4" fill="white"/>
 </g>
+<g id="element-14_78">
+<rect x="1688.5" y="151.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<g id="rect_32">
+<rect x="1688.5" y="151.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<rect x="1688.5" y="151.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<text id="text_value_18" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1733" y="168.161">12 000.000&#x442;</tspan></text>
+<rect x="1688.5" y="151.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_75">
+<rect x="1688.5" y="91.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<g id="rect_33">
+<rect x="1688.5" y="91.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<rect x="1688.5" y="91.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<text id="text_value_19" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1733" y="108.161">12 000.000&#x442;</tspan></text>
+<rect x="1688.5" y="91.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
 <g id="element-11_45">
 <circle id="circle_40" cx="588" cy="651" r="11.5" fill="#1C1F2B" stroke="#606580"/>
 <g id="icon_42">
@@ -2073,8 +2095,12 @@
 <text id="percent_12" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1609" y="1153.16">&#x2014;</tspan></text>
 <circle id="ellipse_30" cx="1556" cy="1138" r="4" fill="white"/>
 </g>
-<g id="element-1_81">
-<g id="rect_32">
+<g id="element-2_81">
+<g id="text-params_lineLength=21_2">
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 1845 904)" fill="#272A38"/>
+<rect width="1" height="1" rx="0.5" transform="matrix(1 0 0 -1 1845 904)" stroke="#606580"/>
+</g>
+<g id="rect_34">
 <rect x="1842" y="900" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1842" y="900" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
@@ -2093,7 +2119,7 @@
 <text id="text_69" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1846" y="921.161">&#x412; &#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x43d;&#x43e;&#x435; &#x43a;&#x43e;&#x43b;&#x44c;&#x446;&#x43e;</tspan></text>
 </g>
 <g id="element-1_79">
-<g id="rect_33">
+<g id="rect_35">
 <rect x="1842" y="147" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1842" y="147" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
@@ -2124,7 +2150,7 @@
 <text id="text_70" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1876" y="160.161">&#x412; &#x43a;-&#x442;&#x43e;&#x440;&#10;</tspan><tspan x="1876" y="174.161">&#x440;&#x438;&#x444;&#x43e;&#x440;&#x43c;&#x438;&#x43d;&#x433;&#x430;</tspan></text>
 </g>
 <g id="element-1_76">
-<g id="rect_34">
+<g id="rect_36">
 <rect x="1842" y="87" width="168" height="32" rx="2" fill="#272A38"/>
 <rect x="1842" y="87" width="168" height="32" rx="2" stroke="#606580"/>
 </g>
@@ -2155,66 +2181,71 @@
 <text id="text_71" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1873" y="107.161">&#x412; &#x43a;-&#x442;&#x43e;&#x440; &#x41d;&#x41a;-85</tspan></text>
 </g>
 <g id="element-13_80">
-<rect id="rect_35" x="1896" y="285" width="60" height="208" rx="30" fill="#272A38" stroke="#606580"/>
+<rect id="rect_37" x="1896" y="285" width="60" height="208" rx="30" fill="#272A38" stroke="#606580"/>
 <text id="text_72" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1927.32" y="393.161">&#x424;&#x421;-1</tspan></text>
-<path id="rect_36" d="M1956 314H1896" stroke="#606580"/>
-<path id="rect_37" d="M1956 468H1896" stroke="#606580"/>
+<path id="rect_38" d="M1956 314H1896" stroke="#606580"/>
+<path id="rect_39" d="M1956 468H1896" stroke="#606580"/>
 </g>
 <g id="element-13_87">
-<rect id="rect_38" x="1896" y="1040" width="60" height="220" rx="30" fill="#272A38" stroke="#606580"/>
+<rect id="rect_40" x="1896" y="1040" width="60" height="220" rx="30" fill="#272A38" stroke="#606580"/>
 <text id="text_73" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1927.32" y="1153.16">&#x424;&#x421;-2</tspan></text>
-<path id="rect_39" d="M1956 1070.67H1896" stroke="#606580"/>
-<path id="rect_40" d="M1956 1233.56H1896" stroke="#606580"/>
+<path id="rect_41" d="M1956 1070.67H1896" stroke="#606580"/>
+<path id="rect_42" d="M1956 1233.56H1896" stroke="#606580"/>
 </g>
-<g id="element-3_46">
+<g id="element-14_46">
 <rect x="696.5" y="640.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_18" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="704" y="657.161">12 000.000&#x442;</tspan></text>
+<text id="text_value_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="741" y="657.161">12 000.000&#x442;</tspan></text>
 <rect x="696.5" y="640.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_54">
-<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_19" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="469.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_72">
-<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_20" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1340" y="403.161">12 000.000&#x442;</tspan></text>
-<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_58">
-<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="595.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_60">
-<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_22" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="655.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_62">
-<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_23" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="715.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_64">
-<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_24" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="993" y="775.161">12 000.000&#x442;</tspan></text>
-<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" stroke="#606580"/>
-</g>
-<g id="element-3_48">
+<g id="element-14_48">
 <rect x="696.5" y="850.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_25" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="704" y="867.161">12 000.000&#x442;</tspan></text>
+<text id="text_value_21" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="741" y="867.161">12 000.000&#x442;</tspan></text>
 <rect x="696.5" y="850.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_84">
+<g id="element-14_72">
+<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_22" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1377" y="403.161">12 000.000&#x442;</tspan></text>
+<rect x="1332.5" y="386.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_84">
 <rect x="1701.5" y="1126.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_26" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1709" y="1143.16">12 000.000&#x442;</tspan></text>
+<text id="text_value_23" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1746" y="1143.16">12 000.000&#x442;</tspan></text>
 <rect x="1701.5" y="1126.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
-<g id="element-3_86">
+<g id="element-14_86">
 <rect x="1701.5" y="1186.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
-<text id="text_value_27" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1709" y="1203.16">12 000.000&#x442;</tspan></text>
+<text id="text_value_24" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1746" y="1203.16">12 000.000&#x442;</tspan></text>
 <rect x="1701.5" y="1186.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_54">
+<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_25" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="469.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="452.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_56">
+<rect x="985.5" y="512.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_26" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="529.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="512.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_58">
+<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_27" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="595.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="578.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_60">
+<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_28" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="655.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="638.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_62">
+<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_29" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="715.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="698.5" width="88" height="23" rx="1.5" stroke="#606580"/>
+</g>
+<g id="element-14_64">
+<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" fill="#1C1F2B"/>
+<text id="text_value_30" fill="white" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1030" y="775.161">12 000.000&#x442;</tspan></text>
+<rect x="985.5" y="758.5" width="88" height="23" rx="1.5" stroke="#606580"/>
 </g>
 <g id="Group 22904">
 <path id="line_dotted_51" d="M498 1171H1513" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>

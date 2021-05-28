@@ -45,8 +45,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-right: 5px;
-    padding-left: 5px;
   }
 
   &__select-container-left {
@@ -58,7 +56,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-right: 5px;
   }
 
   &__select-container-right {
@@ -70,7 +67,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-left: 5px;
   }
   &__select-container-l {
     flex-grow: 1;
@@ -81,7 +77,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin-right: 5px;
   }
   &__select-container-r {
     flex-grow: 1;
@@ -92,7 +87,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin-left: 5px;
   }
 
   &__header {
@@ -160,6 +154,7 @@ $border-color: rgba(63, 169, 245, 0.05);
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
       }
 
       .responsible {
@@ -171,7 +166,7 @@ $border-color: rgba(63, 169, 245, 0.05);
         margin-bottom: 23px;
       }
 
-      .events-correct {
+      .event-correct {
         width: 100%;
         height: 100%;
         min-height: 200px;
@@ -191,6 +186,11 @@ $border-color: rgba(63, 169, 245, 0.05);
         width: 100%;
         margin-bottom: 24px;
       }
+
+      .event-correct {
+        height: 391px;
+      }
+
       .description {
         margin-top: 4px;
         height: 158px;
@@ -205,7 +205,7 @@ $border-color: rgba(63, 169, 245, 0.05);
       }
 
       .comments {
-        height: 340px;
+        height: 208px;
         width: 100%;
       }
     }
@@ -217,7 +217,18 @@ $border-color: rgba(63, 169, 245, 0.05);
   margin-bottom: 2px;
   font-size: 13px;
   line-height: 16px;
+
+  &_events {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
 }
+
+.add-event {
+  cursor: pointer;
+}
+
 .event-mat-select {
   display: flex;
   align-items: center;
@@ -382,7 +393,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     border-radius: 1px;
     background-color: var(--evj-color-bg-btn);
     border: 2px solid var(--color-events-bg-filters);

@@ -25,6 +25,7 @@ variables:
   UNIT_TESTS_ON: "true"
   HELM_DEPLOY_ON: "true"
   SEMVER_EXPORT_ON: "true"
+  COMPILE_TARGET: "angular"
   
   
   # DOCKER BUILD LVL
@@ -35,7 +36,7 @@ variables:
 
   # service lvl
   SERVICE_NAME: "evj-front"
-  EXTERNAL_DOCKER_IMG: "onpz.local/cup/evj-front"
+  EXTERNAL_DOCKER_IMG: "onpz.local/evj/evj-front"
   TAG: "$CI_RELEASE_TAG"
   
   # deploy lvl
@@ -54,7 +55,7 @@ variables:
   # fetching Dockerfile from remote repo 
   FETCH_PROJECT_ID: "184"
   FETCH_PATH: "builds%2Fangular%2F"
-  FETCH_FILE: "Dockerfile.default"
+  FETCH_FILE: "Dockerfile.nginx-rhel"
   FETCH_REF: "/raw?ref=master"
 
   # ALERTING
@@ -71,7 +72,7 @@ variables:
   SR_IS_EXPORTING: "true"
   SR_IS_ALERTING: "true"
   SR_SEMVER_RELEASE_DRY_RUN: "false"
-  EXTERNAL_REGISTRY: "onpz.local/asplatform"
+  EXTERNAL_REGISTRY: "oms02-nex01.gazprom-neft.local:5000/asplatform"
 
 
 stages:

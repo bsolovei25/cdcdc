@@ -13,6 +13,7 @@ import {
 } from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { IEnvironmentName } from "@widgets/EVJ/evj-events-workspace/evj-events-workspace.component";
 
 @Component({
     selector: 'evj-events-workspace',
@@ -26,11 +27,11 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
         },
     ],
 })
-export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsWorkspaceComponent extends WidgetPlatform<IEnvironmentName> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
-        const flagSubcat: boolean = this.ewService.event?.productionTasks?.subCategory?.id === 1000;
+        const flagSubcat: boolean = this.ewService.event?.subCategory?.id === 1000;
         const flagNew: boolean = this.ewService.event?.status?.name === 'new';
         const message: string = flagNew ? 'В работу' : 'Завершить';
 
@@ -39,6 +40,7 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
     @Input()
     public displayContainer: boolean = true;
+    public environmentName: 'MNPZ' | 'ONPZ' | 'APS';
 
     constructor(
         public ewService: EventsWorkspaceService,
@@ -71,6 +73,7 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.environmentName = this.attributes.EnvironmentName;
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {

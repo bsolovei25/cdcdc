@@ -23,6 +23,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AdminReportServerConfiguratorListGroupComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-list-group/admin-report-server-configurator-list-group.component';
 import { AdminFileWorkModule } from "@widgets/admin/admin-file-work/admin-file-work.module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AdminReportConfiguratorService } from './services/admin-report-server-configurator.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { AdminReportServerConfiguratorAccessDeniedComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-access-denied/admin-report-server-configurator-access-denied.component';
+import { AdminRscMacrosEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-macros-edit/admin-rsc-macros-edit.component';
+import { AdminRscAutogenerationComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-autogeneration/admin-rsc-autogeneration.component';
+import { AdminRscDatetimepickerComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-datetimepicker/admin-rsc-datetimepicker.component';
+import { AdminRscReportSheetComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-report-sheet/admin-rsc-report-sheet.component';
+import { AdminRscPeriodEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-period-edit/admin-rsc-period-edit.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { AdminRscParameterAutogenerationComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-parameter-autogeneration/admin-rsc-parameter-autogeneration.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AdminRscPathEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-path-edit/admin-rsc-path-edit.component';
+import { AdminRscCustomOptionsComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-custom-options/admin-rsc-custom-options.component';
+import { SearchPipe } from './shared/search.pipe';
+import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
+
+
 
 @NgModule({
   declarations: [
@@ -39,6 +59,17 @@ import { AdminFileWorkModule } from "@widgets/admin/admin-file-work/admin-file-w
     AdminReportServerConfiguratorParametersSelectComponent,
     AdminReportServerConfiguratorAccessComponent,
     AdminReportServerConfiguratorRepositoryAddFileComponent,
+    AdminReportServerConfiguratorAccessDeniedComponent,
+    AdminRscMacrosEditComponent,
+    AdminRscAutogenerationComponent,
+    AdminRscDatetimepickerComponent,
+    AdminRscReportSheetComponent,
+    AdminRscPeriodEditComponent,
+    AdminRscParameterAutogenerationComponent,
+    AdminRscPathEditComponent,
+    AdminRscCustomOptionsComponent,
+    SearchPipe,
+    AdminRscRepositoryEditComponent
     AdminReportServerConfiguratorListGroupComponent,
   ],
   imports: [
@@ -48,6 +79,20 @@ import { AdminFileWorkModule } from "@widgets/admin/admin-file-work/admin-file-w
     MatRippleModule,
     OverlayModule,
     MatSlideToggleModule,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatExpansionModule,
+  ],
+  exports: [
+    SearchPipe
+  ],
+  providers: [
+    AdminReportConfiguratorService
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,

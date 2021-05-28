@@ -37,13 +37,19 @@
         <!-- Проверка на подкатегорию "Распоряжения" -->
         <evj-usual-event
           [noOverflow]="displayContainer"
-          *ngIf="!ewService?.event?.productionTasks?.subCategory?.id else shiftPass"
+          *ngIf="!ewService?.event?.subCategory?.id else shiftPass"
         ></evj-usual-event>
         <ng-template #shiftPass>
-          <evj-shift-pass *ngIf="ewService?.event?.productionTasks?.subCategory?.id === 1010 else usual">
+          <evj-shift-pass *ngIf="ewService?.event?.subCategory?.id === 1010 else usual">
           </evj-shift-pass>
         </ng-template>
         <ng-template #usual>
+          <ng-container *ngIf="environmentName === 'MNPZ'">
+            <evj-evj-tasks-event-no-checkbox *ngSwitchDefault [noOverflow]="displayContainer"></evj-evj-tasks-event-no-checkbox>
+          </ng-container>
+          <ng-container *ngIf="environmentName !== 'MNPZ'">
+            <evj-tasks-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-tasks-event>
+          </ng-container>
           <evj-tasks-event [noOverflow]="displayContainer"></evj-tasks-event>
         </ng-template>
       </ng-container>

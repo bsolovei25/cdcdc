@@ -1,0 +1,64 @@
+.mat-expansion-panel {
+  border-radius: 0;
+  margin: 0;
+
+  &:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+
+  &::ng-deep {
+    .mat-expansion-panel-header-title {
+      color: var(--text-contrast-color);
+      font-size: 13px;
+      line-height: 16px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .mat-expansion-panel-header-description {
+      margin-right: 8px;
+      flex-grow: 0;
+    }
+
+    .mat-expansion-panel-header,
+    .mat-expansion-panel-header.mat-expanded {
+      height: auto;
+      padding: 10px 8px;
+      background-color: var(--color-new-header-bg);
+    }
+
+    .mat-expansion-indicator::after {
+      transform: rotate(-45deg);
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0;
+    }
+  }
+
+  .svg-icon {
+    margin-right: 12px;
+    color: var(--gray-G7-color);
+  }
+}
+
+.arrow {
+  display: inline-block;
+  width: 8px;
+  height: 10px;
+  border: solid var(--text-main-color);
+  border-width: 0 1px 1px 0;
+
+  &_right {
+    transform: rotate(-45deg);
+  }
+
+  &_down {
+    transform: rotate(45deg);
+    height: 8px;
+    border-color: var(--text-contrast-color);
+  }
+}

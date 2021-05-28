@@ -1,0 +1,13 @@
+<mat-expansion-panel #expansionPanel disabled="{{isSingle}}" expanded="{{isSingle}}" hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <svg-icon src="assets/icons/widgets/CMID/number-of-outages/manufacture.svg" class="svg-icon"></svg-icon>
+      {{title}}
+    </mat-panel-title>
+    <mat-panel-description *ngIf="!isSingle">
+      <span *ngIf="!expansionPanel.expanded" class="arrow arrow_right"></span>
+      <span *ngIf="expansionPanel.expanded" class="arrow arrow_down"></span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-content></ng-content>
+</mat-expansion-panel>

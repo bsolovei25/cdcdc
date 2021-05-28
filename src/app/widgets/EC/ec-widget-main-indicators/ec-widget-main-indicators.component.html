@@ -1,0 +1,13 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="astue-indicators"
+    type="astue"
+  ></evj-contemporary-widget-header>
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="" style="height: 100%">
+      <evj-ec-widget-main-indicators-item style="height: 100%" [data$]="data$"></evj-ec-widget-main-indicators-item>
+    </div>
+  </div>
+</div>
