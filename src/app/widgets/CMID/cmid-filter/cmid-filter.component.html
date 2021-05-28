@@ -1,0 +1,45 @@
+<div class="container"  >
+    <evj-contemporary-widget-header type="astue" [uniqId]="uniqId">
+        <form class="container__form" [formGroup]="widgetForm" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+            <div class="container__factories factories__img">
+                <svg-icon class="factories__img_position" src="assets/pic/group.svg"></svg-icon>
+                <mat-form-field appearance="none">
+                    <mat-select
+                        formControlName="factoriesSelect"
+                    >
+                        <mat-option *ngFor="let item of factories" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <svg-icon class="container__form_arrow" src="assets/pic/arrow.svg"></svg-icon>
+            <div class="container__factories">
+                <mat-form-field appearance="none">
+                    <mat-select
+                        formControlName="manufactoriesSelect"
+                    >
+                        <mat-option *ngFor="let item of manufactories" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <svg-icon class="container__form_arrow" src="assets/pic/arrow.svg"></svg-icon>
+            <div class="container__factories container__factories_position">
+                <mat-form-field appearance="none">
+                    <mat-select
+                        formControlName="positionsSelect"
+                    >
+                        <mat-option *ngFor="let item of positions" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="container__button">
+                <button class="container__button_item" mat-button (click)="onDataFilter()">Применить</button>
+            </div>
+        </form>
+    </evj-contemporary-widget-header>
+</div>
