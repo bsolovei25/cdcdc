@@ -45,7 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         if (err?.error && err) {
                             const type = err.error.message.type;
                             if (type === 'message') {
-                                console.warn('477', err.error.message.message);
+                                console.warn('477', err.error.messages);
                             } else {
                                 this.materialController.openSnackBar(err.error.message.message, type);
                                 console.error(err);
