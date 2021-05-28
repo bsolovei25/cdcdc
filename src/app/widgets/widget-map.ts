@@ -1860,9 +1860,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'CmidDynamicsOfMetricsChangeModule',
         itemCols: 50,
-        itemRows: 10,
-        minItemCols: 25,
-        minItemRows: 10,
+        itemRows: 11,
+        minItemCols: 50,
+        minItemRows: 11,
         preview: 'default',
     },
     //#endregion CMID
