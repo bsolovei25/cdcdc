@@ -7,6 +7,16 @@ import {
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-table-indicators.model';
 import {SelectionModel} from '@angular/cdk/collections';
 import {HttpClient} from '@angular/common/http';
+import {VirtualChannel} from '@shared/classes/virtual-channel.class';
+import {EcWidgetService} from '@widgets/EC/ec-widget-shared/ec-widget.service';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+
+interface ITableModelResponse {
+    groups: IAstueOnpzTableIndicatorsItem[]
+    isHistoricalDataSupported: boolean
+    widgetType: string
+}
 
 @Component({
     selector: 'evj-ec-widget-table-model',
@@ -16,10 +26,13 @@ import {HttpClient} from '@angular/common/http';
 export class EcWidgetTableModelComponent extends WidgetPlatform<unknown> implements OnInit {
     public data: IAstueOnpzTableIndicatorsItem[] = [];
     public expandedElement: SelectionModel<string> = new SelectionModel(true);
+    public data$: Observable<IAstueOnpzTableIndicatorsItem[]>;
+    private virtualChannel: VirtualChannel<ITableModelResponse>;
 
     constructor(
         public widgetService: WidgetService,
         @Inject('widgetId') public id: string,
+        private astueOnpzService: EcWidgetService,
         @Inject('uniqId') public uniqId: string,
         private http: HttpClient
     ) {
@@ -49,12 +62,15 @@ export class EcWidgetTableModelComponent extends WidgetPlatform<unknown> impleme
         event.stopPropagation();
     }
 
-    checkDeviation(plan: number, fact: number): boolean {
-        return Math.abs(fact / plan * 100 - 100) > 2;
-    }
-
     protected dataConnect(): void {
         super.dataConnect();
+        const id = 'b81d3c9d-97a6-11eb-864f-525400a8470a'
+        this.virtualChannel = new VirtualChannel<ITableModelResponse>(this.widgetService, {
+            channelId: this.widgetId,
+            subchannelId: id,
+        })
+        this.data$ = this.virtualChannel.data$
+            .pipe(map(data => data.groups))
     }
 
     protected dataHandler(ref: unknown): void {
