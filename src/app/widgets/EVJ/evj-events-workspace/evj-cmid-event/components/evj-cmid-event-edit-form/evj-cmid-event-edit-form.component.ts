@@ -1,22 +1,23 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
-import { IChatMessageWithAttachments } from "../../../components/evj-chat/evj-chat.component";
-import { EventsWorkspaceService } from "@dashboard/services/widgets/EVJ/events-workspace.service";
-import { CmidEventToogleValue } from "../../components/evj-cmid-event-toggle/evj-cmid-event-toggle.component";
-import { CmidDictionaryService } from "@dashboard/services/widgets/CMID/cmid-dictionary.service";
-import { Observable } from "rxjs";
-import { IDirectoryData, IDirectoryRow } from "@dashboard/services/widgets/CMID/cmid-dictionary.interface";
-import {FormControl, FormGroup} from "@angular/forms";
-import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take-until-destroed.function";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { IChatMessageWithAttachments } from '../../../components/evj-chat/evj-chat.component';
+import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
+import { CmidEventToogleValue } from '../../components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
+import { CmidDictionaryService } from '@dashboard/services/widgets/CMID/cmid-dictionary.service';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { IDirectoryData, IDirectoryRow } from '@dashboard/services/widgets/CMID/cmid-dictionary.interface';
+import { FormControl, FormGroup } from "@angular/forms";
+import { DecorateUntilDestroy, takeUntilDestroyed } from '@shared/functions/take-until-destroed.function';
+import { IPlanItem } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @DecorateUntilDestroy()
 @Component({
     selector: 'evj-cmid-event-edit-form',
     templateUrl: './evj-cmid-event-edit-form.component.html',
     styleUrls: ['./evj-cmid-event-edit-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
-
     public dateNow: Date = new Date();
 
     public toggleValue: CmidEventToogleValue = 'non-plan';
@@ -24,40 +25,55 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public typeOfReason$: Observable<IDirectoryData[]> = this.cmidDictionaryService.getTypeOfReason();
     public reasonsOfDisconnect$: Observable<IDirectoryRow[]>;
 
-    // Получение моков
-    public plants$: Observable<any> = this.cmidDictionaryService.getPlants('1');
-    public manufactures$: Observable<any> = this.cmidDictionaryService.getManufactures();
-    public setups$: Observable<any> = this.cmidDictionaryService.getSetups('1');
-    public positions$: Observable<any> = this.cmidDictionaryService.getPositions('1');
+    public plants$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getPlants('1');
+    public manufactures$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getManufactures();
+    public units$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getSetups('1');
+    public positions$: Observable<IPlanItem[]>;
 
     public typeOfReasonControl: FormControl = new FormControl();
     public reasonsOfDisconnectControl: FormControl = new FormControl();
 
-    public filterForm: FormGroup = new FormGroup({
-        selectPlant: new FormControl({ value: { id: '1', name: 'ОНПЗ' }, disabled: false }),
-        selectManufacture: new FormControl({ value: '', disabled: false }),
-        selectSetup: new FormControl({ value: '', disabled: false }),
-    });
-    public kdcards: FormControl = new FormControl({ value: '', disabled: false });
+    public kdcards: FormControl = new FormControl('');
 
-    constructor(public ewService: EventsWorkspaceService,
-                private cmidDictionaryService: CmidDictionaryService) {}
+    public filterForm: FormGroup = new FormGroup({
+        selectPlant: new FormControl({ id: '1', name: 'ОНПЗ' }),
+        selectManufacture: new FormControl(''),
+        selectUnit: new FormControl(''),
+    });
+
+    public positionLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    constructor(public ewService: EventsWorkspaceService, private cmidDictionaryService: CmidDictionaryService) {}
 
     public ngOnInit(): void {
         this.subscriptionToTypeOfReasonControls();
         this.subscriptionToManufactureControl();
-        this.subscriptionToSetupControl();
-        this.subscriptionToPositions();
+        this.subscriptionToUnitControl();
     }
 
     public ngOnDestroy(): void {}
 
     public getPositions(manufacture: string, unit: string): void {
-        this.positions$ = this.cmidDictionaryService.getKdpazCard(manufacture, unit);
+        this.positionLoading$.next(true);
+        this.positions$ = this.cmidDictionaryService
+            .getKdpazCard(manufacture, unit)
+            .pipe(tap(() => this.positionLoading$.next(false)), catchError((e) => {
+                this.positionLoading$.next(false);
+                return throwError(e);
+            }));
     }
 
     public searchPosition(query: string): void {
-        this.positions$ = this.cmidDictionaryService.getPositions(this.filterForm.get('selectSetup').value.id, query);
+        this.positionLoading$.next(true);
+        this.positions$ = this.cmidDictionaryService.getPositions(query).pipe(
+            tap((result) => {
+                this.positionLoading$.next(false);
+            }),
+            catchError((e) => {
+                this.positionLoading$.next(false);
+                return throwError(e);
+            })
+        );
     }
 
     public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
@@ -79,47 +95,37 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     }
 
     public countDifference(): Date {
-        return new Date(new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate());
+        return new Date(
+            new Date(this.ewService.event?.deadline).getDate() - new Date(this.ewService.event?.eventDateTime).getDate()
+        );
     }
 
     public setToggleValue(action: CmidEventToogleValue): void {
         this.toggleValue = action;
     }
 
-    private subscriptionToPositions(): void {
-        this.filterForm.valueChanges
-            .pipe(takeUntilDestroyed(this))
-            .subscribe(({ id }) => {
-                const manufacture = this.filterForm.get('selectManufacture').value.name;
-                const unit = this.filterForm.get('selectSetup').value.name;
-                if (manufacture && unit) {
-                    this.getPositions(manufacture, unit);
-                }
-            });
-    }
-
     private subscriptionToManufactureControl(): void {
-        this.filterForm.get('selectManufacture').valueChanges
-            .pipe(takeUntilDestroyed(this))
+        this.filterForm
+            .get('selectManufacture')
+            .valueChanges.pipe(takeUntilDestroyed(this))
             .subscribe(({ id }) => {
-                this.setups$ = this.cmidDictionaryService.getSetups(id);
+                this.units$ = this.cmidDictionaryService.getSetups(id);
             });
     }
 
-    private subscriptionToSetupControl(): void {
-        this.filterForm.get('selectSetup').valueChanges
-            .pipe(takeUntilDestroyed(this))
-            .subscribe(({ id }) => {
-                this.positions$ = this.cmidDictionaryService.getPositions(id);
+    private subscriptionToUnitControl(): void {
+        this.filterForm
+            .get('selectUnit')
+            .valueChanges.pipe(takeUntilDestroyed(this))
+            .subscribe(({ name }) => {
+                this.positionLoading$.next(true);
+                this.getPositions(this.filterForm.get('selectManufacture').value.name, name);
             });
     }
 
     private subscriptionToTypeOfReasonControls(): void {
-        this.typeOfReasonControl.valueChanges
-            .pipe(takeUntilDestroyed(this))
-            .subscribe(({ id }) => {
-                this.reasonsOfDisconnect$ = this.cmidDictionaryService.getReasonOfDisconnection(id);
-            });
+        this.typeOfReasonControl.valueChanges.pipe(takeUntilDestroyed(this)).subscribe(({ id }) => {
+            this.reasonsOfDisconnect$ = this.cmidDictionaryService.getReasonOfDisconnection(id);
+        });
     }
-
 }
