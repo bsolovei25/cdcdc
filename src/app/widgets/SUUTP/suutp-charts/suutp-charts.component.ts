@@ -12,7 +12,7 @@ import { HttpClient } from "@angular/common/http";
 import { ISuutpCharts } from "./suutp-charts.interface";
 
 @Component({
-  selector: 'evj-suutp-general-factory-state',
+  selector: 'evj-suutp-charts',
   templateUrl: './suutp-charts.component.html',
   styleUrls: ['./suutp-charts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,11 +62,11 @@ export class SuutpChartsComponent extends WidgetPlatform<unknown> implements OnI
     }
 
     public leftSideWidth(container: HTMLDivElement): string {
-      if (!(container?.offsetHeight > 0)) {
+      if (!(container?.offsetWidth > 0)) {
             return;
         }
-      const height = container.offsetHeight;
-      return `width: ${height}px`;
+      const width = container.offsetWidth;
+      return `width: ${width}px`;
     }
 
     protected dataHandler(ref: unknown): void {

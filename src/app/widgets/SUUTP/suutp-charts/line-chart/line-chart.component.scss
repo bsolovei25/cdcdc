@@ -22,11 +22,6 @@
     .grid {
       color: var(--chart-segment-color);
       stroke-width: 1;
-      fill: var(--color-sou-bg);
-
-      path {
-        fill: var(--chart-background-color);
-      }
     }
 
     .y-axis {
