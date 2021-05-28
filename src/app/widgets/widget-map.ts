@@ -1843,6 +1843,16 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+    'cmid-operational-readiness': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-operational-readiness/cmid-operational-readiness.module');
+        },
+        module: 'CmidOperationalReadinessModule',
+        itemCols: 25,
+        itemRows: 4,
+        minItemCols: 15,
+        minItemRows: 4,
+    },
     'cmid-filter': {
         import: async () => {
             return await import('@widgets/CMID/cmid-filter/cmid-filter.module');
