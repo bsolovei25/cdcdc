@@ -1,208 +1,158 @@
 import {
     Component,
-    OnInit,
     ChangeDetectionStrategy,
-    OnChanges,
     Input,
     ElementRef,
     Renderer2,
-    OnDestroy
+    ViewChild,
+    AfterViewInit,
+    HostListener,
 } from '@angular/core';
-import {AsyncRender} from "@shared/functions/async-render.function";
+import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
+import { ICmidDynamicsOfMetricsChangeModel } from '@widgets/CMID/cmid-dynamics-of-metrics-change/models/cmid-dynamics-of-metrics-change.model';
 
 @Component({
     selector: 'evj-cmid-dynamics-of-metrics-change-chart',
     templateUrl: './cmid-dynamics-of-metrics-change-chart.component.html',
     styleUrls: ['./cmid-dynamics-of-metrics-change-chart.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChanges, OnDestroy {
-    @Input() public data = [
-        {
-            value: 97,
-            date: "2021-05-01T01:51:00"
-        },
-        {
-            value: 95,
-            date: "2021-05-02T02:51:00"
-        },
-        {
-            value: 92,
-            date: "2021-05-03T03:51:00"
-        },
-        {
-            value: 95,
-            date: "2021-05-04T04:51:00"
-        },
-        {
-            value: 98,
-            date: "2021-05-05T05:51:00"
-        },
-        {
-            value: 90,
-            date: "2021-05-06T06:51:00"
-        },
-        {
-            value: 100,
-            date: "2021-05-07T07:51:00"
-        },
-        {
-            value: 97,
-            date: "2021-05-16T08:51:00"
-        }
-    ];
-    public svg: any;
-    public svgInner: any;
-    public yScale: any;
-    public xScale: any;
-    public xAxis: any;
-    public yAxis: any;
-    public lineGroup: any;
+export class CmidDynamicsOfMetricsChangeChartComponent implements AfterViewInit {
+    @Input() public data: ICmidDynamicsOfMetricsChangeModel[];
+    @ViewChild('linechart') svgWrapper: ElementRef;
 
+    public group: string[];
     public gridLinesY: number;
     public gridLinesX: number;
-
-    private mousePosition: number | null = null;
-    private graphMaxX: number = 0;
-    private graphMaxY: number = 0;
-    private curve: Selection;
-    private width: number = 1164;
-    private height: number = 210;
-    private margin: number = 22;
+    public lineGroup: any;
+    public readonly padding: { top: number; right: number; bottom: number; left: number } = {
+        top: 22,
+        right: 20,
+        bottom: 15,
+        left: 25,
+    };
+    private axes: { axisX: d3.axisBottom; axisY: d3.axisLeft } = { axisX: null, axisY: null };
+    private scaleFunc: { x: d3.scaleTime; y: d3.scaleLinear } = { x: null, y: null };
+    private svg: d3Selection;
+    private svgInner: d3Selection;
+    private width: number = null;
+    private height: number = null;
+    private normalizeNumber: number = 30;
     private mouseLeaveUnlistener: () => void;
     private mouseMoveUnlistener: () => void;
+    private mousePosition: number | null = null;
 
-    constructor(public chartElem: ElementRef, private renderer: Renderer2) {
+    constructor(public chartElem: ElementRef, private renderer: Renderer2) {}
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.graphInit();
     }
 
-    ngOnInit(): void {
-        this.initializeChart();
-        this.drawChart();
+    ngAfterViewInit(): void {
+        this.graphInit();
     }
 
-    public ngOnChanges(): void {
-        if (this.data?.length > 0) {
-            this.initializeChart();
-            this.drawChart();
-        } else {
-            this.dropChart();
-        }
+    private graphInit(): void {
+        this.dropChart();
+        this.initSvg();
+        this.initScale();
+        this.initAxes();
+        this.drawLines();
+        this.drawGridLines();
     }
 
-    ngOnDestroy(): void {
-        this.mouseLeaveUnlistener();
-        this.mouseMoveUnlistener();
-    }
-
-    @AsyncRender
-    private initializeChart(): void {
-        this.width = this.chartElem.nativeElement.getBoundingClientRect().width;
-        this.height = this.chartElem.nativeElement.getBoundingClientRect().height;
-
-        this.graphMaxX = this.width;
-        this.graphMaxY = this.height;
-
+    private initSvg(): void {
         this.svg = d3
             .select(this.chartElem.nativeElement)
-            .select('.linechart')
+            .select('.linechart__graph')
+            .style('height', `calc(100% - ${this.normalizeNumber}px)`)
             .append('svg')
-            .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("preserveAspectRatio", "xMinYMin")
-            .attr("height", '100%')
-            .attr("width", '100%')
+            .attr('xmlns', 'http://www.w3.org/2000/svg')
+            .attr('preserveAspectRatio', 'none')
+            .attr('height', '100%')
+            .attr('width', '100%')
             .attr(
                 'viewBox',
-                `0 0 1226 ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
+                `0 0 ${this.svgWrapper.nativeElement.getBoundingClientRect().width + this.normalizeNumber} ${
+                    this.svgWrapper.nativeElement.getBoundingClientRect().height + this.normalizeNumber
+                }`
             );
-        this.svgInner = this.svg
+        this.svgInner = this.svg.append('g').attr('class', 'linechart__lines').style('transform', 'translateY(5px)');
+    }
+
+    private initScale(): void {
+        const dates = this.data.map((x) => new Date(x.date));
+        const maxYValues = Math.max(...this.data.map((d) => d.value));
+        const minYValues = Math.min(...this.data.map((d) => d.value));
+        const minXValues = new Date(Math.min.apply(null, dates));
+        const maxXValues = new Date(Math.max.apply(null, dates));
+        this.width = this.chartElem.nativeElement.getBoundingClientRect().width;
+        this.height = this.chartElem.nativeElement.getBoundingClientRect().height;
+        this.scaleFunc.x = d3.scaleTime().domain([minXValues, maxXValues]).range([0, this.width]);
+        this.scaleFunc.y = d3.scaleLinear().domain([maxYValues, minYValues]).range([0, this.height]);
+    }
+
+    private initAxes(): void {
+        this.axes.axisX = d3.axisBottom().scale(this.scaleFunc.x).ticks(31).tickFormat(d3.timeFormat('%d'));
+        this.axes.axisY = d3.axisLeft().scale(this.scaleFunc.y);
+        this.svgInner
             .append('g')
-            .style('transform', 'translate(' + this.margin + 'px, ' + this.margin + 'px)');
-
-        this.yScale = d3
-            .scaleLinear()
-            .domain([d3.max(this.data, d => d.value), d3.min(this.data, d => d.value)])
-            .range([0, this.height - 2 * this.margin]);
-
-        this.yAxis = this.svgInner
+            .attr('class', 'axis')
+            .style('transform', 'translate(' + this.padding.left + 'px, ' + this.height + 'px)')
+            .call(this.axes.axisX);
+        this.svgInner
             .append('g')
-            .attr('id', 'y-axis')
-            .style('transform', 'translate(' + this.margin + 'px,  0)');
-        this.xScale = d3.scaleTime()
-            .domain([new Date('2021-05-01'), new Date('2021-05-31')])
-            .range([this.margin, this.width - this.margin])
+            .attr('class', 'axis')
+            .style('transform', 'translate(' + this.padding.left + 'px,  0)')
+            .call(this.axes.axisY);
+    }
 
-        this.xAxis = this.svgInner
-            .append('g')
-            .attr('id', 'x-axis')
-            .style('transform', 'translate(0, ' + (this.height - 2 * this.margin) + 'px)');
-
+    private drawLines(): void {
+        const line = d3
+            .line()
+            .x((d) => d[0])
+            .y((d) => d[1]);
+        const points: [number, number][] = this.data.map((item) => [
+            this.scaleFunc.x(new Date(item.date)),
+            this.scaleFunc.y(item.value),
+        ]);
         this.lineGroup = this.svgInner
             .append('g')
             .append('path')
+            .style('transform', 'translate(' + this.padding.left + 'px, ' + '0px)')
             .attr('id', 'line')
             .style('fill', 'none')
-            .style('stroke', '#fff')
-            .style('stroke-width', '2px')
-
-        this.drawGridLines();
-        this.drawMouseGroup();
-    }
-
-    @AsyncRender
-    private drawChart(): void {
-        this.width = this.chartElem.nativeElement.getBoundingClientRect().width;
-        this.xScale.range([this.margin, 1164 - 2 * this.margin]);
-
-        const xAxis = d3
-            .axisBottom(this.xScale)
-            .ticks(31)
-            .tickFormat(d3.timeFormat('%d'));
-
-        this.xAxis.call(xAxis);
-
-        const yAxis = d3
-            .axisLeft(this.yScale)
-            .ticks(5);
-
-        this.yAxis.call(yAxis);
-
-        const line = d3
-            .line()
-            .x(d => d[0])
-            .y(d => d[1])
-
-        const points: [number, number][] = this.data.map(d => [
-            this.xScale(new Date(d.date)),
-            this.yScale(d.value),
-        ]);
-
+            .style('stroke', 'var(--text-accent-color)')
+            .style('stroke-width', '2px');
         this.lineGroup.attr('d', line(points));
-
-        this.curve = this.svg.append('path').attr('class', `graph-line-sss`);
     }
 
     private drawGridLines(): void {
-        this.gridLinesY = d3.axisLeft(this.yScale)
-            .tickFormat('')
-            .tickSize(-this.width)
-            .scale(this.yScale);
-
-        this.gridLinesX = d3.axisBottom(this.xScale)
+        this.gridLinesY = d3.axisLeft(this.scaleFunc.y).tickFormat('').tickSize(-this.width).scale(this.scaleFunc.y);
+        this.gridLinesX = d3
+            .axisBottom(this.scaleFunc.x)
             .tickFormat('')
             .tickSize(-this.height)
-            .ticks(31)
-            .scale(this.xScale);
-
-        this.svg.append("g")
-            .attr("class", "grid")
-            .style('transform', 'translate(' + this.margin * 2 + 'px, ' + this.margin + 'px)')
+            .ticks(32)
+            .scale(this.scaleFunc.x);
+        this.svg
+            .append('g')
+            .attr('class', 'grid')
+            .style('transform', 'translate(' + this.padding.left + 'px, ' + '5px)')
+            .style('color', 'var(--chart-segment-color)')
             .call(this.gridLinesY)
-
-        this.svg.append("g")
-            .attr("class", "grid")
-            .style('transform', 'translate(' + this.margin + 'px, ' + '188px)')
+            .select('.domain')
+            .style('visibility', 'hidden');
+        this.svg
+            .append('g')
+            .attr('class', 'grid')
+            .style('transform', 'translate(' + this.padding.left + 'px, ' + (this.height + 5) + 'px)')
+            .style('color', 'var(--chart-segment-color)')
             .call(this.gridLinesX)
+            .select('.domain')
+            .style('visibility', 'hidden');
     }
 
     private drawMouseGroup(): void {
@@ -211,6 +161,7 @@ export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChan
             .append('g')
             .attr('class', 'mouse-over')
             .attr('opacity', 1)
+            .style('transform', `translate(${this.padding.left}, 5px)`)
             .style('width', this.width + 'px');
 
         // лейбл с датой
@@ -220,8 +171,8 @@ export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChan
             .attr('text-anchor', 'start')
             .attr('font-size', '12px')
             .attr('x', 0)
-            .attr('y', this.chartElem.nativeElement.clientHeight + this.margin - 10)
-            .attr('fill', '#D7E2F2')
+            .attr('y', this.chartElem.nativeElement.clientHeight + this.padding.top - 10)
+            .attr('fill', 'var(--text-contrast-color)')
             .text('');
 
         // линия курсора
@@ -231,15 +182,15 @@ export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChan
             .attr('x1', 0)
             .attr('x2', 0)
             .attr('y1', 0)
-            .attr('y2', 200)
+            .attr('y2', this.height)
             .style('stroke', 'currentColor')
             .style('stroke-width', '1px');
 
         // область для прослушивания событий мыши
         const [[mouseListenArea]] = mouseG
             .append('svg:rect')
-            .attr('width', this.graphMaxX)
-            .attr('height', this.graphMaxY)
+            .attr('width', this.width)
+            .attr('height', this.height)
             .attr('fill', 'none')
             .attr('pointer-events', 'all')._groups;
 
@@ -248,28 +199,24 @@ export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChan
 
     private listenMouseEvents(element: HTMLElement): void {
         const eventListeners: (() => void)[] = [];
-
         eventListeners.push(
-            this.mouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', () => {
+            (this.mouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', () => {
                 this.toggleShowingValues('disable');
                 this.mousePosition = null;
-            }),
-            this.mouseMoveUnlistener = this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
-                const rect: DOMRect = element.getBoundingClientRect();
+            })),
+            (this.mouseMoveUnlistener = this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
                 const formatDate = d3.timeFormat('%d/%H:%M');
+                const rect: DOMRect = element.getBoundingClientRect();
 
                 this.toggleShowingValues('enable');
                 this.mousePosition = event.clientX - rect.left;
-
                 this.svg.select('.mouse-line').attr('x1', this.mousePosition).attr('x2', this.mousePosition);
                 this.svg
                     .select('.label-mouse')
                     .attr('x', this.mousePosition + 10)
-                    .text(formatDate(this.xScale.invert(this.mousePosition)));
-            })
+                    .text(formatDate(this.scaleFunc.x.invert(this.mousePosition)));
+            }))
         );
-
-
     }
 
     private toggleShowingValues(actionType: 'enable' | 'disable'): void {
@@ -280,7 +227,6 @@ export class CmidDynamicsOfMetricsChangeChartComponent implements OnInit, OnChan
     private dropChart(): void {
         if (this.svg) {
             this.svg.remove();
-            this.svg = undefined;
         }
     }
 }
