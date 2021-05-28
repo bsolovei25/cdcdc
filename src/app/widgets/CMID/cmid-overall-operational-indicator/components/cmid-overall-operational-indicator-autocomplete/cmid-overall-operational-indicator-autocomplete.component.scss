@@ -68,6 +68,7 @@
     background-color: var(--bg-dashboard-color);
     border: thin solid var(--border-forms-color);
     border-radius: 2px;
+    outline: none;
 
     &::placeholder {
       color: var(--text-main-color);
