@@ -22,7 +22,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     selector: 'evj-cmid-event-plan-table',
     templateUrl: './evj-cmid-event-plan-table.component.html',
     styleUrls: ['./evj-cmid-event-plan-table.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnInit, OnChanges, OnDestroy {
     private selectedItems: Set<IPlanItem> = new Set();
@@ -30,6 +30,9 @@ export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnI
     public selectAllControl: boolean;
     public searchControl: FormControl = new FormControl('');
     private isSearchable: boolean = false;
+
+    @Input()
+    public isLoading: boolean;
 
     @Input()
     public set items(value: IPlanItem[]) {
@@ -160,7 +163,7 @@ export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnI
     private checkList(newlist: IPlanItem[]): IPlanItem[] {
         if (newlist) {
             return newlist.map((el) => {
-                const foundedElement = Array.from(this.selectedItems).find((item) => item.id === el.id);
+                const foundedElement = Array.from(this.selectedItems).find((item) => item.positionId === el.positionId);
                 if (foundedElement) {
                     return { ...el, selected: foundedElement.selected };
                 }
