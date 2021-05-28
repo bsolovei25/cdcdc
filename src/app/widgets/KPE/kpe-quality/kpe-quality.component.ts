@@ -179,7 +179,7 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
             deviationPlanPredictFact: card.fact,
             isWarning: card.isWarning,
             fact: card.fact,
-            percentageInfluence: card.percentage,
+            percentageInfluence: card.percentageInfluence,
             plan: card.plan,
             planPredict: card.plan,
             predict: card.plan,

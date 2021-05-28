@@ -70,7 +70,7 @@
                   <!--Новый дизайн-->
                   <div
                     class="percent-info"
-                    *ngIf="!(displayNewDesign$ | async)"
+                    *ngIf="(displayNewDesign$ | async)"
                     [class.warning]="card.isWarning"
                     [class.default]="!card.isWarning"
                   >
