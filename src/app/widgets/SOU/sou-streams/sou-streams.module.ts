@@ -7,13 +7,15 @@ import { AngularSvgIconModule } from "angular-svg-icon";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { MatRadioModule } from "@angular/material/radio";
 import { SmartTrendComponent } from './smart-trend/smart-trend.component';
+import { TrendsComponent } from './smart-trend/components/trends/trends.component';
 
 
 
 @NgModule({
   declarations: [
       SouStreamsComponent,
-      SmartTrendComponent
+      SmartTrendComponent,
+      TrendsComponent
   ],
   imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule, ScrollingModule, MatRadioModule]
 })

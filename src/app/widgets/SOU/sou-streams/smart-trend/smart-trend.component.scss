@@ -21,3 +21,25 @@
     color: var(--gray-G1-color);
   }
 }
+
+.chart-section {
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+
+    &__legends {
+      padding-left: 44px;
+
+      &__icon {
+        line-height: 5px;
+      }
+
+      &__text {
+        padding-left: 8px;
+        padding-right: 32px;
+      }
+    }
+  }
+}
