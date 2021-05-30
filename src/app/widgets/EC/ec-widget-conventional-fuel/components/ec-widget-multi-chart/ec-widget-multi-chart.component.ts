@@ -188,7 +188,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                         item.graph,
                         domainDates[0],
                         domainDates[1],
-                        true
+                        item.graphType === 'plan' || item.graphType === 'forecast'
                     ))
             );
         }
