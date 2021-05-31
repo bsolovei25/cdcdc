@@ -1860,7 +1860,7 @@ export const WIDGETS_LAZY = {
         itemCols: 25,
         itemRows: 4,
         minItemCols: 15,
-        minItemRows: 4,
+        minItemRows: 1,
     },
     'cmid-filter': {
         import: async () => {
