@@ -1,4 +1,8 @@
 .container {
+    border: 1px solid var(--bg-header-color);
+    border-radius: 2px;
+    background: var(--bg-body-color);
+
     &-inner {
         min-width: 270px;
         display: flex;
