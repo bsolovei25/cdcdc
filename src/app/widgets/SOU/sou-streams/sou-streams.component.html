@@ -1,12 +1,12 @@
 <div class="widget" #widget>
+  <evj-sou-workspace *ngIf="showWorkspace" class="workspace" [@inOutAnimation]></evj-sou-workspace>
   <div class="widget-header">
     <evj-contemporary-widget-header
       [uniqId]="widgetUniqId"
       [widgetTitle]="widgetTitle"
       icon="energy"
       type="astue">
-
-      <div class="header">
+      <div class="header" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
 
         <div class="header__left-block">
           <svg-icon
@@ -68,7 +68,7 @@
 
           <div class="toggle">
             <div class="toggle__block">
-              <input id="toggle1" type="radio" name="radio" value="1"checked>
+              <input id="toggle1" type="radio" name="radio" value="1" checked>
               <label for="toggle1" class="toggle1">Все операции</label>
             </div>
             <div class="toggle__block">
@@ -93,7 +93,7 @@
             ></svg-icon>
             <span>Сформировать отчёт</span>
           </div>
-          <div class="btn btn__blue btn__add">
+          <div class="btn btn__blue btn__add" (click)="addNewOperation()">
             <svg-icon
               class="btn__icon"
               src="assets/icons/widgets/SOU/sou-streams/plus_add_circle.svg"
@@ -107,77 +107,79 @@
   </div>
 
   <div class="table-block"
-       [ngStyle]="{ 'height': heightOfTable }">
+       [ngStyle]="{ 'height': heightOfTable }" (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
     <div class="table">
       <thead class="table__header"
              [ngStyle]="{'width': widthOfTable }"
       >
-        <tr>
-          <td class="table__header__first-cell"
-              rowspan="2"
-          >Операция</td>
-          <td *ngFor="let title of titlesOfTable"
-              [class]="title.hasOwnProperty('bigBlock')? 'big-main':'main'"
-              rowspan="2">
-            <div class="table__header__main-cell">
-              <span>{{ title.name }}</span>
-              <div class="filter-funnel">
-                <svg-icon
-                  src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
-                  [ngStyle]="{ 'height.px':16 }"
-                ></svg-icon>
-              </div>
+      <tr>
+        <td class="table__header__first-cell"
+            rowspan="2"
+        >Операция
+        </td>
+        <td *ngFor="let title of titlesOfTable"
+            [class]="title.hasOwnProperty('bigBlock')? 'big-main':'main'"
+            rowspan="2">
+          <div class="table__header__main-cell">
+            <span>{{ title.name }}</span>
+            <div class="filter-funnel">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
             </div>
-          </td>
-          <td class="table__header__last-cells">Масса по источнику</td>
-          <td class="table__header__last-cells">Масса по приёмнику</td>
-          <td class="table__header__last-cells">Отклонение</td>
+          </div>
+        </td>
+        <td class="table__header__last-cells">Масса по источнику</td>
+        <td class="table__header__last-cells">Масса по приёмнику</td>
+        <td class="table__header__last-cells">Отклонение</td>
 
-          <td class="graphic"
-              rowspan="2"
-              [ngStyle]="{ 'width.px': widthOfGraphic - 9 }">
-            <svg-icon
-              src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
-              [ngStyle]="{ 'height.px':14 }"
-            ></svg-icon>
-          </td>
-        </tr>
+        <td class="graphic"
+            rowspan="2"
+            [ngStyle]="{ 'width.px': widthOfGraphic - 9 }">
+          <svg-icon
+            src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
+            [ngStyle]="{ 'height.px':14 }"
+          ></svg-icon>
+        </td>
+      </tr>
 
-        <tr>
-          <td>
-            <div class="table__header__summ">
-              <div class="table__header__summ__icon">
-                <svg-icon
-                  src="assets/icons/widgets/SOU/sou-streams/summ.svg"
-                  [ngStyle]="{ 'height.px':16 }"
-                ></svg-icon>
-              </div>
-              <span class="table__header__summ__text">679.8</span>
+      <tr>
+        <td>
+          <div class="table__header__summ">
+            <div class="table__header__summ__icon">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/summ.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
             </div>
-          </td>
-          <td>
-            <div class="table__header__summ">
-              <div class="table__header__summ__icon">
-                <svg-icon
-                  src="assets/icons/widgets/SOU/sou-streams/summ.svg"
-                  [ngStyle]="{ 'height.px':16 }"
-                ></svg-icon>
-              </div>
-              <span class="table__header__summ__text">710.1</span>
+            <span class="table__header__summ__text">679.8</span>
+          </div>
+        </td>
+        <td>
+          <div class="table__header__summ">
+            <div class="table__header__summ__icon">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/summ.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
             </div>
-          </td>
-          <td>
-            <div class="table__header__summ">
-              <div class="table__header__summ__icon">
-                <svg-icon
-                  src="assets/icons/widgets/SOU/sou-streams/summ.svg"
-                  [ngStyle]="{ 'height.px':16 }"
-                ></svg-icon>
-              </div>
-              <span class="table__header__summ__text text-orange">6.09</span>
+            <span class="table__header__summ__text">710.1</span>
+          </div>
+        </td>
+        <td>
+          <div class="table__header__summ">
+            <div class="table__header__summ__icon">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/summ.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
             </div>
-          </td>
-        </tr>
+            <span class="table__header__summ__text text-orange">6.09</span>
+          </div>
+        </td>
+      </tr>
       </thead>
 
       <cdk-virtual-scroll-viewport
@@ -186,82 +188,82 @@
         [ngStyle]="{ 'height': heightOfViewPort,
                       'width': widthOfTable }">
         <tbody>
-          <tr *cdkVirtualFor="let row of tableRows; let i = index"
-              class="table__row"
-              [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--color-sou-bg-light)':'' }">
-            <td *ngFor="let cell of row">
+        <tr *cdkVirtualFor="let row of tableRows; let i = index"
+            class="table__row"
+            [ngStyle]="{ 'backgroundColor': (i % 2 === 1) ? 'var(--color-sou-bg-light)':'' }">
+          <td *ngFor="let cell of row">
 
-              <div *ngIf="cell.hasOwnProperty('colorOfAdditionalBlock')"
-                   class="table__row__cell-with-line"
-              >
-                <div class="cell-line"
+            <div *ngIf="cell.hasOwnProperty('colorOfAdditionalBlock')"
+                 class="table__row__cell-with-line"
+            >
+              <div class="cell-line"
                    [ngStyle]="{ 'backgroundColor': cell['colorOfAdditionalBlock'] }">
-                </div>
-                <div class="cell-line-text"
-                     [ngStyle]="{ 'color': cell['color'] }">
-                  {{ cell['number'] }}
-                </div>
               </div>
-
-              <div *ngIf="cell.hasOwnProperty('name')"
-                   class="table__row__cell-with-name"
-              >
-                <div class="cell-date">
-                  {{ cell['date'] }}
-                </div>
-                <div class="cell-name">
-                  {{ cell['name'] }}
-                </div>
+              <div class="cell-line-text"
+                   [ngStyle]="{ 'color': cell['color'] }">
+                {{ cell['number'] }}
               </div>
+            </div>
 
-              <div *ngIf="cell.hasOwnProperty('img')"
-                   class="table__row__cell-with-img"
-              >
-                <div *ngIf="cell.hasOwnProperty('textImg')"
-                     class="cell-img-text">
-                  {{ cell['textImg'] }}
-                </div>
-                <svg-icon
-                  src="{{cell['img']}}"
-                  class="cell-img"
-                  [ngStyle]="{ 'height.px':16 }"
-                ></svg-icon>
+            <div *ngIf="cell.hasOwnProperty('name')"
+                 class="table__row__cell-with-name"
+            >
+              <div class="cell-date">
+                {{ cell['date'] }}
               </div>
+              <div class="cell-name">
+                {{ cell['name'] }}
+              </div>
+            </div>
 
-              <div *ngIf="cell.hasOwnProperty('sum')"
-                   class="table__row__cell-sum"
-              >
-                <div class="cell-sum"
-                     [ngStyle]="{
+            <div *ngIf="cell.hasOwnProperty('img')"
+                 class="table__row__cell-with-img"
+            >
+              <div *ngIf="cell.hasOwnProperty('textImg')"
+                   class="cell-img-text">
+                {{ cell['textImg'] }}
+              </div>
+              <svg-icon
+                src="{{cell['img']}}"
+                class="cell-img"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
+            </div>
+
+            <div *ngIf="cell.hasOwnProperty('sum')"
+                 class="table__row__cell-sum"
+            >
+              <div class="cell-sum"
+                   [ngStyle]="{
                       'color':cell['color'],
                       'width': cell.hasOwnProperty('width')?cell['width']: '140px'
                       }">
-                  {{ cell['sum'] }}
-                </div>
+                {{ cell['sum'] }}
               </div>
+            </div>
 
-              <div *ngIf="cell.hasOwnProperty('text')"
-                   class="table__row__cell-default"
-              >
-                <div class="cell-text"
-                     [ngStyle]="{
+            <div *ngIf="cell.hasOwnProperty('text')"
+                 class="table__row__cell-default"
+            >
+              <div class="cell-text"
+                   [ngStyle]="{
                      'color': cell.hasOwnProperty('color')?cell['color']: '',
                      'width': cell.hasOwnProperty('width')?cell['width']: '121px'
                      }">
-                  {{ cell['text'] }}
-                </div>
+                {{ cell['text'] }}
               </div>
-            </td>
+            </div>
+          </td>
 
-            <td class="graphic"
-                [ngStyle]="{ 'width.px': widthOfGraphic }">
-              <svg-icon
-                src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
-                [ngStyle]="{ 'height.px':14 }"
-              ></svg-icon>
-            </td>
-          </tr>
-      </tbody>
+          <td class="graphic"
+              [ngStyle]="{ 'width.px': widthOfGraphic }">
+            <svg-icon
+              src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
+              [ngStyle]="{ 'height.px':14 }"
+            ></svg-icon>
+          </td>
+        </tr>
+        </tbody>
       </cdk-virtual-scroll-viewport>
     </div>
   </div>
