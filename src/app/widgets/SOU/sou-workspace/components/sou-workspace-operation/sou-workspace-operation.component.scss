@@ -41,6 +41,7 @@
       width: 262px;
       height: 262px;
       margin-top: 9px;
+      margin-right: 9px;
       background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-2.svg");
     }
 
@@ -49,10 +50,6 @@
       top: 25px;
       right: 25px;
     }
-  }
-
-  .max-svg {
-
   }
 
   &__source {
@@ -177,7 +174,7 @@
     }
 
     &__dot {
-      width: 5px;
+      width: 4px;
       height: 4px;
       border: 1px solid var(--gray-G7-color);
       border-radius: 50% 50%;

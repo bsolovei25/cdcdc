@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { ChangeShiftRolesService } from '../../services/change-shift-roles.service';
 import { FormGroup } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ChangeShiftHelperService } from '../../../../services/change-shift-help
     styleUrls: ['./chang-shift-roles-person.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangShiftRolesPersonComponent implements OnInit, OnDestroy {
+export class ChangShiftRolesPersonComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() private set form(value: FormGroup) {
         this.formGroup = value;
         this.member = value.controls.object.value;
@@ -24,7 +24,14 @@ export class ChangShiftRolesPersonComponent implements OnInit, OnDestroy {
     public member: IChangeShiftMember = null;
 
     public availableRoles$: BehaviorSubject<IChangeShiftRole[]> = new BehaviorSubject<IChangeShiftRole[]>([]);
+
+    public showFioTooltip: boolean;
+    public showPositionTooltip: boolean;
+    
     private unsubscribe$: Subject<unknown> = new Subject<unknown>();
+
+    @ViewChild('fio') fio: ElementRef;
+    @ViewChild('position') position: ElementRef;
 
     constructor(
         private changeShiftRolesService: ChangeShiftRolesService,
@@ -51,6 +58,10 @@ export class ChangShiftRolesPersonComponent implements OnInit, OnDestroy {
             .subscribe((x) => this.setRoles(x.roles, x.membersRoles));
     }
 
+    ngAfterViewInit(): void {
+        this.toolTipCheck();
+    }
+
     ngOnDestroy(): void {
         this.unsubscribe$.next(null);
         this.unsubscribe$.complete();
@@ -68,5 +79,18 @@ export class ChangShiftRolesPersonComponent implements OnInit, OnDestroy {
         const selectedRoles = membersRoles.filter((x) => x !== currentRole);
         roles = roles.filter((x) => selectedRoles.findIndex((r) => r === x.id) === -1);
         this.availableRoles$.next(roles);
+    }
+
+    private toolTipCheck(): void {
+        const row = 13;
+        const width = 188;
+        this.showFioTooltip = this.fio.nativeElement.scrollHeight > row * 2;
+        this.showPositionTooltip = this.position.nativeElement.scrollWidth > width;
+        if (this.showFioTooltip) {
+            this.fio.nativeElement.style.display = 'none';
+        }
+        if (this.showPositionTooltip) {
+            this.position.nativeElement.style.display = 'none';
+        }
     }
 }

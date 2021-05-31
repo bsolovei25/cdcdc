@@ -1,3 +1,36 @@
+## [1.33.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.0...v1.33.1) (2021-05-31)
+
+
+### Bug Fixes
+
+* **EC:** "Доработка по экрану Дин нормирования" front[#2057](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2057) ([6ffbf1e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6ffbf1ea28724cda83ef9258fff68fd1ae8f96a9))
+* **front#2027:** СОУ исправлены выводы в элементах ([38df2d2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/38df2d208d818cb32c50341fd177cb39a733185d)), closes [front#2027](https://gitlab.funcoff.club/front/issues/2027)
+* **SOU:** fix margins. [#1965](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1965) ([03b2413](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03b24130fe3e8884e622210a59e466484a9284c9))
+
+# [1.33.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.32.0...v1.33.0) (2021-05-29)
+
+
+### Bug Fixes
+
+* **Notifications:** Внесены правки по верстке в рабочую область событий. Убран скролл при растягивании виджета на весь экран по вертикали. front[#1919](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1919) ([66baf80](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/66baf80a259563a76216dffb72a0b12299700887))
+* **SUUTP:** Фикс по правкам к реализации виджетов экрана Оборудование СУУТП (верстка). front[#1883](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1883) ([d282795](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d2827957a4afb24f5d248ed3ac30a751c15fdd22))
+
+
+### Features
+
+* **EC:** Реализация нового виджета Показатели. front[#1860](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1860) ([93a68ed](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/93a68ed9eda5336b5044e62fe118bc2ae47712ed))
+* **ЦМИД:** resolve conflicts [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([fb90d24](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/fb90d24dde432813d278918fd75db3945601dab3))
+* **ЦМИД:** Добавил bg, бордер и стрелку [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([ceba0ec](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ceba0ec55e20d50b3c2d819b1747279c84bc5440))
+* **ЦМИД:** Поправил ресайз по вертикали и горизонтали [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([9f512c8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9f512c8e8a5586dfe6d06344dd04b0f873ecf633))
+* **ЦМИД:** Реализация виджета "фильтр установок". front[#1943](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1943) ([760bab2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/760bab2dcfd8ff9ddf1fed9998f6be7af0733abf))
+* **ЦМИД:** Реализация виджета График изменения общего оперативного показателя [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([8383ce1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8383ce199e2838a0372ea3b8d2edeaf849c56d48))
+* **ЦМИД:** Реализация виджета Факторный анализ. front[#1784](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1784) ([9e6fa71](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9e6fa718c651542cb219ca3633cef0c282ddb0ca))
+* **ЦМИД:** Реализовал виджет Эксплуатационная готовность. front[#1799](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1799) ([ce280b0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ce280b0455819415ca17bc9f07daee5acf49c377))
+* **ЦМИД:** Реализовал фукнцию для нахождения граничных значений исходных данных [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([f4dbe5f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f4dbe5f68fadbed571c655438c71c613b3680e3c))
+* **ЦМИД:** Редактирование tslint.json [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([d9245ec](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d9245ec8a6f4858d75289e19cc8ae600ddd2fc5b))
+* **ЦМИД:** Убрал outline [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([6abd7c0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6abd7c08d1a835003ac8a40cd8004c726552d980))
+* **ЦМИД:** Удалил ng-deep [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([bdf4414](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bdf441405a081860b5b7ac6a9a834afac5064dda))
+
 # [1.32.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.31.0...v1.32.0) (2021-05-28)
 
 
