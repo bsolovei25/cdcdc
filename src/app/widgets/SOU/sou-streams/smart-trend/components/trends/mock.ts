@@ -1,5 +1,30 @@
 export const CHART_DATA = [
     {
+        graphType: 'normal',
+        graph: [
+            {
+                value: 223,
+                timeStamp: new Date(2011, 0, 1, 11, 30, 4, 567)
+            },
+            {
+                value: 228,
+                timeStamp: new Date(2011, 0, 1, 12, 15, 4, 567)
+            },
+            {
+                value: 210,
+                timeStamp: new Date(2011, 0, 1, 12, 45, 4, 567)
+            },
+            {
+                value: 184,
+                timeStamp: new Date(2011, 0, 1, 13, 15, 4, 567)
+            },
+            {
+                value: 210,
+                timeStamp: new Date(2011, 0, 1, 16, 45, 4, 567)
+            },
+        ]
+    },
+    {
         graphType: 'lowerBorder',
         graph: [
             {

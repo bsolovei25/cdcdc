@@ -1,5 +1,5 @@
 .section {
-  width: 1000px;
+  width: 1400px;
   height: 60vh;
 }
 
@@ -23,22 +23,42 @@
 }
 
 .chart-section {
+  padding: 37px 31px 41px 31px;
+  background-color: var(--bg-body-color);
 
   &__info {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 40px;
+    padding-bottom: 25px;
 
     &__legends {
-      padding-left: 44px;
 
       &__icon {
         line-height: 5px;
       }
 
       &__text {
+        font-size: 11px;
         padding-left: 8px;
         padding-right: 32px;
+      }
+    }
+
+    &__button {
+      height: 24px;
+      font-size: 13px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 2px;
+
+      color: var(--gray-G1-color);
+      background-color: var(--index-plan-color);
+      padding: 0 12px;
+
+      &__icon {
+        margin-right: 9px;
       }
     }
   }

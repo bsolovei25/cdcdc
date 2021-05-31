@@ -9,28 +9,40 @@
       <div class="header__title">Резервуар 503</div>
     </div>
     <svg-icon
-      class="header__icon"
       src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
       [ngStyle]="{ 'height.px':16 }"
     ></svg-icon>
   </div>
+
   <div class="chart-section">
+
     <div class="chart-section__info">
       <div class="chart-section__info__legends">
         <svg-icon
           class="chart-section__info__legends__icon"
-          src="assets/icons/widgets/SOU/sou-workspace/legend_1.svg"
+          src="assets/icons/widgets/SOU/sou-streams/legend_line.svg"
           [ngStyle]="{ 'height.px':10 }"
         ></svg-icon>
         <span class="chart-section__info__legends__text">Наименование легенды</span>
         <svg-icon
           class="chart-section__info__legends__icon"
-          src="assets/icons/widgets/SOU/sou-workspace/legend_2.svg"
+          src="assets/icons/widgets/SOU/sou-streams/legend_dashed-line.svg"
           [ngStyle]="{ 'height.px':10 }"
         ></svg-icon>
         <span class="chart-section__info__legends__text">Наименование легенды</span>
       </div>
+
+      <div class="chart-section__info__button">
+        <svg-icon
+          class="chart-section__info__button__icon"
+          src="assets/icons/widgets/SOU/sou-streams/plus_add_circle.svg"
+          [ngStyle]="{ 'height.px':16 }"
+        ></svg-icon>
+        <span>Добавить тренд</span>
+      </div>
     </div>
-  <evj-trends></evj-trends>
+
+    <evj-trends></evj-trends>
   </div>
+
 </div>
