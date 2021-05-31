@@ -1,7 +1,8 @@
 .container {
   display: flex;
-  height: 45px;
+  align-items: center;
   width: 535px;
+  height: 55px;
   padding: 0 5px 0 18px;
   background: var(--gray-G10-color);
   box-sizing: border-box;
@@ -11,36 +12,65 @@
   }
 
   .avatar {
-    width: 28px;
-    height: 28px;
+    min-width: 30px;
+    height: 30px;
     border: solid 1px var(--text-accent-color);
     border-radius: 50%;
+    box-sizing: border-box;
   }
 
   .info {
     display: flex;
     flex-flow: column;
-    margin-left: 15px;
+    justify-content: center;
+    width: 188px;
+    height: 100%;
+    margin: 0 15px;
+    font-size: 12px;
+
+    &__overflow-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
 
     .fio {
-      font-size: 14px;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
+      display: -webkit-box;
       color: var(--text-accent-color);
+      overflow: hidden;
+
+      &_overflow {
+        display: inline;
+        -webkit-box-orient: unset;
+        -webkit-line-clamp: unset;
+
+        white-space: nowrap;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     .position {
-      font-size: 12px;
+      margin-top: 2px;
       color: var(--text-main-color);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 
   .select {
     display: flex;
     height: 30px;
-    width: 240px;
-    background: var(--gray-G12-50-color);
-    border-radius: 2px;
+    min-width: 240px;
     margin-left: auto;
     padding: 0 12px;
+    background: var(--gray-G12-50-color);
+    border-radius: 2px;
 
     & > * {
       margin: auto 0;
