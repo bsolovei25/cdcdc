@@ -27,7 +27,9 @@
                 <svg-icon (click)="childrens ? deleteFolder(childrens) : deleteTemplate(templates)" src="{{trashIcon}}">
                 </svg-icon>
             </div>
-        </ng-container>
+        </div>
+    </div>
+</ng-container>
 <ng-container *ngIf="childrens || templates">
     <div class="item">
         <div class="item__half">
@@ -53,8 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</ng-container>
     </div>
 </ng-container>
 

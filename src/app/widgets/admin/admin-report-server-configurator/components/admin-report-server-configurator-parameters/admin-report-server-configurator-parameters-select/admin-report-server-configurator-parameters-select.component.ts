@@ -1,13 +1,9 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ChangeDetectionStrategy, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ISystemOptions, ISystemOptionsTemplate } from '@dashboard/models/ADMIN/report-server.model';
-import { IPostSystemOptionsTemplate, IReportTemplate } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
-import { ISystemOptions, ISystemOptionsTemplate } from '@dashboard/models/ADMIN/report-server.model';
 import { IReportTemplate } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
-import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-parameters-select',
@@ -17,8 +13,8 @@ import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-serv
 })
 export class AdminReportServerConfiguratorParametersSelectComponent implements OnInit {
 
-  public readonly closePopupIcon = 'assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
-  public readonly listIcon = 'assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
+  public readonly closePopupIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/close-popup.svg';
+  public readonly listIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/list.svg';
   public selectedParameters: ISystemOptions[] = [];
   @Input() public report: IReportTemplate = null;
 

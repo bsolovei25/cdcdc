@@ -22,9 +22,7 @@ import { AdminReportServerConfiguratorRepositoryAddFileComponent } from './compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AdminReportServerConfiguratorListGroupComponent } from './components/admin-report-server-configurator-parameters/admin-report-server-configurator-list-group/admin-report-server-configurator-list-group.component';
-import { AdminFileWorkModule } from "@widgets/admin/admin-file-work/admin-file-work.module";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AdminFileWorkModule } from '@widgets/admin/admin-file-work/admin-file-work.module';
 import { AdminReportConfiguratorService } from './services/admin-report-server-configurator.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -43,62 +41,62 @@ import { SearchPipe } from './shared/search.pipe';
 import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
 
 
-
 @NgModule({
-  declarations: [
-    AdminReportServerConfiguratorComponent,
-    AdminReportServerConfiguratorRepositoryComponent,
-    AdminReportServerConfiguratorRepositoryHeaderComponent,
-    AdminReportServerConfiguratorRepositoryAddressComponent,
-    AdminServerConfiguratorReferenceMenuComponent,
-    AdminReportServerConfiguratorRepositoryAddComponent,
-    AdminReportNameConfiguratorComponent,
-    AdminReportServerConfiguratorFileComponent,
-    AdminReportServerConfiguratorParametersComponent,
-    AdminReportServerConfiguratorParametersHeaderComponent,
-    AdminReportServerConfiguratorParametersSelectComponent,
-    AdminReportServerConfiguratorAccessComponent,
-    AdminReportServerConfiguratorRepositoryAddFileComponent,
-    AdminReportServerConfiguratorAccessDeniedComponent,
-    AdminRscMacrosEditComponent,
-    AdminRscAutogenerationComponent,
-    AdminRscDatetimepickerComponent,
-    AdminRscReportSheetComponent,
-    AdminRscPeriodEditComponent,
-    AdminRscParameterAutogenerationComponent,
-    AdminRscPathEditComponent,
-    AdminRscCustomOptionsComponent,
-    SearchPipe,
-    AdminRscRepositoryEditComponent,
-    AdminReportServerConfiguratorListGroupComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    MatRippleModule,
-    OverlayModule,
-    MatSlideToggleModule,
-    MatCheckboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DragDropModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatExpansionModule,
-  ],
-  exports: [
-    SearchPipe
-  ],
-  providers: [
-    AdminReportConfiguratorService,
-    MatCheckboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DragDropModule,
-    AdminFileWorkModule
-  ]
+    declarations: [
+        AdminReportServerConfiguratorComponent,
+        AdminReportServerConfiguratorRepositoryComponent,
+        AdminReportServerConfiguratorRepositoryHeaderComponent,
+        AdminReportServerConfiguratorRepositoryAddressComponent,
+        AdminServerConfiguratorReferenceMenuComponent,
+        AdminReportServerConfiguratorRepositoryAddComponent,
+        AdminReportNameConfiguratorComponent,
+        AdminReportServerConfiguratorFileComponent,
+        AdminReportServerConfiguratorParametersComponent,
+        AdminReportServerConfiguratorParametersHeaderComponent,
+        AdminReportServerConfiguratorParametersSelectComponent,
+        AdminReportServerConfiguratorAccessComponent,
+        AdminReportServerConfiguratorRepositoryAddFileComponent,
+        AdminReportServerConfiguratorAccessDeniedComponent,
+        AdminRscMacrosEditComponent,
+        AdminRscAutogenerationComponent,
+        AdminRscDatetimepickerComponent,
+        AdminRscReportSheetComponent,
+        AdminRscPeriodEditComponent,
+        AdminRscParameterAutogenerationComponent,
+        AdminRscPathEditComponent,
+        AdminRscCustomOptionsComponent,
+        SearchPipe,
+        AdminRscRepositoryEditComponent,
+        AdminReportServerConfiguratorListGroupComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatRippleModule,
+        OverlayModule,
+        MatSlideToggleModule,
+        MatCheckboxModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DragDropModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatExpansionModule,
+        AdminFileWorkModule,
+    ],
+    exports: [
+        SearchPipe
+    ],
+    providers: [
+        AdminReportConfiguratorService,
+        MatCheckboxModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DragDropModule,
+        AdminFileWorkModule
+    ]
 })
 export class AdminReportServerConfiguratorModule {
     enterComponent = AdminReportServerConfiguratorComponent;

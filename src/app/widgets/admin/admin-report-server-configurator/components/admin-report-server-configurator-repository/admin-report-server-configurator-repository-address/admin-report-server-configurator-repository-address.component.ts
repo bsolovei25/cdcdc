@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ITemplateFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
+import { ITemplateFolder } from '@dashboard/models/ADMIN/report-server.model';
 
 @Component({
     selector: 'evj-admin-report-server-configurator-repository-address',

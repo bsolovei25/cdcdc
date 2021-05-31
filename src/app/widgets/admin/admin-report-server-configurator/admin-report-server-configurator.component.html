@@ -1,27 +1,30 @@
 <evj-contemporary-widget-header
   [uniqId]="widgetUniqId"
-  [widgetTitle]="'Конфигуратор Сервера Отчётов'"
+  widgetTitle="Управление файлами"
   icon="setting"
   type="astue"
 >
-  <div class="header-tabs">
-    <div class="tabs-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div
+    class="header"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="buttons-select">
       <div
-        class="btn"
-        [class.btn_active]="(helperService.currentTab | async) === i"
         *ngFor="let tab of tabs; let i = index"
+        class="buttons-select__item"
+        [class.active]="(adminReportConfiguratorService.currentTab | async) === i"
         (click)="changeTab(i)"
-      >
-        {{tab}}
-      </div>
+      >{{ tab }}</div>
     </div>
   </div>
 </evj-contemporary-widget-header>
+
 <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-  <div class="container__item" [class.container__item_full]="(helperService.currentTab | async) === 1">
+  <div class="container__item" [class.container__item_full]="(adminReportConfiguratorService.currentTab | async) === 1">
     <evj-admin-report-server-configurator-repository></evj-admin-report-server-configurator-repository>
   </div>
-  <div class="container__item" *ngIf="(helperService.currentTab | async) === 0">
+  <div class="container__item" *ngIf="(adminReportConfiguratorService.currentTab | async) === 0">
     <evj-admin-report-server-configurator-parameters></evj-admin-report-server-configurator-parameters>
   </div>
 </div>

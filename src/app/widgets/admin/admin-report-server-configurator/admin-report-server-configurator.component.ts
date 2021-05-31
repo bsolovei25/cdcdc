@@ -13,7 +13,7 @@ export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unkno
 
     constructor(
         protected widgetService: WidgetService,
-        public helperService: AdminReportConfiguratorService,
+        public adminReportConfiguratorService: AdminReportConfiguratorService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
     ) {
@@ -31,6 +31,6 @@ export class AdminReportServerConfiguratorComponent extends WidgetPlatform<unkno
     }
 
     public changeTab(tabIndex: number): void {
-        this.helperService.currentTab.next(tabIndex);
+        this.adminReportConfiguratorService.currentTab.next(tabIndex);
     }
 }

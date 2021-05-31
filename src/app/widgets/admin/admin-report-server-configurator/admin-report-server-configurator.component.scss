@@ -9,51 +9,36 @@
   flex-flow: column;
 }
 
-.header-tabs {
-  height: 100%;
-
-  flex: 1;
-  display: flex;
-  align-items: center;
-
-  .tabs-container {
-    height: 32px;
-    margin-right: auto;
-    margin-left: 20px;
+.header {
+  .buttons-select {
+    width: 469px;
+    margin-left: 10px;
 
     display: flex;
+    align-items: center;
 
-    cursor: pointer;
-    .btn {
-      height: 100%;
-      padding: 0 20px;
+    border-radius: 2px;
+    border: 1px solid var(--sou-mvp-color-border);
+
+    &__item {
+      height: 32px;
+      padding: 0 10px;
 
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      flex: 1;
 
-      border: 1px solid var(--border-forms-color);
-      border-radius: 2px;
+      font-size: 13px;
+      line-height: 16px;
 
-      font-family: Magistral Cond;
-      font-weight: 900;
-      font-size: 15px;
-      line-height: 18px;
-      color: var(--text-subscript-color);
+      color: var(--sou-mvp-color-white);
+      cursor: pointer;
 
-      &:first-child {
-        border-radius: 2px 0 0 2px;
-      }
-      &:last-child {
-        border-radius: 0 2px 2px 0;
-      }
-
-      &_active {
-        background: var(--opacity-plan-20-color);
-        border-color: var(--border-blue-color);
+      &.active {
+        background: var(--sou-mvp-color-bg-active-spec);
+        border: 1px solid var(--sou-mvp-color-active);
         border-radius: 2px;
-
-        color: var(--text-accent-color);
       }
     }
   }
