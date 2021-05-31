@@ -413,23 +413,20 @@ export class SouSchemaComponent implements OnChanges {
         const sectionData = this.getSectionDataByElement(element);
 
         if (sectionData) {
-            // const elementTypeId = this.getElementTypeId(element);
-            // const sectionDataAsFlowInOut = elementSectionData as ISouFlowIn | ISouFlowOut;
+            const elementTypeId = this.getElementTypeId(element);
+            const sectionDataAsFlowInOut = sectionData as ISouFlowIn | ISouFlowOut;
 
-            // switch (elementTypeId) {
-            //     case 3:
-            //         return sectionDataAsFlowInOut.productName || '';
-            //
-            //     case 11:
-            //         return sectionDataAsFlowInOut.tag || '';
-            // }
+            if (elementTypeId === 11) {
+                if ('tag' in sectionData) {
+                    return sectionDataAsFlowInOut.tag;
+                }
+            }
 
             if ('productName' in sectionData) {
                 return sectionData.productName;
             } else if ('name' in sectionData) {
                 return sectionData.name;
             } else if ('tag' in sectionData) {
-                const sectionDataAsFlowInOut = sectionData as ISouFlowIn | ISouFlowOut;
                 return sectionDataAsFlowInOut.tag;
             }
         }
