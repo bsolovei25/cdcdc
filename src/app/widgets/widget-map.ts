@@ -1835,9 +1835,9 @@ export const WIDGETS_LAZY = {
     'cmid-factor-analysis': {
         import: async () => await import('src/app/widgets/CMID/cmid-factor-analysis/cmid-factor-analysis.module'),
         module: 'CmidFactorAnalysisModule',
-        itemCols: 35,
+        itemCols: 36,
         itemRows: 15,
-        minItemCols: 20,
+        minItemCols: 33,
         minItemRows: 10,
         preview: 'default',
     },
