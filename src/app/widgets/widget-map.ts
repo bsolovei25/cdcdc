@@ -1846,9 +1846,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-number-of-outages/cmid-number-of-outages.module');
         },
         module: 'CmidNumberOfOutagesModule',
-        itemCols: 25,
+        itemCols: 40,
         itemRows: 30,
-        minItemCols: 25,
+        minItemCols: 30,
         minItemRows: 10,
         preview: 'default',
     },
@@ -1886,7 +1886,9 @@ export const WIDGETS_LAZY = {
     },
     'cmid-overall-operational-indicator': {
         import: async () => {
-            return await import('@widgets/CMID/cmid-overall-operational-indicator/cmid-overall-operational-indicator.module');
+            return await import(
+                '@widgets/CMID/cmid-overall-operational-indicator/cmid-overall-operational-indicator.module'
+            );
         },
         module: 'CmidOverallOperationalIndicatorModule',
         itemCols: 42,
@@ -1947,14 +1949,16 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-trend-analysis-graph': {
         import: async () => {
-            return await import('src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module');
+            return await import(
+                'src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module'
+            );
         },
         module: 'EcWidgetTrendAnalysisGraphModule',
         itemCols: 35,
         itemRows: 14,
         minItemCols: 35,
         minItemRows: 14,
-        preview: 'ec-widget-trend-analysis-graph'
+        preview: 'ec-widget-trend-analysis-graph',
     },
     // #endregion EC
 
@@ -2013,6 +2017,6 @@ export const WIDGETS_LAZY = {
         minItemCols: 18,
         minItemRows: 10,
         preview: 'default',
-    }
+    },
     //#region SUUTP
 };
