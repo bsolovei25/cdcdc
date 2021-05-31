@@ -1,3 +1,12 @@
+## [1.33.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.0...v1.33.1) (2021-05-31)
+
+
+### Bug Fixes
+
+* **EC:** "Доработка по экрану Дин нормирования" front[#2057](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2057) ([6ffbf1e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6ffbf1ea28724cda83ef9258fff68fd1ae8f96a9))
+* **front#2027:** СОУ исправлены выводы в элементах ([38df2d2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/38df2d208d818cb32c50341fd177cb39a733185d)), closes [front#2027](https://gitlab.funcoff.club/front/issues/2027)
+* **SOU:** fix margins. [#1965](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1965) ([03b2413](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/03b24130fe3e8884e622210a59e466484a9284c9))
+
 # [1.33.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.32.0...v1.33.0) (2021-05-29)
 
 
