@@ -1,0 +1,41 @@
+<div #mnpzProductionMap>
+  <svg-icon
+    class="cmid-production-map-icon"
+    src="assets/img/CMID/{{mapType}}.svg"
+  ></svg-icon>
+</div>
+
+<div #tooltip class="tooltip">
+  <p class="tooltip__title">
+    {{buildName}}
+  </p>
+  <div class="tooltip__data">
+    <div class="tooltip__column">
+          <span class="tooltip__data-name">
+            <svg-icon class="tooltip__data-icon" [src]="'assets/icons/widgets/CMID/mnpz-production-map/safety.svg'"></svg-icon>
+            Безопасность
+          </span>
+      <span class="tooltip__data-value">
+          {{options?.safety}}
+        </span>
+    </div>
+    <div class="tooltip__column">
+          <span class="tooltip__data-name">
+            <svg-icon class="tooltip__data-icon" [src]="'assets/icons/widgets/CMID/mnpz-production-map/reliability.svg'"></svg-icon>
+            Надёжность
+          </span>
+      <span class="tooltip__data-value">
+          {{options?.reliability}}
+        </span>
+    </div>
+    <div class="tooltip__column">
+          <span class="tooltip__data-name">
+            <svg-icon class="tooltip__data-icon" [src]="'assets/icons/widgets/CMID/mnpz-production-map/ecology.svg'"></svg-icon>
+            Экология
+          </span>
+      <span class="tooltip__data-value">
+          {{options?.ecology}}
+        </span>
+    </div>
+  </div>
+</div>

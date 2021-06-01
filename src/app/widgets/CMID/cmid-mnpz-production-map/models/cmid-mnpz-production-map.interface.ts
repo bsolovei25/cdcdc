@@ -22,3 +22,5 @@ export interface ICmidMnpzProductionMapInterfaceWeather {
     wind: number,
     windDirection: string
 }
+
+export type MapTypes = 'mnpz' | 'onpz';
