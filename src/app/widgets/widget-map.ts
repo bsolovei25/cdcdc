@@ -1836,9 +1836,9 @@ export const WIDGETS_LAZY = {
         import: async () => await import('src/app/widgets/CMID/cmid-factor-analysis/cmid-factor-analysis.module'),
         module: 'CmidFactorAnalysisModule',
         itemCols: 36,
-        itemRows: 15,
+        itemRows: 12,
         minItemCols: 33,
-        minItemRows: 10,
+        minItemRows: 5,
         preview: 'default',
     },
     'cmid-number-of-outages': {

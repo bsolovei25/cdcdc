@@ -1,7 +1,8 @@
 .widget-container {
     background-color: var(--bg-header-color);
     border-radius: 2px 2px 0px 0px;
-    
+    height: 100%;
+
     ::ng-deep{
       .mat-checkbox-inner-container {
         background: var(--gray-G12-color);
