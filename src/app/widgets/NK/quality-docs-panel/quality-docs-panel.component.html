@@ -32,6 +32,7 @@
             <evj-quality-docs-record
               [data]="item"
               (emitBlockUnblock)="rowBlockUnblock($event)"
+              (activeItem)="active($event)"
             ></evj-quality-docs-record>
           </ng-container>
         </cdk-virtual-scroll-viewport>
