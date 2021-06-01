@@ -1,3 +1,14 @@
+## [1.33.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.1...v1.33.2) (2021-05-31)
+
+
+### Bug Fixes
+
+* **#1700:** Resolve "ЦМИД. Реализация виджета Динамика изменения метрик" ([9cd4268](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9cd4268e1a2d5d5bae8a7ade53faa14673f1d4bb))
+* **KPE:** "Добавила рамку и скругление виджетам экрана Оборудование СУУТП". front[#1883](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1883) ([58491d8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/58491d83c327d30884a593e6cc61a018cd119956))
+* **Shifts:** Скорректирована верстка и переполнение контента в окне Управление ролями. front[#1915](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1915) ([d30492b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d30492b552763fcf8277becbd8cec82885eef81f))
+* **ЦМИД:** Реализация виджета Факторный анализ, рефакторинг. front[#1784](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1784) ([0678e15](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0678e15dfcad71d364f33593910c68da1946d677))
+* **ЦМИД:** Реализация виджета Эксплуатационная готовность, рефакторинг. front[#1799](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1799) ([aa0e527](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/aa0e5274a7069e0a45882fe953391fa72157f7e2))
+
 ## [1.33.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.0...v1.33.1) (2021-05-31)
 
 

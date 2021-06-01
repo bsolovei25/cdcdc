@@ -5,8 +5,7 @@ import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.com
 @Component({
     selector: 'evj-evj-tasks-event-no-checkbox',
     templateUrl: './evj-tasks-event-no-checkbox.component.html',
-    styleUrls: ['./evj-tasks-event-no-checkbox.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./evj-tasks-event-no-checkbox.component.scss']
 })
 export class EvjTasksEventNoCheckboxComponent implements OnInit {
     @Input()
