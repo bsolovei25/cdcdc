@@ -23,3 +23,21 @@
     color: var(--text-contrast-color);
   }
 }
+
+.autocomplete-panel-custom {
+  min-width: 384px !important;
+  margin-top: 32px;
+  margin-left: 40px;
+
+  .mat-option {
+    height: 34px;
+    padding: 0 6px;
+    line-height: 36px;
+    font-size: 12px;
+    background-color: var(--color-bg-main);
+
+    .mat-pseudo-checkbox {
+      display: none;
+    }
+  }
+}

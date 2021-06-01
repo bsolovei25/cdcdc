@@ -46,11 +46,14 @@
     @include center-y;
 
     display: flex;
-    width: 100%;
     padding-left: 8px;
     margin: 0;
     list-style: none;
     pointer-events: none;
+    z-index: 1;
+    width: 355px;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__items {
@@ -61,42 +64,36 @@
     }
   }
 
-  &__field {
-    height: 24px;
-    width: 100%;
-    padding: 0 8px;
-    background-color: var(--bg-dashboard-color);
-    border: thin solid var(--border-forms-color);
-    border-radius: 2px;
-    outline: none;
+  &__placeholder {
+    @include center-y;
 
-    &::placeholder {
-      color: var(--text-main-color);
-    }
+    z-index: 1;
+    left: 8px;
+    pointer-events: none;
   }
 
-  &__arrow {
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    right: 8px;
-    top: 3px;
-    border: solid var(--text-main-color);
-    border-width: 0 1px 1px 0;
-    display: inline-block;
-    transform: rotate(45deg);
+  ::ng-deep {
+    .mat-select {
+      &[aria-expanded="true"] {
+        .mat-select-arrow-wrapper {
+          transform: rotate(-180deg);
+          transform-origin: 7px 10px;
+        }
+      }
+    }
 
-    &_toggled {
-      transform: rotate(-135deg);
-      transform-origin: 7px 9px;
+    .mat-select-trigger {
+      height: 24px;
+      width: 100%;
+      padding: 0 8px;
+      background-color: var(--bg-dashboard-color);
+      border: thin solid var(--border-forms-color);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    .mat-select-value {
+      font-size: 0;
     }
   }
-}
-
-.mat-option {
-  height: 34px;
-  padding: 0 6px;
-  line-height: 36px;
-  font-size: 12px;
-  background-color: var(--color-bg-main)
 }

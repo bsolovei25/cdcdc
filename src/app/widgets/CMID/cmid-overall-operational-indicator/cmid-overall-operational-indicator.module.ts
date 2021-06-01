@@ -10,19 +10,21 @@ import { MatIconModule} from "@angular/material/icon";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { CmidOverallOperationalIndicatorAutocompleteComponent } from './components/cmid-overall-operational-indicator-autocomplete/cmid-overall-operational-indicator-autocomplete.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [CmidOverallOperationalIndicatorComponent, CmidOverallOperationalIndicatorGraphComponent, CmidOverallOperationalIndicatorAutocompleteComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        MatFormFieldModule,
-        MatChipsModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    AngularSvgIconModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatSelectModule
+  ]
 })
 export class CmidOverallOperationalIndicatorModule {
     enterComponent = CmidOverallOperationalIndicatorComponent;
