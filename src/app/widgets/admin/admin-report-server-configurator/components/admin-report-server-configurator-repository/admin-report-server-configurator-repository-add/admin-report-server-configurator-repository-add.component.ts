@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-repository-add',
@@ -9,34 +10,43 @@ import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-r
 })
 export class AdminReportServerConfiguratorRepositoryAddComponent implements OnInit {
 
-  public readonly addIcon = 'assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
-  public newRecord: string;
-  public folderActive: number;
+  public readonly addIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
+  public parentFolderId: number;
   public createFolder: boolean;
+  public form: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<AdminReportServerConfiguratorRepositoryAddComponent>,
     private arscRootService: AdminReportServerConfiguratorRootService
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  public async onPushFolder(): Promise<void> {
-    if (this.newRecord?.trim().length > 0 && this.newRecord) {
-      const data: { name: string, parentFolderId: number } = {
-        name: this.newRecord,
-        parentFolderId: this.folderActive,
-      };
-      await this.arscRootService.postTemplateFolder(data);
-      this.newRecord = null;
-    } else {
-      this.newRecord = null;
+    ngOnInit(): void {
+      this.initForm();
     }
-    this.dialogRef.close();
+
+    public onClickCreate(): void {
+      this.arscRootService
+          .createFolder(this.form?.value?.name, this.parentFolderId)
+          .subscribe(() => {
+              this.clearAndClose();
+          });
   }
 
-  public onNoClick(): void {
-    this.dialogRef.close();
+  public onClickCancel(): void {
+    this.clearAndClose();
+  }
+
+  private clearAndClose(): void {
+      this.dialogRef?.close();
+      this.form?.reset();
+  }
+
+  private initForm(): void {
+      this.form = new FormGroup({
+          name: new FormControl('', [
+              Validators.required,
+              Validators.minLength(3),
+          ])
+      })
   }
 }
