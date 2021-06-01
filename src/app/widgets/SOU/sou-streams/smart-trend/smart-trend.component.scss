@@ -1,6 +1,5 @@
 .section {
-  width: 1400px;
-  height: 60vh;
+  width: 1530px;
 }
 
 .header {
@@ -62,4 +61,9 @@
       }
     }
   }
+}
+
+.table-section {
+  padding: 0 31px 37px 31px;
+  background-color: var(--bg-body-color);
 }
