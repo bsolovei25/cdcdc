@@ -176,7 +176,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         let boundEdge;
         let index;
         if (this.data?.zeroOn === 'Right') {
-            value = 100 - (this.data?.fact / maxBound) * 100;
+            value = 100 - (currentData / maxBound) * 100;
             // Если zeroOn === 'Right', то находим минимальную границу диапазона bound, в который попадает значение
             boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) => {
                 if (prev < value && value < curr) {
@@ -204,16 +204,22 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : boundEdge) * (Math.PI / 180);
             this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
         } else if (!boundEdge) {
-            const color =
-                this.data.zeroOn === 'Right'
-                    ? this.chartConfig[this.type]?.colorBounds[this.data?.colorBounds?.length - 1]
-                    : this.chartConfig[this.type]?.colorBounds[0];
-            this.chartConfig[this.type].gauge.activeColorIndex = color
-                ? color
-                : this.chartConfig[this.type].gauge.activeColorIndex;
-            const startActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? 0 : value) * (Math.PI / 180);
-            const endActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : 0) * (Math.PI / 180);
-            this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
+            // Отрисовка активной зоны не актуальна если у нас значение больше максимума или меньше минимума
+            // const color =
+            //     this.data.zeroOn === 'Right'
+            //         ? this.chartConfig[this.type]?.colorBounds[this.data?.colorBounds?.length - 1]
+            //         : this.chartConfig[this.type]?.colorBounds[0];
+            //
+            // this.chartConfig[this.type].gauge.activeColorIndex = color
+            //     ? color
+            //     : this.chartConfig[this.type].gauge.activeColorIndex;
+            // // отдаем 110 получаем -135 + 135
+            // const startActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? 0 : value) * (Math.PI / 180);
+            // const endActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : 0) * (Math.PI / 180);
+            // if (this.data.bounds[1] === 300 && this.data.deviation === -160) {
+            //     console.log(startActive, endActive);
+            // }
+            this.chartConfig[this.type].gauge.activeZone = [0, 0];
         }
     }
 
