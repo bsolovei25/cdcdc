@@ -1,6 +1,7 @@
 .table-body {
     border: 1px solid var(--bg-header-color);
     background: var(--bg-body-color);
+    height: 100%;
 
     &__color {
         color: var(--gray-G4-color);
@@ -117,6 +118,7 @@
     display: flex;
     flex: 1 1 0;
     min-height: 40px;
+    border-bottom: 1px solid var(--bg-header-color);
 
     &:not(:last-child) {
         border-bottom: 1px solid var(--bg-header-color);
