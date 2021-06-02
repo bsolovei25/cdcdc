@@ -157,7 +157,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds);
         const minBound = Math.min.apply(null, this.data?.bounds);
-        const currentData = this.type === 1 ? this.data?.totalHour : this.data?.fact;
+        const currentData = this.type === 2 ? this.data?.totalHour : this.data?.fact;
         if (this.data.zeroOn === 'Left') {
             this.data.bounds.sort((a, b) => a - b);
         } else {
