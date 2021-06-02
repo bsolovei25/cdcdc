@@ -43,6 +43,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public currentValues: {
         plan: number;
         fact: number;
+        forecast: number;
     };
 
     public sbWidth: number = 100;
@@ -216,6 +217,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                 this.currentValues = {
                     plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
                     fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+                    forecast: this.data.find((item) => item.graphType === 'forecast')?.currentValue,
                 };
             }),
         });
@@ -258,17 +260,13 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.virtualChannels = [];
     }
 
-    public get nextHourPlan(): number {
-        return this.data?.find((x) => x.multiChartTypes === 'plan')?.currentValue ?? null;
-    }
-
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.ecWidgetService.dropDataStream();
         this.ecWidgetService.sharedPlanningGraph$.next(null);
         this.ecWidgetService.multilineChartIndicatorTitle$.next('');
         this.ecWidgetService.multilineChartTransfer.next(null);
-        this.unSubscribeVirtualChannels();
+        this.virtualChannelSubscriptions.forEach((ref) => ref.subscription.unsubscribe());
     }
 
     private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {

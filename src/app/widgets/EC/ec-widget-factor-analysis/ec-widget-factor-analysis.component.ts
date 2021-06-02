@@ -52,7 +52,6 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.virtualChannel?.dispose();
         this.virtualChannelSubscription?.unsubscribe();
     }
 
@@ -65,15 +64,16 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
                 this.virtualChannel?.dispose();
                 this.virtualChannelSubscription?.unsubscribe();
 
-                this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
-                    channelId: this.widgetId,
-                    subchannelId: energyResourceId
-                });
+                if (energyResourceId) {
+                    this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
+                        channelId: this.widgetId,
+                        subchannelId: energyResourceId
+                    });
 
-                this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
-                    this.barData = astueOnpzFactoryAnalysisBarMapper(res);
-                })
-
+                    this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
+                        this.barData = astueOnpzFactoryAnalysisBarMapper(res);
+                    })
+                }
             })
         )
     }

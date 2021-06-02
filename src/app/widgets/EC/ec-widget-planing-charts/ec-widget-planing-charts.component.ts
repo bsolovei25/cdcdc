@@ -53,7 +53,7 @@ export class EcWidgetPlaningChartsComponent extends WidgetPlatform<unknown> impl
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.ecWidgetService.setMultiLinePredictors(null);
-        this.unSubscribeVirtualChannels()
+        this.virtualChannelSubscriptions.forEach(ref => ref.subscription.unsubscribe());
     }
 
     protected dataConnect(): void {

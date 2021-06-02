@@ -120,7 +120,7 @@
             след. час
           </div>
           <div class="card card__predict">
-            <span class="value"> {{ ((showCurrent? nextHourPlan : (predictors$ | async)?.forecast) | number:'0.0-2') || '---' }} </span>
+            <span class="value"> {{ ((showCurrent? currentValues?.forecast : (predictors$ | async)?.forecast) | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
