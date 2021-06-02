@@ -10,17 +10,13 @@
       <ng-container *ngIf="!last">;</ng-container>
     </li>
   </ul>
-  <input
-    #filterInput
-    class="chips-autocomplete__field"
-    [placeholder]="!this.graphLines.length ? 'Выберите показатели' : null"
-    [formControl]="filterControl"
-    [matAutocomplete]="auto">
-  <span class="chips-autocomplete__arrow" [class.chips-autocomplete__arrow_toggled]="auto.isOpen"></span>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectOption($event)">
-    <mat-option *ngFor="let lines of filterItems" [value]="lines">
-      {{lines.label}}
-    </mat-option>
-  </mat-autocomplete>
+  <div class="chips-autocomplete__select">
+    <span class="chips-autocomplete__placeholder">{{!this.graphLines.length ? 'Выберите показатели' : null}}</span>
+    <mat-select ngDefaultControl multiple [formControl]="filterControl" [panelClass]="'autocomplete-panel-custom'">
+      <mat-option #filterInput *ngFor="let lines of filterItems" [value]="lines" (onSelectionChange)="onSelectOption($event)">
+        {{lines.label}}
+      </mat-option>
+    </mat-select>
+  </div>
 </div>
 

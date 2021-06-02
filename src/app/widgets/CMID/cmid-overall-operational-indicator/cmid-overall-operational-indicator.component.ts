@@ -8,9 +8,9 @@ import {
     ICmidMultichartFilterModel,
     ICmidMultichartModel
 } from './models/cmid-overall-operational-indicator.model';
-import { WidgetService } from "@dashboard/services/widget.service";
-import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
-import { cmidMultichartData } from "@widgets/CMID/cmid-overall-operational-indicator/const/cmid-overall-operational-indicator.constants";
+import { WidgetService } from '@dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { cmidMultichartData } from '@widgets/CMID/cmid-overall-operational-indicator/const/cmid-overall-operational-indicator.constants';
 
 @Component({
   selector: 'evj-cmid-overall-operational-indicator',
@@ -34,7 +34,8 @@ export class CmidOverallOperationalIndicatorComponent extends WidgetPlatform imp
 
     ngOnInit(): void {
         this.data = cmidMultichartData;
-        this.data.forEach((item: ICmidMultichartModel) => {
+        this.data.map((item: ICmidMultichartModel) => {
+            item.visible = true;
             this.graphLines.push(item.label);
             this.filterData.push({
                 id: item.id,
@@ -45,6 +46,7 @@ export class CmidOverallOperationalIndicatorComponent extends WidgetPlatform imp
     }
 
     onGraphDataChanged(val: ICmidMultichartFilterModel): void {
+        console.log(val);
         this.data = this.data.filter((item: ICmidMultichartModel) => {
             if (item.id === val.id) {
                 item.visible = !item.visible;
