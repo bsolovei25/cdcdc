@@ -60,7 +60,7 @@
         <div class="card__value">
           <div class="value">
             {{labels?.currentPlanPlan?.value | number : '1.0-2'}}
-            <span class="unit">{{unit}}</span>
+            <span class="unit">{{unit}}/ч</span>
           </div>
         </div>
         <div class="label" *ngIf="labels?.currentPlanPlan?.statusName">{{labels?.currentPlanPlan?.statusName}}</div>
@@ -70,7 +70,7 @@
         <div class="card__value">
           <div class="value">
             {{labels?.currentPlanFact?.value | number : '1.0-2'}}
-            <span class="unit">{{unit}}</span>
+            <span class="unit">{{unit}}/ч</span>
           </div>
         </div>
         <div class="label" *ngIf="labels?.currentPlanFact?.statusName">{{labels?.currentPlanFact?.statusName}}</div>
@@ -80,7 +80,7 @@
         <div class="card__value">
           <div class="value">
             {{labels?.currentDeviation?.value | number : '1.0-2'}}
-            <span class="unit">{{unit}}</span>
+            <span class="unit">{{unit}}/ч</span>
           </div>
         </div>
         <div class="label" *ngIf="labels?.currentDeviation?.statusName">{{labels?.currentDeviation?.statusName}}</div>
@@ -89,7 +89,7 @@
         <div class="card__value">
           <div class="value">
             {{labels?.currentValue?.value | number : '1.0-2'}}
-            <span class="unit">{{unit}}</span>
+            <span class="unit">{{unit}}/ч</span>
           </div>
         </div>
       </div>
