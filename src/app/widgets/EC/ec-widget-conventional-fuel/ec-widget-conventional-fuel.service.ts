@@ -8,6 +8,7 @@ export interface IAstueOnpzConventionalFuelTransfer {
     plan: any;
     fact: any;
     factModel: any;
+    forecast: any;
     units: string;
 }
 
