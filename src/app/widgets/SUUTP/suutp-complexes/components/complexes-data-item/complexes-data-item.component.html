@@ -1,0 +1,16 @@
+
+<div class="complexes-data-item col-{{data.col}}" *ngIf="data" [class.error-color]="data.isWarning">
+  <div class="complexes-data-item_title">{{ data.title }}</div>
+
+  <evj-complexes-indicator *ngIf="data.indicator as indicator"
+                           [count]="indicator.count"
+                           [greyColor]="indicator.greyColor"
+                           [errorLimit]="indicator.errorLimit">
+    <svg-icon
+      *ngIf="indicator.greyColor"
+      icon
+      src="assets/icons/widgets/SUUTP/complexes/delta.svg"
+      [ngStyle]="{ 'width.px':11, 'height.px':11, 'padding-right.px':10 }"
+    ></svg-icon>
+  </evj-complexes-indicator>
+</div>
