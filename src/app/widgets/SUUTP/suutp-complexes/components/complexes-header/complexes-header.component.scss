@@ -1,0 +1,31 @@
+.complexes-header {
+  display: flex;
+  padding: 6px 16px;
+  max-height: 60px;
+  text-align: left;
+  align-items: center;
+  &_diagramm {
+    width: 58px;
+    margin-top: 10px;
+  }
+  &_title-group {
+    display: flex;
+    margin-left: 16px;
+    flex-direction: column;
+    line-height: 27px;
+  }
+}
+
+.title-group {
+  &_indicators-group {
+    display: flex;
+    gap: 8px;
+  }
+  &_header {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+    color: var(--text-contrast-color);
+  }
+}

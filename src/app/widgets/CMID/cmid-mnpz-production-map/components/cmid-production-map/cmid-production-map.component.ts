@@ -10,7 +10,7 @@ import {
     ChangeDetectorRef,
     Renderer2,
     Input,
-    SimpleChange, HostListener
+    SimpleChange
 } from '@angular/core';
 import {
     ICmidMnpzProductionMapInterface,
@@ -59,7 +59,9 @@ export class CmidProductionMapComponent implements OnDestroy, OnChanges, AfterVi
     ngOnChanges(changes: SimpleChanges): void {
         const svgNameChanges: SimpleChange = changes?.data;
         if (svgNameChanges) {
-            this.drawData();
+            setTimeout(() =>  {
+                this.drawData();
+            }, 200);
         }
     }
 

@@ -55,6 +55,28 @@
       }
       width: 100% !important;
     }
+    &__top {
+      &:before, &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 100%;
+        left: calc(50% - 5px);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid transparent;
+        transform: rotate(180deg)
+      }
+      &:before {
+        border-bottom: 5px solid var(--border-blue-color);
+      }
+      &:after {
+        border-bottom: 4px solid var((--gray-G12-color));
+        backdrop-filter: blur(10px);
+      }
+      width: 100% !important;
+    }
   }
   &-container {
     color: var(--text-contrast-color);

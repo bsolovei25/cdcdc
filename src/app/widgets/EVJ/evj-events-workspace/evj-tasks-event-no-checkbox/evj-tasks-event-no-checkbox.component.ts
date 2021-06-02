@@ -38,11 +38,15 @@ export class EvjTasksEventNoCheckboxComponent implements OnInit {
         return obj ? obj[infoType] : undefined;
     }
 
-    public dateTimePicker(date: Date): void {
-        this.ewService.setDeadlineToEvent(date);
-    }
-
     public onChangeEventDescription(description: string): void {
         this.ewService.event.description = description;
+    }
+
+    public setStartToEvent(value: Date): void {
+        this.ewService.setStartToEvent(value);
+    }
+
+    public setDeadlineToEvent(value: Date): void {
+        this.ewService.setDeadlineToEvent(value);
     }
 }

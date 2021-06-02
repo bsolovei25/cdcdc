@@ -1,0 +1,6 @@
+<div class="complexes-indicator_item"
+     [class.grey-color]="greyColor"
+     [class.plan-color]="count >= planLimit"
+     [class.error-color]="count >= errorLimit">
+    <ng-content select="[icon]"></ng-content>{{ count }}%
+</div>

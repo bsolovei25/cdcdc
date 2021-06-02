@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IKpeAccuracyTimelinesRow } from '@widgets/KPE/kpe-accuracy-timelines-data/kpe-accuracy-timelines-data.interface';
 
 @Component({
   selector: 'evj-kpe-accuracy-timelines-card',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kpe-accuracy-timelines-card.component.scss']
 })
 export class KpeAccuracyTimelinesCardComponent implements OnInit {
+    @Input() public rowData: IKpeAccuracyTimelinesRow;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

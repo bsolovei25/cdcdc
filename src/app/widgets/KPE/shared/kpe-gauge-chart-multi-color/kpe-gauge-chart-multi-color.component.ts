@@ -35,6 +35,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
     @Input() isFactInChartCenter: boolean = true; // в некоторых виджетах в "главном" спидометре в центре выводится fact, в остальных - totalHour
     @Input() data: IKpeGaugeChartPage | null = null;
+    // Параметр ожидает путь до иконки assets/..
+    // При передачи иконки в качестве параметра она отображается вместо показателей внтри спидометра
+    @Input() centralIcon: string;
 
     readonly chartConfig: IChartConfig[] = [
         {
@@ -154,7 +157,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds);
         const minBound = Math.min.apply(null, this.data?.bounds);
-        const currentData = this.type === 1 ? this.data?.totalHour : this.data?.fact;
+        const currentData = this.type === 2 ? this.data?.totalHour : this.data?.fact;
         if (this.data.zeroOn === 'Left') {
             this.data.bounds.sort((a, b) => a - b);
         } else {
@@ -284,6 +287,17 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .attr('d', fig);
         }
 
+        function drawIcon(className: string, iconPath: string, fig: d3.Arc = arc): void {
+            svg.append('g')
+                .attr('class', className)
+                .append('svg:image')
+                .attr('xlink:href', iconPath)
+                .attr('width', 30)
+                .attr('height', 30)
+                .attr('x', -15)
+                .attr('y', -15);
+        }
+
         const gradientArrow = (arrowAngle: number) => {
             // arrowAngle от -135 до 135
             let shadow: any;
@@ -381,23 +395,28 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             });
         }
 
-        // Стрелка
-        gradientArrow(gauge.angle);
+        if (this.centralIcon) {
+            drawIcon('icon', this.centralIcon);
+        } else {
+            // Стрелка
+            gradientArrow(gauge.angle);
 
-        // Закрываем тень от стрелки
-        const sectionHidden = createPie(end, end + Math.PI / 2);
-        drawDiagram(`circle__dark`, () => sectionHidden([null]), arcHidden);
+            // Закрываем тень от стрелки
+            const sectionHidden = createPie(end, end + Math.PI / 2);
+            drawDiagram(`circle__dark`, () => sectionHidden([null]), arcHidden);
 
-        // Темный круглый фон с текстом
-        drawCircle(width / 2 - 18, 'circle__dark');
-        addText('' + gauge.total, 'total', -2);
-        addText('' + gauge.deviation, 'deviation', 9);
-        if (this.data?.description && this.type === 1 && !this.hideDescription) {
-            addText(this.data.description, 'desc', 30);
+            // Темный круглый фон с текстом
+            drawCircle(width / 2 - 18, 'circle__dark');
+            addText('' + gauge.total, 'total', -2);
+            addText('' + gauge.deviation, 'deviation', 9);
+            if (this.data?.description && this.type === 1 && !this.hideDescription) {
+                addText(this.data.description, 'desc', 30);
+            }
+            if (!this.isPerformance) {
+                addText(gauge.unit, 'unit', 25);
+            }
         }
-        if (!this.isPerformance) {
-            addText(gauge.unit, 'unit', 25);
-        }
+
 
         if (this.showAxisValues) {
             // В случае размера bounds более 4 берем значения второе и предпоследнее значение массива bounds

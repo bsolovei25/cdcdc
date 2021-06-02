@@ -230,4 +230,11 @@ export class KpeHelperService {
     public getNumOfDays(timeStamp: Date): number {
         return new Date(new Date(timeStamp).getFullYear(), new Date(timeStamp).getMonth() + 1, 0).getDate();
     }
+
+    public transformDateToMonthYear(dateString: string): string {
+        const date = new Date(dateString);
+        const month = date.toLocaleString('Ru-ru', { month: 'long' });
+        const year = date.getFullYear();
+        return `${month} ${year}`;
+    }
 }

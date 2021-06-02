@@ -70,4 +70,12 @@ export class EvjUsualEventComponent {
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetComplete;
     }
+
+    public setStartToEvent(value: Date): void {
+        this.ewService.setStartToEvent(value);
+    }
+
+    public setDeadlineToEvent(value: Date): void {
+        this.ewService.setDeadlineToEvent(value);
+    }
 }

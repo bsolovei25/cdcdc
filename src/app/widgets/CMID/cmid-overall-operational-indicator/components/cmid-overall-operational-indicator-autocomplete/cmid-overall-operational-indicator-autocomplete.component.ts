@@ -7,9 +7,9 @@ import {
     Output,
     EventEmitter
 } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ICmidMultichartFilterModel } from "@widgets/CMID/cmid-overall-operational-indicator/models/cmid-overall-operational-indicator.model";
+import { FormControl } from '@angular/forms';
+import { MatAutocomplete } from '@angular/material/autocomplete';
+import { ICmidMultichartFilterModel } from '@widgets/CMID/cmid-overall-operational-indicator/models/cmid-overall-operational-indicator.model';
 
 @Component({
     selector: 'evj-cmid-metrics-change-autocomplete',
@@ -31,16 +31,15 @@ export class CmidOverallOperationalIndicatorAutocompleteComponent {
         this.clearedData.emit();
     }
 
-    onSelectOption(event: MatAutocompleteSelectedEvent): void {
-        this.filterInput.nativeElement.blur();
-        this.filterInput.nativeElement.value = '';
-        this.filterControl.setValue(null);
-        if (this.graphLines.includes(event.option.viewValue)) {
-            this.filteredData.emit(event.option.value);
-            this.graphLines = this.graphLines.filter(e => e !== event.option.viewValue);
+    onSelectOption(event): void {
+        const optionName = event.source.value.label;
+        if (this.graphLines.includes(optionName)) {
+            this.filteredData.emit(optionName);
+            this.graphLines = this.graphLines.filter(e => e !== optionName);
+            this.filteredData.emit(event.source.value);
             return;
         }
-        this.graphLines.push(event.option.viewValue);
-        this.filteredData.emit(event.option.value);
+        this.graphLines.push(optionName);
+        this.filteredData.emit(event.source.value);
     }
 }

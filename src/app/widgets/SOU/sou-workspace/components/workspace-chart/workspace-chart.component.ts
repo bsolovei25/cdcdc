@@ -1,35 +1,33 @@
 import {
     Component,
-    OnInit,
-    ChangeDetectionStrategy,
     ViewChild,
     ElementRef,
     Input,
     Output,
-    EventEmitter, OnChanges, HostListener
-} from "@angular/core";
+    EventEmitter, OnChanges, HostListener, ChangeDetectorRef, OnInit
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { IChartD3, IChartMini } from "@shared/interfaces/smart-scroll.model";
-import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
-import { AsyncRender } from "@shared/functions/async-render.function";
-import { newArray } from "@angular/compiler/src/util";
-import { fillDataArrayChart } from "@shared/functions/fill-data-array.function";
-import { dateFormatLocale } from "@shared/functions/universal-time-fromat.function";
-import { findCursorPosition } from "@shared/functions/find-cursor-position.function";
-import { CHART_DATA } from "@widgets/SOU/sou-workspace/components/workspace-chart/mock";
+import { IChartD3, IChartMini } from '@shared/interfaces/smart-scroll.model';
+import { IDatesInterval, WidgetService } from '@dashboard/services/widget.service';
+import { AsyncRender } from '@shared/functions/async-render.function';
+import { newArray } from '@angular/compiler/src/util';
+import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
+import { CHART_DATA } from '@widgets/SOU/sou-workspace/components/workspace-chart/mock';
 
 @Component({
-  selector: 'evj-workspace-chart',
-  templateUrl: './workspace-chart.component.html',
-  styleUrls: ['./workspace-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'evj-workspace-chart',
+    templateUrl: './workspace-chart.component.html',
+    styleUrls: ['./workspace-chart.component.scss']
 })
-export class WorkspaceChartComponent implements OnChanges {
+export class WorkspaceChartComponent implements OnChanges, OnInit {
 
     public selectedPeriod: IDatesInterval =
-        { fromDateTime: new Date(2020, 2, 4, 15),
-            toDateTime: new Date(2020, 2, 7, 20) };
+        {
+            fromDateTime: new Date(2020, 2, 4, 15),
+            toDateTime: new Date(2020, 2, 7, 20)
+        };
 
     public sbLeft: number = 0;
 
@@ -41,10 +39,13 @@ export class WorkspaceChartComponent implements OnChanges {
     @Input() private isSpline: boolean = false;
     @Input() private isWithPicker: boolean = false;
     @Input() private intervalHours: number[] = [];
+
     @Input() set size(value: number) {
         this.deltaCf = WorkspaceChartComponent.STEP_CF * value;
     }
+
     @Output() scrollData: EventEmitter<IChartMini[]> = new EventEmitter<IChartMini[]>(true);
+    @Output() clickSmartTrend: EventEmitter<boolean> = new EventEmitter;
 
     private dateTimeInterval: Date[] = null;
 
@@ -72,7 +73,7 @@ export class WorkspaceChartComponent implements OnChanges {
         left: 50,
         right: 20,
         top: 0,
-        bottom: 25,
+        bottom: 25
     };
 
     private deltaCf: number = 0.1;
@@ -84,7 +85,8 @@ export class WorkspaceChartComponent implements OnChanges {
         return this.widgetService.currentDates$.getValue();
     }
 
-    constructor(private widgetService: WidgetService) {}
+    constructor(private widgetService: WidgetService, private chDet: ChangeDetectorRef) {
+    }
 
     public ngOnChanges(): void {
         this.initInterval();
@@ -95,6 +97,20 @@ export class WorkspaceChartComponent implements OnChanges {
             this.dropChart();
         }
         this.scrollData.emit(this.data?.find((x) => x.graphType === 'fact')?.graph ?? []);
+        this.chDet.detectChanges();
+    }
+
+    ngOnInit(): void {
+        if (!!this.data.length) {
+            this.startDrawChart();
+            this.chDet.detectChanges();
+        } else {
+            this.dropChart();
+        }
+    }
+
+    clickBtn(): void {
+        this.clickSmartTrend.emit();
     }
 
     public changeScale(isPlus: boolean): void {
@@ -105,6 +121,7 @@ export class WorkspaceChartComponent implements OnChanges {
     public OnResize(): void {
         if (!!this.data.length) {
             this.startDrawChart();
+            this.chDet.detectChanges();
         } else {
             this.dropChart();
         }
@@ -112,6 +129,7 @@ export class WorkspaceChartComponent implements OnChanges {
 
     @AsyncRender
     private startDrawChart(): void {
+        console.log('pffsdfsdfsdfsd');
         this.dropChart();
         this.initData();
         this.findMinMax();
@@ -189,7 +207,7 @@ export class WorkspaceChartComponent implements OnChanges {
         const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
         domainDates = [
             new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
-            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
+            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates)
         ];
 
         this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
@@ -225,13 +243,13 @@ export class WorkspaceChartComponent implements OnChanges {
             graph: IChartD3[];
         } = {
             graphType: chart.graphType,
-            graph: [],
+            graph: []
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value),
+                y: this.scaleFuncs.y(item.value)
             });
         });
 
@@ -285,7 +303,7 @@ export class WorkspaceChartComponent implements OnChanges {
             .style('color', 'var(--chart-segment-color)');
 
         const yscale = d3.scaleLinear()
-            .range([231 , 0]);
+            .range([231, 0]);
         const line = this.svg
             .append('g')
             .attr('class', 'yAxis')
