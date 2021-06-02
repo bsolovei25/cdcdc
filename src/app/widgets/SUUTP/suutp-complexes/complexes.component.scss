@@ -1,0 +1,18 @@
+.root {
+  padding: 16px;
+}
+.complexes-header {
+  display: flex;
+  flex-direction: column;
+}
+.complexes-uptitle {
+  font-size: 11px;
+  color: var(--text-subscript-color);
+}
+.complexes-title {
+  font-size: 17px;
+  margin: 0 0 15px 0;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--text-contrast-color);
+}

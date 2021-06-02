@@ -1,0 +1,17 @@
+.complexes-indicator {
+  &_item {
+    color: var(--text-contrast-color);
+  }
+}
+
+.plan-color {
+  color: var(--index-plan-color);
+}
+
+.grey-color {
+  color: var(--text-subscript-color);
+}
+
+.error-color {
+  color: var(--index-error-color);
+}

@@ -279,7 +279,6 @@ export const WIDGETS_LAZY = {
     // #endregion OZSM
 
     // #region KPE
-
     'key-performance-indicators': {
         import: async () => {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
@@ -291,6 +290,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'key-performance-indicators',
     },
+
     'kpe-quality': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
@@ -333,8 +333,7 @@ export const WIDGETS_LAZY = {
         module: 'KpeSafetyModule',
         itemCols: 15,
         itemRows: 7,
-        minItemCols: 15,
-        minItemRows: 6,
+        minItemCols: 10,
         preview: 'kpe-safety',
     },
     'kpe-table-data': {
@@ -1963,6 +1962,32 @@ export const WIDGETS_LAZY = {
     // #endregion EC
 
     //#region SUUTP
+    'suutp-equipment-complexes': {
+        import: async () => {
+            return await import('src/app/widgets/SUUTP/suutp-complexes/complexes.module');
+        },
+        module: 'ComplexesModule',
+        itemCols: 10,
+        itemRows: 15,
+        minItemCols: 10,
+        minItemRows: 6,
+        preview: 'default',
+    },
+
+    'suutp-equipment-fractions-processing': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SUUTP/suutp-equipment-fractions-processing/suutp-equipment-fractions-processing.module'
+                );
+        },
+        module: 'SuutpEquipmentFractionsProcessingModule',
+        itemCols: 10,
+        itemRows: 50,
+        minItemCols: 10,
+        minItemRows: 6,
+        preview: 'evj-suutp-equipment-fractions-processing',
+    },
+
     'suutp-equipment-factory-state': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1974,6 +1999,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+
     'suutp-equipment-catalytic-cracking': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1985,17 +2011,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
-    'suutp-equipment-fractions-processing': {
-        import: async () => {
-            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
-        },
-        module: 'SuutpChartsModule',
-        itemCols: 30,
-        itemRows: 12,
-        minItemCols: 18,
-        minItemRows: 10,
-        preview: 'default',
-    },
+
     'suutp-equipment-kupn': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -2007,6 +2023,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+
     'suutp-equipment-primary-processes': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -2018,5 +2035,4 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
-    //#region SUUTP
 };
