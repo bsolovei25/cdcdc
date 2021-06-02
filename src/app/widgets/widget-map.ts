@@ -1959,6 +1959,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'ec-widget-trend-analysis-graph',
     },
+    'ec-widget-header': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EC/ec-widget-header/ec-widget-header.module'
+                );
+        },
+        module: 'EcWidgetHeaderModule',
+        itemCols: 35,
+        itemRows: 14,
+        minItemCols: 35,
+        minItemRows: 14,
+        preview: 'ec-widget-header',
+    },
     // #endregion EC
 
     //#region SUUTP
