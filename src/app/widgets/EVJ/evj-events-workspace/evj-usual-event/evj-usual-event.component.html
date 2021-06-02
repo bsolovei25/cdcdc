@@ -265,7 +265,9 @@
         </div>
 
         <div class="select-container">
-          <evj-events-workspace-datetimepicker [label]="'Начало события'" [date]="ewService.event.eventDateTime">
+          <evj-events-workspace-datetimepicker [label]="'Начало события'"
+                                               [date]="ewService.event.eventDateTime"
+                                               (onValueChange)="setStartToEvent($event)">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
@@ -278,7 +280,9 @@
           <evj-events-place></evj-events-place>
         </div>
         <div class="select-container">
-          <evj-events-workspace-datetimepicker [label]="'Срок исполнения'" [date]="ewService.event.deadline">
+          <evj-events-workspace-datetimepicker [label]="'Срок исполнения'"
+                                               [date]="ewService.event.deadline"
+                                               (onValueChange)="setDeadlineToEvent($event)">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>

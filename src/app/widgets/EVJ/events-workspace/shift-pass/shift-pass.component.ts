@@ -49,4 +49,12 @@ export class ShiftPassComponent implements OnInit {
             this.ewService.event.shiftPassEvent[el] = description;
         }
     }
+
+    public setStartToEvent(value: Date): void {
+        this.ewService.setStartToEvent(value);
+    }
+
+    public setDeadlineToEvent(value: Date): void {
+        this.ewService.setDeadlineToEvent(value);
+    }
 }

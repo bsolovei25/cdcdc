@@ -78,6 +78,7 @@
           <evj-time-data-picker
             [data]="ewService.event.eventDateTime"
             (dateTimePicker)="dateTimePickerStart($event)"
+            (onValueChange)="setStartToEvent($event)"
           ></evj-time-data-picker>
         </div>
       </evj-ui-block>
@@ -89,6 +90,7 @@
           <evj-time-data-picker
             [data]="ewService.event.deadline"
             (dateTimePicker)="dateTimePicker($event)"
+            (onValueChange)="setDeadlineToEvent($event)"
           ></evj-time-data-picker>
         </div>
       </evj-ui-block>
