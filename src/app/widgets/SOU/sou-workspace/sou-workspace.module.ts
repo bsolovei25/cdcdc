@@ -15,9 +15,10 @@ import { SouWorkspaceOperationComponent } from '@widgets/SOU/sou-workspace/compo
         SouWorkspaceInfoBarComponent,
         WorkspaceChartComponent,
         SouWorkspaceOperationComponent],
-    exports: [
-        SouWorkspaceComponent
-    ],
+  exports: [
+    SouWorkspaceComponent,
+    WorkspaceChartComponent
+  ],
     imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSelectModule, MatTooltipModule]
 })
 
