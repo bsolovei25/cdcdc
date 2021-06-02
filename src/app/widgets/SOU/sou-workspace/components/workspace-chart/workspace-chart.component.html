@@ -1,4 +1,5 @@
-<div class="chart-section">
+<div class="chart-section" (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
   <div class="chart-section__info">
     <div class="chart-section__info__legends">
       <svg-icon
@@ -33,7 +34,7 @@
       [(sbThumbWidth)]="sbWidth"
     ></evj-smart-scroll>
   </div>
-  <div class="chart-section__button">
+  <div class="chart-section__button" (click)="clickBtn()">
     <svg-icon
       class="chart-section__button__icon"
       src="assets/icons/widgets/SOU/sou-workspace/close.svg"

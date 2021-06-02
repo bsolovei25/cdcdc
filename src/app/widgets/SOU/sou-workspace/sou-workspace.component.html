@@ -46,12 +46,27 @@
       class="info-bar"
       [data]="workspaceBarInfo[0]">
     </evj-sou-workspace-info-bar>
-    <evj-sou-workspace-operation class="workspace-operation"></evj-sou-workspace-operation>
-<!--    <evj-workspace-chart></evj-workspace-chart>-->
-<!--    <div class="default-img"></div>-->
+    <evj-sou-workspace-operation class="workspace-operation"
+                                 (clickSmartTrend)="showChart = !showChart"></evj-sou-workspace-operation>
+    <!--    <evj-workspace-chart></evj-workspace-chart>-->
+    <!--    <div class="default-img"></div>-->
     <evj-sou-workspace-info-bar
       class="info-bar"
       [data]="workspaceBarInfo[1]">
     </evj-sou-workspace-info-bar>
   </div>
 </div>
+<ng-container *ngIf="showChart">
+  <div [@animation] style="margin-top: 10px">
+    <div  class="widget-header" (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
+      <evj-contemporary-widget-header
+        widgetTitle="Умный тренд"
+        icon="chart"
+      >
+      </evj-contemporary-widget-header>
+    </div>
+    <evj-workspace-chart (clickSmartTrend)="showChart = !showChart"></evj-workspace-chart>
+  </div>
+</ng-container>
+
