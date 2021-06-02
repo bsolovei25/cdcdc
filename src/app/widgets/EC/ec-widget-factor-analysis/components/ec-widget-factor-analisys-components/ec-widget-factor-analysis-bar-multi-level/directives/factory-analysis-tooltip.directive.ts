@@ -17,6 +17,13 @@ const POSITIONS_MAP = {
         overlayY: 'center',
         offsetY: 40,
     },
+    top: {
+        originX: 'center',
+        originY: 'center',
+        overlayX: 'center',
+        overlayY: 'center',
+        offsetY: -35,
+    },
 };
 @Directive({
     selector: '[evjFactoryAnalysisTooltip]',
@@ -66,6 +73,7 @@ export class FactoryAnalysisTooltipDirective implements OnInit, OnDestroy {
         tooltipRef.instance.unit = this.unit;
     }
 
+    @HostListener('wheel')
     @HostListener('mouseleave')
     public hide(): void {
         this.overlayRef.detach();
