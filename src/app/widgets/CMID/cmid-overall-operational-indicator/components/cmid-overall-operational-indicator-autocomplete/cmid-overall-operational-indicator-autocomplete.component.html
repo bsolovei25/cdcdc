@@ -1,0 +1,22 @@
+<div class="chips-autocomplete">
+  <ul class="chips-autocomplete__list">
+    <button *ngIf="graphLines.length"
+            class="chips-autocomplete__clear"
+            (click)="onClearFilter()">
+      {{graphLines.length}}
+    </button>
+    <li *ngFor="let lines of graphLines; let last = last" class="chips-autocomplete__items">
+      {{lines}}
+      <ng-container *ngIf="!last">;</ng-container>
+    </li>
+  </ul>
+  <div class="chips-autocomplete__select">
+    <span class="chips-autocomplete__placeholder">{{!this.graphLines.length ? 'Выберите показатели' : null}}</span>
+    <mat-select ngDefaultControl multiple [formControl]="filterControl" [panelClass]="'autocomplete-panel-custom'">
+      <mat-option #filterInput *ngFor="let lines of filterItems" [value]="lines" (onSelectionChange)="onSelectOption($event)">
+        {{lines.label}}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+

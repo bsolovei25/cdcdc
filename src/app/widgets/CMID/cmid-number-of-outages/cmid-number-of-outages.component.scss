@@ -95,15 +95,15 @@
   }
 
   &_danger::before {
-    background-color: var(--color-user-events-priority-danger);
+    background-color: var(--index-critical-color);
   }
 
   &_warning::before {
-    background-color: var(--color-user-events-priority-warning);
+    background-color: var(--index-error-color);
   }
 
   &_standard::before {
-    background-color: var(--color-user-events-priority-standard);
+    background-color: var(--index-active-color);
   }
 }
 

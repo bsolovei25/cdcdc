@@ -57,7 +57,7 @@ export class EcWidgetService {
     public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<IMultiChartTransfer>(
         null
     );
-    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null)
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
 
     private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
@@ -68,7 +68,8 @@ export class EcWidgetService {
         indicatorType: null,
     });
     private restUrl: string;
-    private colors: number = 6;
+    private colorsCount: number = 6;
+    private currentColors: number[] = [];
     private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(
         null
     );
@@ -116,23 +117,31 @@ export class EcWidgetService {
 
     public addTagToColor(tag: string): void {
         const colors = this.colors$.getValue();
-        if (this.colors === 0) {
-            this.colors = 6;
+        const predictorsCount = 4;
+        let color;
+
+        for (let i = this.colorsCount; i > this.colorsCount - predictorsCount; i--) {
+            if (this.currentColors.find(item => item === i)) {
+                continue;
+            }
+            color = i;
+            break;
         }
-        const color = this.colors--;
+        this.currentColors.push(color);
         colors.set(tag, color);
         this.colors$.next(colors);
     }
 
     public deleteTagToColor(color: number, tag: string): void {
-        this.colors++;
         const colors = this.colors$.getValue();
+
+        this.currentColors = this.currentColors.filter(item => item !== color);
         colors.delete(tag);
         this.colors$.next(colors);
     }
 
     public clearColors(): void {
-        this.colors = 6;
+        this.currentColors = [];
         this.colors$.next(new Map());
     }
 

@@ -1,23 +1,23 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
-import { IDatesInterval, WidgetService } from "@dashboard/services/widget.service";
-import { IMultiChartLine } from "@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model";
-import { UserSettingsService } from "@dashboard/services/user-settings.service";
-import { EcWidgetService, IPredictorsLabelsData } from "../ec-widget-shared/ec-widget.service";
-import { IMultiChartOptions } from "./components/ec-widget-multi-chart/ec-widget-multi-chart.component";
-import { IChartMini } from "@shared/interfaces/smart-scroll.model";
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { IDatesInterval, WidgetService } from '@dashboard/services/widget.service';
+import { IMultiChartLine } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { UserSettingsService } from '@dashboard/services/user-settings.service';
+import { EcWidgetService, IPredictorsLabelsData } from '../ec-widget-shared/ec-widget.service';
+import { IMultiChartOptions } from './components/ec-widget-multi-chart/ec-widget-multi-chart.component';
+import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import {
     EcWidgetConventionalFuelService,
     IAstueOnpzConventionalFuelTransfer,
-    IAstueOnpzReferences
-} from "./ec-widget-conventional-fuel.service";
-import { BehaviorSubject, Subscription } from "rxjs";
-import { FormControl, FormGroup } from "@angular/forms";
-import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
-import { ScreenshotMaker } from "@core/classes/screenshot.class";
-import { ReportsService } from "@dashboard/services/widgets/admin-panel/reports.service";
-import { VirtualChannel } from "@shared/classes/virtual-channel.class";
-import {IAstueOnpzReferenceModel} from "@widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service";
+    IAstueOnpzReferences,
+} from './ec-widget-conventional-fuel.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { ScreenshotMaker } from '@core/classes/screenshot.class';
+import { ReportsService } from '@dashboard/services/widgets/admin-panel/reports.service';
+import { VirtualChannel } from '@shared/classes/virtual-channel.class';
+import { IAstueOnpzReferenceModel } from '@widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 
 type MenuStructure = { menu: IAstueOnpzReferences };
 type GraphStructure = { graphs: IMultiChartLine[] };
@@ -43,6 +43,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     public currentValues: {
         plan: number;
         fact: number;
+        forecast: number;
     };
 
     public sbWidth: number = 100;
@@ -70,10 +71,12 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     });
 
     public newStructureMenuData: MenuStructure | null = null;
-    private virtualChannels: {subchannelId: string, virtualChannel: VirtualChannel<GraphStructure>}[] = [];
-    private virtualChannelSubscriptions: {subchannelId: string, subscription: Subscription}[] = [];
+    private virtualChannels: { subchannelId: string; virtualChannel: VirtualChannel<GraphStructure> }[] = [];
+    private virtualChannelSubscriptions: { subchannelId: string; subscription: Subscription }[] = [];
 
-    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(
+        null
+    );
 
     constructor(
         private reportService: ReportsService,
@@ -105,12 +108,10 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
             this.selectionForm.get('unit').valueChanges.subscribe((x) => {
                 this.selectionForm.get('resource').setValue(null);
             }),
-            this.selectionForm.valueChanges
-                .pipe(debounceTime(100), distinctUntilChanged())
-                .subscribe((x) => {
-                    this.ecWidgetService.setSelectedEnergyResource(x.resource);
-                    return this.ecWidgetConventionalFuelService.changeSelectedForm(x);
-                })
+            this.selectionForm.valueChanges.pipe(debounceTime(100), distinctUntilChanged()).subscribe((x) => {
+                this.ecWidgetService.setSelectedEnergyResource(x.resource);
+                return this.ecWidgetConventionalFuelService.changeSelectedForm(x);
+            })
         );
     }
 
@@ -149,7 +150,9 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors' || this.widgetType === 'ec-widget-conventional-fuel';
+        this.isPredictors =
+            this.widgetType === 'astue-onpz-conventional-fuel-predictors' ||
+            this.widgetType === 'ec-widget-conventional-fuel';
         this.options.isIconsShowing = !this.isPredictors;
 
         this.subscriptions.push(
@@ -171,54 +174,52 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                 this.colors = value;
             }),
 
-            this.ecWidgetService.selectedPredictor$
-                .pipe(filter(data => Boolean(data)))
-                .subscribe(predictorId => {
-                    const isDeletePredictor = this.data.findIndex(ref => ref.subchannelId === predictorId) !== -1;
+            this.ecWidgetService.selectedPredictor$.pipe(filter((data) => Boolean(data))).subscribe((predictorId) => {
+                const isDeletePredictor = this.data.findIndex((ref) => ref.subchannelId === predictorId) !== -1;
 
-                    if (isDeletePredictor) {
-                        this.unSubscribeVirtualChannel(predictorId);
-                    } else {
-                        this.setGraphsData(predictorId);
-                    }
-                }),
+                if (isDeletePredictor) {
+                    this.unSubscribeVirtualChannel(predictorId);
+                } else {
+                    this.setGraphsData(predictorId);
+                }
+            }),
 
-            this.ecWidgetService.selectedEnergyResource$
-                .subscribe(energyResourceId => {
-                    this.data = [];
-                    this.predictors$.next(null);
-                    this.paddingLeft$.next(0)
-                    this.unSubscribeVirtualChannels();
+            this.ecWidgetService.selectedEnergyResource$.subscribe((energyResourceId) => {
+                this.data = [];
+                this.predictors$.next(null);
+                this.paddingLeft$.next(0);
+                this.unSubscribeVirtualChannels();
 
-                    if (energyResourceId) {
-                        this.setGraphsData(energyResourceId);
-                    }
-                })
+                if (energyResourceId) {
+                    this.setGraphsData(energyResourceId);
+                }
+            })
         );
     }
 
     private setGraphsData(id: string): void {
         this.virtualChannelSubscriptions.push({
             subchannelId: id,
-            subscription: this.createVirtualChannel(id).data$.subscribe(res => {
-                const halfChartsData = res.graphs.map(item => {
-                    item.graph = item.graph.filter((ref, index) => index % 2  === 0);
+            subscription: this.createVirtualChannel(id).data$.subscribe((res) => {
+                const halfChartsData = res.graphs.map((item) => {
+                    item.graph = item.graph.filter((ref, index) => index % 2 === 0);
                     return item;
                 });
 
                 const data = this.multilineDataMapper(halfChartsData);
 
-                data.map(item => {
+                data.map((item) => {
                     item.subchannelId = id;
                     return item;
                 });
-                this.data = this.data.filter(ref => ref.subchannelId !== id);
+                this.data = this.data.filter((ref) => ref.subchannelId !== id);
                 this.data = [...this.data, ...data];
                 this.currentValues = {
                     plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
                     fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+                    forecast: this.data.find((item) => item.graphType === 'forecast')?.currentValue,
                 };
-            })
+            }),
         });
     }
 
@@ -237,14 +238,14 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     }
 
     private unSubscribeVirtualChannel(predictorId: string): void {
-        this.data = this.data.filter(ref => ref.subchannelId !== predictorId);
-        this.virtualChannelSubscriptions = this.virtualChannelSubscriptions.filter(ref => {
+        this.data = this.data.filter((ref) => ref.subchannelId !== predictorId);
+        this.virtualChannelSubscriptions = this.virtualChannelSubscriptions.filter((ref) => {
             if (ref.subchannelId === predictorId) {
                 ref.subscription.unsubscribe();
             }
             return ref.subchannelId !== predictorId;
         });
-        this.virtualChannels = this.virtualChannels.filter(ref => {
+        this.virtualChannels = this.virtualChannels.filter((ref) => {
             if (ref.subchannelId === predictorId) {
                 ref.virtualChannel.dispose();
             }
@@ -253,18 +254,10 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     }
 
     private unSubscribeVirtualChannels(): void {
-        this.virtualChannelSubscriptions.forEach(ref => ref.subscription.unsubscribe());
-        this.virtualChannels.forEach(sub => sub.virtualChannel.dispose());
+        this.virtualChannelSubscriptions.forEach((ref) => ref.subscription.unsubscribe());
+        this.virtualChannels.forEach((sub) => sub.virtualChannel.dispose());
         this.virtualChannelSubscriptions = [];
         this.virtualChannels = [];
-    }
-
-    get nextHourPlan(): number {
-        return this.data?.find((x) => x.multiChartTypes === 'plan')?.currentValue ?? null;
-    }
-
-    get nextPlanValue(): number {
-        return this.data?.find((x) => x.graphType === 'factModel')?.nextPlanValue ?? null;
     }
 
     public ngOnDestroy(): void {
@@ -273,7 +266,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         this.ecWidgetService.sharedPlanningGraph$.next(null);
         this.ecWidgetService.multilineChartIndicatorTitle$.next('');
         this.ecWidgetService.multilineChartTransfer.next(null);
-        this.unSubscribeVirtualChannels();
+        this.virtualChannelSubscriptions.forEach((ref) => ref.subscription.unsubscribe());
     }
 
     private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {
@@ -294,7 +287,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         }
     }
 
-    private setFormValues(ref: {menu: IAstueOnpzReferences}): void {
+    private setFormValues(ref: { menu: IAstueOnpzReferences }): void {
         const menu = ref?.menu;
 
         const manufactureId = menu?.manufacturies.find(
@@ -319,11 +312,15 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
     }
 
     public getMenuUnits(): IAstueOnpzReferenceModel[] {
-        return this.newStructureMenuData?.menu.units.filter(item => item.parentId === this.selectionForm.get('manufacture').value);
+        return this.newStructureMenuData?.menu.units.filter(
+            (item) => item.parentId === this.selectionForm.get('manufacture').value
+        );
     }
 
     public getEnergyResource(): IAstueOnpzReferenceModel[] {
-        return this.newStructureMenuData?.menu.energyResources.filter(item => item.parentId === this.selectionForm.get('unit').value);
+        return this.newStructureMenuData?.menu.energyResources.filter(
+            (item) => item.parentId === this.selectionForm.get('unit').value
+        );
     }
 
     public goToMainScreen(): void {

@@ -157,6 +157,14 @@ export class EvjAsusEventComponent implements OnInit {
         this.filter.setValue('');
     }
 
+    public setEndDateTimeToEvent(value: Date): void {
+        this.ewService.setEventEndDateTime(value);
+    }
+
+    public setDeadlineToEvent(value: Date): void {
+        this.ewService.setDeadlineToEvent(value);
+    }
+
     private filterEquipment(): void {
         let value = this.filter.value.trim();
         if (!value || value === '') {

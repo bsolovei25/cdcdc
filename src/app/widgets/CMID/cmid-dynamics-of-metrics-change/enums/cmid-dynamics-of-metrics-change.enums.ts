@@ -1,4 +1,4 @@
-export enum PageType {
+export enum CmidDynamicsOfMetricsChangePageType {
     DYNAMICS = 'dynamics',
     STATISTICS = 'statistics'
 }

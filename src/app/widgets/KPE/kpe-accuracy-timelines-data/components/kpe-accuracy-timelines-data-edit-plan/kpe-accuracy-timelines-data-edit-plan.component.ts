@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'evj-kpe-accuracy-timelines-data-edit-plan',
@@ -7,7 +8,7 @@ import { FormControl } from "@angular/forms";
   styleUrls: ['./kpe-accuracy-timelines-data-edit-plan.component.scss']
 })
 export class KpeAccuracyTimelinesDataEditPlanComponent implements OnInit {
-    constructor() {}
+    constructor(@Inject(MAT_DIALOG_DATA) public data: { date: string }) {}
 
     ngOnInit(): void {}
 

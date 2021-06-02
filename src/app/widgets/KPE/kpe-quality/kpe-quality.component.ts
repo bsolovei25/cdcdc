@@ -144,6 +144,7 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
                 ...x,
                 gaugeChart: {
                     ...x.gaugeChart,
+                    colorBounds: x.gaugeChart.zeroOn === 'Right' ? x.gaugeChart.colorBounds.reverse() : x.gaugeChart.colorBounds,
                     deviationPercentage: 100 - x.gaugeChart.percentage
                 }
             }))
@@ -179,7 +180,7 @@ export class KpeQualityComponent extends WidgetPlatform<IKpeWidgetAttributes> im
             deviationPlanPredictFact: card.fact,
             isWarning: card.isWarning,
             fact: card.fact,
-            percentageInfluence: card.percentage,
+            percentageInfluence: card.percentageInfluence,
             plan: card.plan,
             planPredict: card.plan,
             predict: card.plan,

@@ -1,0 +1,49 @@
+@import '../../../../../../theme/mixins/mixin-centering';
+
+:host * {
+  box-sizing: border-box;
+}
+
+.graph-multiline {
+  padding: 16px;
+  height: calc(100% - 55px);
+  background-color: var(--bg-body-color);
+  border: 1px solid var(--border-vidget-color);
+
+  &__chart {
+    .axis .tick line {
+      visibility: hidden;
+    }
+  }
+
+  &__groups {
+    margin: 0 0 0 20px;
+  }
+}
+
+.group {
+  display: flex;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 0;
+
+  &__item {
+    position: relative;
+    padding-left: 13px;
+
+    & + & {
+      margin-left: 15px;
+    }
+  }
+
+  &__color {
+    @include center-xy;
+
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    left: 0;
+    border-radius: 50%;
+  }
+}

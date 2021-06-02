@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkspaceChartComponent } from './workspace-chart.component';
+import { SuutpEquipmentKupnComponent } from './suutp-equipment-kupn.component';
 
-describe('WorkspaceChartComponent', () => {
-  let component: WorkspaceChartComponent;
-  let fixture: ComponentFixture<WorkspaceChartComponent>;
+describe('SuutpEquipmentKupnComponent', () => {
+  let component: SuutpEquipmentKupnComponent;
+  let fixture: ComponentFixture<SuutpEquipmentKupnComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorkspaceChartComponent ]
+      declarations: [ SuutpEquipmentKupnComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkspaceChartComponent);
+    fixture = TestBed.createComponent(SuutpEquipmentKupnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

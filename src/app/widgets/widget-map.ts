@@ -279,7 +279,6 @@ export const WIDGETS_LAZY = {
     // #endregion OZSM
 
     // #region KPE
-
     'key-performance-indicators': {
         import: async () => {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
@@ -291,6 +290,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'key-performance-indicators',
     },
+
     'kpe-quality': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
@@ -333,8 +333,7 @@ export const WIDGETS_LAZY = {
         module: 'KpeSafetyModule',
         itemCols: 15,
         itemRows: 7,
-        minItemCols: 15,
-        minItemRows: 6,
+        minItemCols: 10,
         preview: 'kpe-safety',
     },
     'kpe-table-data': {
@@ -1330,9 +1329,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-workspace/sou-workspace.module');
         },
         module: 'SouWorkspaceModule',
-        itemCols: 50,
+        itemCols: 40,
         itemRows: 22,
-        minItemCols: 45,
+        minItemCols: 62,
         minItemRows: 15,
         preview: 'default',
     },
@@ -1396,9 +1395,7 @@ export const WIDGETS_LAZY = {
 
     'ec-widget-conventional-fuel': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-conventional-fuel/ec-widget-conventional-fuel.module'
-                );
+            return await import('src/app/widgets/EC/ec-widget-conventional-fuel/ec-widget-conventional-fuel.module');
         },
         module: 'EcWidgetConventionalFuelModule',
         itemCols: 30,
@@ -1448,9 +1445,7 @@ export const WIDGETS_LAZY = {
 
     'ec-widget-main-indicators': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-main-indicators/ec-widget-main-indicators.module'
-                );
+            return await import('src/app/widgets/EC/ec-widget-main-indicators/ec-widget-main-indicators.module');
         },
         module: 'EcWidgetMainIndicatorsModule',
         itemCols: 12,
@@ -1530,9 +1525,7 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-planing-charts': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-planing-charts/ec-widget-planing-charts.module'
-                );
+            return await import('src/app/widgets/EC/ec-widget-planing-charts/ec-widget-planing-charts.module');
         },
         module: 'EcWidgetPlaningChartsModule',
         itemCols: 30,
@@ -1570,9 +1563,7 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-factor-analysis': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-factor-analysis/ec-widget-factor-analysis.module'
-            );
+            return await import('src/app/widgets/EC/ec-widget-factor-analysis/ec-widget-factor-analysis.module');
         },
         module: 'EcWidgetFactorAnalysisModule',
         itemCols: 24,
@@ -1831,7 +1822,8 @@ export const WIDGETS_LAZY = {
         minItemRows: 22,
     },
     'cmid-often-closed-positions': {
-        import: async () => await import('src/app/widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.module'),
+        import: async () =>
+            await import('src/app/widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.module'),
         module: 'CmidOftenClosedPositionsModule',
         itemCols: 11,
         itemRows: 30,
@@ -1839,15 +1831,45 @@ export const WIDGETS_LAZY = {
         minItemRows: 6,
         preview: 'default',
     },
+    'cmid-factor-analysis': {
+        import: async () => await import('src/app/widgets/CMID/cmid-factor-analysis/cmid-factor-analysis.module'),
+        module: 'CmidFactorAnalysisModule',
+        itemCols: 21,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 5,
+        preview: 'default',
+    },
     'cmid-number-of-outages': {
         import: async () => {
             return await import('@widgets/CMID/cmid-number-of-outages/cmid-number-of-outages.module');
         },
         module: 'CmidNumberOfOutagesModule',
-        itemCols: 25,
+        itemCols: 40,
         itemRows: 30,
-        minItemCols: 25,
+        minItemCols: 30,
         minItemRows: 10,
+        preview: 'default',
+    },
+    'cmid-operational-readiness': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-operational-readiness/cmid-operational-readiness.module');
+        },
+        module: 'CmidOperationalReadinessModule',
+        itemCols: 25,
+        itemRows: 4,
+        minItemCols: 15,
+        minItemRows: 1,
+    },
+    'cmid-filter': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-filter/cmid-filter.module');
+        },
+        module: 'CmidFilterModule',
+        itemCols: 25,
+        itemRows: 2,
+        minItemCols: 15,
+        minItemRows: 1,
         preview: 'default',
     },
     'cmid-dynamics-of-metrics-change': {
@@ -1857,8 +1879,32 @@ export const WIDGETS_LAZY = {
         module: 'CmidDynamicsOfMetricsChangeModule',
         itemCols: 50,
         itemRows: 10,
-        minItemCols: 25,
+        minItemCols: 50,
         minItemRows: 10,
+        preview: 'default',
+    },
+    'cmid-overall-operational-indicator': {
+        import: async () => {
+            return await import(
+                '@widgets/CMID/cmid-overall-operational-indicator/cmid-overall-operational-indicator.module'
+            );
+        },
+        module: 'CmidOverallOperationalIndicatorModule',
+        itemCols: 42,
+        itemRows: 15,
+        minItemCols: 42,
+        minItemRows: 15,
+        preview: 'default',
+    },
+    'cmid-mnpz-production-map': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-mnpz-production-map/cmid-mnpz-production-map.module');
+        },
+        module: 'CmidMnpzProductionMapModule',
+        itemCols: 35,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 20,
         preview: 'default',
     },
     //#endregion CMID
@@ -1898,11 +1944,50 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 15,
         minItemRows: 10,
-        preview: 'ec-widget-table-model'
+        preview: 'ec-widget-table-model',
+    },
+    'ec-widget-trend-analysis-graph': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module'
+            );
+        },
+        module: 'EcWidgetTrendAnalysisGraphModule',
+        itemCols: 35,
+        itemRows: 14,
+        minItemCols: 35,
+        minItemRows: 14,
+        preview: 'ec-widget-trend-analysis-graph',
     },
     // #endregion EC
 
     //#region SUUTP
+    'suutp-equipment-complexes': {
+        import: async () => {
+            return await import('src/app/widgets/SUUTP/suutp-complexes/complexes.module');
+        },
+        module: 'ComplexesModule',
+        itemCols: 10,
+        itemRows: 15,
+        minItemCols: 10,
+        minItemRows: 6,
+        preview: 'default',
+    },
+
+    'suutp-equipment-fractions-processing': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SUUTP/suutp-equipment-fractions-processing/suutp-equipment-fractions-processing.module'
+                );
+        },
+        module: 'SuutpEquipmentFractionsProcessingModule',
+        itemCols: 10,
+        itemRows: 50,
+        minItemCols: 10,
+        minItemRows: 6,
+        preview: 'evj-suutp-equipment-fractions-processing',
+    },
+
     'suutp-equipment-factory-state': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1914,6 +1999,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+
     'suutp-equipment-catalytic-cracking': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1925,17 +2011,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
-    'suutp-equipment-fractions-processing': {
-        import: async () => {
-            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
-        },
-        module: 'SuutpChartsModule',
-        itemCols: 30,
-        itemRows: 12,
-        minItemCols: 18,
-        minItemRows: 10,
-        preview: 'default',
-    },
+
     'suutp-equipment-kupn': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1947,6 +2023,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'default',
     },
+
     'suutp-equipment-primary-processes': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
@@ -1957,6 +2034,5 @@ export const WIDGETS_LAZY = {
         minItemCols: 18,
         minItemRows: 10,
         preview: 'default',
-    }
-    //#region SUUTP
+    },
 };

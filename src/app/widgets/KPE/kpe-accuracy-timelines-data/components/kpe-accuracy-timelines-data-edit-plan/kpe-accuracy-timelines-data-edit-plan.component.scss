@@ -23,6 +23,10 @@
       line-height: 17px;
 
       color: var(--text-accent-color);
+
+      &__date {
+        text-transform: capitalize;
+      }
     }
   }
 

@@ -15,12 +15,19 @@ export class QualityDocsRecordComponent implements OnInit, AfterViewInit {
         action: 'block' | 'unblock';
     }>();
 
+    @Output()
+    private activeItem: EventEmitter<IQualityDocsRecord> = new EventEmitter<IQualityDocsRecord>();
+
     constructor() {}
 
     ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         this.changeTooltip();
+    }
+
+    public onClick(): void {
+        this.activeItem.emit(this.data);
     }
 
     public blocked(idParam: number): void {

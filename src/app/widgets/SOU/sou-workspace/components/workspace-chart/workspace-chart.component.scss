@@ -8,11 +8,11 @@
 
 .chart-section {
   width: 100%;
-  height: 100%;
   background-color: var(--chart-background-color);
   padding-top: 42px;
   padding-left: 10px;
   padding-right: 30px;
+  min-height: 370px;
 
   &__info {
     display: flex;

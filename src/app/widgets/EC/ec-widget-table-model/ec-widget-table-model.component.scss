@@ -31,6 +31,14 @@
   }
 }
 
+evj-contemporary-widget-header {
+  ::ng-deep {
+    .title {
+      width: 100%;
+    }
+  }
+}
+
 .container {
   width: 100%;
   height: calc(100% - 40px);

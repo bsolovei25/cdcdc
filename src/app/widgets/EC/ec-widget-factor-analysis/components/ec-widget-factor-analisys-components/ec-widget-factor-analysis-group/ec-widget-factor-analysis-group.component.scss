@@ -29,6 +29,7 @@
       color: var(--text-subscript-color);
       @include text-overflow-old;
       max-height: 2.4em;
+      cursor: pointer;
     }
   }
 }

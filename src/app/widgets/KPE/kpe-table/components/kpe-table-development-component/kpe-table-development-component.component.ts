@@ -25,12 +25,12 @@ export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeT
         { id: 0, value: 'Ср. расход на дату тн' },
         { id: 1, value: 'Ср. расход на дату м3' }
       ]
-    
+
     public instantConsumption: {id: number, value: string}[] = [
         { id: 0, value: 'Мгновенный расход на дату тн' },
         { id: 1, value: 'Мгновенный на дату м3' }
       ]
-    
+
     public data$: BehaviorSubject<IKpeTable[]> = new BehaviorSubject<IKpeTable[]>([]);
     public columnsToDisplay: IKpeTableHeader[] = tableHeader;
     public search: string = '';
@@ -75,7 +75,7 @@ export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeT
             this.expandedElement.deselect(element.name);
         } else {
             this.expandedElement.select(element.name);
-        }        
+        }
     }
 
     onClickRow(event: MouseEvent, element?: any): void {
@@ -95,7 +95,7 @@ export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeT
         }
     }
 
-    trackByFn(element) {    
+    trackByFn(element) {
         return element.id;
      }
 }

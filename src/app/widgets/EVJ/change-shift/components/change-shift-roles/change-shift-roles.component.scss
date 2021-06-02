@@ -44,6 +44,7 @@
       flex-flow: column;
       gap: 2px;
       overflow: auto;
+      overflow-x: hidden;
       box-sizing: border-box;
     }
   }

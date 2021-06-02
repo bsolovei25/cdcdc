@@ -65,6 +65,7 @@ import { EvjSmpoEventCriticalComponent } from './evj-smpo-event/components/evj-s
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EvjTasksEventNoCheckboxComponent } from './evj-tasks-event-no-checkbox/evj-tasks-event-no-checkbox.component';
 import { CmidDictionaryService } from "@dashboard/services/widgets/CMID/cmid-dictionary.service";
+import { EvjCmidEventPlanTableItemComponent } from './evj-cmid-event/components/evj-cmid-event-plan-table/evj-cmid-event-plan-table-item/evj-cmid-event-plan-table-item.component';
 
 @NgModule({
     declarations: [
@@ -117,6 +118,8 @@ import { CmidDictionaryService } from "@dashboard/services/widgets/CMID/cmid-dic
         EvjEventsSmpoCorrectItemComponent,
         EvjEventsWorkspaceRestrictionsComponent,
         EvjSmpoEventCriticalComponent,
+        EvjTasksEventNoCheckboxComponent,
+        EvjCmidEventPlanTableItemComponent,
         EvjTasksEventNoCheckboxComponent
     ],
     imports: [

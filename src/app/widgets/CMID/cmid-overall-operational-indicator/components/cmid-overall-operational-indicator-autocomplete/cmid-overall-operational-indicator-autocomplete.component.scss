@@ -1,0 +1,99 @@
+@import '../../../../../../theme/mixins/mixin-centering';
+
+:host * {
+  box-sizing: border-box;
+}
+
+.chips-autocomplete {
+  position: relative;
+  width: 100%;
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 16px;
+    padding: 4px 22px 4px 4px;
+    background-color: var(--index-plan-color);
+    color: var(--text-accent-color);
+    border-radius: 2px;
+    border: none;
+    font-size: 11px;
+    line-height: 1.5;
+    pointer-events: all;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 6px;
+      width: 1px;
+      height: 10px;
+      content: '';
+      background-color: var(--text-accent-color);
+    }
+
+    &::after {
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    &::before {
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &__list {
+    @include center-y;
+
+    display: flex;
+    padding-left: 8px;
+    margin: 0;
+    list-style: none;
+    pointer-events: none;
+    z-index: 1;
+    width: 355px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__items {
+    margin-left: 12px;
+
+    & + & {
+      margin-left: 5px;
+    }
+  }
+
+  &__placeholder {
+    @include center-y;
+
+    z-index: 1;
+    left: 8px;
+    pointer-events: none;
+  }
+
+  ::ng-deep {
+    .mat-select {
+      &[aria-expanded="true"] {
+        .mat-select-arrow-wrapper {
+          transform: rotate(-180deg);
+          transform-origin: 7px 10px;
+        }
+      }
+    }
+
+    .mat-select-trigger {
+      height: 24px;
+      width: 100%;
+      padding: 0 8px;
+      background-color: var(--bg-dashboard-color);
+      border: thin solid var(--border-forms-color);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    .mat-select-value {
+      font-size: 0;
+    }
+  }
+}

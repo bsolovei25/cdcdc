@@ -135,6 +135,23 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.viewportCheck();
     }
 
+    public active(docsRecord: IQualityDocsRecord): void {
+        this.getDocument(docsRecord.fileUid, docsRecord);
+    }
+
+    private async getDocument(id: string, docsRecord: IQualityDocsRecord): Promise<void> {
+        this.oilDocumentService.documentScansLoader$.next(true);
+        try {
+            const url = await this.oilDocumentService.getDocumentView(id);
+            this.oilDocumentService.currentDocumentUrl$.next(url);
+            this.oilDocumentService.currentDocument$.next(docsRecord);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.oilDocumentService.documentScansLoader$.next(false);
+        }
+    }
+
     protected dataHandler(ref: any): void {}
 
     protected dataConnect(): void {

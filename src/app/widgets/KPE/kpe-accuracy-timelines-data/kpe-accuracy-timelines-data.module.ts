@@ -18,7 +18,7 @@ import { KpeAccuracyTimelinesDataAddPlanComponent } from './components/kpe-accur
 import { KpeAccuracyTimelinesDataEditPlanComponent } from './components/kpe-accuracy-timelines-data-edit-plan/kpe-accuracy-timelines-data-edit-plan.component';
 import { KpeAccuracyTimelinesDataLoadingFileComponent } from './components/kpe-accuracy-timelines-data-loading-file/kpe-accuracy-timelines-data-loading-file.component';
 import { KpeAccuracyTimelinesCardComponent } from './components/kpe-accuracy-timelines-card/kpe-accuracy-timelines-card.component';
-
+import { KpeSharedModule } from '../shared/kpe-shared.module';
 
 @NgModule({
     declarations: [KpeAccuracyTimelinesDataComponent, KpeAccuracyTimelinesDataAddPlanComponent, KpeAccuracyTimelinesDataEditPlanComponent, KpeAccuracyTimelinesDataLoadingFileComponent, KpeAccuracyTimelinesCardComponent],
@@ -39,7 +39,8 @@ import { KpeAccuracyTimelinesCardComponent } from './components/kpe-accuracy-tim
         MatMomentDateModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
-        NgxMatMomentModule
+        NgxMatMomentModule,
+        KpeSharedModule
     ]
 })
 export class KpeAccuracyTimelinesDataModule {
