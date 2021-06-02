@@ -91,7 +91,7 @@
         <tbody>
           <tr *cdkVirtualFor="let row of tableContent; let i = index"
               class="table__row"
-              [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--color-sou-bg-light)':'' }">
+              [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--bg-dark-table-row)':'' }">
             <td class="first-cell">
               <span> {{ row['type'] }} </span>
             </td>
