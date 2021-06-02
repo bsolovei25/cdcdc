@@ -2,7 +2,7 @@
   <div class="expand-block__item">
     <div class="description">
       <div class="description__title">
-        Уточнения объемов прокачек и потребления топливного и природного газа на ПНР КГПН
+        {{ rowData.commentOfAdjustment }}
       </div>
       <div class="custom-block"></div>
       <div class="description__btn">
@@ -11,7 +11,7 @@
             src="assets/icons/widgets/KPE/kpe-accuracy-timelines-data/timer.svg"
             class="timer"
           ></svg-icon>
-          30.10.2020
+          {{ rowData.dateOfAdjustment | date: 'dd.MM.yyyy' }}
         </div>
       </div>
     </div>
