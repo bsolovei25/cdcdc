@@ -11,6 +11,11 @@ import {
     ICustomOptionsTemplate,
     ICustomOptions,
 } from '@dashboard/models/ADMIN/report-server.model';
+import {
+    IFileUploadResponse,
+    IFolderCreateRequest
+} from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -74,10 +79,16 @@ export class AdminReportServerConfiguratorRootService {
         return this.http.delete<IReportTemplate>(this.restUrl + '/api/report-template/' + id).toPromise();
     }
 
+    /*
+    * @deprecated use uploadFile
+    * */
     public postReportTemplate(template: unknown): Promise<IReportTemplate> {
         return this.http.post<IReportTemplate>(this.restUrl + '/api/report-template', template).toPromise();
     }
 
+    /*
+    * @deprecated use createFolder
+    * */
     public postTemplateFolder(folder: unknown): Promise<unknown> {
         return this.http.post<unknown>(this.restUrl + '/api/report-folders', folder).toPromise();
     }
@@ -113,6 +124,72 @@ export class AdminReportServerConfiguratorRootService {
     public postReportFileNameOptions(templateId: number, template: ICustomOptionsTemplate): Promise<void> {
         return this.http
             .post<void>(this.restUrl + `/api/report-template/${templateId}/filename-options`, template)
+            .toPromise();
+    }
+
+    /*
+    * Files
+    * */
+
+    public getFile(id: number): Promise<unknown> {
+        return this.http
+            .get<unknown>(`${this.restUrl}/api/ref-book/Files/${id}`)
+            .toPromise();
+    }
+
+    public deleteFile(id: number): Promise<unknown> {
+        return this.http
+            .delete<unknown>(`${this.restUrl}/api/ref-book/Files/${id}/`)
+            .toPromise();
+    }
+
+    public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Promise<IFileUploadResponse> {
+        const formData = new FormData();
+        formData.append('fileName', fileName);
+        formData.append('description', description);
+        formData.append('uploadFIle', uploadFIle);
+        formData.append('folderId', String(folderId));
+
+        return this.http
+            .post<IFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData)
+            .toPromise();
+    }
+
+    /*
+    * Folders
+    * */
+
+    public getFolders(): Promise<unknown> {
+        return this.http
+            .get<unknown>(`${this.restUrl}/api/ref-book/Folders/all`)
+            .toPromise();
+    }
+
+    public getFolder(id: number): Promise<unknown> {
+        return this.http
+            .get<unknown>(`${this.restUrl}/api/ref-book/Folders/${id}`)
+            .toPromise();
+    }
+
+    public deleteFolder2(id: number): Promise<unknown> {
+        return this.http
+            .delete<unknown>(`${this.restUrl}/api/ref-book/Folders/${id}/`)
+            .toPromise();
+    }
+
+    public createFolder(name: string, parentFolderId: number): Observable<unknown> {
+        const folder: IFolderCreateRequest = {
+            name,
+            parentFolderId,
+        }
+
+        return this.http
+            .post<unknown>(`${this.restUrl}/api/ref-book/Folders`, folder);
+    }
+
+    public updateFolder(folder: unknown): Promise<unknown> {
+        return this.http
+            .put<unknown>(`${this.restUrl}/api/ref-book/Folders`, folder)
             .toPromise();
     }
 }

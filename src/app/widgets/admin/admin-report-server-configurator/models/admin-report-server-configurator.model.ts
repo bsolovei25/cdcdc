@@ -147,3 +147,18 @@ export interface ICustomOptions {
     sortOrder: number;
     isActive?: boolean;
 }
+
+export interface IFolderCreateRequest {
+    name: string,
+    parentFolderId: number,
+}
+
+export interface IFileUploadResponse {
+    id: number,
+    fileName: string,
+    description: string,
+    fileId: string,
+    sizeInKb: number,
+    createdAt: string,
+    createdBy: number,
+}

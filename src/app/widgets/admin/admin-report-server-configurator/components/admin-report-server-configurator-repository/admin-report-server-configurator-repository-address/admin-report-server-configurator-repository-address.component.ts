@@ -36,7 +36,7 @@ export class AdminReportServerConfiguratorRepositoryAddressComponent implements 
 
     public async mainPage(): Promise<void> {
         this.path = [];
-        const data = await this.arscRootService.getTemplateFolder();
+        const data = await this.arscRootService.getTemplateFolders();
         this.arscService.folders$.next(data.folders);
         this.arscService.reports$.next(data.templates);
         this.arscService.headerSettingsPicker.next(null);

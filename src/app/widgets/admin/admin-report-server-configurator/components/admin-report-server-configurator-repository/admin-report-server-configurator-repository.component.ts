@@ -26,7 +26,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
     }
 
     public async templateFolder(): Promise<void> {
-        const data = await this.arscRootService.getTemplateFolder();
+        const data = await this.arscRootService.getTemplateFolders();
         this.data = data;
         this.arscService.data = data;
     }
