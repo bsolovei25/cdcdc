@@ -6,6 +6,14 @@
     <div class="menu__header__name">Размер файла</div>
   </div>
   <div class="menu__body">
-    <evj-admin-file-work-folder></evj-admin-file-work-folder>
+    <div
+      *ngFor="let folder of folders"
+      class="item"
+    >
+      <evj-admin-file-work-folder
+        [folder]="folder"
+        (onClickFolder)="onClickOpenFolder(folder)"
+      ></evj-admin-file-work-folder>
+    </div>
   </div>
 </div>

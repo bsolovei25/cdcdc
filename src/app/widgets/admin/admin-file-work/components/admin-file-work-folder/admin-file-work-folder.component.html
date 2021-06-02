@@ -1,34 +1,56 @@
 <div class="item">
-  <div class="item__half">
-    <svg-icon class="type" src="{{folderIcon}}"></svg-icon>
-    <span>Мнемосхемы по установке ЭЛОУ-АВТ-10</span>
+  <div
+    class="item-row"
+    (click)="onClickOpenFolder()"
+  >
+    <div class="cell">
+      <svg-icon
+        class="type"
+        [src]="folderIcon"
+      ></svg-icon>
+
+      <span>{{ folder?.name }}</span>
+    </div>
+
+    <div class="cell">
+      <span>{{ folder?.createdAt }}</span>
+    </div>
+
+    <div class="cell">
+      <span>{{ folder?.createdBy }}</span>
+    </div>
+
+    <div class="cell">
+      <div class="date">1 МБ</div>
+    </div>
   </div>
-  <div class="item__half">
-    <span>1 мар. 2021</span>
-  </div>
-  <div class="item__half">
-    <span>Иванов М.М.</span>
-  </div>
-  <div class="item__half">
-    <div class="date">1 МБ</div>
-  </div>
+
   <div class="icons">
     <div class="icon">
-      <svg-icon src="{{windowsIcon}}"></svg-icon>
-    </div>
-    <div class="icon">
       <svg-icon
-        src="{{editIcon}}"
-        (click)="editFile()"
+        [src]="windowsIcon"
+        (click)="onClickDuplicate()"
       ></svg-icon>
     </div>
-    <div class="icon">
-      <svg-icon src="{{trashIcon}}"></svg-icon>
-    </div>
+
     <div class="icon">
       <svg-icon
-        src="{{linkIcon}}"
-        (click)="getLink()"
+        [src]="editIcon"
+        (click)="onClickEdit()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        [src]="trashIcon"
+        (click)="onClickDelete()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        [src]="linkIcon"
+        (click)="onClickLink()"
       ></svg-icon>
     </div>
   </div>

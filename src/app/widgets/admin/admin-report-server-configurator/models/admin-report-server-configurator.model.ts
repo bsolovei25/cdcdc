@@ -148,12 +148,12 @@ export interface ICustomOptions {
     isActive?: boolean;
 }
 
-export interface IFolderCreateRequest {
+export interface IReportFolderCreateRequest {
     name: string,
     parentFolderId: number,
 }
 
-export interface IFileUploadResponse {
+export interface IReportFileUploadResponse {
     id: number,
     fileName: string,
     description: string,
@@ -161,4 +161,27 @@ export interface IFileUploadResponse {
     sizeInKb: number,
     createdAt: string,
     createdBy: number,
+}
+
+export interface IReportFoldersResponse {
+    folders: IReportFolder[],
+}
+
+export interface IReportFolder {
+    id: number,
+    name: string,
+    createdAt: string,
+    createdBy: number,
+    files: IReportFile2[],
+    folders: IReportFolder[],
+}
+
+export interface IReportFile2 {
+    id: number,
+    createdAt: string,
+    createdBy: number,
+    description: string,
+    fileId: string,
+    fileName: string,
+    sizeInKb: number,
 }

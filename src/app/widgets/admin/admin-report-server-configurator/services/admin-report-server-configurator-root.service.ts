@@ -12,8 +12,8 @@ import {
     ICustomOptions,
 } from '@dashboard/models/ADMIN/report-server.model';
 import {
-    IFileUploadResponse,
-    IFolderCreateRequest
+    IReportFileUploadResponse, IReportFolder,
+    IReportFolderCreateRequest, IReportFoldersResponse
 } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { Observable } from 'rxjs';
 
@@ -143,7 +143,7 @@ export class AdminReportServerConfiguratorRootService {
             .toPromise();
     }
 
-    public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Promise<IFileUploadResponse> {
+    public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Promise<IReportFileUploadResponse> {
         const formData = new FormData();
         formData.append('fileName', fileName);
         formData.append('description', description);
@@ -151,7 +151,7 @@ export class AdminReportServerConfiguratorRootService {
         formData.append('folderId', String(folderId));
 
         return this.http
-            .post<IFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData)
+            .post<IReportFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData)
             .toPromise();
     }
 
@@ -159,16 +159,14 @@ export class AdminReportServerConfiguratorRootService {
     * Folders
     * */
 
-    public getFolders(): Promise<unknown> {
+    public getFolders(): Observable<IReportFoldersResponse> {
         return this.http
-            .get<unknown>(`${this.restUrl}/api/ref-book/Folders/all`)
-            .toPromise();
+            .get<IReportFoldersResponse>(`${this.restUrl}/api/ref-book/Folders/all`);
     }
 
-    public getFolder(id: number): Promise<unknown> {
+    public getFolder(id: number): Observable<IReportFolder> {
         return this.http
-            .get<unknown>(`${this.restUrl}/api/ref-book/Folders/${id}`)
-            .toPromise();
+            .get<IReportFolder>(`${this.restUrl}/api/ref-book/Folders/${id}`);
     }
 
     public deleteFolder2(id: number): Promise<unknown> {
@@ -178,7 +176,7 @@ export class AdminReportServerConfiguratorRootService {
     }
 
     public createFolder(name: string, parentFolderId: number): Observable<unknown> {
-        const folder: IFolderCreateRequest = {
+        const folder: IReportFolderCreateRequest = {
             name,
             parentFolderId,
         }

@@ -1,16 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
+import { IReportFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 
 @Component({
-  selector: 'evj-admin-file-work',
-  templateUrl: './admin-file-work.component.html',
-  styleUrls: ['./admin-file-work.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'evj-admin-file-work',
+    templateUrl: './admin-file-work.component.html',
+    styleUrls: ['./admin-file-work.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminFileWorkComponent implements OnInit {
+export class AdminFileWorkComponent {
 
-  constructor() { }
+    @Input() folders: IReportFolder[];
 
-  ngOnInit(): void {
-  }
+    @Output() onClickFolder: EventEmitter<IReportFolder> = new EventEmitter<IReportFolder>();
+
+    constructor() {
+    }
+
+    public onClickOpenFolder(folder: IReportFolder): void {
+        this.onClickFolder.emit(folder);
+    }
 
 }
