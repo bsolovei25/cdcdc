@@ -23,6 +23,8 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
 
+    public isReservoirTrendOpen: boolean = false;
+
     public heightOfTable: string = '400px';
     public heightOfViewPort: string = '335px';
     public widthOfTable: string = '1943.2px';
@@ -55,6 +57,15 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
             this.widthOfTable = '1943.2px';
         }
         this.cdr.detectChanges();
+    }
+
+    public openReservoirTrend(): void {
+        this.isReservoirTrendOpen = true;
+        console.log(window);
+    }
+
+    public closeSmartTrend(): void {
+        this.isReservoirTrendOpen = false;
     }
 
   protected dataHandler(ref: unknown): void {}

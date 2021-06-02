@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'evj-smart-trend',
@@ -8,9 +8,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class SmartTrendComponent implements OnInit {
 
+    // tslint:disable-next-line:typedef
+    @Output() public closeSmartTrend = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+    public sendClosingSmartTrend(): void {
+        this.closeSmartTrend.emit();
+    }
 
 }

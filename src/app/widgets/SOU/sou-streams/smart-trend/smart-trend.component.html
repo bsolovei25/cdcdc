@@ -1,4 +1,6 @@
-<div class="section">
+<div class="section"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
   <div class="header">
     <div class="header__title-block">
       <svg-icon
@@ -9,6 +11,7 @@
       <div class="header__title">Резервуар 503</div>
     </div>
     <svg-icon
+      (click)="sendClosingSmartTrend()"
       src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
       [ngStyle]="{ 'height.px':16 }"
     ></svg-icon>

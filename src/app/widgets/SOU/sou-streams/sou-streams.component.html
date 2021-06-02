@@ -1,4 +1,3 @@
-<evj-smart-trend class="modal"></evj-smart-trend>
 <div class="widget" #widget>
   <div class="widget-header">
     <evj-contemporary-widget-header
@@ -108,6 +107,8 @@
   </div>
 
   <div class="table-block"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
        [ngStyle]="{ 'height': heightOfTable }">
     <div class="table">
       <thead class="table__header"
@@ -255,6 +256,7 @@
             </td>
 
             <td class="graphic"
+                (click)="openReservoirTrend()"
                 [ngStyle]="{ 'width.px': widthOfGraphic }">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
@@ -266,4 +268,12 @@
       </cdk-virtual-scroll-viewport>
     </div>
   </div>
+</div>
+<div class="back"></div>
+<div *ngIf="isReservoirTrendOpen"
+  class="modal-section">
+  <evj-smart-trend
+    (closeSmartTrend)="closeSmartTrend()"
+    class="modal"
+  ></evj-smart-trend>
 </div>
