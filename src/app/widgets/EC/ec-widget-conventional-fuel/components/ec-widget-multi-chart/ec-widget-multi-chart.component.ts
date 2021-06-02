@@ -891,6 +891,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
         let plan: number = null;
         let fact: number = null;
         let factModel: number = null;
+        let forecast: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -907,7 +908,8 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 units = units ? units : chart.units;
                 factModel = xGragh ? statValue?.value : 0;
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
-                // TODO add some
+                units = units ? units : chart.units;
+                forecast = xGragh ? statValue?.value : 0;
             } else {
                 values.push({
                     val: xGragh ? statValue?.value : 0,
@@ -922,6 +924,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 fact,
                 plan,
                 factModel,
+                forecast,
                 predictors: [...values],
                 units,
             })
