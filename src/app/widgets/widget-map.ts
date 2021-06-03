@@ -276,9 +276,9 @@ export const WIDGETS_LAZY = {
         minItemRows: 4,
         preview: 'ozsm-resources-circle-diagram',
     },
-    // #endregion OZSM
 
     // #region KPE
+
     'key-performance-indicators': {
         import: async () => {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
@@ -290,7 +290,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'key-performance-indicators',
     },
-
     'kpe-quality': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
