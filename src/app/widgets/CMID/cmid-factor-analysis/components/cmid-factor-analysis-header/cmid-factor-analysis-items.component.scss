@@ -154,7 +154,7 @@
     }
 
     &__body {
-        max-height: 500px;
+        max-height: calc(100% - 85px);
         overflow-y: overlay;
     }
 }
