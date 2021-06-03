@@ -23,4 +23,7 @@ export interface ICmidMnpzProductionMapInterfaceWeather {
     windDirection: string
 }
 
-export type MapTypes = 'mnpz' | 'onpz';
+export enum MapTypes {
+    MNPZ_MAP = 'cmid-mnpz-production-map',
+    ONPZ_MAP = 'cmid-onpz-production-map',
+}

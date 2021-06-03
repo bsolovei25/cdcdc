@@ -1,4 +1,4 @@
-import { ICmidMnpzProductionMapInterface } from "@widgets/CMID/cmid-mnpz-production-map/models/cmid-mnpz-production-map.interface";
+import { ICmidMnpzProductionMapInterface } from "@widgets/CMID/cmid-production-map/models/cmid-production-map.interface";
 
 export const cmidMnpzProductionMapData: ICmidMnpzProductionMapInterface = {
     builds: [

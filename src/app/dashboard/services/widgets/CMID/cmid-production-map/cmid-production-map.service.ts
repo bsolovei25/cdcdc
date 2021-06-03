@@ -1,14 +1,13 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-
-import { AppConfigService } from "@core/service/app-config.service";
-import { ICmidOftenClosedPosition } from "@widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.interfaces";
-import { CmidMnpzProductionMapModule } from "@widgets/CMID/cmid-mnpz-production-map/cmid-mnpz-production-map.module";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '@core/service/app-config.service';
+import { ICmidOftenClosedPosition } from '@widgets/CMID/cmid-often-closed-positions/cmid-often-closed-positions.interfaces';
+import { CmidProductionMapModule } from '@widgets/CMID/cmid-production-map/cmid-production-map.module';
 
 @Injectable({
-    providedIn: CmidMnpzProductionMapModule,
+    providedIn: CmidProductionMapModule,
 })
-export class CmidMpnzProductionMapService {
+export class CmidProductionMapService {
     private restUrl: string;
 
     constructor(private http: HttpClient, configService: AppConfigService) {
