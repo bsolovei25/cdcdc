@@ -1,21 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IChatMessageWithAttachments } from '../../../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '@dashboard/services/widgets/EVJ/events-workspace.service';
 import { CmidEventToogleValue } from '../../components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 import { CmidDictionaryService } from '@dashboard/services/widgets/CMID/cmid-dictionary.service';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IDirectoryData, IDirectoryRow } from '@dashboard/services/widgets/CMID/cmid-dictionary.interface';
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup } from '@angular/forms';
 import { DecorateUntilDestroy, takeUntilDestroyed } from '@shared/functions/take-until-destroed.function';
 import { IPlanItem } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { IManufacture, IPlant } from '@dashboard/services/widgets/CMID/cmid.interface';
 
 @DecorateUntilDestroy()
 @Component({
     selector: 'evj-cmid-event-edit-form',
     templateUrl: './evj-cmid-event-edit-form.component.html',
-    styleUrls: ['./evj-cmid-event-edit-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./evj-cmid-event-edit-form.component.scss']
 })
 export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public dateNow: Date = new Date();
@@ -25,9 +25,9 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public typeOfReason$: Observable<IDirectoryData[]> = this.cmidDictionaryService.getTypeOfReason();
     public reasonsOfDisconnect$: Observable<IDirectoryRow[]>;
 
-    public plants$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getPlants('1');
-    public manufactures$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getManufactures();
-    public units$: Observable<Record<string, unknown>[]> = this.cmidDictionaryService.getSetups('1');
+    public plants$: Observable<IPlant[]> = this.cmidDictionaryService.getPlants('1');
+    public manufactures$: Observable<IManufacture[]> = this.cmidDictionaryService.getManufactures();
+    public units$: Observable<IManufacture[]>;
     public positions$: Observable<IPlanItem[]>;
 
     public typeOfReasonControl: FormControl = new FormControl();
@@ -37,13 +37,15 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
 
     public filterForm: FormGroup = new FormGroup({
         selectPlant: new FormControl({ id: '1', name: 'ОНПЗ' }),
-        selectManufacture: new FormControl(''),
-        selectUnit: new FormControl(''),
+        selectManufacture: new FormControl(null),
+        selectUnit: new FormControl(null),
     });
 
     public positionLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(public ewService: EventsWorkspaceService, private cmidDictionaryService: CmidDictionaryService) {}
+    constructor(
+        public ewService: EventsWorkspaceService,
+        private cmidDictionaryService: CmidDictionaryService) {}
 
     public ngOnInit(): void {
         this.subscriptionToTypeOfReasonControls();
