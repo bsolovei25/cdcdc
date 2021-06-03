@@ -1958,16 +1958,14 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-trend-analysis-graph': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module'
-            );
+            return await import('src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module');
         },
         module: 'EcWidgetTrendAnalysisGraphModule',
         itemCols: 35,
         itemRows: 14,
         minItemCols: 35,
         minItemRows: 14,
-        preview: 'ec-widget-trend-analysis-graph',
+        preview: 'ec-widget-trend-analysis-graph'
     },
     // #endregion EC
 
