@@ -21,6 +21,9 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class AdminReportServerConfiguratorRootService {
+
+    public selectedFolderId: number = null;
+
     private restUrl: string;
 
     constructor(private http: HttpClient, configService: AppConfigService) {
@@ -143,7 +146,7 @@ export class AdminReportServerConfiguratorRootService {
             .toPromise();
     }
 
-    public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Promise<IReportFileUploadResponse> {
+    public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Observable<IReportFileUploadResponse> {
         const formData = new FormData();
         formData.append('fileName', fileName);
         formData.append('description', description);
@@ -151,8 +154,7 @@ export class AdminReportServerConfiguratorRootService {
         formData.append('folderId', String(folderId));
 
         return this.http
-            .post<IReportFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData)
-            .toPromise();
+            .post<IReportFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData);
     }
 
     /*

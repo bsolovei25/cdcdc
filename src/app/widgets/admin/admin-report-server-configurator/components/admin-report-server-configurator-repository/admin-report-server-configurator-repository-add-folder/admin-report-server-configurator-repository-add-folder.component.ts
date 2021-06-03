@@ -5,10 +5,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-repository-add',
-  templateUrl: './admin-report-server-configurator-repository-add.component.html',
-  styleUrls: ['./admin-report-server-configurator-repository-add.component.scss']
+  templateUrl: './admin-report-server-configurator-repository-add-folder.component.html',
+  styleUrls: ['./admin-report-server-configurator-repository-add-folder.component.scss']
 })
-export class AdminReportServerConfiguratorRepositoryAddComponent implements OnInit {
+export class AdminReportServerConfiguratorRepositoryAddFolderComponent implements OnInit {
 
   public readonly addIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
   public parentFolderId: number;
@@ -16,7 +16,7 @@ export class AdminReportServerConfiguratorRepositoryAddComponent implements OnIn
   public form: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<AdminReportServerConfiguratorRepositoryAddComponent>,
+    public dialogRef: MatDialogRef<AdminReportServerConfiguratorRepositoryAddFolderComponent>,
     private arscRootService: AdminReportServerConfiguratorRootService
   ) { }
 

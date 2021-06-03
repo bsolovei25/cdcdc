@@ -1,0 +1,54 @@
+<div class="item">
+  <div class="item-row">
+    <div class="cell">
+      <svg-icon
+        class="type"
+        src="assets/icons/widgets/admin/admin-report-server-configurator/file.svg"
+      ></svg-icon>
+
+      <span>{{ file?.fileName }}</span>
+    </div>
+
+    <div class="cell">
+      <span>{{ file?.createdAt }}</span>
+    </div>
+
+    <div class="cell">
+      <span>{{ file?.createdBy }}</span>
+    </div>
+
+    <div class="cell">
+      <div class="date">1 МБ</div>
+    </div>
+  </div>
+
+  <div class="icons">
+    <div class="icon">
+      <svg-icon
+        src="assets/icons/widgets/admin/admin-report-server-configurator/windows.svg"
+        (click)="onClickDuplicate()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        src="assets/icons/widgets/admin/admin-report-server-configurator/edit.svg"
+        (click)="onClickEdit()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        src="assets/icons/widgets/admin/admin-report-server-configurator/trash.svg"
+        (click)="onClickDelete()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        src="assets/icons/widgets/admin/admin-report-server-configurator/link.svg"
+        (click)="onClickLink()"
+      ></svg-icon>
+    </div>
+  </div>
+</div>

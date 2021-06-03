@@ -15,5 +15,14 @@
         (onClickFolder)="onClickOpenFolder(folder)"
       ></evj-admin-file-work-folder>
     </div>
+
+    <div
+      *ngFor="let file of files"
+      class="item"
+    >
+      <evj-admin-file-work-svg-file
+        [file]="file"
+      ></evj-admin-file-work-svg-file>
+    </div>
   </div>
 </div>

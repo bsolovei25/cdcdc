@@ -1,13 +1,23 @@
-import { Overlay } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AdminReportConfiguratorService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator.service';
 import { AdminReportServerConfiguratorRepositoryAddFileComponent } from '../admin-report-server-configurator-repository-add-file/admin-report-server-configurator-repository-add-file.component';
-import { AdminReportServerConfiguratorRepositoryAddComponent } from '../admin-report-server-configurator-repository-add/admin-report-server-configurator-repository-add.component';
+import { AdminReportServerConfiguratorRepositoryAddFolderComponent } from '../admin-report-server-configurator-repository-add-folder/admin-report-server-configurator-repository-add-folder.component';
+import { AdminReportServerConfiguratorRepositoryAddSvgFileComponent } from '@widgets/admin/admin-report-server-configurator/components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-svg-file/admin-report-server-configurator-repository-add-svg-file.component';
 
 @Component({
     selector: 'evj-admin-report-server-configurator-repository-header',
@@ -15,6 +25,10 @@ import { AdminReportServerConfiguratorRepositoryAddComponent } from '../admin-re
     styleUrls: ['./admin-report-server-configurator-repository-header.component.scss'],
 })
 export class AdminReportServerConfiguratorRepositoryHeaderComponent implements OnInit {
+
+    @Output() folderAdded: EventEmitter<void> = new EventEmitter<void>();
+    @Output() fileAdded: EventEmitter<void> = new EventEmitter<void>();
+
     public add: boolean = false;
     public readonly addIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/add.svg';
     public readonly searchIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/search.svg';
@@ -25,6 +39,8 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
         search: new FormControl(''),
     });
     private subscribe$: Subject<null> = new Subject<null>();
+    private overlayRef: OverlayRef;
+
     @ViewChild('button', {static: true}) private buttonRef: ElementRef<HTMLButtonElement>;
     @ViewChild(TemplateRef, {static: true}) private templateRef: TemplateRef<HTMLElement>;
 
@@ -45,7 +61,7 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
             ));
     }
 
-    public addFile(): void {
+    public openMenu(): void {
         const positionStrategyBuilder = this.overlay.position();
 
         const positionStrategy = positionStrategyBuilder
@@ -63,7 +79,7 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
             ]);
         const scrollStrategy = this.overlay.scrollStrategies.block();
 
-        const overlayRef = this.overlay.create({
+        this.overlayRef = this.overlay.create({
             hasBackdrop: true,
             positionStrategy,
             scrollStrategy,
@@ -71,18 +87,44 @@ export class AdminReportServerConfiguratorRepositoryHeaderComponent implements O
 
         const templatePortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
 
-        overlayRef.attach(templatePortal);
+        this.overlayRef.attach(templatePortal);
 
-        overlayRef.backdropClick().subscribe(() => {
-            overlayRef.dispose();
-        });
+        this.overlayRef
+            .backdropClick()
+            .subscribe(() => {
+                this.closeMenu();
+            });
     }
 
     public addFolder(): void {
-        this.dialog.open(AdminReportServerConfiguratorRepositoryAddComponent);
+        this.closeMenu();
+
+        const dialogRef = this.dialog.open(AdminReportServerConfiguratorRepositoryAddFolderComponent);
+
+        dialogRef
+            .afterClosed()
+            .subscribe(() => {
+                this.folderAdded.emit();
+            });
+    }
+
+    public addFile(): void {
+        this.closeMenu();
+
+        const dialogRef = this.dialog.open(AdminReportServerConfiguratorRepositoryAddSvgFileComponent);
+
+        dialogRef
+            .afterClosed()
+            .subscribe(() => {
+                this.fileAdded.emit();
+            });
     }
 
     public addReport(): void {
         this.dialog.open(AdminReportServerConfiguratorRepositoryAddFileComponent);
+    }
+
+    private closeMenu(): void {
+        this.overlayRef?.dispose();
     }
 }

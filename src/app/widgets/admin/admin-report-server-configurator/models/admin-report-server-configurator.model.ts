@@ -172,11 +172,11 @@ export interface IReportFolder {
     name: string,
     createdAt: string,
     createdBy: number,
-    files: IReportFile2[],
+    files: IReportSvgFile[],
     folders: IReportFolder[],
 }
 
-export interface IReportFile2 {
+export interface IReportSvgFile {
     id: number,
     createdAt: string,
     createdBy: number,

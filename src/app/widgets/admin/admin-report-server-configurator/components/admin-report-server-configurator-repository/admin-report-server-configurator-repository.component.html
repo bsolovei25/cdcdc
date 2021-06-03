@@ -1,6 +1,9 @@
 <div class="repository">
   <div class="repository__header">
-    <evj-admin-report-server-configurator-repository-header></evj-admin-report-server-configurator-repository-header>
+    <evj-admin-report-server-configurator-repository-header
+      (folderAdded)="reloadFolders()"
+      (fileAdded)="reloadFolders()"
+    ></evj-admin-report-server-configurator-repository-header>
   </div>
 
   <div class="repository__address">
@@ -23,6 +26,7 @@
     <evj-admin-file-work
       *ngIf="(helperService.currentTab | async) === 1"
       [folders]="folders"
+      [files]="files"
       (onClickFolder)="onClickOpenFolder($event)"
     ></evj-admin-file-work>
   </div>

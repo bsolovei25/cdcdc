@@ -3,6 +3,7 @@ import { IReportTemplate, IFolder } from '@dashboard/models/ADMIN/report-server.
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
 import {
+    IReportSvgFile,
     IReportFolder,
     IReportFoldersResponse
 } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
@@ -18,6 +19,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
     public data: IFolder;
     public reports: IReportTemplate[];
     public folders: IReportFolder[];
+    public files: IReportSvgFile[];
 
     constructor(
         private arscRootService: AdminReportServerConfiguratorRootService,
@@ -27,8 +29,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
     }
 
     ngOnInit(): void {
-        this.loadFolders();
-        this.reportTemplate();
+        this.reloadFolders();
     }
 
     public async reportTemplate(): Promise<void> {
@@ -38,10 +39,16 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
     }
 
     public onClickOpenFolder(folder: IReportFolder): void {
+        this.arscRootService.selectedFolderId = folder.id;
         this.loadFolder(folder);
     }
 
     public onClickStorage(): void {
+        this.arscRootService.selectedFolderId = null;
+        this.reloadFolders();
+    }
+
+    public reloadFolders(): void {
         this.loadFolders();
     }
 
@@ -50,6 +57,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
             .getFolders()
             .subscribe((resp: IReportFoldersResponse) => {
                 this.folders = resp?.folders;
+                this.files = null;
             });
     }
 
@@ -58,6 +66,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
             .getFolder(folder.id)
             .subscribe((resp: IReportFolder) => {
                 this.folders = resp?.folders;
+                this.files = resp?.files;
             });
     }
 }

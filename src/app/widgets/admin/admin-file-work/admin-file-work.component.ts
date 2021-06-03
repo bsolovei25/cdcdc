@@ -1,5 +1,8 @@
 import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
-import { IReportFolder } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
+import {
+    IReportFolder,
+    IReportSvgFile
+} from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 
 @Component({
     selector: 'evj-admin-file-work',
@@ -10,6 +13,7 @@ import { IReportFolder } from '@widgets/admin/admin-report-server-configurator/m
 export class AdminFileWorkComponent {
 
     @Input() folders: IReportFolder[];
+    @Input() files: IReportSvgFile[];
 
     @Output() onClickFolder: EventEmitter<IReportFolder> = new EventEmitter<IReportFolder>();
 
