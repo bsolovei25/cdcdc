@@ -26,8 +26,7 @@
 
 .autocomplete-panel-custom {
   min-width: 384px !important;
-  margin-top: 32px;
-  margin-left: 40px;
+  transform: translate(40px, 7px)!important;
 
   .mat-option {
     height: 34px;
