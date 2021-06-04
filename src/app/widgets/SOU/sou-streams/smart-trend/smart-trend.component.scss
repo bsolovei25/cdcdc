@@ -8,6 +8,11 @@
   padding: 12px;
   display: flex;
   justify-content: space-between;
+  cursor: move;
+
+  .close {
+    cursor: pointer;
+  }
 
   &__title-block {
     display: flex;

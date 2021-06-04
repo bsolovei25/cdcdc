@@ -1,6 +1,4 @@
-<div class="section"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()">
+<div class="section">
   <div class="header">
     <div class="header__title-block">
       <svg-icon
@@ -10,14 +8,17 @@
       ></svg-icon>
       <div class="header__title">Резервуар 503</div>
     </div>
-    <svg-icon
-      (click)="sendClosingSmartTrend()"
-      src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
-      [ngStyle]="{ 'height.px':16 }"
-    ></svg-icon>
+    <span class="close">
+       <svg-icon
+         (click)="sendClosingSmartTrend()"
+         src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
+         [ngStyle]="{ 'height.px':16 }"
+       ></svg-icon>
+    </span>
   </div>
 
-  <div class="chart-section">
+  <div class="chart-section" (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
 
     <div class="chart-section__info">
       <div class="chart-section__info__legends">
@@ -48,7 +49,8 @@
     <evj-trends></evj-trends>
   </div>
 
-  <div class="table-section">
+  <div class="table-section" (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
     <evj-trend-table></evj-trend-table>
   </div>
 

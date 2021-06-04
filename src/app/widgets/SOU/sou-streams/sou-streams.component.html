@@ -119,10 +119,10 @@
               rowspan="2"
           >Операция</td>
           <td *ngFor="let title of titlesOfTable"
-              [class]="title.hasOwnProperty('bigBlock')? 'big-main':'main'"
+              [class]="title?.hasOwnProperty('bigBlock')? 'big-main':'main'"
               rowspan="2">
             <div class="table__header__main-cell">
-              <span>{{ title.name }}</span>
+              <span>{{ title?.name }}</span>
               <div class="filter-funnel">
                 <svg-icon
                   src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
@@ -193,7 +193,7 @@
               [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--color-sou-bg-light)':'' }">
             <td *ngFor="let cell of row">
 
-              <div *ngIf="cell.hasOwnProperty('colorOfAdditionalBlock')"
+              <div *ngIf="cell?.hasOwnProperty('colorOfAdditionalBlock')"
                    class="table__row__cell-with-line"
               >
                 <div class="cell-line"
@@ -205,7 +205,7 @@
                 </div>
               </div>
 
-              <div *ngIf="cell.hasOwnProperty('name')"
+              <div *ngIf="cell?.hasOwnProperty('name')"
                    class="table__row__cell-with-name"
               >
                 <div class="cell-date">
@@ -216,10 +216,10 @@
                 </div>
               </div>
 
-              <div *ngIf="cell.hasOwnProperty('img')"
+              <div *ngIf="cell?.hasOwnProperty('img')"
                    class="table__row__cell-with-img"
               >
-                <div *ngIf="cell.hasOwnProperty('textImg')"
+                <div *ngIf="cell?.hasOwnProperty('textImg')"
                      class="cell-img-text">
                   {{ cell['textImg'] }}
                 </div>
@@ -230,25 +230,25 @@
                 ></svg-icon>
               </div>
 
-              <div *ngIf="cell.hasOwnProperty('sum')"
+              <div *ngIf="cell?.hasOwnProperty('sum')"
                    class="table__row__cell-sum"
               >
                 <div class="cell-sum"
                      [ngStyle]="{
                       'color':cell['color'],
-                      'width': cell.hasOwnProperty('width')?cell['width']: '140px'
+                      'width': cell?.hasOwnProperty('width')?cell['width']: '140px'
                       }">
                   {{ cell['sum'] }}
                 </div>
               </div>
 
-              <div *ngIf="cell.hasOwnProperty('text')"
+              <div *ngIf="cell?.hasOwnProperty('text')"
                    class="table__row__cell-default"
               >
                 <div class="cell-text"
                      [ngStyle]="{
-                     'color': cell.hasOwnProperty('color')?cell['color']: '',
-                     'width': cell.hasOwnProperty('width')?cell['width']: '121px'
+                     'color': cell?.hasOwnProperty('color')?cell['color']: '',
+                     'width': cell?.hasOwnProperty('width')?cell['width']: '121px'
                      }">
                   {{ cell['text'] }}
                 </div>
@@ -256,7 +256,7 @@
             </td>
 
             <td class="graphic"
-                (click)="openReservoirTrend()"
+                (click)="openDialog()"
                 [ngStyle]="{ 'width.px': widthOfGraphic }">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
@@ -277,3 +277,10 @@
     class="modal"
   ></evj-smart-trend>
 </div>
+
+<ng-template #overlayCustom>
+    <evj-smart-trend
+      class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+      (closeSmartTrend)="closeSmartTrend()"
+    ></evj-smart-trend>
+</ng-template>

@@ -9,6 +9,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { SmartTrendComponent } from './smart-trend/smart-trend.component';
 import { TrendsComponent } from './smart-trend/components/trends/trends.component';
 import { TrendTableComponent } from './smart-trend/components/trend-table/trend-table.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -19,7 +20,7 @@ import { TrendTableComponent } from './smart-trend/components/trend-table/trend-
       TrendsComponent,
       TrendTableComponent
   ],
-  imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule, ScrollingModule, MatRadioModule]
+  imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule, ScrollingModule, MatRadioModule, DragDropModule]
 })
 export class SouStreamsModule {
     enterComponent = SouStreamsComponent;
