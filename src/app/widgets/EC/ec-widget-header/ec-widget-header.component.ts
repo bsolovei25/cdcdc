@@ -119,14 +119,14 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                     this.headerMenuForm.get('unit').setValue(null);
                 }),
 
-        this.headerMenuForm.get('unit').valueChanges
-            .pipe(
-                debounceTime(100),
-                distinctUntilChanged()
-            )
-            .subscribe(unit => {
-                this.ecWidgetService.headerWidgetUnitId$.next(unit);
-            }),
+            this.headerMenuForm.get('unit').valueChanges
+                .pipe(
+                    debounceTime(100),
+                    distinctUntilChanged()
+                )
+                .subscribe(unit => {
+                    this.ecWidgetService.headerWidgetUnitId$.next(unit);
+                }),
         )
     }
 }
