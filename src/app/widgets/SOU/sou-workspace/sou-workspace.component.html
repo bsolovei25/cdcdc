@@ -27,7 +27,7 @@
           <span>Обнулить</span>
         </div>
 
-        <div class="btn btn__close">
+        <div class="btn btn__close" (click)="closeWorkspace()">
           <svg-icon
             class="btn__icon"
             src="assets/icons/widgets/SOU/sou-workspace/cross_close_circle.svg"
@@ -47,7 +47,7 @@
       [data]="workspaceBarInfo[0]">
     </evj-sou-workspace-info-bar>
     <evj-sou-workspace-operation class="workspace-operation"
-                                 (clickSmartTrend)="showChart = !showChart"></evj-sou-workspace-operation>
+                                 (clickSmartTrend)="openDialog()"></evj-sou-workspace-operation>
     <!--    <evj-workspace-chart></evj-workspace-chart>-->
     <!--    <div class="default-img"></div>-->
     <evj-sou-workspace-info-bar
@@ -58,7 +58,7 @@
 </div>
 <ng-container *ngIf="showChart">
   <div [@animation] style="margin-top: 10px">
-    <div  class="widget-header" (mousedown)="$event.stopPropagation()"
+    <div class="widget-header" (mousedown)="$event.stopPropagation()"
          (touchstart)="$event.stopPropagation()">
       <evj-contemporary-widget-header
         widgetTitle="Умный тренд"
@@ -66,7 +66,34 @@
       >
       </evj-contemporary-widget-header>
     </div>
-    <evj-workspace-chart (clickSmartTrend)="showChart = !showChart"></evj-workspace-chart>
+    <evj-workspace-chart></evj-workspace-chart>
   </div>
 </ng-container>
+
+<ng-template #overlayCustom>
+  <div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <div class="widget-header" style="cursor: move">
+      <div class="header">
+        <div class="header__title-block">
+          <svg-icon
+            class="header__icon"
+            src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
+            [ngStyle]="{ 'height.px':16 }"
+          ></svg-icon>
+          <div class="header__title">Умный тренд</div>
+        </div>
+        <span class="close">
+       <svg-icon
+         (click)="overlayDetach()"
+         src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
+         [ngStyle]="{ 'height.px':16 }"
+       ></svg-icon>
+    </span>
+      </div>
+    </div>
+    <evj-workspace-chart (mousedown)="$event.stopPropagation()"
+                         (touchstart)="$event.stopPropagation()"
+    ></evj-workspace-chart>
+  </div>
+</ng-template>
 

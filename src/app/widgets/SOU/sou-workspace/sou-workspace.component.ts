@@ -1,9 +1,20 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    ViewChild,
+    TemplateRef,
+    ViewContainerRef,
+    AfterViewInit,
+    OnDestroy, Output, EventEmitter
+} from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 
 import { WORKSPACE_BAR_INFO } from '@widgets/SOU/sou-workspace/mock';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
     selector: 'evj-sou-workspace',
@@ -33,13 +44,21 @@ import { animate, style, transition, trigger } from '@angular/animations';
         )
     ]
 })
-export class SouWorkspaceComponent extends WidgetPlatform implements OnInit {
+export class SouWorkspaceComponent extends WidgetPlatform implements OnInit, AfterViewInit, OnDestroy {
 
     public workspaceBarInfo: {} = WORKSPACE_BAR_INFO;
     public showChart: boolean = false;
 
+    @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
+    private overlayRef: OverlayRef;
+    private portal: TemplatePortal;
+
+    @Output() closeWorkspaceOut: EventEmitter<boolean> = new EventEmitter();
+
     constructor(
         protected widgetService: WidgetService,
+        private overlay: Overlay,
+        private viewContainerRef: ViewContainerRef,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -50,7 +69,32 @@ export class SouWorkspaceComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
     }
 
+    ngAfterViewInit(): void {
+        this.portal = new TemplatePortal(this.dialogTemplate, this.viewContainerRef);
+        this.overlayRef = this.overlay.create({
+            positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+            hasBackdrop: true
+        });
+        this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+    }
+
+    overlayDetach(): void {
+        this.overlayRef.detach();
+    }
+
+    ngOnDestroy(): void {
+        this.overlayRef.dispose();
+    }
+
     protected dataHandler(ref: unknown): void {
+    }
+
+    openDialog(): void {
+        this.overlayRef?.attach(this.portal);
+    }
+
+    closeWorkspace(): void {
+        this.closeWorkspaceOut.emit();
     }
 
 }

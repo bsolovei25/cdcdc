@@ -8,13 +8,6 @@ import {
 } from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
-    AfterViewChecked, ChangeDetectorRef
-} from '@angular/core';
-import { WidgetService } from '@dashboard/services/widget.service';
-import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
-
-import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
-import { TABLE_CELLS } from '@widgets/SOU/sou-streams/mock';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
@@ -55,10 +48,13 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
 
+    public isReservoirTrendOpen: boolean = false;
+
     public heightOfTable: string = '400px';
     public heightOfViewPort: string = '335px';
     public widthOfTable: string = '1943.2px';
     public widthOfGraphic: number = 70;
+    @ViewChild('widget') child: ElementRef;
 
     @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
     private overlayRef: OverlayRef;
@@ -84,7 +80,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     ngAfterViewInit(): void {
         this.portal = new TemplatePortal(this.dialogTemplate, this.viewContainerRef);
-        console.log(this.dialogTemplate, this.viewContainerRef);
         this.overlayRef = this.overlay.create({
             positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
             hasBackdrop: true
@@ -100,7 +95,7 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         this.overlayRef.dispose();
     }
 
-    @ViewChild('widget') child: ElementRef;
+
     ngAfterViewChecked(): void {
         this.heightOfTable = this.child.nativeElement.clientHeight - 40 + 'px';
         this.heightOfViewPort = this.child.nativeElement.clientHeight - 115 + 'px';
@@ -148,6 +143,4 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         this.overlayRef?.attach(this.portal);
     }
 
-    protected dataHandler(ref: unknown): void {
-    }
 }
