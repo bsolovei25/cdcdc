@@ -278,7 +278,6 @@ export const WIDGETS_LAZY = {
     },
 
     // #region KPE
-
     'key-performance-indicators': {
         import: async () => {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
@@ -1972,11 +1971,11 @@ export const WIDGETS_LAZY = {
     //#region SUUTP
     'suutp-equipment-complexes': {
         import: async () => {
-            return await import('src/app/widgets/SUUTP/suutp-complexes/complexes.module');
+            return await import('src/app/widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
         },
-        module: 'ComplexesModule',
+        module: 'SuutpComplexesTableModule',
         itemCols: 10,
-        itemRows: 15,
+        itemRows: 45,
         minItemCols: 10,
         minItemRows: 6,
         preview: 'default',
