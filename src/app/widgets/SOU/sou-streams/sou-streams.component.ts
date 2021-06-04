@@ -4,11 +4,12 @@ import {
     Inject,
     ViewChild,
     ElementRef,
-    AfterViewChecked, ChangeDetectorRef
+    AfterViewChecked, ChangeDetectorRef, ViewContainerRef, TemplateRef, AfterViewInit, OnDestroy
 } from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
-
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
 import { TABLE_CELLS } from '@widgets/SOU/sou-streams/mock';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -42,15 +43,22 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         )
     ]
 })
-export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked {
+export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
     public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
+
+    public isReservoirTrendOpen: boolean = false;
 
     public heightOfTable: string = '400px';
     public heightOfViewPort: string = '335px';
     public widthOfTable: string = '1943.2px';
     public widthOfGraphic: number = 70;
+    @ViewChild('widget') child: ElementRef;
+
+    @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
+    private overlayRef: OverlayRef;
+    private portal: TemplatePortal;
 
     public showWorkspace: boolean = false;
     public show: boolean = true;
@@ -58,6 +66,8 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     constructor(
         private cdr: ChangeDetectorRef,
         protected widgetService: WidgetService,
+        private overlay: Overlay,
+        private viewContainerRef: ViewContainerRef,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -68,7 +78,23 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         super.widgetInit();
     }
 
-    @ViewChild('widget') child: ElementRef;
+    ngAfterViewInit(): void {
+        this.portal = new TemplatePortal(this.dialogTemplate, this.viewContainerRef);
+        this.overlayRef = this.overlay.create({
+            positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+            hasBackdrop: true
+        });
+        this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+    }
+
+    overlayDetach(): void {
+        this.overlayRef.detach();
+    }
+
+    ngOnDestroy(): void {
+        this.overlayRef.dispose();
+    }
+
 
     ngAfterViewChecked(): void {
         this.heightOfTable = this.child.nativeElement.clientHeight - 40 + 'px';
@@ -103,4 +129,18 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         this.heightOfViewPort = this.child.nativeElement.clientHeight - 115 - height + 'px';
         this.cdr.detectChanges();
     }
+    public openReservoirTrend(): void {
+        this.isReservoirTrendOpen = true;
+        console.log(window);
+    }
+
+    public closeSmartTrend(): void {
+        this.isReservoirTrendOpen = false;
+        this.overlayDetach();
+    }
+
+    openDialog(): void {
+        this.overlayRef?.attach(this.portal);
+    }
+
 }
