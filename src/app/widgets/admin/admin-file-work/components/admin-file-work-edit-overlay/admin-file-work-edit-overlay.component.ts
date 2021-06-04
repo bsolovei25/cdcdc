@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'evj-admin-file-work-edit-overlay',
@@ -8,13 +8,23 @@ import { MatDialogRef } from "@angular/material/dialog";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminFileWorkEditOverlayComponent implements OnInit {
-    public readonly editIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/editPen.svg';
-    public readonly closeIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/close.svg';
-    constructor(public dialogRef: MatDialogRef<AdminFileWorkEditOverlayComponent>) {}
 
-    ngOnInit(): void {}
+    public name: string;
 
-    public closeDialog(): void {
-        this.dialogRef.close();
+    constructor(
+        public dialogRef: MatDialogRef<AdminFileWorkEditOverlayComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: {name: string},
+    ) {}
+
+    ngOnInit(): void {
+        this.name = this.data?.name;
+    }
+
+    public cancel(): void {
+        this.dialogRef.close(false);
+    }
+
+    public accept(): void {
+        this.dialogRef.close(this.name);
     }
 }

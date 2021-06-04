@@ -28,6 +28,7 @@
       [folders]="folders"
       [files]="files"
       (onClickFolder)="onClickOpenFolder($event)"
+      (folderOrFileChanges)="reloadFolders()"
     ></evj-admin-file-work>
   </div>
 </div>

@@ -6,6 +6,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AdminFileWorkLinkOverlayComponent } from './components/admin-file-work-link-overlay/admin-file-work-link-overlay.component';
 import { AdminFileWorkEditOverlayComponent } from './components/admin-file-work-edit-overlay/admin-file-work-edit-overlay.component';
 import { AdminFileWorkSvgFileComponent } from './components/admin-file-work-svg-file/admin-file-work-svg-file.component';
+import { SharedModule } from '@shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -18,6 +20,8 @@ import { AdminFileWorkSvgFileComponent } from './components/admin-file-work-svg-
     imports: [
         CommonModule,
         AngularSvgIconModule,
+        SharedModule,
+        FormsModule,
     ],
     exports: [
         AdminFileWorkComponent,

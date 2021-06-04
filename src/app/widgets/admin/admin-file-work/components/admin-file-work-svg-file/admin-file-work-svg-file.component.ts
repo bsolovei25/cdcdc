@@ -6,6 +6,8 @@ import {
     IReportFolder,
     IReportSvgFile
 } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
+import { AdminReportServerConfiguratorConfirmComponent } from '@widgets/admin/admin-report-server-configurator/components/admin-report-server-configurator-repository/admin-report-server-configurator-confirm/admin-report-server-configurator-confirm.component';
+import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-report-server-configurator/services/admin-report-server-configurator-root.service';
 
 @Component({
     selector: 'evj-admin-file-work-svg-file',
@@ -17,26 +19,63 @@ export class AdminFileWorkSvgFileComponent {
 
     @Input() file: IReportSvgFile;
 
-    constructor(public dialog: MatDialog) {
+    @Output() fileChanges: EventEmitter<void> = new EventEmitter<void>();
+
+    constructor(
+        public dialog: MatDialog,
+        private arscRootService: AdminReportServerConfiguratorRootService,
+    ) {
     }
 
-    public onClickEdit(): void {
-        this.dialog.open(AdminFileWorkEditOverlayComponent, {
+    // public onClickEdit(): void {
+    //     const dialogRef = this.dialog.open(AdminFileWorkEditOverlayComponent, {
+    //         data: {
+    //             name: this.file?.fileName,
+    //         },
+    //         hasBackdrop: true,
+    //         backdropClass: 'cdk-overlay-transparent-backdrop',
+    //     });
+    //
+    //     dialogRef
+    //         .afterClosed()
+    //         .subscribe((name: string) => {
+    //             if (name) {
+    //                 this.arscRootService
+    //                     .updateFile({...this.file, fileName: name})
+    //                     .subscribe(() => {
+    //                         this.fileChanges.emit();
+    //                     });
+    //             }
+    //         });
+    // }
+
+    // public onClickLink(): void {
+    //     this.dialog.open(AdminFileWorkLinkOverlayComponent, {
+    //         data: {},
+    //         hasBackdrop: true,
+    //         backdropClass: 'cdk-overlay-transparent-backdrop',
+    //     });
+    // }
+
+    // public onClickDuplicate(): void {}
+
+    public onClickDelete(): void {
+        const dialogRef = this.dialog.open(AdminReportServerConfiguratorConfirmComponent, {
             data: {},
             hasBackdrop: true,
             backdropClass: 'cdk-overlay-transparent-backdrop',
         });
+
+        dialogRef
+            .afterClosed()
+            .subscribe((result: boolean) => {
+                if (result) {
+                    this.arscRootService
+                        .deleteFile(this.file?.id)
+                        .subscribe(() => {
+                            this.fileChanges.emit();
+                        });
+                }
+            });
     }
-
-    public onClickLink(): void {
-        this.dialog.open(AdminFileWorkLinkOverlayComponent, {
-            data: {},
-            hasBackdrop: true,
-            backdropClass: 'cdk-overlay-transparent-backdrop',
-        });
-    }
-
-    public onClickDuplicate(): void {}
-
-    public onClickDelete(): void {}
 }

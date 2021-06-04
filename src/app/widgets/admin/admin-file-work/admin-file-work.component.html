@@ -12,7 +12,8 @@
     >
       <evj-admin-file-work-folder
         [folder]="folder"
-        (onClickFolder)="onClickOpenFolder(folder)"
+        (folderClick)="onClickOpenFolder(folder)"
+        (folderChanges)="onFolderOrFileChanges()"
       ></evj-admin-file-work-folder>
     </div>
 
@@ -22,6 +23,7 @@
     >
       <evj-admin-file-work-svg-file
         [file]="file"
+        (fileChanges)="onFolderOrFileChanges()"
       ></evj-admin-file-work-svg-file>
     </div>
   </div>

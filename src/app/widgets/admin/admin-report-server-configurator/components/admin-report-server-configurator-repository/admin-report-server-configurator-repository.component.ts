@@ -40,7 +40,7 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
 
     public onClickOpenFolder(folder: IReportFolder): void {
         this.arscRootService.selectedFolderId = folder.id;
-        this.loadFolder(folder);
+        this.loadFolder(folder.id);
     }
 
     public onClickStorage(): void {
@@ -49,7 +49,11 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
     }
 
     public reloadFolders(): void {
-        this.loadFolders();
+        if (this.arscRootService.selectedFolderId) {
+            this.loadFolder(this.arscRootService.selectedFolderId)
+        } else {
+            this.loadFolders();
+        }
     }
 
     private loadFolders(): void {
@@ -61,9 +65,9 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
             });
     }
 
-    private loadFolder(folder: IReportFolder): void {
+    private loadFolder(folderId: number): void {
         this.arscRootService
-            .getFolder(folder.id)
+            .getFolder(folderId)
             .subscribe((resp: IReportFolder) => {
                 this.folders = resp?.folders;
                 this.files = resp?.files;

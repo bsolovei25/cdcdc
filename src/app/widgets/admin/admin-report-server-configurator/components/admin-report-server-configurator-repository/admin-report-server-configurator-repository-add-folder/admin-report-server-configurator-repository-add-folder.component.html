@@ -1,10 +1,16 @@
 <div class="add">
   <div class="add__header">
     <div class="title">
-      <svg-icon class="icon" src="{{addIcon}}"></svg-icon>
+      <svg-icon
+        class="icon"
+        [src]="addIcon"
+      ></svg-icon>
       <span>Добавление папки</span>
     </div>
-    <div class="close" (click)="onClickCancel()">
+    <div
+      class="close"
+      (click)="onClickCancel()"
+    >
       <div class="close__button">
         <svg-icon
           [svgStyle]="{'height.px':'21', 'width.px': '21'}"
@@ -19,6 +25,7 @@
     [formGroup]="form"
   >
     <div class="add__body__label">Имя папки</div>
+
     <div class="add__body__input">
       <div class="input-block">
         <div class="input-block__input">
@@ -31,9 +38,15 @@
         </div>
       </div>
     </div>
+
     <div class="add__body__buttons">
-      <evj-simple-button (click)="onClickCancel()">Отменить</evj-simple-button>
-      <evj-simple-button (click)="onClickCreate()">Сохранить</evj-simple-button>
+      <evj-simple-button
+        (click)="onClickCancel()"
+      >Отменить</evj-simple-button>
+
+      <evj-simple-button
+        (click)="onClickCreate()"
+      >Сохранить</evj-simple-button>
     </div>
   </div>
 </div>

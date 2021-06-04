@@ -11,7 +11,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AdminReportServerConfiguratorRepositoryAddFolderComponent implements OnInit {
 
   public readonly addIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
-  public parentFolderId: number;
   public createFolder: boolean;
   public form: FormGroup;
 
@@ -26,7 +25,7 @@ export class AdminReportServerConfiguratorRepositoryAddFolderComponent implement
 
     public onClickCreate(): void {
       this.arscRootService
-          .createFolder(this.form?.value?.name, this.parentFolderId)
+          .createFolder(this.form?.value?.name, this.arscRootService.selectedFolderId)
           .subscribe(() => {
               this.clearAndClose();
           });

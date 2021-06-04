@@ -1,0 +1,30 @@
+<div class="add">
+  <div class="add__header">
+    <div class="title">
+      <span>Вы уверенны?</span>
+    </div>
+    <div
+      class="close"
+      (click)="cancel()"
+    >
+      <div class="close__button">
+        <svg-icon
+          src="assets/icons/widgets/alert-window/close.svg"
+          [svgStyle]="{'height.px':'21', 'width.px': '21'}"
+        >
+        </svg-icon>
+      </div>
+    </div>
+  </div>
+  <div class="add__body">
+    <div class="add__body__buttons">
+      <evj-simple-button
+        (click)="cancel()"
+      >Нет</evj-simple-button>
+
+      <evj-simple-button
+        (click)="accept()"
+      >Да</evj-simple-button>
+    </div>
+  </div>
+</div>

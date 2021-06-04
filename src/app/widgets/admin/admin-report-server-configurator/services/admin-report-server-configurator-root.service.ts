@@ -13,7 +13,7 @@ import {
 } from '@dashboard/models/ADMIN/report-server.model';
 import {
     IReportFileUploadResponse, IReportFolder,
-    IReportFolderCreateRequest, IReportFoldersResponse
+    IReportFolderCreateRequest, IReportFoldersResponse, IReportSvgFile
 } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 import { Observable } from 'rxjs';
 
@@ -140,10 +140,9 @@ export class AdminReportServerConfiguratorRootService {
             .toPromise();
     }
 
-    public deleteFile(id: number): Promise<unknown> {
+    public deleteFile(id: number): Observable<unknown> {
         return this.http
-            .delete<unknown>(`${this.restUrl}/api/ref-book/Files/${id}/`)
-            .toPromise();
+            .delete<unknown>(`${this.restUrl}/api/ref-book/Files/${id}/`);
     }
 
     public uploadFile(fileName: string, description: string, uploadFIle: File, folderId: number): Observable<IReportFileUploadResponse> {
@@ -156,6 +155,11 @@ export class AdminReportServerConfiguratorRootService {
         return this.http
             .post<IReportFileUploadResponse>(`${this.restUrl}/api/ref-book/Files/`, formData);
     }
+
+    // public updateFile(file: IReportSvgFile): Observable<unknown> {
+    //     return this.http
+    //         .put<unknown>(`${this.restUrl}/api/ref-book/Files`, file);
+    // }
 
     /*
     * Folders
@@ -171,10 +175,9 @@ export class AdminReportServerConfiguratorRootService {
             .get<IReportFolder>(`${this.restUrl}/api/ref-book/Folders/${id}`);
     }
 
-    public deleteFolder2(id: number): Promise<unknown> {
+    public deleteFolder2(id: number): Observable<unknown> {
         return this.http
-            .delete<unknown>(`${this.restUrl}/api/ref-book/Folders/${id}/`)
-            .toPromise();
+            .delete<unknown>(`${this.restUrl}/api/ref-book/Folders/${id}/`);
     }
 
     public createFolder(name: string, parentFolderId: number): Observable<unknown> {
@@ -187,9 +190,8 @@ export class AdminReportServerConfiguratorRootService {
             .post<unknown>(`${this.restUrl}/api/ref-book/Folders`, folder);
     }
 
-    public updateFolder(folder: unknown): Promise<unknown> {
+    public updateFolder(folder: IReportFolder): Observable<unknown> {
         return this.http
-            .put<unknown>(`${this.restUrl}/api/ref-book/Folders`, folder)
-            .toPromise();
+            .put<unknown>(`${this.restUrl}/api/ref-book/Folders`, folder);
     }
 }

@@ -16,12 +16,17 @@ export class AdminFileWorkComponent {
     @Input() files: IReportSvgFile[];
 
     @Output() onClickFolder: EventEmitter<IReportFolder> = new EventEmitter<IReportFolder>();
+    @Output() folderOrFileChanges: EventEmitter<void> = new EventEmitter<void>();
 
     constructor() {
     }
 
     public onClickOpenFolder(folder: IReportFolder): void {
         this.onClickFolder.emit(folder);
+    }
+
+    public onFolderOrFileChanges(): void {
+        this.folderOrFileChanges.emit();
     }
 
 }

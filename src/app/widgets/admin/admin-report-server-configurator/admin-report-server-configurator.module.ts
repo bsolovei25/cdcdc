@@ -39,6 +39,7 @@ import { AdminRscPathEditComponent } from './components/admin-report-server-conf
 import { AdminRscCustomOptionsComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-custom-options/admin-rsc-custom-options.component';
 import { SearchPipe } from './shared/search.pipe';
 import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
+import { AdminReportServerConfiguratorConfirmComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-confirm/admin-report-server-configurator-confirm.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { AdminRscRepositoryEditComponent } from './components/admin-report-serve
         SearchPipe,
         AdminRscRepositoryEditComponent,
         AdminReportServerConfiguratorListGroupComponent,
+        AdminReportServerConfiguratorConfirmComponent,
     ],
     imports: [
         CommonModule,
