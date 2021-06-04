@@ -89,6 +89,8 @@ export class EcWidgetTrendAnalysisGraphComponent extends WidgetPlatform<unknown>
         this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
         this.svg
             .attr('width', '100%')
+            // тут можно подогнать мин ширину графика
+            .attr('min-width', '1000px')
             .attr('height', '100%')
             .attr(
                 'viewBox',

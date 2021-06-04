@@ -2,6 +2,8 @@
   <evj-widget-header-smp [uniqId]="widgetUniqId" *ngIf="isHover"></evj-widget-header-smp>
   <div class="svg-wrapper" (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()">
-    <evj-cmid-production-map [data]="data" [mapType]="mapType.onpz"></evj-cmid-production-map>
+    <ng-container *ngIf="isLoad$ | async">
+      <evj-cmid-production-map-body [data]="data" [mapType]="mapType[widgetType]"></evj-cmid-production-map-body>
+    </ng-container>
   </div>
 </div>

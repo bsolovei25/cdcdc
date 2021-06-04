@@ -1,3 +1,25 @@
+# [1.34.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.2...v1.34.0) (2021-06-02)
+
+
+### Bug Fixes
+
+* **EC:** "При изменении положения указателя мыши на мультилайнчарте, отображать значение по пунктирной линии в плашке." [#2073](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2073) ([87ad293](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/87ad2932167904a5be23439fe17d9d3e5bdfe325))
+* **EC:** Resolve "Дублируются цвета предикторов при переключении." [#2079](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2079) ([5067278](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5067278edeffca759d7c6e0141b171b94520d570))
+* **EC:** Двойная подписка при переходе в условное топливо из мониторинга. [#1886](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1886) ([eeb00bd](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/eeb00bd4d6a036a01f8ad29a8606093fac0032c4))
+* **KPE:** "КПЭ. Расчет отклонений. Исправлено отображение вкладок". [#1731](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1731) ([85b4f93](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/85b4f9346b4bba3557b28754ebdc2a24188511b9))
+* **Notifications:** добавлены методы записи дедлайна, даты начала, даты окончания для категорий и подкатегорий рабочей области. front[#1979](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1979) ([38963db](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/38963db9d42b3495450d5390e24d099c06613cae))
+* **Notifications:** Убрана стратегия в компоненте по аналогии с другими используемыми компонентами в виджете. front[#2033](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2033) ([f5f30ca](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f5f30ca4a16ca8356813fbd9065175b1b39a1cc6))
+* **ЦМИД:** Рефакторинг по комментариям. front[#1784](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1784) ([450ab8e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/450ab8e8ab748ab2ddbc272fff8758b22e8f01c0))
+
+
+### Features
+
+* **KPE:** Подвязка данных к виджету Выполнение производственной программы. front[#1405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1405) ([80d4e8c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/80d4e8c40a4077f49d336c7240acb476fd90d174))
+* **ЦМИД:** Добавил внешнюю обводку для ветрометра [#1783](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1783) ([5c6d8a8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5c6d8a802b4cbee9569504fa2e664f3c0fe3a0e4))
+* **ЦМИД:** Использовал mat-select. Поправил баги [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([fa4e6c3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/fa4e6c32dd11fa1b2e71b3919cd7db61a00917c5))
+* **ЦМИД:** Поправил ресайз [#1787](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1787) ([ccd507a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ccd507ab0f139521d4fc3b3ae9c2fcdf846fa775))
+* **ЦМИД:** Реализовал Карту производств ОНПЗ. Унификация карт [#1783](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1783) ([8e4517d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8e4517d786593f7a546a14f31b1f1e116ab0861a))
+
 ## [1.33.2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.1...v1.33.2) (2021-05-31)
 
 

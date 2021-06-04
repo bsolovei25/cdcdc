@@ -1,32 +1,32 @@
 import {
-    Component,
-    ChangeDetectionStrategy,
-    SimpleChanges,
-    ElementRef,
-    OnDestroy,
-    OnChanges,
     AfterViewInit,
-    ViewChild,
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Renderer2,
+    Component,
+    ElementRef,
     Input,
-    SimpleChange
+    OnChanges,
+    OnDestroy,
+    Renderer2,
+    SimpleChange,
+    SimpleChanges,
+    ViewChild
 } from '@angular/core';
 import {
     ICmidMnpzProductionMapInterface,
     ICmidMnpzProductionMapInterfaceBuild,
     MapTypes
-} from '@widgets/CMID/cmid-mnpz-production-map/models/cmid-mnpz-production-map.interface';
+} from '@widgets/CMID/cmid-production-map/models/cmid-production-map.interface';
 
 @Component({
-    selector: 'evj-cmid-production-map',
-    templateUrl: './cmid-production-map.component.html',
-    styleUrls: ['./cmid-production-map.component.scss'],
+    selector: 'evj-cmid-production-map-body',
+    templateUrl: './cmid-production-map-body.component.html',
+    styleUrls: ['./cmid-production-map-body.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CmidProductionMapComponent implements OnDestroy, OnChanges, AfterViewInit {
+export class CmidProductionMapBodyComponent implements OnDestroy, OnChanges, AfterViewInit {
     @Input() public data: ICmidMnpzProductionMapInterface;
-    @Input() public mapType: MapTypes;
+    @Input() public mapType: string;
 
     @ViewChild('mnpzProductionMap') productionMap: ElementRef<HTMLElement>;
     @ViewChild('tooltip') tooltip: ElementRef;
@@ -134,7 +134,7 @@ export class CmidProductionMapComponent implements OnDestroy, OnChanges, AfterVi
         });
     }
 
-    private getCompassClass(type: MapTypes): string {
-        return type === 'mnpz' ? 'compass__arrow_mnpz' : 'compass__arrow_onpz';
+    private getCompassClass(type: string): string {
+        return type === MapTypes.MNPZ_MAP ? 'compass__arrow_mnpz' : 'compass__arrow_onpz';
     }
 }

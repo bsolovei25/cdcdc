@@ -276,7 +276,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 4,
         preview: 'ozsm-resources-circle-diagram',
     },
-    // #endregion OZSM
 
     // #region KPE
     'key-performance-indicators': {
@@ -290,7 +289,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'key-performance-indicators',
     },
-
     'kpe-quality': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
@@ -1898,9 +1896,20 @@ export const WIDGETS_LAZY = {
     },
     'cmid-mnpz-production-map': {
         import: async () => {
-            return await import('@widgets/CMID/cmid-mnpz-production-map/cmid-mnpz-production-map.module');
+            return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
         },
-        module: 'CmidMnpzProductionMapModule',
+        module: 'CmidProductionMapModule',
+        itemCols: 35,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 20,
+        preview: 'default',
+    },
+    'cmid-onpz-production-map': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
+        },
+        module: 'CmidProductionMapModule',
         itemCols: 35,
         itemRows: 20,
         minItemCols: 35,
@@ -1948,16 +1957,14 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-trend-analysis-graph': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module'
-            );
+            return await import('src/app/widgets/EC/ec-widget-trend-analysis-graph/ec-widget-trend-analysis-graph.module');
         },
         module: 'EcWidgetTrendAnalysisGraphModule',
         itemCols: 35,
         itemRows: 14,
         minItemCols: 35,
         minItemRows: 14,
-        preview: 'ec-widget-trend-analysis-graph',
+        preview: 'ec-widget-trend-analysis-graph'
     },
     'ec-widget-header': {
         import: async () => {
@@ -1977,11 +1984,11 @@ export const WIDGETS_LAZY = {
     //#region SUUTP
     'suutp-equipment-complexes': {
         import: async () => {
-            return await import('src/app/widgets/SUUTP/suutp-complexes/complexes.module');
+            return await import('src/app/widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
         },
-        module: 'ComplexesModule',
+        module: 'SuutpComplexesTableModule',
         itemCols: 10,
-        itemRows: 15,
+        itemRows: 45,
         minItemCols: 10,
         minItemRows: 6,
         preview: 'default',
