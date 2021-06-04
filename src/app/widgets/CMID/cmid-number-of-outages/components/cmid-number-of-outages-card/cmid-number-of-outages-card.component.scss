@@ -58,6 +58,13 @@
     width: 24px;
     height: 24px;
     color: var(--index-default-color);
+    fill-opacity: 0;
+
+    &_unauthorized,
+    &_expired,
+    &_active{
+      fill-opacity: 0.2;
+    }
 
     &_unauthorized {
       color: var(--index-critical-color);

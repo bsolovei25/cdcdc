@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="table__body">
-        <ng-container *ngFor="let element of data">
+        <ng-container *ngFor="let element of data$ | async">
           <div class="table__body__row" (click)="onClickTr($event, element)">
             <div class="table__body__row__column">
               <svg-icon
@@ -64,7 +64,7 @@
               <div class="table__body__row table__body__row__children__column">
                 <span>{{elementChildren.unitsOfMeasure}}</span>
               </div>
-              <div class="table__body__row table__body__row__children__column" [class.warning-bgd]="checkDeviation(elementChildren.plan, elementChildren.fact)">
+              <div class="table__body__row table__body__row__children__column" [class.warning-bgd]="elementChildren.isExceeding">
                 <div class="value">
                   <span>{{elementChildren.plan.toFixed(1)}}</span>
                 </div>

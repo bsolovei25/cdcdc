@@ -1,0 +1,21 @@
+<div class="container">
+  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+  </evj-widget-header-smp>
+  <div class="root">
+    <div class="complexes-header">
+      <span class="complexes-uptitle">МНПЗ</span>
+      <h1 class="complexes-title">Комплексы</h1>
+    </div>
+
+    <div class="complexes-list">
+      <evj-complexes-item
+        *ngFor="let item of data$ | async; trackBy: trackByIndex"
+        [chartPage]="item.chartPage"
+        [data]="item.data"
+        [title]="item.title"
+        [indicators]="item.indicators"
+      ></evj-complexes-item>
+    </div>
+  </div>
+
+</div>

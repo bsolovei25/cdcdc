@@ -87,3 +87,16 @@
     }
   }
 }
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.loader-container {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  .flex-justify-center {
+    justify-content: center;
+  }
+}

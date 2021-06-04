@@ -1,0 +1,20 @@
+.complexes-data-item {
+  height: 64px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-vidget-color);
+  &_title {
+    font-size: 13px;
+    color: var(--text-contrast-color);
+  }
+  &.error-color {
+    color: var(--index-error-color) !important;
+    background: var(--opacity-orange-20-color);
+    border: 1px solid var(--index-error-color);
+    .complexes-data-item_title {
+      color: var(--index-error-color)
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <div class="block" [ngClass]="{'block_open':isOpen}">
-  <div matRipple matRippleColor="white" class="block__main main" (click)="onClick()">
+  <div matRipple matRippleColor="white" class="block__main main" (click)="onClick()" [matTooltip]="block?.name">
     <svg-icon class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"></svg-icon>
     <div class="cell cell_title">
       <div class="name">{{block?.name}}</div>
@@ -9,7 +9,7 @@
     <div class="cell cell_value">{{block?.value}}</div>
     <div class="cell cell_value"></div>
   </div>
-  <div class="block__item" *ngFor="let item of block?.rows">
+  <div class="block__item" [matTooltip]="item?.name" *ngFor="let item of block?.rows">
     <div class="cell cell_title">
       <div class="name">{{item?.name}}</div>
       <div class="cell__status">{{block?.tag}}</div>

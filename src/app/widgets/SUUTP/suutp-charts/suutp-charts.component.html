@@ -9,7 +9,7 @@
 
     <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="charts">
-        <div #leftSide class="left-side" [style]="leftSideWidth(leftSide)">
+        <div #leftSide class="left-side">
           <evj-gauge-chart [data]="data?.gaugeChart"></evj-gauge-chart>
           <p *ngIf="isMain" class="mainTitle">Эффективность работы</p>
           <p *ngIf="!isMain" class="secondaryTitle">Перейти к установкам</p>

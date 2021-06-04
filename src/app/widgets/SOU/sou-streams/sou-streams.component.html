@@ -1,12 +1,12 @@
 <div class="widget" #widget>
+  <evj-sou-workspace *ngIf="showWorkspace" class="workspace" [@inOutAnimation]></evj-sou-workspace>
   <div class="widget-header">
     <evj-contemporary-widget-header
       [uniqId]="widgetUniqId"
       [widgetTitle]="widgetTitle"
       icon="energy"
       type="astue">
-
-      <div class="header">
+      <div class="header" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
 
         <div class="header__left-block">
           <svg-icon
@@ -68,7 +68,7 @@
 
           <div class="toggle">
             <div class="toggle__block">
-              <input id="toggle1" type="radio" name="radio" value="1"checked>
+              <input id="toggle1" type="radio" name="radio" value="1" checked>
               <label for="toggle1" class="toggle1">Все операции</label>
             </div>
             <div class="toggle__block">
@@ -93,7 +93,7 @@
             ></svg-icon>
             <span>Сформировать отчёт</span>
           </div>
-          <div class="btn btn__blue btn__add">
+          <div class="btn btn__blue btn__add" (click)="addNewOperation()">
             <svg-icon
               class="btn__icon"
               src="assets/icons/widgets/SOU/sou-streams/plus_add_circle.svg"
@@ -188,10 +188,10 @@
         [ngStyle]="{ 'height': heightOfViewPort,
                       'width': widthOfTable }">
         <tbody>
-          <tr *cdkVirtualFor="let row of tableRows; let i = index"
-              class="table__row"
-              [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--color-sou-bg-light)':'' }">
-            <td *ngFor="let cell of row">
+        <tr *cdkVirtualFor="let row of tableRows; let i = index"
+            class="table__row"
+            [ngStyle]="{ 'backgroundColor': (i % 2 === 1) ? 'var(--color-sou-bg-light)':'' }">
+          <td *ngFor="let cell of row">
 
               <div *ngIf="cell?.hasOwnProperty('colorOfAdditionalBlock')"
                    class="table__row__cell-with-line"
@@ -236,7 +236,7 @@
                 <div class="cell-sum"
                      [ngStyle]="{
                       'color':cell['color'],
-                      'width': cell?.hasOwnProperty('width')?cell['width']: '140px'
+                      'width': cell.hasOwnProperty('width')?cell['width']: '140px'
                       }">
                   {{ cell['sum'] }}
                 </div>

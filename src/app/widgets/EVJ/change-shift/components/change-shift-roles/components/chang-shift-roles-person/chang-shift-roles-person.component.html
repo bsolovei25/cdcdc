@@ -1,8 +1,31 @@
 <div class="container" *ngIf="formGroup" [formGroup]="formGroup">
   <div class="avatar"></div>
   <div class="info">
-    <span class="fio"> {{ member?.user?.displayName }} </span>
-    <span class="position"> {{ member.user.post }} </span>
+    <span #fio class="fio">
+      {{ member?.user?.displayName }}
+    </span>
+
+    <div *ngIf="showFioTooltip"
+         class="info__overflow-wrapper"
+         appTooltip
+         textTooltip='{{ member?.user?.displayName }}'>
+      <span class="fio fio_overflow">
+        {{ member?.user?.displayName }}
+      </span>
+    </div>
+
+    <span #position class="position">
+      {{ member.user.post }}
+    </span>
+
+    <div *ngIf="showPositionTooltip"
+         class="info__overflow-wrapper"
+         appTooltip
+         textTooltip='{{ member.user.post }}'>
+      <span class="position">
+        {{ member.user.post }}
+      </span>
+    </div>
   </div>
   <div class="select">
     <mat-select placeholder="Выберите роль" panelClass="mat-select-panel-custom" class="mat-select-custom" formControlName="userRole">

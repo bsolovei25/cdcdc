@@ -35,6 +35,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
     @Input() isPerformance: boolean = false; // В performance текст отличается от остальных текстов под диаграммой
     @Input() isFactInChartCenter: boolean = true; // в некоторых виджетах в "главном" спидометре в центре выводится fact, в остальных - totalHour
     @Input() data: IKpeGaugeChartPage | null = null;
+    // Параметр ожидает путь до иконки assets/..
+    // При передачи иконки в качестве параметра она отображается вместо показателей внтри спидометра
+    @Input() centralIcon: string;
 
     readonly chartConfig: IChartConfig[] = [
         {
@@ -112,13 +115,18 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         this.chartInit();
     }
 
-    private getTotalHourPercent(totalHour: number, maxBound: number, minBound: number, zeroOn: 'Right' | 'Left'): number {
+    private getTotalHourPercent(
+        totalHour: number,
+        maxBound: number,
+        minBound: number,
+        zeroOn: 'Right' | 'Left'
+    ): number {
         // Получаем цену деления
         const divisionValue = (maxBound - minBound) / 100;
         // Получаем текущий процент totalHour
         const currentPercent = (totalHour - minBound) / divisionValue;
         // В случае с началом О на правой стороне отнимаем от 100 полученый результат - что дает реверсивное положение
-        return zeroOn === 'Left' ? currentPercent : 100 - (currentPercent >= 100 ? 99 : currentPercent );
+        return zeroOn === 'Left' ? currentPercent : 100 - (currentPercent >= 100 ? 99 : currentPercent);
     }
 
     private limitArray(arr: number[]): number[] {
@@ -153,20 +161,21 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
     private dataBind(): void {
         const maxBound = Math.max.apply(null, this.data?.bounds);
-        const minBound = Math.min.apply(null, this.data?.bounds)
+        const minBound = Math.min.apply(null, this.data?.bounds);
+        const currentData = this.type === 2 ? this.data?.totalHour : this.data?.fact;
         if (this.data.zeroOn === 'Left') {
             this.data.bounds.sort((a, b) => a - b);
         } else {
             this.data.bounds.sort((a, b) => b - a);
         }
 
-        this.chartConfig[this.type].gauge.total = this.isFactInChartCenter
-            ? this.data?.fact
-            : this.data?.totalHour;
+        this.chartConfig[this.type].gauge.total = this.isFactInChartCenter ? this.data?.fact : this.data?.totalHour;
         this.chartConfig[this.type].gauge.deviation = this.data?.deviation;
         this.chartConfig[this.type].colorBounds = this.data?.colorBounds;
         this.chartConfig[this.type].serifColorBounds = this.data?.colorBounds?.slice(0, -1);
-        this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(this.getTotalHourPercent(this.data?.totalHour, maxBound, minBound, this.data.zeroOn));
+        this.chartConfig[this.type].gauge.angle = this.convertPercentToGrad(
+            this.getTotalHourPercent(currentData, maxBound, minBound, this.data.zeroOn)
+        );
         this.chartConfig[this.type].bounds = this.limitArray(this.data?.bounds);
         this.chartConfig[this.type].gauge.unit = this.data?.unit;
 
@@ -174,44 +183,47 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         let value;
         let boundEdge;
         let index;
+        let endPercents = 0;
         if (this.data?.zeroOn === 'Right') {
-            value = 100 - (this.data?.fact / maxBound) * 100;
+            value = 100 - ((currentData - minBound) / (maxBound - minBound)) * 100;
             // Если zeroOn === 'Right', то находим минимальную границу диапазона bound, в который попадает значение
-            boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr) => {
+            boundEdge = this.chartConfig[this.type].bounds?.reduce((prev, curr, count) => {
                 if (prev < value && value < curr) {
-                    return prev;
+                    endPercents = this.chartConfig[this.type].bounds[count]
+                        ? 100 - this.chartConfig[this.type].bounds[count]
+                        : 0;
+                    index = this.chartConfig[this.type].bounds?.indexOf(prev) - 2;
+
+                    return curr - prev + value;
                 }
+                index = this.chartConfig[this.type].bounds?.indexOf(curr) - 2;
                 return curr;
             });
-            index = this.chartConfig[this.type].bounds?.indexOf(boundEdge);
+            boundEdge -= endPercents;
         } else {
-            value = (this.data?.fact / maxBound) * 100;
+            value = ((currentData - minBound) / (maxBound - minBound)) * 100;
             boundEdge = this.chartConfig[this.type].bounds?.find((item) => item > value);
             index = this.chartConfig[this.type].bounds?.indexOf(boundEdge) - 1;
         }
-        if (boundEdge || boundEdge === 0) {
+
+        if (!boundEdge || boundEdge === 0 || boundEdge === 100) {
+            // Отрисовка активной зоны не актуальна если у нас значение равно максимальному, минимальному,
+            // больше или меньше максимально допустимых значений
+            this.chartConfig[this.type].gauge.activeZone = [0, 0];
+        } else if (boundEdge) {
             const color =
                 this.data?.zeroOn === 'Right'
                     ? this.chartConfig[this.type].colorBounds.reverse()[index]
                     : this.chartConfig[this.type].colorBounds[index];
+
             this.chartConfig[this.type].gauge.activeColorIndex = color
                 ? color
                 : this.chartConfig[this.type].gauge.activeColorIndex;
+
             const startActive =
                 this.convertPercentToGrad(this.data.zeroOn === 'Right' ? boundEdge : value) * (Math.PI / 180);
             const endActive =
                 this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : boundEdge) * (Math.PI / 180);
-            this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
-        } else if (!boundEdge) {
-            const color =
-                this.data.zeroOn === 'Right'
-                    ? this.chartConfig[this.type]?.colorBounds[this.data?.colorBounds?.length - 1]
-                    : this.chartConfig[this.type]?.colorBounds[0];
-            this.chartConfig[this.type].gauge.activeColorIndex = color
-                ? color
-                : this.chartConfig[this.type].gauge.activeColorIndex;
-            const startActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? 0 : value) * (Math.PI / 180);
-            const endActive = this.convertPercentToGrad(this.data.zeroOn === 'Right' ? value : 0) * (Math.PI / 180);
             this.chartConfig[this.type].gauge.activeZone = [startActive, endActive];
         }
     }
@@ -235,7 +247,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         const outerRadius = width / 2 - 2;
         const innerRadius = outerRadius - diagramWidth;
 
-        const start = (-3 * Math.PI) / 4;
+        const start = (-3 * Math.PI) / 4 + 0.015;
         const end = -start;
 
         d3.select(this.chart.nativeElement).selectAll('*').remove();
@@ -275,6 +287,17 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                 .enter()
                 .append('path')
                 .attr('d', fig);
+        }
+
+        function drawIcon(className: string, iconPath: string, fig: d3.Arc = arc): void {
+            svg.append('g')
+                .attr('class', className)
+                .append('svg:image')
+                .attr('xlink:href', iconPath)
+                .attr('width', 30)
+                .attr('height', 30)
+                .attr('x', -15)
+                .attr('y', -15);
         }
 
         const gradientArrow = (arrowAngle: number) => {
@@ -374,23 +397,28 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             });
         }
 
-        // Стрелка
-        gradientArrow(gauge.angle);
+        if (this.centralIcon) {
+            drawIcon('icon', this.centralIcon);
+        } else {
+            // Стрелка
+            gradientArrow(gauge.angle);
 
-        // Закрываем тень от стрелки
-        const sectionHidden = createPie(end, end + Math.PI / 2);
-        drawDiagram(`circle__dark`, () => sectionHidden([null]), arcHidden);
+            // Закрываем тень от стрелки
+            const sectionHidden = createPie(end, end + Math.PI / 2);
+            drawDiagram(`circle__dark`, () => sectionHidden([null]), arcHidden);
 
-        // Темный круглый фон с текстом
-        drawCircle(width / 2 - 18, 'circle__dark');
-        addText('' + gauge.total, 'total', -2);
-        addText('' + gauge.deviation, 'deviation', 9);
-        if (this.data?.description && this.type === 1 && !this.hideDescription) {
-            addText(this.data.description, 'desc', 30);
+            // Темный круглый фон с текстом
+            drawCircle(width / 2 - 18, 'circle__dark');
+            addText('' + gauge.total, 'total', -2);
+            addText('' + gauge.deviation, 'deviation', 9);
+            if (this.data?.description && this.type === 1 && !this.hideDescription) {
+                addText(this.data.description, 'desc', 30);
+            }
+            if (!this.isPerformance) {
+                addText(gauge.unit, 'unit', 25);
+            }
         }
-        if (!this.isPerformance) {
-            addText(gauge.unit, 'unit', 25);
-        }
+
 
         if (this.showAxisValues) {
             // В случае размера bounds более 4 берем значения второе и предпоследнее значение массива bounds
@@ -470,7 +498,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
             return end;
         }
         if (percent <= 0) {
-            return start;
+            return start + 2;
         }
     }
 }

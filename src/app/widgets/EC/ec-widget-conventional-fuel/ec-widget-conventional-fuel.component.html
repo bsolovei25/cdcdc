@@ -120,7 +120,7 @@
             след. час
           </div>
           <div class="card card__predict">
-            <span class="value"> {{ nextHourPlan | number:'0.0-2' || '---' }} </span>
+            <span class="value"> {{ ((showCurrent? currentValues?.forecast : (predictors$ | async)?.forecast) | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
@@ -130,8 +130,7 @@
             модели
           </div>
           <div class="card card__model">
-            <!--            <span class="value"> {{ nextPlanValue | number:'0.0-2' || '-&#45;&#45;' }} </span>-->
-            <span class="value"> {{ ((predictors$ | async)?.factModel | number:'0.0-2') || '---' }} </span>
+            <span class="value"> {{ ((showCurrent? currentValues?.factModel : (predictors$ | async)?.factModel) | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>

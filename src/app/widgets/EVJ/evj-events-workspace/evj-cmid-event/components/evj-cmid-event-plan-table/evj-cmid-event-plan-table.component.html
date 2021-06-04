@@ -1,6 +1,6 @@
 <div class="container">
-  <div [class.disabled]="!list?.length" class="container__header">
-    <div>
+  <div class="container__header">
+    <div [class.disabled]="!list?.length" >
       <mat-checkbox class="checkbox" [(ngModel)]="selectAllControl" (change)="changeSelectAll($event)" color="primary"></mat-checkbox>
       <label>Выбрать все</label>
     </div>
@@ -13,6 +13,10 @@
   </div>
   <div class="container__table">
     <!-- TODO: Уточнить почему активное и хайлайт -->
+    <div class="loader-container" *ngIf="isLoading">
+      <mat-spinner diameter="20" style="position: relative; margin-left: -10px; left: 50%">
+      </mat-spinner>
+    </div>
 
     <evj-cmid-event-plan-table-item
       *ngFor="let item of list"

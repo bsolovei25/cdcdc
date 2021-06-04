@@ -188,15 +188,9 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                         item.graph,
                         domainDates[0],
                         domainDates[1],
-                        item.graphType === 'plan'
+                        item.graphType === 'plan' || item.graphType === 'forecast'
                     ))
             );
-            const factChart = this.data?.find((x) => x.graphType === 'fact')?.graph;
-            if (!!factChart?.length) {
-                this.data.find((x) => x.graphType === 'fact').graph = factChart.filter(
-                    (x) => x.timeStamp.getTime() < new Date().getTime()
-                );
-            }
         }
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
         if (filterData.length !== this.data.length) {
@@ -897,6 +891,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
         let plan: number = null;
         let fact: number = null;
         let factModel: number = null;
+        let forecast: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -913,7 +908,8 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 units = units ? units : chart.units;
                 factModel = xGragh ? statValue?.value : 0;
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
-                // TODO add some
+                units = units ? units : chart.units;
+                forecast = xGragh ? statValue?.value : 0;
             } else {
                 values.push({
                     val: xGragh ? statValue?.value : 0,
@@ -928,6 +924,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 fact,
                 plan,
                 factModel,
+                forecast,
                 predictors: [...values],
                 units,
             })

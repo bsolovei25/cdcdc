@@ -38,7 +38,7 @@ export class EvjCmidEventChipsComponent implements OnInit {
     }
 
     public chipClick(chip: ICmidEventChip): void {
-        const element = document.getElementById(chip.name);
+        const element = document.getElementById(chip.positionName);
         this.openPopover(element, chip);
     }
 

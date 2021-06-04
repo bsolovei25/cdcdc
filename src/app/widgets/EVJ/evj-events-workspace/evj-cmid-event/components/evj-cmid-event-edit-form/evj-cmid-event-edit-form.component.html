@@ -2,18 +2,18 @@
   <section class="event-card__section">
     <div class="row">
       <form [formGroup]="filterForm">
-      <evj-event-dropdown fieldName="name"
-                          formControlName="selectPlant"
-                          [items]="plants$ | async" [disabled]="true" style="width: 127px;">Предприятие:
-      </evj-event-dropdown>
-      <evj-event-dropdown fieldName="name"
-                          formControlName="selectManufacture"
-                          [items]="manufactures$ | async" style="width: 300px;">Производство:
-      </evj-event-dropdown>
-      <evj-event-dropdown fieldName="name"
-                          formControlName="selectSetup"
-                          [items]="setups$ | async" style="width: 127px;">Установка:
-      </evj-event-dropdown>
+        <evj-event-dropdown fieldName="name"
+                            formControlName="selectPlant"
+                            [items]="plants$ | async" [disabled]="true" style="width: 127px;">Предприятие:
+        </evj-event-dropdown>
+        <evj-event-dropdown fieldName="name"
+                            formControlName="selectManufacture"
+                            [items]="manufactures$ | async" style="width: 300px;">Производство:
+        </evj-event-dropdown>
+        <evj-event-dropdown fieldName="name"
+                            formControlName="selectUnit"
+                            [items]="units$ | async" style="width: 127px;">Установка:
+        </evj-event-dropdown>
       </form>
     </div>
   </section>
@@ -61,11 +61,12 @@
     <h2>Позиции для отключения</h2>
     <div class="row">
       <div class="row__title">
-        <span>Позиции КД ПАЗ по установке {{ filterForm.get('selectSetup').value.name }}:</span>
+        <span>Позиции КД ПАЗ по установке {{ filterForm.get('selectUnit').value?.name }}:</span>
       </div>
     </div>
     <div class="row">
       <evj-cmid-event-plan-table [formControl]="kdcards"
+                                 [isLoading]="positionLoading$ | async"
                                  (onSearch)="searchPosition($event)"
                                  [items]="positions$ | async"></evj-cmid-event-plan-table>
     </div>

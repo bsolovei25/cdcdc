@@ -55,7 +55,6 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
 
     public tabsList$: BehaviorSubject<IKpeTableTabs[]> = new BehaviorSubject<IKpeTableTabs[]>([]);
     public currentTab: number = 0;
-    public data: IKpeTableData | null = null;
 
     constructor(
         public widgetService: WidgetService,
@@ -81,17 +80,11 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
     };
 
     protected dataHandler(ref: IKpeTableData): void {
-        this.data = ref;
+        this.tabsList$.next(ref?.allTabs);
     }
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.getSubChannels().then();
-    }
-
-    private async getSubChannels(): Promise<void> {
-        const subChannels = await this.widgetService.getAvailableChannels<IKpeTableTabs>(this.widgetId);
-        this.tabsList$.next(subChannels);
     }
 
     public changeTab(tabNumber: number): void {
