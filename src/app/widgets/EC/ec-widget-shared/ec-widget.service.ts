@@ -6,8 +6,8 @@ import {
     IMultiChartTransfer,
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AppConfigService } from '@core/service/app-config.service';
-import { HttpClient } from "@angular/common/http";
-import { lineColors } from "@widgets/EC/ec-widget-shared/constants/colors.const";
+import { HttpClient } from '@angular/common/http';
+import { lineColors } from '@widgets/EC/ec-widget-shared/constants/colors.const';
 
 export type AstueOnpzConsumptionIndicatorsWidgetType = 'Deviation' | 'Consumption';
 
@@ -58,6 +58,8 @@ export class EcWidgetService {
         null
     );
     public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
+    public headerWidgetUnitId$: BehaviorSubject<string | null> = new BehaviorSubject(null);
+    public headerWidgetEquipmentId$: BehaviorSubject<string | null> = new BehaviorSubject(null);
 
     private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,

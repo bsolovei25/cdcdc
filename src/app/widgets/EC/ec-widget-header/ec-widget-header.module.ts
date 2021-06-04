@@ -2,17 +2,20 @@ import { NgModule } from "@angular/core";
 import { EcWidgetHeaderComponent } from "@widgets/EC/ec-widget-header/ec-widget-header.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "@shared/shared.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { AngularSvgIconModule } from "angular-svg-icon";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [EcWidgetHeaderComponent],
     imports: [
         CommonModule,
+        AngularSvgIconModule,
         SharedModule,
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        FormsModule
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule
     ]
 })
 

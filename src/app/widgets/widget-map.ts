@@ -1967,9 +1967,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'EcWidgetHeaderModule',
         itemCols: 35,
-        itemRows: 14,
+        itemRows: 2,
         minItemCols: 35,
-        minItemRows: 14,
+        minItemRows: 2,
         preview: 'ec-widget-header',
     },
     // #endregion EC
