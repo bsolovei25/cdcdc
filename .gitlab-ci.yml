@@ -47,7 +47,7 @@ variables:
   HELM_INGRESS_PREFIX: "evj"
   HELM_SUBCHART_NAME: "evj"
   HELM_NEXUS_CHART: "asplatform-front"
-  HELM_NEXUS_CHART_VERSION: "0.3.4"
+  HELM_NEXUS_CHART_VERSION: "1.0.0"
   HELM_NEXUS_REGISTRY: "helm-gazgolder"
   HELM_VALUES_OVERRIDE: "./ci/evj.gazgolder.yaml"
   HELM_EXTRA_FLAGS: ""
