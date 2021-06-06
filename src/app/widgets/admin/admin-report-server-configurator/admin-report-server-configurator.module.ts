@@ -30,9 +30,13 @@ import { AdminRscAutogenerationComponent } from './components/admin-report-serve
 import { AdminRscDatetimepickerComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-datetimepicker/admin-rsc-datetimepicker.component';
 import { AdminRscReportSheetComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-report-sheet/admin-rsc-report-sheet.component';
 import { AdminRscPeriodEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-period-edit/admin-rsc-period-edit.component';
-import { MatRadioButton, MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { AdminRscParameterAutogenerationComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-parameter-autogeneration/admin-rsc-parameter-autogeneration.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AdminRscPathEditComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-path-edit/admin-rsc-path-edit.component';
+import { AdminRscCustomOptionsComponent } from './components/admin-report-server-configurator-parameters/admin-rsc-custom-options/admin-rsc-custom-options.component';
+import { SearchPipe } from './shared/search.pipe';
+import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
 
 
 
@@ -57,7 +61,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AdminRscDatetimepickerComponent,
     AdminRscReportSheetComponent,
     AdminRscPeriodEditComponent,
-    AdminRscParameterAutogenerationComponent
+    AdminRscParameterAutogenerationComponent,
+    AdminRscPathEditComponent,
+    AdminRscCustomOptionsComponent,
+    SearchPipe,
+    AdminRscRepositoryEditComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +81,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     MatSelectModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+  ],
+  exports: [
+    SearchPipe
   ],
   providers: [
     AdminReportConfiguratorService

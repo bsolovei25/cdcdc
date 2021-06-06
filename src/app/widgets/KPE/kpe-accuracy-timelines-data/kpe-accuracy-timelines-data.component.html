@@ -13,24 +13,24 @@
     <div class="plan">
       <div class="plan__value">
         <div class="plan__value__info">
-          <div class="date">{{ currentDate }}</div>
+          <div class="date">{{ headers.Date }}</div>
             <svg-icon
               src="assets/icons/widgets/KPE/kpe-accuracy-timelines-data/plus.svg"
               (click)="openEdit()"
               class="plan__value__info__plus"
             ></svg-icon>
         </div>
-        <span>{{percent | number:'0.0-0'}} <span class="unit">%</span> </span>
+        <span>{{ headers.Percent | number:'0.0-0'}} <span class="unit">%</span> </span>
       </div>
       <div class="plan__diagram">
-        <div class="plan__diagram__lines" [ngStyle]="{'width': percent + '%'}">
+        <div class="plan__diagram__lines" [ngStyle]="{'width': headers.Percent + '%'}">
         </div>
       </div>
-      <div class="plan__influence">Влияние 3%</div>
+      <div class="plan__influence">{{ headers.PercentageInfluence }}%</div>
     </div>
-    <div class="main-content">
-      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
-      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
-      <evj-kpe-accuracy-timelines-card></evj-kpe-accuracy-timelines-card>
+    <div class="main-content" *ngIf="this.rows.length > 0">
+      <ng-container *ngFor="let row of rows">
+        <evj-kpe-accuracy-timelines-card [rowData]="row"></evj-kpe-accuracy-timelines-card>
+      </ng-container>
     </div>
 </div>

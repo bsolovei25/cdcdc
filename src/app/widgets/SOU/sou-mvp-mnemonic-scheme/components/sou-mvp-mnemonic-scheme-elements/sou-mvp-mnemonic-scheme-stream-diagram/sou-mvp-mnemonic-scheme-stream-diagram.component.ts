@@ -1,19 +1,15 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
-import {
-    ISouFlowIn,
-    ISouFlowOut,
-    ISouObjects,
-} from '../../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
-import { SouMvpMnemonicSchemeService } from '../../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { ISouFlowIn, ISouFlowOut, ISouObjects } from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme-stream-diagram',
     templateUrl: './sou-mvp-mnemonic-scheme-stream-diagram.component.html',
     styleUrls: ['./sou-mvp-mnemonic-scheme-stream-diagram.component.scss'],
 })
-export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, AfterViewInit {
+export class SouMvpMnemonicSchemeStreamDiagramComponent {
     @ViewChild('chart') chart: ElementRef;
     @Input() set data(data: { sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number, disabledCircle?: boolean }) {
         if (data.sections) {
@@ -35,8 +31,6 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     public code: number;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
-
-    ngOnInit(): void {}
 
     @AsyncRender
     drawSvg(): void {
@@ -75,8 +69,6 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
         g.append('path').attr('d', arc).attr('class', 'diagram-value');
     }
-
-    ngAfterViewInit(): void {}
 
     elementClick(sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[], code: number): void {
         this.mvpService.openPopup(sections, code);

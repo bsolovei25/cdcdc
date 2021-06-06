@@ -1,0 +1,69 @@
+:host {
+  width: 14%;
+  padding-top: 10px;
+}
+.bar-column {
+  border-right: 1px solid #272a38;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+
+  &__bar {
+    background-color: var(--chart-bar-color);
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #FFFFFF;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &__value {
+    color: #D7E2F2;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    text-align: center;
+    margin: 7px 0 0 0;
+  }
+
+  &__date {
+    color: #8C99B2;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    margin: 0 0 -25px 0;
+  }
+
+  &__line {
+    position: absolute;
+    width: 100%;
+    height: 0.5px;
+    background: #272a38;
+  }
+
+  &__horizontal-line {
+    width: 100%;
+    height: 0;
+    border-top: 0.5px dashed var(--chart-limits-color);
+    position: absolute;
+  }
+
+  .upper-horizontal-line {
+    bottom: 92%;
+  }
+
+  .lower-horizontal-line {
+    bottom: 22%
+  }
+
+  &__black-area {
+    position: absolute;
+    width: 100%;
+    bottom: 22%; // значение bottom у lower-horizontal0line, но логики пока что нет
+    top: 8%; // 100% - значение bottom у upper-horizontal-line, но логики пока что нет
+    background-color: var(--chart-limits-area-color);
+  }
+}

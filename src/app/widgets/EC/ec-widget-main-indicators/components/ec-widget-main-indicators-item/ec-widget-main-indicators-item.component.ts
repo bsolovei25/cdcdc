@@ -2,7 +2,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    Inject,
     Input,
     OnDestroy,
     OnInit,
@@ -30,14 +29,10 @@ export class EcWidgetMainIndicatorsItemComponent
 
     @Input() data$: BehaviorSubject<IAstueOnpzMainIndicatorsRaw>;
 
-    // public data$: BehaviorSubject<IAstueOnpzMainIndicatorsRaw> = new BehaviorSubject<IAstueOnpzMainIndicatorsRaw>(null);
-
     private svg: any;
     private percent: number = 0;
 
     constructor(
-        // @Inject('widgetId') public widgetId: string,
-        // @Inject('channelId') public channelId: string,
         protected widgetService: WidgetService
     ) {
         super('', '', widgetService);
@@ -61,14 +56,7 @@ export class EcWidgetMainIndicatorsItemComponent
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: IAstueOnpzMainIndicatorsRaw): void {
-        // console.warn('dataHandler', ref);
-        // this.percent = ref.factValue / ref.planValue;
-        // this.percent = this.percent > 0 ? (this.percent > 1 ? 1 / this.percent : this.percent) : 0;
-        //
-        // // this.data$.next(ref);
-        // this.drawSvg();
-    }
+    protected dataHandler(): void {}
 
     @AsyncRender
     private drawSvg(): void {

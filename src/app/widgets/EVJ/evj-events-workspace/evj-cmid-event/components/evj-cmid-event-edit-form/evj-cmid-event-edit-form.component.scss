@@ -49,6 +49,11 @@
         margin-bottom: 7px;
         width: 100%;
       }
+
+      form {
+        display: flex;
+        gap: 15px;
+      }
     }
 
     .column {

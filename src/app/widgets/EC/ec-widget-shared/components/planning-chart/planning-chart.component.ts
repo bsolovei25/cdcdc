@@ -606,7 +606,7 @@ export class PlanningChartComponent implements OnChanges {
 
         while (target >= start && target <= pathLength) {
             const pos = node.getPointAtLength(target);
-            if (Math.abs(pos.x - x) < 0.0001) {
+            if (Math.abs(pos.x - x) < 0.1) {
                 return this.scaleFuncs.y.invert(pos.y);
             } else if (pos.x > x) {
                 end = target;

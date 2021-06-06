@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
-import { AstueOnpzMnemonicFurnaceService } from '../../../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
+import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
 
 interface IGraph {
     name: string;
@@ -44,7 +44,7 @@ export class EcWidgetFactorAnalysisChartPageComponent
 
     constructor(
         protected widgetService: WidgetService,
-        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
+        private ecWidgetService: EcWidgetService,
         private changeDetectorRef: ChangeDetectorRef,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string
@@ -69,7 +69,7 @@ export class EcWidgetFactorAnalysisChartPageComponent
                     this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
                 }
             }),
-            this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
+            this.ecWidgetService.selectedItem$.subscribe((item) => {
                 super.disconnectWs();
                 this.channelId = item;
                 this.dataHandler(null);

@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-// import {
-//     AstueOnpzConsumptionIndicatorsWidgetType,
-//     AstueOnpzConsumptionIndicatorType,
-// } from '../ec-widget-consumption-indicators/ec-widget-consumption-indicators.component';
 import { IPlanningChart } from '../ec-widget-planing-charts/ec-widget-planing-charts.component';
 import {
     IMultiChartLine,
     IMultiChartTransfer,
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
+import { HttpClient } from "@angular/common/http";
+import { lineColors } from "@widgets/EC/ec-widget-shared/constants/colors.const";
 
 export type AstueOnpzConsumptionIndicatorsWidgetType = 'Deviation' | 'Consumption';
 
 export type AstueOnpzConsumptionIndicatorType = 'Money' | 'Percent' | 'Absolute';
-
-export interface IAstueOnpzMonitoringOptions {
-    manufactureName: string | null;
-    unitName: string | null;
-    type: AstueOnpzConsumptionIndicatorsWidgetType | null;
-    indicatorType: AstueOnpzConsumptionIndicatorType | null;
-}
 
 export interface IAstueOnpzMonitoringCarrierOptions {
     manufactureName: string;
@@ -43,14 +33,32 @@ export interface IAstueOnpzPredictor {
     colorIndex: number;
 }
 
-export interface IAstueOnpzColors {
-    [key: string]: number;
+export interface IPredictorsLabelsData {
+    predictors: IPredictorCurrentValue[];
+}
+
+export interface IPredictorCurrentValue {
+    val: number;
+    color: string;
+    units?: string;
 }
 
 @Injectable({
     providedIn: 'root',
 })
 export class EcWidgetService {
+    public selectedItem$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public multilineChartIndicatorTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
+    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(new Map());
+    public selectedEnergyResource$: BehaviorSubject<string | null> = new BehaviorSubject<string>(null);
+    public selectedPredictor$: BehaviorSubject<string | null> = new BehaviorSubject<string|null>(null);
+    public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
+    public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<IMultiChartTransfer>(
+        null
+    );
+    public predictorsCurrentValue$: BehaviorSubject<IPredictorsLabelsData> = new BehaviorSubject<IPredictorsLabelsData>(null);
+
     private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
@@ -59,43 +67,14 @@ export class EcWidgetService {
         type: null,
         indicatorType: null,
     });
-
     private restUrl: string;
-
-    public monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
-        manufactureName: null,
-        unitName: null,
-        type: null,
-        indicatorType: null,
-    });
-
-    public multilineChartIndicatorTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
-
-    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(new Map());
-    private colors: number = 6;
-
-    public selectedEnergyResource$: BehaviorSubject<string | null> = new BehaviorSubject<string>(null);
-    public selectedEnergyResource: Observable<string> = this.selectedEnergyResource$.asObservable();
-
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
-
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
-
-    public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
-
+    private colorsCount: number = 6;
+    private currentColors: number[] = [];
     private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(
         null
     );
 
-    public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<IMultiChartTransfer>(
-        null
-    );
-
-    get multiLinePredictors(): Observable<IMultiChartLine[]> {
-        return this.multiLinePredictorsChart$.asObservable();
-    }
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -110,9 +89,10 @@ export class EcWidgetService {
         this.selectedEnergyResource$.next(resourceId);
     }
 
-    public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
-        this.monitoringOptions$.next(options);
+    public setSelectedPredictor(predictorId: string): void {
+        this.selectedPredictor$.next(predictorId);
     }
+
 
     public setPredictors(predictorWidgetId: string, predictors: IAstueOnpzPredictor[]): void {
         if (predictors.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
@@ -129,87 +109,6 @@ export class EcWidgetService {
         this.sharedPlanningGraph$.next(graph);
     }
 
-    public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
-        let isChange: boolean = false;
-        const filterArray =
-            this.indicatorOptions$
-                .getValue()
-                ?.filterValues?.split(';')
-                ?.filter((f) => f !== '') ?? [];
-        switch (action) {
-            case 'add':
-                if (!filterArray.includes(key)) {
-                    filterArray.push(key);
-                    isChange = true;
-                }
-                break;
-            case 'delete':
-                const idx = filterArray.findIndex((f) => f === key);
-                if (idx !== -1) {
-                    filterArray.splice(idx, 1);
-                    isChange = true;
-                }
-                break;
-        }
-        if (!isChange) {
-            return;
-        }
-        const filter: string = filterArray.reduce((a, b) => `${a};${b}`, '');
-        this.nextMonitoringCarrierOptions<string>('filterValues', filter);
-    }
-
-    public updateGraphId(itemId: string): void {
-        this.nextMonitoringCarrierOptions('itemId', itemId);
-    }
-
-    public updateManufactureName(manufactureNameParam: string): void {
-        this.nextMonitoringOptions<string>('manufactureName', manufactureNameParam);
-        this.nextMonitoringCarrierOptions<string>('manufactureName', manufactureNameParam);
-    }
-
-    public updateUnitName(unitNameParam: string): void {
-        this.nextMonitoringOptions<string>('unitName', unitNameParam);
-        this.nextMonitoringCarrierOptions<string>('unitName', unitNameParam);
-    }
-
-    public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
-        this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
-        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
-    }
-
-    public updateIndicator(
-        indicatorTypeParam: AstueOnpzConsumptionIndicatorType,
-        typeParam: AstueOnpzConsumptionIndicatorsWidgetType
-    ): void {
-        const currentOptions = this.monitoringOptions$.getValue();
-        if (currentOptions.type === typeParam && currentOptions.indicatorType === indicatorTypeParam) {
-            indicatorTypeParam = null;
-            typeParam = null;
-        }
-        this.monitoringOptions$.next({
-            ...this.monitoringOptions$.value,
-            ...{
-                indicatorType: indicatorTypeParam,
-                type: typeParam,
-            },
-        });
-        this.indicatorOptions$.next({
-            ...this.indicatorOptions$.value,
-            ...{
-                indicatorType: indicatorTypeParam,
-                type: typeParam,
-            },
-        });
-    }
-
-    private nextMonitoringOptions<T>(key: keyof IAstueOnpzMonitoringOptions, value: T): void {
-        this.monitoringOptions$.next({ ...this.monitoringOptions$.value, ...{ [key]: value } });
-    }
-
-    private nextMonitoringCarrierOptions<T>(key: keyof IAstueOnpzMonitoringCarrierOptions, value: T): void {
-        this.indicatorOptions$.next({ ...this.indicatorOptions$.value, ...{ [key]: value } });
-    }
-
     public dropDataStream(): void {
         const val = this.indicatorOptions$.getValue();
         val.filterValues = null;
@@ -218,48 +117,46 @@ export class EcWidgetService {
 
     public addTagToColor(tag: string): void {
         const colors = this.colors$.getValue();
-        if (this.colors === 0) {
-            this.colors = 6;
+        const predictorsCount = 4;
+        let color;
+
+        for (let i = this.colorsCount; i > this.colorsCount - predictorsCount; i--) {
+            if (this.currentColors.find(item => item === i)) {
+                continue;
+            }
+            color = i;
+            break;
         }
-        const color = this.colors--;
+        this.currentColors.push(color);
         colors.set(tag, color);
         this.colors$.next(colors);
     }
 
     public deleteTagToColor(color: number, tag: string): void {
-        this.colors++;
         const colors = this.colors$.getValue();
+
+        this.currentColors = this.currentColors.filter(item => item !== color);
         colors.delete(tag);
         this.colors$.next(colors);
     }
 
     public clearColors(): void {
-        this.colors = 6;
+        this.currentColors = [];
         this.colors$.next(new Map());
     }
 
-    public async predict(unitIdValue: number): Promise<void> {
-        try {
-            return await this.http
-                .post<void>(`${this.restUrl}/api/predictor/predict`, {
-                    unitId: unitIdValue,
-                })
-                .toPromise();
-        } catch (e) {
-            console.error(e);
-            return null;
-        }
-    }
+    public setPredictorsCurrentValue(data: IPlanningChart[]): void {
+        const currentValues: IPredictorsLabelsData = {predictors: []};
+        const colors = this.colors$.getValue();
 
-    public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
-        try {
-            const response = await this.http
-                .get<{ id: string; sortIndex: number }[]>(
-                    `${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`
-                )
-                .toPromise();
-            response.sort((a, b) => a.sortIndex - b.sortIndex);
-            return response?.map((x) => x.id) ?? [];
-        } catch {}
+        data.forEach( ({currentFactValue, tag, units}) => {
+            currentValues.predictors.push({
+                val: currentFactValue,
+                color: lineColors[colors.get(tag)],
+                units,
+            })
+        });
+
+        this.predictorsCurrentValue$.next(currentValues);
     }
 }

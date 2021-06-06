@@ -322,6 +322,14 @@ export class EventService {
         }
     }
 
+    async getUnitResponsibleUsers(unitId: number): Promise<IUser[]> {
+        try {
+            return this.http.get<IUser[]>(this.restUrl + `/api/notifications/users/${unitId}`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async getEquipmentCategory(): Promise<ICategory[]> {
         try {
             return this.http

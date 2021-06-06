@@ -36,13 +36,13 @@
           <evj-events-workspace-select
             [label]="'Подкатегория'"
             [dataType]="'subCategoriesFilter'"
+            [categoryTypeSet]="'tasks'"
           ></evj-events-workspace-select>
         </div>
         <div class="workspace__select-container-right">
-          <evj-events-workspace-datetimepicker
-            [label]="'Срок выполнения'"
-            [date]="ewService.event.deadline"
-          >
+          <evj-events-workspace-datetimepicker [label]="'Срок выполнения'"
+                                               [date]="ewService.event.deadline"
+                                               (onValueChange)="setDeadlineToEvent($event)">
           </evj-events-workspace-datetimepicker>
         </div>
       </div>
@@ -134,7 +134,9 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <evj-events-workspace-datetimepicker [label]="'Начало события'" [date]="ewService.event.eventDateTime">
+          <evj-events-workspace-datetimepicker [label]="'Начало события'"
+                                               [date]="ewService.event.eventDateTime"
+                                               (onValueChange)="setStartToEvent($event)">
           </evj-events-workspace-datetimepicker>
         </div>
         <div class="workspace__select-container-right">

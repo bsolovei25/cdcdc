@@ -14,7 +14,10 @@
     <div class="about-section__details">
       <div *ngIf="data['details'].productName" class="about-section__detail">
         Продукт:
-        <span class="about-section__detail__highlight">{{ data['details'].productName }}</span>
+        <p class="about-section__detail__highlight"
+           [matTooltip]="data['details'].productName">
+          {{ data['details'].productName }}
+        </p>
       </div>
       <div *ngIf="data['details'].productOverflow" class="about-section__detail">
         Взлив:

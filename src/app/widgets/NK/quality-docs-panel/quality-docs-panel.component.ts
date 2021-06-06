@@ -102,6 +102,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public passportValue: string | null = null;
 
+    public searchString: string | null = null;
+
     public isPasportInput: boolean = false;
 
     private currentDates: IDatesInterval;
@@ -133,6 +135,23 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.viewportCheck();
+    }
+
+    public active(docsRecord: IQualityDocsRecord): void {
+        this.getDocument(docsRecord.fileUid, docsRecord);
+    }
+
+    private async getDocument(id: string, docsRecord: IQualityDocsRecord): Promise<void> {
+        this.oilDocumentService.documentScansLoader$.next(true);
+        try {
+            const url = await this.oilDocumentService.getDocumentView(id);
+            this.oilDocumentService.currentDocumentUrl$.next(url);
+            this.oilDocumentService.currentDocument$.next(docsRecord);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.oilDocumentService.documentScansLoader$.next(false);
+        }
     }
 
     protected dataHandler(ref: any): void {}
@@ -194,6 +213,11 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         if (this.passportValue) {
             options.PassportName = this.passportValue;
         }
+
+        if (this.searchString) {
+            options.SearchLike = this.searchString;
+        }
+
         options.IsBlocked = this.blockFilter;
         return options;
     }
@@ -224,7 +248,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     public searchRecords(event: string): void {
-        this.passportValue = event;
+        this.searchString = event;
         this.getData();
     }
 

@@ -1,15 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {CmidEventToogleValue} from '../evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 import {EvjCmidEventChipPopoverComponent} from './components/evj-cmid-event-chip-popover/evj-cmid-event-chip-popover.component';
 import {PopoverOverlayService} from '@shared/components/popover-overlay/popover-overlay.service';
+import { ICmidEventChip } from "@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface";
 
-export interface ICmidEventChip {
-    id: number;
-    name: string;
-    description?: string;
-    position?: string;
-    piTag?: string;
-}
 
 @Component({
     selector: 'evj-cmid-event-chips',
@@ -22,56 +16,29 @@ export class EvjCmidEventChipsComponent implements OnInit {
     public toggleValue: CmidEventToogleValue = 'non-plan';
 
     @Input()
+    public totalCount: number;
+
+    @Input()
     public enableTitles: boolean = true;
 
     @Input()
     public enableControls: boolean = true;
 
     @Input()
-    public chips: ICmidEventChip[] = [
-        {
-            id: 0,
-            name: 'K_DBL_TI796',
-            description: 'Темп-ра в обратном тр/пр на теплоснабжение калориферов_л.Т2',
-            position: '00341-PAZ01-PAZ-0001-K_DBL_D161',
-            piTag: 'AVT10:K_DBL_D161_blk',
-        },
-        {
-            id: 1,
-            name: 'K_DBL_FI43A',
-            description: 'Темп-ра в обратном тр/пр на теплоснабжение калориферов_л.Т2',
-            position: '00341-PAZ01-PAZ-0001-K_DBL_D161',
-            piTag: 'AVT10:K_DBL_D161_blk',
-        },
-        {
-            id: 2,
-            name: 'K_DBL_LSA1464',
-            description: 'Темп-ра в обратном тр/пр на теплоснабжение калориферов_л.Т2',
-            position: '00341-PAZ01-PAZ-0001-K_DBL_D161',
-            piTag: 'AVT10:K_DBL_D161_blk',
-        },
-        {
-            id: 3,
-            name: 'K_DBL_FRSA42B',
-            description: 'Темп-ра в обратном тр/пр на теплоснабжение калориферов_л.Т2',
-            position: '00341-PAZ01-PAZ-0001-K_DBL_D161',
-            piTag: 'AVT10:K_DBL_D161_blk',
-        },
-        {
-            id: 4,
-            name: 'K_DBL_P1_1_BL6',
-            description: 'Темп-ра в обратном тр/пр на теплоснабжение калориферов_л.Т2',
-            position: '00341-PAZ01-PAZ-0001-K_DBL_D161',
-            piTag: 'AVT10:K_DBL_D161_blk',
-        },
-    ];
+    public chips: ICmidEventChip[] = [];
+
+    @Output() onRemoveItem: EventEmitter<ICmidEventChip> = new EventEmitter<ICmidEventChip>()
 
     constructor(private popoverOverlayService: PopoverOverlayService) {}
 
     ngOnInit(): void {}
 
+    public removeItem(item: ICmidEventChip): void {
+        this.onRemoveItem.next(item);
+    }
+
     public chipClick(chip: ICmidEventChip): void {
-        const element = document.getElementById(chip.name);
+        const element = document.getElementById(chip.positionName);
         this.openPopover(element, chip);
     }
 

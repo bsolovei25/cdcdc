@@ -1,0 +1,42 @@
+.active {
+  color: var(--color-text-main) !important;
+}
+
+.highlight {
+  background: var(--color-kpe-deviation-danger) !important;
+}
+
+.row {
+  width: 100%;
+  height: 32px;
+  background: var(--color-new-header-bg);
+  margin-bottom: 4px;
+  display: flex;
+  color: var(--color-marker-diagram);
+
+  &__column {
+    height: 100%;
+    line-height: 32px;
+    padding: 0 8px;
+  }
+
+  .name {
+    width: 166px;
+    border-right: 1px solid var(--evj-color-bg-main);
+  }
+
+  .description {
+    width: calc(100% - 166px);
+  }
+}
+
+.checkbox {
+  margin-right: 8px;
+
+  ::ng-deep {
+    .mat-checkbox-frame {
+      border-width: 1px;
+      background: var(--evj-color-bg-main);
+    }
+  }
+}

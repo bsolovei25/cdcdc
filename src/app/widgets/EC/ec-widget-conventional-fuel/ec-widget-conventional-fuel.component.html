@@ -14,7 +14,7 @@
           <div class="dropdown">
             <mat-select placeholder="Производство" class="dropdown__select" [formControlName]="'manufacture'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let manufacture of manufacturesReference$ | async" [value]="manufacture.id">{{ manufacture.name }}</mat-option>
+              <mat-option *ngFor="let manufacture of newStructureMenuData?.menu.manufacturies" [value]="manufacture.id">{{ manufacture.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="dropdown">
             <mat-select placeholder="Установка" class="dropdown__select" [formControlName]="'unit'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let unit of unitsReference$ | async" [value]="unit.id">{{ unit.name }}</mat-option>
+              <mat-option *ngFor="let unit of getMenuUnits()" [value]="unit.id">{{ unit.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="dropdown">
             <mat-select placeholder="Энергоресурс" class="dropdown__select" [formControlName]="'resource'">
               <mat-option>Не выбрано</mat-option>
-              <mat-option *ngFor="let resource of resourcesReference$ | async" [value]="resource.id">{{ resource.name }}</mat-option>
+              <mat-option *ngFor="let resource of getEnergyResource()" [value]="resource.id">{{ resource.name }}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -120,7 +120,7 @@
             след. час
           </div>
           <div class="card card__predict">
-            <span class="value"> {{ nextHourPlan | number:'0.0-2' || '---' }} </span>
+            <span class="value"> {{ ((showCurrent? currentValues?.forecast : (predictors$ | async)?.forecast) | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
@@ -130,8 +130,7 @@
             модели
           </div>
           <div class="card card__model">
-            <!--            <span class="value"> {{ nextPlanValue | number:'0.0-2' || '-&#45;&#45;' }} </span>-->
-            <span class="value"> {{ ((predictors$ | async)?.factModel | number:'0.0-2') || '---' }} </span>
+            <span class="value"> {{ ((showCurrent? currentValues?.factModel : (predictors$ | async)?.factModel) | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
@@ -141,11 +140,11 @@
         </div>
         <div
           class="card card__tag"
-          *ngFor="let card of (predictors$ | async)?.predictors"
+          *ngFor="let card of (predictorsCurrentValue$ | async)?.predictors"
           [style.border-color]="card.color"
         >
           <span class="value"> {{ card.val | number:'0.0-2' }} </span>
-          <span class="unit"> {{ card.units }} </span>
+          <span class="unit"> {{ card?.units }} </span>
         </div>
       </div>
       <evj-ec-widget-multi-chart

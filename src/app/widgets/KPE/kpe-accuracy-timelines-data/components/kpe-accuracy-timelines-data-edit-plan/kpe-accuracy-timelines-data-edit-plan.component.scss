@@ -23,6 +23,10 @@
       line-height: 17px;
 
       color: var(--text-accent-color);
+
+      &__date {
+        text-transform: capitalize;
+      }
     }
   }
 
@@ -126,6 +130,7 @@
         padding: 0 16px;
 
         background: var(--gray-G9-color);
+        border: none;
 
         display: flex;
         justify-content: space-between;

@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
 $add-button-color: #303549;
 $main-border-color: rgba(96, 101, 128, 0.25);
 .big {
@@ -8,6 +13,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
 }
 .events-correct {
   width: inherit;
+  height: 100%;
   background-color: var(--header-events-color-bg-main);
   border: 1px solid $main-border-color;
   border-radius: 2px;
@@ -26,7 +32,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
 
   &__body {
     width: 100%;
-    height: 440px;
+    height: calc(100% - 73px);
     background-color: transparent;
     box-sizing: border-box;
     padding-right: 19.2px;

@@ -24,34 +24,35 @@
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart
-            *ngIf="!displayNewDesign"
+            *ngIf="!(displayNewDesign$ | async)"
             #gaugeChart
             isPercent="true"
             [background]="'dark'"
-            [fact]="deviationDiagramData?.fact"
-            [plan]="deviationDiagramData?.plan"
-            [deviation]="deviationDiagramData?.deviation"
+            [fact]="(deviationDiagramData$ | async)?.fact"
+            [plan]="(deviationDiagramData$ | async)?.plan"
+            [deviation]="(deviationDiagramData$ | async)?.deviation"
           ></evj-kpe-gauge-chart>
           <evj-kpe-gauge-chart-multi-color
             #gaugeChart
             [type]="1"
-            *ngIf="displayNewDesign"
-            [data]="this.deviationData"
+            *ngIf="(displayNewDesign$ | async)"
+            [data]="deviationData$ | async"
           ></evj-kpe-gauge-chart-multi-color>
         </div>
         <div class="readiness__header__chart">
           <evj-kpe-deviation-diagram
-            [data]="deviationChartData"
-            [currentMonth]="displayedMonth"
+            [data]="deviationChartData$ | async"
+            [currentMonth]="displayedMonth$ | async"
           ></evj-kpe-deviation-diagram>
         </div>
       </div>
       <div class="readiness__main">
-        <ng-container *ngFor="let card of cardsList">
-          <div class="readiness__main__gauge element-container" [ngClass]="{'element-container_warning': displayNewDesign}">
+        <ng-container *ngFor="let card of (cardList$ | async); trackBy: trackByIndex">
+          <div class="readiness__main__gauge element-container"
+               [ngClass]="{'element-container_warning': card.isWarning}">
             <div class="gauge-card">
               <div class="gauge-card__content">
-                <div class="gauge-card__units" [ngClass]="{unitsNewDesign: displayNewDesign}">
+                <div class="gauge-card__units" [ngClass]="{unitsNewDesign: (displayNewDesign$ | async)}">
                   <div
                     class="gauge-card__units__unit"
                     [class.gauge-card__units__unit_active]="!engUnitsComparator.isEngUnitsPercent(card?.title)"
@@ -67,13 +68,18 @@
                     %
                   </div>
                   <!--Новый дизайн-->
-                  <div class="percent-info"  *ngIf="displayNewDesign" [ngClass]="['percent-info', percentData.percentStatus]">
+                  <div
+                    class="percent-info"
+                    *ngIf="(displayNewDesign$ | async)"
+                    [class.warning]="card.isWarning"
+                    [class.default]="!card.isWarning"
+                  >
                     {{card.percentageInfluence}}%
                   </div>
                 </div>
                 <div class="gauge-card__diagram">
                   <evj-kpe-gauge-chart
-                    *ngIf="!displayNewDesign"
+                    *ngIf="!(displayNewDesign$ | async)"
                     [fact]="engUnitsComparator.isEngUnitsPercent(card?.title) ? card?.percentage : card?.fact"
                     [plan]="engUnitsComparator.isEngUnitsPercent(card?.title) ? 100 : card?.plan"
                     [deviation]="engUnitsComparator.isEngUnitsPercent(card?.title) ? card?.deviationPercentage : card?.deviation"
@@ -81,7 +87,7 @@
 
                   <evj-kpe-gauge-chart-multi-color
                     [type]="3"
-                    *ngIf="displayNewDesign"
+                    *ngIf="(displayNewDesign$ | async)"
                     [data]="card"
                     [isFactInChartCenter]="false"
                   ></evj-kpe-gauge-chart-multi-color>

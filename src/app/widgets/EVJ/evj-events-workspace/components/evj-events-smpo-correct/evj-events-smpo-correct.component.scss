@@ -1,16 +1,16 @@
 .evj-events-smpo-reasons {
   &_body {
+    height: 187px;
     padding: 20px 17px 20px 22px;
     width: inherit;
     background-color: var(--bg-dashboard-color);
     border: 1px solid var(--chart-segment-color);
     border-radius: 2px;
     box-sizing: border-box;
-    min-height: 394px;
   }
 
   &_card-list {
-    max-height: 285px;
+    height: 145px;
     overflow: auto;
   }
 }

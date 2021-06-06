@@ -10,12 +10,10 @@ import { AdminReportConfiguratorService } from '../../services/admin-report-serv
   styleUrls: ['./admin-report-server-configurator-repository.component.scss']
 })
 export class AdminReportServerConfiguratorRepositoryComponent implements OnInit {
-  
-  public data: IFolder;
-  public reports: IReportTemplate[];
 
   constructor(
     private arscRootService: AdminReportServerConfiguratorRootService,
+    private arscService: AdminReportConfiguratorService
     ) { }
 
   ngOnInit(): void {
@@ -25,13 +23,11 @@ export class AdminReportServerConfiguratorRepositoryComponent implements OnInit 
 
   public async templateFolder(): Promise<void> {
     const data = await this.arscRootService.getTemplateFolder();
-    this.data = data;
-    console.log(data);
+    this.arscService.data = data;
   }
 
   public async reportTemplate(): Promise<void> {
     const data = await this.arscRootService.getReportTemplate();
-    this.reports = data.filter(value => !value.folderId);
-    console.log(data);
+    this.arscService.reports = data.filter(value => !value.folderId);
   }
 }

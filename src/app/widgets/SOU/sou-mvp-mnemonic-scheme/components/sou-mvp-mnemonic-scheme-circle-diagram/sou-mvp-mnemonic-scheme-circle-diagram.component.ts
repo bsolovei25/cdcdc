@@ -1,26 +1,27 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { MatHint } from '@angular/material/form-field';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
-import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { AsyncRender } from '@shared/functions/async-render.function';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouObjects
-} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system.model';
-import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme-circle-diagram',
     templateUrl: './sou-mvp-mnemonic-scheme-circle-diagram.component.html',
     styleUrls: ['./sou-mvp-mnemonic-scheme-circle-diagram.component.scss']
 })
-export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
+export class SouMvpMnemonicSchemeCircleDiagramComponent {
     @ViewChild('chart') chart: ElementRef;
     @Input() noConnection: false;
 
     @Input() set data(data: {
-        sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[]; code: number,
-        disabled?: boolean, rightLineDashed?: boolean
+        sections: (ISouFlowOut | ISouFlowIn | ISouObjects)[],
+        code: number,
+        disabled?: boolean,
+        rightLineDashed?: boolean,
     }) {
         if (data.sections) {
             this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISouFlowOut;
@@ -33,17 +34,14 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
         }
     }
 
-    flowData: ISouFlowOut;
+    public flowData: ISouFlowOut;
     public code: number;
     public disabled: boolean = false;
-    rightLineDashed: boolean = false;
+    public rightLineDashed: boolean = false;
 
     public svg: any;
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {
-    }
-
-    ngOnInit(): void {
     }
 
     @AsyncRender
@@ -78,8 +76,5 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
         g.append('path').attr('d', arcBg).attr('class', 'diagram-inner');
 
         g.append('path').attr('d', arc).attr('class', 'diagram-value');
-    }
-
-    ngAfterViewInit(): void {
     }
 }

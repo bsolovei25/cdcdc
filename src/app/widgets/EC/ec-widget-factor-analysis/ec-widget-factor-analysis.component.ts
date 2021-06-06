@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { astueOnpzFactoryAnalysisBarMapper } from './functions/ec-widget-factor-analysis.function';
@@ -8,13 +8,11 @@ import {
     IAstueOnpzFactoryAnalysisBarResponse,
     IAstueOnpzFactoryAnalysisDiagram,
 } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
-import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { EcWidgetConventionalFuelService } from '../ec-widget-conventional-fuel/ec-widget-conventional-fuel.service';
 import { HttpClient } from '@angular/common/http';
 import { ScreenshotMaker } from '@core/classes/screenshot.class';
 import { ReportsService } from '@dashboard/services/widgets/admin-panel/reports.service';
 import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
-import { switchMap } from "rxjs/operators";
 import { VirtualChannel } from "@shared/classes/virtual-channel.class";
 
 @Component({
@@ -32,14 +30,14 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     private virtualChannel: VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>;
+    private virtualChannelSubscription: Subscription;
 
     constructor(
         private http: HttpClient,
         private reportService: ReportsService,
         private conventionalFuelService: EcWidgetConventionalFuelService,
-        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
-        private astueOnpzService: EcWidgetService,
+        private ecWidgetService: EcWidgetService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -49,21 +47,35 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subchannelId$ = this.astueOnpzService.selectedEnergyResource$;
+        this.subchannelId$ = this.ecWidgetService.selectedEnergyResource$;
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.virtualChannel?.dispose();
+        this.virtualChannelSubscription?.unsubscribe();
     }
 
     protected dataConnect(): void {
         super.dataConnect();
+
         this.subscriptions.push(
-            this.connectVirtualChannel().subscribe(ref => {
-                this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
-            }),
-        );
+            this.ecWidgetService.selectedEnergyResource$.subscribe(energyResourceId => {
+                this.barData = null;
+                this.virtualChannel?.dispose();
+                this.virtualChannelSubscription?.unsubscribe();
+
+                if (energyResourceId) {
+                    this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
+                        channelId: this.widgetId,
+                        subchannelId: energyResourceId
+                    });
+
+                    this.virtualChannelSubscription = this.virtualChannel.data$.subscribe(res => {
+                        this.barData = astueOnpzFactoryAnalysisBarMapper(res);
+                    })
+                }
+            })
+        )
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
@@ -76,23 +88,5 @@ export class EcWidgetFactorAnalysisComponent extends WidgetPlatform<unknown> imp
         const screenshotHelper = new ScreenshotMaker();
         const screenshot = await screenshotHelper.takeScreenshot(this.chartContainer.nativeElement);
         await this.reportService.sendScreenshot(screenshot);
-    }
-
-    private connectVirtualChannel(): Observable<IAstueOnpzFactoryAnalysisBarResponse> {
-        return this.astueOnpzService.selectedEnergyResource$
-            .pipe(
-                switchMap((id: string): Subject<IAstueOnpzFactoryAnalysisBarResponse> => {
-                    if (!id) {
-                        this.barData = null
-                    }
-
-                    this.virtualChannel = new VirtualChannel<IAstueOnpzFactoryAnalysisBarResponse>(this.widgetService, {
-                        channelId: this.widgetId,
-                        subchannelId: id,
-                    });
-
-                    return this.virtualChannel.data$;
-                })
-            )
     }
 }

@@ -1,0 +1,26 @@
+<div class="complexes-header">
+  <div class="complexes-header_diagramm">
+    <evj-kpe-gauge-chart-multi-color
+      [centralIcon]="'assets/icons/widgets/SUUTP/complexes/npz.svg'"
+      [type]="1"
+      [data]="chartPage"></evj-kpe-gauge-chart-multi-color>
+  </div>
+  <div class="complexes-header_title-group">
+    <div class="title-group_header">{{ title }}</div>
+    <div class="title-group_indicators-group">
+
+      <evj-complexes-indicator *ngFor="let indicator of indicators; trackBy: trackByIndex"
+                               [count]="indicator.count"
+                               [errorLimit]="indicator.errorLimit"
+                               [greyColor]="indicator.greyColor"
+                               [planLimit]="indicator.planLimit">
+          <svg-icon
+            *ngIf="indicator.greyColor"
+            icon
+            src="assets/icons/widgets/SUUTP/complexes/delta.svg"
+            [ngStyle]="{ 'width.px':11, 'height.px':11, 'padding-right.px':5  }"
+          ></svg-icon>
+      </evj-complexes-indicator>
+    </div>
+  </div>
+</div>

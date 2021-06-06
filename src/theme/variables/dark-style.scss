@@ -3,6 +3,7 @@
   --bg-dashboard-color: #12151e; /*Дэшборды и Формы*/
   --bg-body-color: #1c1f2b; /*Тело виджета*/
   --bg-header-color: #272a38; /*Хедер виджета*/
+  --bg-header-menu-color: #5e6582; /*Меню хедера виджета*/
   /*Основной цвет*/
   --gray-G12-color: #12151e;
   --gray-G12-50-color: rgba(18, 21, 30, 0.5);
@@ -38,6 +39,8 @@
   --index-plan-color: #0089ff; /*План 1*/
   --index-error-color: #f7931e; /*Отклонения*/
   --index-critical-color: #ff1d25; /*Критические отклонения*/
+  --index-active-color: #8c99b2; /*Активные отклонения*/
+  --index-default-color: #4b5169; /*Дефолтный цвет отклонений*/
   --index-green1-color: #00a73d; /*Зеленый*/
   --index-prediction-color: #a2e2ff; /*План 2*/
   --index-blue1-color: #0f62fe; /*Синий*/
@@ -46,6 +49,10 @@
   --chart-segment-color: rgba(96, 101, 128, 0.25); /*- Cегменты и Будующий период*/
   --chart-background-color: rgba(18, 21, 30, 0.5); /*- Бэкграунд графика'>*/
   --chart-attantionZone-color: rgba(96, 101, 128, 0.1); /*-Зоны внимания*/
+  --chart-limits-color: #F7931E; /*Линии, показывающие верхнюю и нижнюю границы на графиках*/
+  --chart-limits-area-color: rgba(18, 21, 30, 1); /*Часть графика от нижней до верхней границы*/
+  --chart-shift-lines-color: #0089FF; /*Линии на графиках, показывающие смены*/
+  --chart-bar-color: #0089FF; /*Столбцы*/
   /*Прозрачность*/
   --opacity-plan-20-color: rgba(0, 137, 255, 0.2); /*20% прозрачность плана*/
   --opacity-fact-20-color: rgba(255, 255, 255, 0.2); /*20% прозрачность факта*/
@@ -97,4 +104,7 @@
   --toggler-button-color-active: #ffffff;
   --tooltip-bg: #303549; /*фон тултипов*/
   --tooltip-border: #0089ff; /*обводка тултипов*/
+  --bg-body-table-row-item: #232432; /*фон для строки в табличном отображении графика*/
+  --bg-dark-table-row: #171A24;
+  --bg-widget-additional: #171A24;
 }

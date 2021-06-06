@@ -65,6 +65,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
 
     protected dataHandler(ref: { products: IAsEfProduct[] }): void {
         this.data = ref.products;
+        this.astueEfficiencyService.data.next(ref.products);
         this.isLoading = false;
     }
 
@@ -74,8 +75,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
 
     public toggleIsInitialDataShows(val: boolean): void {
         this.isInitialDataShow = val;
-        this.astueEfficiencyService.selectionFlow$.next([]);
-        this.astueEfficiencyService.selectionUnit$.next([]);
     }
 
     public onSelectProduct(id: string): void {
@@ -83,6 +82,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
         const product = this.data.find((item) => item.id === id);
         this.units = product?.units;
         this.selection.select(product);
+        this.astueEfficiencyService.productId = product.id;
         this.astueEfficiencyService.selectionProduct$.next(this.selection.selected);
     }
 }

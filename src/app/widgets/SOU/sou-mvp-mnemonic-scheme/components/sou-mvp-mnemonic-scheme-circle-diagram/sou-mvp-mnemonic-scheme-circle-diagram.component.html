@@ -6,7 +6,10 @@
     selectedLine: code === mvpService.selectedCode
   }"
   >
-    <div class="connection-circle"></div>
+    <div
+      class="connection-circle"
+      [class.enabled]="flowData?.isEnable"
+    ></div>
   </div>
   <div
     class="container"

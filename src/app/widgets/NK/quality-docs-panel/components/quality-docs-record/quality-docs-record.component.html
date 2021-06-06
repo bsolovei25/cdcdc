@@ -3,7 +3,7 @@
     <div class="short">{{ data.id }}</div>
     <div class="short">{{ data.tank?.name }}</div>
     <div class="middle pasport">
-      <div class="pasport__icon">
+      <div class="pasport__icon" (click)="onClick()">
         <svg-icon
           src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
           [svgStyle]="{ 'width.px':30, 'height.px':40, 'margin-top.px': 5 }"

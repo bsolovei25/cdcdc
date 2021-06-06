@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="row__column name">
+    <mat-checkbox class="checkbox" [ngModel]="selected" (change)="select($event)" color="primary"></mat-checkbox>
+    <label>{{ item.positionName }}</label>
+  </div>
+  <div class="row__column description">
+    <span>{{ item.positionDescription }}</span>
+  </div>
+</div>

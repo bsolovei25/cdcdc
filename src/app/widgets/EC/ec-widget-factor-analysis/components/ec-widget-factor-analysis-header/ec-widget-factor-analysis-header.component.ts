@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { AstueOnpzMnemonicFurnaceService } from '../../../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
+import { EcWidgetService } from "@widgets/EC/ec-widget-shared/ec-widget.service";
 
 @Component({
     selector: 'evj-ec-widget-factor-analysis-header',
@@ -11,13 +11,13 @@ export class EcWidgetFactorAnalysisHeaderComponent implements OnInit, OnChanges 
     @Input() reference: { id: string; name: string }[] = [];
     @Output() changePage: EventEmitter<'bar' | 'chart'> = new EventEmitter<'bar' | 'chart'>();
 
-    constructor(public mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService) {}
+    constructor(public ecWidgetService: EcWidgetService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {}
 
     selectionChange(e: string): void {
-        this.mnemonicFurnaceService.selectedItem$.next(e);
+        this.ecWidgetService.selectedItem$.next(e);
     }
 }

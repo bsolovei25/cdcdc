@@ -44,10 +44,22 @@
         }
       }
     }
-
+    .main-description {
+      width: 49%;
+      height: 13px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--text-contrast-color);
+      position: absolute;
+      bottom: 50px;
+    }
     .main-text {
       width: 48%;
-      height: 50px;
+      height: 5px;
       display: flex;
       align-items: center;
       text-align: center;

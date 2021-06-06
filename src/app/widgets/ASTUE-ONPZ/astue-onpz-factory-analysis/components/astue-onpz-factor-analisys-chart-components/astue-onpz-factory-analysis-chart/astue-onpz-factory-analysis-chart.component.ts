@@ -514,7 +514,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
         while (target >= start && target <= pathLength) {
             const pos = node.getPointAtLength(target);
-            if (Math.abs(pos.x - x) < 0.001) {
+            if (Math.abs(pos.x - x) < 0.1) {
                 return this.scales.y.invert(pos.y);
             } else if (pos.x > x) {
                 end = target;
