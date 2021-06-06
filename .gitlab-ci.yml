@@ -115,41 +115,6 @@ deliver-to-deploy:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "devops"
 
-deploy service:
-  stage: deploy
-  variables:
-    DEPLOY_DOMAIN: "https://${HELM_INGRESS_PREFIX}.${HELM_INGRESS_DOMAIN}"
-  script:
-    - if [[ $IS_DEBUG_ENV == "true" ]]; then env; fi
-    - if [ -z $TAG ]; then export TAG=${CI_COMMIT_REF_SLUG}; fi
-    # - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then HELM_NS="${INGRESS_PREFIX}-${CI_COMMIT_REF_SLUG}"; fi
-    - |
-      set -v
-      if [[ $HELM_DEPLOY_WITH == "nexus" ]]
-      then
-        echo "=== HELM DEPLOY WITH NEXUS CHART ==="
-        helm repo add $HELM_NEXUS_REGISTRY \
-        $NEXUS_SERVER/repository/$HELM_NEXUS_REGISTRY/  \
-        --username $GG_NEXUS_USERNAME \
-        --password $GG_NEXUS_PASSWORD
-        helm repo list || true
-        helm repo update
-        kubectl version
-        kubectl create ns ${HELM_NS} || true
-        helm upgrade --install "$HELM_RELEASE" \
-        "$HELM_NEXUS_REGISTRY/$HELM_NEXUS_CHART" \
-        --values "$HELM_VALUES_OVERRIDE" \
-        --set "global.ci.state=true,global.ci.tag=$TAG,global.ci.site=$HELM_INGRESS_PREFIX" \
-        --set "${HELM_SUBCHART_NAME}.image.tag=$TAG" \
-        --set "${HELM_SUBCHART_NAME}.ingress.site=$HELM_INGRESS_PREFIX" \
-        --version "$HELM_NEXUS_CHART_VERSION" \
-        --namespace $HELM_NS
-      fi
-      set +v
-  environment:
-    name: staging
-    url: "https://${HELM_INGRESS_PREFIX}.${HELM_INGRESS_DOMAIN}"
-
 
 release-notes-maker:
   extends: .release-notes-tpl
