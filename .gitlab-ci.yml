@@ -55,7 +55,7 @@ variables:
   # fetching Dockerfile from remote repo 
   FETCH_PROJECT_ID: "184"
   FETCH_PATH: "builds%2Fangular%2F"
-  FETCH_FILE: "Dockerfile.nginx-rhel"
+  FETCH_FILE: "Dockerfile.nginx-rhel-v2"
   FETCH_REF: "/raw?ref=master"
 
   # ALERTING
