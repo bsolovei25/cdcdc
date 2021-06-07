@@ -1983,16 +1983,14 @@ export const WIDGETS_LAZY = {
 
     'suutp-equipment-fractions-processing': {
         import: async () => {
-            return await import(
-                'src/app/widgets/SUUTP/suutp-equipment-fractions-processing/suutp-equipment-fractions-processing.module'
-                );
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
         },
-        module: 'SuutpEquipmentFractionsProcessingModule',
-        itemCols: 10,
-        itemRows: 50,
-        minItemCols: 10,
-        minItemRows: 6,
-        preview: 'evj-suutp-equipment-fractions-processing',
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
     },
 
     'suutp-equipment-factory-state': {
