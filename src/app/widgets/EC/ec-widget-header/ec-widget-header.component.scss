@@ -94,12 +94,9 @@
       top: calc(100% - 2px);
       left: 0;
       background-color: var(--border-forms-color);
-
     }
-  }
 
-  .active {
-    &.equipment {
+    &.equipment_active {
       .equipment {
         &__title {
           color: var(--text-alwaysWhite-color);

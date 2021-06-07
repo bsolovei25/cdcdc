@@ -3,7 +3,8 @@ import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EcWidgetService } from '@widgets/EC/ec-widget-shared/ec-widget.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 interface IHeaderWidgetMenuResponse {
     menu: IHeaderWidgetMenu;
@@ -29,14 +30,13 @@ interface IIcon {
 }
 
 const icons: IIcon[] = [
-    {name: 'Печи', fileName: 'bake'},
-    {name: 'Теплообменники', fileName: 'heatexchanger'},
-    {name: 'Насосы', fileName: 'pump'},
-    {name: 'АВО', fileName: 'abo'},
-    {name: 'Компрессоры', fileName: 'compressor'},
-    {name: 'Котлы-утилизаторы', fileName: 'waste-heat-boiler'},
+    { name: 'Печи', fileName: 'bake' },
+    { name: 'Теплообменники', fileName: 'heatexchanger' },
+    { name: 'Насосы', fileName: 'pump' },
+    { name: 'АВО', fileName: 'abo' },
+    { name: 'Компрессоры', fileName: 'compressor' },
+    { name: 'Котлы-утилизаторы', fileName: 'waste-heat-boiler' }
 ];
-
 
 @Component({
     selector: 'evj-ec-widget-header',
@@ -45,8 +45,8 @@ const icons: IIcon[] = [
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public headerWidgetMenu: IHeaderWidgetMenu | null = null;
     public headerMenuForm: FormGroup;
+    public data$: BehaviorSubject<null | IHeaderWidgetMenu> = new BehaviorSubject(null);
 
     constructor(
         public widgetService: WidgetService,
@@ -60,7 +60,7 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
     public ngOnInit(): void {
         super.widgetInit();
         this.initForm();
-        this.initFormListeners();
+        this.initListeners();
     }
 
     public ngOnDestroy(): void {
@@ -68,38 +68,51 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
     }
 
     protected dataHandler(ref: IHeaderWidgetMenuResponse): void {
-        const activeEquipment = this.headerWidgetMenu?.equipments.find(data => data.isActive);
+        this.data$.next(this.normalizeData(ref));
+    }
 
-        this.headerWidgetMenu = ref?.menu;
-        this.headerWidgetMenu.equipments.forEach(equipment => {
+    private normalizeData(data: IHeaderWidgetMenuResponse): IHeaderWidgetMenu {
+        const activeEquipment = this.data$.getValue()?.equipments.find(x => x.isActive);
+
+        data.menu.equipments = data.menu.equipments.map(equipment => {
             const icon = icons.find(item => item.name === equipment.name);
 
-            equipment.isActive = activeEquipment?.name === equipment.name;
-            equipment.fileName = icon.fileName;
+            return {
+                id: equipment.id,
+                name: equipment.name,
+                isActive: activeEquipment?.name === equipment.name,
+                fileName: icon.fileName
+            };
         });
-        this.setFormValues();
+
+        return data?.menu;
     }
 
     public get getMenuUnits(): IMenuReferenceModel[] {
-        return this.headerWidgetMenu?.units.filter(
+        return this.data$.getValue()?.units.filter(
             (item) => item.parentId === this.headerMenuForm.get('manufacture').value
         );
     }
 
-    public onClickEquipment(data: IMenuReferenceModel): void {
-        if (!data.isActive) {
-            this.headerWidgetMenu.equipments.forEach(item => item.isActive = false);
-            data.isActive = !data.isActive;
-            this.ecWidgetService.headerWidgetEquipmentId$.next(data.id);
+    public onClickEquipment(equipment: IMenuReferenceModel): void {
+        if (!equipment.isActive) {
+            const data = this.data$.getValue();
+
+            data.equipments = data.equipments.map(item => ({
+                ...item,
+                isActive: equipment.id === item.id
+            }));
+            this.data$.next(data);
+            this.ecWidgetService.headerWidgetEquipmentId$.next(equipment.id);
         }
     }
 
     private setFormValues(): void {
-        this.headerMenuForm.get('manufacture').setValue(
+        this.headerMenuForm?.get('manufacture').setValue(
             this.headerMenuForm.get('manufacture').value
-                ?? this.headerWidgetMenu.manufacturies[0].id
+                ?? this.data$.getValue()?.manufacturies[0].id
         );
-        this.headerMenuForm.get('unit').setValue(
+        this.headerMenuForm?.get('unit').setValue(
             this.headerMenuForm.get('unit').value
                 ?? this.getMenuUnits[0].id
         );
@@ -112,7 +125,7 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
         });
     }
 
-    private initFormListeners(): void {
+    private initListeners(): void {
         this.subscriptions.push(
             this.headerMenuForm.get('manufacture').valueChanges
                 .subscribe(() => {
@@ -127,6 +140,13 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                 .subscribe(unit => {
                     this.ecWidgetService.headerWidgetUnitId$.next(unit);
                 }),
-        )
+
+            this.data$
+                .pipe(
+                    filter(Boolean),
+                    take(1)
+                )
+                .subscribe(this.setFormValues.bind(this)),
+        );
     }
 }

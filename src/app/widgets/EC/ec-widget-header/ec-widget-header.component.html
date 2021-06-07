@@ -8,7 +8,7 @@
         <div class="dropdown">
           <mat-select placeholder="Производство" class="dropdown__select" [formControlName]="'manufacture'">
             <mat-option>Не выбрано</mat-option>
-            <mat-option *ngFor="let manufacture of headerWidgetMenu?.manufacturies" [value]="manufacture.id">{{
+            <mat-option *ngFor="let manufacture of (data$ | async)?.manufacturies" [value]="manufacture.id">{{
               manufacture.name }}
             </mat-option>
           </mat-select>
@@ -29,9 +29,9 @@
 
     <div class="equipments">
       <div
-        *ngFor="let equipment of headerWidgetMenu?.equipments"
+        *ngFor="let equipment of (data$ | async)?.equipments"
         class="equipment"
-        [class.active]="equipment.isActive"
+        [class.equipment_active]="equipment.isActive"
         (click)="onClickEquipment(equipment)"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
