@@ -40,6 +40,7 @@ import { AdminRscCustomOptionsComponent } from './components/admin-report-server
 import { SearchPipe } from './shared/search.pipe';
 import { AdminRscRepositoryEditComponent } from './components/admin-report-server-configurator-repository/admin-rsc-repository-edit/admin-rsc-repository-edit.component';
 import { AdminReportServerConfiguratorConfirmComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-confirm/admin-report-server-configurator-confirm.component';
+import { AdminReportServerConfiguratorRepositoryAddSvgFileComponent } from './components/admin-report-server-configurator-repository/admin-report-server-configurator-repository-add-svg-file/admin-report-server-configurator-repository-add-svg-file.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { AdminReportServerConfiguratorConfirmComponent } from './components/admi
         AdminReportServerConfiguratorParametersSelectComponent,
         AdminReportServerConfiguratorAccessComponent,
         AdminReportServerConfiguratorRepositoryAddFileComponent,
+        AdminReportServerConfiguratorRepositoryAddSvgFileComponent,
         AdminReportServerConfiguratorAccessDeniedComponent,
         AdminRscMacrosEditComponent,
         AdminRscAutogenerationComponent,
