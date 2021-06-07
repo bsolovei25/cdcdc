@@ -1,3 +1,27 @@
+# [1.35.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.34.0...v1.35.0) (2021-06-04)
+
+
+### Bug Fixes
+
+* **NK:** НК. Исправлен поиск в панели документов качества. front[#2052](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2052) ([4a93156](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4a931561f1c371ce3423b99628cd8d28e265f0b9))
+* **Notifications:** Методы сохранения даты начала и дедлайна для ППС. front[#1979](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1979) ([3dd794a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3dd794a4341b14dfc4d217ca9fd1edf65bfd4409))
+* **Notifications:** Правка верстки причин и корректирующих мероприятий в СМПО. front[#2092](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2092) ([d7fe3b0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d7fe3b056c5b273bb41238fd4da1b5d5e4bf8ee5))
+* **ЦМИД:** Поправил позиционирование выпадающего меню [#1949](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1949) ([d7e7ae9](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d7e7ae9f9b1d5b3abe8a5887699fa7ba077e10df))
+
+
+### Features
+
+* **EC:** Реализация виджета График анализа трендов. [#1950](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1950) ([55bd3c3](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/55bd3c377f809025651806b9b091b8a7ed19f84b))
+* **KPE:** Реализована форма для отправки корректировки для виджета Точность и своевременность исходных данных КПЭ. front[#1405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1405) ([e3e69d5](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e3e69d55d9f49d19fa41efced4974248b9e8944f))
+* **SOU:** create header. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([385e17d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/385e17d79fb25ea983dbf04038350cba342fdd56))
+* **SOU:** create table. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([314471b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/314471b44929ad7bb74a59dbe0ca102ec8ffba6d))
+* **SOU:** fix bug with color. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([3ba7256](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3ba7256009d87c73f7c5a7ae8de13f68b3b4d354))
+* **SOU:** improve table view. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([5c489c4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/5c489c4f8f362f21f3ce55ce0b774ef4a33ec720))
+* **SOU:** progress commit. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([d3f4edf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d3f4edfa309d2b2a6e06752a329d45ab18f9e7f9))
+* **SOU:** progress commit. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([fddec0f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/fddec0fbef277a560d6b47e64899b417d5783abf))
+* **SOU:** provide chart. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([d9a8540](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d9a85402bf9d32617548069d957007566eab8572))
+* **ЦМИД:** Поддержка отображения 2х карт [#2089](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2089) ([9903cad](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9903cadb8768fd60049163f89e68566f7d5b3761))
+
 # [1.34.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.33.2...v1.34.0) (2021-06-02)
 
 

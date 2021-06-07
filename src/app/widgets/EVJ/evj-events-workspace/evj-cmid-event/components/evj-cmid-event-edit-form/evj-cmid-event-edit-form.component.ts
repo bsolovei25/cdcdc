@@ -15,7 +15,7 @@ import { IManufacture, IPlant } from '@dashboard/services/widgets/CMID/cmid.inte
 @Component({
     selector: 'evj-cmid-event-edit-form',
     templateUrl: './evj-cmid-event-edit-form.component.html',
-    styleUrls: ['./evj-cmid-event-edit-form.component.scss']
+    styleUrls: ['./evj-cmid-event-edit-form.component.scss'],
 })
 export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
     public dateNow: Date = new Date();
@@ -43,9 +43,7 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
 
     public positionLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(
-        public ewService: EventsWorkspaceService,
-        private cmidDictionaryService: CmidDictionaryService) {}
+    constructor(public ewService: EventsWorkspaceService, private cmidDictionaryService: CmidDictionaryService) {}
 
     public ngOnInit(): void {
         this.subscriptionToTypeOfReasonControls();
@@ -57,12 +55,13 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
 
     public getPositions(manufacture: string, unit: string): void {
         this.positionLoading$.next(true);
-        this.positions$ = this.cmidDictionaryService
-            .getKdpazCard(manufacture, unit)
-            .pipe(tap(() => this.positionLoading$.next(false)), catchError((e) => {
+        this.positions$ = this.cmidDictionaryService.getKdpazCard(manufacture, unit).pipe(
+            tap(() => this.positionLoading$.next(false)),
+            catchError((e) => {
                 this.positionLoading$.next(false);
                 return throwError(e);
-            }));
+            })
+        );
     }
 
     public searchPosition(query: string): void {
@@ -119,9 +118,10 @@ export class EvjCmidEventEditFormComponent implements OnInit, OnDestroy {
         this.filterForm
             .get('selectUnit')
             .valueChanges.pipe(takeUntilDestroyed(this))
-            .subscribe(({ name }) => {
+            .subscribe(({ id }) => {
+                // console.log('', { u, m: this.filterForm.get('selectManufacture').value });
                 this.positionLoading$.next(true);
-                this.getPositions(this.filterForm.get('selectManufacture').value.name, name);
+                this.getPositions(this.filterForm.get('selectManufacture').value.id, id);
             });
     }
 

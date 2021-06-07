@@ -16,12 +16,10 @@ import { IManufacture, IPlant, IUnit } from '@dashboard/services/widgets/CMID/cm
 })
 export class CmidDictionaryService {
     private restUrl: string;
-    private cmidUrl: string;
     private kdpazCards: IPlanItem[] = [];
     private reasonsCache: IDirectoryData[];
 
     constructor(public http: HttpClient, private configService: AppConfigService) {
-        this.cmidUrl = this.configService.cmidUrl;
         this.restUrl = this.configService.restUrl;
     }
 
@@ -63,16 +61,19 @@ export class CmidDictionaryService {
     }
 
     public getManufactures(): Observable<IManufacture[]> {
-        return this.http.get<IManufacture[]>(`${this.cmidUrl}/api/KdpazCard/card/manufactures`)
+        return this.http.get<IManufacture[]>(`${this.restUrl}/api/cmid-kdpaz/card/manufactures`);
     }
 
     public getPlants(id: string = '1'): Observable<IPlant[]> {
         // Замоканый метод
-        return this.http.get<IPlant>(`assets/mock/CMID/plants.json`).pipe(tap(console.log), map((plants) => plants[id]));
+        return this.http.get<IPlant>(`assets/mock/CMID/plants.json`).pipe(
+            tap(console.log),
+            map((plants) => plants[id])
+        );
     }
 
     public getSetups(manufactureId: string): Observable<IUnit[]> {
-        return this.http.get<IUnit[]>(`${this.cmidUrl}/api/KdpazCard/card/plants/manufacture/${manufactureId}`)
+        return this.http.get<IUnit[]>(`${this.restUrl}/api/cmid-kdpaz/card/plants/manufacture/${manufactureId}`);
     }
 
     public getPositions(query: string = ''): Observable<IPlanItem[]> {

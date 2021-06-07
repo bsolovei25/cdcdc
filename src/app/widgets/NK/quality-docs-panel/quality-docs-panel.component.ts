@@ -102,6 +102,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public passportValue: string | null = null;
 
+    public searchString: string | null = null;
+
     public isPasportInput: boolean = false;
 
     private currentDates: IDatesInterval;
@@ -211,6 +213,11 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         if (this.passportValue) {
             options.PassportName = this.passportValue;
         }
+
+        if (this.searchString) {
+            options.SearchLike = this.searchString;
+        }
+
         options.IsBlocked = this.blockFilter;
         return options;
     }
@@ -241,7 +248,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     public searchRecords(event: string): void {
-        this.passportValue = event;
+        this.searchString = event;
         this.getData();
     }
 
