@@ -13,6 +13,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
 import { TABLE_CELLS } from '@widgets/SOU/sou-streams/mock';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.service';
 
 
 @Component({
@@ -65,7 +66,8 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     constructor(
         private cdr: ChangeDetectorRef,
-        protected widgetService: WidgetService,
+        public widgetService: WidgetService,
+        public souStreamsService: SouStreamsService,
         private overlay: Overlay,
         private viewContainerRef: ViewContainerRef,
         @Inject('widgetId') public id: string,
