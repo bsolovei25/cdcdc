@@ -47,7 +47,7 @@
           <div class="custom-border"></div>
           <div
             class="section-select__item"
-            *ngFor="let section of (selectionOptions.sections$ | async)"
+            *ngFor="let section of (currentUnit$ | async)?.sections"
             [ngClass]="{ active: section.id === (optionsGroup.get('section').value) }"
             (click)="optionsGroup.get('section').setValue(section.id)"
           >
