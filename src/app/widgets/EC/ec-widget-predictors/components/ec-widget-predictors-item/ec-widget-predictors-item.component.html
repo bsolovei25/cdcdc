@@ -35,7 +35,7 @@
                     (click)="changeToggle(item, colors?.get(item.tag))"
                     class="item_active--{{ colors?.get(item.tag) }}"
                     [class.item_unactive]="!selectPredictors.isSelected(item.id)"
-                    [style.pointerEvents]="!selectPredictors.isSelected(item.id) && selectPredictors.selected.length > 4 ? 'none' : 'auto'"
+                    [style.pointerEvents]="!selectPredictors.isSelected(item.id) && selectPredictors.selected.length > 3 ? 'none' : 'auto'"
                   >
                     <span class="name">{{item.label}}</span>
                     <span class="tag">{{item.tag}}</span>
@@ -55,7 +55,7 @@
               (click)="changeToggle(item, colors?.get(item.tag))"
               class="item_active--{{ colors?.get(item.tag) }}"
               [class.item_unactive]="!selectPredictors.isSelected(item.id)"
-              [style.pointerEvents]="!selectPredictors.isSelected(item.id) && selectPredictors.selected.length > 4 ? 'none' : 'auto'"
+              [style.pointerEvents]="!selectPredictors.isSelected(item.id) && selectPredictors.selected.length > 3 ? 'none' : 'auto'"
             >
               <span class="name">{{item.label}}</span>
               <span class="tag">{{item.tag}}</span>

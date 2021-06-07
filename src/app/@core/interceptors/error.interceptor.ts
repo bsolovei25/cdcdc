@@ -42,8 +42,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.materialController.openSnackBar('Сервер не отвечает', 'error');
                         break;
                     case 477:
+                        if (err?.error && err) {
+                            const type = err.error.message.type;
+                            if (type === 'message') {
+                                console.warn('477', err.error.messages);
+                            } else {
+                                this.materialController.openSnackBar(err.error.message.message, type);
+                                console.error(err);
+                            }
+                        }
                         this.materialController.openSnackBar(err.error.message.message, 'error');
-                        console.error(err);
                         break;
                     case 475:
                         if (err?.error) {

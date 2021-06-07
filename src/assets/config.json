@@ -1,6 +1,7 @@
 {
     "wsUrl": "wss://deploy.funcoff.club/ws",
     "restUrl": "https://deploy.funcoff.club",
+    "cmidUrl": "https://cmid-webapi.funcoff.club",
     "fileStorage": "https:/deploy.funcoff.club",
     "smotrUrl": "http://192.168.0.17:6937",
     "smpUrl": "http://192.168.0.17:6780",

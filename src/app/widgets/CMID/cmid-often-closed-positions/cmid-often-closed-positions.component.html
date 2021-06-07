@@ -4,16 +4,15 @@
                                 [uniqId]="widgetUniqId">
 </evj-contemporary-widget-header>
 <div class="container">
+  <div class="header">
+    <span class="header__content">
+      Позиция
+    </span>
+    <span class="header__content">
+      Кол-во отключений, шт.
+    </span>
+  </div>
   <div class="container-inner">
-    <div class="header">
-      <span class="header__content">
-        Позиция
-      </span>
-      <span class="header__content">
-        Кол-во отключений, шт.
-      </span>
-    </div>
-  
     <table class="positions-list">
       <tr *ngFor="let position of positionsList" class="positions-list__line">
         <td class="positions-list__position">

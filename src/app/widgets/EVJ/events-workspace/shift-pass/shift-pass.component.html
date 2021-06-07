@@ -51,12 +51,12 @@
           <mat-label>Подкатегория</mat-label>
           <mat-select
             panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event?.productionTasks.subCategory"
+            [(ngModel)]="ewService.event.subCategory"
             [compareWith]="compareFn"
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
             <mat-option
-              *ngFor="let p of ewService.subCategoryFilter | async"
+              *ngFor="let p of ewService.tasksSubcategoryFilter | async"
               [value]="p"
               >{{ p.description }}
             </mat-option>
@@ -78,6 +78,7 @@
           <evj-time-data-picker
             [data]="ewService.event.eventDateTime"
             (dateTimePicker)="dateTimePickerStart($event)"
+            (onValueChange)="setStartToEvent($event)"
           ></evj-time-data-picker>
         </div>
       </evj-ui-block>
@@ -89,6 +90,7 @@
           <evj-time-data-picker
             [data]="ewService.event.deadline"
             (dateTimePicker)="dateTimePicker($event)"
+            (onValueChange)="setDeadlineToEvent($event)"
           ></evj-time-data-picker>
         </div>
       </evj-ui-block>

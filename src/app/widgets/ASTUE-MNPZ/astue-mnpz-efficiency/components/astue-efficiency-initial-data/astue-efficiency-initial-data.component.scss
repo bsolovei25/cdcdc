@@ -1,3 +1,5 @@
+@import "src/theme/mixins/mixins-text-overflow";
+
 :host {
   width: 100%;
   height: 100%;
@@ -64,11 +66,30 @@
     .table-header {
       display: flex;
 
-      &__item {
-        width: 50%;
+      &__block {
         height: 100%;
-        padding-left: 22px;
         display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-subscript-color);
+
+        &:first-child {
+          min-width: 228px;
+        }
+
+        &:last-child {
+          width: 100%;
+        }
+      }
+
+      &__item {
+        @include text-overflow;
+        -webkit-line-clamp: 1;
+
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
         align-items: center;
         font-size: 12px;
         color: var(--text-subscript-color);

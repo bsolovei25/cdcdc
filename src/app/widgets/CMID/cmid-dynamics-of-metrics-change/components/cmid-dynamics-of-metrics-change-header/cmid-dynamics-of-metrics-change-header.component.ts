@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
-import {PageType} from "@widgets/CMID/cmid-dynamics-of-metrics-change/enums/pageType";
+import {CmidDynamicsOfMetricsChangePageType} from "@widgets/CMID/cmid-dynamics-of-metrics-change/enums/cmid-dynamics-of-metrics-change.enums";
 
 @Component({
   selector: 'evj-cmid-dynamics-of-metrics-change-header',
@@ -8,11 +8,11 @@ import {PageType} from "@widgets/CMID/cmid-dynamics-of-metrics-change/enums/page
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CmidDynamicsOfMetricsChangeHeaderComponent {
-    @Input() page: PageType.DYNAMICS | PageType.STATISTICS = null;
-    @Output() changePage: EventEmitter<PageType.DYNAMICS | PageType.STATISTICS> = new EventEmitter<PageType.DYNAMICS | PageType.STATISTICS>();
-    public pageTypes = PageType;
+    @Input() page: CmidDynamicsOfMetricsChangePageType.DYNAMICS | CmidDynamicsOfMetricsChangePageType.STATISTICS = null;
+    @Output() changePage: EventEmitter<CmidDynamicsOfMetricsChangePageType.DYNAMICS | CmidDynamicsOfMetricsChangePageType.STATISTICS> = new EventEmitter<CmidDynamicsOfMetricsChangePageType.DYNAMICS | CmidDynamicsOfMetricsChangePageType.STATISTICS>();
+    public pageTypes = CmidDynamicsOfMetricsChangePageType;
 
-    selectionChange(pageType: PageType.DYNAMICS | PageType.STATISTICS): void {
+    selectionChange(pageType: CmidDynamicsOfMetricsChangePageType.DYNAMICS | CmidDynamicsOfMetricsChangePageType.STATISTICS): void {
         this.changePage.emit(pageType);
     }
 }

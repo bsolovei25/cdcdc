@@ -1,8 +1,10 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.55 5.89998V4.59998H9.70005V5.89998L8.30005 10.1V11.4H14V10.1L12.55 5.89998Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.99995 6.15002H5.79995V7.15002L4.69995 10.4V11.4H9.09995" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M3.89998 7.75H2.84998V8.45L2.09998 10.75V11.4H5.09998" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10.65 6.5C10.65 6.5 10.9 6.5 10.5 6.5C10.1 6.5 9.80005 6.5 9.80005 6.5C9.80005 6.5 10.1 6.5 10.5 6.5C10.9 6.5 10.65 6.5 10.65 6.5Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10.65 9.5C10.65 9.5 10.9 9.5 10.5 9.5C10.1 9.5 8.44995 9.5 8.44995 9.5C8.44995 9.5 10.1 9.5 10.5 9.5C10.9 9.5 10.65 9.5 10.65 9.5Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M1 11.4H15" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+    <path d="M12.55 5.9V4.6H9.7v1.3l-1.4 4.2v1.3H14v-1.3l-1.45-4.2z"/>
+    <path d="M8 6.15H5.8v1L4.7 10.4v1h4.4"/>
+    <path d="M3.9 7.75H2.85v.7l-.75 2.3v.65h3"/>
+    <path d="M10.65 6.5H9.8h.85z"/>
+    <path d="M10.65 9.5H8.45 10.65z"/>
+    <path d="M1 11.4h14"/>
+  </g>
 </svg>

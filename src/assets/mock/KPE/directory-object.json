@@ -1,0 +1,69 @@
+{
+	"directoryName":"КД ПАЗ: причины отключений",
+	"description":"Справочник причин отключения КД ПАЗ",
+	"directoryData":[
+		{
+			"id":"fc42cfe0-33e0-11eb-b8d3-476d648847c4",
+			"tripReasonName":"КИП",
+			"rows":[
+				{
+					"id":"253a2d80-33e1-11eb-b8d3-476d648847c4",
+					"name":"Ремонт/ замена оборудования КИП в рамках гарантийных обязательств",
+					"code":"kdpaz_warranty_repair"
+				},
+				{
+					"id":"1be039f0-33e1-11eb-b8d3-476d648847c4",
+					"name":"Нестабильность показаний КИП",
+					"code":"kdpaz_poor_readings"
+				},
+				{
+					"id":"11be6280-33e1-11eb-b8d3-476d648847c4",
+					"name":"Неисправность прибора КИП",
+					"code":"kdpaz_instrumenation_fault"
+				},
+				{
+					"id":"ff5b0c60-33e0-11eb-b8d3-476d648847c4",
+					"name":"Неисправность оборудования АСУТП/ПАЗ",
+					"code":"kdpaz_apsc_fault"
+				}
+			]
+		},
+		{
+			"id":"36a73cc0-33e1-11eb-b8d3-476d648847c4",
+			"tripReasonName":"Регламентные",
+			"rows":[
+				{
+					"id":"45abb070-33e1-11eb-b8d3-476d648847c4",
+					"name":"Изменение проектного решения по КИП",
+					"code":"kdpaz_project_design_revision"
+				},
+				{
+					"id":"56c2d780-33e1-11eb-b8d3-476d648847c4",
+					"name":"Тех. причина: останов установки",
+					"code":"kdpaz_plant_stop"
+				},
+				{
+					"id":"4de95e90-33e1-11eb-b8d3-476d648847c4",
+					"name":"Тех. причина: вывод из работы",
+					"code":"kdpaz_decommissioning"
+				},
+				{
+					"id":"3c2a5ec0-33e1-11eb-b8d3-476d648847c4",
+					"name":"Плановое снятие прибора КИП",
+					"code":"kdpaz_planned_outage"
+				}
+			]
+		},
+		{
+			"id":"77053420-33e1-11eb-b8d3-476d648847c4",
+			"tripReasonName":"Технология",
+			"rows":[
+				{
+					"id":"7b08bb00-33e1-11eb-b8d3-476d648847c4",
+					"name":"Тех. причина: нарушение технологии",
+					"code":"kdpaz_mode_violation"
+				}
+			]
+		}
+	]
+}

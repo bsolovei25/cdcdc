@@ -4,6 +4,8 @@
   text-overflow: ellipsis;
 }
 
+$header-height: 24px;
+
 :host {
   display: flex;
   flex-direction: column;
@@ -37,7 +39,7 @@
 
 .container-inner {
   position: absolute;
-  top: 0;
+  top: $header-height + 2px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -48,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 24px;
+  min-height: $header-height;
   padding: 0 16px;
   border-bottom: 1px solid var(--border-vidget-color);
   box-shadow: 0px 4px 8px var(--gradient-main-color-1);

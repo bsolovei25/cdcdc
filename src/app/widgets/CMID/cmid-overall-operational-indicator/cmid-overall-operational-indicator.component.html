@@ -1,0 +1,21 @@
+<evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="parameter" type="astue">
+  <div class="header-inner">
+    <div class="header-inner__head">
+      <svg-icon src="assets/icons/widgets/CMID/cmid-overall-operational-indicator/mountain-corner.svg"></svg-icon>
+      <div class="header-inner__title">
+        График изменения общего оперативного показателя
+      </div>
+    </div>
+    <div class="header-inner__groups"
+         (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
+      <evj-cmid-metrics-change-autocomplete
+        [filterItems]="filterData"
+        [graphLines]="graphLines"
+        (filteredData)="onGraphDataChanged($event)"
+        (clearedData)="onGraphDataCleared()">
+      </evj-cmid-metrics-change-autocomplete>
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+<evj-cmid-metrics-of-change-graph-multiline [data]="data"></evj-cmid-metrics-of-change-graph-multiline>

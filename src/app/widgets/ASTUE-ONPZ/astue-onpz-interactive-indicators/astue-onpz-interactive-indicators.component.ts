@@ -98,25 +98,29 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
         ref.indicators = indicators;
         this.data = ref;
         if (!isHasData) {
+            const indicatorsKey = []
             this.data.indicators.forEach((value) => {
                 if (value.key === 'FactValue' || value.key === 'PlanValue') {
-                    this.chooseIndicator(value.key);
+                    indicatorsKey.push(value.key)
                 }
             });
+            this.chooseIndicator(indicatorsKey);
         }
     }
 
-    public chooseIndicator(key: string): void {
+    public chooseIndicator(keys: string[]): void {
         this.selectValue = null;
-        const indicator = this.data.indicators.find((i) => i.key === key);
-        if (indicator) {
-            indicator.isActive = true;
-            indicator.isChoosing = true;
-        }
-        if (!this.astueOnpzService.colors$.getValue()?.has(indicator?.value?.tagName)) {
-            this.astueOnpzService.addTagToColor(indicator?.value?.tagName);
-        }
-        this.astueOnpzService.updateIndicatorFilter(key, 'add');
+        keys.forEach(key => {
+            const indicator = this.data.indicators.find((i) => i.key === key);
+            if (indicator) {
+                indicator.isActive = true;
+                indicator.isChoosing = true;
+            }
+            if (!this.astueOnpzService.colors$.getValue()?.has(indicator?.value?.tagName)) {
+                this.astueOnpzService.addTagToColor(indicator?.value?.tagName);
+            }
+        })
+        this.astueOnpzService.updateIndicatorFilter(keys, 'add');
     }
 
     public deleteLabel(event: MouseEvent, key: string): void {
@@ -126,7 +130,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
             indicator.isActive = false;
             indicator.isChoosing = false;
         }
-        this.astueOnpzService.updateIndicatorFilter(key, 'delete');
+        this.astueOnpzService.updateIndicatorFilter([key], 'delete');
     }
 
     public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator): void {
@@ -136,9 +140,9 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unkn
             indicator.isChoosing = !indicator.isChoosing;
         }
         if (indicator.isChoosing) {
-            this.astueOnpzService.updateIndicatorFilter(item.key, 'add');
+            this.astueOnpzService.updateIndicatorFilter([item.key], 'add');
         } else {
-            this.astueOnpzService.updateIndicatorFilter(item.key, 'delete');
+            this.astueOnpzService.updateIndicatorFilter([item.key], 'delete');
         }
     }
 

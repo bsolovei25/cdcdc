@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Input,
@@ -7,25 +6,27 @@ import {
     Optional,
     Output,
     Self,
-    SimpleChanges
-} from "@angular/core";
-import { ControlValueAccessor, NgControl } from "@angular/forms";
-import { MatSelectChange } from "@angular/material/select";
+    SimpleChanges,
+} from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'evj-event-dropdown',
     templateUrl: './evj-event-dropdown.component.html',
     styleUrls: ['./evj-event-dropdown.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EvjEventDropdownComponent implements OnChanges, ControlValueAccessor {
-    public val: string;
-
+    public val: any;
+    public list: Record<string, any> = [];
     @Output()
     public selected: EventEmitter<string> = new EventEmitter();
 
     @Output()
     public fullObject: EventEmitter<any> = new EventEmitter();
+
+    @Input()
+    public selectedFirst: boolean = true;
 
     @Input()
     public disabled: boolean = false;
@@ -40,7 +41,10 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     public initByDefault: boolean = true;
 
     @Input()
-    public items: Record<string, unknown>[] = [];
+    public set items(value: Record<string, unknown>[]) {
+        this.list = value;
+        this.initValue();
+    }
 
     constructor(@Optional() @Self() public ngControl: NgControl) {
         if (ngControl != null) {
@@ -89,6 +93,7 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
 
     public writeValue(obj: string): void {
         this.val = obj;
+        this.initValue();
     }
 
     public onChange = (fn: string) => {};
@@ -99,6 +104,22 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
         this.disabled = isDisabled;
     }
 
+    private initValue(): void {
+        let foundedItem;
+        if (this.val && this.val.hasOwnProperty('id') && this.list) {
+            foundedItem = this.list.find((item) => item.id === this.val.id);
+            setTimeout(() => {
+                this.value = foundedItem ? foundedItem : this.val;
+            });
+            return;
+        }
+        if (!this.val && this.list) {
+            setTimeout(() => {
+                this.value = this.list[0];
+            }, 100);
+        }
+    }
+
     private setValue(value: object): void {
         if (value) {
             this.value = this.valueField ? value[this.valueField] : value;
@@ -107,11 +128,10 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     }
 
     private setDefaultValue(): void {
-        if (!this.val && this.initByDefault) {
+        if (!this.val && this.initByDefault && this.list) {
             setTimeout(() => {
-                this.setValue(this.items[0]);
+                this.setValue(this.list[0]);
             });
         }
     }
-
 }

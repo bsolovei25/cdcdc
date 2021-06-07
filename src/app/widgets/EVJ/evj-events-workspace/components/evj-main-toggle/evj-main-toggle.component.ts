@@ -165,9 +165,11 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
 
     public isLimitationAvailable(): boolean {
         const categoryId = this.ewService.event?.category?.id;
-        const subCategoryId = this.ewService.event?.productionTasks?.subCategory?.id;
+        const subCategoryId = this.ewService.event?.subCategory?.id;
         const eventId = this.ewService.event?.id;
-        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010 || !eventId);
+        const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsResrictions');
+        const restriction = claim?.claimCategory === 'allow';
+        return !(categoryId === 1006 || categoryId === 1007 || subCategoryId === 1010 || !eventId || !restriction);
     }
 
     public emitAction(event: Event): void {
@@ -179,4 +181,3 @@ export class EvjMainToggleComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 }
-

@@ -47,6 +47,7 @@
 
     &__close {
       padding: 0 19px;
+      cursor: pointer;
     }
   }
 }
@@ -66,4 +67,34 @@
   width: 100%;
   background: url("../../../../assets/icons/widgets/SOU/sou-workspace/default.png") no-repeat #171A24;
   background-size: contain;
+}
+
+.workspace-operation {
+  width: 100%;
+  background-color: var(--bg-widget-additional);
+}
+
+.header {
+  background-color: var(--bg-header-color);
+  padding: 5px 12px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+  height: 40px;
+
+  .close {
+    cursor: pointer;
+  }
+
+  &__title-block {
+    display: flex;
+  }
+
+  &__icon {
+    padding-right: 13px;
+  }
+
+  &__title {
+    color: var(--gray-G1-color);
+  }
 }

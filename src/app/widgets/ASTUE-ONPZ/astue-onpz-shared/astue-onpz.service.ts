@@ -125,7 +125,7 @@ export class AstueOnpzService {
         this.sharedPlanningGraph$.next(graph);
     }
 
-    public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
+    public updateIndicatorFilter(keys: string[], action: 'add' | 'delete'): void {
         let isChange: boolean = false;
         const filterArray =
             this.indicatorOptions$
@@ -134,17 +134,21 @@ export class AstueOnpzService {
                 ?.filter((f) => f !== '') ?? [];
         switch (action) {
             case 'add':
-                if (!filterArray.includes(key)) {
-                    filterArray.push(key);
-                    isChange = true;
-                }
+                keys.forEach(key => {
+                    if (!filterArray.includes(key)) {
+                        filterArray.push(key);
+                        isChange = true;
+                    }
+                })
                 break;
             case 'delete':
-                const idx = filterArray.findIndex((f) => f === key);
-                if (idx !== -1) {
-                    filterArray.splice(idx, 1);
-                    isChange = true;
-                }
+                keys.forEach(key => {
+                    const idx = filterArray.findIndex((f) => f === key);
+                    if (idx !== -1) {
+                        filterArray.splice(idx, 1);
+                        isChange = true;
+                    }
+                })
                 break;
         }
         if (!isChange) {

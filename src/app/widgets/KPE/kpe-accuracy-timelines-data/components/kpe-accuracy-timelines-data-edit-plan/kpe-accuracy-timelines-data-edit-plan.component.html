@@ -1,17 +1,17 @@
 <div class="container">
   <div class="header">
     <img alt="" src="assets/pic/pen.svg" />
-    <div class="title">Корректировка плана на Январь 2020</div>
+    <div class="title">Корректировка плана на <span class="title__date"> {{ data.date }} </span></div>
   </div>
-  <div class="content">
-    <textarea class="comment-input" type="text" placeholder="Введедите данные..."></textarea>
+  <form class="content" [formGroup]="correctionForm" (ngSubmit)="submitForm()">
+    <textarea class="comment-input" type="text" placeholder="Введите данные..." formControlName="correctionText"></textarea>
     <div class="date">
       <div class="plan-date">
         <div class="title">Дата корректировки:</div>
         <div class="picker">
           <mat-form-field>
             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-            <input matInput [matDatepicker]="picker" [formControl]="dateControl" />
+            <input matInput [matDatepicker]="picker" formControlName="correctionDate" />
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
@@ -19,12 +19,13 @@
     </div>
     <mat-dialog-actions>
       <div class="btns">
-        <div class="save" matRipple matRippleColor="white" mat-dialog-close>
+        <button class="save" matRipple matRippleColor="white">
           <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/save.svg"></svg-icon>
           Сохранить
-        </div>
-        <div class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</div>
+        </button>
+        <button class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</button>
       </div>
     </mat-dialog-actions>
-  </div>
+  </form>
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>

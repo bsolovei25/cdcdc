@@ -71,9 +71,19 @@
                                         <div class="element__option">
                                             <ng-container [ngSwitch]="element.templateSystemOption.type">
                                                 <div class="checkbox" *ngSwitchCase="'checkBox'">
-                                                    <mat-checkbox
-                                                        *ngIf="element.templateSystemOption.systemOptionType !=='customOptions'"
-                                                        [(ngModel)]="element.value"></mat-checkbox>
+                                                    <mat-form-field appearance="fill"
+                                                        *ngIf="element.templateSystemOption.systemOptionType !=='customOptions'">
+                                                        <mat-select [(ngModel)]="element.value">
+                                                            <mat-option [value]="'true'">Да</mat-option>
+                                                            <mat-option [value]="'false'">Нет</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="custom"
+                                                        *ngIf="element.templateSystemOption.systemOptionType ==='customOptions'"
+                                                        (click)="openOption(element.templateSystemOption)">
+                                                        <span>{{element.value}}</span>
+                                                    </div>
+
                                                 </div>
                                                 <input class="textbox" *ngSwitchCase="'textBox'" type="text"
                                                     [(ngModel)]="element.value">
@@ -81,6 +91,7 @@
                                                     (click)="openOption(element.templateSystemOption)">
                                                     <span>{{element.value}}</span>
                                                 </div>
+
                                             </ng-container>
                                         </div>
                                     </div>

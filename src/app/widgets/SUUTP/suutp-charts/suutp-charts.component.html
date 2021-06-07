@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="container-header">
+    <evj-suutp-header
+      [widgetTitle]="widgetTitle"
+      [uniqId]="uniqId"
+      [mainTitleWidth]="leftSideWidth(leftSide)"
+      [additionalTitle]="additionalTitle"></evj-suutp-header>
+  </div>
+
+    <div class="container-body" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="charts">
+        <div #leftSide class="left-side">
+          <evj-gauge-chart [data]="data?.gaugeChart"></evj-gauge-chart>
+          <p *ngIf="isMain" class="mainTitle">Эффективность работы</p>
+          <p *ngIf="!isMain" class="secondaryTitle">Перейти к установкам</p>
+        </div>
+
+        <div class="right-side">
+          <ng-container *ngIf="isMain">
+            <evj-bar-chart [data]="data?.dynamicsChart"></evj-bar-chart>
+          </ng-container>
+
+          <ng-container *ngIf="!isMain">
+            <evj-line-chart [data]="data?.dynamicsChart"></evj-line-chart>
+          </ng-container>
+        </div>
+      </div>
+</div>
+</div>

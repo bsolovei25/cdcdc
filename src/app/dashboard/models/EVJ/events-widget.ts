@@ -83,6 +83,7 @@ export interface IEventsWidgetNotification {
     description: string; // Описание
     comments?: IMessage[]; // Комментарий оператора
     category: ICategory;
+    subCategory?: ISubcategory;
     statusName?: string;
     positionNumber?: string;
     severity?: string;

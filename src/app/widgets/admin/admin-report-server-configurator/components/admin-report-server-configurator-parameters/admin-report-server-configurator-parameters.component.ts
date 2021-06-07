@@ -1,17 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { IPostSystemOptionsTemplate, IReportFile, IReportTemplate, ISystemOptions, ISystemOptionsTemplate } from '../../models/admin-report-server-configurator.model';
+import { ICustomOptions, IPostSystemOptionsTemplate, IReportFile, IReportTemplate, ISystemOptions, ISystemOptionsTemplate } from '../../models/admin-report-server-configurator.model';
 import { AdminReportServerConfiguratorRootService } from '../../services/admin-report-server-configurator-root.service';
 import { AdminReportConfiguratorService } from '../../services/admin-report-server-configurator.service';
+import { AdminRscPathEditComponent } from './admin-rsc-path-edit/admin-rsc-path-edit.component';
 import { AdminReportServerConfiguratorParametersSelectComponent } from './admin-report-server-configurator-parameters-select/admin-report-server-configurator-parameters-select.component';
 import { AdminRscAutogenerationComponent } from './admin-rsc-autogeneration/admin-rsc-autogeneration.component';
 import { AdminRscMacrosEditComponent } from './admin-rsc-macros-edit/admin-rsc-macros-edit.component';
 import { AdminRscParameterAutogenerationComponent } from './admin-rsc-parameter-autogeneration/admin-rsc-parameter-autogeneration.component';
 import { AdminRscPeriodEditComponent } from './admin-rsc-period-edit/admin-rsc-period-edit.component';
 import { AdminRscReportSheetComponent } from './admin-rsc-report-sheet/admin-rsc-report-sheet.component';
+import { AdminRscCustomOptionsComponent } from './admin-rsc-custom-options/admin-rsc-custom-options.component';
 
 @Component({
   selector: 'evj-admin-report-server-configurator-parameters',
@@ -27,6 +27,7 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   public options: ISystemOptions[] = [];
   public reportFileTemplate: IReportFile[] = [];
   public currentRepFileTemplate: IReportFile = null;
+  public userOptions: ICustomOptions[] = [];
   public form: FormGroup = null;
   public file: any;
 
@@ -39,6 +40,7 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   ngOnInit(): void {
     this.systemOptions();
     this.getReportFileTemplate();
+    this.getCustomOptions();
 
     this.form = new FormGroup({
       reportFileTemplate: new FormControl(null)
@@ -74,6 +76,11 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
   public async getReportFileTemplate(): Promise<void> {
     const data = await this.arscRootService.getReportFileTemplate();
     this.reportFileTemplate = data;
+  }
+
+  public async getCustomOptions(): Promise<void> {
+    const data = await this.arscRootService.getUserOptions();
+    this.userOptions = data;
   }
 
   public compareFn(a, b): boolean {
@@ -113,6 +120,20 @@ export class AdminReportServerConfiguratorParametersComponent implements OnInit 
       }
       case 'parameterValuesAutogeneration': {
         const dialofRef = this.dialog.open(AdminRscParameterAutogenerationComponent, { data: this.data});
+        dialofRef.afterClosed().subscribe(result => {
+          this.data = result
+        })
+        break;
+      }
+      case 'pathEdit': {
+        const dialofRef = this.dialog.open(AdminRscPathEditComponent, { data: this.data});
+        dialofRef.afterClosed().subscribe(result => {
+          this.data = result
+        })
+        break;
+      }
+      case 'customOptions': {
+        const dialofRef = this.dialog.open(AdminRscCustomOptionsComponent, { data: {data: this.data, userOptions: this.userOptions}});
         dialofRef.afterClosed().subscribe(result => {
           this.data = result
         })

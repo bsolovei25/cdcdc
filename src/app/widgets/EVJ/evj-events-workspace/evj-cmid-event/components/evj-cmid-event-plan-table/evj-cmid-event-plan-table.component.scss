@@ -11,6 +11,10 @@
   margin-bottom: 12px;
 
   &__header {
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
     width: inherit;
     height: 40px;
     background: var(--color-header-bg-calendar);
@@ -34,38 +38,6 @@
     padding: 16px 16px 0 16px;
     overflow-y: scroll;
     box-sizing: border-box;
-
-    .active {
-      color: var(--color-text-main) !important;
-    }
-
-    .highlight {
-      background: var(--color-kpe-deviation-danger) !important;
-    }
-
-    .row {
-      width: 100%;
-      height: 32px;
-      background: var(--color-new-header-bg);
-      margin-bottom: 4px;
-      display: flex;
-      color: var(--color-marker-diagram);
-
-      &__column {
-        height: 100%;
-        line-height: 32px;
-        padding: 0 8px;
-      }
-
-      .name {
-        width: 166px;
-        border-right: 1px solid var(--evj-color-bg-main);
-      }
-
-      .description {
-        width: calc(100% - 166px);
-      }
-    }
   }
 
   .checkbox {
@@ -113,5 +85,18 @@
         color: var(--color-header-text-sub);
       }
     }
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.loader-container {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  .flex-justify-center {
+    justify-content: center;
   }
 }

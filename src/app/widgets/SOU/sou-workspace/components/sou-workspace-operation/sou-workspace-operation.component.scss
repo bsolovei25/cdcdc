@@ -1,0 +1,185 @@
+.operation-section {
+  width: 100%;
+  padding-top: 126px;
+
+  &__button {
+    height: 24px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 105px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 2px;
+
+    color: var(--gray-G1-color);
+    background-color: var(--index-plan-color);
+    padding: 0 13px;
+
+    &__icon {
+      margin-right: 9px;
+    }
+  }
+}
+
+.operation {
+  display: flex;
+  justify-content: center;
+
+  &__svg {
+    position: relative;
+
+    &__source {
+      width: 280px;
+      height: 280px;
+      background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-1.svg");
+    }
+
+    &__receiver {
+      width: 262px;
+      height: 262px;
+      margin-top: 9px;
+      margin-right: 9px;
+      background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-2.svg");
+    }
+
+    &__button {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+    }
+  }
+
+  &__source {
+    padding-top: 9px;
+
+    &__weight {
+      margin-left: 55px;
+    }
+
+    &__start-operation {
+      margin-left: 55px;
+    }
+
+    &__img-block {
+      background-color: var(--opacity-plan-20-color);
+    }
+  }
+
+  &__center-block {
+    width: 46px;
+    height: 38px;
+    border: 1px solid var(--gray-G7-color);
+    border-radius: 50% 50%;
+    font-size: 12px;
+    line-height: 14.5px;
+    margin-top: 114px;
+    padding-top: 8px;
+    text-align: center;
+
+    &__title {
+      color: var(--index-error-color);
+    }
+
+    &__text {
+      color: var(--text-subscript-color);
+    }
+  }
+
+  &__receiver {
+    padding-top: 9px;
+
+    &__weight {
+      margin-left: 59px;
+    }
+
+    &__end-operation {
+      margin-left: 59px;
+    }
+
+    &__img-block {
+      background-color: var(--opacity-green-20-color);
+    }
+  }
+
+  &__block {
+    width: 185px;
+    display: flex;
+    position: relative;
+    border: 1px solid var(--gray-G7-color);
+    border-radius: 2px;
+    background-color: var(--gray-G10-color);
+  }
+
+  &__img-block {
+    width: 34px;
+    text-align: center;
+    padding-top: 8px;
+    border-right: 1px solid var(--gray-G7-color);
+  }
+
+  &__info-block {
+    padding-left: 8px;
+  }
+
+  &__edit-block {
+    position: absolute;
+    right: 8px;
+    line-height: 34px;
+  }
+
+  &__title {
+    font-size: 11px;
+    line-height: 8px;
+    padding-top: 4px;
+    padding-bottom: 2px;
+    color: var(--text-subscript-color);
+  }
+
+  &__text {
+    color: var(--text-contrast-color);
+    padding-bottom: 2px;
+  }
+
+  .line {
+
+    &__vertical-dotted {
+      height: 93px;
+      margin-left: 148px;
+      border-left: 1px dashed var(--gray-G7-color);
+    }
+
+    &__horizontal {
+      display: flex;
+
+      &__small {
+        margin-top: 2px;
+        border-top: 1px solid var(--gray-G7-color);
+        width: 145px;
+      }
+
+      &__big {
+        margin-top: 2px;
+        border-top: 1px solid var(--gray-G7-color);
+        width: 146px;
+      }
+
+      &__arrow {
+        width: 6px;
+        height: 6px;
+        margin-top: -7.3px;
+      }
+    }
+
+    &__dot {
+      width: 4px;
+      height: 4px;
+      border: 1px solid var(--gray-G7-color);
+      border-radius: 50% 50%;
+    }
+  }
+}
+

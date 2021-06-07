@@ -7,6 +7,7 @@
     padding: 11px 24px;
     font-size: 13px;
     line-height: 1.2;
+    cursor: pointer;
 
     &::before {
       position: absolute;
@@ -19,8 +20,12 @@
       visibility: hidden;
     }
 
-    &_active::before {
-      visibility: visible;
+    &_active {
+      color: var(--text-accent-color);
+
+      &::before {
+        visibility: visible;
+      }
     }
   }
 

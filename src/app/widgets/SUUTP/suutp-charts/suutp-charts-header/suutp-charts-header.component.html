@@ -1,0 +1,34 @@
+<div class="aps-header">
+  <div class="aps-header__interface">
+    <div class="titleGroup"*ngIf="widgetTitle" [style]="mainTitleWidth">
+      <img alt="" class="icon" src="assets/pic/sliders.svg" />
+      <div class="title">{{widgetTitle}}</div>
+    </div>
+
+    <div class="additionalTitle">
+      {{ additionalTitle }}
+    </div>
+
+    <div
+        class="buttons"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+    >
+      <div class="button button_menu" (click)="toggleMenu()">
+        <img src="assets/pic/menu.svg" />
+      </div>
+    </div>
+  </div>
+  <div
+    class="aps-header__menu menu"
+    [ngClass]="{'menu_open':isMenuOpen}"
+    (mouseleave)="closeMenu()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="menu__item" (click)="onRemoveButton()" *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)">
+      <svg-icon src="assets/pic/delete.svg"></svg-icon>
+      <span>Удалить с экрана</span>
+    </div>
+  </div>
+</div>

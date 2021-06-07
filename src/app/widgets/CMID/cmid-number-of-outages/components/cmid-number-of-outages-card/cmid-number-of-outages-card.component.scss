@@ -51,11 +51,31 @@
     display: flex;
     align-items: center;
     color: var(--text-contrast-color);
+  }
 
-    &::ng-deep {
-      svg {
-        margin-right: 8px;
-      }
+  &__icon {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    color: var(--index-default-color);
+    fill-opacity: 0;
+
+    &_unauthorized,
+    &_expired,
+    &_active{
+      fill-opacity: 0.2;
+    }
+
+    &_unauthorized {
+      color: var(--index-critical-color);
+    }
+
+    &_expired {
+      color: var(--index-error-color);
+    }
+
+    &_active {
+      color: var(--index-active-color);
     }
   }
 
@@ -67,11 +87,11 @@
     }
 
     &_unauthorized {
-      color: var(--color-user-events-priority-danger);
+      color: var(--index-critical-color);
     }
 
     &_expired {
-      color: var(--color-user-events-priority-warning);
+      color: var(--index-error-color);
     }
 
     &_total {

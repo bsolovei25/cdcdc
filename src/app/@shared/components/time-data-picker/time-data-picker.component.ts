@@ -39,6 +39,8 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Input() data: any;
     @Input() emptyDateAvailable: boolean = false;
     @Input() public disabled: boolean = false;
+    @Input() showSeconds: boolean = false;
+
     @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
 
     public inputDate: any;
@@ -47,7 +49,6 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     @ViewChild('picker') picker: any;
 
     public showSpinners: boolean = true;
-    public showSeconds: boolean = false;
     public touchUi: boolean = false;
     public enableMeridian: boolean = false;
     public stepHour: number = 1;
