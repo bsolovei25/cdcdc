@@ -4,83 +4,70 @@ import {
     Inject,
     ViewChild,
     ElementRef,
-    AfterViewChecked, ChangeDetectorRef
-} from "@angular/core";
-import { WidgetService } from "@dashboard/services/widget.service";
-import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
+    AfterViewChecked, ChangeDetectorRef, ViewContainerRef, TemplateRef, AfterViewInit, OnDestroy
+} from '@angular/core';
+import { WidgetService } from '@dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
+import { TABLE_CELLS } from '@widgets/SOU/sou-streams/mock';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { TITLES_OF_TABLE } from "@widgets/SOU/sou-streams/config";
-import { TABLE_CELLS } from "@widgets/SOU/sou-streams/mock";
-import { BehaviorSubject, combineLatest, Observable } from "rxjs";
-import { ISouReservoir, ISouManufacture, ISouOptions, ISouUnit } from "@dashboard/models/SOU/sou-streams.model";
-import { FormControl, FormGroup } from "@angular/forms";
-import { map } from "rxjs/operators";
-
-interface ISouSelectionOptionsForm {
-    manufacture: string;
-    unit: string;
-    reservoir: string;
-}
-
-interface ISouSelectionOptions {
-    manufactures$: Observable<ISouManufacture[]>;
-    units$: Observable<ISouUnit[]>;
-    reservoirs$: Observable<ISouReservoir[]>;
-}
 
 @Component({
-  selector: 'evj-sou-streams',
-  templateUrl: './sou-streams.component.html',
-  styleUrls: ['./sou-streams.component.scss']
-})
-export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked  {
-
-    optionsGroup: FormGroup = new FormGroup({
-        manufacture: new FormControl(null),
-        unit: new FormControl(null),
-        reservoir: new FormControl(null)
-    });
-    options$: BehaviorSubject<ISouOptions> = new BehaviorSubject<ISouOptions>({ manufactures: [] } as ISouOptions);
-    selectionOptions: ISouSelectionOptions = {
-        manufactures$: this.options$.pipe(
-            map((x) => {
-                return x.manufactures;
-            })
-        ),
-        units$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
-            map(([options, group]) =>
-                options
-                    ?.manufactures
-                    ?.find((x) => x.name === group?.manufacture)
-                    ?.units
-                ?? []
-            )
-        ),
-        reservoirs$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
-            map(
-                ([options, group]) =>
-                    options
-                        ?.manufactures
-                        ?.find((x) => x.name === group?.manufacture)
-                        ?.units
-                        ?.find((x) => x.id === group?.unit)
-                        ?.reservoirs
-                    ?? []
-            )
+    selector: 'evj-sou-streams',
+    templateUrl: './sou-streams.component.html',
+    styleUrls: ['./sou-streams.component.scss'],
+    animations: [
+        trigger(
+            'inOutAnimation',
+            [
+                transition(
+                    ':enter',
+                    [
+                        style({ height: 0, opacity: 0, transform: 'translateY(-593px)' }),
+                        animate('1s ease-out',
+                            style({ height: 593, opacity: 1, transform: 'translateY(0px)' }))
+                    ]
+                ),
+                transition(
+                    ':leave',
+                    [
+                        style({ height: 300, opacity: 1 }),
+                        animate('1s ease-in',
+                            style({ height: 0, opacity: 0 }))
+                    ]
+                )
+            ]
         )
-    };
-    chosenSetting$: Observable<number>;
+    ]
+})
+export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
-    public titlesOfTable: { name: string, widthOfBlock: string }[] = TITLES_OF_TABLE;
+    public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
     public tableRows: {} = TABLE_CELLS;
+
+    public isReservoirTrendOpen: boolean = false;
 
     public heightOfTable: string = '400px';
     public heightOfViewPort: string = '335px';
+    public widthOfTable: string = '1943.2px';
+    public widthOfGraphic: number = 70;
+    @ViewChild('widget') child: ElementRef;
+
+    @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
+    private overlayRef: OverlayRef;
+    private portal: TemplatePortal;
+
+    public showWorkspace: boolean = false;
+    public show: boolean = true;
 
     constructor(
         private cdr: ChangeDetectorRef,
         protected widgetService: WidgetService,
-
+        private overlay: Overlay,
+        private viewContainerRef: ViewContainerRef,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -91,12 +78,69 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         super.widgetInit();
     }
 
-    @ViewChild('widget') child: ElementRef;
+    ngAfterViewInit(): void {
+        this.portal = new TemplatePortal(this.dialogTemplate, this.viewContainerRef);
+        this.overlayRef = this.overlay.create({
+            positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+            hasBackdrop: true
+        });
+        this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+    }
+
+    overlayDetach(): void {
+        this.overlayRef.detach();
+    }
+
+    ngOnDestroy(): void {
+        this.overlayRef.dispose();
+    }
+
+
     ngAfterViewChecked(): void {
         this.heightOfTable = this.child.nativeElement.clientHeight - 40 + 'px';
         this.heightOfViewPort = this.child.nativeElement.clientHeight - 115 + 'px';
+
+        if (this.child.nativeElement.clientWidth >= 1943.2) {
+            const graphic = this.child.nativeElement.clientWidth - 1943.2;
+            this.widthOfTable = this.child.nativeElement.clientWidth + 'px';
+            this.widthOfGraphic = 70 + graphic;
+        } else {
+            this.widthOfTable = '1943.2px';
+        }
         this.cdr.detectChanges();
     }
 
-  protected dataHandler(ref: unknown): void {}
+    get stateName(): string {
+        return this.show ? 'show' : 'hide';
+    }
+
+    protected dataHandler(ref: unknown): void {
+    }
+
+    toggle(): void {
+        this.show = !this.show;
+    }
+
+    public addNewOperation(): void {
+        this.showWorkspace = true;
+        this.toggle();
+        const height: number = this.showWorkspace ? 593 : 0;
+        this.heightOfTable = this.child.nativeElement.clientHeight - 40 - height + 'px';
+        this.heightOfViewPort = this.child.nativeElement.clientHeight - 115 - height + 'px';
+        this.cdr.detectChanges();
+    }
+    public openReservoirTrend(): void {
+        this.isReservoirTrendOpen = true;
+        console.log(window);
+    }
+
+    public closeSmartTrend(): void {
+        this.isReservoirTrendOpen = false;
+        this.overlayDetach();
+    }
+
+    openDialog(): void {
+        this.overlayRef?.attach(this.portal);
+    }
+
 }
