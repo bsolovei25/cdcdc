@@ -20,7 +20,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
             { name: 'Тек. знач. по парамет.', unit: 'value' },
             { name: 'Задание от MV', unit: 'mvValue' },
             { name: 'Прогноз. значение CV', unit: 'cv' },
-            { name: 'Нижний предел Верхний предел', unit: 'downValue' },
+            { name: 'Нижний предел', unit: 'downValue' },
+            { name: 'Верхний предел', unit: 'upValue' },
         ],
         rows: [
             {
@@ -34,7 +35,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
             {
@@ -45,7 +47,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
             {
@@ -56,7 +59,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
             {
@@ -67,7 +71,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
             {
@@ -81,7 +86,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
             {
@@ -95,7 +101,8 @@ export class SuutpComplexesTableComponent extends WidgetPlatform<unknown> implem
                     { value: 'Тек. знач. по парамет.' },
                     { value: 'Задание от MV' },
                     { value: 'Прогноз. значение CV' },
-                    { value: 'Нижний предел Верхний предел' },
+                    { value: 'Нижний предел' },
+                    { value: 'Верхний предел' },
                 ],
             },
         ],

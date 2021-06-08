@@ -9,7 +9,8 @@ import {
     IAsEfScript,
     IAsEfTableRow,
     IAsPlanningTable,
-    IAsEfTableComponent, IAsEfTableBlockComponent
+    IAsEfTableComponent,
+    IAsEfTableBlockComponent,
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
@@ -19,7 +20,7 @@ import { AppConfigService } from '@core/service/app-config.service';
 @Component({
     selector: 'evj-astue-efficiency-table-display',
     templateUrl: './astue-efficiency-table-display.component.html',
-    styleUrls: ['./astue-efficiency-table-display.component.scss']
+    styleUrls: ['./astue-efficiency-table-display.component.scss'],
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
@@ -70,17 +71,16 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                 this.defineDates();
                 this.defineSum();
             }),
-            this.widgetService.currentDates$.subscribe(value => {
-                    if (value) {
-                        const delta = value.toDateTime.getTime() - value.fromDateTime.getTime();
-                        const day = 24 * 60 * 60 * 1000; // день в миллисекундах
-                        this.isCurrentDate = delta <= day;
-                    } else {
-                        this.isCurrentDate = true;
-                    }
+            this.widgetService.currentDates$.subscribe((value) => {
+                if (value) {
+                    const delta = value.toDateTime.getTime() - value.fromDateTime.getTime();
+                    const day = 24 * 60 * 60 * 1000; // день в миллисекундах
+                    this.isCurrentDate = delta <= day;
+                } else {
+                    this.isCurrentDate = true;
                 }
-            ),
-            this.AsEfService.data.subscribe(value => {
+            }),
+            this.AsEfService.data.subscribe((value) => {
                 if (value) {
                     this.dataMapping();
                 }
@@ -95,6 +95,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             this.deviationsData = [];
             this.deviationsDataComponent = [];
             this.planningTable.forEach((plan) => {
+                console.log(plan);
                 if (plan.title === 'Показатели') {
                     plan.data.forEach((row) => {
                         const newRows = [];
@@ -104,18 +105,18 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                                 values.push({
                                     date: col.date,
                                     value: col.value,
-                                    isEditable: col.editable
+                                    isEditable: col.editable,
                                 });
                             });
                             newRows.push({
                                 name: rows.name,
-                                values
+                                values,
                             });
                         });
                         this.displayData.push({
                             unitName: row.title,
                             name: row.name,
-                            rows: newRows
+                            rows: newRows,
                         });
                     });
                 } else {
@@ -127,22 +128,23 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                                 data.push({
                                     date: col.date,
                                     value: col.value,
-                                    isEditable: col.editable
+                                    isEditable: col.editable,
                                 });
                             });
                             children.push({
                                 name: rows.name,
-                                data
+                                data,
                             });
                         });
                         this.deviationsData.push({
                             unitName: row.title,
                             name: row.name,
-                            children
+                            children,
                         });
                     });
                 }
             });
+            console.log(this.deviationsData);
             this.mappingNewData();
             this.defineDatesPlanning();
         }
@@ -160,7 +162,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             } else {
                 this.displayDataComponent.push({
                     unitName: value.unitName,
-                    data: [value]
+                    data: [value],
                 });
             }
         });
@@ -171,7 +173,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             } else {
                 this.deviationsDataComponent.push({
                     unitName: value.unitName,
-                    data: [value]
+                    data: [value],
                 });
             }
         });
@@ -181,7 +183,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
         this.displayData = [];
         this.displayDataComponent = [];
         const units = this.AsEfService.selectionUnit$.getValue();
-        units?.forEach(value => {
+        units?.forEach((value) => {
             if (value) {
                 this.displayData.push(value);
             }

@@ -1,0 +1,119 @@
+<div class="section">
+  <div class="header">
+    <div class="header__title-block">
+      <svg-icon
+        class="header__icon"
+        src="assets/icons/widgets/SOU/sou-streams/arrows_horizontal.svg"
+        [ngStyle]="{ 'height.px':16 }"
+      ></svg-icon>
+      <div class="header__title">Потоки</div>
+    </div>
+    <div class="header__button-block">
+      <div class="toggle">
+        <div class="toggle__block">
+          <input id="toggle1" type="radio" name="radio" value="1"checked>
+          <label for="toggle1" class="toggle1">Все операции</label>
+        </div>
+        <div class="toggle__block">
+          <input id="toggle2" type="radio" name="radio" value="2">
+          <label for="toggle2" class="toggle2">Только открытые операции</label>
+        </div>
+      </div>
+
+      <div class="option-select">
+        <div class="dropdown">
+          <mat-select placeholder="Все статусы" class="dropdown__select">
+            <mat-option>Не выбрано</mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <svg-icon
+        class="header__button-icon"
+        src="assets/icons/widgets/SOU/sou-streams/menu_kebab.svg"
+        [ngStyle]="{ 'height.px':16 }"
+      ></svg-icon>
+    </div>
+  </div>
+
+  <div class="table">
+    <thead class="table__header">
+      <tr>
+        <td>
+          <div class="table__header__cell">
+            <span class="table__header__cell__text">Тип источника</span>
+            <div class="filter-funnel">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="table__header__cell">
+            <span class="table__header__cell__text">Источник</span>
+            <div class="filter-funnel">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="table__header__cell">
+            <span class="table__header__cell__text">Поток</span>
+            <div class="filter-funnel">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
+            </div>
+          </div>
+        </td>
+        <td class="last-cell">
+          <div class="table__header__cell">
+            <span class="table__header__cell__text">Продукт в источнике</span>
+            <div class="filter-funnel">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
+                [ngStyle]="{ 'height.px':16 }"
+              ></svg-icon>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </thead>
+    <cdk-virtual-scroll-viewport
+      itemSize="20"
+      class="table-viewport">
+        <tbody>
+          <tr *cdkVirtualFor="let row of tableContent; let i = index"
+              class="table__row"
+              [ngStyle]="{ 'backgroundColor': (i%2 === 1)?'var(--bg-dark-table-row)':'' }">
+            <td class="first-cell">
+              <span> {{ row['type'] }} </span>
+            </td>
+            <td>
+              <div class="cell-img">
+                <span> {{ row['source'] }} </span>
+                <div class="img">
+                  <svg-icon
+                    src="assets/icons/widgets/SOU/sou-streams/clock.svg"
+                    [ngStyle]="{ 'height.px':24 }"
+                  ></svg-icon>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span> {{ row['thread'] }} </span>
+            </td>
+            <td class="last-cell">
+              <span> {{ row['productInThread'] }} </span>
+            </td>
+          </tr>
+        </tbody>
+      </cdk-virtual-scroll-viewport>
+  </div>
+</div>

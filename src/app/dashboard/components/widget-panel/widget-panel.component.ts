@@ -102,8 +102,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
 
     dragStartHandler(event: DragEvent, item: string): void {
         event.dataTransfer.setData('text/plain', item);
-        event.dataTransfer.dropEffect = 'copy';
-        this.toggleClick.emit('widgets'); // close panel on start drag
+        setTimeout(() => this.toggleClick.emit('widgets'), 0);
     }
 
     public dataById(item: IWidget): string {

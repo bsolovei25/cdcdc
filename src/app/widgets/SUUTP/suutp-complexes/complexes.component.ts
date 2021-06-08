@@ -178,7 +178,7 @@ export class ComplexesComponent extends WidgetPlatform<unknown> implements OnIni
                     },
                     {
                         title: 'ЛЧ-35/11-1000',
-                        isWarning: false,
+                        isWarning: true,
                         col: 4,
                         indicator: {
                             count: 5,
@@ -372,7 +372,7 @@ export class ComplexesComponent extends WidgetPlatform<unknown> implements OnIni
                         col: 6,
                         indicator: {
                             count: 3,
-                            errorLimit: 5,
+                            errorLimit: 3,
                             greyColor: true
                         }
                     },
