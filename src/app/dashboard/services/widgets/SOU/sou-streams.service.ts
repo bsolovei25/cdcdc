@@ -31,10 +31,10 @@ export class SouStreamsService {
         this.restUrl = this.configService.restUrl;
     }
 
-    public async getTableContent(startTime: string, endTime: string): Promise<any> {
+    public async getTableContent(startTime: string, endTime: string): Promise<ISouStreamsTableContent[]> {
         const params = new HttpParams()
             .set('startTime', startTime)
             .set('endTime', endTime);
-        return await this.http.get<any>(this.restUrl + `/api/file-storage/info`, {params}).toPromise();
+        return await this.http.get<ISouStreamsTableContent[]>(this.restUrl + `/api/file-storage/info`, {params}).toPromise();
     }
 }
