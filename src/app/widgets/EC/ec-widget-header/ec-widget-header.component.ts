@@ -103,7 +103,10 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                 isActive: equipment.id === item.id
             }));
             this.data$.next(data);
-            this.ecWidgetService.headerWidgetEquipmentId$.next(equipment.id);
+            this.ecWidgetService.headerWidgetEquipmentId$.next({
+                id: equipment.id,
+                fileName: equipment.fileName,
+            });
         }
     }
 

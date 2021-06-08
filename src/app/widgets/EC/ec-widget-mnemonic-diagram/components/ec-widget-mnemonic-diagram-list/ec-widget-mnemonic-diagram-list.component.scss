@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+.content {
+  width: 230px;
+  height: 100%;
+
+  border: 1px solid var(--border-vidget-color);
+
+  .search-container {
+    padding: 16px 16.5px 8px;
+    border-bottom: 1px solid var(--border-vidget-color);
+
+    .search {
+      height: 32px;
+      width: 100%;
+      padding: 0 10px;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      background: var(--bg-dashboard-color);
+      border: 1px solid var(--border-vidget-color);
+      border-radius: 2px;
+
+      overflow: hidden;
+
+      form {
+        height: 100%;
+        flex: 1;
+      }
+
+      input {
+        height: 100%;
+        width: 100%;
+
+        background: transparent;
+        border: none;
+        outline: none;
+
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--text-accent-color);
+
+        &::placeholder {
+          color: var(--text-subscript-color);
+        }
+      }
+    }
+  }
+
+  .equipments {
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px 16.5px;
+
+    .item-equipments {
+      display: flex;
+
+      width: 100%;
+      margin-bottom: 8px;
+
+      border-radius: 2px;
+      box-shadow: 0 0 8px var(--color-aw-container-shadow-transparent);
+
+      cursor: pointer;
+      overflow: hidden;
+
+      &__icon-container {
+        padding: 8px;
+        margin-right: 1px;
+
+        background-color: var(--bg-header-color);
+      }
+
+      &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 16px;
+        width: 16px;
+      }
+
+      &__title {
+        width: 100%;
+        padding: 8px;
+
+        font-size: 13px;
+        font-weight: normal;
+        line-height: 16px;
+
+        color: var(--text-main-color);
+        background-color: var(--bg-header-color);
+      }
+
+      &_active {
+        border: 1px solid var(--border-blue-color);
+        box-shadow: 0 0 9px var(--opacity-plan-50-color);
+
+        .item-equipments__icon {
+          color: var(--border-blue-color);
+        }
+
+        .item-equipments__title {
+          color: var(--text-alwaysWhite-color);
+        }
+      }
+    }
+  }
+}
