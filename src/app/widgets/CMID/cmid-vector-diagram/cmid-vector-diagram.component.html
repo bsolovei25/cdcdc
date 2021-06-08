@@ -1,0 +1,19 @@
+<div class="container"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseExit()">
+  <evj-widget-header-smp *ngIf="isHover" [uniqId]="widgetUniqId">
+  </evj-widget-header-smp>
+  <div class="container__charts"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
+  >
+    <ng-container *ngFor="let item of data">
+      <evj-cmid-vector-diagram-chart class="container__chart"
+                                 [data]="item"
+                                 [radarOptions]="radarOptions"
+                                 (checkedChart)="onCheck($event)"
+      >
+      </evj-cmid-vector-diagram-chart>
+    </ng-container>
+  </div>
+</div>
