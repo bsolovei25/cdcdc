@@ -1836,7 +1836,7 @@ export const WIDGETS_LAZY = {
         itemCols: 21,
         itemRows: 12,
         minItemCols: 18,
-        minItemRows: 5,
+        minItemRows: 8,
         preview: 'default',
     },
     'cmid-number-of-outages': {
