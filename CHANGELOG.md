@@ -1,3 +1,10 @@
+## [1.36.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.36.0...v1.36.1) (2021-06-08)
+
+
+### Bug Fixes
+
+* **ci:** rebuild with new docker image ([fc1c528](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/fc1c528eb347d32ea476a70871fdca7c44cb1333))
+
 # [1.36.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.35.0...v1.36.0) (2021-06-08)
 
 
