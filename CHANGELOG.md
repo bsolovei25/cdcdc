@@ -1,3 +1,34 @@
+# [1.36.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.35.0...v1.36.0) (2021-06-08)
+
+
+### Bug Fixes
+
+* **ci:** ci scritps ([aab28d0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/aab28d06c03c0ddca124b2ff1880644d19bdeb34))
+* **dockerfile:** updated to v2 ([e14bc59](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e14bc59c2abb7eb7cc9d28a9bc3a1ac03f60e756))
+* **front#2120:** Исправлено отображение countFlowExceedingConfInterval для секций ([4edb1ee](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4edb1eeaa96c8859c2e0c9979701cf79dca27922)), closes [front#2120](https://gitlab.funcoff.club/front/issues/2120)
+* **Notifications:** Убран фильтр Не квитировано. Фильтр Все переименован в К исполнению. front[#2072](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2072) ([0ddf033](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0ddf033b19a0d98ec5c759e22daa034924ce4e61))
+* **os:** convert port to int ([526a0cc](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/526a0cc767116f0b952ebe0eb452d8591df528fe))
+* **SUUTP:** Подгрузка нужного модуля вместо ошибочного. front[#1883](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1883) ([6834063](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6834063b919700d321ad96cffe2df04aa8b67eac))
+* **Платформа:** Последний виджет из списка не вытягивался на экран. front[#1948](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1948) ([dac1d00](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/dac1d003309b734dcdc643b59dda0238782f7757))
+* **ЦМИД:** Поправил отображение виджета. front[#1943](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1943) ([f59f21f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/f59f21fe4ab8c194eaad83be4183ffccb8648c79))
+* **ЦМИД:** Рефакторинг. front[#1784](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1784)- ([d8fd37e](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d8fd37e321c82970e9049fef7359d423e21e9aac))
+
+
+### Features
+
+* **ci:** getting platform version ([18238ea](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/18238eae50d4f7fcfab52bd113165572d6226bbe))
+* **ci:** init ([d17c637](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d17c63739e426121ebb8df55f78f684beff662e3))
+* **ci:** init ([42408e6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/42408e6aa21fadbff43d3a3d129a5621ee8e38ea))
+* **ci:** unit tests ([9db11d4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9db11d405a77f34e1e332da314d1ecb2486638f0))
+* **ci:** unit tests ([e2a656b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e2a656bc8eda149bd586a32876e4fa6891ca33c9))
+* **ci:** unittest ([57b6b44](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/57b6b44fa5a258ca1e674b2b0f67272b323a95b3))
+* **ci:** unittest ([b1de7c7](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b1de7c7017c01c8054211e531ea6ea2b1e61408f))
+* **ci:** updating to new chart ([87231f6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/87231f6cfa75b4eee5fd49bdb522ebab155adebc))
+* **front#1987:** Добавлена мнемосхема kpa-c100-fuel ([500bfa0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/500bfa08a25163c3f91a5fb8e4eeae95e65ca291)), closes [front#1987](https://gitlab.funcoff.club/front/issues/1987)
+* **SOU:** fix background. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([d177240](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d177240480f992f7b131cca08bbae4aabbe26b8a))
+* **SOU:** fix displaying the chart and add opening trend table. [#1989](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1989) ([cc44b3d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cc44b3d07905e700c36c89756b0ff4b90baacd1e))
+* **ЦМИД:** "Реализация виджета Векторная диаграмма" ([9f47040](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9f4704033d1ed3bef5a38500a20018d375965d88))
+
 # [1.35.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.34.0...v1.35.0) (2021-06-04)
 
 
