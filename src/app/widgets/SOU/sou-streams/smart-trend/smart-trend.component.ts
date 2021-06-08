@@ -8,13 +8,18 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from
 })
 export class SmartTrendComponent implements OnInit {
 
+    public isTrendTableOpen: boolean = false;
+
     // tslint:disable-next-line:typedef
     @Output() public closeSmartTrend = new EventEmitter();
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
+
+    public openTrendTable(): void {
+        this.isTrendTableOpen = true;
+    }
 
     public sendClosingSmartTrend(): void {
         this.closeSmartTrend.emit();

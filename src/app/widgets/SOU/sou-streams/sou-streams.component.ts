@@ -131,7 +131,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     }
     public openReservoirTrend(): void {
         this.isReservoirTrendOpen = true;
-        console.log(window);
     }
 
     public closeSmartTrend(): void {

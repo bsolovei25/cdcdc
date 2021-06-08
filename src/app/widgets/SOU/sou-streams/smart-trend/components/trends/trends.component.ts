@@ -24,7 +24,7 @@ import { dateFormatLocale } from "@shared/functions/universal-time-fromat.functi
   styleUrls: ['./trends.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrendsComponent implements OnChanges {
+export class TrendsComponent implements OnChanges, OnInit {
 
     public selectedPeriod: IDatesInterval =
         { fromDateTime: new Date(2020, 2, 4, 15),
@@ -94,6 +94,14 @@ export class TrendsComponent implements OnChanges {
             this.dropChart();
         }
         this.scrollData.emit(this.data?.find((x) => x.graphType === 'fact')?.graph ?? []);
+    }
+
+    ngOnInit(): void {
+        if (!!this.data.length) {
+            this.startDrawChart();
+        } else {
+            this.dropChart();
+        }
     }
 
     public changeScale(isPlus: boolean): void {

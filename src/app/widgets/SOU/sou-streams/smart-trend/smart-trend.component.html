@@ -37,7 +37,7 @@
         <span class="chart-section__info__legends__text">Наименование легенды</span>
       </div>
 
-      <div class="chart-section__info__button">
+      <div class="chart-section__info__button" (click)="openTrendTable()">
         <svg-icon
           class="chart-section__info__button__icon"
           src="assets/icons/widgets/SOU/sou-streams/plus_add_circle.svg"
@@ -50,7 +50,9 @@
     <evj-trends></evj-trends>
   </div>
 
-  <div class="table-section" (mousedown)="$event.stopPropagation()"
+  <div class="table-section"
+       *ngIf="isTrendTableOpen"
+       (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()">
     <evj-trend-table></evj-trend-table>
   </div>
