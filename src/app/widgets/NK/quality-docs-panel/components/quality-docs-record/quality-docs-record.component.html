@@ -9,7 +9,7 @@
           [svgStyle]="{ 'width.px':30, 'height.px':40, 'margin-top.px': 5 }"
         ></svg-icon>
       </div>
-      <div class="pasport__name">{{ data.id || '-' }}</div>
+      <div class="pasport__name">{{ data.name || '-' }}</div>
     </div>
     <div class="middle">{{ data.date | date:"dd.MM.yyyy | HH:mm" }}</div>
     <div class="middle">{{ data.product?.sapCode }}</div>
