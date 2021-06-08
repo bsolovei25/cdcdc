@@ -1,0 +1,13 @@
+<div class="wrapper" [ngClass]="statusStyles">
+  <mat-form-field appearance="fill">
+    <mat-select (selectionChange)="selectChange()"
+                [(ngModel)]="selectedValue">
+      <mat-option *ngFor="let option of statusList"
+                  [value]="option.status">
+        <div class="status">
+          {{ option.value }}
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="comment.message; else noMessage"
+     class="comment__value-wrapper"
+     equipment-state-tooltip
+     [comment]="comment">
+  <div class="comment__value">
+    {{ comment.message }}
+  </div>
+</div>
+
+<ng-template #noMessage>
+  <div class="comment__value">
+    ...
+  </div>
+</ng-template>

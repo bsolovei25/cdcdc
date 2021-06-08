@@ -1,0 +1,29 @@
+<div style="width: 100%">
+  <div class="tooltip" @evj-equipment-state-tooltip>
+    <div class="tooltip__avatar-wrapper">
+      <img class="tooltip__avatar"
+           src="{{ comment.avatar }}">
+    </div>
+    <div class="tooltip__flex-wrapper">
+      <div class="tooltip__header">
+        <div class="tooltip__name">
+          {{ comment.name }}
+        </div>
+        <div class="tooltip__position">
+          {{ comment.position }}
+        </div>
+        <div class="tooltip__date">
+          {{ comment.date | date: 'dd.MM.yyyy HH:mm' }}
+        </div>
+      </div>
+      <div class="tooltip__message">
+        {{ comment.message }}
+      </div>
+    </div>
+  </div>
+  <div class="tooltip-arrow">
+    <svg-icon class="tooltip-arrow__icon"
+              src="assets/icons/widgets/EVJ/equipment-state/comment-tip.svg">
+    </svg-icon>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 155px;
+  width: min-content;
+  height: 24px;
+  background-color: var(--gray-G9-color);
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    padding-left: 4px;
+  }
+
+  &__value {
+    padding-right: 8px;
+    color: var(--text-contrast-color);
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

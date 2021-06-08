@@ -1,0 +1,43 @@
+<div class="row"
+     [ngClass]="{ row_selected: row.isHighlighted, row_edit: row.isEdit }"
+     (click)="rowSelect()">
+  <div class="row__checkbox">
+    <mat-checkbox color="primary"
+                  (click)="$event.stopPropagation()"
+                  (change)="checkboxSelect()"
+                  [(ngModel)]="row.isSelected">
+    </mat-checkbox>
+  </div>
+  <div class="row__name">
+    <evj-equipment-state-name [value]="row.name"
+                              [state]="row.state">
+    </evj-equipment-state-name>
+  </div>
+  <div class="row__position">
+    {{ row.position }}
+  </div>
+  <div class="row__status"
+       (click)="$event.stopPropagation()">
+    <evj-equipment-state-dropdown [status]="row.status">
+    </evj-equipment-state-dropdown>
+  </div>
+  <div class="row__start-dates">
+    <evj-equipment-state-datetime-picker [dateValue]="row.dateStart"
+                                         [isDisabled]="false">
+    </evj-equipment-state-datetime-picker>
+  </div>
+  <div class="row__end-dates">
+    <evj-equipment-state-datetime-picker [dateValue]="row.dateEnd"
+                                         [isDisabled]="false">
+    </evj-equipment-state-datetime-picker>
+  </div>
+  <evj-equipment-state-comment [ngClass]="{ edit: isEditMode }"
+                               class="row__comment"
+                               [comment]="row.comment"
+                               (click)="$event.stopPropagation()">
+  </evj-equipment-state-comment>
+  <svg-icon *ngIf="isEditMode"
+            class="row__edit-icon"
+            src="assets/icons/widgets/EVJ/equipment-state/edit-pencil.svg">
+  </svg-icon>
+</div>

@@ -1,0 +1,21 @@
+<div class="name">
+  <ng-container [ngSwitch]="state">
+    <svg-icon *ngSwitchCase="'on'"
+              class="name__icon"
+              src="assets/icons/widgets/EVJ/equipment-state/state-on.svg">
+    </svg-icon>
+
+    <svg-icon *ngSwitchCase="'off'"
+              class="name__icon"
+              src="assets/icons/widgets/EVJ/equipment-state/state-off.svg">
+    </svg-icon>
+
+    <svg-icon *ngSwitchCase="'undetermined'"
+              class="name__icon"
+              src="assets/icons/widgets/EVJ/equipment-state/state-undetermined.svg">
+    </svg-icon>
+  </ng-container>
+  <div class="name__value">
+    {{ value }}
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="header-wrapper"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
+  <div class="state">
+    <div class="state__label">
+      Состояние:
+    </div>
+    <evj-equipment-state-header-dropdown class="state__filter"
+                                         [options]="stateFilter"
+                                         [isSetDefaultValue]="true"
+                                         (onSelect)="stateFilterChangeEmit($event)">
+    </evj-equipment-state-header-dropdown>
+  </div>
+  <div class="status">
+    <div class="status__label">
+      Статус:
+    </div>
+    <evj-equipment-state-header-dropdown class="status__filter"
+                                         [options]="statusFilter"
+                                         [isSetDefaultValue]="true"
+                                         (onSelect)="statusFilterChangeEmit($event)">
+    </evj-equipment-state-header-dropdown>
+  </div>
+  <div class="search">
+    <svg-icon class="search__icon"
+              src="assets/icons/widgets/EVJ/equipment-state/search.svg">
+    </svg-icon>
+    <input class="search__field" type="text" placeholder="Поиск...">
+  </div>
+</div>

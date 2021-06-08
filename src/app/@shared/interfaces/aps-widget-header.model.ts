@@ -30,4 +30,5 @@ export type ApsHeaderIconType =
     | 'setting'
     | 'people'
     | 'calculator'
-    | 'pump';
+    | 'pump'
+    | 'view-list';

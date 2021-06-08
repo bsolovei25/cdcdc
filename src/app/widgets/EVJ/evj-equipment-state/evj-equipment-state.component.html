@@ -1,0 +1,95 @@
+<evj-equipment-state-production-header (plantChangeEmit)="getTableData($event)"
+                                       (equipmentTypeChangeEmit)="equipmentTypeFilterChange($event)">
+</evj-equipment-state-production-header>
+
+<evj-contemporary-widget-header icon="view-list"
+                                [widgetTitle]="widgetTitle"
+                                [uniqId]="widgetUniqId">
+  <evj-equipment-state-header (stateFilterChange)="stateFilterChange($event)"
+                              (statusFilterChange)="statusFilterChange($event)">
+  </evj-equipment-state-header>
+</evj-contemporary-widget-header>
+<div class="container"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
+  <div class="header">
+    <div class="header__checkbox">
+      <mat-checkbox color="primary"
+                    (click)="changeSelectAllState()"
+                    [(ngModel)]="isAllSelect">
+      </mat-checkbox>
+    </div>
+    <div class="header__name">
+      Наименование
+    </div>
+    <div class="header__position">
+      Позиция
+    </div>
+    <div class="header__status">
+      Статус
+    </div>
+    <div class="header__start-dates">
+      Дата и время начала статуса
+    </div>
+    <div class="header__end-dates">
+      Прогнозная дата завершения
+    </div>
+    <div class="header__comment">
+      Комментарий
+    </div>
+  </div>
+  <div class="table">
+    <div *ngFor="let row of tableData">
+      <evj-equipment-state-row [row]="row"
+                               (onSelect)="calculateSelectCount()"
+                               (onRowSelect)="highlghtRow($event)">
+      </evj-equipment-state-row>
+    </div>
+  </div>
+  <div *ngIf="!isEditMode; else editMode" class="control-panel">
+    <div class="control-panel__element control-panel__element_blue">
+      <svg-icon class="control-panel__icon control-panel__icon_tablet"
+                src="assets/icons/widgets/EVJ/equipment-state/tablet.svg">
+      </svg-icon>
+      <span (click)="formDisposition()">
+        Cформировать распоряжение ({{ selectedCount }})
+      </span>
+    </div>
+    <div class="control-panel__element control-panel__element_gray">
+      <svg-icon class="control-panel__icon control-panel__icon_erase"
+                src="assets/icons/widgets/EVJ/equipment-state/erase.svg">
+      </svg-icon>
+      <span (click)="deselectAllState()">
+        Очистить
+      </span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tableData.length === 0"
+     class="not-found-message"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
+  Оборудование не найдено.
+</div>
+
+<ng-template #editMode>
+  <div class="control-panel">
+    <div class="control-panel__element control-panel__element_blue">
+      <svg-icon class="control-panel__icon control-panel__icon_tablet"
+                src="assets/icons/widgets/EVJ/equipment-state/tablet.svg">
+      </svg-icon>
+      <span (click)="saveEquipment()">
+        Сохранить изменения (0)
+      </span>
+    </div>
+    <div class="control-panel__element control-panel__element_gray">
+      <svg-icon class="control-panel__icon control-panel__icon_erase"
+                src="assets/icons/widgets/EVJ/equipment-state/erase.svg">
+      </svg-icon>
+      <span (click)="undoChanges()">
+        Отменить изменения
+      </span>
+    </div>
+  </div>
+</ng-template>

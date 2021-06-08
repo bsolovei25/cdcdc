@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 56px;
+  background: linear-gradient(180deg, var(--bg-body-color) 71.43%, var(--color-platform-bg-main) 28.57%);
+  box-sizing: border-box;
+}
+
+:host::ng-deep {
+  .mat-form-field-label-wrapper {
+    top: -4px;
+    left: 9px;
+  }
+}
+
+.production {
+  width: 100%;
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--bg-header-color);
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &__inner {
+    display: flex;
+    gap: 8px;
+    width: min-content;
+    height: min-content;
+  }
+
+  &__filter {
+    width: 200px;
+    height: 24px;
+    font-size: 13px;
+
+    &_w232 {
+      width: 232px;
+    }
+  }
+
+  &__arrow {
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    color: var(--gray-G8-color);
+  }
+}
