@@ -32,9 +32,15 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-
+.table-wrapper {
+  overflow: scroll;
+  height: calc(100% - 42px);
+}
 .table-container {
-  overflow: overlay;
+  min-width: 1410px;
+  overflow-x: auto;
+  box-sizing: border-box;
+
   table {
     width: 100%;
     tr {
@@ -52,7 +58,7 @@
 
       font-size: 13px;
       line-height: 16px;
-      text-align: center;
+      text-align: left;
 
     }
 

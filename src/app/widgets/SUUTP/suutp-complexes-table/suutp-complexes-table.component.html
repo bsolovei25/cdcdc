@@ -1,33 +1,37 @@
 <evj-suutp-header title="УИЛД блок гидроочистки"></evj-suutp-header>
-<ng-container *ngIf="(tables$ | async) as table">
-  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
-  </evj-widget-header-smp>
-  <div  class="table-container">
-    <div class="table-content_wrapper">
-      <div class="shadow"></div>
-      <table mat-table [dataSource]="table.rows" class="mat-elevation-z8 table-item">
+<div class="table-wrapper">
+  <ng-container *ngIf="(tables$ | async) as table">
+    <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+    </evj-widget-header-smp>
+    <div  class="table-container">
+      <div class="table-content_wrapper">
+        <div class="shadow"></div>
+        <table mat-table [dataSource]="table.rows" class="mat-elevation-z8 table-item">
 
-        <ng-container [matColumnDef]="column" *ngFor="let column of table.displayedColumns; let i = index">
+          <ng-container [matColumnDef]="column" *ngFor="let column of table.displayedColumns; let i = index">
 
-          <th mat-header-cell *matHeaderCellDef>
-            {{table.headers[+column].name}}
-          </th>
+            <th mat-header-cell *matHeaderCellDef>
+              {{table.headers[+column].name}}
+            </th>
 
-          <td mat-cell class="item-row"  *matCellDef="let element">
-            {{ element.cells[+column]?.value }}
-          </td>
+            <td mat-cell class="item-row"  *matCellDef="let element">
+              {{ element.cells[+column]?.value }}
+            </td>
 
-        </ng-container>
+          </ng-container>
 
-        <ng-container matColumnDef="groupName">
-          <td colspan="999" mat-cell *matCellDef="let groupBy" class="group-row">{{ groupBy.groupName }}</td>
-        </ng-container>
+          <ng-container matColumnDef="groupName">
+            <td colspan="999" mat-cell *matCellDef="let groupBy" class="group-row">{{ groupBy.groupName }}</td>
+          </ng-container>
 
-        <tr mat-header-row class="group-header-row" *matHeaderRowDef="table.displayedColumns;sticky: true"></tr>
-        <tr mat-row class="items-row"  *matRowDef="let row; columns: table.displayedColumns;"></tr>
-        <tr mat-row class="group-header-row" *matRowDef="let row; columns: ['groupName']; when: isGroup"></tr>
+          <tr mat-header-row class="group-header-row" *matHeaderRowDef="table.displayedColumns;sticky: true"></tr>
+          <tr mat-row class="items-row"  *matRowDef="let row; columns: table.displayedColumns;"></tr>
+          <tr mat-row class="group-header-row" *matRowDef="let row; columns: ['groupName']; when: isGroup"></tr>
 
-      </table>
+        </table>
+      </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
+
+</div>
+
