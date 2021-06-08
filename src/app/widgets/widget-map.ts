@@ -1916,6 +1916,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'default',
     },
+    'cmid-vector-diagram': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-vector-diagram/cmid-vector-diagram.module');
+        },
+        module: 'CmidVectorDiagrammModule',
+        itemCols: 25,
+        itemRows: 30,
+        minItemCols: 25,
+        minItemRows: 10,
+        preview: 'default',
+    },
     //#endregion CMID
 
     //#region others
