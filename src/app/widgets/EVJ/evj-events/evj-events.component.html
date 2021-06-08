@@ -67,7 +67,7 @@
         <div class="filters">
           <div
             class="filter filters__item"
-            *ngFor="let f of filters"
+            *ngFor="let f of visibleFilters"
             (click)="onFilterClick(f)"
             [class.filter_active]="f?.isActive"
           >
