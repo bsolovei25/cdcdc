@@ -94,7 +94,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         //     )
         // )
     };
-    public currentUnit$: BehaviorSubject<{sections: ISouSection[]}> = new BehaviorSubject<{sections: ISouSection[]}>(null);
+    public currentUnit$: BehaviorSubject<{name: string, sections: ISouSection[]}> = new BehaviorSubject<{name: string, sections: ISouSection[]}>(null);
     chosenSetting$: Observable<number>;
 
     // Определяет вид отображения
@@ -257,10 +257,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string; section: string; } {
-        const unit = this.options$.value.manufactures
-            ?.flatMap((x) => x.units)
-            ?.find((x) => x.id === form.unit);
-        const section = unit?.section
+        const unit = this.currentUnit$?.value;
+        const section = unit?.sections
             ?.find((x) => x.id === form.section);
 
         return {
