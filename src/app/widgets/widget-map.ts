@@ -1922,9 +1922,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-vector-diagram/cmid-vector-diagram.module');
         },
         module: 'CmidVectorDiagrammModule',
-        itemCols: 25,
+        itemCols: 16,
         itemRows: 30,
-        minItemCols: 25,
+        minItemCols: 16,
         minItemRows: 10,
         preview: 'default',
     },
