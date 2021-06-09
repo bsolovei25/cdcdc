@@ -59,7 +59,7 @@ export class EcWidgetMnemonicDiagramComponent extends WidgetPlatform implements 
                 .subscribe((equipmentPayload: IEquipmentPayload | null) => {
                     this.virtualChannel?.dispose();
                     this.virtualChannelSubscription?.unsubscribe();
-                    this.data$.next(null);
+                    this.data$.next([]);
 
                     if (equipmentPayload) {
                         this.virtualChannel = new VirtualChannel<IMnemonicDiagramResponse>(this.widgetService, {

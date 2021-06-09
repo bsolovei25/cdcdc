@@ -29,7 +29,7 @@
 
     <div class="equipments">
       <div
-        *ngFor="let equipment of (data$ | async)?.equipments"
+        *ngFor="let equipment of getEquipments"
         class="equipment"
         [class.equipment_active]="equipment.isActive"
         (click)="onClickEquipment(equipment)"

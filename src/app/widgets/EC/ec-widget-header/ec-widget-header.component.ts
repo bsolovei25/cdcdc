@@ -78,8 +78,7 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
             const icon = icons.find(item => item.name === equipment.name);
 
             return {
-                id: equipment.id,
-                name: equipment.name,
+                ...equipment,
                 isActive: activeEquipment?.name === equipment.name,
                 fileName: icon.fileName
             };
@@ -92,6 +91,12 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
         return this.data$.getValue()?.units.filter(
             (item) => item.parentId === this.headerMenuForm.get('manufacture').value
         );
+    }
+
+    public get getEquipments(): IMenuReferenceModel[] {
+        return this.data$.getValue()?.equipments.filter(
+            item => item.parentId === this.headerMenuForm.get('unit').value
+        )
     }
 
     public onClickEquipment(equipment: IMenuReferenceModel): void {
@@ -107,6 +112,7 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                 id: equipment.id,
                 fileName: equipment.fileName,
             });
+            this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(null);
         }
     }
 
@@ -141,7 +147,9 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                     distinctUntilChanged()
                 )
                 .subscribe(unit => {
-                    this.ecWidgetService.headerWidgetUnitId$.next(unit);
+                    this.deactivateEquipments();
+                    this.ecWidgetService.headerWidgetEquipmentId$.next(null);
+                    this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(null);
                 }),
 
             this.data$
@@ -151,5 +159,15 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                 )
                 .subscribe(this.setFormValues.bind(this)),
         );
+    }
+
+    private deactivateEquipments(): void {
+        const data = this.data$.getValue();
+
+        data.equipments = data.equipments.map(item => ({
+            ...item,
+            isActive: false
+        }));
+        this.data$.next(data);
     }
 }
