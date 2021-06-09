@@ -11,8 +11,8 @@ import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
-import { TABLE_CELLS } from '@widgets/SOU/sou-streams/mock';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.service';
 
 
 @Component({
@@ -46,7 +46,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
     public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
-    public tableRows: {} = TABLE_CELLS;
+    public tableRows: {};
 
     public isReservoirTrendOpen: boolean = false;
 
@@ -65,7 +65,8 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     constructor(
         private cdr: ChangeDetectorRef,
-        protected widgetService: WidgetService,
+        public widgetService: WidgetService,
+        public souStreamsService: SouStreamsService,
         private overlay: Overlay,
         private viewContainerRef: ViewContainerRef,
         @Inject('widgetId') public id: string,
@@ -76,6 +77,19 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     ngOnInit(): void {
         super.widgetInit();
+        this.souStreamsService.getTableContent('45', '67').then((res) => {
+            this.tableRows = res;
+        });
+    }
+
+    processDate(inputData: string): string {
+        return `${inputData.slice(8, 10)}.${inputData.slice(5, 7)}.${inputData.slice(0, 4)},
+        ${inputData.slice(11, 16)}`;
+    }
+
+    processWarningColor(inputColor: string): string {
+        return (inputColor === 'blue') ? 'var(--color-table-line-blue)' :
+            (inputColor === 'yellow') ? 'var(--color-sou-orange)' : 'var(--bg-body-color)';
     }
 
     ngAfterViewInit(): void {

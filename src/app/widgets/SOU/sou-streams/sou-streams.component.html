@@ -19,8 +19,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Производство" class="dropdown__select">
+              <mat-select placeholder="Производство" class="dropdown__select" formControlName="manufacture">
                 <mat-option>Не выбрано</mat-option>
+<!--                <mat-option *ngFor="let manufacture of selectionOptions.manufactures$ | async" [value]="manufacture.name">-->
+<!--                  {{manufacture.name}}-->
+<!--                </mat-option>-->
               </mat-select>
             </div>
           </div>
@@ -34,8 +37,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Товарный парк" class="dropdown__select">
-                <mat-option> Не выбрано</mat-option>
+              <mat-select placeholder="Товарный парк" class="dropdown__select" formControlName="unit">
+                <mat-option>Не выбрано</mat-option>
+<!--                <mat-option *ngFor="let unit of selectionOptions.units$ | async" [value]="unit.id">-->
+<!--                  {{ unit.name }}-->
+<!--                </mat-option>-->
               </mat-select>
             </div>
           </div>
@@ -49,8 +55,11 @@
           <div class="option-select">
             <div class="dropdown">
               <div class="dropdown__marker"></div>
-              <mat-select placeholder="Резервуары" class="dropdown__select">
+              <mat-select placeholder="Резервуары" class="dropdown__select" formControlName="reservoir">
                 <mat-option>Не выбрано</mat-option>
+<!--                <mat-option *ngFor="let reservoir of selectionOptions.reservoirs$ | async" [value]="reservoir.id">-->
+<!--                  {{ reservoir.name }}-->
+<!--                </mat-option>-->
               </mat-select>
             </div>
           </div>
@@ -193,69 +202,177 @@
         <tr *cdkVirtualFor="let row of tableRows; let i = index"
             class="table__row"
             [ngStyle]="{ 'backgroundColor': (i % 2 === 1) ? 'var(--color-sou-bg-light)':'' }">
-          <td *ngFor="let cell of row">
 
-            <div *ngIf="cell?.hasOwnProperty('colorOfAdditionalBlock')"
-                 class="table__row__cell-with-line"
-            >
+          <td>
+            <div class="table__row__cell-with-line">
               <div class="cell-line"
-                   [ngStyle]="{ 'backgroundColor': cell['colorOfAdditionalBlock'] }">
+                   [ngStyle]="{ 'backgroundColor': processWarningColor(row['warningColor'])}">
               </div>
-              <div class="cell-line-text"
-                   [ngStyle]="{ 'color': cell['color'] }">
-                {{ cell['number'] }}
+              <div class="cell-line-text">
+                {{ 1234 }}
               </div>
             </div>
+          </td>
 
-            <div *ngIf="cell?.hasOwnProperty('name')"
-                 class="table__row__cell-with-name"
-            >
+          <td>
+            <div class="table__row__cell-with-name">
               <div class="cell-date">
-                {{ cell['date'] }}
+                {{ processDate(row['startTime']) }}
               </div>
               <div class="cell-name">
-                {{ cell['name'] }}
+                 Иванов И.И.
               </div>
             </div>
+          </td>
 
-            <div *ngIf="cell?.hasOwnProperty('img')"
-                 class="table__row__cell-with-img"
-            >
-              <div *ngIf="cell?.hasOwnProperty('textImg')"
-                   class="cell-img-text">
-                {{ cell['textImg'] }}
-              </div>
+          <td>
+            <div class="table__row__cell-with-img"
+                 *ngIf="((row['endTime'] === '') || (row['deltaMass'] === '')) else notEmptyEndTime">
               <svg-icon
-                src="{{cell['img']}}"
+                src="assets/icons/widgets/SOU/sou-streams/line.svg"
                 class="cell-img"
                 [ngStyle]="{ 'height.px':16 }"
               ></svg-icon>
             </div>
-
-            <div *ngIf="cell?.hasOwnProperty('sum')"
-                 class="table__row__cell-sum"
-            >
-              <div class="cell-sum"
-                   [ngStyle]="{
-                      'color':cell['color'],
-                      'width': cell.hasOwnProperty('width')?cell['width']: '140px'
-                      }">
-                {{ cell['sum'] }}
+            <ng-template #notEmptyEndTime>
+              <div class="table__row__cell-with-img"
+                   *ngIf="(row['deltaMass'] !== 0) else defaultEndTime">
+                <svg-icon
+                  src="assets/icons/widgets/SOU/sou-streams/alert_alarm.svg"
+                  class="cell-img"
+                  [ngStyle]="{ 'height.px':16 }"
+                ></svg-icon>
               </div>
-            </div>
+              <ng-template #defaultEndTime>
+                <div class="table__row__cell-with-name"
+                *ngIf="row['endTime']">
+                  <div class="cell-date">
+                    {{ processDate(row['endTime']) }}
+                  </div>
+                  <div class="cell-name">
+                    Иванов И.И.
+                  </div>
+                </div>
+              </ng-template>
+            </ng-template>
+          </td>
 
-            <div *ngIf="cell?.hasOwnProperty('text')"
-                 class="table__row__cell-default"
-            >
+          <td>
+            <div class="table__row__cell-default">
               <div class="cell-text"
                    [ngStyle]="{
-                     'color': cell?.hasOwnProperty('color')?cell['color']: '',
-                     'width': cell?.hasOwnProperty('width')?cell['width']: '121px'
-                     }">
-                {{ cell['text'] }}
+                   'color': 'var(--color-sou-button-txt)',
+                   'width': '121px'
+                   }">
+                {{ row['sourceType'] }}
               </div>
             </div>
           </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{'width': '121px'}">
+                {{ row['sourceName'] }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{'width': '121px'}">
+                {{ row['sourceClient'] }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{'width': '180px'}">
+                {{ row['sourceProduct'] }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{
+                   'color': 'var(--color-sou-button-txt)',
+                   'width': '121px'
+                   }">
+                {{ row['destinationType'] }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{'width': '121px'}">
+                {{ row['destinationName'] }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="table__row__cell-default">
+              <div class="cell-text"
+                   [ngStyle]="{'width': '180px'}">
+                {{ row['destinationProduct'] }}
+              </div>
+            </div>
+          </td>
+
+          <td *ngIf="row['sourceMass'] !== '' else emptySum">
+            <div class="table__row__cell-sum">
+              <div class="cell-sum"
+                   [ngStyle]="{
+                      'color': 'var(--color-sou-button-txt)',
+                      'width':  '140px'
+                      }">
+                {{ row['sourceMass'] }}
+              </div>
+            </div>
+          </td>
+
+          <td *ngIf="row['destinationMass'] !== '' else emptySum">
+            <div class="table__row__cell-sum">
+              <div class="cell-sum"
+                   [ngStyle]="{
+                      'color': 'var(--color-sou-button-txt)',
+                      'width':  '140px'
+                      }">
+                {{ row['destinationMass'] }}
+              </div>
+            </div>
+          </td>
+
+          <td *ngIf="row['deltaMass'] !== '' else emptySum">
+            <div class="table__row__cell-sum">
+              <div class="cell-sum"
+                   [ngStyle]="{
+                      'color': (row['deltaMass'] === 0)?'var(--color-sou-button-txt)':'var(--color-sou-orange)',
+                      'width':  '140px'
+                      }">
+                {{ row['deltaMass'] }}
+              </div>
+            </div>
+          </td>
+
+          <ng-template #emptySum>
+            <td>
+              <div class="table__row__cell-with-img">
+                <svg-icon
+                  src="assets/icons/widgets/SOU/sou-streams/line.svg"
+                  class="cell-img"
+                  [ngStyle]="{ 'height.px':16 }"
+                ></svg-icon>
+              </div>
+            </td>
+          </ng-template>
 
           <td class="graphic"
               (click)="openDialog()"

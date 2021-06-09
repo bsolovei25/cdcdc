@@ -151,7 +151,6 @@
 .table {
   border-right: 1px solid var(--color-sou-table-border);
   border-left: 1px solid var(--color-sou-table-border);
-  border-bottom: 1px solid var(--color-sou-table-border);
   border-collapse: collapse;
   min-width: 1943.2px;
   //width: 1943.2px;
@@ -244,7 +243,7 @@
   tbody {
     border-collapse: collapse;
 
-    tr:not(:last-child){
+    tr {
       border-bottom: 1px solid var(--color-sou-table-border);
     }
   }
@@ -262,13 +261,14 @@
       display: flex;
       width: 93.6px;
 
-    .cell-line {
+      .cell-line {
       height: 56px;
       width: 2.4px;
       margin: 2px 0 2px 2px;
-    }
+      }
 
       .cell-line-text {
+        color: var(--color-sou-button-txt);
         line-height: 60px;
         padding-left: 11.6px;
       }
