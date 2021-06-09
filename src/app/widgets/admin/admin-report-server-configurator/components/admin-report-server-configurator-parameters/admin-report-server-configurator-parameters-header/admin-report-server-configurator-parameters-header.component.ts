@@ -27,7 +27,6 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
     this.arscService.headerSettingsPicker.subscribe(value => {
       this.parameters = value;
       value === 0 ? this.disable = true : this.disable = false;
-      console.log(value);
     });
     this.systemOptions();
   }
@@ -35,7 +34,7 @@ export class AdminReportServerConfiguratorParametersHeaderComponent implements O
   ngOnDestroy(): void {
     this.arscService.headerSettingsPicker.unsubscribe();
   }
-  
+
   public openSelect(): void {
     const dialogRef = this.dialog.open(AdminReportServerConfiguratorParametersSelectComponent, {data: this.options});
 

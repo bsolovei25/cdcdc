@@ -147,3 +147,41 @@ export interface ICustomOptions {
     sortOrder: number;
     isActive?: boolean;
 }
+
+export interface IReportFolderCreateRequest {
+    name: string,
+    parentFolderId: number,
+}
+
+export interface IReportFileUploadResponse {
+    id: number,
+    fileName: string,
+    description: string,
+    fileId: string,
+    sizeInKb: number,
+    createdAt: string,
+    createdBy: number,
+}
+
+export interface IReportFoldersResponse {
+    folders: IReportFolder[],
+}
+
+export interface IReportFolder {
+    id: number,
+    name: string,
+    createdAt: string,
+    createdBy: number,
+    files: IReportSvgFile[],
+    folders: IReportFolder[],
+}
+
+export interface IReportSvgFile {
+    id: number,
+    createdAt: string,
+    createdBy: number,
+    description: string,
+    fileId: string,
+    fileName: string,
+    sizeInKb: number,
+}

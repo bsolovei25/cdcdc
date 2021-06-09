@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { KpeAccuracyTimelineDataService } from '@dashboard/services/widgets/KPE/kpe-accuracy-timeline-data.service';
 import { IKpeAccTimelinesDataEditPlan } from '@dashboard/models/KPE/kpe-accuracy-timelines-data.model';
 import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
+import { KpeHelperService } from '@widgets/KPE/shared/kpe-helper.service';
 
 @Component({
   selector: 'evj-kpe-accuracy-timelines-data-edit-plan',
@@ -13,17 +14,24 @@ import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 export class KpeAccuracyTimelinesDataEditPlanComponent implements OnInit {
     public correctionForm: FormGroup;
     public alert: IAlertWindowModel = null;
+    public modifiedHeaderDate: string;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { date: string },
         private fb: FormBuilder,
         private kpeAccuracyTimelineDataService: KpeAccuracyTimelineDataService,
+        private kpeHelperService: KpeHelperService,
         private dialogRef: MatDialogRef<KpeAccuracyTimelinesDataEditPlanComponent>
         ) {}
 
     public ngOnInit(): void {
+        this.initHeader();
         this.initForm();
         this.initAlertWindow();
+    }
+
+    private initHeader(): void {
+        this.modifiedHeaderDate = this.kpeHelperService.transformDateToMonthYear(this.data.date);
     }
 
     private initAlertWindow(): void {
@@ -56,7 +64,7 @@ export class KpeAccuracyTimelinesDataEditPlanComponent implements OnInit {
     private sendPlanCorrection(): void {
         const dataToSend: IKpeAccTimelinesDataEditPlan = {
             adjustmentComment: this.correctionForm.value.correctionText,
-            dateOfCreation: new Date().toISOString(),
+            dateOfCreation: this.data.date,
             dateOfCorrection: this.correctionForm.value.correctionDate.toISOString()
         };
 

@@ -47,6 +47,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
         PercentageInfluence: 0,
         Categories: ''
     };
+    public modifiedHeaderDate: string;
 
     constructor(
         protected widgetService: WidgetService,
@@ -66,7 +67,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
     protected dataHandler(ref: IKpeAccuracyTimelinesData): void {
         ref.headers.forEach(item => this.headers[item.name] = item.value);
         this.rows = this.filterByMonth(ref.rows);
-        this.headers.Date = this.kpeHelperService.transformDateToMonthYear(this.headers.Date);
+        this.modifiedHeaderDate = this.kpeHelperService.transformDateToMonthYear(this.headers.Date);
     }
 
     private filterByMonth(rows: IKpeAccuracyTimelinesRow[]): IKpeAccuracyTimelinesRow[] {

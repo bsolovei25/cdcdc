@@ -150,6 +150,7 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
         this.isWorkerSettingsShowed = false;
         this.isImportNewWorker = false;
         this.searchedWorker = '';
+        this.adminService.updateAllWorkers().then();
     }
 
     public onCloseLdapList(event: boolean): void {

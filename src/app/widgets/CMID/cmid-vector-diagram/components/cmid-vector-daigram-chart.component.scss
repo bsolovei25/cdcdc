@@ -10,6 +10,11 @@
   border: 1px solid var(--border-vidget-color);
   border-radius: 2px;
 
+  &_selected {
+    border-color: var(--border-blue-color);
+    box-shadow: 0 0 9px var(--opacity-plan-50-color);
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -54,12 +59,15 @@
   &__name {
     font-size: 13px;
     line-height: 16px;
-    color: var(--text-accent-color);
+    color: var(--text-contrast-color);
   }
 
   &__graph {
     height: 255px;
+    max-width: 428px;
     margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &__icon {

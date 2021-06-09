@@ -1867,7 +1867,7 @@ export const WIDGETS_LAZY = {
         module: 'CmidFilterModule',
         itemCols: 64,
         itemRows: 2,
-        minItemCols: 30,
+        minItemCols: 35,
         minItemRows: 2,
         preview: 'default',
     },
@@ -1922,9 +1922,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-vector-diagram/cmid-vector-diagram.module');
         },
         module: 'CmidVectorDiagrammModule',
-        itemCols: 25,
+        itemCols: 16,
         itemRows: 30,
-        minItemCols: 25,
+        minItemCols: 16,
         minItemRows: 10,
         preview: 'default',
     },
@@ -2009,7 +2009,7 @@ export const WIDGETS_LAZY = {
     //#region SUUTP
     'suutp-equipment-complexes': {
         import: async () => {
-            return await import('src/app/widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
+            return await import('@widgets/SUUTP/suutp-complexes/complexes.module.ts');
         },
         module: 'ComplexesModule',
         itemCols: 20,

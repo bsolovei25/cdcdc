@@ -1,16 +1,34 @@
 <div class="repository">
-    <div class="repository__header">
-        <evj-admin-report-server-configurator-repository-header
-        ></evj-admin-report-server-configurator-repository-header>
+  <div class="repository__header">
+    <evj-admin-report-server-configurator-repository-header
+      (folderAdded)="reloadFolders()"
+      (fileAdded)="reloadFolders()"
+    ></evj-admin-report-server-configurator-repository-header>
+  </div>
+
+  <div class="repository__address">
+    <evj-admin-report-server-configurator-repository-address
+      (onClickStorage)="onClickStorage()"
+    ></evj-admin-report-server-configurator-repository-address>
+  </div>
+
+  <div class="repository__body">
+    <div
+      *ngIf="(helperService.currentTab | async) === 0"
+      class="repository__body__menu"
+    >
+      <evj-admin-server-configurator-reference-menu
+        [data]="data"
+        [reports]="reports"
+      ></evj-admin-server-configurator-reference-menu>
     </div>
-    <div class="repository__address">
-        <evj-admin-report-server-configurator-repository-address
-        ></evj-admin-report-server-configurator-repository-address>
-    </div>
-    <div class="repository__body">
-        <div class="repository__body__menu">
-            <evj-admin-server-configurator-reference-menu
-            ></evj-admin-server-configurator-reference-menu>
-        </div>
-    </div>
+
+    <evj-admin-file-work
+      *ngIf="(helperService.currentTab | async) === 1"
+      [folders]="folders"
+      [files]="files"
+      (onClickFolder)="onClickOpenFolder($event)"
+      (folderOrFileChanges)="reloadFolders()"
+    ></evj-admin-file-work>
+  </div>
 </div>
