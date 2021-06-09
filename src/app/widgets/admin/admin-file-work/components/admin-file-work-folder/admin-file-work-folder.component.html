@@ -1,0 +1,57 @@
+<div class="item">
+  <div
+    class="item-row"
+    (click)="onClickOpenFolder()"
+  >
+    <div class="cell">
+      <svg-icon
+        class="type"
+        [src]="folderIcon"
+      ></svg-icon>
+
+      <span>{{ folder?.name }}</span>
+    </div>
+
+    <div class="cell">
+      <span>{{ folder?.createdAt }}</span>
+    </div>
+
+    <div class="cell">
+<!--      <span>{{ folder?.createdBy }}</span>-->
+    </div>
+
+    <div class="cell">
+<!--      <div class="date">1 МБ</div>-->
+    </div>
+  </div>
+
+  <div class="icons">
+<!--    <div class="icon">-->
+<!--      <svg-icon-->
+<!--        [src]="windowsIcon"-->
+<!--        (click)="onClickDuplicate()"-->
+<!--      ></svg-icon>-->
+<!--    </div>-->
+
+    <div class="icon">
+      <svg-icon
+        [src]="editIcon"
+        (click)="onClickEdit()"
+      ></svg-icon>
+    </div>
+
+    <div class="icon">
+      <svg-icon
+        [src]="trashIcon"
+        (click)="onClickDelete()"
+      ></svg-icon>
+    </div>
+
+<!--    <div class="icon">-->
+<!--      <svg-icon-->
+<!--        [src]="linkIcon"-->
+<!--        (click)="onClickLink()"-->
+<!--      ></svg-icon>-->
+<!--    </div>-->
+  </div>
+</div>
