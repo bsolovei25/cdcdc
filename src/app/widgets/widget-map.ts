@@ -1867,7 +1867,7 @@ export const WIDGETS_LAZY = {
         module: 'CmidFilterModule',
         itemCols: 64,
         itemRows: 2,
-        minItemCols: 30,
+        minItemCols: 35,
         minItemRows: 2,
         preview: 'default',
     },
