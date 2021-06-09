@@ -10,6 +10,7 @@ import {
     ICmidVectorDiagramModel,
     ICmidVectorDiagramRadarOptions
 } from '@widgets/CMID/cmid-vector-diagram/models/cmid-vector-diagram.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-cmid-vector-diagram',
@@ -20,6 +21,7 @@ import {
 export class CmidVectorDiagrammComponent extends WidgetPlatform<unknown> {
     public data: ICmidVectorDiagramModel[] = cmidVectorDiagramData;
     public radarOptions: ICmidVectorDiagramRadarOptions = radarOptions;
+    public checkedChartId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
     constructor(
         public cdRef: ChangeDetectorRef,
@@ -32,6 +34,7 @@ export class CmidVectorDiagrammComponent extends WidgetPlatform<unknown> {
     }
 
     public onCheck(id: number): void {
+        this.checkedChartId$.next(id);
         // ToDo: Отправляем на бэк ID выбранного блока
     }
 

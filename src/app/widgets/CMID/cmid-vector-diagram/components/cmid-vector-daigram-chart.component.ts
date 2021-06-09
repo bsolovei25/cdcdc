@@ -28,6 +28,7 @@ import { radarDataOptions } from '@widgets/CMID/cmid-vector-diagram/const/cmid-v
 export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
     @Input() data: ICmidVectorDiagramModel;
     @Input() radarOptions: ICmidVectorDiagramRadarOptions;
+    @Input() checkedId: number;
     @Output() checkedChart: EventEmitter<number> = new EventEmitter<number>();
     @ViewChild('chart') chart: ElementRef;
 
@@ -252,9 +253,9 @@ export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> im
             .style('font-size', '13px')
             .style('line-height', '16px')
         this.svg.append('polygon')
-            .attr('points', '240,135 245,143 235,143')
+            .attr('points', '195,138 200,146 190,146')
             .attr('style', () => {
-                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 241px 139px;'
+                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 196px 141px;'
             })
             .attr('class', () => {
                 return this.data.growIndex ? 'radar__grow-up' : 'radar__grow-down'
