@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <img alt="" src="assets/pic/pen.svg" />
-    <div class="title">Корректировка плана на <span class="title__date"> {{ data.date }} </span></div>
+    <div class="title">Корректировка плана на <span class="title__date"> {{ modifiedHeaderDate }} </span></div>
   </div>
   <form class="content" [formGroup]="correctionForm" (ngSubmit)="submitForm()">
     <textarea class="comment-input" type="text" placeholder="Введите данные..." formControlName="correctionText"></textarea>
