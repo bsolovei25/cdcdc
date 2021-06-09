@@ -18,7 +18,7 @@ import { EquipmentStateHelperService } from "./services/equipment-state-helper.s
     selector: 'evj-equipment-state',
     templateUrl: './evj-equipment-state.component.html',
     styleUrls: ['./evj-equipment-state.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentStateComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public originTableData: IEquipmentState[] = [];
@@ -42,6 +42,7 @@ export class EquipmentStateComponent extends WidgetPlatform implements OnInit, O
         this.equipmentStateApiService.getTableData(selection).subscribe(originTableData => {
             this.originTableData = [...originTableData];
             this.tableData = this.equipmentStateHelperService.applyFilter(originTableData);
+
             this.isAllSelect = false;
             this.deselectAllState();
         });
@@ -54,6 +55,7 @@ export class EquipmentStateComponent extends WidgetPlatform implements OnInit, O
 
     public deselectAllState(): void {
         this.tableData.forEach(row => row.isSelected = false);
+    
         this.isAllSelect = false;
         this.calculateSelectCount();
     }
@@ -88,6 +90,7 @@ export class EquipmentStateComponent extends WidgetPlatform implements OnInit, O
     public resetTableData() {
         this.tableData = [];
         this.originTableData = [];
+
         this.isAllSelect = false;
         this.deselectAllState();
     }

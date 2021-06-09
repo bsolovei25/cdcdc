@@ -5,7 +5,7 @@ import { IEquipmentStateComment } from "@dashboard/models/EVJ/equipment-state";
     selector: 'evj-equipment-state-comment',
     templateUrl: './evj-equipment-state-comment.component.html',
     styleUrls: ['./evj-equipment-state-comment.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentStateCommentComponent {
     @Input() comment: IEquipmentStateComment;

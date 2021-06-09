@@ -26,7 +26,7 @@ export class EquipmentStateDatetimePickerComponent {
     @Input() dateValue: Date;
     @Input() isDisabled: boolean;
 
-    @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
+    @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter();
 
     public inputDate: Date;
     public dateControl: FormControl = new FormControl({ value: new Date(), disabled: false });

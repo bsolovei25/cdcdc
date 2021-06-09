@@ -43,14 +43,14 @@ export class EquipmentStateApiService {
   public getSelectionList(equipmentType: string): Observable<IEquipmentStateSelectionList> {
     // this.http.get<string[]>(`${this.restUrl}/url`)
     if (equipmentType === 'dynamic') {
-      return of(selectionListDynamic) // Mock только с динамическим оборудованием
+      return of(selectionListDynamic); // Mock только с динамическим оборудованием
     } else {
-      return of(selectionListStatic) // Mock только со статическим оборудованием
+      return of(selectionListStatic); // Mock только со статическим оборудованием
     }
     
   }
 
-  public getEquipmentGroupList(): Observable<string[]> {
+  public getEquipmentGroupList(selectedPlant: string): Observable<string[]> {
     // this.http.get<string[]>(`${this.restUrl}/url`)
     return of(equipmentListMock); // Mock
   }

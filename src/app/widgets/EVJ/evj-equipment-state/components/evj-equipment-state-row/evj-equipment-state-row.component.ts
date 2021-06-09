@@ -9,8 +9,8 @@ import { IEquipmentState } from "@dashboard/models/EVJ/equipment-state";
 export class EquipmentStateRowComponent {
   @Input() row: IEquipmentState;
 
-  @Output() onSelect: EventEmitter<null> = new EventEmitter;
-  @Output() onRowSelect: EventEmitter<IEquipmentState> = new EventEmitter;
+  @Output() onSelect: EventEmitter<null> = new EventEmitter();
+  @Output() onRowSelect: EventEmitter<IEquipmentState> = new EventEmitter();
 
   public isEditMode: boolean = false;
 

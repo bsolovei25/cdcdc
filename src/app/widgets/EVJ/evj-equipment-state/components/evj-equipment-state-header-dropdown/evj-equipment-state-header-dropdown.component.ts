@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
     selector: 'evj-equipment-state-header-dropdown',
     templateUrl: './evj-equipment-state-header-dropdown.component.html',
     styleUrls: ['./evj-equipment-state-header-dropdown.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentStateHeaderDropdownComponent implements OnInit{
     @Input() isSetDefaultValue: boolean = false;

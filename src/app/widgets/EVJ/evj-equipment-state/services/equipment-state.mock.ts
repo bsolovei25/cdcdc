@@ -346,11 +346,11 @@ export const tableDataMock: IEquipmentState[] = [
 export const selectionListDynamic: IEquipmentStateSelectionList = {
   productionList: ['Производство 1 (дин.)', 'Производство 2 (дин.)', 'Производство 3 (дин.)'],
   plantList: ['АВТ-10 (дин.)', 'АВТ-20 (дин.)', 'KLC-1397 (дин.)']
-}
+};
 
 export const selectionListStatic: IEquipmentStateSelectionList = {
   productionList: ['Производство 1 (стат.)', 'Производство 2 (стат.)', 'Производство 3 (стат.)'],
   plantList: ['АВТ-10 (стат.)', 'АВТ-20 (стат.)', 'KLC-1397 (стат.)']
-}
+};
 
 export const equipmentListMock: string[] = ['Насосное оборудование', 'Другое оборудование', 'Очищающее оборудование'];

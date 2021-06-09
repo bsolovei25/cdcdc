@@ -11,13 +11,13 @@ import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take
   selector: 'evj-equipment-state-production-header',
   templateUrl: './evj-equipment-state-production-header.component.html',
   styleUrls: ['./evj-equipment-state-production-header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentStateProductionHeaderComponent implements OnInit {
-  @Output() public equipmentGroupSelect: EventEmitter<string> = new EventEmitter;
-  @Output() public getTableData: EventEmitter<IEquipmentStateSelection> = new EventEmitter;
-  @Output() public resetGroupSelectEmit: EventEmitter<null> = new EventEmitter;
-  @Output() public resetTableData: EventEmitter<null> = new EventEmitter;
+  @Output() public equipmentGroupSelect: EventEmitter<string> = new EventEmitter();
+  @Output() public getTableData: EventEmitter<IEquipmentStateSelection> = new EventEmitter();
+  @Output() public resetGroupSelectEmit: EventEmitter<null> = new EventEmitter();
+  @Output() public resetTableData: EventEmitter<null> = new EventEmitter();
 
   public productionList: string[] = [];
   public plantList: string[] = [];
@@ -60,7 +60,7 @@ export class EquipmentStateProductionHeaderComponent implements OnInit {
   }
 
   public getEquipmentGroupList(selectedPlant: string): void {
-    this.equipmentStateApiService.getEquipmentGroupList()
+    this.equipmentStateApiService.getEquipmentGroupList(selectedPlant)
       .pipe(takeUntilDestroyed(this))
       .subscribe(equipmentGroupList => this.equipmentGroupList = [...EQUIPMENT_GROUP_DEFAULT_STATE, ...equipmentGroupList]);
   }
