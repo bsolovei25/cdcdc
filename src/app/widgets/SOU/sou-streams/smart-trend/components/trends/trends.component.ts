@@ -278,7 +278,6 @@ export class TrendsComponent implements OnChanges, OnInit {
     }
 
     private drawGridlines(): void {
-        this.svg.style('backgroundColor', 'green');
         this.svg
             .append('g')
             .attr('class', 'grid')
