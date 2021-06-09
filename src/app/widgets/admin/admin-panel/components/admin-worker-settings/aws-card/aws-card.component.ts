@@ -55,11 +55,7 @@ export class AwsCardComponent implements OnInit {
                 this.placeholder = 'login';
                 break;
             case 'phone':
-                this.inputFormControl.setValidators([Validators.pattern(/[0-9]{10}/)]);
-                this.prefix = '+7 ';
-                this.mask = '(000) 000-00-00';
-                this.showMaskTyped = true;
-                this.placeholder = '0000000000';
+                this.inputFormControl.setValidators([Validators.pattern(/^[0-9]{4,11}$/)]);
                 break;
             case 'email':
                 this.inputFormControl.setValidators([
@@ -88,7 +84,7 @@ export class AwsCardComponent implements OnInit {
         this.inputFormControl.disable();
     }
 
-    public onInput(event: string): void {
+    public onInput(): void {
         if (!this.isCloseClick && this.inputFormControl.valid) {
             this.saveChanging.emit({ value: this.inputFormControl.value, key: this.option.key });
             this.option.value = this.inputFormControl.value;

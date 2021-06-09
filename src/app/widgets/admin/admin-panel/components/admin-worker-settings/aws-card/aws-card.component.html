@@ -11,7 +11,7 @@
         prefix="{{prefix}}"
         [mask]="mask"
         [showMaskTyped]="showMaskTyped"
-        (blur)="onInput($event)"
+        (blur)="onInput()"
       />
       <mat-error *ngIf="inputFormControl.invalid"></mat-error>
     </mat-form-field>
