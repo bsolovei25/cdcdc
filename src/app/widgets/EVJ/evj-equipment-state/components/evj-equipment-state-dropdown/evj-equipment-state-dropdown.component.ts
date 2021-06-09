@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
-import { equipmentStateStatusList } from "../../evj-equipment-state.const";
+import { EQUIPMENT_STATE_STATUS_LIST } from "../../evj-equipment-state.const";
 
 @Component({
     selector: 'evj-equipment-state-dropdown',
@@ -10,7 +10,7 @@ import { equipmentStateStatusList } from "../../evj-equipment-state.const";
 export class EquipmentStateDropdownComponent implements OnInit {
     @Input() private status: string;
 
-    public statusList = [...equipmentStateStatusList];
+    public statusList = [...EQUIPMENT_STATE_STATUS_LIST];
     public selectedValue: string;
     public statusStyles = {
         work: false,

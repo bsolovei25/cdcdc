@@ -1,25 +1,27 @@
 import { Injectable } from "@angular/core";
 import { IEquipmentState } from "@dashboard/models/EVJ/equipment-state";
-import { equipmentStateList, equipmentStateStatusList, equipmentTypeList } from "../evj-equipment-state.const";
+import { EQUIPMENT_GROUP_DEFAULT_STATE, EQUIPMENT_STATE_LIST, EQUIPMENT_STATE_STATUS_LIST } from "../evj-equipment-state.const";
 
 @Injectable({
   providedIn: 'root',
 })
 export class EquipmentStateHelperService {
-  public stateFilterValue: string = [...equipmentStateList][0].value;
-  public statusFilterValue: string = [...equipmentStateStatusList][0].value;
-  public equipmentTypeValue: string = [...equipmentTypeList][0].value;
+  public stateFilterValue: string = [...EQUIPMENT_STATE_LIST][0].value;
+  public statusFilterValue: string = [...EQUIPMENT_STATE_STATUS_LIST][0].value;
+  public equipmentGroupValue: string = [...EQUIPMENT_GROUP_DEFAULT_STATE][0];
 
   public applyFilter(originTableData: IEquipmentState[]): IEquipmentState[] {
     let tableData = [...originTableData];
 
-    tableData = this.filterByEquipmentType(tableData);
+    if (!(this.equipmentGroupValue === [...EQUIPMENT_GROUP_DEFAULT_STATE][0])) {
+      tableData = this.filterByEquipmentGroup(tableData);
+    }
 
-    if (!(this.stateFilterValue === equipmentStateList[0].value)) {
+    if (!(this.stateFilterValue === EQUIPMENT_STATE_LIST[0].value)) {
       tableData = this.filterByState(tableData);
     }
 
-    if (!(this.statusFilterValue === equipmentStateStatusList[0].value)) {
+    if (!(this.statusFilterValue === EQUIPMENT_STATE_STATUS_LIST[0].value)) {
       tableData = this.filterByStatus(tableData);
     }
 
@@ -31,6 +33,10 @@ export class EquipmentStateHelperService {
     throw new Error('Не реализовано');
   }
 
+  private filterByEquipmentGroup(tableData: IEquipmentState[]): IEquipmentState[] {
+    return tableData.filter(row => row.equipmentGroup === this.equipmentGroupValue);
+  }
+
   private filterByState(tableData: IEquipmentState[]): IEquipmentState[] {
     return tableData.filter(row => row.state === this.getStateValue());
   }
@@ -39,22 +45,13 @@ export class EquipmentStateHelperService {
     return tableData.filter(row => row.status === this.getStatusValue());
   }
 
-  private filterByEquipmentType(tableData: IEquipmentState[]): IEquipmentState[] {
-    return tableData.filter(row => row.equipmentType === this.getEquipmentTypeValue());
-  }
-
   private getStatusValue(): string {
-    return equipmentStateStatusList.find(equipmentStatus =>
+    return EQUIPMENT_STATE_STATUS_LIST.find(equipmentStatus =>
       equipmentStatus.value === this.statusFilterValue).status;
   }
 
   private getStateValue(): string {
-    return equipmentStateList.find(equipmentState =>
+    return EQUIPMENT_STATE_LIST.find(equipmentState =>
       equipmentState.value === this.stateFilterValue).state;
-  }
-
-  private getEquipmentTypeValue(): string {
-    return equipmentTypeList.find(equipmentType =>
-      equipmentType.value === this.equipmentTypeValue).type;
   }
 }

@@ -14,7 +14,9 @@
     </evj-equipment-state-name>
   </div>
   <div class="row__position">
-    {{ row.position }}
+    <span (click)="$event.stopPropagation()">
+      {{ row.position }}
+    </span>
   </div>
   <div class="row__status"
        (click)="$event.stopPropagation()">

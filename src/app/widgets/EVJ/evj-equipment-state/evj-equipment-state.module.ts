@@ -1,17 +1,24 @@
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularSvgIconModule } from "angular-svg-icon";
+
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from "@angular-material-components/datetime-picker";
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 import { OverlayModule } from "@angular/cdk/overlay";
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+
 import { SharedModule } from "@shared/shared.module";
-import { AngularSvgIconModule } from "angular-svg-icon";
+
 import { EquipmentStateCommentComponent } from "./components/evj-equipment-state-comment/evj-equipment-state-comment.component";
 import { EquipmentStateDatetimePickerComponent } from "./components/evj-equipment-state-datetime-picker/evj-equipment-state-datetime-picker.component";
 import { EquipmentStateDropdownComponent } from "./components/evj-equipment-state-dropdown/evj-equipment-state-dropdown.component";
@@ -21,8 +28,8 @@ import { EquipmentStateNameComponent } from "./components/evj-equipment-state-na
 import { EquipmentStateProductionHeaderComponent } from "./components/evj-equipment-state-production-header/evj-equipment-state-production-header.component";
 import { EquipmentStateRowComponent } from "./components/evj-equipment-state-row/evj-equipment-state-row.component";
 import { EquipmentStateTooltipComponent } from "./components/evj-equipment-state-tooltip/evj-equipment-state-tooltip.component";
-import { EquipmentStateTooltipDirective } from "./components/evj-equipment-state-tooltip/evj-equipment-state-tooltip.directive";
 import { EquipmentStateComponent } from "./evj-equipment-state.component";
+import { EquipmentStateTooltipDirective } from "./components/evj-equipment-state-tooltip/evj-equipment-state-tooltip.directive";
 import { EquipmentStateApiService } from "./services/equipment-state-api.service";
 import { EquipmentStateHelperService } from "./services/equipment-state-helper.service";
 

@@ -7,26 +7,31 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class EquipmentStateHeaderDropdownComponent implements OnInit{
-    @Input() options: string[] = [];
     @Input() isSetDefaultValue: boolean = false;
+    @Input() set options(value: string[]) {
+        this.optionsList = value;
+        this.setValue();
+    }
     
     @Output() onSelect: EventEmitter<string> = new EventEmitter();
 
     public value: string;
-    public selectedValue: string;
-
-    ngOnInit(): void {
-        this.setValue();
-    }
+    public optionsList: string[] = [];
 
     public selectionChange(valueChange): void {
         this.value = valueChange.value;
         this.onSelect.emit(valueChange.value);
     }
 
+    ngOnInit(): void {
+        this.setValue();
+    }
+
     private setValue(): void {
-        if (this.isSetDefaultValue && this.options.length != 0) {
-            this.value = this.options[0];
+        if (this.isSetDefaultValue && this.optionsList.length > 0) {
+            this.value = this.optionsList[0];
+        } else {
+            this.value = null;
         }
     }
 }

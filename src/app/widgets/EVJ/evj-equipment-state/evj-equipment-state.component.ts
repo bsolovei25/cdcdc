@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit
+} from "@angular/core";
+
 import { WidgetPlatform } from "@dashboard/models/@PLATFORM/widget-platform";
-import { IEquipmentState } from "@dashboard/models/EVJ/equipment-state";
+import { IEquipmentState, IEquipmentStateSelection } from "@dashboard/models/EVJ/equipment-state";
 import { WidgetService } from "@dashboard/services/widget.service";
+
 import { EquipmentStateApiService } from "./services/equipment-state-api.service";
 import { EquipmentStateHelperService } from "./services/equipment-state-helper.service";
 
@@ -29,10 +38,12 @@ export class EquipmentStateComponent extends WidgetPlatform implements OnInit, O
         super(widgetService, id, uniqId);
     }
 
-    public getTableData(plant: string): void {
-        this.equipmentStateApiService.getTableData(plant).subscribe(originTableData => {
-            this.originTableData = originTableData;
+    public getTableData(selection: IEquipmentStateSelection): void {
+        this.equipmentStateApiService.getTableData(selection).subscribe(originTableData => {
+            this.originTableData = [...originTableData];
             this.tableData = this.equipmentStateHelperService.applyFilter(originTableData);
+            this.isAllSelect = false;
+            this.deselectAllState();
         });
     }
 
@@ -70,9 +81,15 @@ export class EquipmentStateComponent extends WidgetPlatform implements OnInit, O
         this.tableData = this.equipmentStateHelperService.applyFilter(this.originTableData);
     }
 
-    public equipmentTypeFilterChange(value: string) {
-        this.equipmentStateHelperService.equipmentTypeValue = value;
+    public equipmentGroupSelect() {
         this.tableData = this.equipmentStateHelperService.applyFilter(this.originTableData);
+    }
+
+    public resetTableData() {
+        this.tableData = [];
+        this.originTableData = [];
+        this.isAllSelect = false;
+        this.deselectAllState();
     }
 
     public formDisposition(): void {

@@ -1,4 +1,4 @@
-export const equipmentStateStatusList = [
+export const EQUIPMENT_STATE_STATUS_LIST = [
   {
     status: 'all',
     value: 'Все'
@@ -21,7 +21,7 @@ export const equipmentStateStatusList = [
   }
 ];
 
-export const equipmentStateList = [
+export const EQUIPMENT_STATE_LIST = [
   {
     state: 'all',
     value: 'Все'
@@ -40,7 +40,7 @@ export const equipmentStateList = [
   }
 ];
 
-export const equipmentTypeList = [
+export const EQUIPMENT_TYPE_LIST = [
   {
     type: 'dynamic',
     value: 'Динамическое оборудование'
@@ -49,4 +49,8 @@ export const equipmentTypeList = [
     type: 'static',
     value: 'Статическое оборудование'
   }
+];
+
+export const EQUIPMENT_GROUP_DEFAULT_STATE = [
+  'Все'
 ];

@@ -3,6 +3,7 @@ export interface IEquipmentState {
     name: string;
     position: string;
     equipmentType: string;
+    equipmentGroup: string;
     status: string;
     dateStart: string;
     dateEnd: string;
@@ -18,4 +19,14 @@ export interface IEquipmentStateComment {
     position: string;
     message: string;
     date: string;
+}
+
+export interface IEquipmentStateSelectionList {
+    productionList: string[];
+    plantList: string[];
+}
+
+export interface IEquipmentStateSelection {
+    type: string;
+    plant: string;
 }

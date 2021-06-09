@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+
 import { IEquipmentStateComment } from '@dashboard/models/EVJ/equipment-state';
 
 @Component({
@@ -21,16 +22,4 @@ import { IEquipmentStateComment } from '@dashboard/models/EVJ/equipment-state';
 })
 export class EquipmentStateTooltipComponent {
   @Input() comment: IEquipmentStateComment;
-  @Input() overlayRef;
-
-  @HostListener('mouseenter')
-  private hover(): void {
-    this.overlayRef.overlayHoverRef = true;
-  }
-
-  @HostListener('mouseout')
-  private leave(): void {
-    this.overlayRef.overlayHoverRef = false;
-    this.overlayRef.hide();
-  }
 }

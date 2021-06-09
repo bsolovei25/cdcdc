@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { equipmentTypeList } from "../../evj-equipment-state.const";
-import { EquipmentStateApiService } from "../../services/equipment-state-api.service";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
 
+import { IEquipmentStateSelection } from "@dashboard/models/EVJ/equipment-state";
+import { EQUIPMENT_GROUP_DEFAULT_STATE, EQUIPMENT_TYPE_LIST } from "../../evj-equipment-state.const";
+import { EquipmentStateApiService } from "../../services/equipment-state-api.service";
+import { EquipmentStateHelperService } from "../../services/equipment-state-helper.service";
+import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take-until-destroed.function";
+
+@DecorateUntilDestroy()
 @Component({
   selector: 'evj-equipment-state-production-header',
   templateUrl: './evj-equipment-state-production-header.component.html',
@@ -9,63 +14,88 @@ import { EquipmentStateApiService } from "../../services/equipment-state-api.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EquipmentStateProductionHeaderComponent implements OnInit {
-  @Output() public equipmentTypeChangeEmit: EventEmitter<string> = new EventEmitter;
-  @Output() public plantChangeEmit: EventEmitter<string> = new EventEmitter;
-
-  private selectedProduction: string;
-  private selectedPlant: string;
-  private selectedEquipment: string;
-  private selectedEquipmentType: string;
+  @Output() public equipmentGroupSelect: EventEmitter<string> = new EventEmitter;
+  @Output() public getTableData: EventEmitter<IEquipmentStateSelection> = new EventEmitter;
+  @Output() public resetGroupSelectEmit: EventEmitter<null> = new EventEmitter;
+  @Output() public resetTableData: EventEmitter<null> = new EventEmitter;
 
   public productionList: string[] = [];
   public plantList: string[] = [];
-  public equipmentTypeFilter: string[] = equipmentTypeList.map(type => type.value);
-  public equipmentList: string[] = [];
+  public equipmentTypeList: string[] = EQUIPMENT_TYPE_LIST.map(type => type.value);
+  public equipmentGroupList: string[] = [...EQUIPMENT_GROUP_DEFAULT_STATE];
 
-  constructor(public equipmentStateApiService: EquipmentStateApiService) {}
+  private selectedEquipmentType: string = this.equipmentTypeList[0];
 
-  public getPlantList(selectedProduction: string): void {
-    this.selectedProduction = selectedProduction;
-    this.equipmentStateApiService.getPlantList()
-      .subscribe(plantList => this.plantList = plantList);
+  private originProductionList: string[] = [];
+  private originPlantList: string[] = [];
 
-    if (this.selectedEquipment) {
-      this.getEquipmentList(this.selectedPlant);
+  constructor(public equipmentStateApiService: EquipmentStateApiService,
+              public equipmentStateHelperService: EquipmentStateHelperService,
+              public cdRef: ChangeDetectorRef) {}
+
+  public sortPlantList(selectedProduction: string): void {
+    if (this.plantList.length) {
+      throw new Error('Сортировка не реализована, требуется модель данных установки');
+      // this.resetPlantSelect();
+      // this.plantListFilter = this.originPlantList.sort(plant => plant.parent === selectedProduction)
     }
   }
 
-  public selectEquipmentType(type: string): void {
-    this.selectedEquipmentType = type;
-    this.equipmentTypeChangeEmit.emit(type);
-
-    if (this.selectedProduction && this.selectedPlant) {
-      this.getEquipmentList(this.selectedPlant);
-    }
+  public plantSelection(selectedPlant: string): void {
+    this.resetGroupFilter();
+    this.getEquipmentGroupList(selectedPlant);
+    this.getTableData.emit({
+      type: EQUIPMENT_TYPE_LIST.find(type => type.value === this.selectedEquipmentType).type,
+      plant: selectedPlant
+    });
   }
 
-  public getEquipmentList(selectedPlant: string): void {
-    this.selectedPlant = selectedPlant;
+  public selectEquipmentType(typeValue: string): void {
+      if (this.selectedEquipmentType)
+      this.selectedEquipmentType = typeValue;
+      this.resetTableData.emit(null);
+      this.resetGroupFilter();
 
-    this.getTableData(selectedPlant);
-
-    this.equipmentStateApiService.getEquipmentList()
-      .subscribe(equipmentList => this.equipmentList = equipmentList);
+      this.getSelectionList();
   }
 
-  public selectEquipment(selectedEquipment: string): void {
-    this.selectedEquipment = selectedEquipment;
+  public getEquipmentGroupList(selectedPlant: string): void {
+    this.equipmentStateApiService.getEquipmentGroupList()
+      .pipe(takeUntilDestroyed(this))
+      .subscribe(equipmentGroupList => this.equipmentGroupList = [...EQUIPMENT_GROUP_DEFAULT_STATE, ...equipmentGroupList]);
+  }
+
+  public selectEquipmentGroup(selectedGroup: string): void {
+    this.equipmentStateHelperService.equipmentGroupValue = selectedGroup;
+    this.equipmentGroupSelect.emit(selectedGroup);
   }
 
   ngOnInit(): void {
-    this.getProductionList();
+    this.getSelectionList();
   }
 
-  private getProductionList(): void {
-    this.equipmentStateApiService.getProductionList()
-      .subscribe(productionList => this.productionList = productionList);
+  private getSelectionList(): void {
+    this.equipmentStateApiService.getSelectionList(this.getEquipmentType(this.selectedEquipmentType))
+      .pipe(takeUntilDestroyed(this))
+      .subscribe(selectionList => {
+        this.originProductionList = selectionList.productionList;
+        this.originPlantList = selectionList.plantList;
+
+        this.assignData();
+      });
   }
 
-  private getTableData(selectedPlant: string): void {
-    this.plantChangeEmit.emit(selectedPlant);
+  private assignData(): void {
+    this.productionList = [...this.originProductionList];
+    this.plantList = [...this.originPlantList];
+  }
+
+  private resetGroupFilter(): void {
+    this.equipmentGroupList = [...EQUIPMENT_GROUP_DEFAULT_STATE];
+    this.equipmentStateHelperService.equipmentGroupValue = [...EQUIPMENT_GROUP_DEFAULT_STATE][0];
+  }
+
+  private getEquipmentType(selectedEquipmentValue: string): string {
+    return EQUIPMENT_TYPE_LIST.find(type => type.value === selectedEquipmentValue).type;
   }
 }

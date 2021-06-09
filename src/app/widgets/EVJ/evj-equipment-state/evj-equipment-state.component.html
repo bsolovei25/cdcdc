@@ -1,5 +1,6 @@
-<evj-equipment-state-production-header (plantChangeEmit)="getTableData($event)"
-                                       (equipmentTypeChangeEmit)="equipmentTypeFilterChange($event)">
+<evj-equipment-state-production-header (getTableData)="getTableData($event)"
+                                       (equipmentGroupSelect)="equipmentGroupSelect()"
+                                       (resetTableData)="resetTableData()">
 </evj-equipment-state-production-header>
 
 <evj-contemporary-widget-header icon="view-list"
@@ -46,7 +47,8 @@
       </evj-equipment-state-row>
     </div>
   </div>
-  <div *ngIf="!isEditMode; else editMode" class="control-panel">
+  <div *ngIf="!isEditMode; else editMode"
+       class="control-panel">
     <div class="control-panel__element control-panel__element_blue">
       <svg-icon class="control-panel__icon control-panel__icon_tablet"
                 src="assets/icons/widgets/EVJ/equipment-state/tablet.svg">
