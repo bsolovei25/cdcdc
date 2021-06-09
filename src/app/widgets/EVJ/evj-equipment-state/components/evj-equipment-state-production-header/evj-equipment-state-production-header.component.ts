@@ -16,8 +16,7 @@ import { DecorateUntilDestroy, takeUntilDestroyed } from "@shared/functions/take
 export class EquipmentStateProductionHeaderComponent implements OnInit {
   @Output() public equipmentGroupSelect: EventEmitter<string> = new EventEmitter();
   @Output() public getTableData: EventEmitter<IEquipmentStateSelection> = new EventEmitter();
-  @Output() public resetGroupSelectEmit: EventEmitter<null> = new EventEmitter();
-  @Output() public resetTableData: EventEmitter<null> = new EventEmitter();
+  @Output() public resetTableData: EventEmitter<void> = new EventEmitter();
 
   public productionList: string[] = [];
   public plantList: string[] = [];
@@ -53,7 +52,7 @@ export class EquipmentStateProductionHeaderComponent implements OnInit {
   public selectEquipmentType(typeValue: string): void {
       if (this.selectedEquipmentType)
       this.selectedEquipmentType = typeValue;
-      this.resetTableData.emit(null);
+      this.resetTableData.emit();
       this.resetGroupFilter();
 
       this.getSelectionList();

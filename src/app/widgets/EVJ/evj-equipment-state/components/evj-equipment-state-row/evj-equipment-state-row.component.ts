@@ -9,13 +9,13 @@ import { IEquipmentState } from "@dashboard/models/EVJ/equipment-state";
 export class EquipmentStateRowComponent {
   @Input() row: IEquipmentState;
 
-  @Output() onSelect: EventEmitter<null> = new EventEmitter();
+  @Output() onSelect: EventEmitter<void> = new EventEmitter();
   @Output() onRowSelect: EventEmitter<IEquipmentState> = new EventEmitter();
 
   public isEditMode: boolean = false;
 
   public checkboxSelect(): void {
-    this.onSelect.emit(null);
+    this.onSelect.emit();
   }
 
   public rowSelect(): void {
