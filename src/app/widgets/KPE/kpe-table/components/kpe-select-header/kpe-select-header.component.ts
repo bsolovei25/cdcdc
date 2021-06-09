@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { KpeTableComponent } from '../../kpe-table.component';
 import { KpeTableService } from '../../services/kpe-table.service';
 
 @Component({
@@ -9,27 +8,23 @@ import { KpeTableService } from '../../services/kpe-table.service';
   styleUrls: ['./kpe-select-header.component.scss']
 })
 export class KpeSelectHeaderComponent implements OnInit {
+    @Input() public items: { id: number, value: string }[] = [];
+    @Input() public type: 'planUnit' | 'valuePlanUnit' | 'averageUnit' | 'instantUnit' | 'totalUnit' | 'predictionUnit' | 'deviationUnits' |'valueRecommended';
 
-  @Input() public items: {id: number, value: string}[] = [];
-  @Input() public type: 'average' | 'instant' = 'average';
+    public selectedValue = this.items[0];
 
-  public selectedValue = this.items[0];
+    constructor(
+        private kpeTableService: KpeTableService
+    ) { }
 
-  constructor(
-    private kpeTableService: KpeTableService
-  ) { }
+    ngOnInit(): void {
+    }
 
-  ngOnInit(): void {
-  }
+    public changeUnit(event: MatSelectChange): void {
+        this.kpeTableService.changeUnits(this.type, event.value);
+    }
 
-  changeUnit(event: MatSelectChange) {
-    this.type === 'average' 
-    ? this.kpeTableService.selectAverageUnit$.next(event.value)
-    : this.kpeTableService.selectInstantUnit$.next(event.value);    
-  }
-
-  public compareFn(a, b): boolean {
-    return a?.id === b?.id;
-  }
-
+    public compareFn(a, b): boolean {
+        return a?.id === b?.id;
+    }
 }

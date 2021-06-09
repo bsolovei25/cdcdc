@@ -19,28 +19,61 @@
                 </div>
               </div>
             </th>
+            <th *ngSwitchCase="'2'">
+              <evj-kpe-select-header
+                [items]="headerSelectors.plan"
+                [type]="'planUnit'"
+              ></evj-kpe-select-header>
+            </th>
+            <th *ngSwitchCase="'3'">
+              <evj-kpe-select-header
+                [items]="headerSelectors.valuePlan"
+                [type]="'valuePlanUnit'"
+              ></evj-kpe-select-header>
+            </th>
             <th *ngSwitchCase="'4'">
               <evj-kpe-select-header
-              [items]="averageConsumption"
-              [type]="'average'"
+              [items]="headerSelectors.averageConsumption"
+              [type]="'averageUnit'"
               ></evj-kpe-select-header>
             </th>
             <th *ngSwitchCase="'5'">
               <evj-kpe-select-header
-              [items]="instantConsumption"
-              [type]="'instant'"
+              [items]="headerSelectors.instantConsumption"
+              [type]="'instantUnit'"
+              ></evj-kpe-select-header>
+            </th>
+            <th *ngSwitchCase="'6'">
+              <evj-kpe-select-header
+                [items]="headerSelectors.total"
+                [type]="'totalUnit'"
+              ></evj-kpe-select-header>
+            </th>
+            <th *ngSwitchCase="'8'">
+              <evj-kpe-select-header
+                [items]="headerSelectors.prediction"
+                [type]="'predictionUnit'"
               ></evj-kpe-select-header>
             </th>
             <th *ngSwitchCase="'9'">
               <div class="deviation-header">
-                <pre><span>  Откл. прогноза от плана  </span></pre>
+                <pre><span>  Отклонение от плана  </span></pre>
                 <div class="deviation-header__value-left">
-                  <span>т</span>
+                  <evj-kpe-select-header class="deviation-header__choose-units"
+                    [items]="headerSelectors.deviation"
+                    [type]="'deviationUnits'"
+                  ></evj-kpe-select-header>
                 </div>
                 <div class="deviation-header__value-right">
                   <span>%</span>
                 </div>
               </div>
+            </th>
+            <th *ngSwitchCase="'10'">
+              <evj-kpe-select-header
+                [items]="headerSelectors.valueRecommended"
+                [type]="'valueRecommended'"
+              ></evj-kpe-select-header>
             </th>
             <th *ngSwitchDefault>
               <span>{{ column.name }}</span>
@@ -144,27 +177,27 @@
               </div>
               <ng-container *ngIf="column.id === '2'">
                 <div class="value">
-                  <span>{{elementChildren.plan }}</span>
+                  <span>{{ chosenUnits.planUnit === 0 ? elementChildren.plan : elementChildren.planM3}}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '3'">
                 <div class="value">
-                  <span>{{elementChildren.valuePlan }}</span>
+                  <span>{{ chosenUnits.valuePlanUnit === 0 ? elementChildren.valuePlan : elementChildren.valuePlanM3}}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '4'">
                 <div class="value">
-                  <span>{{ selectAverageUnit === 0 ? elementChildren.averageTonne : elementChildren.averageM3}}</span>
+                  <span>{{ chosenUnits.averageUnit === 0 ? elementChildren.averageTonne : elementChildren.averageM3}}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '5'">
                 <div class="value">
-                  <span>{{ selectInstantUnit === 0 ? elementChildren.instantTonne : elementChildren.instantM3 }}</span>
+                  <span>{{ chosenUnits.instantUnit === 0 ? elementChildren.instantTonne : elementChildren.instantM3 }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '6'">
                 <div class="value">
-                  <span>{{elementChildren.total }}</span>
+                  <span>{{ chosenUnits.totalUnit === 0 ? elementChildren.total : elementChildren.totalM3 }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '7'">
@@ -174,18 +207,18 @@
               </ng-container>
               <ng-container *ngIf="column.id === '8'">
                 <div class="value">
-                  <span>{{elementChildren.prediction }}</span>
+                  <span>{{ chosenUnits.predictionUnit === 0 ? elementChildren.prediction : elementChildren.predictionM3 }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '9'">
                 <div class="value">
-                  <span>{{elementChildren.deviation}}</span>
+                  <span>{{ chosenUnits.deviationUnits === 0 ? elementChildren.deviation : elementChildren.deviationM3 }}</span>
                   <span>{{elementChildren.deviationPercent }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '10'">
                 <div class="value">
-                  <span>{{elementChildren.valueRecommended }}</span>
+                  <span>{{ chosenUnits.valueRecommended === 0 ? elementChildren.valueRecommendedTonne : elementChildren.valueRecommended }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === '11'">
