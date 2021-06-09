@@ -6,6 +6,7 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { ChannelPlatform } from 'src/app/dashboard/models/@PLATFORM/channel-platform';
 import { BehaviorSubject } from 'rxjs';
 import { KpeTableService } from '../../services/kpe-table.service';
+import { IHeadersSelectors, IUnits } from '@dashboard/models/KPE/kpe-table.model';
 
 export interface IKpeTableData {
     allTabs: IKpeTableTabs[],
@@ -21,15 +22,41 @@ export interface IKpeTableData {
     styleUrls: ['./kpe-table-development-component.component.scss'],
 })
 export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeTableData> implements OnInit, OnDestroy {
-    public averageConsumption: {id: number, value: string}[] = [
-        { id: 0, value: 'Ср. расход на дату тн' },
-        { id: 1, value: 'Ср. расход на дату м3' }
-      ]
 
-    public instantConsumption: {id: number, value: string}[] = [
-        { id: 0, value: 'Мгновенный расход на дату тн' },
-        { id: 1, value: 'Мгновенный на дату м3' }
-      ]
+    public headerSelectors: IHeadersSelectors = {
+        averageConsumption: [
+            { id: 0, value: 'Ср. расход на дату, т' },
+            { id: 1, value: 'Ср. расход на дату, м3' }
+        ],
+        instantConsumption: [
+            { id: 0, value: 'Мгновенный расход на дату, т' },
+            { id: 1, value: 'Мгновенный расход на дату, м3' }
+        ],
+        plan: [
+            { id: 0, value: 'План, т' },
+            { id: 1, value: 'План, м3'}
+        ],
+        valuePlan: [
+            { id: 0, value: 'Плановый расход, т/ч' },
+            { id: 1, value: 'Плановый расход, м3/ч' },
+        ],
+        total: [
+            { id: 0, value: 'Накопление, т' },
+            { id: 1, value: 'Накопление, м3' },
+        ],
+        prediction: [
+            { id: 0, value: 'Прогноз на 03:00, т' },
+            { id: 1, value: 'Прогноз на 03:00, м3' },
+        ],
+        deviation: [
+            { id: 0, value: 'т' },
+            { id: 1, value: 'м3' },
+        ],
+        valueRecommended: [
+            { id: 0, value: 'Рек. расход, т/ч' },
+            { id: 1, value: 'Рек. расход, м3/ч' },
+        ]
+    }
 
     public data$: BehaviorSubject<IKpeTable[]> = new BehaviorSubject<IKpeTable[]>([]);
     public columnsToDisplay: IKpeTableHeader[] = tableHeader;
@@ -38,9 +65,17 @@ export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeT
     public expandedElement: SelectionModel<string> = new SelectionModel(true);
     public selectedRowProduct: string;
     public selectedRow: SelectionModel<string> = new SelectionModel(true);
-    public selectAverageUnit: number = 0;
-    public selectInstantUnit: number = 0;
 
+    public chosenUnits: IUnits = {
+        averageUnit: 0,
+        instantUnit: 0,
+        planUnit: 0,
+        valuePlanUnit: 0,
+        totalUnit: 0,
+        predictionUnit: 0,
+        valueRecommended: 0,
+        deviationUnits: 0
+    }
 
     constructor(
         protected widgetService: WidgetService,
@@ -53,11 +88,8 @@ export class KpeTableDevelopmentComponentComponent extends ChannelPlatform<IKpeT
 
     ngOnInit(): void {
         super.ngOnInit();
-        this.kpeTableService.selectAverageUnit$.subscribe((value) => {
-            this.selectAverageUnit = value;
-        });
-        this.kpeTableService.selectInstantUnit$.subscribe((value) => {
-            this.selectInstantUnit = value;
+        this.kpeTableService.chosenUnits$.subscribe((chosenUnits) => {
+            this.chosenUnits = chosenUnits;
         })
     }
 

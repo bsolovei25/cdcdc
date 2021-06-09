@@ -19,18 +19,24 @@ export interface IKpeTableBody {
     id: number;
     name: string;
     plan: number;
+    planM3: number;
     valuePlan?: number;
+    valuePlanM3: number;
     averageTonne: number;
     averageM3: number;
     instantTonne: number;
     instantM3: number;
     total: number;
+    totalM3: number;
     planPercent: string;
     prediction: number;
+    predictionM3: number;
     deviation: number;
+    deviationM3: number;
     deviationPercent: string;
     deviationColor?: string
     valueRecommended?: number;
+    valueRecommendedTonne: number;
     hasComment?: boolean;
 }
 export interface IKpeTableTabs {
