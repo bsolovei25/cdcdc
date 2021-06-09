@@ -26,7 +26,7 @@
     &__button-block {
       display: flex;
 
-      .toggle {
+      .table-toggle {
         display: flex;
         margin-right: 8px;
         margin-left: 8px;
@@ -48,7 +48,7 @@
             display: none;
           }
 
-          label {
+          .table-toggle-label {
             display: inline-block;
             cursor: pointer;
             line-height: 24px;
