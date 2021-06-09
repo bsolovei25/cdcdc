@@ -1985,7 +1985,7 @@ export const WIDGETS_LAZY = {
     //#region SUUTP
     'suutp-equipment-complexes': {
         import: async () => {
-            return await import('src/app/widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
+            return await import('@widgets/SUUTP/suutp-complexes/complexes.module.ts');
         },
         module: 'ComplexesModule',
         itemCols: 20,
