@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ClaimService } from '@dashboard/services/claim.service';
 import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 
@@ -16,9 +17,16 @@ export class EvjEventCardBlockComponent implements OnInit {
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(private eventService: EventService) {}
+    public removeClaim: boolean;
 
-    ngOnInit(): void {}
+    constructor(
+        private eventService: EventService,
+        private claimService: ClaimService
+    ) {}
+
+    ngOnInit(): void {
+        this.checkClaim();
+    }
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -37,5 +45,10 @@ export class EvjEventCardBlockComponent implements OnInit {
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
+    }
+
+    private checkClaim(): void {
+        const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsDelete');
+        this.removeClaim = claim?.claimCategory === 'allow';
     }
 }

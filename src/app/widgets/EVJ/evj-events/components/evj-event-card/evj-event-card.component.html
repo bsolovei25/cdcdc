@@ -82,7 +82,7 @@
            'notification__body__icon_standard'"
           ></svg-icon>
           <svg-icon
-            *ngIf="!cardData?.source"
+            *ngIf="!cardData?.source && removeClaim"
             class="notification__body__icon--delete"
             [applyCss]="true"
             src="assets/icons/remove.svg"

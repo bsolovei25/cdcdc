@@ -55,6 +55,7 @@
         {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
       </div>
       <svg-icon
+        *ngIf="removeClaim"
         class="footer__remove footer-size__remove"
         [applyCss]="true"
         src="assets/icons/remove.svg"

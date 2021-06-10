@@ -124,6 +124,7 @@
       &__right-block {
         display: flex;
         align-items: center;
+        gap: 15px;
       }
 
       &__time {
@@ -136,7 +137,6 @@
         background-color: rgba(93, 96, 123, 0.2);
         padding: 5px 15px;
         border-radius: 2px;
-        margin-right: 15px;
       }
 
       &__remove {

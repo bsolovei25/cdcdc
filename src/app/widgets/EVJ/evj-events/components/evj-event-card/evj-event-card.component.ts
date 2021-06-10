@@ -6,6 +6,7 @@ import {
 import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ClaimService } from '@dashboard/services/claim.service';
 
 export const fadeAnimation = trigger('fadeAnimation', [
     transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))]),
@@ -38,9 +39,16 @@ export class EvjEventCardComponent implements OnInit {
     @Output()
     public selectionExpandedElement: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private eventService: EventService) {}
+    public removeClaim: boolean;
 
-    ngOnInit(): void {}
+    constructor(
+        private eventService: EventService,
+        private claimService: ClaimService
+    ) {}
+
+    ngOnInit(): void {
+        this.checkClaim();
+    }
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
@@ -64,5 +72,10 @@ export class EvjEventCardComponent implements OnInit {
         event.stopPropagation();
         this.expandedElement.toggle(id);
         this.selectionExpandedElement.emit();
+    }
+
+    private checkClaim(): void {
+        const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsDelete');
+        this.removeClaim = claim?.claimCategory === 'allow';
     }
 }
