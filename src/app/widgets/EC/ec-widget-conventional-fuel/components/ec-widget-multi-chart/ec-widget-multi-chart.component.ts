@@ -25,7 +25,7 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 import { EcWidgetService } from '../../../ec-widget-shared/ec-widget.service';
 import { EcWidgetConventionalFuelService } from '../../ec-widget-conventional-fuel.service';
-import { lineColors } from "@widgets/EC/ec-widget-shared/constants/colors.const";
+import { lineColors } from '@widgets/EC/ec-widget-shared/constants/colors.const';
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
     isIconsShowing?: boolean;
@@ -157,10 +157,9 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
 
     private initData(): void {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
-
-        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2);
+        // TODO: 30 - padding-right (remake logic)
+        this.graphMaxX = +d3Selection.select(this.chart.nativeElement).style('width').slice(0, -2) - 30;
         this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
-
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
@@ -838,7 +837,10 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 let x: number = 0;
                 const rect: DOMRect = element.getBoundingClientRect();
                 x = event.clientX - rect.left;
+                // console.log(event);
+                // x = event.offsetX - rect.left;
                 this.positionMouse = x;
+                this.svg.select('.mouse-line').attr('x1', x).attr('x2', x);
                 this.changePositionPicker(x);
             })
         );
@@ -893,7 +895,6 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
         let factModel: number = null;
         let forecast: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
-        date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
             const filterChart = chart.graph.filter((item) => item.timeStamp.getTime() <= date.getTime());
             const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;

@@ -1,0 +1,12 @@
+<div class="chart-section">
+  <div class="chart" #chart></div>
+  <div class="chart-section__scroll">
+    <evj-smart-scroll
+      class="chart-section__scroll__smart"
+      [limits]="selectedPeriod"
+      [data]="data[0].graph"
+      [(sbThumbLeft)]="sbLeft"
+      [(sbThumbWidth)]="sbWidth"
+    ></evj-smart-scroll>
+  </div>
+</div>

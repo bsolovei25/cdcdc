@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="header">
+    <svg-icon
+      [svgStyle]="{'width.px': 38, 'height.px': 38}"
+      src="{{linkIcon}}"
+    ></svg-icon>
+    <span>Скопируйте ссылку</span>
+    <div class="shadow"></div>
+    <svg-icon
+      class="close"
+      [svgStyle]="{'width.px': 21, 'height.px': 21}"
+      src="{{closeIcon}}"
+      (click)="closeDialog()"
+    ></svg-icon>
+  </div>
+  <div class="content">
+    <div class="link">
+      <span>https://drive.google.com/file/d/1-UbM1mOmxHnwDkT_HOQyxkbdwZr2E</span>
+    </div>
+    <div class="btn">
+      <svg-icon
+        [svgStyle]="{'width.px': 18, 'height.px': 18}"
+        src="{{windowsIcon}}"
+      ></svg-icon>
+    </div>
+  </div>
+</div>

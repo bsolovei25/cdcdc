@@ -8,7 +8,7 @@
 
 .chart-section {
   width: 100%;
-  background-color: var(--chart-background-color);
+  background-color: var(--gray-G11-color);
   padding-top: 42px;
   padding-left: 10px;
   padding-right: 30px;
@@ -18,6 +18,7 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 40px;
+    padding-right: 30px;
 
     &__legends {
       padding-left: 44px;
@@ -38,14 +39,16 @@
       width: 213px;
       height: 20px;
 
-      input {display:none;}
+      input {
+        display:none;
+      }
 
       .slider {
         position: absolute;
         cursor: pointer;
         width: 50px;
         top: -4px;
-        left: 68px;
+        left: 80px;
         right: 0;
         bottom: 0;
         background-color: var(--index-plan-color);
@@ -83,11 +86,12 @@
 
       .label {
         color: var(--text-contrast-color);
+        padding-right: 10px;
       }
 
       .checked-label {
         position: absolute;
-        left: 133px;
+        left: 145px;
       }
 
       input:checked ~ .checked-label {

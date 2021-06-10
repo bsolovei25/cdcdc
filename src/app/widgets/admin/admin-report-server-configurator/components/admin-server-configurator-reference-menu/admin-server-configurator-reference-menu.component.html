@@ -3,16 +3,48 @@
         <div class="menu__header__name">Название</div>
         <div class="menu__header__name">Последнее изменение</div>
     </div>
-    <div class="menu__body"  cdkDropListGroup>
-        <evj-admin-report-server-configurator-file *ngFor="let item of arscService.data?.folders | searching: search"
-            cdkDrag [item]="item" id="item-list" (cdkDropListDropped)="drop($event)" cdkDropList>
-        </evj-admin-report-server-configurator-file>
-        <evj-admin-report-server-configurator-file *ngFor="let item of arscService.reports | searching: search" cdkDrag
-            [report]="item">
-        </evj-admin-report-server-configurator-file>
-        <evj-admin-report-server-configurator-file *ngFor="let item of childrens | searching: search" cdkDrag
-            [childrens]="item"></evj-admin-report-server-configurator-file>
-        <evj-admin-report-server-configurator-file *ngFor="let item of templates | searching: search" cdkDrag
-            [templates]="item"></evj-admin-report-server-configurator-file>
+    <div class="menu__body">
+        <ng-container *ngFor="let item of data?.folders">
+            <evj-admin-report-server-configurator-file
+            (click)="openFolder(item)"
+            [item]="item"
+            ></evj-admin-report-server-configurator-file>
+        </ng-container>
+        <ng-container *ngFor="let item of reports">
+            <evj-admin-report-server-configurator-file
+            [report]="item"
+            ></evj-admin-report-server-configurator-file>
+        </ng-container>
+
+        <ng-container *ngFor="let item of childrens">
+            <evj-admin-report-server-configurator-file
+            (click)="openFolder(item)"
+            [childrens]="item"
+            ></evj-admin-report-server-configurator-file>
+        </ng-container>
+        <ng-container *ngFor="let item of templates">
+            <evj-admin-report-server-configurator-file
+            (click)="openTemplate(item)"
+            [templates]="item"
+            ></evj-admin-report-server-configurator-file>
+        </ng-container>
     </div>
 </div>
+
+
+
+
+
+
+<!--<div class="menu__body"  cdkDropListGroup>-->
+<!--  <evj-admin-report-server-configurator-file *ngFor="let item of arscService.data?.folders | searching: search"-->
+<!--                                             cdkDrag [item]="item" id="item-list" (cdkDropListDropped)="drop($event)" cdkDropList>-->
+<!--  </evj-admin-report-server-configurator-file>-->
+<!--  <evj-admin-report-server-configurator-file *ngFor="let item of arscService.reports | searching: search" cdkDrag-->
+<!--                                             [report]="item">-->
+<!--  </evj-admin-report-server-configurator-file>-->
+<!--  <evj-admin-report-server-configurator-file *ngFor="let item of childrens | searching: search" cdkDrag-->
+<!--                                             [childrens]="item"></evj-admin-report-server-configurator-file>-->
+<!--  <evj-admin-report-server-configurator-file *ngFor="let item of templates | searching: search" cdkDrag-->
+<!--                                             [templates]="item"></evj-admin-report-server-configurator-file>-->
+<!--</div>-->

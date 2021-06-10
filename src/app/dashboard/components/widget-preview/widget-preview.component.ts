@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ThemeConfiguratorService } from "@core/service/theme-configurator.service";
+import { ThemeConfiguratorService } from '@core/service/theme-configurator.service';
 
 @Component({
     selector: 'evj-widget-preview',
@@ -14,8 +14,7 @@ export class WidgetPreviewComponent implements OnInit {
     public route: string = 'assets/icons/widget-preview/';
     public format: string = '.svg';
 
-    constructor(private themeService: ThemeConfiguratorService,) {
-    }
+    constructor(private themeService: ThemeConfiguratorService) {}
 
     ngOnInit(): void {
         const sub = this.themeService.isDarkTheme.subscribe((value) => {

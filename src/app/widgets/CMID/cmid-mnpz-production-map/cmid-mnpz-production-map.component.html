@@ -1,7 +1,0 @@
-<div class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
-  <evj-widget-header-smp [uniqId]="widgetUniqId" *ngIf="isHover"></evj-widget-header-smp>
-  <div class="svg-wrapper" (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
-    <evj-cmid-production-map [data]="data" [mapType]="mapType.onpz"></evj-cmid-production-map>
-  </div>
-</div>

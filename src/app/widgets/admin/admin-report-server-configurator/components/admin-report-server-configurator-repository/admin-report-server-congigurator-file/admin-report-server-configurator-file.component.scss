@@ -70,11 +70,11 @@
     justify-content: center;
     align-items: center;
 
-    z-index: 99;
+            z-index: 99;
 
-    &:hover {
-        background-color: var(--border-blue-color);
-        color: var(--text-alwaysWhite-color);
-        cursor: pointer;
+            &:hover {
+                background-color: var(--border-blue-color);
+                color: var(--text-alwaysWhite-color);
+            cursor: pointer;
     }
 }

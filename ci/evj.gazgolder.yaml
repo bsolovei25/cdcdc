@@ -3,50 +3,81 @@ tags:
 
 global:
   environment: "gazgolder"
-  securityContextEnabled: false
-
-evj:
-  deployment:
-    replicas: 1
-
-  ingress:
-    state: true
-    site: ingress-name
-
-  site:
-    proxy_pass:
-      route: "asplatform-gatewayrouting.dev-asplatform.svc.cluster.local"
-
+  securityContextEnabled: true
   labels:
-    project: evj
-    environment: dev
+    app.kubernetes.io/stage: dev
+    app.kubernetes.io/tier: front
+    app.kubernetes.io/owner: asplatform
+  probes:
+    startupProbeEnable: false
+    livenessProbeEnable: false
+  envs:
+    BASE_HREF: "/"
+  image:
+    pullSecrets:
+      state: true
+  isIngressEnabled: true
+  site:
+    domain: funcoff.club
+    ingress:
+      type: "nginx"
+
+
+############
+evj:
+  labels:
+    app.kubernetes.io/project: ejko
+
+  startupCommandEnable: false
+  startupCommand:
+    command: ["bash", "entryPoint.sh"]
+    args: ["nginx", "-g", "daemon off;"]
+
     
+  # imageOverride: false
   image:
     registry: "registry.funcoff.club/cup"
     name: "evj-front"
-    tag: "develop"
+    tag: "develop-1"
+    pullPolicy: "Always"
 
-  resourcesOverride: true
+  service:
+    targetPort: 4200
+
+  resourcesOverride: false
   resources:
     requests:
-      memory: "64Mi"
-      cpu: "80m"
-    limits:
-      memory: "196Mi"
+      memory: "128Mi"
       cpu: "150m"
+    limits:
+      memory: "1512Mi"
+      cpu: "1500m"
+
+  site:
+    ingress:
+      state: true
+      path: asplatform
+      type: nginx
+    domain: funcoff.club
+    ssl: true
+    server_name: localhost
+    proxy_pass:
+      route: 192.168.0.23:6777
+      # route: dev-asplatform-gatewayrouting
+
+  envDirectInject:
+    TITLE: EvjPlatform
+    # BASE_HREF: /
+
+  pv:
+    state: false
 
   podAnnotations: {}
 
-  configMaps:
+  extraConfigmaps:
     nginx:
-      overrideCI: false
+      state: true
+      mountPath: "/opt/app-root/etc/nginx.d/nginx.conf"
     config:
-      overrideCI: false
-      data:
-        _custom: {
-          "restUrl": "https://smp.funcoff.club",
-          "reconnectInterval": 5,
-          "isPlatform": "false"
-        }
-
+      state: true
 

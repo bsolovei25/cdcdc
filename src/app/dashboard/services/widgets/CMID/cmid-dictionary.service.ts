@@ -9,18 +9,17 @@ import {
 } from '@dashboard/services/widgets/CMID/cmid-dictionary.interface';
 import { map, tap } from 'rxjs/operators';
 import { IPlanItem } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface';
+import { IManufacture, IPlant, IUnit } from '@dashboard/services/widgets/CMID/cmid.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CmidDictionaryService {
     private restUrl: string;
-    private cmidUrl: string;
     private kdpazCards: IPlanItem[] = [];
     private reasonsCache: IDirectoryData[];
 
     constructor(public http: HttpClient, private configService: AppConfigService) {
-        this.cmidUrl = this.configService.cmidUrl;
         this.restUrl = this.configService.restUrl;
     }
 
@@ -61,21 +60,20 @@ export class CmidDictionaryService {
         return of([]);
     }
 
-    public getManufactures(id: string = '1'): Observable<Record<string, unknown>[]> {
-        // Замоканый метод
-        return this.http
-            .get<IReasonOfDisconnect>(`assets/mock/CMID/manufactures.json`)
-            .pipe(map((manufactures) => manufactures[id]));
+    public getManufactures(): Observable<IManufacture[]> {
+        return this.http.get<IManufacture[]>(`${this.restUrl}/api/cmid-kdpaz/card/manufactures`);
     }
 
-    public getPlants(id: string = '1'): Observable<Record<string, unknown>[]> {
+    public getPlants(id: string = '1'): Observable<IPlant[]> {
         // Замоканый метод
-        return this.http.get<IReasonOfDisconnect>(`assets/mock/CMID/plants.json`).pipe(tap(console.log), map((plants) => plants[id]));
+        return this.http.get<IPlant>(`assets/mock/CMID/plants.json`).pipe(
+            tap(console.log),
+            map((plants) => plants[id])
+        );
     }
 
-    public getSetups(id: string): Observable<Record<string, unknown>[]> {
-        // Замоканый метод
-        return this.http.get<IReasonOfDisconnect>(`assets/mock/CMID/units.json`).pipe(map((units) => units[id]));
+    public getSetups(manufactureId: string): Observable<IUnit[]> {
+        return this.http.get<IUnit[]>(`${this.restUrl}/api/cmid-kdpaz/card/plants/manufacture/${manufactureId}`);
     }
 
     public getPositions(query: string = ''): Observable<IPlanItem[]> {

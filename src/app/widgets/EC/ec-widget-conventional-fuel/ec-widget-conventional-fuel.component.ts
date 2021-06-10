@@ -44,6 +44,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
         plan: number;
         fact: number;
         forecast: number;
+        factModel: number;
     };
 
     public sbWidth: number = 100;
@@ -218,6 +219,7 @@ export class EcWidgetConventionalFuelComponent extends WidgetPlatform implements
                     plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
                     fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
                     forecast: this.data.find((item) => item.graphType === 'forecast')?.currentValue,
+                    factModel: this.data.find((item) => item.graphType === 'factModel')?.currentValue,
                 };
             }),
         });

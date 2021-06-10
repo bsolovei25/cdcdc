@@ -241,6 +241,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     public isSmpHeader(widgetType: string): boolean {
         switch (widgetType) {
             case 'cd-critical':
+            case 'cmid-filter':
                 return true;
         }
         return false;

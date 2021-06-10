@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
-import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { MatDialog } from '@angular/material/dialog';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from '@circlon/angular-tree-component';
+import { Subscription } from 'rxjs';
+import { WidgetService } from '@dashboard/services/widget.service';
+import { SnackBarService } from '@dashboard/services/snack-bar.service';
 import {
     IReportTemplate,
     ITreeFolderMap,
@@ -12,11 +14,9 @@ import {
     ISystemOptionsTemplate,
     IFolder,
     IPostSystemOptionsTemplate,
-} from 'src/app/dashboard/models/ADMIN/report-server.model';
-import { Subscription } from 'rxjs';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+} from '@dashboard/models/ADMIN/report-server.model';
+import { ReportServerConfiguratorService } from '@dashboard/services/widgets/admin-panel/report-server-configurator.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { ReportNameConfiguratorComponent } from './report-name-configurator/report-name-configurator.component';
 
 export interface IDialogData {
@@ -86,7 +86,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
 
     public addItem: boolean = false;
 
-    public data: ITemplate[];
+    public data: IReportTemplate[];
     public options: ISystemOptions[];
     public optionsActive: ISystemOptionsTemplate[];
     public optionsCustom: IReportTemplate;
@@ -152,7 +152,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         super.widgetInit();
     }
 
-    protected async dataConnect(): Promise<void> {
+    protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(this.getReportFolder(), this.getRecordFile(), this.getReportTemplate());
     }
@@ -162,7 +162,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
+    OnResize(): void {
         this.setStyleScroll();
     }
 
@@ -191,7 +191,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> i
         // this.data = ref;
     }
 
-    openTable(event): void {
+    openTable(event: boolean): void {
         this.isTable = event;
     }
 
