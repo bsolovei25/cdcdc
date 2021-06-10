@@ -23,6 +23,7 @@ import { DocumentCodingFilterComponent } from '../document-coding/components/doc
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { FormControl } from '@angular/forms';
 import { ArrayProperties } from '@shared/interfaces/common.model';
+import { DocumentCodingService } from '@dashboard/services/oil-control-services/document-coding.service';
 
 export type IDocumentOilQualityPanelFilterType =
     | 'products-document-panel'
@@ -119,6 +120,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         public oilDocumentService: DocumentsScansService,
+        private documentCodingService: DocumentCodingService,
         private popoverOverlayService: PopoverOverlayService
     ) {
         super(widgetService, id, uniqId);
@@ -342,6 +344,14 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
                 this.data = ref;
             })
         );
+
+        this.documentCodingService.savedPassport.subscribe(data => {
+            dataLoadQueue.push(
+                this.getList().then((ref) => {
+                    this.data = ref;
+                })
+            );
+        })
         await Promise.all(dataLoadQueue);
     }
 }
