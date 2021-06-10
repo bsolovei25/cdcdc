@@ -276,9 +276,9 @@ export const WIDGETS_LAZY = {
         minItemRows: 4,
         preview: 'ozsm-resources-circle-diagram',
     },
-    // #endregion OZSM
 
     // #region KPE
+
     'key-performance-indicators': {
         import: async () => {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
@@ -290,7 +290,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'key-performance-indicators',
     },
-
     'kpe-quality': {
         import: async () => {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
@@ -1837,7 +1836,7 @@ export const WIDGETS_LAZY = {
         itemCols: 21,
         itemRows: 12,
         minItemCols: 18,
-        minItemRows: 5,
+        minItemRows: 8,
         preview: 'default',
     },
     'cmid-number-of-outages': {
@@ -1866,10 +1865,10 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-filter/cmid-filter.module');
         },
         module: 'CmidFilterModule',
-        itemCols: 25,
+        itemCols: 64,
         itemRows: 2,
-        minItemCols: 15,
-        minItemRows: 1,
+        minItemCols: 35,
+        minItemRows: 2,
         preview: 'default',
     },
     'cmid-dynamics-of-metrics-change': {
@@ -1898,13 +1897,35 @@ export const WIDGETS_LAZY = {
     },
     'cmid-mnpz-production-map': {
         import: async () => {
-            return await import('@widgets/CMID/cmid-mnpz-production-map/cmid-mnpz-production-map.module');
+            return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
         },
-        module: 'CmidMnpzProductionMapModule',
+        module: 'CmidProductionMapModule',
         itemCols: 35,
         itemRows: 20,
         minItemCols: 35,
         minItemRows: 20,
+        preview: 'default',
+    },
+    'cmid-onpz-production-map': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
+        },
+        module: 'CmidProductionMapModule',
+        itemCols: 35,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 20,
+        preview: 'default',
+    },
+    'cmid-vector-diagram': {
+        import: async () => {
+            return await import('@widgets/CMID/cmid-vector-diagram/cmid-vector-diagram.module');
+        },
+        module: 'CmidVectorDiagrammModule',
+        itemCols: 16,
+        itemRows: 30,
+        minItemCols: 16,
+        minItemRows: 10,
         preview: 'default',
     },
     //#endregion CMID
@@ -1964,28 +1985,26 @@ export const WIDGETS_LAZY = {
     //#region SUUTP
     'suutp-equipment-complexes': {
         import: async () => {
-            return await import('src/app/widgets/SUUTP/suutp-complexes/complexes.module');
+            return await import('@widgets/SUUTP/suutp-complexes/complexes.module.ts');
         },
         module: 'ComplexesModule',
-        itemCols: 10,
-        itemRows: 15,
-        minItemCols: 10,
+        itemCols: 20,
+        itemRows: 35,
+        minItemCols: 20,
         minItemRows: 6,
         preview: 'default',
     },
 
     'suutp-equipment-fractions-processing': {
         import: async () => {
-            return await import(
-                'src/app/widgets/SUUTP/suutp-equipment-fractions-processing/suutp-equipment-fractions-processing.module'
-                );
+            return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
         },
-        module: 'SuutpEquipmentFractionsProcessingModule',
-        itemCols: 10,
-        itemRows: 50,
-        minItemCols: 10,
-        minItemRows: 6,
-        preview: 'evj-suutp-equipment-fractions-processing',
+        module: 'SuutpChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 18,
+        minItemRows: 10,
+        preview: 'default',
     },
 
     'suutp-equipment-factory-state': {

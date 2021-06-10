@@ -3,8 +3,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { MatDialog } from '@angular/material/dialog';
-import { KpeExecutionProductionProgramEditPlaneComponent } from '../kpe-execution-production-program/components/kpe-execution-production-program-edit-plane/kpe-execution-production-program-edit-plane.component';
-import { KpeExecutionProductionProgramAddPlanComponent } from '../kpe-execution-production-program/components/kpe-execution-production-program-add-plan/kpe-execution-production-program-add-plan.component';
 import { KpeAccuracyTimelinesDataAddPlanComponent } from './components/kpe-accuracy-timelines-data-add-plan/kpe-accuracy-timelines-data-add-plan.component';
 import { KpeAccuracyTimelinesDataEditPlanComponent } from './components/kpe-accuracy-timelines-data-edit-plan/kpe-accuracy-timelines-data-edit-plan.component';
 import { IKpeAccuracyTimelinesHeaders, IKpeAccuracyTimelinesRow, IKpeAccuracyTimelinesData } from './kpe-accuracy-timelines-data.interface';
@@ -39,6 +37,7 @@ import { KpeHelperService } from '@widgets/KPE/shared/kpe-helper.service';
 })
 export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> implements OnInit {
     public cells: number[] = new Array(100);
+    public percent: number = 97;
     public isExpanded: boolean = true;
     public rows: IKpeAccuracyTimelinesRow[] = [];
     public headers: IKpeAccuracyTimelinesHeaders = {
@@ -48,6 +47,7 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
         PercentageInfluence: 0,
         Categories: ''
     };
+    public modifiedHeaderDate: string;
 
     constructor(
         protected widgetService: WidgetService,
@@ -66,8 +66,12 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
 
     protected dataHandler(ref: IKpeAccuracyTimelinesData): void {
         ref.headers.forEach(item => this.headers[item.name] = item.value);
-        this.rows = ref.rows;
-        this.headers.Date = this.kpeHelperService.transformDateToMonthYear(this.headers.Date);
+        this.rows = this.filterByMonth(ref.rows);
+        this.modifiedHeaderDate = this.kpeHelperService.transformDateToMonthYear(this.headers.Date);
+    }
+
+    private filterByMonth(rows: IKpeAccuracyTimelinesRow[]): IKpeAccuracyTimelinesRow[] {
+        return rows.filter(row => new Date(row.dateOfAdjustment).getMonth() === new Date(this.headers.Date).getMonth())
     }
 
     public toggleBlock(): void {

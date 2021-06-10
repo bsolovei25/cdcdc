@@ -10,8 +10,8 @@ import { AdminReportServerConfiguratorRootService } from '@widgets/admin/admin-r
 })
 export class AdminReportServerConfiguratorRepositoryAddFileComponent implements OnInit {
 
-  public readonly addIcon='assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
-  public readonly loadIcon='assets/icons/widgets/admin/admin-report-server-configurator/load-file.svg';
+  public readonly addIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/add-logo.svg';
+  public readonly loadIcon: string = 'assets/icons/widgets/admin/admin-report-server-configurator/load-file.svg';
   public newRecord: string;
   public folderActive: number;
 
@@ -23,14 +23,14 @@ export class AdminReportServerConfiguratorRepositoryAddFileComponent implements 
   ngOnInit(): void {
   }
 
-  public async onPushReport(): Promise<void> {
+  public async onClickUpload(): Promise<void> {
     if (this.newRecord?.trim().length > 0 && this.newRecord !== undefined) {
-        
+
         const data: { name: string, folderId: number } = {
           name: this.newRecord,
           folderId: this.folderActive === 0 ? null : this.folderActive,
         };
-        await this.arscRootService.postReportTemplate(data);
+        await this.arscRootService.uploadFile(null, null, null, null);
         this.newRecord = null;
     } else {
       this.newRecord = null;

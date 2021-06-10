@@ -20,6 +20,7 @@ export interface IReportTemplate {
     name: string;
     description: string;
     fileId: string;
+    folderId: string;
     fileTemplate?: IReportFile;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
@@ -133,4 +134,6 @@ export interface ICustomOptionsFilenameSettings {
     useInFilename: boolean;
     order: number;
 }
+
+export { ICustomOptions } from '@widgets/admin/admin-report-server-configurator/models/admin-report-server-configurator.model';
 

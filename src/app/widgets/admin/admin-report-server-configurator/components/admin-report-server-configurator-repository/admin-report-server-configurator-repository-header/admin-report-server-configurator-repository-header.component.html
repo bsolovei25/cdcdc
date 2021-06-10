@@ -1,38 +1,68 @@
 <div class="header">
-    <div class="search" [formGroup]="form">
-        <svg-icon class="icon" src="{{searchIcon}}"></svg-icon>
-        <input class="input" type="text" placeholder="Поиск по названию файла или папки" 
-        formControlName="search"
-        />
-    </div>
-    <button #button matRipple matRippleColor="white" (click)="addFile()">
+  <div
+    class="search"
+    [formGroup]="form">
+    <svg-icon
+      class="icon"
+      [src]="searchIcon"></svg-icon>
+    <input
+      class="input"
+      type="text"
+      placeholder="Поиск по названию файла или папки"
+      formControlName="search"
+    /></div>
+  <button
+    #button
+    matRipple
+    matRippleColor="white"
+    (click)="openMenu()"
+  >
+    <svg-icon
+      class="icon"
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="addIcon"
+    ></svg-icon>
+    Добавить
+  </button>
+
+  <ng-template>
+    <div class="header__add">
+      <div
+        class="item"
+        (click)="addFolder()">
         <svg-icon
-        class="icon"
-        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
-        src="{{addIcon}}"
+          class="icon"
+          [src]="folderIcon"
+          [svgStyle]="{'height.%':'100', 'width.px': '16'}"
         ></svg-icon>
-        Добавить
-    </button>
-    <ng-template>
-        <div class="header__add">
-            <div class="item" (click)="addFolder()">
-                <svg-icon
-                class="icon"
-                src={{folderIcon}}
-                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
-                >
-                </svg-icon>
-                <span>Папка</span>
-            </div>
-            <div class="item" (click)="addReport()">
-                <svg-icon
-                class="icon"
-                src={{reportIcon}}
-                [svgStyle]="{'height.%':'100', 'width.px': '16'}"
-                >
-                </svg-icon>
-                <span>Отчёт</span>
-            </div>
-        </div>
-    </ng-template>
+        <span>Папка</span>
+      </div>
+
+      <div
+        *ngIf="(helperService.currentTab | async) === 0"
+        class="item"
+        (click)="addReport()"
+      >
+        <svg-icon
+          class="icon"
+          [src]="reportIcon"
+          [svgStyle]="{'height.%':'100', 'width.px': '16'}"
+        ></svg-icon>
+        <span>Отчёт</span>
+      </div>
+
+      <div
+        *ngIf="(helperService.currentTab | async) === 1"
+        class="item"
+        (click)="addFile()"
+      >
+        <svg-icon
+          class="icon"
+          [src]="reportIcon"
+          [svgStyle]="{'height.%':'100', 'width.px': '16'}"
+        ></svg-icon>
+        <span>Файл</span>
+      </div>
+    </div>
+  </ng-template>
 </div>

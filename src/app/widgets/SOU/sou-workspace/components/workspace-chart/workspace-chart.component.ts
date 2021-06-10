@@ -129,7 +129,6 @@ export class WorkspaceChartComponent implements OnChanges, OnInit {
 
     @AsyncRender
     private startDrawChart(): void {
-        console.log('pffsdfsdfsdfsd');
         this.dropChart();
         this.initData();
         this.findMinMax();
@@ -300,10 +299,11 @@ export class WorkspaceChartComponent implements OnChanges, OnInit {
                     .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
-            .style('color', 'var(--chart-segment-color)');
+            .style('color', 'var(--chart-segment-color)')
+            .style('fill', 'var(--bg-dashboard-color)');;
 
         const yscale = d3.scaleLinear()
-            .range([231, 0]);
+            .range([128, 0]);
         const line = this.svg
             .append('g')
             .attr('class', 'yAxis')

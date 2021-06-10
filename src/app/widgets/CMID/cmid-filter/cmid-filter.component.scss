@@ -1,63 +1,70 @@
 .container {
-    background: var(--bg-body-color);
+  border: 1px solid var(--bg-header-color);
+  border-radius: 2px;
 
-    &__form {
-        display: flex;
-        justify-content: space-between;
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        &_arrow {
-            padding: 19px 8px;
-            color: var(--color-header-bg-calendar-divider);
-        }
+    &_arrow {
+      padding: 5px 8px 0;
+      color: var(--color-header-bg-calendar-divider);
+    }
+  }
+
+  &__factories {
+    height: 25px;
+    border-radius: 2px;
+    border: 1px solid var(--color-header-bg-calendar-divider);
+    background-color: var(--gray-G12-color);
+    margin-top: 18px;
+    margin-bottom: 15px;
+    padding: 0 10px 0 5px;
+
+    .mat-form-field {
+      bottom: 9px;
+      width: 100%;
+      padding-left: 5px;
+      box-sizing: border-box;
+    }
+    ::ng-deep {
+      .mat-form-field-infix {
+        padding-top: 5px;
+      }
     }
 
-    &__factories {
-        height: 25px;
-        width: 200px;
-        border-radius: 2px;
-        border: 1px solid var(--color-header-bg-calendar-divider);
-        background-color: var(--gray-G12-color);
-        margin-top: 15px;
-        margin-bottom: 15px;
-        padding: 0 10px 0;
+    &_position {
+      margin-right: 12px;
+    }
+  }
 
-        .mat-form-field {
-            bottom: 9px;
-            width: 100%;
-            padding-left: 5px;
-            box-sizing: border-box;
-        }
+  .factories__img {
+    width: 96px;
+    padding-left: 7px;
 
-        &_position {
-            margin-right: 12px;
-        }
+    .mat-form-field {
+      width: calc(100% - 12px);
     }
 
-    .factories__img {
-        width: 96px;
-        
-        .mat-form-field {
-            width: calc(100% - 12px);
-        }
-
-        &_position {
-            color: var(--gray-G6-color);
-            bottom: 9px;
-            position: relative;
-        }
+    &_position {
+      color: var(--gray-G6-color);
+      bottom: 9px;
+      position: relative;
     }
+  }
 
-    &__button {
-        padding-top: 17px;
+  &__button {
+    padding-top: 3px;
 
-        &_item {
-            width: 90px;
-            height: 24px;
-            border-radius: 2px;
-            border: none;
-            background: var(--gray-G9-color);
-            color: var(--gray-G4-color);
-            cursor: pointer;
-        }
+    &_item {
+      width: 90px;
+      height: 26px;
+      border-radius: 2px;
+      border: none;
+      background: var(--gray-G9-color);
+      color: var(--gray-G4-color);
+      cursor: pointer;
     }
+  }
 }

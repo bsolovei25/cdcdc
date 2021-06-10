@@ -645,6 +645,10 @@ input:focus::-webkit-input-placeholder {
     align-items: center;
     justify-content: center;
   }
+
+  &__choose-units {
+    width: 100%;
+  }
   &__value-right {
     position: absolute;
     bottom: 0px;

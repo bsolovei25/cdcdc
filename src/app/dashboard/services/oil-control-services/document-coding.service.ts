@@ -12,6 +12,8 @@ import { IOilFilter } from '../../models/oil-operations';
 export class DocumentCodingService {
     private restUrl: string;
 
+    public savedPassport: BehaviorSubject<IEncodedFileToSave> = new BehaviorSubject<IEncodedFileToSave>(null);
+
     public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     constructor(private http: HttpClient, configService: AppConfigService) {
@@ -48,6 +50,7 @@ export class DocumentCodingService {
 
     public async passportSave(file: IEncodedFileToSave): Promise<void> {
         try {
+            this.savedPassport.next(file);
             return await this.http.post<void>(`${this.restUrl}/api/oil-control/passport/bddk`, file).toPromise();
         } catch (e) {
             console.error(e);

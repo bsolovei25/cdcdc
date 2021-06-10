@@ -97,7 +97,16 @@ export class OilOperationsTankFilterComponent implements OnInit {
     public async search(phrase: string): Promise<void> {
         const filteredTanks = await this.oilOperationService.getTanksByFilter<IOilOperationsTank[]>(phrase);
         this.filteredTanks = phrase ? filteredTanks : [];
-        this.accordionMap.forEach((value, key) => {
+
+        if (this.filteredTanks.length) {
+            this.filteredTanks.map(value => {
+                this.accordionMap.set(value.group.id, true);
+            })
+        } else {
+            this.accordionMap.clear();
+        }
+
+        this.accordionMap.forEach((value, key, map) => {
             if (value) {
                 this.productOpen(key, false);
             }

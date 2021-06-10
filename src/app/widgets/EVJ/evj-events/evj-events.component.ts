@@ -198,7 +198,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         {
             id: 3001,
             code: 'all',
-            name: 'Все',
+            name: 'К исполнению',
             notificationsCount: 0,
             isActive: true,
         },
@@ -224,6 +224,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             isActive: false,
         },
     ];
+
+    public visibleFilters: EventsWidgetFilter[] = [...this.filters].filter(filter => filter.code !== 'isNotAcknowledged');
 
     public priority: IPriority;
     public units: IUnits[];

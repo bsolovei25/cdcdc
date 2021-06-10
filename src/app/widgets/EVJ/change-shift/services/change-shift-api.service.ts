@@ -24,7 +24,7 @@ export class ChangeShiftApiService {
     }
 
     public async getUnitIdByWidget(widgetId: string): Promise<number> {
-        return this.http.get<number>(`${this.restUrlPrefix}/api/shift/widget/unitId/${widgetId}`).toPromise();
+        return this.http.get<number>(`${this.restUrl}/widget/${widgetId}/unitId`).toPromise();
     }
 
     public async applyShift(

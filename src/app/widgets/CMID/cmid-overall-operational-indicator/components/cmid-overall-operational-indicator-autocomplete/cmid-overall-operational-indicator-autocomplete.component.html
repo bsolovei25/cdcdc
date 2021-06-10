@@ -12,7 +12,11 @@
   </ul>
   <div class="chips-autocomplete__select">
     <span class="chips-autocomplete__placeholder">{{!this.graphLines.length ? 'Выберите показатели' : null}}</span>
-    <mat-select ngDefaultControl multiple [formControl]="filterControl" [panelClass]="'autocomplete-panel-custom'">
+    <mat-select ngDefaultControl
+                multiple
+                [formControl]="filterControl"
+                [panelClass]="'autocomplete-panel-custom'"
+    >
       <mat-option #filterInput *ngFor="let lines of filterItems" [value]="lines" (onSelectionChange)="onSelectOption($event)">
         {{lines.label}}
       </mat-option>

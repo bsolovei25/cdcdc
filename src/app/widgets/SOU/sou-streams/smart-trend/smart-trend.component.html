@@ -1,0 +1,60 @@
+<div class="section">
+  <div class="header">
+    <div class="header__title-block">
+      <svg-icon
+        class="header__icon"
+        src="assets/icons/widgets/SOU/sou-streams/chart_mountain.svg"
+        [ngStyle]="{ 'height.px':16 }"
+      ></svg-icon>
+      <div class="header__title">Резервуар 503</div>
+    </div>
+    <span class="close">
+       <svg-icon
+         (click)="sendClosingSmartTrend()"
+         src="assets/icons/widgets/SOU/sou-streams/close_modal.svg"
+         [ngStyle]="{ 'height.px':16 }"
+       ></svg-icon>
+    </span>
+  </div>
+
+  <div class="chart-section"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+
+    <div class="chart-section__info">
+      <div class="chart-section__info__legends">
+        <svg-icon
+          class="chart-section__info__legends__icon"
+          src="assets/icons/widgets/SOU/sou-streams/legend_line.svg"
+          [ngStyle]="{ 'height.px':10 }"
+        ></svg-icon>
+        <span class="chart-section__info__legends__text">Наименование легенды</span>
+        <svg-icon
+          class="chart-section__info__legends__icon"
+          src="assets/icons/widgets/SOU/sou-streams/legend_dashed-line.svg"
+          [ngStyle]="{ 'height.px':10 }"
+        ></svg-icon>
+        <span class="chart-section__info__legends__text">Наименование легенды</span>
+      </div>
+
+      <div class="chart-section__info__button" (click)="openTrendTable()">
+        <svg-icon
+          class="chart-section__info__button__icon"
+          src="assets/icons/widgets/SOU/sou-streams/plus_add_circle.svg"
+          [ngStyle]="{ 'height.px':16 }"
+        ></svg-icon>
+        <span>Добавить тренд</span>
+      </div>
+    </div>
+
+    <evj-trends></evj-trends>
+  </div>
+
+  <div class="table-section"
+       *ngIf="isTrendTableOpen"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+    <evj-trend-table></evj-trend-table>
+  </div>
+
+</div>

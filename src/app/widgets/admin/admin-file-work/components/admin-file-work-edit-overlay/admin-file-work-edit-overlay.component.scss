@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+}
+
+input{
+  height: 100%;
+  width: 100%;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--text-accent-color);
+}
+
+.container {
+  height: 310px;
+  width: 690px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--bg-body-color);
+
+  border: 1px solid var(--border-blue-color);
+  border-radius: 5px;
+
+  .header {
+    height: 86px;
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 30px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--text-contrast-color);
+    position: relative;
+
+    span {
+      margin-left: 25px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 16px;
+    }
+
+    .close {
+      margin-left: auto;
+      cursor: pointer;
+
+      color: var(--border-icon-color);
+    }
+
+    .shadow {
+      height: 30px;
+      width: 100%;
+
+      background: linear-gradient(180deg, var(--gradient-main-color-1) -0.04%, var(--gradient-main-color-2) 99.96%);
+
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+    }
+  }
+
+  .content {
+    padding: 0 55px;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .file-name {
+      width: 100%;
+      margin-top: -13px;
+
+      display: flex;
+      flex-direction: column;
+
+      .link {
+        height: 54px;
+        padding: 0 25px;
+
+        display: flex;
+        align-items: center;
+
+        background: var(--bg-dashboard-color);
+        border: 1px solid var(--border-vidget-color);
+        border-radius: 2px;
+
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--text-accent-color);
+      }
+
+      span{
+        margin-bottom: 10px;
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--text-main-color);
+      }
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 20px;
+
+      position: relative;
+      bottom: -35px;
+
+      .btn {
+        height: 32px;
+        width: 170px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: var(--border-vidget-color);
+        border-radius: 2px;
+
+        color: var(--text-main-color);
+        cursor: pointer;
+
+        &:hover {
+          background: var(--border-blue-color);
+          color: var(--text-alwaysWhite-color);
+        }
+
+        &:first-child {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}

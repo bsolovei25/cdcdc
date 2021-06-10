@@ -77,7 +77,7 @@
       &[aria-expanded="true"] {
         .mat-select-arrow-wrapper {
           transform: rotate(-180deg);
-          transform-origin: 7px 10px;
+          transform-origin: 7px 11px;
         }
       }
     }
@@ -90,6 +90,7 @@
       border: thin solid var(--border-forms-color);
       border-radius: 2px;
       outline: none;
+      vertical-align: middle;
     }
 
     .mat-select-value {

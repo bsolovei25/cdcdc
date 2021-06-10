@@ -27,7 +27,7 @@ interface ISouSelectionOptionsForm {
 interface ISouSelectionOptions {
     manufactures$: Observable<ISouManufacture[]>;
     units$: Observable<ISouUnit[]>;
-    sections$: Observable<ISouSection[]>;
+    // sections$: Observable<ISouSection[]>;
 }
 
 interface ISouSubchannel {
@@ -81,19 +81,20 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 ?? []
             )
         ),
-        sections$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
-            map(
-                ([options, group]) =>
-                    options
-                        ?.manufactures
-                        ?.find((x) => x.name === group?.manufacture)
-                        ?.units
-                        ?.find((x) => x.id === group?.unit)
-                        ?.section
-                    ?? []
-            )
-        )
+        // sections$: combineLatest([this.options$, this.optionsGroup.valueChanges]).pipe(
+        //     map(
+        //         ([options, group]) =>
+        //             options
+        //                 ?.manufactures
+        //                 ?.find((x) => x.name === group?.manufacture)
+        //                 ?.units
+        //                 ?.find((x) => x.id === group?.unit)
+        //                 ?.section
+        //             ?? []
+        //     )
+        // )
     };
+    public currentUnit$: BehaviorSubject<{name: string, sections: ISouSection[]}> = new BehaviorSubject<{name: string, sections: ISouSection[]}>(null);
     chosenSetting$: Observable<number>;
 
     // Определяет вид отображения
@@ -128,23 +129,33 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 )
                 .subscribe(this.redirect.bind(this)),
             // Изменения формы
-            this.optionsGroup.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe((x) => {
-                this.mvpService.closePopup();
-                this.setSubchannelBySelection(x.section, x.unit);
-                // Задает вид
-                this.schemeView$.next(this.getViewType(x));
-                this.mvpService.selectedOptions$.next(this.getWsOptions(x));
-                this.stateController().save(x);
-                this.setDefaultSection(x);
-            }),
+            this.optionsGroup.valueChanges
+                .pipe(
+                    debounceTime(500),
+                    distinctUntilChanged(),
+                )
+                .subscribe((x) => {
+                    this.mvpService.closePopup();
+                    this.setSubchannelBySelection(x.section, x.unit);
+                    // Задает вид
+                    this.schemeView$.next(this.getViewType(x));
+                    this.mvpService.selectedOptions$.next(this.getWsOptions(x));
+                    this.stateController().save(x);
+                    this.setDefaultSection(x);
+                }),
             this.optionsGroup
                 .get('manufacture')
                 .valueChanges
-                .subscribe((x) => this.optionsGroup.get('unit').setValue(null)),
+                .subscribe((x) => {
+                    this.optionsGroup.get('unit').setValue(null);
+                }),
             this.optionsGroup
                 .get('unit')
                 .valueChanges
-                .subscribe((x) => this.optionsGroup.get('section').setValue(null))
+                .subscribe((x) => {
+                    this.optionsGroup.get('section').setValue(null);
+                    this.currentUnit$.next(null);
+                })
         );
         this.chosenSetting$ = this.mvpService.chosenSetting$;
         this.redirectToSectionNameIfNeed();
@@ -178,6 +189,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
                 sectionsData
             });
             this.mvpService.currentSection$.next(ref.section?.[0]);
+        }
+        if ('sections' in ref) {
+            this.currentUnit$.next(ref);
         }
     }
 
@@ -243,10 +257,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     private getWsOptions(form: ISouSelectionOptionsForm): { manufacture: string; unit: string; section: string; } {
-        const unit = this.options$.value.manufactures
-            ?.flatMap((x) => x.units)
-            ?.find((x) => x.id === form.unit);
-        const section = unit?.section
+        const unit = this.currentUnit$?.value;
+        const section = unit?.sections
             ?.find((x) => x.id === form.section);
 
         return {

@@ -15,6 +15,7 @@ export interface IOilControlPassportOpts {
     TankIds?: number[];
     IsBlocked?: boolean;
     ArmName?: string;
+    SearchLike?: string;
 }
 
 @Injectable({
@@ -93,6 +94,9 @@ export class DocumentsScansService {
         }
         if (options.PassportName) {
             res += `&PassportName=${options.PassportName}`;
+        }
+        if (options.SearchLike) {
+            res += `&SearchLike=${options.SearchLike}`
         }
         if (options.ProductIds?.length) {
             options.ProductIds.forEach((id) => {

@@ -1,0 +1,34 @@
+<div class="suutp-header__wrapper">
+  <div class="suutp-header__left-block">
+    <svg-icon class="suutp-header__icon"
+              src="assets/icons/widgets/SUUTP/table-icon.svg"
+    ></svg-icon>
+    {{ title }}
+  </div>
+  <div class="suutp-header__right-block">
+      <div class="suutp-header__interface">
+        <div
+          class="buttons"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
+          <div class="button button_menu" (click)="toggleMenu()">
+            <img src="assets/pic/menu.svg" />
+          </div>
+        </div>
+      </div>
+      <div
+        class="suutp-header__menu menu"
+        [ngClass]="{'menu_open':isMenuOpen}"
+        (mouseleave)="closeMenu()"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">{{item.title}}</div>
+        <div class="menu__item" (click)="onRemoveButton()">
+          <svg-icon src="assets/pic/delete.svg"></svg-icon>
+          <span>Удалить с экрана</span>
+        </div>
+      </div>
+    </div>
+</div>
