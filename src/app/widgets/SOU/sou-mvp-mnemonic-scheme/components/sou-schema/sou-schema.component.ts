@@ -50,7 +50,7 @@ export class SouSchemaComponent implements OnChanges {
     private elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
     private elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
 
-    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
+    private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17, 30];
     private typesNeedTextAnchorEnd: number[] = [15];
     private typeTextParams: { [typeId: number]: ITypeTextParams } = {
         1: {
@@ -90,7 +90,10 @@ export class SouSchemaComponent implements OnChanges {
         17: {
             lineLength: 10,
             maxTextLength: 30
-        }
+        },
+        30: {
+            lineLength: 14,
+        },
     };
     private debugElementCode: number;
 
