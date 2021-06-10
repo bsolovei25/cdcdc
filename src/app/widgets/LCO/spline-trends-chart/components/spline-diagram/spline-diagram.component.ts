@@ -10,6 +10,7 @@ export interface ISplineDiagramSize {
 
 export interface ISplineDiagramData {
     planValue: number;
+    factValue?: number;
     deviationValue: number;
     fact: {
         x: number;

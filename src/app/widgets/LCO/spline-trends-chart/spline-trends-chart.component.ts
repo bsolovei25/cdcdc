@@ -98,22 +98,29 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
             });
             return [...new Map(fieldNew.map((item) => [item.x, item])).values()];
         }
-
-        this.displayedMonth = splitHandler(ref?.fact)[0][0].timeStamp;
+        if (!!ref.fact?.length) {
+            this.displayedMonth = splitHandler(ref?.fact)[0][0].timeStamp;
+        } else if (!!ref.plan?.length) {
+            this.displayedMonth = splitHandler(ref?.plan)[0][0].timeStamp;
+        } else {
+            return;
+        }
         const numOfDays = this.getNumOfDays(this.displayedMonth);
 
         const result = {
             deviationValue: ref.deviation ?? 0,
             planValue: 0,
-            fact: fieldHandler(splitHandler(ref?.fact)[0]),
-            plan: fieldHandler(splitHandler(ref?.plan)[0]),
-            lowBound: fieldHandler(splitHandler(ref?.lowerBound)[0]),
-            highBound: fieldHandler(splitHandler(ref?.upperBound)[0]),
+            factValue: 0,
+            fact: ref?.fact?.length ? fieldHandler(splitHandler(ref?.fact)[0]) : [],
+            plan: ref?.plan?.length ? fieldHandler(splitHandler(ref?.plan)[0]) : [],
+            lowBound: ref?.lowBound?.length ? fieldHandler(splitHandler(ref?.lowerBound)[0]) : [],
+            highBound: ref?.highBound?.length ? fieldHandler(splitHandler(ref?.upperBound)[0]) : [],
         };
         result.highBound = this.fillArray(result.highBound, numOfDays);
         result.lowBound = this.fillArray(result.lowBound, numOfDays);
         result.plan = this.fillArray(result.plan, numOfDays);
-        result.planValue = result.plan[result.plan.length - 1].y;
+        result.planValue = result.plan?.length ? result.plan[result.plan.length - 1].y : null;
+        result.factValue = result.fact?.length ? result.fact[result.fact.length - 1].y : null;
         return result;
     }
 
