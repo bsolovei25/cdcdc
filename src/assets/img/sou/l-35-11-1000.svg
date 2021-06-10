@@ -429,16 +429,16 @@
 <path id="Rectangle 7354_20" d="M1412 647L1418 650L1412 653V650V647Z" fill="#606580"/>
 </g>
 </g>
-<g id="Group 22963">
-<path id="line_152" d="M1385 973L1404 973" stroke="#606580" stroke-linecap="round"/>
+<g id="line-group_152">
+<path id="line" d="M1385 973L1404 973" stroke="#606580" stroke-linecap="round"/>
 <g id="Arrow">
 <g id=".template arrow">
-<path id="line_65" d="M1051 802L1404 802" stroke="#606580" stroke-linecap="round"/>
+<path id="line_2" d="M1051 802L1404 802" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <g id="Arrow_2">
 <g id=".template arrow_2">
-<path id="line_65_2" d="M1051 764H1068" stroke="#606580" stroke-linecap="round"/>
+<path id="line_3" d="M1051 764H1068" stroke="#606580" stroke-linecap="round"/>
 <g id=".start&#38;end_21">
 <path id="Rectangle 7354_21" d="M1065 761L1071 764L1065 767V764V761Z" fill="#606580"/>
 </g>
@@ -446,20 +446,20 @@
 </g>
 <g id="Arrow_3">
 <g id=".template arrow_3">
-<path id="line_65_3" d="M1404 973L1404 839" stroke="#606580" stroke-linecap="round"/>
+<path id="line_4" d="M1404 973L1404 839" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <g id="Arrow_4">
 <g id=".template arrow_4">
-<path id="line" d="M1404 829L1404 802" stroke="#606580" stroke-linecap="round"/>
+<path id="line_5" d="M1404 829L1404 802" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
 <g id="Arrow_5">
 <g id=".template arrow_5">
-<path id="line_65_4" d="M1051 802L1051 764" stroke="#606580" stroke-linecap="round"/>
+<path id="line_6" d="M1051 802L1051 764" stroke="#606580" stroke-linecap="round"/>
 </g>
 </g>
-<path id="Ellipse 2109" d="M1404 829C1401.24 829 1399 831.239 1399 834C1399 836.761 1401.24 839 1404 839" stroke="#606580" stroke-linecap="round"/>
+<path id="line_7" d="M1404 829C1401.24 829 1399 831.239 1399 834C1399 836.761 1401.24 839 1404 839" stroke="#606580" stroke-linecap="round"/>
 </g>
 <g id="element-11_5">
 <circle id="circle_8" cx="220" cy="586" r="11.5" fill="#1C1F2B" stroke="#606580"/>

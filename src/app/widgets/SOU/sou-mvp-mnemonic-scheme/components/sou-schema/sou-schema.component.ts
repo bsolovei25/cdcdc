@@ -42,8 +42,13 @@ type TypeMode = 'standard' | 'deviation' | 'disabled' | 'reset' | 'active';
 })
 export class SouSchemaComponent implements OnChanges {
 
-    elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
-    elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
+    @Input() sectionsData: SouSectionData[];
+    @Input() chosenSetting: number = 1;
+    @Input() unitName: string;
+    @Input() svgName: string;
+
+    private elementsMap: Map<number, Element> = new Map(); // Svg элементы .element
+    private elementsFullMap: Map<number, IElementFull> = new Map(); // Распарсеные элементы
 
     private typesNeedTextAnchorMiddle: number[] = [4, 12, 13, 14, 16, 17];
     private typesNeedTextAnchorEnd: number[] = [15];
@@ -88,11 +93,6 @@ export class SouSchemaComponent implements OnChanges {
         }
     };
     private debugElementCode: number;
-
-    @Input() sectionsData: SouSectionData[];
-    @Input() chosenSetting: number = 1;
-    @Input() unitName: string;
-    @Input() svgName: string;
 
     @ViewChild('svgContainer') svgContainer: ElementRef<HTMLElement>;
 
@@ -269,6 +269,7 @@ export class SouSchemaComponent implements OnChanges {
         const svg = this.getSvgElement();
         const elements = svg.querySelectorAll('[id^=element-]');
         const lines = svg?.querySelectorAll(`[id^=line_]`);
+        const linesGroups = svg?.querySelectorAll(`[id^=line-group_]`);
 
         // Обработка элементов схемы
         elements?.forEach((element: Element) => {
@@ -297,6 +298,16 @@ export class SouSchemaComponent implements OnChanges {
 
             if (!this.elementsMap.get(id)) {
                 this.elementsMap.set(id, line);
+            }
+        });
+
+        // Обработка групп линий
+        linesGroups?.forEach((linesGroup: Element) => {
+            const elMatch = linesGroup?.id?.match(/line-group_(\d+)/i);
+            const id = elMatch && elMatch[1] && parseInt(elMatch[1], 10);
+
+            if (!this.elementsMap.get(id)) {
+                this.elementsMap.set(id, linesGroup);
             }
         });
 
@@ -373,6 +384,7 @@ export class SouSchemaComponent implements OnChanges {
         if (typeof sectionData?.related === 'object') {
             sectionData?.related.forEach((id) => {
                 const elementRelated = this.elementsMap.get(id);
+
                 if (elementRelated?.children) {
                     const elementsRelated = Array.from(elementRelated?.children);
                     let elementFullRelated: IElementFull = {
@@ -410,6 +422,11 @@ export class SouSchemaComponent implements OnChanges {
 
                     if (this.isElementLine(elementRelated)) {
                         this.setElementMode(elementRelated, mode, undefined, isNotMeasurable);
+                    } else if (this.isElementLinesGroup(elementRelated)) {
+                        const lines = elementRelated.querySelectorAll('[id^=line]');
+                        lines?.forEach((line: SVGElement) => {
+                            this.setElementMode(line, mode, undefined, isNotMeasurable);
+                        });
                     }
                 }
             });
@@ -616,6 +633,11 @@ export class SouSchemaComponent implements OnChanges {
                     const element = this.elementsMap.get(value);
                     if (this.isElementLine(element)) {
                         this.lineActive(element, elementFull);
+                    } else if (this.isElementLinesGroup(element)) {
+                        const lines = element.querySelectorAll('[id^=line]');
+                        lines?.forEach((line: SVGElement) => {
+                            this.lineActive(line, elementFull);
+                        });
                     } else {
                         const elFull = this.elementsFullMap.get(value);
                         if (elFull) {
@@ -852,7 +874,11 @@ export class SouSchemaComponent implements OnChanges {
     }
 
     private isElementLine(element: SVGElement | Element): boolean {
-        return element?.getAttribute('id').includes('line');
+        return element?.getAttribute('id').includes('line_');
+    }
+
+    private isElementLinesGroup(element: SVGElement | Element): boolean {
+        return element?.getAttribute('id').includes('line-group_');
     }
 
     // Поток измеряемый
