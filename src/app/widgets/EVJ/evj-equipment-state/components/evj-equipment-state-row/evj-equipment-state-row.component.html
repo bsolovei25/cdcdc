@@ -34,7 +34,7 @@
     </evj-equipment-state-datetime-picker>
   </div>
   <evj-equipment-state-comment class="row__comment"
-                               [ngClass]="{ edit: isEditMode }"
+                               [class.edit]="isEditMode"
                                [comment]="row.comment"
                                (click)="$event.stopPropagation()">
   </evj-equipment-state-comment>

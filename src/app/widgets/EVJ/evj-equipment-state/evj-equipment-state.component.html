@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<div *ngIf="tableData.length"
+<div *ngIf="!tableData.length"
      class="not-found-message"
      (mousedown)="$event.stopPropagation()"
      (touchstart)="$event.stopPropagation()">

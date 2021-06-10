@@ -14,7 +14,7 @@ export interface IEquipmentState {
 }
 
 export interface IEquipmentStateComment {
-    avatar: any;
+    avatar: string;
     name: string;
     position: string;
     message: string;
