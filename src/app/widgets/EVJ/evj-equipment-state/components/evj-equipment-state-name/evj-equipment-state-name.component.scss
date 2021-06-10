@@ -1,0 +1,51 @@
+:host {
+  display: block;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 155px;
+  width: min-content;
+  height: 24px;
+  padding: 0 8px 0 4px;
+  background-color: var(--gray-G9-color);
+
+  &__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+
+    &_on {
+      color: var(--index-fact-color);
+      background-color: var(--index-plan-color);
+    }
+
+    &_off {
+      color: var(--index-plan-color);
+      background-color: var(--opacity-plan-20-color);
+    }
+
+    &_undetermined {
+      color: var(--index-active-color);
+      background-color: var(--index-default-color);
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &__value {
+    color: var(--text-contrast-color);
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

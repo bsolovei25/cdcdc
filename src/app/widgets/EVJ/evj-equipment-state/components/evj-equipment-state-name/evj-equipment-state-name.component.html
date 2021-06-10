@@ -1,0 +1,28 @@
+<div class="name">
+  <ng-container [ngSwitch]="state">
+    <div *ngSwitchCase="'on'"
+         class="name__icon-wrapper name__icon-wrapper_on">
+      <svg-icon class="name__icon"
+                src="assets/icons/widgets/EVJ/equipment-state/state-on.svg">
+      </svg-icon>
+    </div>
+    
+    <div *ngSwitchCase="'off'"
+         class="name__icon-wrapper name__icon-wrapper_off">
+      <svg-icon class="name__icon"
+                src="assets/icons/widgets/EVJ/equipment-state/state-off.svg">
+      </svg-icon>
+    </div>
+
+    <div *ngSwitchCase="'undetermined'"
+         class="name__icon-wrapper name__icon-wrapper_undetermined">
+      <svg-icon class="name__icon"
+                src="assets/icons/widgets/EVJ/equipment-state/state-undetermined.svg">
+      </svg-icon>
+    </div>
+  </ng-container>
+  <div class="name__value"
+       (click)="$event.stopPropagation()">
+    {{ value }}
+  </div>
+</div>

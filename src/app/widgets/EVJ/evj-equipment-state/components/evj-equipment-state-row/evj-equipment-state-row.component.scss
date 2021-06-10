@@ -1,0 +1,53 @@
+@import "../../evj-equipment-state.component.scss";
+
+.row {
+  @include row-grid;
+
+  position: relative;
+  width: 100%;
+  height: 48px;
+  padding-left: $row-left-padding;
+  background-color: var(--gray-G10-color);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &_selected {
+    border: 1px solid var(--border-blue-color);
+  }
+
+  &_edit {
+    border-left: 4px solid var(--border-blue-color);
+    border-radius: 2px 0px 0px 2px;
+  }
+
+  &__position {
+    max-width: 115px;
+    font-size: 13px;
+    color: var(--text-main-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__status {
+    width: 128px;
+  }
+
+  &__comment {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    margin-right: 38px;
+    
+    &_edit {
+      border: 1px solid var(--border-blue-color);
+    }
+  }
+
+  &__edit-icon {
+    position: absolute;
+    right: 10px;
+    color: var(--gray-G6-color);
+  }
+}

@@ -1,0 +1,36 @@
+<div class="production">
+  <div class="production__inner"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+    <evj-equipment-state-header-dropdown class="production__filter"
+                                         [options]="productionList"
+                                         (onSelect)="sortPlantList($event)">
+    </evj-equipment-state-header-dropdown>
+    <svg-icon class="production__arrow"
+              src="assets/icons/widgets/EVJ/equipment-state/arrow-right.svg">
+    </svg-icon>
+    
+    <evj-equipment-state-header-dropdown class="production__filter"
+                                         [options]="plantList"
+                                         (onSelect)="plantSelection($event)">
+    </evj-equipment-state-header-dropdown>
+    <svg-icon class="production__arrow"
+              src="assets/icons/widgets/EVJ/equipment-state/arrow-right.svg">
+    </svg-icon>
+
+    <evj-equipment-state-header-dropdown class="production__filter production__filter_w232"
+                                         [options]="equipmentTypeList"
+                                         [isSetDefaultValue]="true"
+                                         (onSelect)="selectEquipmentType($event)">
+    </evj-equipment-state-header-dropdown>
+    <svg-icon class="production__arrow"
+              src="assets/icons/widgets/EVJ/equipment-state/arrow-right.svg">
+    </svg-icon>
+
+    <evj-equipment-state-header-dropdown class="production__filter production__filter_w232"
+                                         [options]="equipmentGroupList"
+                                         [isSetDefaultValue]="true"
+                                         (onSelect)="selectEquipmentGroup($event)">
+    </evj-equipment-state-header-dropdown>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="wrapper"
+     (click)="$event.stopPropagation()">
+  <mat-form-field>
+    <input matInput
+           [ngxMatDatetimePicker]="picker"
+           [value]="inputDate"
+           [formControl]="dateControl"
+           [disabled]="isDisabled"
+           (ngModelChange)="buttonConfirm($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>
+        <svg-icon src="assets/icons/widgets/EVJ/equipment-state/calendar.svg">
+        </svg-icon>
+      </mat-icon>
+    </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker
+                             [showSpinners]="true"
+                             [showSeconds]="false"
+                             [stepHour]="1"
+                             [stepMinute]="10"
+                             [touchUi]="false"
+                             [color]="'primary'">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+</div>

@@ -718,6 +718,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 23,
         preview: 'change-shift',
     },
+    'evj-equipment-state': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-equipment-state/evj-equipment-state.module');
+        },
+        module: 'EvjEquipmentStateModule',
+        itemCols: 50,
+        itemRows: 27,
+        minItemCols: 50,
+        minItemRows: 27,
+        preview: 'default',
+    },
     // #endregion EVJ
 
     //#region LCO

@@ -1,0 +1,114 @@
+@mixin row-grid {
+  display: grid;
+  grid-template-columns: 33px 179px 138px 162px 173px 173px 1fr;
+  align-items: center;
+}
+
+$row-left-padding: 16px;
+$row-right-padding: 8px;
+$header-left-padding: 32px;
+$header-right-padding: $row-right-padding;
+
+::-webkit-scrollbar {
+  width: 13px;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3.5px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--gray-G12-color);
+  border-radius: 10px;
+  border: 3px solid var(--bg-body-color);
+}
+
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-body-color);
+}
+
+.header {
+  @include row-grid();
+
+  width: calc(100% - #{$header-left-padding + $header-right-padding});
+  height: 32px;
+  padding-left: $header-left-padding;
+  padding-right: $header-right-padding;
+  box-shadow: 0px 6px 12px var(--gradient-main-color-1);
+  font-size: 11px;
+  color: var(--text-subscript-color);
+}
+
+.table {
+  position: absolute;
+  top: 144px;
+  right: 8px;
+  bottom: 72px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  overflow: auto;
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  box-shadow: 0px -4px 8px var(--gradient-main-color-1);
+
+  &__element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 16px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: var(--text-contrast-color);
+    cursor: pointer;
+    user-select: none;
+
+    &_blue {
+      background-color: var(--toggler-background-active);
+    }
+
+    &_gray {
+      background-color: var(--gray-G9-color);
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+
+    &_erase {
+      color: var(--gray-G4-color);
+    }
+    
+    &_tablet {
+      color: var(--gray-G1-color);
+    }
+  }
+}
+
+.not-found-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: var(--text-subscript-color);
+}

@@ -1,0 +1,70 @@
+:host {
+  position: absolute;
+  right: 48px;
+}
+
+:host::ng-deep {
+  .mat-form-field-label-wrapper {
+    top: -2px;
+    left: 9px;
+  }
+}
+
+.header-wrapper {
+  display: flex;
+  gap: 24px;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__filter {
+    width: 176px;
+  }
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__filter {
+    width: 176px;
+  }
+}
+
+.search {
+  width: 168px;
+  height: 24px;
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 8px;
+    color: var(--gray-G6-color);
+  }
+
+  &__field {
+    width: 100%;
+    height: 100%;
+    padding: 4px 4px 4px 36px;
+    background: var(--gray-G12-color);
+    color: var(--text-contrast-color);
+    border: 1px solid var(--gray-G8-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      font-size: 13px;
+      color: var(--text-subscript-color);
+    }
+  }
+}

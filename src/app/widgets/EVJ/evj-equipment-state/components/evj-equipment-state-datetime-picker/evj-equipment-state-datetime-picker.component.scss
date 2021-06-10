@@ -1,0 +1,56 @@
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+:host {
+  display: block;
+}
+
+:host::ng-deep {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  .mat-form-field-underline {
+    display: none !important;
+  }
+
+  .mat-form-field-infix {
+    position: absolute;
+    left: 36px;
+    padding: 0;
+    border-top: none;
+    width: 102px;
+  }
+
+  .mat-form-field-suffix {
+    margin-left: 8px;
+  }
+
+  .mat-datepicker-toggle {
+    font-size: 13px !important;
+    color: var(--gray-G6-color);
+  }
+
+  .mat-datepicker-toggle-active {
+    color: var(--gray-G1-color) !important;
+  }
+  
+  .mat-input-element {
+    font-size: 13px;
+    color: var(--text-main-color);
+  }
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 152px;
+  height: 32px;
+  background-color: var(--gray-G12-color);
+  border: 1px solid var(--border-forms-color);
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &_edit {
+    border: 1px solid var(--border-blue-color);
+  }
+}
