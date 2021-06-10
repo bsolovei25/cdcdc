@@ -14,7 +14,7 @@
       <image x="-39" y="-0.5" width="120" height="50" xlink:href="assets/icons/widgets/admin/worker-card.svg" />
 
       <text x="33" y="9" text-anchor="start" class="svg__txt" *ngIf="phoneRegExp.test(person.phone)">
-        +7 {{person.phone|mask:'(000) 000-00-00'}}
+         {{person.phone}}
       </text>
       <text x="33" y="9" text-anchor="start" class="svg__txt" *ngIf="!phoneRegExp.test(person.phone)">
         Телефон не указан
