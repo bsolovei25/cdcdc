@@ -18,6 +18,13 @@ export interface ISouUnit {
     balance: 'main' | 'section';
 }
 
+// Unit который приходит в отдельном сообщении
+export interface ISouSingleUnit {
+    id: string;
+    name: string;
+    sections: ISouSection[];
+}
+
 export interface ISouSection {
     id: string;
     name: string;

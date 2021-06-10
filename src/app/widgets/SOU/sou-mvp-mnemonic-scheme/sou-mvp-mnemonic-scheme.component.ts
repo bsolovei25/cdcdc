@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+import { FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { WidgetService } from '@dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import {
     ISouFlowIn,
     ISouFlowOut,
     ISouManufacture,
     ISouObjects,
     ISouOptions, ISOUSection,
-    ISouSection,
+    ISouSection, ISouSingleUnit,
     ISouUnit
-} from '../../../dashboard/models/SOU/sou-operational-accounting-system.model';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+} from '@dashboard/models/SOU/sou-operational-accounting-system.model';
+import { SouMvpMnemonicSchemeService } from '@dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animationsArray } from './sou-mvp-mnemonic-scheme.animations';
 import { SouMvpMnemonicSchemeFooterComponent } from './components/sou-mvp-mnemonic-scheme-footer/sou-mvp-mnemonic-scheme-footer.component';
 import { SouMvpMnemonicSchemeViewComponent } from './components/sou-mvp-mnemonic-scheme-view/sou-mvp-mnemonic-scheme-view.component';
@@ -94,7 +94,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         //     )
         // )
     };
-    public currentUnit$: BehaviorSubject<{name: string, sections: ISouSection[]}> = new BehaviorSubject<{name: string, sections: ISouSection[]}>(null);
+    public currentUnit$: BehaviorSubject<ISouSingleUnit> = new BehaviorSubject<ISouSingleUnit>(null);
     chosenSetting$: Observable<number>;
 
     // Определяет вид отображения
