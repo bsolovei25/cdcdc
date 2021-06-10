@@ -1,0 +1,32 @@
+<div
+  class="content"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="search-container">
+    <div class="search">
+      <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-predictors/search.svg"></svg-icon>
+      <form [formGroup]="form">
+        <input type="text" placeholder="Поиск" formControlName="search" />
+      </form>
+    </div>
+  </div>
+    <div class="equipments">
+      <ng-container *ngFor="let item of data">
+        <div
+          *ngIf="!item.isFiltered"
+          class="equipments__item item-equipments"
+          [class.item-equipments_active]="item.isActive"
+          (click)="onClickEquipment(item)"
+        >
+          <div class="item-equipments__icon-container">
+            <svg-icon
+              class="item-equipments__icon"
+              [src]="'assets/icons/widgets/EC/ec-widget-header/' + item.fileName + '.svg'"
+            ></svg-icon>
+          </div>
+          <div class="item-equipments__title">{{item.name}}</div>
+        </div>
+      </ng-container>
+    </div>
+</div>

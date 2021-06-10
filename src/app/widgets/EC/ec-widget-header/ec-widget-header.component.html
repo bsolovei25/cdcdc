@@ -1,0 +1,48 @@
+<evj-contemporary-widget-header icon="factory" type="astue" widgetTitle="ОНПЗ" [uniqId]="widgetUniqId">
+  <div class="container">
+    <div class="selects" [formGroup]="headerMenuForm">
+
+      <div class="arrow"></div>
+
+      <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="dropdown">
+          <mat-select placeholder="Производство" class="dropdown__select" [formControlName]="'manufacture'">
+            <mat-option>Не выбрано</mat-option>
+            <mat-option *ngFor="let manufacture of (data$ | async)?.manufacturies" [value]="manufacture.id">{{
+              manufacture.name }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="arrow"></div>
+
+      <div class="option-select" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="dropdown">
+          <mat-select placeholder="Установка" class="dropdown__select" [formControlName]="'unit'">
+            <mat-option>Не выбрано</mat-option>
+            <mat-option *ngFor="let unit of getMenuUnits" [value]="unit.id">{{ unit.name }}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="equipments">
+      <div
+        *ngFor="let equipment of getEquipments"
+        class="equipment"
+        [class.equipment_active]="equipment.isActive"
+        (click)="onClickEquipment(equipment)"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <svg-icon
+          class="equipment__icon"
+          [src]="'assets/icons/widgets/EC/ec-widget-header/' + equipment.fileName + '.svg'"
+        ></svg-icon>
+        <div class="equipment__title">{{equipment.name}}</div>
+        <div class="equipment__count">2</div>
+      </div>
+    </div>
+  </div>
+</evj-contemporary-widget-header>

@@ -4,6 +4,8 @@ import {EcWidgetTableModelComponent} from './ec-widget-table-model.component';
 import {SharedModule} from '@shared/shared.module';
 import {MatSelectModule} from '@angular/material/select';
 import {AngularSvgIconModule} from 'angular-svg-icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,6 +14,8 @@ import {AngularSvgIconModule} from 'angular-svg-icon';
         CommonModule,
         SharedModule,
         MatSelectModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
         AngularSvgIconModule,
     ]
 })
