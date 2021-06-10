@@ -1,16 +1,13 @@
-<div style="height: 100%; width: 100%">
-  <evj-widget-header
-    [title]="widgetTitle"
-    [units]="widgetUnits"
-    [code]="widgetCode"
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    [widgetTitle]="widgetTitle"
     [id]="widgetId"
-    [icon]="widgetIcon"
-    [uniqId]="widgetUniqId"
-  ></evj-widget-header>
+    [uniqId]="uniqId"
+    [icon]="'periods'"
+    type="astue"
+  ></evj-contemporary-widget-header>
 
-  <evj-frame-top></evj-frame-top>
-
-  <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="wrapper">
       <div class="chart">
         <evj-spline-diagram [data]="data" [currentMonth]="displayedMonth"></evj-spline-diagram>
@@ -22,7 +19,7 @@
         </div>
         <div class="metrics__block fact-color">
           <div class="title">Факт</div>
-          <div class="value">{{data?.fact[data?.fact.length - 1]?.y | number:'.1-2'}}</div>
+          <div class="value">{{ data?.factValue | number:'.1-2'}}</div>
         </div>
         <div class="metrics__block deviation-color">
           <div class="title">Отклонение</div>
@@ -31,5 +28,5 @@
       </div>
     </div>
   </div>
-  <evj-frame-bottom></evj-frame-bottom>
 </div>
+
