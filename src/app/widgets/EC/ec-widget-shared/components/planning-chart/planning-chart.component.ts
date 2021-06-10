@@ -114,7 +114,7 @@ export class PlanningChartComponent implements OnChanges {
         this.drawChart();
         this.drawMask();
         this.drawAxisLabels();
-        this.drawFutureRect();
+        // this.drawFutureRect();
         this.drawPoints();
         this.customizeAreas();
         this.drawMouseGroup()
