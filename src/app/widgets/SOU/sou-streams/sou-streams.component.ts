@@ -77,7 +77,7 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     ngOnInit(): void {
         super.widgetInit();
-        this.souStreamsService.getTableContent('45', '67').then((res) => {
+        this.souStreamsService.getTableContent('2020-02-27', '2020-02-28').then((res) => {
             this.tableRows = res;
         });
     }
