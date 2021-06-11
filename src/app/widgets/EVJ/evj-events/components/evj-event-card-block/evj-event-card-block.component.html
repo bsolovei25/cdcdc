@@ -12,6 +12,11 @@
       </div>
     </div>
     <div class="header__right-block">
+      <svg-icon *ngIf="isOutdated"
+                       class="header__outdated"
+                       src="assets\icons\widgets\EVJ\event-card\calendar-attention.svg"
+                       [svgStyle]="{ 'width.px': '16', 'height.px': '16' }">
+      </svg-icon>
       <div class="header__status header-size__status" [ngClass]="'header__status_' + data?.priority?.name">
         {{ data?.statusName }}
       </div>

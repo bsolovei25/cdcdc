@@ -74,6 +74,10 @@ export class EvjEventCardComponent implements OnInit {
         this.selectionExpandedElement.emit();
     }
 
+    public checkDeadline(deadline: string | Date): boolean {
+        return new Date(deadline) < new Date();
+    }
+
     private checkClaim(): void {
         const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsDelete');
         this.removeClaim = claim?.claimCategory === 'allow';
