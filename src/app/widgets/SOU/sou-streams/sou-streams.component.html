@@ -209,7 +209,7 @@
                    [ngStyle]="{ 'backgroundColor': processWarningColor(row['warningColor'])}">
               </div>
               <div class="cell-line-text">
-                {{ 1234 }}
+                {{ row['operationNumber'] }}
               </div>
             </div>
           </td>
@@ -220,7 +220,7 @@
                 {{ processDate(row['startTime']) }}
               </div>
               <div class="cell-name">
-                 Иванов И.И.
+                 {{ row['userName'] }}
               </div>
             </div>
           </td>
@@ -250,7 +250,7 @@
                     {{ processDate(row['endTime']) }}
                   </div>
                   <div class="cell-name">
-                    Иванов И.И.
+                    {{ row['userName'] }}
                   </div>
                 </div>
               </ng-template>
@@ -282,7 +282,7 @@
             <div class="table__row__cell-default">
               <div class="cell-text"
                    [ngStyle]="{'width': '121px'}">
-                {{ row['sourceClient'] }}
+                {{ row['flow'] }}
               </div>
             </div>
           </td>
