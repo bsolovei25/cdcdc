@@ -193,10 +193,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
                     return;
                 }
                 this.data = !!data ? this.multilineDataMapper(data) : this.isNewStructure ? this.data : [];
-                this.currentValues = {
-                    plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
-                    fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
-                };
+                this.setCurrentValues();
             }),
 
             this.astueOnpzService.colors$.subscribe((value) => {
@@ -262,11 +259,19 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
             if (!this.isPredictors) {
                 if (ref?.graphs) {
                     this.data = this.multilineDataMapper(ref.graphs);
+                    this.setCurrentValues();
                     return;
                 }
                 this.data = [];
             }
         }
+    }
+
+    private setCurrentValues(): void {
+        this.currentValues = {
+            plan: this.data.find((item) => item.graphType === 'plan')?.currentValue,
+            fact: this.data.find((item) => item.graphType === 'fact')?.currentValue,
+        };
     }
 
     private setFormValues(ref: {menu: IAstueOnpzReferences}): void {
