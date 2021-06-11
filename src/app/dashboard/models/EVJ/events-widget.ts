@@ -39,6 +39,7 @@ export interface IEventsWidgetNotificationPreview {
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
     retrievalEvents: IEventsWidgetNotificationPreview[];
+    deadline?: string;
 }
 
 export interface ISMPOData {
