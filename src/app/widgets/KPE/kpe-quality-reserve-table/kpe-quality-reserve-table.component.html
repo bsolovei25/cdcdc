@@ -20,6 +20,10 @@
           <input id="units" type="radio" class="filter__option" name="filter-option" [value]="1" [(ngModel)]="selectedOption" (ngModelChange)="changeUnits($event)">
           <label for="units" class="filter__option">ед.изм</label>
         </div>
+        <div>
+          <input id="currency" type="radio" class="filter__option" name="filter-oprion" [value]="2" [(ngModel)]="selectedOption" (ngModelChange)="changeUnits($event)">
+          <label for="currency" class="filter__option">руб.</label>
+        </div>
       </div>
       <div class="btn-list" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
         <div class="btn">
