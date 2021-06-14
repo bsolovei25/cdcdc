@@ -13,6 +13,7 @@
               [class.danger-cell]="element.cells[+column]?.color === 1">
             <span *ngIf="(chosenFilter === 0) || (+column === 0)">{{element.cells[+column]?.value}}</span>
             <span *ngIf="(chosenFilter === 1) && (+column !== 0)">{{element.cells[+column]?.valueInUnits}}</span>
+            <span *ngIf="(chosenFilter === 2) && (+column !== 0)">{{element.cells[+column]?.valueInCash}}</span>
           </td>
         </ng-container>
 
