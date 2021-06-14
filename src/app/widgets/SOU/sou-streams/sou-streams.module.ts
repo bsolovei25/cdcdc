@@ -12,7 +12,6 @@ import { TrendTableComponent } from './smart-trend/components/trend-table/trend-
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SouWorkspaceModule } from '@widgets/SOU/sou-workspace/sou-workspace.module';
 
-
 @NgModule({
     declarations: [
         SouStreamsComponent,
@@ -20,8 +19,8 @@ import { SouWorkspaceModule } from '@widgets/SOU/sou-workspace/sou-workspace.mod
         TrendsComponent,
         TrendTableComponent
     ],
-    imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule, ScrollingModule, MatRadioModule, DragDropModule, SouWorkspaceModule
-    ]
+  imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule, ScrollingModule, MatRadioModule, DragDropModule, SouWorkspaceModule
+  ]
 })
 export class SouStreamsModule {
     enterComponent = SouStreamsComponent;
