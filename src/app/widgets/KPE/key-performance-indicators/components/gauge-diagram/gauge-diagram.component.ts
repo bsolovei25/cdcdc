@@ -3,6 +3,12 @@ import * as d3 from 'd3';
 import { IKpeUniversalCardMonthData } from '../../../shared/kpe-universal-card/kpe-universal-card.component';
 import { KpeGaugeChartMultiColor } from '../../../shared/kpe-gauge-chart-multi-color/kpe-gauge-chart-multi-color.component';
 
+export enum deviationColors {
+    grey = 0,
+    green = 1,
+    yellow = 2
+}
+
 export interface IKpeGaugeChartPage {
     name: string;
     title?: string;
@@ -19,6 +25,7 @@ export interface IKpeGaugeChartPage {
     plan?: number;
     unit?: string;
     type?: string;
+    deviationColor?: deviationColors;
     isUnitPercent?: boolean;
     totalHour?: number
 }
