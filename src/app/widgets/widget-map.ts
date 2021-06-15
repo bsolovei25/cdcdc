@@ -1867,7 +1867,7 @@ export const WIDGETS_LAZY = {
         },
         module: 'CmidOperationalReadinessModule',
         itemCols: 25,
-        itemRows: 4,
+        itemRows: 3,
         minItemCols: 15,
         minItemRows: 1,
     },
