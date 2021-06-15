@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/co
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { ISplineDiagramData } from './components/spline-diagram/spline-diagram.component';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({
     selector: 'evj-spline-trends-chart',
@@ -118,7 +119,9 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
         };
         result.highBound = this.fillArray(result.highBound, numOfDays);
         result.lowBound = this.fillArray(result.lowBound, numOfDays);
-        result.plan = this.fillArray(result.plan, numOfDays);
+        if (!!result.fact?.length) {
+            result.plan = this.fillArray(result.plan, numOfDays);
+        }
         result.planValue = result.plan?.length ? result.plan[result.plan.length - 1].y : null;
         result.factValue = result.fact?.length ? result.fact[result.fact.length - 1].y : null;
         return result;
@@ -130,6 +133,8 @@ export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implemen
 
     protected dataHandler(ref: any): void {
         console.log('spline-chart', ref);
+        // ref.plan = ref.fact.map((x) => x);
+        // ref.fact = null;
         this.data = this.processData(ref);
     }
 
