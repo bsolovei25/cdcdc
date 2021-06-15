@@ -1,18 +1,24 @@
 import {
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
-    OnInit,
-    Inject,
-    ViewChild,
     ElementRef,
-    AfterViewChecked, ChangeDetectorRef, ViewContainerRef, TemplateRef, AfterViewInit, OnDestroy
+    Inject,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
 } from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.service';
+import { ISouStreamsTableContent } from '@dashboard/services/widgets/SOU/sou-streams.service';
 
 
 @Component({
@@ -46,7 +52,17 @@ import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.s
 export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
     public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
-    public tableRows: {};
+    public tableRows: ISouStreamsTableContent[];
+    public tableRowsAllOperations: ISouStreamsTableContent[];
+    public tableRowsOpenOperations: ISouStreamsTableContent[];
+
+
+    public toDateTime: string;
+    public fromDateTime: string;
+
+    public sourceMassValue: number;
+    public destinationMassValue: number;
+    public deviationValue: number;
 
     public isReservoirTrendOpen: boolean = false;
 
@@ -75,11 +91,82 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         super(widgetService, id, uniqId);
     }
 
+
     ngOnInit(): void {
         super.widgetInit();
-        this.souStreamsService.getTableContent('2020-02-27', '2020-02-28').then((res) => {
-            this.tableRows = res;
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe(dates => {
+                if (dates) {
+                    this.fromDateTime = this.formatDate(dates.fromDateTime);
+                    this.toDateTime = this.formatDate(dates.toDateTime);
+                }
+                console.log(this.fromDateTime + ' ' + this.toDateTime);
+                }
+            )
+        );
+        this.souStreamsService.getTableContent('2020-05-25', '2020-05-26').then((res) => {
+            console.log(res);
+            this.tableRowsAllOperations = res;
+            this.tableRows = this.tableRowsAllOperations;
+            this.processDataOfTable();
+            this.calculateSumOfMass();
+            this.filterOpenOperations();
         });
+    }
+
+    showAllOperations(): void {
+        this.tableRows = this.tableRowsAllOperations;
+    }
+
+    showOpenOperations(): void {
+        this.tableRows = this.tableRowsOpenOperations;
+    }
+
+    filterOpenOperations(): void {
+        this.tableRowsAllOperations.forEach((tableRow) => {
+            if (tableRow.endTime === '-') {
+                this.tableRowsOpenOperations.push(tableRow);
+            }
+        });
+    }
+
+    processDataOfTable(): void {
+        this.tableRowsAllOperations.forEach((tableRow) => {
+            for (const tableRowKey in tableRow) {
+                if (tableRow[tableRowKey] === 'Tank') {
+                    tableRow[tableRowKey] = 'Резервуар';
+                } else if (tableRow[tableRowKey] === 'Unit') {
+                    tableRow[tableRowKey] = 'Установка';
+                }
+            }
+        });
+    }
+
+    calculateSumOfMass(): void {
+        this.sourceMassValue = 0;
+        this.destinationMassValue = 0;
+        this.deviationValue = 0;
+        this.tableRowsAllOperations.forEach((tableRow) => {
+            for (const tableRowKey in tableRow) {
+                if (tableRowKey === 'sourceMass') {
+                    tableRow[tableRowKey] = +tableRow[tableRowKey].toFixed(2);
+                    this.sourceMassValue += tableRow[tableRowKey];
+                } else if (tableRowKey === 'destinationMass') {
+                    tableRow[tableRowKey] = +tableRow[tableRowKey].toFixed(2);
+                    this.destinationMassValue += tableRow[tableRowKey];
+                } else if (tableRowKey === 'deltaMass') {
+                    tableRow[tableRowKey] = +tableRow[tableRowKey].toFixed(2);
+                    this.deviationValue += tableRow[tableRowKey];
+                }
+            }
+        });
+        this.sourceMassValue = +this.sourceMassValue.toFixed(2);
+        this.destinationMassValue = +this.destinationMassValue.toFixed(2);
+        this.deviationValue = Math.abs(+this.deviationValue.toFixed(2));
+    }
+
+    formatDate(date: Date): string {
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
     processDate(inputData: string): string {
@@ -108,7 +195,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     ngOnDestroy(): void {
         this.overlayRef.dispose();
     }
-
 
     ngAfterViewChecked(): void {
         this.heightOfTable = this.child.nativeElement.clientHeight - 40 + 'px';
