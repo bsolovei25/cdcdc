@@ -91,7 +91,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         super(widgetService, id, uniqId);
     }
 
-
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
@@ -99,19 +98,27 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
                 if (dates) {
                     this.fromDateTime = this.formatDate(dates.fromDateTime);
                     this.toDateTime = this.formatDate(dates.toDateTime);
+                } else {
+                    this.fromDateTime = this.formatDate(new Date());
+                    this.toDateTime = this.fromDateTime;
                 }
                 console.log(this.fromDateTime + ' ' + this.toDateTime);
+                this.souStreamsService.getTableContent(this.fromDateTime, this.toDateTime).then((res) => {
+                    console.log(res);
+                    this.tableRowsAllOperations = res;
+                    this.tableRows = this.tableRowsAllOperations;
+                    this.processDataOfTable();
+                    this.calculateSumOfMass();
+                    this.filterOpenOperations();
+                });
                 }
             )
         );
-        this.souStreamsService.getTableContent('2020-05-25', '2020-05-26').then((res) => {
-            console.log(res);
-            this.tableRowsAllOperations = res;
-            this.tableRows = this.tableRowsAllOperations;
-            this.processDataOfTable();
-            this.calculateSumOfMass();
-            this.filterOpenOperations();
-        });
+    }
+
+    sortDates(date1: string, date2: string): number {
+        const years = date1.slice(0, 4);
+        return -1;
     }
 
     showAllOperations(): void {
