@@ -272,7 +272,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder'
             ) {
-                this.axisLabels[chart.graphType] = this.defineAxisYLabels(chart.minValue, chart.maxValue);
+                this.axisLabels[chart.tagName] = this.defineAxisYLabels(chart.minValue, chart.maxValue);
             } else {
                 min = chart.minValue < min ? chart.minValue : min;
                 max = chart.maxValue > max ? chart.maxValue : max;
@@ -604,7 +604,7 @@ export class EcWidgetMultiChartComponent implements OnInit, OnChanges, OnDestroy
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
                     ? 'main'
-                    : chart.graphType;
+                    : chart.tagName;
             isMainLabelsDrawn =
                 chart.graphType === 'plan' ||
                 chart.graphType === 'fact' ||
