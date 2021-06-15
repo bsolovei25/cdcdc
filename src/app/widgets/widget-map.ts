@@ -2002,7 +2002,7 @@ export const WIDGETS_LAZY = {
         itemRows: 2,
         minItemCols: 35,
         minItemRows: 2,
-        preview: 'ec-widget-header',
+        preview: 'default',
     },
     'ec-widget-mnemonic-diagram': {
         import: async () => {
@@ -2013,7 +2013,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 35,
         minItemRows: 14,
-        preview: 'ec-widget-mnemonic-diagram'
+        preview: 'default',
     },
     // #endregion EC
 
