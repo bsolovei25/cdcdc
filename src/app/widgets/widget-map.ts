@@ -1866,9 +1866,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-operational-readiness/cmid-operational-readiness.module');
         },
         module: 'CmidOperationalReadinessModule',
-        itemCols: 25,
-        itemRows: 3,
-        minItemCols: 15,
+        itemCols: 14,
+        itemRows: 4,
+        minItemCols: 11,
         minItemRows: 1,
     },
     'cmid-filter': {
