@@ -40,7 +40,7 @@
           <mat-form-field class="select__item">
             <mat-label>Выберите показатель</mat-label>
             <mat-select
-              (selectionChange)="chooseIndicator($event.value)"
+              (selectionChange)="chooseIndicator([$event.value])"
               [value]="selectValue"
               panelClass="mat-select-custom"
             >
