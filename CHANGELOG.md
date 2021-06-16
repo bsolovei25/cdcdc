@@ -1,3 +1,26 @@
+# [1.38.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.37.0...v1.38.0) (2021-06-16)
+
+
+### Bug Fixes
+
+* **EC:** "[энергоконтроль] второй экран. неверный вывод значения в плашку "факт по приб"". [#2098](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2098) ([7a7015a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/7a7015a3ae5ecbb75d29b4944954afd6a44a9802))
+* **EC:** "Некорректные значения отображены на шкале для выбранных предикторов на основном графике." [#2183](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2183) ([81a5a1d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/81a5a1d70f2e60d3df5cdfe8db4f18ee01c103c6))
+* **EC:** "Реализация виджета Заголовочный - фикс ресайза и превью". [#2086](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2086) ([1d516bf](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1d516bf916491cdf15d527ce5f54672c1f0785a8))
+* **EC:** "Энергоконтроль. Мониторинг. Накопл. план выходит за границы виджета" [#2138](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2138) ([c199a96](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c199a969f7966f7a45039ec810715e5dd20762f6))
+* **front#1988:** Топливо АВТ-10 исправление отображения элементов ([9a6b080](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9a6b08014a228fee4b34e9cd54db30011bc94986)), closes [front#1988](https://gitlab.funcoff.club/front/issues/1988)
+* **Notifications:** Правка пути до svg. front[#2100](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2100) ([858ab3f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/858ab3fc4682a2e1fef6fc16669c4308a52773b8))
+* **ЦМИД:** "Реализация виджета Векторная диаграмма" ([73213b8](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/73213b860377d3be5516f398484424366d423c72))
+* **ЦМИД:** Поправил расположение ушек для управления виджетом. front[#1799](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1799) ([c20a17d](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c20a17d6ab61c4bf1dab08e09d38ec408b272d94))
+* **ЦМИД:** Правки по комментариям. front[#1784](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1784) ([6f08b07](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6f08b0797739919d200548729b2ae6f781b79944))
+
+
+### Features
+
+* **KPE:** КПЭ. Запас по качеству. Вывод значений в рублях. front[#2163](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2163) ([d52c450](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d52c450a2e7777765c87481683eb70ca2335b741))
+* **Notifications:** Добавлена отметка об истечении срока события. front[#2100](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2100) ([1930983](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1930983e56c9fa972d0c8d2d9edbd6c8a4b9bdaf))
+* **SOU:** edits of table. [#2180](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2180) ([a091820](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/a091820e6ee6ed8fedf0513577822f2f0581a755))
+* **ЦУП-4:** Вывод графиков в соответствии с Order. front[#2115](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2115) ([29aae49](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/29aae490d3663097252ae2fbe62d7153054ab798))
+
 # [1.37.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.36.1...v1.37.0) (2021-06-11)
 
 
