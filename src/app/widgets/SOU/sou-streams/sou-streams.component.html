@@ -211,7 +211,7 @@
 
           <td>
             <div class="table__row__cell-with-line">
-              <div *ngIf="(row['endTime'] === '-')"
+              <div *ngIf="(!(row['endTime']))"
                    class="cell-line"
                    [ngStyle]="{ 'backgroundColor': processWarningColor(row['warningColor'])}">
               </div>
@@ -233,8 +233,8 @@
           </td>
 
           <td>
-            <div class="table__row__cell-with-img"
-                 *ngIf="((row['endTime'] === '-') || (row['deltaMass'] === '')) else notEmptyEndTime">
+            <div class="table__row__cell-img-only"
+                 *ngIf="(((row['deltaMass']) !== 0)&&(!(row['deltaMass'])) || !(row['endTime'])) else notEmptyEndTime">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/line.svg"
                 class="cell-img"
@@ -242,7 +242,7 @@
               ></svg-icon>
             </div>
             <ng-template #notEmptyEndTime>
-              <div class="table__row__cell-with-img"
+              <div class="table__row__cell-img-only"
                    *ngIf="(row['deltaMass'] !== 0) else defaultEndTime">
                 <svg-icon
                   src="assets/icons/widgets/SOU/sou-streams/alert_alarm.svg"
@@ -333,36 +333,33 @@
             </div>
           </td>
 
-          <td *ngIf="row['sourceMass'] !== '' else emptySum">
+          <td *ngIf="(row['sourceMass']||row['sourceMass'] === 0) else emptySum">
             <div class="table__row__cell-sum">
               <div class="cell-sum"
                    [ngStyle]="{
-                      'color': 'var(--color-sou-button-txt)',
-                      'width':  '140px'
+                      'color': 'var(--color-sou-button-txt)'
                       }">
                 {{ row['sourceMass'] }}
               </div>
             </div>
           </td>
 
-          <td *ngIf="row['destinationMass'] !== '' else emptySum">
+          <td *ngIf="(row['destinationMass']||row['destinationMass'] === 0) else emptySum">
             <div class="table__row__cell-sum">
               <div class="cell-sum"
                    [ngStyle]="{
-                      'color': 'var(--color-sou-button-txt)',
-                      'width':  '140px'
+                      'color': 'var(--color-sou-button-txt)'
                       }">
                 {{ row['destinationMass'] }}
               </div>
             </div>
           </td>
 
-          <td *ngIf="row['deltaMass'] !== '' else emptySum">
+          <td *ngIf="(row['deltaMass']||(row['deltaMass'] === 0)) else emptySum">
             <div class="table__row__cell-sum">
               <div class="cell-sum"
                    [ngStyle]="{
-                      'color': (row['deltaMass'] === 0)?'var(--color-sou-button-txt)':'var(--color-sou-orange)',
-                      'width':  '140px'
+                      'color': (row['deltaMass'] === 0)?'var(--color-sou-button-txt)':'var(--color-sou-orange)'
                       }">
                 {{ row['deltaMass'] }}
               </div>
@@ -371,7 +368,7 @@
 
           <ng-template #emptySum>
             <td>
-              <div class="table__row__cell-with-img">
+              <div class="table__row__cell-img-only">
                 <svg-icon
                   src="assets/icons/widgets/SOU/sou-streams/line.svg"
                   class="cell-img"

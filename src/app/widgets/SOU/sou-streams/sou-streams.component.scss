@@ -284,8 +284,21 @@
       }
     }
 
+    &__cell-img-only {
+      display: flex;
+      width: 137px;
+
+      .cell-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -4px;
+      }
+    }
+
     &__cell-with-img {
       display: flex;
+      width: 121px;
 
       .cell-img-text {
         display: block;
@@ -303,6 +316,7 @@
 
     &__cell-sum {
       text-align: center;
+      width:  140px;
     }
 
     &__cell-default {
