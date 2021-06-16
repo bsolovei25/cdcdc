@@ -13,6 +13,7 @@ import { ChangeShiftHelperService } from '../../../../services/change-shift-help
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangShiftRolesPersonComponent implements OnInit, AfterViewInit, OnDestroy {
+    @Input() public disabled: boolean = false;
     @Input() private set form(value: FormGroup) {
         this.formGroup = value;
         this.member = value.controls.object.value;
@@ -27,7 +28,7 @@ export class ChangShiftRolesPersonComponent implements OnInit, AfterViewInit, On
 
     public showFioTooltip: boolean;
     public showPositionTooltip: boolean;
-    
+
     private unsubscribe$: Subject<unknown> = new Subject<unknown>();
 
     @ViewChild('fio') fio: ElementRef;

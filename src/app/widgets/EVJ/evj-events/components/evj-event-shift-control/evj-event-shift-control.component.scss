@@ -1,0 +1,74 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  width: 124px;
+  background: var(--bg-dashboard-color);
+  border: 1px solid var(--gray-G10-color);
+  border-radius: 2px;
+  padding: 0 13px;
+  box-sizing: border-box;
+}
+
+.datepicker {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 13px;
+  background: var(--bg-dashboard-color);
+  border: 1px solid var(--gray-G10-color);
+  box-sizing: border-box;
+  border-radius: 2px;
+  cursor: pointer;
+
+  input {
+    visibility: hidden;
+    width: 0;
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: solid 1px var(--text-main-color);
+  cursor: pointer;
+
+  &__right {
+    transform: rotate(180deg);
+  }
+
+  svg-icon {
+    position: absolute;
+    width: 15px;
+    height: 7.5px;
+  }
+}
+
+.button {
+  background: var(--gray-G9-color);
+  border: 1px solid var(--border-vidget-color);
+  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: var(--text-contrast-color);
+
+  &__timer {
+    padding: 7px;
+  }
+
+  &__doc {
+    padding: 8px;
+  }
+}

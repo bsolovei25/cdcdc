@@ -15,14 +15,24 @@
       <div class="member-container member-container__shift">
         <div class="label"> На смене </div>
         <div class="members">
-          <evj-change-shift-member *ngFor="let member of (presentMembers$ | async)" [member]="member"></evj-change-shift-member>
+          <evj-change-shift-member
+            *ngFor="let member of (presentMembers$ | async)"
+            [member]="member"
+            [disabled]="(shiftStatus$ | async) === 'passed'"
+            [disabledApply]="(shiftStatus$ | async) === 'passed' || (shiftStatus$ | async) === 'accepted'"
+          ></evj-change-shift-member>
         </div>
       </div>
 
       <div class="member-container member-container__absent">
         <div class="label"> Покинули смену </div>
         <div class="members">
-          <evj-change-shift-member *ngFor="let member of (absentsMembers$ | async)" [member]="member"></evj-change-shift-member>
+          <evj-change-shift-member
+            *ngFor="let member of (absentsMembers$ | async)"
+            [member]="member"
+            [disabled]="(shiftStatus$ | async) === 'passed'"
+            [disabledApply]="(shiftStatus$ | async) === 'passed' || (shiftStatus$ | async) === 'accepted'"
+          ></evj-change-shift-member>
         </div>
       </div>
 
@@ -36,6 +46,7 @@
           </div>
           <div class="comment__new">
             <input
+              [disabled]="(shiftStatus$ | async) === 'passed' || (shiftStatus$ | async) === 'accepted'"
               type="text"
               class="comment__text gridster-item-content"
               placeholder="Напишите свой комментарий..."

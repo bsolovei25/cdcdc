@@ -11,7 +11,7 @@ export interface IChangeShiftComment {
     createdBy: number;
 }
 
-export interface IChangeShiftModel {
+export interface IChangeShiftDto {
     id: number;
     startFact: Date;
     endFact: Date;
@@ -19,6 +19,9 @@ export interface IChangeShiftModel {
     endTimetable: Date;
     status: ChangeShiftStatus;
     unit: IChangeShiftUnit;
+}
+
+export interface IChangeShiftModel extends IChangeShiftDto {
     members: IChangeShiftMember[];
     comments: IChangeShiftComment[];
 }

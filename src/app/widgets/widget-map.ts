@@ -663,6 +663,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'cd-events',
     },
+    'evj-events-shift': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-events/evj-events.module');
+        },
+        module: 'EvjEventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'cd-events',
+    },
     'evj-events-workspace': {
         import: async () => {
             return await import('src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module');

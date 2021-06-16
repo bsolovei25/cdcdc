@@ -28,7 +28,13 @@
     </div>
   </div>
   <div class="select">
-    <mat-select placeholder="Выберите роль" panelClass="mat-select-panel-custom" class="mat-select-custom" formControlName="userRole">
+    <mat-select
+      placeholder="Выберите роль"
+      panelClass="mat-select-panel-custom"
+      class="mat-select-custom"
+      formControlName="userRole"
+      [disabled]="disabled"
+    >
       <mat-option> Не выбрано </mat-option>
       <mat-option *ngFor="let item of availableRoles$ | async" [value]="item.id"> {{ item.name }} </mat-option>
     </mat-select>
