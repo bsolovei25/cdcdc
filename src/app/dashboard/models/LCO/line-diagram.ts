@@ -8,6 +8,7 @@ export interface ILineDiagramDataItem {
     value: number;
     upperBound: number;
     units: string;
+    order: number;
     isCritical: boolean;
     lowerBound: number;
     lowerLimit: number;
