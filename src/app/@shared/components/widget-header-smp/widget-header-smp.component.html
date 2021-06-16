@@ -1,5 +1,5 @@
 <ng-container>
-  <div class="outer">
+  <div class="outer" *ngIf="(claimWidgets$ | async) as claimWidgets">
     <ng-container *ngIf="claimWidgets.includes(EnumClaimWidgets.move)">
       <div class="draggable-place draggable-place__right"></div>
       <div class="draggable-place draggable-place__left"></div>

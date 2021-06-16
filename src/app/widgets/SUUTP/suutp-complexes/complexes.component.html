@@ -1,7 +1,7 @@
-<div class="container">
-  <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
-  </evj-widget-header-smp>
+<div class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
   <div class="root">
+    <evj-widget-header-smp [uniqId]="uniqId" *ngIf="isHover$ | async">
+    </evj-widget-header-smp>
     <div class="complexes-header">
       <span class="complexes-uptitle">МНПЗ</span>
       <h1 class="complexes-title">Комплексы</h1>
