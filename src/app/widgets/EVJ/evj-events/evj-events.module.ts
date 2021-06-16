@@ -27,6 +27,10 @@ import { EvjEventCardBlockComponent } from './components/evj-event-card-block/ev
 import { EvjEventPreviewComponent } from './components/evj-event-preview/evj-event-preview.component';
 import { EventsWorkspaceModule } from '../events-workspace/events-workspace.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EvjEventShiftControlComponent } from './components/evj-event-shift-control/evj-event-shift-control.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -36,6 +40,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         EvjEventFiltersComponent,
         EvjEventCardBlockComponent,
         EvjEventPreviewComponent,
+        EvjEventShiftControlComponent,
     ],
     imports: [
         OverlayModule,
@@ -61,6 +66,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         EventsWorkspaceModule,
         MatCheckboxModule,
         FormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatIconModule,
     ],
     providers: [],
 })

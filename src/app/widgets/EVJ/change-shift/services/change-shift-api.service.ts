@@ -4,6 +4,7 @@ import {
     ChangeShiftType,
     IChangeShiftComment,
     IChangeShiftModel,
+    IChangeShiftDto,
     IChangeShiftRole,
     IChangeShiftVerifier,
 } from '../change-shift.interfaces';
@@ -173,6 +174,28 @@ export class ChangeShiftApiService {
     public async getAllUnits(): Promise<IUnitEvents[]> {
         try {
             return this.http.get<IUnitEvents[]>(`${this.restUrlPrefix}/api/notification-reference/units`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getShiftsByDate(dateTime: Date, unitId: number): Promise<IChangeShiftDto[]> {
+        const startDatetime = new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate());
+        const endDatetime = new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate(), 23, 59);
+        return await this.getShiftsByPeriod(startDatetime, endDatetime, unitId);
+    }
+
+    public async getShiftsByPeriod(startTime: Date, endTime: Date, unitId: number): Promise<IChangeShiftDto[]> {
+        try {
+            return (
+                await this.http
+                    .get<{ data: IChangeShiftDto[] }>(
+                        `${
+                            this.restUrl
+                        }/Shift/unit/${unitId}/shifts?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`
+                    )
+                    .toPromise()
+            )?.data;
         } catch (error) {
             console.error(error);
         }

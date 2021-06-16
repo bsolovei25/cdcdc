@@ -11,6 +11,7 @@
         <evj-chang-shift-roles-person
           *ngFor="let member of form.controls['members']['controls']"
           [form]="member"
+          [disabled]="disabledForm"
         ></evj-chang-shift-roles-person>
       </div>
     </div>

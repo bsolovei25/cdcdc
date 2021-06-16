@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <div class="button button__timer" (click)="refresh()">
+    <svg-icon src="assets/icons/widgets/change-shift/timer-return.svg"></svg-icon>
+  </div>
+  <div class="arrow arrow__left" (click)="changeDirection('prev')">
+    <svg-icon src="assets/icons/widgets/change-shift/arrow.svg"></svg-icon>
+  </div>
+
+  <div class="datepicker">
+    <span (click)="toggleCalendar($event)"> {{ pickerControl?.value | date: 'dd.MM.yyyy' }} </span>
+    <input [formControl]="pickerControl" [matDatepicker]="picker">
+    <mat-datepicker (closed)="isPickerOpened$.next(false)" [opened]="isPickerOpened$ | async" #picker></mat-datepicker>
+  </div>
+
+  <div class="select">
+    <mat-select
+      placeholder="№ смены"
+      panelClass="mat-select-panel-custom"
+      class="mat-select-custom"
+    >
+      <mat-option> Не выбрано </mat-option>
+      <!--    <mat-option *ngFor="let item of availableRoles$ | async" [value]="item.id"> {{ item.name }} </mat-option>-->
+    </mat-select>
+  </div>
+
+  <div class="arrow arrow__right" (click)="changeDirection('next')">
+    <svg-icon src="assets/icons/widgets/change-shift/arrow.svg"></svg-icon>
+  </div>
+
+  <div class="button button__doc" (click)="report()">
+    <svg-icon src="assets/icons/widgets/change-shift/doc-download.svg"></svg-icon>
+  </div>
+
+</div>

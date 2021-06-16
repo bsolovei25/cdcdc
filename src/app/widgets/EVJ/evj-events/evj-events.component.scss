@@ -1,3 +1,17 @@
+.scroll-bar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: var(--gray-G11-color);
+  border-radius: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
 .cd-events {
   --categories-min-height: 180px;
   --filters-min-height: 40px;
