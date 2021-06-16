@@ -10,9 +10,10 @@ import { WidgetService } from '@dashboard/services/widget.service';
     styleUrls: ['./complexes.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ComplexesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class ComplexesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public dataSubject$: Subject<IComplex[]> = new Subject();
     public data$: Observable<IComplex[]> = this.dataSubject$.asObservable();
+    public isHover$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         protected widgetService: WidgetService,
@@ -421,14 +422,25 @@ export class ComplexesComponent extends WidgetPlatform<unknown> implements OnIni
         })
     }
 
-
     public trackByIndex(index: number): number {
         return index;
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: unknown): void {}
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
+
+    public onMouseEnter(): void {
+        clearTimeout(this.hoverTimer);
+        this.isHover$.next(true);
+    }
+
+    public onMouseExit(): void {
+        this.hoverTimer = setTimeout(() => {
+            this.isHover$.next(false);
+        }, 200);
+    }
+
 }
