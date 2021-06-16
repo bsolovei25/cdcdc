@@ -11,13 +11,13 @@
           <svg-icon
             src="assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg"
             class="arrow"
-            (click)="prev()"
+            (click)="toPrevMonth()"
           ></svg-icon>
-          <span>{{month[choosenMonth]}} 2020</span>
+          <span> {{ chosenDate$ | async }} </span>
           <svg-icon
             src="assets/icons/widgets/KPE/kpe-execution-production-program/arrowLeft.svg"
             class="arrow"
-            (click)="next()"
+            (click)="toNextMonth()"
           ></svg-icon>
         </div>
       </div>
@@ -26,36 +26,58 @@
         <div class="picker">
           <mat-form-field>
             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-            <input matInput [matDatepicker]="picker" [formControl]="dateControl" />
+            <input matInput [matDatepicker]="picker" [formControl]="dateControl"/>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
     </div>
-    <div class="file-area">
+
+    <div class="file-area"
+         (click)="$event.stopPropagation()"
+         (dragover)="dragOver($event)"
+         (dragleave)="dragLeave($event)"
+         (drop)="dropFile($event)">
       <span
       >1. Перетащите файл в данное окно <br />
         2. Нажмите для выбора</span
       >
-      <span>Не более 500 MB .pdf .doc .xls</span>
+      <span>Не более 6 MB .pdf .docx .xlsx .mpp </span>
     </div>
     <div class="files-list">
-      <evj-kpe-accuracy-timelines-data-loading-file
-        [data]="80"
-      ></evj-kpe-accuracy-timelines-data-loading-file>
-
-      <evj-kpe-accuracy-timelines-data-loading-file
-        [data]="100"
-      ></evj-kpe-accuracy-timelines-data-loading-file>
+      <ng-container *ngFor="let file of filesToUpload; let i = index">
+        <evj-kpe-accuracy-timelines-data-loading-file
+          [file]="file"
+          [uploadingPercent]="100"
+          [fileIndex]="i"
+          (isFullyUploaded)="isModalShownAfterCancelling($event)"
+          (fileIndexToDelete)="deleteUploadedFile($event)">
+        </evj-kpe-accuracy-timelines-data-loading-file>
+      </ng-container>
+      <ng-container *ngFor="let file of (downloadedFiles$ | async); let i = index">
+          <evj-kpe-accuracy-timelines-data-loading-file
+            [file]="file"
+            [uploadingPercent]="file.percent"
+            [fileIndex]="file?.id"
+            (fileIndexToDelete)="deleteDownloadedFile($event)">
+          </evj-kpe-accuracy-timelines-data-loading-file>
+      </ng-container>
     </div>
     <mat-dialog-actions>
       <div class="btns">
-        <div class="save" matRipple matRippleColor="white" mat-dialog-close>
+        <button type="submit" class="save" matRipple matRippleColor="white" (click)="sendFiles()">
           <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/save.svg"></svg-icon>
           Сохранить
-        </div>
-        <div class="cancel" matRipple matRippleColor="white" mat-dialog-close>Отменить</div>
+        </button>
+        <button
+          class="cancel"
+          matRipple
+          matRippleColor="white"
+          (click)="onCloseModal()">Отменить</button>
       </div>
     </mat-dialog-actions>
   </div>
+
+  <evj-alert-window [info]="alert"></evj-alert-window>
+  <evj-loading-shade class="loader" [isLoading]="isLoadingData"></evj-loading-shade>
 </div>

@@ -60,6 +60,8 @@
 
           background: var(--bg-body-color);
 
+          text-transform: capitalize;
+
           border: 1px solid var(--border-forms-color);
           border-radius: 2px;
 
@@ -142,6 +144,9 @@
       margin-top: 8px;
       display: flex;
       gap: 10px;
+      overflow: auto;
+      width: 335px;
+      height: 75px;
     }
 
     mat-dialog-actions {
@@ -178,6 +183,12 @@
           margin-right: 10px;
         }
       }
+    }
+  }
+
+  .loader {
+    ::ng-deep .loading-shade {
+      background-color: transparent;
     }
   }
 }

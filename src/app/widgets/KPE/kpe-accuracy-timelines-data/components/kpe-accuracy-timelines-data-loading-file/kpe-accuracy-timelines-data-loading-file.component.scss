@@ -61,6 +61,7 @@
       }
     }
   }
+
   .file-icon {
     display: flex;
     flex-direction: column;
@@ -73,5 +74,16 @@
     top: 6px;
 
     cursor: pointer;
+  }
+}
+
+::ng-deep mat-tooltip-component {
+  .mat-tooltip {
+    padding: 8px;
+    color: var(--text-contrast-color);
+    background: var(--bg-dashboard-color);
+    border: 1px solid var(--border-forms-color);
+    border-radius: 2px;
+    font-size: 12px;
   }
 }
