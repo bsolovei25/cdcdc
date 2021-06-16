@@ -10,6 +10,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewContainerRef
+
 } from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
