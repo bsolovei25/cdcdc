@@ -94,17 +94,11 @@
       }
 
       &__container {
-        height: 100%;
         width: 100%;
       }
 
       &__title {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: 21px;
-        margin-bottom: 3px;
-        line-height: 1;
+        margin-bottom: -3px;
       }
     }
 
@@ -113,12 +107,18 @@
       gap: inherit;
 
       &__block {
+        gap: inherit;
         display: flex;
         flex-direction: column;
         flex: 1 1 50%;
 
         .text {
           width: 100%;
+          margin-top: 5px;
+
+          &__title {
+            margin-bottom: 7px;
+          }
 
           textarea {
             font-size: 0.8rem;
@@ -142,10 +142,10 @@
             }
           }
         }
-      }
 
-      &_gap {
-        gap: 10px;
+        .chat-title {
+          margin-bottom: 7px;
+        }
       }
     }
   }
@@ -223,17 +223,19 @@
 .select-container {
   flex-grow: 1;
   width: 100%;
-  height: 58px;
+  height: 65px;
   border-radius: 2px;
   min-width: 53px;
   display: flex;
   flex-direction: column;
+  padding-right: 5px;
   justify-content: center;
 }
 
 .title {
   width: 100%;
   height: 24px;
+  margin-bottom: 8px;
   font-size: 13px;
   line-height: 24px;
 }
