@@ -21,6 +21,7 @@ export interface IQualityReserveTableData {
 export interface IQualityReserveTableDataRow {
     value: string;
     isWarning: boolean;
+    valueInCash: string;
 }
 
 @Component({
@@ -36,6 +37,7 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
     public displayedColumns: string[];
     public readonly specialComponent: typeof KpeQualityReserveTableItemComponent = KpeQualityReserveTableItemComponent;
     public selectedOption: number;
+    private isDataComingFirstTime: boolean = true;
 
     constructor(
         protected widgetService: WidgetService,
@@ -76,8 +78,11 @@ export class KpeQualityReserveTableComponent extends WidgetPlatform<unknown> imp
     };
 
     protected dataHandler(ref: any): void {
-        this.selectedOption = ref.currentTab.defaultUnits ?? this.defaultUnits; // если defaultUnits не приходят или приходят пустые, то используем по умолчанию, которые 0
-        this.kpeQualityReserveTableService.selectFilter(this.selectedOption);
+        if (this.isDataComingFirstTime) {
+            this.selectedOption = ref.currentTab.defaultUnits ?? this.defaultUnits; // если defaultUnits не приходят или приходят пустые, то используем по умолчанию, которые 0
+            this.kpeQualityReserveTableService.selectFilter(this.selectedOption);
+            this.isDataComingFirstTime = false;
+        }
     }
 
     public changeUnits($event: number): void {
