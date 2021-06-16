@@ -1,16 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '@dashboard/services/widget.service';
 
 interface IAstueOnpzDeviationCards {
     dropdownOne: string[];
     dropdownTwo: string[];
     dropdownThree: string[];
     title: string;
-    unit: string;
+    unit: {name: string};
     text: string;
-    status: string;
-    date: Date;
+    status: {
+        description: string;
+        id: number;
+        name: string;
+        code: string;
+    };
+    category?: {description: string};
+    eventDateTime?: string;
 }
 
 @Component({
@@ -34,5 +40,7 @@ export class AstueOnpzDeviationCardsComponent extends WidgetPlatform<unknown> im
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: {notification: {notifications: IAstueOnpzDeviationCards[]}}): void {
+        this.data = ref.notification.notifications;
+    }
 }
