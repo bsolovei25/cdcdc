@@ -24,7 +24,6 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
 
     constructor(
         public widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         platformLocation: PlatformLocation
@@ -39,11 +38,11 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
         );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         super.widgetInit();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscriptions) {
             for (const i in this.subscriptions) {
                 this.subscriptions[i].unsubscribe();
@@ -56,12 +55,12 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
+    OnResize(event): void {
         this.resize();
     }
 
     @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
-    OnUnityStart(event, param1) {
+    OnUnityStart(event, param1): void {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -70,28 +69,28 @@ export class UnityTemplateComponent extends WidgetPlatform implements OnInit, On
     }
 
     @HostListener('document:UnityTemplate_Click', ['$event'])
-    OnUnityClick(event) {
+    OnUnityClick(event): void {
         if (!this.unityInstance) {
             return;
         }
     }
 
-    private InitUnity() {
+    private InitUnity(): void {
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`);
     }
 
-    private CallUnityScript(funName, ...args) {
+    private CallUnityScript(funName, ...args): void {
         if (this.isStart && this.unityInstance) {
             this.unityInstance.SendMessage(funName, ...args);
         }
     }
 
-    private loadProject(path) {
+    private loadProject(path): void {
         this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
     }
 
-    private resize() {
+    private resize(): void {
         this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
         if (this.canvas) {
             this.canvas.width = this.canvas.parentElement.offsetWidth;
