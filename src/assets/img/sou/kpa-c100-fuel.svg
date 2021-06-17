@@ -63,7 +63,7 @@
 <path id="Vector_14" d="M208.438 523.201C209.101 523.201 209.638 522.664 209.638 522.001C209.638 521.338 209.101 520.801 208.438 520.801C207.776 520.801 207.238 521.338 207.238 522.001C207.238 522.664 207.776 523.201 208.438 523.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="element-1_4">
+<g id="element-1_13">
 <g id="rect_3">
 <rect x="1147" y="540" width="200" height="36" rx="2" fill="#272A38"/>
 <rect x="1147" y="540" width="200" height="36" rx="2" stroke="#606580"/>
@@ -283,7 +283,7 @@
 <text id="&#208;&#154;&#208;&#190;&#208;&#187;&#208;&#187;&#208;&#181;&#208;&#186;&#209;&#130;&#208;&#190;&#209;&#128;" transform="translate(788 591) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="39.1309" y="13.1606">Pltopl</tspan></text>
 <path d="M782 449.5H810V448.5H782V449.5ZM811.5 451V593H812.5V451H811.5ZM810 594.5H782V595.5H810V594.5ZM780.5 593V451H779.5V593H780.5ZM782 594.5C781.172 594.5 780.5 593.828 780.5 593H779.5C779.5 594.381 780.619 595.5 782 595.5V594.5ZM811.5 593C811.5 593.828 810.828 594.5 810 594.5V595.5C811.381 595.5 812.5 594.381 812.5 593H811.5ZM810 449.5C810.828 449.5 811.5 450.172 811.5 451H812.5C812.5 449.619 811.381 448.5 810 448.5V449.5ZM782 448.5C780.619 448.5 779.5 449.619 779.5 451H780.5C780.5 450.172 781.172 449.5 782 449.5V448.5Z" fill="#606580"/>
 </g>
-<g id="Naming=In">
+<g id="element-30_12">
 <g id="oven">
 <g id="Union">
 <mask id="path-116-inside-1" fill="white">
@@ -305,7 +305,7 @@
 </g>
 <line id="line_8" x1="1268.1" y1="491.301" x2="1237.9" y2="491.301" stroke="#606580" stroke-linecap="round"/>
 </g>
-<text id="&#208;&#157;&#208;&#176;&#208;&#183;&#208;&#178;&#208;&#176;&#208;&#189;&#208;&#184;&#208;&#181;" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1209.04" y="332.161">U6097</tspan></text>
+<text id="text_12" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1227.04" y="332.161">U6097</tspan></text>
 </g>
 <path id="line_dotted" d="M819 490H837" stroke="#606580" stroke-linecap="round" stroke-dasharray="2 4"/>
 <g id=".on&#38;off_3">
