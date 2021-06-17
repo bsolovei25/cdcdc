@@ -73,7 +73,20 @@
         [blockWorkspaceButton]="canShowSaveButton()"
       ></evj-ejs-event>
       <evj-cdcp-event *ngSwitchCase="7" [noOverflow]="displayContainer"></evj-cdcp-event>
-      <evj-cmid-event *ngSwitchCase="8" [noOverflow]="displayContainer"></evj-cmid-event>
+      <!--Категория Безопасность-->
+      <ng-container *ngSwitchCase="1">
+        <evj-usual-event
+          [noOverflow]="displayContainer"
+          *ngIf="!ewService?.event?.subCategory?.id else kdpaz"
+        ></evj-usual-event>
+
+        <ng-template #kdpaz>
+          <ng-container *ngIf="ewService?.event?.subCategory?.id == '1070'">
+            <!--Подкатегория КД ПАЗ-->
+            <evj-cmid-event [noOverflow]="displayContainer"></evj-cmid-event>
+          </ng-container>
+        </ng-template>
+      </ng-container>
       <evj-usual-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-usual-event>
     </ng-container>
 
