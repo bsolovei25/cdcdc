@@ -1,3 +1,24 @@
+# [1.39.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.38.0...v1.39.0) (2021-06-17)
+
+
+### Bug Fixes
+
+* **conflicts:** cleaned up legacy pipelines; ([3bc098a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/3bc098a6626482d3d5ce0a3e15c29d7e171bc0ef))
+* **env:** added env to release notes ([6716a7f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/6716a7f50419e0d4862b10a73d1226ea91bc0b63))
+* **KPE:** Запас по качеству. Исправлено автоматическое переключение. front[#2163](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2163) ([423a133](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/423a13392d56df4675eaffed705c67edd8ad9d1b))
+* **NK:** Рефакторинг по изменению работы с promise на observable front[#2052](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2052) ([732a88f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/732a88f1c2739bd037a392ea99e0f328b1ec87f7))
+
+
+### Features
+
+* **ASTUE:** "Доработка по реализации виджета Карточки отклонений" front[#2181](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2181) ([d2d240a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d2d240a3d0dd6564b27f92b22d1485631cab85d3))
+* **front-release:** triggered from external build artifacts ([cea42ed](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/cea42ed499bb4cf4f034f7503d1ce125aacc5ba4))
+* **KPE:** КПЭ. Для виджета Точность и своевременность реализовать загрузку и привязку файла. front[#1726](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1726) ([e0eb882](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/e0eb88276d52e744ac07610e01dbda8fb64eb688))
+* **KPE:** Реализована форма для отправки корректировки для виджета Точность и своевременность исходных данных КПЭ. front[#1405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1405) ([315b900](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/315b90010bcc7e5a964f143ee9b431cea7f5633d))
+* **release-external:** add tst trigger job ([0e961b2](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/0e961b2767ed1c2f50c92210d65b12d6578d7a42))
+* **release-external:** add tst trigger job ([ba9dc8c](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/ba9dc8c824c158a032a338cad7469ff3eccc14d6))
+* **SMPO:** Создать новую подкатегорию СМПО категории Производственные задания [#1496](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1496) ([c928774](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/c9287746bd1e2a1a6c20ed681da59b32da435149))
+
 # [1.38.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.37.0...v1.38.0) (2021-06-16)
 
 
