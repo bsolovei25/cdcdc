@@ -85,6 +85,7 @@
     flex-flow: column;
     gap: 10px;
     flex-grow: 1;
+    overflow: auto;
 
     &__row {
       display: flex;
@@ -109,7 +110,7 @@
     flex-wrap: wrap;
     gap: 10px;
     flex-grow: 1;
-
+    overflow: auto;
     & > * {
       flex: calc(50% - 5px);
     }
