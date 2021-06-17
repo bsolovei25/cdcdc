@@ -133,8 +133,8 @@
             [class]="title?.hasOwnProperty('bigBlock')? 'big-main':'main'"
             rowspan="2">
           <div class="table__header__main-cell">
-            <span>{{ title?.name }}</span>
-            <div class="filter-funnel">
+            <span>{{ title.name }}</span>
+            <div class="filter-funnel"(click)="filterTable(title.type)">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/filter_funnel.svg"
                 [ngStyle]="{ 'height.px':16 }"

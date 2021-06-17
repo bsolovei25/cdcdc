@@ -51,10 +51,25 @@ import { ISouStreamsTableContent } from '@dashboard/services/widgets/SOU/sou-str
 })
 export class SouStreamsComponent extends WidgetPlatform implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
-    public titlesOfTable: { name: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
+    public titlesOfTable: { name: string, type: string, bigBlock?: boolean }[] = TITLES_OF_TABLE;
     public tableRows: ISouStreamsTableContent[];
     public tableRowsAllOperations: ISouStreamsTableContent[];
-    public tableRowsOpenOperations: ISouStreamsTableContent[];
+    public tableRowsOpenOperations: ISouStreamsTableContent[] = [];
+
+    public testData = [
+        {
+            name: 'Bol',
+            date: '2021-05-18T00:01:00'
+        },
+        {
+            name: 'Cest',
+            date: '2021-05-19T00:01:00'
+        },
+        {
+            name: 'A',
+            date: '2021-05-18T00:01:10'
+        }
+    ]
 
 
     public toDateTime: string;
@@ -116,9 +131,45 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         );
     }
 
-    sortDates(date1: string, date2: string): number {
-        const years = date1.slice(0, 4);
-        return -1;
+    filterTable(titleName: string): void {
+        const filterTableRows: ISouStreamsTableContent[] = [];
+        this.tableRows.forEach((tableRow) => {
+            filterTableRows.push(tableRow);
+        });
+        if ((titleName === 'startTime') || (titleName === 'endTime')) this.filterDates(titleName, filterTableRows);
+        else this.filterStrings(titleName, filterTableRows);
+    }
+
+    filterDates(titleName: string, filterTableRows: ISouStreamsTableContent[]): void {
+        filterTableRows =
+            filterTableRows.sort((row1, row2) => {
+                if ((!row1[titleName]) || (!row2[titleName])) return 0;
+                // @ts-ignore
+                return this.createDate(row1[titleName]) - this.createDate(row2[titleName]);
+                }
+            );
+        this.tableRows = filterTableRows;
+    }
+
+    createDate(date: string): Date {
+        const newDate = new Date();
+        newDate.setFullYear(+date.slice(0, 4), +date.slice(5, 7), +date.slice(8, 10));
+        newDate.setHours(+date.slice(11, 13), +date.slice(14, 16), +date.slice(17, 19));
+        return newDate;
+    }
+
+    filterStrings(titleName: string, filterTableRows: ISouStreamsTableContent[]): void {
+        filterTableRows =
+            filterTableRows.sort((row1, row2) => {
+                    if ((!row1[titleName]) || (!row2[titleName])) return 0;
+                    if (row1[titleName] < row2[titleName]) {
+                        return -1;
+                    }
+                    if ((row1[titleName] > row2[titleName])) return 1;
+                    return 0;
+                }
+            );
+        this.tableRows = filterTableRows;
     }
 
     showAllOperations(): void {
@@ -131,8 +182,8 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     filterOpenOperations(): void {
         this.tableRowsAllOperations.forEach((tableRow) => {
-            if (tableRow.endTime === '-') {
-                this.tableRowsOpenOperations.push(tableRow);
+            if (!tableRow.endTime) {
+                 this.tableRowsOpenOperations.push(tableRow);
             }
         });
     }
