@@ -28,7 +28,7 @@
       </div>
       <div class="quality-docs-panel__container">
         <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" autosize class="scroll-block" #table>
-          <ng-container *cdkVirtualFor="let item of data">
+          <ng-container *cdkVirtualFor="let item of data$ | async">
             <evj-quality-docs-record
               [data]="item"
               (emitBlockUnblock)="rowBlockUnblock($event)"
