@@ -2042,6 +2042,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
 
+    'suutp-equipment-complexes-table': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
+        },
+        module: 'SuutpComplexesTableModule',
+        itemCols: 20,
+        itemRows: 20,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'default',
+    },
+
     'suutp-equipment-fractions-processing': {
         import: async () => {
             return await import('@widgets/SUUTP/suutp-charts/suutp-charts.module');
