@@ -73,12 +73,11 @@ export class DocumentsScansService {
 
     public async getPassportsByFilter(lastId: number, options: IOilControlPassportOpts): Promise<IQualityDocsRecord[]> {
         try {
-            return this.http
+            return await this.http
                 .get<IQualityDocsRecord[]>(
                     this.restUrl +
-                        `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
-                )
-                .toPromise();
+                    `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
+                ).toPromise()
         } catch (error) {
             console.error(error);
         }
