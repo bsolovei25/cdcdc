@@ -18,6 +18,7 @@ export class EvjEventCardBlockComponent implements OnInit {
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
 
     public removeClaim: boolean;
+    public isOutdated: boolean;
 
     constructor(
         private eventService: EventService,
@@ -26,6 +27,7 @@ export class EvjEventCardBlockComponent implements OnInit {
 
     ngOnInit(): void {
         this.checkClaim();
+        this.checkDeadline();
     }
 
     public eventClick(id: number): void {
@@ -50,5 +52,9 @@ export class EvjEventCardBlockComponent implements OnInit {
     private checkClaim(): void {
         const claim = this.claimService.allUserClaims$.getValue().find(({ claimType }) => claimType === 'eventsDelete');
         this.removeClaim = claim?.claimCategory === 'allow';
+    }
+
+    private checkDeadline(): void {
+        this.isOutdated = new Date(this.data?.deadline) < new Date();
     }
 }

@@ -10,8 +10,10 @@ import {
 } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
+    ChangeShiftStatus,
     ChangeShiftType,
     IChangeShiftComment,
+    IChangeShiftDto,
     IChangeShiftMember,
     IChangeShiftModel,
     IChangeShiftVerifier,
@@ -20,9 +22,10 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { ChangeShiftHelperService } from './services/change-shift-helper.service';
 import { ChangeShiftKeeperService } from './services/change-shift-keeper.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinct, distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { ClaimService } from '@dashboard/services/claim.service';
+import { ChangeShiftCommonService } from '@widgets/EVJ/change-shift/services/change-shift-common.service';
 
 @Component({
     selector: 'evj-change-shift',
@@ -36,33 +39,27 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public shift$: BehaviorSubject<IChangeShiftModel> = this.changeShiftKeeperService.shift$;
     public dates$: Observable<Date[]> = this.shift$.pipe(
-        filter((x) => !!x),
         map((x) => [x?.startFact ?? new Date(), x?.endFact ?? new Date()])
     );
     public mainMember$: Observable<IChangeShiftMember> = this.shift$.pipe(
-        filter((x) => !!x),
         map((x) => (x?.members ?? []).find((m) => this.changeShiftHelperService.isMainMember(m)) ?? null)
     );
     public members$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
-        filter((x) => !!x),
-        map((x) => x.members)
+        map((x) => x?.members ?? [])
     );
     public presentMembers$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
-        filter((x) => !!x),
-        map((x) => x.members?.filter((m) => m?.user?.status !== 'absent') ?? [])
+        map((x) => x?.members?.filter((m) => m?.user?.status !== 'absent') ?? [])
     );
     public absentsMembers$: Observable<IChangeShiftMember[]> = this.changeShiftKeeperService.shift$.pipe(
-        filter((x) => !!x),
-        map((x) => x.members?.filter((m) => m?.user?.status === 'absent') ?? [])
+        map((x) => x?.members?.filter((m) => m?.user?.status === 'absent') ?? [])
     );
     public comments$: Observable<IChangeShiftComment[]> = this.changeShiftKeeperService.shift$.pipe(
-        filter((x) => !!x),
         map((x) => (x?.comments?.length ? x.comments : []))
     );
     public isShiftApplyAvailable: Observable<boolean> = this.changeShiftKeeperService.shift$.pipe(
-        filter((x) => !!x),
-        map((x) => x.status === 'acceptReady' || x.status === 'accepted' || x.status === 'init')
+        map((x) => x?.status === 'acceptReady' || x?.status === 'accepted' || x?.status === 'init')
     );
+    public shiftStatus$: Observable<ChangeShiftStatus> = this.shift$.pipe(map((x) => x?.status));
 
     public shiftType$: BehaviorSubject<ChangeShiftType> = new BehaviorSubject<ChangeShiftType>('accept');
     public unitId: number = null;
@@ -73,6 +70,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         public changeShiftHelperService: ChangeShiftHelperService,
         public changeShiftKeeperService: ChangeShiftKeeperService,
         private claimService: ClaimService,
+        private changeShiftCommonService: ChangeShiftCommonService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -100,9 +98,23 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.changeShiftKeeperService.widgetId = this.widgetId;
         this.unitId = await this.changeShiftKeeperService.getUnitId(this.widgetId);
         const shiftType = this.changeShiftHelperService.getShiftTypeByName(this.widgetType);
+        combineLatest([
+            this.changeShiftCommonService.getCommonShiftId(this.unitId, shiftType),
+            this.changeShiftCommonService.isRealtimeData$,
+        ]).subscribe(([shift, isRealtime]: [IChangeShiftDto, boolean]) => {
+            console.log(shiftType, shift);
+            if (isRealtime) {
+                this.changeShiftKeeperService.loadShift(this.unitId, shiftType);
+                return;
+            }
+            if (!shift) {
+                this.changeShiftKeeperService.setEmptyShift();
+                return;
+            }
+            this.changeShiftKeeperService.loadShiftById(shift.id);
+        });
         this.checkClaims(this.unitId);
         this.shiftType$.next(shiftType);
-        await this.changeShiftKeeperService.loadShift(this.unitId, shiftType);
     }
 
     protected dataHandler(ref: { data: IChangeShiftVerifier }): void {

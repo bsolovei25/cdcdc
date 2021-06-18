@@ -25,6 +25,13 @@ export class AppConfigService {
         return this.appConfig.wsUrl;
     }
 
+    get wsUrlAdd(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.wsUrlAdd;
+    }
+
     get restUrl(): string {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');

@@ -12,6 +12,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from "@angular-material-components/datetime-picker";
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 import { KpeAccuracyTimelinesDataAddPlanComponent } from './components/kpe-accuracy-timelines-data-add-plan/kpe-accuracy-timelines-data-add-plan.component';
@@ -37,6 +38,7 @@ import { KpeSharedModule } from '../shared/kpe-shared.module';
         MatDatepickerModule,
         MatNativeDateModule,
         MatMomentDateModule,
+        MatTooltipModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,

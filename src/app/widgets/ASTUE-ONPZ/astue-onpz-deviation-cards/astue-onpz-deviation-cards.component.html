@@ -5,31 +5,30 @@
     [widgetTitle]="widgetTitle"
     type="astue"
   ></evj-contemporary-widget-header>
-  <div class="filter-panel" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <!--TODO временно скрыто в соответсвии с реализацией тикета 2181-->
+  <!--<div class="filter-panel" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Ресурс'}"></ng-container>
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Производство'}"></ng-container>
     <ng-container *ngTemplateOutlet="filterSelect; context: {label: 'Установка'}"></ng-container>
-  </div>
+  </div>-->
   <div class="table-content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="scroll-container scroll-bar">
-      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Электроэнергия'}"></ng-container>-->
-      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Пар'}"></ng-container>-->
-      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Условное топливо'}"></ng-container>-->
-      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Теплофикационная вода'}"></ng-container>-->
-      <!--      <ng-container *ngTemplateOutlet="card; context: {title: 'Паровой конденсат'}"></ng-container>-->
+      <ng-container *ngFor="let item of data">
+        <ng-container *ngTemplateOutlet="card; context: {cardData: item}"></ng-container>
+      </ng-container>
     </div>
   </div>
 </div>
 
-<ng-template #card let-title="title">
+<ng-template #card let-card="cardData">
   <div class="card">
     <div class="card_header">
       <div class="card_header__icon">
         <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/header-icon.svg"></svg-icon>
       </div>
-      <span class="card_header__title">{{title}}</span>
+      <span class="card_header__title">{{card.category.description}}</span>
       <span style="flex-grow: 1"></span>
-      <span class="card_header__unit">АВТ-10</span>
+      <span class="card_header__unit">{{card.unit.name || 'Не известно'}}</span>
     </div>
     <div class="card_content">
       <div class="card_content__icon">
@@ -39,12 +38,12 @@
         ></svg-icon>
       </div>
       <div class="card_content__textarea">
-        <span>Превышено плановое значение</span>
+        <span>{{card.description}}</span>
       </div>
     </div>
     <div class="card_footer">
-      <span class="text_status">Новое</span>
-      <span class="text_date">05.08.2020</span>
+      <span class="text_status">{{card.status.description}}</span>
+      <span class="text_date">{{card.eventDateTime | date:"dd.MM.yyyy HH:MM"}}</span>
     </div>
   </div>
 </ng-template>

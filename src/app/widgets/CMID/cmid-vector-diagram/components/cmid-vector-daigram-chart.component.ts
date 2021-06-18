@@ -253,9 +253,9 @@ export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> im
             .style('font-size', '13px')
             .style('line-height', '16px')
         this.svg.append('polygon')
-            .attr('points', '195,138 200,146 190,146')
+            .attr('points', '195,136 200,144 190,144')
             .attr('style', () => {
-                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 196px 141px;'
+                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 196px 140px;'
             })
             .attr('class', () => {
                 return this.data.growIndex ? 'radar__grow-up' : 'radar__grow-down'

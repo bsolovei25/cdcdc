@@ -663,6 +663,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'cd-events',
     },
+    'evj-events-shift': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-events/evj-events.module');
+        },
+        module: 'EvjEventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'cd-events',
+    },
     'evj-events-workspace': {
         import: async () => {
             return await import('src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module');
@@ -1844,9 +1855,10 @@ export const WIDGETS_LAZY = {
     'cmid-factor-analysis': {
         import: async () => await import('src/app/widgets/CMID/cmid-factor-analysis/cmid-factor-analysis.module'),
         module: 'CmidFactorAnalysisModule',
-        itemCols: 21,
+        itemCols: 14,
         itemRows: 12,
-        minItemCols: 18,
+        minItemCols: 14,
+        maxItemCols: 17,
         minItemRows: 8,
         preview: 'default',
     },
@@ -1866,9 +1878,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-operational-readiness/cmid-operational-readiness.module');
         },
         module: 'CmidOperationalReadinessModule',
-        itemCols: 25,
+        itemCols: 14,
         itemRows: 4,
-        minItemCols: 15,
+        minItemCols: 11,
         minItemRows: 1,
     },
     'cmid-filter': {
@@ -1877,7 +1889,7 @@ export const WIDGETS_LAZY = {
         },
         module: 'CmidFilterModule',
         itemCols: 64,
-        itemRows: 3,
+        itemRows: 2,
         minItemCols: 35,
         minItemRows: 2,
         preview: 'default',
@@ -1887,9 +1899,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-dynamics-of-metrics-change/cmid-dynamics-of-metrics-change.module');
         },
         module: 'CmidDynamicsOfMetricsChangeModule',
-        itemCols: 50,
+        itemCols: 33,
         itemRows: 10,
-        minItemCols: 50,
+        minItemCols: 33,
         minItemRows: 10,
         preview: 'default',
     },
@@ -1900,10 +1912,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'CmidOverallOperationalIndicatorModule',
-        itemCols: 42,
-        itemRows: 15,
-        minItemCols: 42,
-        minItemRows: 15,
+        itemCols: 33,
+        itemRows: 10,
+        minItemCols: 33,
+        minItemRows: 10,
         preview: 'default',
     },
     'cmid-mnpz-production-map': {
@@ -1911,10 +1923,10 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
         },
         module: 'CmidProductionMapModule',
-        itemCols: 35,
-        itemRows: 20,
-        minItemCols: 35,
-        minItemRows: 20,
+        itemCols: 33,
+        itemRows: 18,
+        minItemCols: 33,
+        minItemRows: 18,
         preview: 'default',
     },
     'cmid-onpz-production-map': {
@@ -1922,10 +1934,10 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/CMID/cmid-production-map/cmid-production-map.module');
         },
         module: 'CmidProductionMapModule',
-        itemCols: 35,
-        itemRows: 20,
-        minItemCols: 35,
-        minItemRows: 20,
+        itemCols: 33,
+        itemRows: 18,
+        minItemCols: 33,
+        minItemRows: 18,
         preview: 'default',
     },
     'cmid-vector-diagram': {
@@ -2002,7 +2014,7 @@ export const WIDGETS_LAZY = {
         itemRows: 2,
         minItemCols: 35,
         minItemRows: 2,
-        preview: 'ec-widget-header',
+        preview: 'default',
     },
     'ec-widget-mnemonic-diagram': {
         import: async () => {
@@ -2013,7 +2025,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 35,
         minItemRows: 14,
-        preview: 'ec-widget-mnemonic-diagram'
+        preview: 'default',
     },
     // #endregion EC
 
@@ -2027,6 +2039,18 @@ export const WIDGETS_LAZY = {
         itemRows: 35,
         minItemCols: 20,
         minItemRows: 6,
+        preview: 'default',
+    },
+
+    'suutp-equipment-complexes-table': {
+        import: async () => {
+            return await import('@widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
+        },
+        module: 'SuutpComplexesTableModule',
+        itemCols: 20,
+        itemRows: 20,
+        minItemCols: 10,
+        minItemRows: 10,
         preview: 'default',
     },
 

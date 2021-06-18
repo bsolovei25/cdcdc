@@ -43,7 +43,7 @@
         </ng-container>
         <ng-container *ngIf="selectClaim?.selected[0]?.claimValueType === 'notificationCategory'">
           <div
-            *ngFor="let category of allEventsCategories"
+            *ngFor="let category of allEventsCategories | searchEventsCategories: search"
             class="card"
             [ngClass]="{'card_active': checkClaim(selectClaim?.selected[0], category)}"
             (click)="chooseClaim(selectClaim?.selected[0], category)"

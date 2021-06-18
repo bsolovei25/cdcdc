@@ -7,6 +7,7 @@ import { EventService } from '../../../../../dashboard/services/widgets/EVJ/even
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ClaimService } from '@dashboard/services/claim.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export const fadeAnimation = trigger('fadeAnimation', [
     transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))]),
@@ -43,7 +44,9 @@ export class EvjEventCardComponent implements OnInit {
 
     constructor(
         private eventService: EventService,
-        private claimService: ClaimService
+        private claimService: ClaimService,
+        private _route: ActivatedRoute,
+        private _router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -51,6 +54,14 @@ export class EvjEventCardComponent implements OnInit {
     }
 
     public eventClick(id: number): void {
+        this._router.navigate([], {
+            relativeTo: this._route,
+            queryParams: {
+                eventId: `${id}`
+            },
+            queryParamsHandling: 'merge',
+            skipLocationChange: false
+        });
         this.cardClick.emit(id);
     }
 
@@ -72,6 +83,10 @@ export class EvjEventCardComponent implements OnInit {
         event.stopPropagation();
         this.expandedElement.toggle(id);
         this.selectionExpandedElement.emit();
+    }
+
+    public checkDeadline(deadline: string | Date): boolean {
+        return new Date(deadline) < new Date();
     }
 
     private checkClaim(): void {

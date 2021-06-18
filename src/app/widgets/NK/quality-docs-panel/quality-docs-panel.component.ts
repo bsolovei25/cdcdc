@@ -21,9 +21,10 @@ import {
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DocumentCodingFilterComponent } from '../document-coding/components/document-coding-filter/document-coding-filter.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
-import { FormControl } from '@angular/forms';
 import { ArrayProperties } from '@shared/interfaces/common.model';
 import { DocumentCodingService } from '@dashboard/services/oil-control-services/document-coding.service';
+import { BehaviorSubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 export type IDocumentOilQualityPanelFilterType =
     | 'products-document-panel'
@@ -103,7 +104,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public passportValue: string | null = null;
 
-    public searchString: string | null = null;
+    public searchString$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
     public isPasportInput: boolean = false;
 
@@ -133,6 +134,13 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.getFilterList('products-document-panel');
         this.getFilterList('groups-document-panel');
         this.getFilterList('tanks-document-panel');
+        this.subscriptions.push(this.searchString$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged(),
+            map(() =>  this.getData()))
+            .subscribe());
+
+        this.data = this.oilDocumentService.data$.getValue();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -216,8 +224,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
             options.PassportName = this.passportValue;
         }
 
-        if (this.searchString) {
-            options.SearchLike = this.searchString;
+        if (this.searchString$.getValue()) {
+            options.SearchLike = this.searchString$.getValue();
         }
 
         options.IsBlocked = this.blockFilter;
@@ -226,6 +234,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public async getList(lastId: number = 0): Promise<IQualityDocsRecord[]> {
         const options = this.getOptions();
+        this.oilDocumentService.data$.next(await this.oilDocumentService.getPassportsByFilter(lastId, options))
         return await this.oilDocumentService.getPassportsByFilter(lastId, options);
     }
 
@@ -250,15 +259,14 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     public searchRecords(event: string): void {
-        this.searchString = event;
-        this.getData();
+        this.searchString$.next(event);
     }
 
-    public async scrollHandler(event: {
+    public scrollHandler(event: {
         target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
-    }): Promise<void> {
+    }): void {
         if (event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight && this.data.length) {
-            await this.appendPassports(this.data[this.data.length - 1].id);
+            this.appendPassports(this.data[this.data.length - 1].id);
         }
     }
 
@@ -327,7 +335,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         }
     }
 
-    private async onDatesChange(dates: IDatesInterval): Promise<void> {
+    private async onDatesChange(dates: IDatesInterval): Promise<void>{
         if (!dates) {
             dates = {
                 fromDateTime: new Date(),
@@ -339,6 +347,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.currentDates = dates;
 
         const dataLoadQueue: Promise<void>[] = [];
+
         dataLoadQueue.push(
             this.getList().then((ref) => {
                 this.data = ref;
@@ -352,6 +361,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
                 })
             );
         })
+
         await Promise.all(dataLoadQueue);
     }
 }

@@ -47,66 +47,124 @@
 <path id="Rectangle 7354_5" d="M1147 487L1153 490L1147 493V490V487Z" fill="#606580"/>
 </g>
 </g>
-<g id="element-1_1__ABT-10_ELOU_FUEL">
+<g id="element-1_2">
 <g id="rect">
-<rect x="282" y="336" width="168" height="36" rx="2" fill="#272A38"/>
-<text id="Title" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="317" y="352.161">&#x418;&#x437; &#x43a;-&#x442;&#x43e;&#x440;&#x430; &#x436;&#x438;&#x434;.&#10;</tspan><tspan x="317" y="366.161">&#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x430;</tspan></text>
-<rect x="282" y="336" width="168" height="36" rx="2" stroke="#606580"/>
+<rect x="250" y="404" width="200" height="36" rx="2" fill="#272A38"/>
+<rect x="250" y="404" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group">
-<g id="arrow_double_right" clip-path="url(#clip0)">
+<g id="arrow_double_right">
 <g id="Group">
 <g id="Group_2">
-<path id="arrow" d="M426.957 348.75L433.047 354L426.957 359.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="arrow" d="M426.824 416.75L432.074 422L426.824 427.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="Group_3">
-<path id="arrow_2" d="M432.871 348.75L438.961 354L432.871 359.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="arrow_2" d="M431.926 416.75L437.176 422L431.926 427.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </g>
 </g>
-<path id="circle" d="M309.5 354C309.5 360.332 304.147 365.5 297.5 365.5C290.853 365.5 285.5 360.332 285.5 354C285.5 347.668 290.853 342.5 297.5 342.5C304.147 342.5 309.5 347.668 309.5 354Z" fill="#1C1F2B" stroke="#606580"/>
+<text id="text" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="285" y="420.161">&#x418;&#x437; &#x43a;&#x43e;&#x43b;&#x43b;&#x435;&#x43a;&#x442;&#x43e;&#x440;&#x430; &#x441;&#x44b;&#x440;&#x43e;&#x439;&#10;</tspan><tspan x="285" y="434.161">&#x43d;&#x435;&#x444;&#x442;&#x438; (&#x422;&#x421;&#x411;-2)</tspan></text>
+<circle id="circle" cx="266" cy="422" r="11.5" fill="#1C1F2B" stroke="#606580"/>
 <g id="icon">
-<path id="Vector" d="M294.395 354H299.857" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M263.676 422H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <g id="Group_4">
-<path id="Vector_2" d="M297.125 354V350.25H299.856" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_3" d="M301.539 351.525C302.343 351.525 302.995 350.988 302.995 350.325C302.995 349.662 302.343 349.125 301.539 349.125C300.734 349.125 300.082 349.662 300.082 350.325C300.082 350.988 300.734 351.525 301.539 351.525Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M265.926 422V418.25H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M269.563 419.525C270.226 419.525 270.763 418.988 270.763 418.325C270.763 417.662 270.226 417.125 269.563 417.125C268.901 417.125 268.363 417.662 268.363 418.325C268.363 418.988 268.901 419.525 269.563 419.525Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="Vector_4" d="M297.129 354V357.75H299.86" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_5" d="M301.543 358.877C302.347 358.877 302.999 358.339 302.999 357.677C302.999 357.014 302.347 356.477 301.543 356.477C300.738 356.477 300.086 357.014 300.086 357.677C300.086 358.339 300.738 358.877 301.543 358.877Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_6" d="M301.543 355.201C302.347 355.201 302.999 354.664 302.999 354.001C302.999 353.338 302.347 352.801 301.543 352.801C300.738 352.801 300.086 353.338 300.086 354.001C300.086 354.664 300.738 355.201 301.543 355.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_7" d="M292.894 355.201C293.699 355.201 294.351 354.664 294.351 354.001C294.351 353.338 293.699 352.801 292.894 352.801C292.09 352.801 291.438 353.338 291.438 354.001C291.438 354.664 292.09 355.201 292.894 355.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M265.926 422V425.75H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M269.563 426.877C270.226 426.877 270.763 426.339 270.763 425.677C270.763 425.014 270.226 424.477 269.563 424.477C268.901 424.477 268.363 425.014 268.363 425.677C268.363 426.339 268.901 426.877 269.563 426.877Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_6" d="M269.563 423.201C270.226 423.201 270.763 422.664 270.763 422.001C270.763 421.338 270.226 420.801 269.563 420.801C268.901 420.801 268.363 421.338 268.363 422.001C268.363 422.664 268.901 423.201 269.563 423.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_7" d="M262.438 423.201C263.101 423.201 263.638 422.664 263.638 422.001C263.638 421.338 263.101 420.801 262.438 420.801C261.776 420.801 261.238 421.338 261.238 422.001C261.238 422.664 261.776 423.201 262.438 423.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="element-1_2">
+<g id="element-1_3">
 <g id="rect_2">
-<rect x="282" y="404" width="168" height="36" rx="2" fill="#272A38"/>
-<text id="Title_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="317" y="420.161">&#x418;&#x437; &#x43a;-&#x442;&#x43e;&#x440;&#x430; &#x436;&#x438;&#x434;.&#10;</tspan><tspan x="317" y="434.161">&#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x430;</tspan></text>
-<rect x="282" y="404" width="168" height="36" rx="2" stroke="#606580"/>
+<rect x="250" y="472" width="200" height="36" rx="2" fill="#272A38"/>
+<rect x="250" y="472" width="200" height="36" rx="2" stroke="#606580"/>
 </g>
 <g id="arrow-group_2">
-<g id="arrow_double_right_2" clip-path="url(#clip1)">
+<g id="arrow_double_right_2">
 <g id="Group_5">
 <g id="Group_6">
-<path id="arrow_3" d="M426.957 416.75L433.047 422L426.957 427.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="arrow_3" d="M426.824 484.75L432.074 490L426.824 495.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="Group_7">
-<path id="arrow_4" d="M432.871 416.75L438.961 422L432.871 427.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="arrow_4" d="M431.926 484.75L437.176 490L431.926 495.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </g>
 </g>
-<path id="circle_2" d="M309.5 422C309.5 428.332 304.147 433.5 297.5 433.5C290.853 433.5 285.5 428.332 285.5 422C285.5 415.668 290.853 410.5 297.5 410.5C304.147 410.5 309.5 415.668 309.5 422Z" fill="#1C1F2B" stroke="#606580"/>
+<text id="text_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="285" y="488.161">&#x418;&#x437; &#x43a;&#x43e;&#x43b;&#x43b;&#x435;&#x43a;&#x442;&#x43e;&#x440;&#x430; &#x441;&#x44b;&#x440;&#x43e;&#x439;&#10;</tspan><tspan x="285" y="502.161">&#x43d;&#x435;&#x444;&#x442;&#x438; (&#x422;&#x421;&#x411;-2)</tspan></text>
+<circle id="circle_2" cx="266" cy="490" r="11.5" fill="#1C1F2B" stroke="#606580"/>
 <g id="icon_2">
-<path id="Vector_8" d="M294.395 422H299.857" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="Group_8">
-<path id="Vector_9" d="M297.125 422V418.25H299.856" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_10" d="M301.539 419.525C302.343 419.525 302.995 418.988 302.995 418.325C302.995 417.662 302.343 417.125 301.539 417.125C300.734 417.125 300.082 417.662 300.082 418.325C300.082 418.988 300.734 419.525 301.539 419.525Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_8" d="M261.766 493.181V490.465H264.133L265.283 489.281H266.85V493.181" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_9" d="M270.75 493.184H261V494.751H270.75V493.184Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_10" d="M263.75 485H262.566V490.467H263.75V485Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_11" d="M266.082 489.283V486.184H269.181V487.333" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_12" d="M269.463 491.615H268.941C268.453 491.615 268.035 491.197 268.035 490.71V488.237C268.035 487.75 268.453 487.332 268.941 487.332H269.463C269.95 487.332 270.368 487.75 270.368 488.237V490.71C270.368 491.232 269.95 491.615 269.463 491.615Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_13" d="M268.418 493.184V491.617" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_14" d="M269.984 491.617V493.184" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="Vector_11" d="M297.129 422V425.75H299.86" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_12" d="M301.543 426.877C302.347 426.877 302.999 426.339 302.999 425.677C302.999 425.014 302.347 424.477 301.543 424.477C300.738 424.477 300.086 425.014 300.086 425.677C300.086 426.339 300.738 426.877 301.543 426.877Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_13" d="M301.543 423.201C302.347 423.201 302.999 422.664 302.999 422.001C302.999 421.338 302.347 420.801 301.543 420.801C300.738 420.801 300.086 421.338 300.086 422.001C300.086 422.664 300.738 423.201 301.543 423.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_14" d="M292.894 423.201C293.699 423.201 294.351 422.664 294.351 422.001C294.351 421.338 293.699 420.801 292.894 420.801C292.09 420.801 291.438 421.338 291.438 422.001C291.438 422.664 292.09 423.201 292.894 423.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="element-1_4">
+<g id="rect_3">
+<rect x="250" y="540" width="200" height="36" rx="2" fill="#272A38"/>
+<rect x="250" y="540" width="200" height="36" rx="2" stroke="#606580"/>
+</g>
+<g id="arrow-group_3">
+<g id="arrow_double_right_3">
+<g id="Group_8">
+<g id="Group_9">
+<path id="arrow_5" d="M426.824 552.75L432.074 558L426.824 563.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Group_10">
+<path id="arrow_6" d="M431.926 552.75L437.176 558L431.926 563.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<text id="text_3" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="285" y="556.161">&#x418;&#x437; &#x43a;&#x43e;&#x43b;&#x43b;&#x435;&#x43a;&#x442;&#x43e;&#x440;&#x430; &#x441;&#x44b;&#x440;&#x43e;&#x439;&#10;</tspan><tspan x="285" y="570.161">&#x43d;&#x435;&#x444;&#x442;&#x438; (&#x422;&#x421;&#x411;-2)</tspan></text>
+<circle id="circle_3" cx="266" cy="558" r="11.5" fill="#1C1F2B" stroke="#606580"/>
+<g id="icon_3">
+<path id="Vector_15" d="M261.766 561.181V558.465H264.133L265.283 557.281H266.85V561.181" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_16" d="M270.75 561.184H261V562.751H270.75V561.184Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_17" d="M263.75 553H262.566V558.467H263.75V553Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_18" d="M266.082 557.283V554.184H269.181V555.333" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_19" d="M269.463 559.615H268.941C268.453 559.615 268.035 559.197 268.035 558.71V556.237C268.035 555.75 268.453 555.332 268.941 555.332H269.463C269.95 555.332 270.368 555.75 270.368 556.237V558.71C270.368 559.232 269.95 559.615 269.463 559.615Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_20" d="M268.418 561.184V559.617" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_21" d="M269.984 559.617V561.184" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="element-1_1__ABT-10_ELOU_FUEL">
+<g id="rect_4">
+<rect x="250" y="336" width="200" height="36" rx="2" fill="#272A38"/>
+<rect x="250" y="336" width="200" height="36" rx="2" stroke="#606580"/>
+</g>
+<g id="arrow-group_4">
+<g id="arrow_double_right_4">
+<g id="Group_11">
+<g id="Group_12">
+<path id="arrow_7" d="M426.824 348.75L432.074 354L426.824 359.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Group_13">
+<path id="arrow_8" d="M431.926 348.75L437.176 354L431.926 359.25" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<text id="text_4" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="285" y="352.161">&#x418;&#x437; &#x43a;&#x43e;&#x43b;&#x43b;&#x435;&#x43a;&#x442;&#x43e;&#x440;&#x430; &#x441;&#x44b;&#x440;&#x43e;&#x439;&#10;</tspan><tspan x="285" y="366.161">&#x43d;&#x435;&#x444;&#x442;&#x438; (&#x422;&#x421;&#x411;-2)</tspan></text>
+<circle id="circle_4" cx="266" cy="354" r="11.5" fill="#1C1F2B" stroke="#606580"/>
+<g id="icon_4">
+<path id="Vector_22" d="M263.676 354H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="Group_14">
+<path id="Vector_23" d="M265.926 354V350.25H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_24" d="M269.563 351.525C270.226 351.525 270.763 350.988 270.763 350.325C270.763 349.662 270.226 349.125 269.563 349.125C268.901 349.125 268.363 349.662 268.363 350.325C268.363 350.988 268.901 351.525 269.563 351.525Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="Vector_25" d="M265.926 354V357.75H268.176" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_26" d="M269.563 358.877C270.226 358.877 270.763 358.339 270.763 357.677C270.763 357.014 270.226 356.477 269.563 356.477C268.901 356.477 268.363 357.014 268.363 357.677C268.363 358.339 268.901 358.877 269.563 358.877Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_27" d="M269.563 355.201C270.226 355.201 270.763 354.664 270.763 354.001C270.763 353.338 270.226 352.801 269.563 352.801C268.901 352.801 268.363 353.338 268.363 354.001C268.363 354.664 268.901 355.201 269.563 355.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_28" d="M262.438 355.201C263.101 355.201 263.638 354.664 263.638 354.001C263.638 353.338 263.101 352.801 262.438 352.801C261.776 352.801 261.238 353.338 261.238 354.001C261.238 354.664 261.776 355.201 262.438 355.201Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <g id=".on&#38;off">
@@ -117,64 +175,6 @@
 <g id=".on&#38;off_2">
 <g id=".template on&#38;off_2">
 <circle id="border_2" cx="450" cy="422" r="6.5" fill="#1C1F2B" stroke="#606580"/>
-</g>
-</g>
-<g id="element-1_3">
-<g id="rect_3">
-<rect x="282" y="474" width="168" height="32" rx="2" fill="#272A38"/>
-<rect x="282" y="474" width="168" height="32" rx="2" stroke="#606580"/>
-</g>
-<circle id="circle_3" cx="298" cy="490" r="11.5" fill="#1C1F2B" stroke="#606580"/>
-<text id="text" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="316" y="494.161">&#x41e;&#x442; &#x41b;-35/11-600</tspan></text>
-<g id="icon_3">
-<path id="Vector_15" d="M293.766 493.181V490.465H296.133L297.283 489.281H298.85V493.181" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_16" d="M302.75 493.184H293V494.751H302.75V493.184Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_17" d="M295.75 485H294.566V490.467H295.75V485Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_18" d="M298.082 489.283V486.184H301.181V487.333" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_19" d="M301.463 491.615H300.941C300.453 491.615 300.035 491.197 300.035 490.71V488.237C300.035 487.75 300.453 487.332 300.941 487.332H301.463C301.95 487.332 302.368 487.75 302.368 488.237V490.71C302.368 491.232 301.95 491.615 301.463 491.615Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_20" d="M300.418 493.184V491.617" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_21" d="M301.984 491.617V493.184" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="arrow-group_3">
-<g id="arrow_double_right_3">
-<g id="Group_9">
-<g id="Group_10">
-<path id="arrow_5" d="M427.824 485.75L433.074 491L427.824 496.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="Group_11">
-<path id="arrow_6" d="M432.926 485.75L438.176 491L432.926 496.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
-</g>
-</g>
-</g>
-<g id="element-1_4">
-<g id="rect_4">
-<rect x="282" y="542" width="168" height="32" rx="2" fill="#272A38"/>
-<rect x="282" y="542" width="168" height="32" rx="2" stroke="#606580"/>
-</g>
-<circle id="circle_4" cx="298" cy="558" r="11.5" fill="#1C1F2B" stroke="#606580"/>
-<text id="text_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="316" y="562.161">&#x41e;&#x442; &#x41b;-35/11-600</tspan></text>
-<g id="icon_4">
-<path id="Vector_22" d="M293.766 561.181V558.465H296.133L297.283 557.281H298.85V561.181" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_23" d="M302.75 561.184H293V562.751H302.75V561.184Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_24" d="M295.75 553H294.566V558.467H295.75V553Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_25" d="M298.082 557.283V554.184H301.181V555.333" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_26" d="M301.463 559.615H300.941C300.453 559.615 300.035 559.197 300.035 558.71V556.237C300.035 555.75 300.453 555.332 300.941 555.332H301.463C301.95 555.332 302.368 555.75 302.368 556.237V558.71C302.368 559.232 301.95 559.615 301.463 559.615Z" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_27" d="M300.418 561.184V559.617" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_28" d="M301.984 559.617V561.184" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="arrow-group_4">
-<g id="arrow_double_right_4">
-<g id="Group_12">
-<g id="Group_13">
-<path id="arrow_7" d="M427.824 553.75L433.074 559L427.824 564.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="Group_14">
-<path id="arrow_8" d="M432.926 553.75L438.176 559L432.926 564.25" stroke="#616580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
-</g>
 </g>
 </g>
 <g id=".on&#38;off_3">
@@ -192,7 +192,7 @@
 <rect x="594.5" y="536.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="594.5" y="536.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
-<text id="text_3" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="553.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
+<text id="text_5" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="553.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
 <text id="text_value" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="573.161">12 000&#x442;</tspan></text>
 <text id="text_percent" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="656" y="573.161">12.85%</tspan></text>
 </g>
@@ -201,7 +201,7 @@
 <rect x="961.5" y="468.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="961.5" y="468.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
-<text id="text_4" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="969" y="485.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
+<text id="text_6" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="969" y="485.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
 <text id="text_value_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="969" y="505.161">12 000&#x442;</tspan></text>
 <text id="text_percent_2" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="1023" y="505.161">12.85%</tspan></text>
 </g>
@@ -210,7 +210,7 @@
 <rect x="594.5" y="468.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="594.5" y="468.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
-<text id="text_5" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="485.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
+<text id="text_7" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="485.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
 <text id="text_value_3" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="505.161">12 000&#x442;</tspan></text>
 <text id="text_percent_3" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="656" y="505.161">12.85%</tspan></text>
 </g>
@@ -219,7 +219,7 @@
 <rect x="594.5" y="401.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="594.5" y="401.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
-<text id="text_6" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="418.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
+<text id="text_8" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="418.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
 <text id="text_value_4" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="438.161">12 000&#x442;</tspan></text>
 <text id="text_percent_4" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="656" y="438.161">12.85%</tspan></text>
 </g>
@@ -228,7 +228,7 @@
 <rect x="594.5" y="332.5" width="169" height="43" rx="1.5" fill="#1C1F2B"/>
 <rect x="594.5" y="332.5" width="169" height="43" rx="1.5" stroke="#606580"/>
 </g>
-<text id="text_7" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="349.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
+<text id="text_9" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="349.161">&#x41d;&#x435;&#x444;&#x442;&#x44f;&#x43d;&#x43e;&#x435; &#x441;&#x44b;&#x440;&#x44c;&#x435;</tspan></text>
 <text id="text_value_5" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="602" y="369.161">12 000&#x442;</tspan></text>
 <text id="text_percent_5" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="656" y="369.161">12.85%</tspan></text>
 </g>
@@ -280,7 +280,7 @@
 <path id="Vector_37" d="M486.898 557.098L488.286 555.711" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text id="text_percent_6" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="570.161">99%</tspan></text>
-<text id="text_8" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="550.161">Fl11</tspan></text>
+<text id="text_10" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="550.161">Fl11</tspan></text>
 <path id="ellipse" d="M454 558C454 560.209 452.209 562 450 562C447.791 562 446 560.209 446 558C446 555.791 447.791 554 450 554C452.209 554 454 555.791 454 558Z" fill="white"/>
 </g>
 <g id="element-11_7">
@@ -307,7 +307,7 @@
 <path id="Vector_44" d="M486.898 489.098L488.286 487.711" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text id="text_percent_7" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="502.161">99%</tspan></text>
-<text id="text_9" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="482.161">Fl11</tspan></text>
+<text id="text_11" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="482.161">Fl11</tspan></text>
 <path id="ellipse_2" d="M454 490C454 492.209 452.209 494 450 494C447.791 494 446 492.209 446 490C446 487.791 447.791 486 450 486C452.209 486 454 487.791 454 490Z" fill="white"/>
 </g>
 <g id="element-11_6">
@@ -334,7 +334,7 @@
 <path id="Vector_51" d="M486.898 421.098L488.286 419.711" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text id="text_percent_8" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="434.161">99%</tspan></text>
-<text id="text_10" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="414.161">Fl11</tspan></text>
+<text id="text_12" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="414.161">Fl11</tspan></text>
 <path id="ellipse_3" d="M454 422C454 424.209 452.209 426 450 426C447.791 426 446 424.209 446 422C446 419.791 447.791 418 450 418C452.209 418 454 419.791 454 422Z" fill="white"/>
 </g>
 <g id="element-11_5">
@@ -361,13 +361,13 @@
 <path id="Vector_58" d="M486.898 353.098L488.286 351.711" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text id="text_percent_9" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="366.161">99%</tspan></text>
-<text id="text_11" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="346.161">Fl11</tspan></text>
+<text id="text_13" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="502" y="346.161">Fl11</tspan></text>
 <path id="ellipse_4" d="M454 354C454 356.209 452.209 358 450 358C447.791 358 446 356.209 446 354C446 351.791 447.791 350 450 350C452.209 350 454 351.791 454 354Z" fill="white"/>
 </g>
 <g id="element-1_13">
 <rect x="785" y="413" width="32" height="152" rx="2" fill="#272A38"/>
 <circle id="circle_9" cx="801" cy="429" r="11.5" fill="#1C1F2B" stroke="#606580"/>
-<text id="text_12" transform="translate(793 582) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="42.8564" y="13.1606">PL101TopGa</tspan></text>
+<text id="text_14" transform="translate(793 582) rotate(-90)" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="42.8564" y="13.1606">PL101TopGa</tspan></text>
 <g id="icon_11">
 <path id="Vector_59" d="M798.438 428.875H802.938" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <g id="Group_39">
@@ -410,16 +410,8 @@
 <path id="Vector_72" d="M854.898 488.098L856.286 486.711" stroke="#606580" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text id="text_percent_10" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="870" y="501.161">99%</tspan></text>
-<text id="text_13" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="870" y="481.161">Fl11</tspan></text>
+<text id="text_15" fill="#D7E2F2" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="13" letter-spacing="0em"><tspan x="870" y="481.161">Fl11</tspan></text>
 <path id="ellipse_5" d="M822 489C822 491.209 820.209 493 818 493C815.791 493 814 491.209 814 489C814 486.791 815.791 485 818 485C820.209 485 822 486.791 822 489Z" fill="white"/>
 </g>
 </g>
-<defs>
-<clipPath id="clip0">
-<rect width="13.9198" height="12" fill="white" transform="translate(426 348)"/>
-</clipPath>
-<clipPath id="clip1">
-<rect width="13.9198" height="12" fill="white" transform="translate(426 416)"/>
-</clipPath>
-</defs>
 </svg>

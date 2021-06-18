@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3 from 'd3';
-import { IKpeGaugeChartPage } from '../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
+import { deviationColors, IKpeGaugeChartPage } from '../../key-performance-indicators/components/gauge-diagram/gauge-diagram.component';
 
 export type KpeGaugeChartMultiColor = 'Red' | 'Yellow' | 'Blue' | 'Green';
 
@@ -402,15 +402,17 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
         } else {
             // Стрелка
             gradientArrow(gauge.angle);
-
             // Закрываем тень от стрелки
             const sectionHidden = createPie(end, end + Math.PI / 2);
+            // Цвет значения в центре, если цвета нет в enum то ставим по умолчанию сервый
+            const deviationColor = deviationColors[this.data?.deviationColor] || 'grey';
+
             drawDiagram(`circle__dark`, () => sectionHidden([null]), arcHidden);
 
             // Темный круглый фон с текстом
             drawCircle(width / 2 - 18, 'circle__dark');
             addText('' + gauge.total, 'total', -2);
-            addText('' + gauge.deviation, 'deviation', 9);
+            addText('' + gauge.deviation, `deviation deviation__${deviationColor}`, 9);
             if (this.data?.description && this.type === 1 && !this.hideDescription) {
                 addText(this.data.description, 'desc', 30);
             }

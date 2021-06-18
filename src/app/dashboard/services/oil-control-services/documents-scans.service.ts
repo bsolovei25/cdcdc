@@ -26,6 +26,8 @@ export class DocumentsScansService {
 
     private restUrl: string;
 
+    public data$: BehaviorSubject<IQualityDocsRecord[]> = new BehaviorSubject<IQualityDocsRecord[]>(null);
+
     public documentScansLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     public currentDocumentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -73,12 +75,11 @@ export class DocumentsScansService {
 
     public async getPassportsByFilter(lastId: number, options: IOilControlPassportOpts): Promise<IQualityDocsRecord[]> {
         try {
-            return this.http
+            return await this.http
                 .get<IQualityDocsRecord[]>(
                     this.restUrl +
-                        `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
-                )
-                .toPromise();
+                    `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
+                ).toPromise()
         } catch (error) {
             console.error(error);
         }

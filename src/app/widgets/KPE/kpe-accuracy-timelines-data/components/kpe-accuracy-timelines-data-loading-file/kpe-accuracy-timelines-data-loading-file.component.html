@@ -1,20 +1,20 @@
 <div class="container">
   <div class="file-info">
-    <div class="file-title">Название файла...</div>
+    <div class="file-title" [matTooltip]="file.name">{{ file.name  }} </div>
     <div class="file-loading">
       <div class="chart" #chart>
         <svg-icon
-          [src]="'assets/icons/widgets/KPE/kpe-execution-production-program/' + (percent === 100 ? 'loaded' : 'pause') + '.svg'"
-          [attr.class]="percent === 100 ? 'loaded' : 'pause'"
+          [src]="'assets/icons/widgets/KPE/kpe-execution-production-program/' + ( uploadingPercent === 100? 'loaded' : 'pause') + '.svg'"
+          [attr.class]="uploadingPercent === 100 ? 'loaded' : 'pause'"
         ></svg-icon>
       </div>
-      <div class="weight">512 MB</div>
+      <div class="weight">{{ fileSize }} </div>
     </div>
   </div>
   <div class="file-icon">
-    <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/doc.svg"></svg-icon>
+    <svg-icon [src]="'assets/icons/widgets/KPE/kpe-accuracy-timelines-data/'+ fileType +'.svg'"></svg-icon>
   </div>
-  <div class="close-btn" *ngIf="percent===100">
+  <div class="close-btn" *ngIf="uploadingPercent === 100" (click)="deleteFile()">
     <svg-icon src="assets/icons/widgets/KPE/kpe-execution-production-program/x.svg"></svg-icon>
   </div>
 </div>

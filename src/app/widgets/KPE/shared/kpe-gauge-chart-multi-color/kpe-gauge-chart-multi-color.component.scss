@@ -11,7 +11,15 @@
       font-size: 7px;
       line-height: 10px;
 
-      fill: var(--index-error-color);
+      &__grey {
+        fill: var(--text-subscript-color);
+      }
+      &__yellow {
+        fill: var(--index-error-color);
+      }
+      &__green {
+        fill: var(--index-green1-color);
+      }
     }
 
     .unit {

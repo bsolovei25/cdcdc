@@ -15,6 +15,13 @@
   border: 1px solid var(--color-sou-border);
 }
 
+.energy-content {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  overflow-x: auto;
+}
+
 .scroll-container {
   display: flex;
   flex-direction: row;

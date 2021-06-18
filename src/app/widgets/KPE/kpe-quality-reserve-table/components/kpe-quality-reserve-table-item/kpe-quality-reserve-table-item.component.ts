@@ -69,8 +69,9 @@ export class KpeQualityReserveTableItemComponent
             ref.currentTables.forEach((table) => {
                 table.rows.forEach((item) => {
                     item.cells.forEach((cell) => {
-                        if (typeof cell.value === 'number') {
+                        if (typeof cell.value === 'number' && typeof cell.valueInCash === 'number') {
                             cell.value = this.spaceNumber.transform(+cell.value, 1);
+                            cell.valueInCash = this.spaceNumber.transform(+cell.valueInCash, 1);
                         }
                     });
                 });

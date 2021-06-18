@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject,  OnDestroy, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
@@ -35,7 +35,7 @@ import { KpeHelperService } from '@widgets/KPE/shared/kpe-helper.service';
         ])
     ]
 })
-export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> implements OnInit {
+export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public cells: number[] = new Array(100);
     public percent: number = 97;
     public isExpanded: boolean = true;
@@ -48,6 +48,9 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
         Categories: ''
     };
     public modifiedHeaderDate: string;
+    public currentDate: string = '';
+    public endMonth: string;
+    public endYear: number;
 
     constructor(
         protected widgetService: WidgetService,
@@ -62,6 +65,12 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe(dates => {
+                dates ? this.generateDate(dates.toDateTime) : this.generateDate(new Date());
+            })
+        )
+        this.currentDate = this.getDate();
     }
 
     protected dataHandler(ref: IKpeAccuracyTimelinesData): void {
@@ -72,6 +81,10 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
 
     private filterByMonth(rows: IKpeAccuracyTimelinesRow[]): IKpeAccuracyTimelinesRow[] {
         return rows.filter(row => new Date(row.dateOfAdjustment).getMonth() === new Date(this.headers.Date).getMonth())
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     public toggleBlock(): void {
@@ -87,6 +100,24 @@ export class KpeAccuracyTimelinesDataComponent extends WidgetPlatform<unknown> i
     }
 
     public openAdd(): void {
-        this.dialog.open(KpeAccuracyTimelinesDataAddPlanComponent);
+        this.dialog.open(KpeAccuracyTimelinesDataAddPlanComponent, {
+            data: {
+                endMonth: this.endMonth,
+                endYear: this.endYear
+            }
+        });
+    }
+
+    public getDate(): string {
+        const today = new Date();
+        const date = new Date(today.getFullYear(), today.getMonth() - 1, 1, 0, 0, 0, 0);
+        const month = date.toLocaleString('Ru-ru', { month: 'long' });
+        return month + ' ' + today.getFullYear();
+    }
+
+    public generateDate(date: Date): void {
+        const generatedDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0 );
+        this.endMonth = date.toLocaleString('Ru-ru', { month: 'long' });
+        this.endYear = generatedDate.getFullYear();
     }
 }

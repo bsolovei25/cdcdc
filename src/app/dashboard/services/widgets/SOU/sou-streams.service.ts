@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 
-interface ISouStreamsTableContent {
-    UID?: string;
-    SourceName: string;
-    DestinationName: string;
-    StartTime: string;
-    EndTime?: string;
-    SourceProduct: string;
-    DestinationProduct: string;
-    SourceMass?: number;
-    DestinationMass?: number;
-    SourceClient: string;
-    DestinationClient: string;
-    DeltaMass: number;
-    SourceType: string;
-    DestinationType: string;
-    WarningColor: string;
-    IsDelete: boolean;
+export interface ISouStreamsTableContent {
+    UID: string;
+    flow: string;
+    userName: string;
+    sourceName: string;
+    destinationName: string;
+    startTime: string;
+    endTime: string;
+    sourceProduct: string;
+    destinationProduct: string;
+    sourceMass: number;
+    destinationMass: number;
+    deltaMass: number;
+    sourceType: string;
+    destinationType: string;
+    warningColor: string;
+    isDelete: boolean;
 }
 
 @Injectable({
@@ -31,12 +31,11 @@ export class SouStreamsService {
         this.restUrl = this.configService.restUrl;
     }
 
-    public async getTableContent(startTime: string, endTime: string): Promise<any> {
+    public async getTableContent(startTime: string, endTime: string): Promise<ISouStreamsTableContent[]> {
         const params = new HttpParams()
-            .set('startTime', startTime)
-            .set('endTime', endTime)
-            .set('client', 'test');
-        return await this.http.get<any>
+            .set('startTime', '2021-05-02')
+            .set('endTime', '2021-05-04');
+        return await this.http.get<ISouStreamsTableContent[]>
         (`https://dev-pfm-petroleumflowmanagement-ioms.funcoff.club/api/Transfer/transfer`,
             {params}).toPromise();
     }

@@ -1,31 +1,40 @@
-export const TITLES_OF_TABLE: { name: string, bigBlock?: boolean }[] = [
+export const TITLES_OF_TABLE: { name: string, type: string, bigBlock?: boolean }[] = [
     {
-        name: 'Начало операции'
+        name: 'Начало операции',
+        type: 'startTime'
     },
     {
-        name: 'Конец операции'
+        name: 'Конец операции',
+        type: 'endTime'
     },
     {
-        name: 'Тип источника'
+        name: 'Тип источника',
+        type: 'sourceType'
     },
     {
-        name: 'Источник'
+        name: 'Источник',
+        type: 'sourceName'
     },
     {
-        name: 'Поток'
+        name: 'Поток',
+        type: 'flow'
     },
     {
         name: 'Продукт в источнике',
-        bigBlock: true
+        bigBlock: true,
+        type: 'sourceProduct'
     },
     {
-        name: 'Тип приёмника'
+        name: 'Тип приёмника',
+        type: 'destinationType'
     },
     {
-        name: 'Приёмник'
+        name: 'Приёмник',
+        type: 'destinationName'
     },
     {
         name: 'Продукт в приёмнике',
-        bigBlock: true
+        bigBlock: true,
+        type: 'destinationProduct'
     }
 ];

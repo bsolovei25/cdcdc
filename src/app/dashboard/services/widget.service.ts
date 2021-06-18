@@ -36,15 +36,19 @@ interface IWebSocketOptions<T> {
     optionValues: T;
 }
 
+type WebSocketType = 'main' | 'additional';
+
 @Injectable({
     providedIn: 'root',
 })
 export class WidgetService {
     private readonly wsUrl: string;
+    private readonly wsAddUrl: string;
     private readonly restUrl: string;
     private readonly reconnectInterval: number;
 
     public ws: WebSocketSubject<IWebSocket<any, IWebSocketOptions<any>>> = null;
+    public wsAdditional: WebSocketSubject<IWebSocket<any, IWebSocketOptions<any>>> = null;
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
 
     public draggingItem: GridsterItem;
@@ -65,7 +69,13 @@ export class WidgetService {
 
     // открытые каналы ws на текущем экране
     private openedWsChannels: {
-        [key: string]: { count: number; options: IWebSocketOptions<any>; parentChannelId?: string; channelId?: string };
+        [key: string]: {
+            count: number;
+            options: IWebSocketOptions<any>;
+            parentChannelId?: string;
+            channelId?: string;
+            source?: WebSocketType;
+        };
     } = {};
 
     constructor(
@@ -76,6 +86,7 @@ export class WidgetService {
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
+        this.wsAddUrl = configService.wsUrlAdd;
         this.reconnectInterval = configService.reconnectInterval * 1000;
 
         this.currentDates$.subscribe((ref) => {
@@ -92,13 +103,13 @@ export class WidgetService {
                 }
             });
         });
-
         setInterval(() => this.reloadPage(), 1800000);
     }
 
-    public get allWidgets(): IWidget[] {
-        return this.widgets$.getValue();
-    }
+    // TODO: delete
+    // public get allWidgets(): IWidget[] {
+    //     return this.widgets$.getValue();
+    // }
 
     private getAvailableWidgets(): Observable<IWidget[]> {
         return this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).pipe(
@@ -172,6 +183,11 @@ export class WidgetService {
         return `${widgetId}${channelId}`;
     };
 
+    private getWidgetSource(widgetId: string): WebSocketType {
+        const widget = this.widgets$.getValue().find((x) => x.id === widgetId);
+        return !!widget?.attributes?.SourceTypeFlag ? 'additional' : 'main';
+    }
+
     getWidgetChannel(widgetId: string): Observable<IWidget> {
         return this.widgets.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
@@ -188,6 +204,7 @@ export class WidgetService {
             this.openedWsChannels[id] = {
                 count: 1,
                 options: null,
+                source: this.getWidgetSource(widgetId),
             };
         }
         return this.widgetsSocketObservable.pipe(
@@ -212,6 +229,7 @@ export class WidgetService {
                 parentChannelId: widgetId,
                 channelId,
                 options: null,
+                source: this.getWidgetSource(widgetId),
             };
         }
         return this.widgetsSocketObservable.pipe(
@@ -236,7 +254,11 @@ export class WidgetService {
     }
 
     private wsConnect(widgetId: string, options: IWebSocketOptions<any> = null, channelId: string = null): void {
-        this.ws.next({
+        const ws = this.getWidgetSource(widgetId) === 'main' ? this.ws : this.wsAdditional;
+        if (!ws) {
+            return;
+        }
+        ws.next({
             actionType: 'subscribe',
             channelId: widgetId,
             subChannelId: channelId,
@@ -246,7 +268,11 @@ export class WidgetService {
     }
 
     private wsAppendOptions(widgetId: string, options: any, channelId: string = null): void {
-        this.ws.next({
+        const ws = this.getWidgetSource(widgetId) === 'main' ? this.ws : this.wsAdditional;
+        if (!ws) {
+            return;
+        }
+        ws.next({
             actionType: 'appendOptions',
             channelId: widgetId,
             subChannelId: channelId,
@@ -256,7 +282,11 @@ export class WidgetService {
     }
 
     public wsDisconnect(widgetId: string, channelId: string = null): void {
-        this.ws.next({
+        const ws = this.getWidgetSource(widgetId) === 'main' ? this.ws : this.wsAdditional;
+        if (!ws) {
+            return;
+        }
+        ws.next({
             actionType: 'unsubscribe',
             channelId: widgetId,
             subChannelId: channelId,
@@ -290,6 +320,7 @@ export class WidgetService {
         }
     }
 
+    // TODO: delete
     private mapWidgetData(data: any, widgetType: string): any {
         switch (widgetType) {
             case 'events':
@@ -352,49 +383,63 @@ export class WidgetService {
         }, 5000);
     }
 
-    public initWS(): void {
-        if (this.ws) {
-            this.ws.complete();
-        }
-        this.ws = webSocket(this.wsUrl);
-        this.ws.next({
-            actionType: 'authenticate',
-            channelId: null,
-            token: this.authService.userSessionToken,
-        });
-        this.ws.subscribe(
-            (msg) => {
-                if (msg?.error && this.configService.isErrorDisplay) {
-                    const type = msg.error.message.type;
-                    if (type === 'message') {
-                        console.warn('477', msg.error.messages);
-                    } else {
-                        this.materialController.openSnackBar(msg.error.message.message, type);
+    public initWS(type: WebSocketType = null): void {
+        const initWsSub = (ws, url, socketType) => {
+            if (!url) {
+                return;
+            }
+            if (ws) {
+                ws.complete();
+            }
+            ws = webSocket(url);
+            ws.next({
+                actionType: 'authenticate',
+                channelId: null,
+                token: this.authService.userSessionToken,
+            });
+            ws.subscribe(
+                (msg) => {
+                    if (msg?.error && this.configService.isErrorDisplay) {
+                        const errorType = msg.error.message.type;
+                        if (errorType === 'message') {
+                            console.warn('477', msg.error.messages);
+                        } else {
+                            this.materialController.openSnackBar(msg.error.message.message, errorType);
+                        }
                     }
+                    if (this.reconnectWsTimer) {
+                        clearTimeout(this.reconnectWsTimer);
+                        this.reconnectWsTimer = null;
+                    }
+                },
+                (err) => {
+                    console.log('Error ws: ' + err);
+                    this.reconnectWs(socketType);
+                },
+                () => {
+                    console.log('complete');
+                    this.reconnectWs(socketType);
                 }
-                if (this.reconnectWsTimer) {
-                    clearTimeout(this.reconnectWsTimer);
-                    this.reconnectWsTimer = null;
+            );
+            ws.asObservable().subscribe((data) => {
+                if (
+                    data?.data &&
+                    this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport) &&
+                    this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
+                ) {
+                    this.widgetsSocketObservable.next(data);
                 }
-            },
-            (err) => {
-                console.log('Error ws: ' + err);
-                this.reconnectWs();
-            },
-            () => {
-                console.log('complete');
-                this.reconnectWs();
-            }
-        );
-        this.ws.asObservable().subscribe((data) => {
-            if (
-                data?.data &&
-                this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport) &&
-                this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
-            ) {
-                this.widgetsSocketObservable.next(data);
-            }
-        });
+            });
+            return ws;
+        };
+        if (type === 'main') {
+            this.ws = initWsSub(this.ws, this.wsUrl, 'main');
+        } else if (type === 'additional') {
+            this.wsAdditional = initWsSub(this.wsAdditional, this.wsAddUrl, 'additional');
+        } else {
+            this.ws = initWsSub(this.ws, this.wsUrl, 'main');
+            this.wsAdditional = initWsSub(this.wsAdditional, this.wsAddUrl, 'additional');
+        }
     }
 
     private isMatchingPeriod(incoming: IDatesInterval, isHistoricalSupport: boolean): boolean {
@@ -422,16 +467,12 @@ export class WidgetService {
         return this.http.get<T[]>(`${this.restUrl}/api/Widget-Data/${widgetId}/sub-channels`).toPromise();
     }
 
-    private reconnectWs(): void {
-        // if (this.reconnectWsTimer) {
-        //     console.warn('reconnect уже создан');
-        //     return;
-        // }
+    private reconnectWs(source: WebSocketType): void {
         if (this.configService.isErrorDisplay) {
             this.materialController.openSnackBar('Переподключение к данным реального времени');
         }
         this.reconnectWsTimer = setTimeout(() => {
-            this.initWS();
+            this.initWS(source);
             // tslint:disable-next-line:forin
             for (const channel in this.openedWsChannels) {
                 let widgetId = channel;

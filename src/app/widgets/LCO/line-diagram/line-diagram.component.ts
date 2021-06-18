@@ -32,7 +32,7 @@ export class LineDiagramComponent extends WidgetPlatform<unknown> implements OnI
     }
 
     protected dataHandler(ref: ILineDiagramData): void {
-        this.data = ref.items;
+        this.data = ref.items.sort((a, b) => (a.order > b.order) ? 1 : -1);
         this.data.map((value) => {
             const k1 = value.value < value.upperBound ? 1 : 0;
             const k2 = 1 - k1;

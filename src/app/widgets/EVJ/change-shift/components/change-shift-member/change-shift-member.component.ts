@@ -15,6 +15,9 @@ import { ConnectionPositionPair } from '@angular/cdk/overlay';
 })
 export class ChangeShiftMemberComponent implements OnInit {
     @ViewChild('member') memberComponent: ElementRef;
+    // TODO: add handler disabled & disabledApply
+    @Input() public disabled: boolean = true;
+    @Input() public disabledApply: boolean = true;
     @Input() private set member(value: IChangeShiftMember) {
         this._member = value;
         this.isStar = this.changeShiftHelperService.isBaseRole(value?.unitRole?.type);
@@ -41,7 +44,13 @@ export class ChangeShiftMemberComponent implements OnInit {
     ngOnInit(): void {}
 
     public cardVerify(): void {
+        if (this.disabled) {
+            return;
+        }
         if (!this._member?.user) {
+            if (this.disabledApply) {
+                return;
+            }
             this.changeShiftKeeperService.memberAction(this._member, 'add').then();
             return;
         }

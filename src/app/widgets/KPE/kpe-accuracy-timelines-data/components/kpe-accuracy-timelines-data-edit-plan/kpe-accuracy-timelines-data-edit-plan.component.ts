@@ -64,8 +64,8 @@ export class KpeAccuracyTimelinesDataEditPlanComponent implements OnInit {
     private sendPlanCorrection(): void {
         const dataToSend: IKpeAccTimelinesDataEditPlan = {
             adjustmentComment: this.correctionForm.value.correctionText,
-            dateOfCreation: this.data.date,
-            dateOfCorrection: this.correctionForm.value.correctionDate.toISOString()
+            dateOfCreation: this.correctionForm.value.correctionDate.toISOString(),
+            dateOfCorrection: this.data.date,
         };
 
         this.kpeAccuracyTimelineDataService.submitPlanCorrection(dataToSend).then(() => this.dialogRef.close());

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
     ChangeShiftMemberAction,
+    ChangeShiftStatus,
     ChangeShiftType,
     IChangeShiftCommentRequired,
     IChangeShiftMember,
@@ -34,6 +35,10 @@ export class ChangeShiftKeeperService {
 
     private get unitId(): number {
         return this.shift$?.getValue()?.unit?.id;
+    }
+
+    private get shiftStatus(): ChangeShiftStatus {
+        return this.shift$?.getValue()?.status;
     }
 
     constructor(
@@ -149,10 +154,15 @@ export class ChangeShiftKeeperService {
             this.materialController.openSnackBar('Отсутствует смена');
             return;
         }
+        const disabled = this.shift$.getValue().status;
         const dialogRef = this.dialog.open(ChangeShiftRolesComponent, {
             data: { shiftId: this.shiftId, unitId: this.unitId },
         });
         dialogRef.afterClosed().subscribe(() => this.loadShiftById(this.shiftId).then());
+    }
+
+    public setEmptyShift(): void {
+        this.shift$.next(null);
     }
 
     public async loadShift(unitId: number, type: ChangeShiftType): Promise<void> {
@@ -165,9 +175,9 @@ export class ChangeShiftKeeperService {
             return;
         }
         const shift = await this.changeShiftApi.getShiftById(shiftId);
-        if (this.shiftId !== shift?.id) {
-            return;
-        }
+        // if (this.shiftId !== shift?.id) {
+        //     return;
+        // }
         this.shift$.next(shift);
     }
 
