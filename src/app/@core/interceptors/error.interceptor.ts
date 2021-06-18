@@ -28,7 +28,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             catchError((err) => {
                 switch (err.status) {
                     case 401:
-                        this.router.navigate(['login']);
+                        if (req.url.search('windows-current') !== -1) {
+                            this.router.navigate(['login']);
+                        } else {
+                            this.materialController.openSnackBar(
+                                'У Вас недостаточно прав для выполнения этой операции!',
+                                'error'
+                            );
+                        }
                         break;
                     case 403:
                         this.materialController.openSnackBar(
