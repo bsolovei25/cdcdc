@@ -33,9 +33,8 @@ export class SouStreamsService {
 
     public async getTableContent(startTime: string, endTime: string): Promise<ISouStreamsTableContent[]> {
         const params = new HttpParams()
-            .set('startTime', startTime)
-            .set('endTime', endTime)
-            .set('client', 'test');
+            .set('startTime', '2021-05-02')
+            .set('endTime', '2021-05-04');
         return await this.http.get<ISouStreamsTableContent[]>
         (`https://dev-pfm-petroleumflowmanagement-ioms.funcoff.club/api/Transfer/transfer`,
             {params}).toPromise();
