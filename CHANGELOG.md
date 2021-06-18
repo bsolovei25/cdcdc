@@ -1,3 +1,17 @@
+# [1.40.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.39.0...v1.40.0) (2021-06-18)
+
+
+### Bug Fixes
+
+* **KPE:** Исправлены даты. front[#1405](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1405) ([db08892](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/db0889259e5ed18400a25e158c7b914378e0437c))
+
+
+### Features
+
+* **SOU:** display a table by given data. [#2180](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2180) ([169c237](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/169c237c35b71cca3c693f23f025d14dadf0b964))
+* **SOU:** finish with filtration. [#2180](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2180) ([bc2155f](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/bc2155fdc956c6df81daef82c6eab960bbaf2086))
+* **SOU:** some changes to logic of displaying. [#2180](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2180) ([1b55d2a](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/1b55d2a3053ff3afb888be2e9e130c686cc7f1f2))
+
 # [1.39.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.38.0...v1.39.0) (2021-06-17)
 
 
