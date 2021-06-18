@@ -276,14 +276,31 @@
             </div>
           </td>
 
-          <td>
-            <div class="table__row__cell-default">
-              <div class="cell-text"
-                   [ngStyle]="{'width': '121px'}">
+          <td *ngIf="(row['isMultiple'] == false || row['isMultiple'] == true) else deafaultCell">
+            <div class="table__row__cell-with-img">
+              <div class="cell-img-text">
                 {{ row['sourceName'] }}
               </div>
+              <svg-icon
+                [src]="(row['isMultiple'] === true)?
+                 'assets/icons/widgets/SOU/sou-streams/table-icon-arrows.svg'
+                 :'assets/icons/widgets/SOU/sou-streams/table-icon-arrow.svg'"
+                class="cell-img"
+                [ngStyle]="{ 'height.px':24 }"
+              ></svg-icon>
             </div>
           </td>
+
+          <ng-template #deafaultCell>
+            <td>
+              <div class="table__row__cell-default">
+                <div class="cell-text"
+                     [ngStyle]="{'width': '121px'}">
+                  {{ row['isMultiple']}}
+                </div>
+              </div>
+            </td>
+          </ng-template>
 
           <td>
             <div class="table__row__cell-default">

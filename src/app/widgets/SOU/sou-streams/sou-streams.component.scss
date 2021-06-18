@@ -298,18 +298,19 @@
 
     &__cell-with-img {
       display: flex;
-      width: 121px;
+      justify-content: space-between;
 
       .cell-img-text {
         display: block;
+        width: 70px;
         padding-left: 16px;
       }
 
       .cell-img {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
         margin-top: -4px;
+        padding-left: 11px;
+        padding-right: 16px;
         width: 24px;
       }
     }
