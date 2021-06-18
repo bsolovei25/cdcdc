@@ -153,7 +153,6 @@ export class WidgetService {
                 isHidden: item.isHidden,
                 sensorId: item.sensorId,
                 attributes: item.attributes,
-                sourceTypeFlag: item.sourceTypeFlag,
             };
         });
     }
@@ -186,7 +185,7 @@ export class WidgetService {
 
     private getWidgetSource(widgetId: string): WebSocketType {
         const widget = this.widgets$.getValue().find((x) => x.id === widgetId);
-        return !!widget?.sourceTypeFlag ? 'additional' : 'main';
+        return !!widget?.attributes?.SourceTypeFlag ? 'additional' : 'main';
     }
 
     getWidgetChannel(widgetId: string): Observable<IWidget> {

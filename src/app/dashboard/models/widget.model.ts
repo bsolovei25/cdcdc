@@ -26,7 +26,6 @@ export interface IWidget {
     sensorId?: number;
     isActive?: boolean;
     attributes?: any;
-    sourceTypeFlag: number;
 }
 
 export interface RingFactoryWidget {
