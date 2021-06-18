@@ -1,20 +1,29 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
+import { IDatesInterval, WidgetService } from '@dashboard/services/widget.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { IKpeChartsAnalyticSharedStates } from '../../../dashboard/models/KPE/kpe-charts-analytic.model';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { KpeChartsAnalyticService } from '../../../dashboard/services/widgets/KPE/kpe-charts-analytic.service';
+import {
+    IKpeChartsAnalyticCardValues, IKpeChartsAnalyticDatesInterval,
+    IKpeChartsAnalyticGraphData,
+    IKpeChartsAnalyticGraphs,
+    IKpeChartsAnalyticSharedStates
+} from "@dashboard/models/KPE/kpe-charts-analytic.model";
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
+import { KpeChartsAnalyticService } from '@dashboard/services/widgets/KPE/kpe-charts-analytic.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { KpeEqualizerChartComponent } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
-import { KpeChartsAnalyticMainChartComponent } from './components/kpe-charts-analytic-main-chart/kpe-charts-analytic-main-chart.component';
 import { IChartMini } from '@shared/interfaces/smart-scroll.model';
 import { HttpClient } from '@angular/common/http';
+import {IChartAnalytic, IManufacture} from '@widgets/KPE/kpe-charts-analytic/models/chart-analytic';
+import {KpeChartsAnalyticViewComponent} from '@widgets/KPE/kpe-charts-analytic/components/kpe-charts-analytic-view/kpe-charts-analytic-view.component';
+import { VirtualChannel } from '@shared/classes/virtual-channel.class';
+import { KpeChartsAnalyticDataService } from '@widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.service';
 
 type ChartType = 'limited-line-chart' | 'line-chart' | 'bar-chart-1' | 'bar-chart-2';
 
 type TimePeriod = 'hour' | 'day' | 'month' | 'year';
+
+type Units = 'tons' | 'тыс.тн/сут2' | 'percents';
 
 @Component({
     selector: 'evj-kpe-charts-analytic',
@@ -39,6 +48,9 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
     public entryStates: FormGroup = new FormGroup({
         manufacture: new FormControl(),
         unit: new FormControl(),
+        group: new FormControl(),
+        indicator: new FormControl(),
+
         element: new FormControl(), // TODO: refactor name
         viewType: new FormControl(),
         chartType: new FormControl(),
@@ -47,10 +59,9 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
         isSync: new FormControl(),
     });
 
-    public readonly kpeEqualizerChartComponent: typeof KpeEqualizerChartComponent = KpeEqualizerChartComponent;
-    public readonly kpeChartsAnalyticMainChartComponent: typeof KpeChartsAnalyticMainChartComponent = KpeChartsAnalyticMainChartComponent;
+    public readonly viewComponent: typeof KpeChartsAnalyticViewComponent = KpeChartsAnalyticViewComponent;
 
-    public sharedStates: FormGroup = new FormGroup({
+    public sharedStates: FormGroup = new FormGroup({  // форма общего временного интервала
         dateStart: new FormControl(),
         dateEnd: new FormControl(),
     });
@@ -63,9 +74,15 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
 
     public selectedPeriod: IDatesInterval;
 
-    public barChart2Data: any;
-
     public isDateRangePickerEnabled: boolean = true;
+
+    public chartsData: IKpeChartsAnalyticGraphData[];
+
+    public cardValues: IKpeChartsAnalyticCardValues = {
+        factValue: 0,
+        planValue: 0,
+        deviation: 0
+    }
 
     public chartTypeOptions: { type: ChartType; name: string }[] = [
         {
@@ -105,62 +122,90 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
         },
     ];
 
-    public selectedChartType$: BehaviorSubject<ChartType> = new BehaviorSubject<ChartType>('limited-line-chart');
+    public unitsOptions: { type: Units; name: string }[] = [
+        {
+            type: 'tons',
+            name: 'Тонны',
+        },
+        {
+            type: 'тыс.тн/сут2',
+            name: 'тыс.тн/сут2'
+        }
+    ]
+    public channelId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public currentManufacture: string;
+
+    public selectedChartType$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+    public chartIntervalDates$: Observable<{ dateStart: Date, dateEnd: Date }> = this.sharedStates.valueChanges.pipe(
+        filter(dates => !!dates.dateEnd && dates.dateEnd > dates.dateStart),
+        tap(() => {
+            if (this.chartsData)
+            this.getValuesForCards()
+        })
+    );
+
+    public chartUnits$: Observable<string> = this.entryStates.get('engUnit').valueChanges;
+
     private sharedStates$: Observable<IKpeChartsAnalyticSharedStates> = this.sharedStates.valueChanges.pipe(
         distinctUntilChanged(),
         debounceTime(100)
     );
+    public manufactures$: BehaviorSubject<IManufacture[]> = new BehaviorSubject([]);
 
     constructor(
         private chartsAnalyticService: KpeChartsAnalyticService,
         protected widgetService: WidgetService,
+        private injector: Injector,
+        private http: HttpClient,
+        private kpeChartsAnalyticService: KpeChartsAnalyticDataService,
 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private cdref: ChangeDetectorRef,
-        private http: HttpClient
     ) {
         super(widgetService, id, uniqId);
-        this.entryStates.get('chartType').setValue('limited-line-chart');
-        this.entryStates.get('dateInterval').setValue('hour');
     }
 
+    public getInjector = (widgetId: string, viewType: string = null, interval: IKpeChartsAnalyticDatesInterval, units: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: '' },
+                { provide: 'viewType', useValue: viewType },
+                { provide: 'interval', useValue: interval },
+                { provide: 'units', useValue: units }
+            ],
+            parent: this.injector,
+        });
+    };
+
     ngOnInit(): void {
-        this.mockDataConnect();
 
         super.widgetInit();
         this.subscriptions.push(
-            /*combineLatest([this.entryStates$, this.sharedStates$])
-                .pipe(map((x) => ({ ...x[0], ...x[1] })))
-                .subscribe((x) => console.log('form', x)),*/
             combineLatest([this.sharedStates$, this.entryStates.get('isSync').valueChanges]).subscribe((x) => {
-                if (!x[1]) {
-                    if (!this.chartsAnalyticService.getSync().value) {
-                        this.isDateRangePickerEnabled = true;
-                    }
-                    return;
-                } else {
+                if (x[1]) {
                     this.chartsAnalyticService.setSync(this.uniqId, {
-                        fromDateTime: x[0].dateStart,
-                        toDateTime: x[0].dateEnd,
-                    });
+                                fromDateTime: x[0].dateStart,
+                                toDateTime: x[0].dateEnd,
+                            });
                 }
             }),
             this.chartsAnalyticService.isSyncEnabled$.subscribe((x) => {
                 if (this.uniqId !== x.uniqueId && x.value) {
-                    this.isDateRangePickerEnabled = false;
                     this.entryStates.get('isSync').setValue(false);
                     this.setDates({ fromDateTime: x.dateStart, toDateTime: x.dateEnd });
                 } else if (this.uniqId === x.uniqueId && !x.value) {
-                    this.isDateRangePickerEnabled = true;
-                    this.chartsAnalyticService.cancelSync();
+                    this.chartsAnalyticService.cancelSync()
                     this.setDates();
-                } else {
-                    this.isDateRangePickerEnabled = true;
                 }
             }),
             this.entryStates.get('chartType').valueChanges.subscribe((value) => {
                 this.selectedChartType$.next(value);
+            }),
+            this.entryStates.get('manufacture').valueChanges.subscribe(value => {
+                this.currentManufacture = value;
             }),
             this.widgetService.currentDates$.subscribe((ref) => {
                 if (!!this.chartsAnalyticService.getSync()?.value) {
@@ -182,12 +227,38 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
         );
     }
 
+    private getValuesForCards(): void {
+        const searchDate = this.sharedStates.value.dateEnd.toISOString();
+
+        this.cardValues = {
+            factValue: this.filterChartData('fact', searchDate),
+            planValue: this.filterChartData('plan', searchDate),
+            deviation: this.cardValues.planValue - this.cardValues.factValue
+        }
+    }
+
+    private filterChartData(graphType: string, date: string): number {
+        const graph = this.chartsData.find(item => item.graphType === graphType );
+        const graphArray = graph.graph;
+
+        const filteredArray = graphArray.filter(point =>
+            (new Date(point.timeStamp).getFullYear() === new Date(date).getFullYear())
+         && (new Date(point.timeStamp).getMonth() === new Date(date).getMonth())
+         && (new Date(point.timeStamp).getDate() === new Date(date).getDate()));
+
+        const valueForTheLastDate = filteredArray[filteredArray.length - 1]?.value;
+
+        const roundedValue = Math.floor(valueForTheLastDate);
+
+        return roundedValue ? roundedValue : 0
+    }
+
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    public async mockDataConnect(): Promise<void> {
-        this.barChart2Data = await this.http.get<any>('assets/mock/KPE/equalizer-chart.json').toPromise();
+    public setChartType(chartType: string): void {
+        this.selectedChartType$.next(chartType);
     }
 
     public syncChange(value: boolean): void {
@@ -201,5 +272,34 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
         this.cdref.detectChanges();
     }
 
-    protected dataHandler(ref: unknown): void {}
+    protected dataHandler(ref: IChartAnalytic): void {
+        if (Object.keys(ref).includes('manufactures')) {
+            this.manufactures$.next(ref.manufactures);
+        }
+    }
+
+    private createSubChannel(subchannelId: string): Observable<IKpeChartsAnalyticGraphs> {
+        const virtualChannel = new VirtualChannel<IKpeChartsAnalyticGraphs>(this.widgetService, {
+            channelId: this.widgetId,
+            subchannelId,
+        });
+
+        return virtualChannel.data$;
+    }
+
+    public subscribeToIndicator(subchannelId: string): void {
+        this.channelId$.next(subchannelId);
+        this.subscriptions.push(this.createSubChannel(subchannelId).subscribe(result => {
+            this.setDefaultUnits(result);
+            this.chartsData = result.data;
+            this.getValuesForCards();
+            this.kpeChartsAnalyticService.setChartData(result.data);
+            this.cdref.detectChanges();
+        }))
+    }
+
+    private setDefaultUnits(suscriptionResult: IKpeChartsAnalyticGraphs): void {
+        const selectedOption = this.unitsOptions.find(item => item.name === suscriptionResult.units);
+        this.entryStates.get('engUnit').setValue(selectedOption.type);
+    }
 }

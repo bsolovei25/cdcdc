@@ -1,0 +1,14 @@
+<ng-container [ngSwitch]="viewType">
+  <div class="chart-area" *ngSwitchCase="'limited-line-chart'">
+  <evj-kpe-charts-analytic-main-chart [data]="chartData" [units]="units" [interval]="chartDatesInterval"></evj-kpe-charts-analytic-main-chart>
+</div>
+<div class="chart-area" *ngSwitchCase="'line-chart'">
+  <evj-kpe-charts-analytic-main-chart [data]="chartData" [units]="units" [interval]="chartDatesInterval" [showBorders]="false"></evj-kpe-charts-analytic-main-chart>
+</div>
+<div class="chart-area" *ngSwitchCase="'bar-chart-1'">
+  <evj-kpe-charts-analytic-bar-chart [data]="chartData" [interval]="chartDatesInterval"></evj-kpe-charts-analytic-bar-chart>
+</div>
+<div class="chart-area" *ngSwitchCase="'bar-chart-2'">
+  <evj-kpe-charts-analytic-bar-chart-2 [data]="filterData('bar-chart-2')" [interval]="chartDatesInterval"></evj-kpe-charts-analytic-bar-chart-2>
+</div>
+</ng-container>

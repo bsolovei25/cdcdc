@@ -7,10 +7,10 @@
 
   <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
     <div class="dropdown">
-      <mat-select formControlName="manufacture" class="dropdown__select" placeholder="Производство">
-        <mat-option> Не выбрано </mat-option>
-        <mat-option [value]="1"> 1 </mat-option>
-        <mat-option [value]="2"> 2 </mat-option>
+      <mat-select (ngModelChange)="changeManufacture()" [compareWith]="compareFn" [(ngModel)]="activeManufacture" formControlName="manufacture" class="dropdown__select" placeholder="Производство">
+        <mat-option [value]="null"> Не выбрано </mat-option>
+        <mat-option  *ngFor="let man of manufactures"
+                     [value]="man"> {{man.name}} </mat-option>
       </mat-select>
     </div>
   </div>
@@ -23,8 +23,10 @@
 
   <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
     <div class="dropdown">
-      <mat-select class="dropdown__select" placeholder="Установка">
+      <mat-select [(ngModel)]="activeUnit" (ngModelChange)="changeUnit()" formControlName="unit" class="dropdown__select" placeholder="Установка">
         <mat-option> Не выбрано </mat-option>
+        <mat-option *ngFor="let unit of activeManufacture?.units"
+                    [value]="unit"> {{unit.name}} </mat-option>
       </mat-select>
     </div>
   </div>
@@ -37,8 +39,25 @@
 
   <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
     <div class="dropdown">
-      <mat-select class="dropdown__select" placeholder="Элемент">
+      <mat-select [(ngModel)]="activeGroup" (ngModelChange)="changeGroup()" formControlName="group" class="dropdown__select" placeholder="Элемент">
         <mat-option> Не выбрано </mat-option>
+        <mat-option *ngFor="let group of activeUnit?.groups"
+                    [value]="group"> {{group.name}} </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <svg-icon
+    class="arrow-circle"
+    src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+    [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+  ></svg-icon>
+
+  <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" class="option-select">
+    <div class="dropdown">
+      <mat-select [(ngModel)]="activeIndicator" (ngModelChange)="changeIndicator($event)" formControlName="indicator" class="dropdown__select" placeholder="Индикатор">
+        <mat-option> Не выбрано </mat-option>
+        <mat-option *ngFor="let indicator of activeGroup?.indicators"
+                    [value]="indicator"> {{indicator.name}} </mat-option>
       </mat-select>
     </div>
   </div>

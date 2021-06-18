@@ -1,6 +1,11 @@
 import { Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
+import { IInterval } from '@widgets/KPE/kpe-charts-analytic/components/kpe-charts-analytic-bar-chart/kpe-charts-analytic-bar-chart.component';
+import {
+    IKpeChartsAnalyticGraphData,
+    IKpeChartsAnalyticGraphPoint
+} from '@dashboard/models/KPE/kpe-charts-analytic.model';
 
 export interface IBarDiagramData {
     day: number;
@@ -15,7 +20,13 @@ export interface IBarDiagramData {
 })
 export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
     @Input()
-    public data: IBarDiagramData[] = [];
+    public data: IKpeChartsAnalyticGraphData[];
+
+    @Input()
+    public units: string;
+
+    @Input()
+    public interval: IInterval;
 
     @ViewChild('chart')
     private chart: ElementRef;
@@ -33,7 +44,7 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
 
     public sizeX: { min: number; max: number } = { min: 1, max: 31 };
 
-    public sizeY: { min: number; max: number } = { min: 0, max: 30 };
+    public sizeY: { min: number; max: number } = { min: 0, max: 0};
 
     private readonly padding: { top: number; right: number; bottom: number; left: number } = {
         top: 7,
@@ -48,6 +59,9 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
 
     private dataset: { x: number; y: number }[] = [];
 
+    private mappedDataArray: IBarDiagramData[] = [];
+    private averageDataArray: IBarDiagramData[] = [];
+
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes) {
             this.drawSvg();
@@ -60,7 +74,9 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
 
     @AsyncRender
     private drawSvg(): void {
+        this.mapData();
         this.configChartArea();
+        this.mapToAverageValues();
         this.prepareData();
         this.initScale();
         this.initSvg();
@@ -71,17 +87,98 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
         this.drawCurve();
     }
 
+    private mapData(): IBarDiagramData[] {
+        this.mappedDataArray = [];
+        if (this.mappedDataArray.length === 0) {
+            for (let i = 0; i < this.data[0].graph.length; i++) {
+                const data: IBarDiagramData = {
+                    day: 0,
+                    planValue: 0,
+                    factValue: 0,
+                };
+
+                this.mappedDataArray.push(data)
+            }
+        }
+
+        this.fillMappedDataArray(this.data[0].graph, 'factValue', this.mappedDataArray);
+        this.fillMappedDataArray(this.data[1].graph, 'planValue', this.mappedDataArray);
+
+        return this.mappedDataArray;
+    }
+
+    private fillMappedDataArray(graph: IKpeChartsAnalyticGraphPoint[], property: string, destinationArray: IBarDiagramData[]): void {
+        graph.forEach((point, index) => {
+            destinationArray[index].day = new Date(point.timeStamp).getDate();
+            destinationArray[index][property] = point.value;
+        })
+    }
+
+
     private configChartArea(): void {
-        this.sizeX.max = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+        this.mappedDataArray.forEach(point => {
+            const maxValue = Math.max(point.factValue, point.planValue);
+            const minValue = Math.min(point.factValue, point.planValue);
+            if (minValue < this.sizeY.min) {
+                this.sizeY.min = minValue;
+            }
+
+            if (maxValue > this.sizeY.max) {
+                this.sizeY.max = maxValue;
+            }
+        })
+
+        this.sizeX = {
+            min: this.interval.min.getDate(),
+            max: this.interval.max.getDate()
+        }
+
+    }
+
+    private mapToAverageValues(): IBarDiagramData[] {
+        let sumPlan: number = 0;
+        let sumFact: number = 0;
+
+        this.groupBy(this.mappedDataArray, 'day').forEach((point, index) => {
+            sumPlan = 0;
+            sumFact = 0;
+
+            point.forEach((v) => {
+                sumPlan += v.planValue;
+                sumFact += v.factValue;
+            });
+
+            this.averageDataArray[index] = {
+                day: point[0].day,
+                factValue: sumFact / point.length,
+                planValue: sumPlan / point.length
+            }
+
+        });
+
+        this.averageDataArray = this.averageDataArray.slice(1, this.averageDataArray.length);
+        return this.averageDataArray;
+    }
+
+    public groupBy(array, property) {
+        return array.reduce((memo, x) => {
+            if (!memo[x[property]]) {
+                memo[x[property]] = [];
+            }
+            memo[x[property]].push(x);
+            return memo;
+        }, []);
     }
 
     private prepareData(): void {
         this.dataset = [];
-        const maxPlan = Math.max(...this.data.map((d) => d.planValue), 0);
-        const maxFact = Math.max(...this.data.map((d) => d.factValue), 0);
+
+        const maxPlan = Math.max(...this.averageDataArray.map((d) => d.planValue), 0);
+        const maxFact = Math.max(...this.averageDataArray.map((d) => d.factValue), 0);
         const k = Math.max(maxPlan, maxFact) / this.sizeY.max + 0.1;
-        const maxDay = Math.max(...this.data.filter((d) => d.factValue !== 0).map((d) => d.day), 0);
-        this.data.map((item) => {
+        const maxDay = Math.max(...this.averageDataArray.filter((d) => d.factValue !== 0).map((d) => d.day), 0);
+
+        this.averageDataArray.map((item) => {
             /*
             if (item.factValue !== 0) {
                 maxDay = item.day >= maxDay ? item.day : maxDay === 0 ? item.day : maxDay;
@@ -96,6 +193,7 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
             this.dataset.push({ x: item.day - 0.42, y: item.planValue + 0.3 });
             this.dataset.push({ x: item.day + 0.42, y: item.planValue + 0.3 });
         });
+
         this.day = maxDay;
     }
 
@@ -199,7 +297,7 @@ export class KpeChartsAnalyticBarChart2Component implements OnChanges, OnInit {
     }
 
     private drawEqColumns(): void {
-        this.data.forEach((item) => {
+        this.averageDataArray.forEach((item) => {
             if (item.factValue > this.sizeY.max) {
                 item.factValue = this.sizeY.max;
             }
