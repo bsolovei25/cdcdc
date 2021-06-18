@@ -81,6 +81,11 @@ import { PortalModule } from '@angular/cdk/portal';
 import { AboutComponent } from './components/about/about.component';
 import { ReportLoadingFileComponent } from './components/report/report-loading-file/report-loading-file.component';
 import { ReportServerConfiguratorModule } from '@widgets/admin/report-server-configurator/report-server-configurator.module';
+import { HeaderSettingPanelComponent } from './components/header-setting-panel/header-setting-panel.component';
+import { HeaderSettingPanelTabComponent } from './components/header-setting-panel/components/header-setting-panel-tab/header-setting-panel-tab.component';
+import { HeaderSettingPanelButtonComponent } from './components/header-setting-panel/components/header-setting-panel-button/header-setting-panel-button.component';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HeaderSettingPanelRelationInputComponent } from './components/header-setting-panel/components/header-setting-panel-relation-input/header-setting-panel-relation-input.component';
 
 @NgModule({
     declarations: [
@@ -130,6 +135,10 @@ import { ReportServerConfiguratorModule } from '@widgets/admin/report-server-con
         FilterGroupsPipe,
         AboutComponent,
         ReportLoadingFileComponent,
+        HeaderSettingPanelComponent,
+        HeaderSettingPanelTabComponent,
+        HeaderSettingPanelButtonComponent,
+        HeaderSettingPanelRelationInputComponent,
     ],
     entryComponents: [ReportComponent, ReportsComponent, ReportTreeComponent, PanelComponent],
     exports: [
@@ -153,6 +162,7 @@ import { ReportServerConfiguratorModule } from '@widgets/admin/report-server-con
         FormsModule,
         GridsterModule,
         DashboardRoutingModule,
+        MatSlideToggleModule,
         MatSnackBarModule,
         MatRippleModule,
         MatDatepickerModule,

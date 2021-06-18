@@ -1,0 +1,34 @@
+<div class="header-setting-panel__wrapper">
+  <div class="header-setting-panel__header">
+    <div class="header-title">
+      <svg-icon src="assets/icons/dashboard/card_add.svg"></svg-icon>
+      Конструктор хедеров
+    </div>
+    <div class="header-controls">
+      <evj-header-setting-panel-button (click)="addTab()"> Добавить хедер </evj-header-setting-panel-button>
+      <div class="search-container">
+        <div class="search">
+          <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-predictors/search.svg"></svg-icon>
+          <input type="text" [formControl]="searchControl" placeholder="Поиск" />
+        </div>
+      </div>
+      <svg-icon (click)="closeDialog()" src="assets/icons/dashboard/close.svg"></svg-icon>
+    </div>
+  </div>
+  <div class="header-setting-panel__divider"></div>
+
+  <div class="header-setting-panel__body">
+    <form [formGroup]="tabsForm">
+      <div formArrayName="tabs">
+        <div *ngFor="let tab of tabsControls; let i = index">
+          <evj-header-setting-panel-tab
+            (removeEvent)="removeTab(i)"
+            [formGroup]="tabsControls[i]"
+          ></evj-header-setting-panel-tab>
+        </div>
+      </div>
+    </form>
+
+    <!--    <evj-header-setting-panel-tab *ngFor="let tab of tabs$ | async" [tab]="tab"></evj-header-setting-panel-tab>-->
+  </div>
+</div>
