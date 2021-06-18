@@ -10,6 +10,7 @@ import { IAlertWindowModel } from '@shared/interfaces/alert-window.model';
 import { AppConfigService } from '@core/service/app-config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AboutComponent } from '../../about/about.component';
+import { HeaderSettingPanelComponent } from '@dashboard/components/header-setting-panel/header-setting-panel.component';
 
 interface IMenuItem {
     name: string;
@@ -63,8 +64,17 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
         this.isDropdownShowing = false;
     }
 
+    private openHeaderWizard(): void {
+        const openDialog = this.dialog.open(HeaderSettingPanelComponent);
+    }
+
     private setMenuItems(): void {
         this.menuItems = [
+            {
+                name: 'Конструктор хедеров',
+                action: this.openHeaderWizard.bind(this),
+                icon: 'dashboard/card_add',
+            },
             {
                 name: 'Полный экран',
                 action: this.fullScreen,

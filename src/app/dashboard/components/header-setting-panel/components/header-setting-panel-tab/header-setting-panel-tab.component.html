@@ -1,0 +1,70 @@
+<div class="header-setting-panel-tab__wrapper" *ngIf="form">
+  <div class="header-setting-panel-tab__header" [class.inactive]="!form.get('isActivate').value">
+    <div class="header-setting-panel-tab__title">{{ form.get('name').value }}</div>
+    <div class="header-setting-panel-tab__controls">
+      <div class="icon-buttons-block">
+        <div class="icon-button">
+          <svg-icon src="assets/icons/dashboard/pencil.svg"></svg-icon>
+        </div>
+        <div class="icon-button" (click)="removeTab()">
+          <svg-icon src="assets/icons/dashboard/delete_trash.svg"></svg-icon>
+        </div>
+      </div>
+
+      <mat-slide-toggle
+        class="toggle-button"
+        [checked]="form.get('isActivate').value"
+        color="primary"
+        (change)="toggleActive()"
+      ></mat-slide-toggle>
+
+      <svg-icon (click)="toggleTab()" class="arrow-icon open" src="assets/icons/dashboard/arrow.svg"></svg-icon>
+    </div>
+  </div>
+  <div class="header-setting-panel-tab__body" *ngIf="form.get('isOpen').value">
+    <form class="w-100" [formGroup]="form">
+      <div class="header-setting-panel-tab__group size-3">
+        <div class="header-setting-panel-tab__header">
+          <div class="header-setting-panel-tab__title">Фильтрация</div>
+        </div>
+        <div class="group-body">
+          <div class="buttons-list">
+            <evj-header-setting-panel-button
+              class="filter-button"
+              (click)="setActive(filterBlocks.Plant)"
+              [class.active]="activeBlock === filterBlocks.Plant"
+            >
+              Фильтрация по заводам
+            </evj-header-setting-panel-button>
+            <evj-header-setting-panel-button
+              class="filter-button"
+              (click)="setActive(filterBlocks.Manufacture)"
+              [class.active]="activeBlock === filterBlocks.Manufacture"
+            >
+              Фильтрация по производствам
+            </evj-header-setting-panel-button>
+            <evj-header-setting-panel-button
+              class="filter-button"
+              (click)="setActive(filterBlocks.Setup)"
+              [class.active]="activeBlock === filterBlocks.Setup"
+            >
+              Фильтрация по установкам
+            </evj-header-setting-panel-button>
+          </div>
+        </div>
+      </div>
+      <div formArrayName="relations" class="header-setting-panel-tab__group size-7">
+        <div class="header-setting-panel-tab__header">
+          <div class="header-setting-panel-tab__title">Связи</div>
+          <evj-header-setting-panel-button (click)="addInput()"> Добавить связь </evj-header-setting-panel-button>
+        </div>
+        <div class="group-body column-group">
+          <evj-header-setting-panel-relation-input
+            *ngFor="let relation of relationsArray; let i = index"
+            [formGroup]="relationsArray[i]"
+            (deleteEvent)="removeInput(i)"></evj-header-setting-panel-relation-input>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

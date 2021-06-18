@@ -1,0 +1,121 @@
+.header-setting-panel-tab {
+  &__wrapper {
+    background: var(--gray-G10-50-color);
+    margin-bottom: 8px;
+  }
+  &__header {
+    align-items: center;
+    background: var(--gray-G10-color);
+    padding: 12px 22px;
+    display: flex;
+    height: 28px;
+    justify-content: space-between;
+    &.inactive {
+      opacity: 0.5;
+    }
+  }
+  &__group {
+    margin-top: 1px;
+    .group-body {
+      padding: 16px 22px;
+      .relation-setting-input {
+        ::ng-deep .header-setting-panel-relation-input__wrapper {
+          margin-bottom: 8px;
+        }
+      }
+      .buttons-list {
+        display: flex;
+        flex-direction: column;
+
+        .filter-button {
+          width: 100%;
+          color: var(--text-contrast-color);
+          &.active {
+            ::ng-deep .setting-button {
+              background: var(--opacity-plan-20-color);
+              color: var(--text-accent-color);
+              border: 1px solid var(--border-blue-color);
+            }
+          }
+
+          ::ng-deep .setting-button {
+            text-align: left;
+          }
+          margin-bottom: 8px;
+        }
+
+      }
+
+    }
+    &.size-3 {
+      width: 30%;
+    }
+    &.size-7 {
+      width: calc(70% - 1px);
+    }
+  }
+  &__body {
+    display: flex;
+    gap: 1px;
+    flex-wrap: wrap;
+    form {
+      width: 100%;
+      display: flex;
+      gap: 1px;
+      flex-wrap: wrap;
+    }
+  }
+  &__title {
+    color: var(--text-contrast-color);
+  }
+  &__controls {
+    display: flex;
+    .arrow-icon {
+      cursor: pointer;
+      transform: rotate(-180deg);
+      .open {
+        color: var(--text-subscript-color);
+        transform: rotate(0);
+      }
+      color: var(--text-contrast-color);
+    }
+  }
+}
+.toggle-button {
+  margin: 0 29px 0 32px;
+}
+.icon-buttons-block {
+  display: flex;
+  gap: 4px;
+  .icon-button {
+    background: var(--gray-G9-color);
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg-icon {
+      color: var(--border-icon-color);
+    }
+  }
+}
+
+.icon-button {
+  background: var(--gray-G9-color);
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg-icon {
+    color: var(--border-icon-color);
+  }
+}
+
+.column-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

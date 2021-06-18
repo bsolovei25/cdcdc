@@ -1,0 +1,16 @@
+<div class="header-setting-panel-relation-input__wrapper" *ngIf="form">
+  <form [formGroup]="form">
+    <div class="input-container">
+      <input type="text" class="input-item" formControlName="name" placeholder="Наименование кнопки"/>
+    </div>
+    <div class="input-container">
+      <evj-dropdown formControlName="screenGroup" placeholder="Группа экранов"></evj-dropdown>
+    </div>
+    <div class="input-container">
+      <evj-dropdown formControlName="screenName" placeholder="Название экрана"></evj-dropdown>
+    </div>
+  </form>
+  <div class="icon-button" (click)="removeItem()">
+    <svg-icon src="assets/icons/dashboard/delete_trash.svg"></svg-icon>
+  </div>
+</div>

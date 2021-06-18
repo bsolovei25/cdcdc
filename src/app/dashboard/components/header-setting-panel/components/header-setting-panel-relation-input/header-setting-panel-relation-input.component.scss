@@ -1,0 +1,97 @@
+.header-setting-panel-relation-input {
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    form {
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+}
+
+.input-container {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  .input-item {
+    height: 32px;
+    width: 100%;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 13px;
+    line-height: 32px;
+    background: var(--bg-dashboard-color);
+    border: none;
+    color: var(--text-subscript-color);
+
+    overflow: hidden;
+
+    &::placeholder {
+      color: var(--text-subscript-color) !important;
+    }
+
+    form {
+      height: 100%;
+      flex: 1;
+    }
+
+    input {
+      height: 100%;
+      width: 100%;
+
+      border: none;
+      background: transparent;
+      outline: none;
+
+      font-size: 13px;
+      color: var(--text-subscript-color);
+
+      &::placeholder {
+        color: var(--text-subscript-color);
+      }
+    }
+  }
+}
+
+.icon-button {
+  background: var(--gray-G9-color);
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg-icon {
+    color: var(--border-icon-color);
+  }
+}
+
+::ng-deep evj-dropdown {
+  min-height: 32px;
+  width: 100%;
+  .mat-form-field-infix {
+    height: 28px;
+    line-height: 28px;
+    color: var(--text-subscript-color);
+    border: 1px solid var(--border-vidget-color) !important;
+  }
+  .mat-select-placeholder {
+    font-size: 13px!important;
+  }
+  .event-mat-select ::ng-deep .mat-select-value-text {
+    font-size: 13px;
+    color: var(--text-subscript-color);
+  }
+  .mat-select-value {
+    padding-left: 10px;
+  }
+}
