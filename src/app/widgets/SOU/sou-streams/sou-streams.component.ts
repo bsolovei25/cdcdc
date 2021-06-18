@@ -57,22 +57,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     public tableRowsAllOperations: ISouStreamsTableContent[];
     public tableRowsOpenOperations: ISouStreamsTableContent[] = [];
 
-    public testData = [
-        {
-            name: 'Bol',
-            date: '2021-05-18T00:01:00'
-        },
-        {
-            name: 'Cest',
-            date: '2021-05-19T00:01:00'
-        },
-        {
-            name: 'A',
-            date: '2021-05-18T00:01:10'
-        }
-    ]
-
-
     public toDateTime: string;
     public fromDateTime: string;
 
@@ -118,7 +102,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
                     this.fromDateTime = this.formatDate(new Date());
                     this.toDateTime = this.fromDateTime;
                 }
-                console.log(this.fromDateTime + ' ' + this.toDateTime);
                 this.souStreamsService.getTableContent(this.fromDateTime, this.toDateTime).then((res) => {
                     console.log(res);
                     this.tableRowsAllOperations = res;
@@ -144,9 +127,9 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     filterDates(titleName: string, filterTableRows: ISouStreamsTableContent[]): void {
         filterTableRows =
             filterTableRows.sort((row1, row2) => {
-                if ((!row1[titleName]) || (!row2[titleName])) return 0;
+                if ((!row1[titleName]) || (!row2[titleName])) return 1;
                 // @ts-ignore
-                return this.createDate(row1[titleName]) - this.createDate(row2[titleName]);
+                return -1 * (this.createDate(row1[titleName]) - this.createDate(row2[titleName]));
                 }
             );
         this.tableRows = filterTableRows;

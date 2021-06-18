@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 
 export interface ISouStreamsTableContent {
+    isMultiple: boolean,
     UID: string;
     flow: string;
     userName: string;
