@@ -77,7 +77,6 @@
     </div>
   </div>
 </ng-template>
-
 <ng-template #block let-cardData="cardData">
   <div
     class="notification__block"
@@ -86,8 +85,8 @@
     [class.selected-block]="cardData?.id === cardActiveId"
     [class.notification__block-size--wall]="isVideoWall"
     [class.notification__block-size]="!isVideoWall"
-    [class.notifications__block__item--wall]="isVideoWall"
     [class.notifications__block__item]="!isVideoWall"
+    [class.notifications__block__item--wall]="isVideoWall"
     (click)="eventClick(cardData?.id)"
   >
     <div class="notification__block__header">
