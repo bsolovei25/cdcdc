@@ -29,7 +29,8 @@
             [background]="'dark'"
             [plan]="data?.diagram?.plan || 100"
             [fact]="data?.diagram?.fact || 100"
-            [deviation]="data?.diagram?.deviation || 100">
+            [deviation]="data?.diagram?.deviation || 100"
+          >
           </evj-kpe-gauge-chart>
           <evj-kpe-gauge-chart-multi-color
             [type]="1"
@@ -38,14 +39,14 @@
           ></evj-kpe-gauge-chart-multi-color>
         </ng-container>
       </div>
-      <ng-container *ngIf="(displayMode$ | async) === 'line'" >
+      <ng-container *ngIf="(displayMode$ | async) === 'line'">
         <evj-kpe-deviation-diagram
           style="min-width: 400px"
           [data]="deviationChartData$ | async"
           [currentMonth]="displayedMonth$ | async"
         ></evj-kpe-deviation-diagram>
       </ng-container>
-      <ng-container  *ngIf="(displayMode$ | async) === 'tiled'">
+      <ng-container *ngIf="(displayMode$ | async) === 'tiled'">
         <evj-kpe-deviation-diagram
           style="min-width: 400px; width: calc(100% - 1400px)"
           [data]="deviationChartData$ | async"
@@ -59,14 +60,17 @@
           [data]="tab"
         ></evj-kpe-energy-tab>
       </ng-container>
+
       <ng-container *ngIf="displayNewDesign$ | async">
-        <evj-kpe-universal-card
-          *ngFor="let tab of (data$ | async)?.tabs; trackBy: trackByIndex"
-          type="2"
-          [gaugeChart]="tab"
-          [contentData]="getContentData(tab)"
-        ></evj-kpe-universal-card
-      ></ng-container>
+        <div class="energy-content">
+          <evj-kpe-universal-card
+            *ngFor="let tab of (data$ | async)?.tabs; trackBy: trackByIndex"
+            type="2"
+            [gaugeChart]="tab"
+            [contentData]="getContentData(tab)"
+          ></evj-kpe-universal-card>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
