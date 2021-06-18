@@ -27,8 +27,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { MatInputModule } from '@angular/material/input';
-import { SearchWidgetPipe } from './components/admin-worker-settings/aws-create-claim/searchWidget.pipe';
-import { SearchUnitPipe } from './components/admin-worker-settings/aws-create-claim/searchUnit.pipe';
+import { SearchWidgetPipe } from './components/admin-worker-settings/aws-create-claim/search-widget.pipe';
+import { SearchUnitPipe } from './components/admin-worker-settings/aws-create-claim/search-unit.pipe';
+import { SearchEventsCategoriesPipe } from './components/admin-worker-settings/aws-create-claim/search-events-categories.pipe';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 
 @NgModule({
@@ -55,6 +56,7 @@ import { WorkerCardComponent } from './components/worker-card/worker-card.compon
         AgGroupWorkerCardComponent,
         SearchWidgetPipe,
         SearchUnitPipe,
+        SearchEventsCategoriesPipe,
         WorkerCardComponent,
     ],
     imports: [

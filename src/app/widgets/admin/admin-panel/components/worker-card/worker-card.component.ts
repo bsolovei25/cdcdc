@@ -73,7 +73,7 @@ export class WorkerCardComponent implements OnInit, OnChanges {
         let outputString: string = str;
         const maxLength: number = 30;
 
-        if (str.length > maxLength) {
+        if (str?.length > maxLength) {
             outputString = `${str.slice(0, maxLength)}...`;
         }
 
