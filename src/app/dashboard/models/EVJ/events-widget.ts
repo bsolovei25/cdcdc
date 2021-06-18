@@ -110,6 +110,18 @@ export interface IEventsWidgetNotification {
     isRestrictions?: boolean;
     smpo: ISMPOData;
     smotr?: ISmotrData;
+    // fields for CMID event card
+    startScheduledTime?: Date;
+    endScheduledTime?: Date;
+    startActualTime?: Date;
+    endActualTime?: Date;
+    notificationCreationTime?: Date;
+    reasonForDisconnection?: {
+        eventType?: string;
+        description?: string;
+        typeOfTripReason?: string;
+        reasonDisconnection?: string;
+    };
 }
 
 export interface IEventsEjs {

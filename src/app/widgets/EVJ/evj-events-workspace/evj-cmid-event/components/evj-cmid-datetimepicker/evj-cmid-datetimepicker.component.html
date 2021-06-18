@@ -1,9 +1,5 @@
 <div class="hidden-block">
-  <input
-    [ngxMatDatetimePicker]="picker"
-    [value]="inputDate"
-    [formControl]="dateControlHidden"
-  />
+  <input [ngxMatDatetimePicker]="picker" [value]="inputDate" [formControl]="dateControlHidden" />
 </div>
 
 <div class="container">
@@ -13,10 +9,7 @@
   <div class="control">
     <div class="control__custom-input date">
       <div class="control-icon" (click)="openPicker()">
-        <svg-icon
-          class="icon"
-          src="assets/icons/widgets/workspace/cmid/calendar.svg"
-        ></svg-icon>
+        <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/calendar.svg"></svg-icon>
       </div>
       <input
         mask="00.00.0000"
@@ -29,12 +22,15 @@
     <ng-container *ngIf="enableTime">
       <div class="control__custom-input time">
         <div class="control-icon" (click)="openPicker()">
-          <svg-icon
-            class="icon"
-            src="assets/icons/widgets/workspace/cmid/time.svg"
-          ></svg-icon>
+          <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/time.svg"></svg-icon>
         </div>
-        <input mask="00:00" [showMaskTyped]="true" [formControl]="dateControlTime"/>
+        <input
+          mask="00:00"
+          [showMaskTyped]="true"
+          [formControl]="dateControlTime"
+          [dropSpecialCharacters]="false"
+          [specialCharacters]="[':']"
+        />
       </div>
     </ng-container>
   </div>

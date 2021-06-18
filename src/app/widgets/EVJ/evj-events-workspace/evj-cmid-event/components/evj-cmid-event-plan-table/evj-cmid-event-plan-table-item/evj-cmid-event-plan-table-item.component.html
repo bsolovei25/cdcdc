@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [class.active]="item.selected" [class.highlight]="!item.isDisabledByPlan">
   <div class="row__column name">
     <mat-checkbox class="checkbox" [ngModel]="selected" (change)="select($event)" color="primary"></mat-checkbox>
     <label>{{ item.positionName }}</label>

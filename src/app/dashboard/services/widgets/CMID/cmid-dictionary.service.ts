@@ -10,6 +10,7 @@ import {
 import { map, tap } from 'rxjs/operators';
 import { IPlanItem } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/cmid-event.interface';
 import { IManufacture, IPlant, IUnit } from '@dashboard/services/widgets/CMID/cmid.interface';
+import { CmidEventToogleValue } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/components/evj-cmid-event-toggle/evj-cmid-event-toggle.component';
 
 @Injectable({
     providedIn: 'root',
@@ -76,17 +77,19 @@ export class CmidDictionaryService {
         return this.http.get<IUnit[]>(`${this.restUrl}/api/cmid-kdpaz/card/plants/manufacture/${manufactureId}`);
     }
 
-    public getPositions(query: string = ''): Observable<IPlanItem[]> {
+    public getPositions(query: string = '', type: CmidEventToogleValue): Observable<IPlanItem[]> {
         if (query.length && this.kdpazCards.length) {
             return of(
-                this.kdpazCards.filter(
-                    (el) =>
-                        el.positionName.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
-                        el.positionDescription.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
-                        el.positionId.toLowerCase().indexOf(query.toLowerCase()) > -1
-                )
+                this.kdpazCards
+                    .filter((el) => (type === 'plan' ? el.isDisabledByPlan : !el.isDisabledByPlan))
+                    .filter(
+                        (el) =>
+                            el.positionName.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+                            el.positionDescription.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+                            el.positionId.toLowerCase().indexOf(query.toLowerCase()) > -1
+                    )
             );
         }
-        return of(this.kdpazCards);
+        return of(this.kdpazCards.filter((el) => (type === 'plan' ? el.isDisabledByPlan : !el.isDisabledByPlan)));
     }
 }

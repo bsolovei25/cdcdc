@@ -27,13 +27,17 @@
         <div class="row">
           <evj-cmid-event-toggle (value)="setToggleValue($event)"></evj-cmid-event-toggle>
           <evj-event-dropdown
+            [(ngModel)]="ewService.event.reasonForDisconnection.typeOfTripReason"
             [formControl]="typeOfReasonControl"
             fieldName="tripReasonName"
+            valueField="id"
             [items]="typeOfReason$ | async">Тип причины отключения:</evj-event-dropdown>
         </div>
         <div class="row">
           <evj-event-dropdown
+            [(ngModel)]="ewService.event.reasonForDisconnection.reasonDisconnection"
             fieldName="name"
+            valueField="id"
             [formControl]="reasonsOfDisconnectControl"
             [items]="reasonsOfDisconnect$ | async">Причина отключения:
           </evj-event-dropdown>
@@ -45,6 +49,7 @@
             <span>Краткое описание причины отключения:</span>
           </div>
           <textarea
+            [(ngModel)]="ewService.event.reasonForDisconnection.description"
             required
             placeholder="Введите данные..."
             minlength="3"
@@ -72,8 +77,8 @@
     </div>
 
     <div class="row">
-      <evj-cmid-datetimepicker>{{ toggleValue === 'plan' ? 'Плановая' : 'Фактическая' }} дата и время отключения:</evj-cmid-datetimepicker>
-      <evj-cmid-datetimepicker>Плановая дата и время включения:</evj-cmid-datetimepicker>
+      <evj-cmid-datetimepicker [(ngModel)]="toggleValue === 'plan' ? ewService.event.startScheduledTime : ewService.event.startActualTime">{{ toggleValue === 'plan' ? 'Плановая' : 'Фактическая' }} дата и время отключения:</evj-cmid-datetimepicker>
+      <evj-cmid-datetimepicker [(ngModel)]="toggleValue === 'plan' ? ewService.event.endScheduledTime : ewService.event.endActualTime">Плановая дата и время включения:</evj-cmid-datetimepicker>
     </div>
   </section>
 
@@ -90,7 +95,7 @@
       <div class="custom-input" style="width: 261px;">
         <input type="text" placeholder="Введите данные..."/>
       </div>
-      <evj-cmid-datetimepicker [enableTime]="false" style="margin-top: -7px;"></evj-cmid-datetimepicker>
+      <evj-cmid-datetimepicker  [enableTime]="false" style="margin-top: -7px;"></evj-cmid-datetimepicker>
     </div>
 
     <div class="row">
@@ -104,9 +109,12 @@
           <div class="chat-title__counter">1</div>
         </div>
         <evj-chat
+          [messages]="ewService.event.facts"
+          [onClickItem]="openLineChart.bind(this)"
           dataTitle="Корректирующие мероприятия"
           placeholder="Введите текст меропрития..."
           viewType="cmid"
+          (addingMessage)="onSendMessage($event,'facts')"
         ></evj-chat>
       </div>
       <div class="column__block">
@@ -115,9 +123,12 @@
           <div class="chat-title__counter">1</div>
         </div>
         <evj-chat
+          [messages]="ewService.event.comments"
+          [onClickItem]="openLineChart.bind(this)"
           dataTitle="Комментарии"
           placeholder="Введите комментарий..."
           viewType="cmid"
+          (addingMessage)="onSendMessage($event,'comments')"
         ></evj-chat>
       </div>
     </div>

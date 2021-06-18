@@ -12,7 +12,7 @@ export class EvjCmidEventToggleComponent implements OnInit {
     @Output()
     private value: EventEmitter<CmidEventToogleValue> = new EventEmitter<CmidEventToogleValue>();
 
-    public toggleValue: CmidEventToogleValue = 'non-plan';
+    public toggleValue: CmidEventToogleValue = 'plan';
 
     constructor() {}
 

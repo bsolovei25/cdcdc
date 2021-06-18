@@ -32,7 +32,7 @@ export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnI
     private isSearchable: boolean = false;
 
     @Input()
-    public isLoading: boolean;
+    public isLoading: boolean = false;
 
     @Input()
     public set items(value: IPlanItem[]) {
@@ -73,6 +73,10 @@ export class EvjCmidEventPlanTableComponent implements ControlValueAccessor, OnI
         if (ngControl != null) {
             ngControl.valueAccessor = this;
         }
+    }
+
+    public trackById(item: IPlanItem): string {
+        return item.positionId;
     }
 
     public ngOnInit(): void {
