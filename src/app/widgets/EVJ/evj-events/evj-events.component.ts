@@ -26,6 +26,7 @@ import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IUnits } from '../../../dashboard/models/ADMIN/admin-shift-schedule.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ActivatedRoute } from '@angular/router';
 
 type EvjEventsWidgetType = 'default' | 'shift';
 
@@ -263,6 +264,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public isPreviewOpened: boolean = false;
 
+    protected eventId: number | undefined;
+
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     /// For cancel request
@@ -283,6 +286,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
         private cdRef: ChangeDetectorRef,
+        private route: ActivatedRoute,
+
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -292,11 +297,18 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.getEventId();
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
             })
         );
+    }
+
+    public getEventId(): void {
+        const parsedUrl = Number(this.route.snapshot.queryParamMap.get('eventId'));
+
+        this.eventClick(parsedUrl);
     }
 
     public ngOnDestroy(): void {
