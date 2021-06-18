@@ -72,7 +72,7 @@
               (cardClick)="eventClick($event)"
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
-              [isVideoWall]="attributes?.IsVideoWall"
+              [isVideoWall]="attributes?.IsVideoWallEd || attributes?.IsVideoWall"
             ></evj-event-card>
           </ng-container>
           <ng-container *ngIf="isCDEvents">

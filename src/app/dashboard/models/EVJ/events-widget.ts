@@ -5,11 +5,19 @@ import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule.model';
 import { IKpeAllDependentParameters, IKpeNotification, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
-export type RestrictionType = 'eventType' | 'type' | 'reason' | 'constancy' | 'duration' | 'economicEfficiency' | 'significance';
+export type RestrictionType =
+    | 'eventType'
+    | 'type'
+    | 'reason'
+    | 'constancy'
+    | 'duration'
+    | 'economicEfficiency'
+    | 'significance';
 
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
+    IsVideoWallEd: boolean;
     SortType: SortTypeEvents;
     UnitId?: number;
 }
@@ -367,17 +375,17 @@ export interface IRestrictionRequest {
     duration: IRestrictionItem;
     economicEfficiency: IRestrictionItem;
     significance: IRestrictionItem;
-};
+}
 
 export interface IRestrictionItem {
-    id: number,
-    type: string,
-    name: string
+    id: number;
+    type: string;
+    name: string;
 }
 
 export interface IRestriction {
-    type: string,
-    restrictions: IRestrictionItem[]
+    type: string;
+    restrictions: IRestrictionItem[];
 }
 
 export interface IReason {
