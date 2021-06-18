@@ -26,6 +26,8 @@ export class DocumentsScansService {
 
     private restUrl: string;
 
+    public data$: BehaviorSubject<IQualityDocsRecord[]> = new BehaviorSubject<IQualityDocsRecord[]>(null);
+
     public documentScansLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     public currentDocumentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>(null);

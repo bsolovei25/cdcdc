@@ -100,7 +100,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public blockFilter: boolean = false;
 
-    public data$: BehaviorSubject<IQualityDocsRecord[]> = new BehaviorSubject<IQualityDocsRecord[]>(null);
+    public data: IQualityDocsRecord[] = [];
 
     public passportValue: string | null = null;
 
@@ -139,6 +139,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
             distinctUntilChanged(),
             map(() =>  this.getData()))
             .subscribe());
+
+        this.data = this.oilDocumentService.data$.getValue();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -191,7 +193,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     private getData(): void {
         this.getList().then((ref) => {
-            this.data$.next(ref);
+            this.data = ref;
         });
     }
 
@@ -232,13 +234,14 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public async getList(lastId: number = 0): Promise<IQualityDocsRecord[]> {
         const options = this.getOptions();
+        this.oilDocumentService.data$.next(await this.oilDocumentService.getPassportsByFilter(lastId, options))
         return await this.oilDocumentService.getPassportsByFilter(lastId, options);
     }
 
     public async appendPassports(lastId: number): Promise<void> {
         const passports = await this.getList(lastId);
         if (passports.length) {
-            this.data$.next(this.data$.value.concat(passports));
+            this.data = this.data.concat(passports);
         }
     }
 
@@ -262,8 +265,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     public scrollHandler(event: {
         target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
     }): void {
-        if (event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight && this.data$.value.length) {
-            this.appendPassports(this.data$.value[this.data$.value.length - 1].id);
+        if (event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight && this.data.length) {
+            this.appendPassports(this.data[this.data.length - 1].id);
         }
     }
 
@@ -307,7 +310,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     private viewportCheck(): void {
-        if (this.data$.value?.length > 0) {
+        if (this.data?.length > 0) {
             this.viewport?.checkViewportSize();
         }
     }
@@ -347,14 +350,14 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
         dataLoadQueue.push(
             this.getList().then((ref) => {
-                this.data$.next(ref)
+                this.data = ref;
             })
         );
 
         this.documentCodingService.savedPassport.subscribe(data => {
             dataLoadQueue.push(
                 this.getList().then((ref) => {
-                    this.data$.next(ref)
+                    this.data = ref;
                 })
             );
         })
