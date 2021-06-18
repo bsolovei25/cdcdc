@@ -1,13 +1,21 @@
-<div class="dropzone">
-  <span>Перетащите или <span class="dropzone__link">загрузите файл</span></span>
+<input
+  hidden
+  #fileInput
+  [(ngModel)]="value"
+  type="file"
+  (change)="changeListener($event)"
+/>
+
+<div class="dropzone" evjDndListener (onDragLeaveEvent)="dndLeave($event)" (onDragOverEvent)="dndOver($event)" (onDropEvent)="dndDrop($event)">
+  <span>Перетащите или <span class="dropzone__link" (click)="openLoadFileDialog()">загрузите файл</span></span>
   <svg-icon class="doc-add" src="assets/icons/widgets/workspace/cmid/doc-add.svg"></svg-icon>
   <span>Не более 500 MB .pdf .doc .xls .jpg .png</span>
 </div>
 <div class="uploaded-files">
-  <ng-container *ngFor="let item of ['Загруженный файл 1.pdf', 'Загруженный файл 2.pdf']">
+  <ng-container *ngFor="let item of fileList$ | async">
     <div class="file">
       <svg-icon class="icon" src="assets/icons/widgets/workspace/cmid/file-icon.svg"></svg-icon>
-      <span>{{ item }}</span>
+      <span>{{ item.file.name }}</span>
       <svg-icon class="icon icon-close" src="assets/icons/widgets/workspace/cmid/file-delete.svg"></svg-icon>
     </div>
   </ng-container>

@@ -5,7 +5,7 @@
   <div class="dropdown-control__panel" [class.disabled]="disabled">
     <mat-form-field appearance="none">
       <mat-select (selectionChange)="onSelected($event)" [(ngModel)]="val" [disabled]="disabled">
-        <mat-option *ngFor="let item of list" [value]="item">
+        <mat-option *ngFor="let item of list" [value]="valueField ? item[valueField] : item">
           {{ fieldName && item ? item[fieldName] : item }}
         </mat-option>
       </mat-select>

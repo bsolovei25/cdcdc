@@ -1,5 +1,6 @@
 
 export interface ICmidEventChip {
+    isDisabledByPlan: boolean;
     positionId: string;
     positionName: string;
     positionDescription?: string;

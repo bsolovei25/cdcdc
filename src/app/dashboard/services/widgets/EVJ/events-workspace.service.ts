@@ -33,10 +33,11 @@ import { filter, map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
 import { IMessage, IMessageFileAttachment } from '@shared/interfaces/message.model';
 import { FileAttachMenuService } from '../../file-attach-menu.service';
-import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
+import { IChatMessageWithAttachments } from '@widgets/EVJ/events-workspace/components/chat/chat.component';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 import { KpeWorkspaceService } from './kpe-workspace.service';
 import { IKpeNotification } from '../../../models/EVJ/kpe-workspace.model';
+import { IKDPAZRequest } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/components/evj-cmid-event-edit-form/evj-cmid-event-edit-form.interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -64,7 +65,7 @@ export class EventsWorkspaceService {
     //#endregion
 
     public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<IEventsWidgetAttributes>(null);
-    
+
     private readonly parentCategoryId = {
         safety: 1002,
         tasks: 1003,
@@ -158,6 +159,8 @@ export class EventsWorkspaceService {
     public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<IExtraOptionsWindow>(null);
     public acceptButton$: BehaviorSubject<IKpeNotification> = new BehaviorSubject<IKpeNotification>(null);
     public getResponsible$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
+    public eventSaved$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
+    public eventSentToSave$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
 
     get isCategoryEdit(): boolean {
         return (
@@ -314,6 +317,7 @@ export class EventsWorkspaceService {
 
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         let event: IEventsWidgetNotification = null;
+        this.eventSentToSave$.next(event);
         try {
             if (this.event.parentId) {
                 if (!this.checkRetrievalCategory()) {
@@ -325,6 +329,7 @@ export class EventsWorkspaceService {
             }
             if (event?.id) {
                 this.event.id = event.id;
+                this.eventSaved$.next(this.event);
             }
             this.isCreateNewEvent = false;
 
@@ -366,11 +371,15 @@ export class EventsWorkspaceService {
     }
 
     private async saveEditedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
+        this.eventSentToSave$.next(this.event);
         if (this.event.category.name === 'asus') {
             this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'error');
         } else {
             try {
-                await this.eventService.putEvent(this.event, saveMethod);
+                const event = await this.eventService.putEvent(this.event, saveMethod);
+                if (event) {
+                    this.eventSaved$.next(event);
+                }
                 this.snackBarService.openSnackBar('Изменения сохранены');
             } catch (err) {
                 console.error(err);
@@ -706,6 +715,10 @@ export class EventsWorkspaceService {
         } catch {
             console.log(error);
         }
+    }
+
+    public saveCmidCards(cards: IKDPAZRequest[]): Observable<unknown> {
+        return this.eventService.postKDPAZCards(cards);
     }
 
     private checkEvent(eventObj: IEventsWidgetNotification): IEventsWidgetNotification {

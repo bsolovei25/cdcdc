@@ -29,6 +29,7 @@ import {
 import { AppConfigService } from '@core/service/app-config.service';
 import { catchError } from "rxjs/operators";
 import { of } from 'rxjs';
+import { IKDPAZRequest } from '@widgets/EVJ/evj-events-workspace/evj-cmid-event/components/evj-cmid-event-edit-form/evj-cmid-event-edit-form.interfaces';
 
 export interface IEventsFilter {
     unitNames?: string[];
@@ -41,7 +42,8 @@ export interface IEventsFilter {
     providedIn: 'root',
 })
 export class EventService {
-    private readonly restUrl: string;
+    public readonly restUrl: string;
+    private readonly cmidUrl: string;
     private readonly smotrUrl: string;
     private readonly isDomenAuth: boolean;
     private readonly batchSize: number = 50;
@@ -53,6 +55,7 @@ export class EventService {
 
     constructor(public http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
+        this.cmidUrl = configService.cmidUrl;
         this.smotrUrl = configService.smotrUrl;
         this.isDomenAuth = configService.isDomenAuth;
     }
@@ -240,18 +243,18 @@ export class EventService {
         // Корректирующие мероприятия СМОТР
         return of([
             {id: "be4b7cd3-9455-11ea-a2cf-005056a5c7f6", name: "Прочие"},
-            {id: "94ad7506-62ee-11eb-a2d1-005056a5c7f6", name: "Внесение информации о режиме работы в технологический регламент"}, 
-            {id: "a24fe9f2-62ee-11eb-a2d1-005056a5c7f6", name: "Проработка корректности действий с технологическим персоналом"}, 
-            {id: "acb70e28-62ee-11eb-a2d1-005056a5c7f6", name: "Техническое перевооружение и модернизация"}, 
-            {id: "acb70e29-62ee-11eb-a2d1-005056a5c7f6", name: "Чистка оборудования"}, 
-            {id: "1dae9b40-6403-11e8-b4a4-005056b52c10", name: "Корректировка параметров технологического режима,направленная на компенсацию либо устранение отклонения"}, 
-            {id: "1dae9b41-6403-11e8-b4a4-005056b52c10", name: "Корректировка параметров либо качества сырья"}, 
-            {id: "1dae9b42-6403-11e8-b4a4-005056b52c10", name: "Ремонт оборудования"}, 
-            {id: "1dae9b44-6403-11e8-b4a4-005056b52c10", name: "Повторное проведение лабораторного анализа"}, 
-            {id: "1dae9b45-6403-11e8-b4a4-005056b52c10", name: "Рассмотрение возможности пересмотра норматива технологического регламента"}, 
-            {id: "1dae9b47-6403-11e8-b4a4-005056b52c10", name: "Восстановление работоспособности КиП и систем автоматизации"}, 
-            {id: "1dae9b48-6403-11e8-b4a4-005056b52c10", name: "Замена оборудования"}, 
-            {id: "1dae9b49-6403-11e8-b4a4-005056b52c10", name: "Актуализация данных в системе мониторинга (СМОТР)"}, 
+            {id: "94ad7506-62ee-11eb-a2d1-005056a5c7f6", name: "Внесение информации о режиме работы в технологический регламент"},
+            {id: "a24fe9f2-62ee-11eb-a2d1-005056a5c7f6", name: "Проработка корректности действий с технологическим персоналом"},
+            {id: "acb70e28-62ee-11eb-a2d1-005056a5c7f6", name: "Техническое перевооружение и модернизация"},
+            {id: "acb70e29-62ee-11eb-a2d1-005056a5c7f6", name: "Чистка оборудования"},
+            {id: "1dae9b40-6403-11e8-b4a4-005056b52c10", name: "Корректировка параметров технологического режима,направленная на компенсацию либо устранение отклонения"},
+            {id: "1dae9b41-6403-11e8-b4a4-005056b52c10", name: "Корректировка параметров либо качества сырья"},
+            {id: "1dae9b42-6403-11e8-b4a4-005056b52c10", name: "Ремонт оборудования"},
+            {id: "1dae9b44-6403-11e8-b4a4-005056b52c10", name: "Повторное проведение лабораторного анализа"},
+            {id: "1dae9b45-6403-11e8-b4a4-005056b52c10", name: "Рассмотрение возможности пересмотра норматива технологического регламента"},
+            {id: "1dae9b47-6403-11e8-b4a4-005056b52c10", name: "Восстановление работоспособности КиП и систем автоматизации"},
+            {id: "1dae9b48-6403-11e8-b4a4-005056b52c10", name: "Замена оборудования"},
+            {id: "1dae9b49-6403-11e8-b4a4-005056b52c10", name: "Актуализация данных в системе мониторинга (СМОТР)"},
             {id: "1dae9b4a-6403-11e8-b4a4-005056b52c10", name: "Корректировка параметров либо качества энергоносителя и вспомогательных потоков ОЗХ"}
         ]);
     }
@@ -629,5 +632,9 @@ export class EventService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    public postKDPAZCards(cards: IKDPAZRequest[]): Observable<unknown> {
+        return this.http.post<unknown>(this.cmidUrl + `/api/KdpazCard/savePositionList`, cards);
     }
 }

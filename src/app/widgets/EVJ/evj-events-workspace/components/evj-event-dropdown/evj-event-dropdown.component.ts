@@ -53,7 +53,7 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
     }
 
     public onSelected(event: MatSelectChange): void {
-        this.value = this.valueField ? event.value[this.valueField] : event.value;
+        this.value = event.value;
         this.setValue(event.value);
     }
 
@@ -106,6 +106,14 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
 
     private initValue(): void {
         let foundedItem;
+        if (this.val && typeof this.val === 'string' && this.list) {
+            foundedItem = this.list.find((item) => item.id === this.val);
+
+            setTimeout(() => {
+                this.value = foundedItem ? foundedItem[this.valueField] : this.val;
+            });
+            return;
+        }
         if (this.val && this.val.hasOwnProperty('id') && this.list) {
             foundedItem = this.list.find((item) => item.id === this.val.id);
             setTimeout(() => {
@@ -115,14 +123,14 @@ export class EvjEventDropdownComponent implements OnChanges, ControlValueAccesso
         }
         if (!this.val && this.list) {
             setTimeout(() => {
-                this.value = this.list[0];
+                this.value = this.valueField ? this.list[0][this.valueField] : this.list[0];
             }, 100);
         }
     }
 
-    private setValue(value: object): void {
+    private setValue(value: any): void {
         if (value) {
-            this.value = this.valueField ? value[this.valueField] : value;
+            this.value = value;
             this.fullObject.emit(value);
         }
     }

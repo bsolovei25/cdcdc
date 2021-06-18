@@ -64,6 +64,7 @@ import { SimpleButtonComponent } from './components/simple-button/simple-button.
 import { CKEditorModule } from 'ng2-ckeditor';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { MatExpansionModule } from "@angular/material/expansion";
+import { DndListenerDirective } from './directives/dnd-listener.directive';
 
 @NgModule({
     declarations: [
@@ -116,6 +117,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
         SimpleButtonComponent,
         DropdownComponent,
         AccordionComponent,
+        DndListenerDirective,
     ],
     exports: [
         HeaderComponent,
@@ -162,6 +164,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
         SimpleButtonComponent,
         DropdownComponent,
         AccordionComponent,
+        DndListenerDirective
     ],
     imports: [
         CommonModule,
