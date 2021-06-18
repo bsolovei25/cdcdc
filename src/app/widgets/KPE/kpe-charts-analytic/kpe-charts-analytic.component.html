@@ -1,7 +1,7 @@
 <div class="widget-container">
   <evj-contemporary-widget-header type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId">
     <div class="header-container">
-      <evj-kpe-charts-analytic-header-select [formGroup]="entryStates"></evj-kpe-charts-analytic-header-select>
+      <evj-kpe-charts-analytic-header-select (setActiveIndicator)="subscribeToIndicator($event)" [manufactures]="manufactures$ | async" [formGroup]="entryStates"></evj-kpe-charts-analytic-header-select>
       <evj-kpe-charts-analytic-header-toggle [formGroup]="entryStates"></evj-kpe-charts-analytic-header-toggle>
     </div>
   </evj-contemporary-widget-header>
@@ -9,20 +9,10 @@
   <div class="container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="area area__chart">
       <div class="area__chart-container">
-        <ng-container [ngSwitch]="selectedChartType$ | async">
-          <div *ngSwitchCase="'limited-line-chart'">
-            <evj-kpe-charts-analytic-main-chart></evj-kpe-charts-analytic-main-chart>
-          </div>
-          <div *ngSwitchCase="'line-chart'">
-            <evj-kpe-charts-analytic-main-chart [showBorders]="false"></evj-kpe-charts-analytic-main-chart>
-          </div>
-          <div *ngSwitchCase="'bar-chart-1'">
-            <evj-kpe-charts-analytic-bar-chart></evj-kpe-charts-analytic-bar-chart>
-          </div>
-          <div *ngSwitchCase="'bar-chart-2'">
-            <evj-kpe-charts-analytic-bar-chart-2 [data]="barChart2Data"></evj-kpe-charts-analytic-bar-chart-2>
-          </div>
-        </ng-container>
+
+        <ng-container
+          *ngComponentOutlet="viewComponent; injector: (widgetId | fn:getInjector : (selectedChartType$ | async): (chartIntervalDates$ | async): (chartUnits$ | async): (channelId$ | async));"
+        ></ng-container>
       </div>
 
       <div class="area__smart-scroll">
@@ -38,7 +28,7 @@
     <div class="area area__stats">
       <div class="selects" [formGroup]="entryStates">
         <div class="dropdown">
-          <mat-select class="dropdown__select" formControlName="chartType">
+          <mat-select class="dropdown__select" (ngModelChange)="setChartType($event)" formControlName="chartType" placeholder="Тип графика">
             <ng-container *ngFor="let option of chartTypeOptions">
               <mat-option [value]="option.type"> {{ option.name }} </mat-option>
             </ng-container>
@@ -46,13 +36,15 @@
         </div>
         <div class="dropdown">
           <div class="dropdown__label"><span> Y </span></div>
-          <mat-select class="dropdown__select" placeholder="Ед. измерения" formControlName="engUnit">
-            <mat-option> Не выбрано </mat-option>
+          <mat-select class="dropdown__select" placeholder="Ед. измерения" [formControlName]="'engUnit'">
+            <ng-container *ngFor="let option of unitsOptions">
+              <mat-option [value]="option.type"> {{ option.name }} </mat-option>
+            </ng-container>
           </mat-select>
         </div>
         <div class="dropdown">
           <div class="dropdown__label"><span> X </span></div>
-          <mat-select class="dropdown__select" formControlName="dateInterval">
+          <mat-select class="dropdown__select" formControlName="dateInterval" placeholder="Временной интервал" disabled>
             <ng-container *ngFor="let option of timePeriodOptions">
               <mat-option [value]="option.type"> {{ option.name }} </mat-option>
             </ng-container>
@@ -60,10 +52,10 @@
         </div>
       </div>
       <div class="cards">
-        <evj-kpe-charts-analytic-card type="fact" value="76.146"></evj-kpe-charts-analytic-card>
-        <evj-kpe-charts-analytic-card type="deviation" value="-0.289"></evj-kpe-charts-analytic-card>
-        <evj-kpe-charts-analytic-card type="plan" value="76.009"></evj-kpe-charts-analytic-card>
-        <evj-kpe-charts-analytic-card type="interval" value="0.3"></evj-kpe-charts-analytic-card>
+        <evj-kpe-charts-analytic-card type="fact" [value]="cardValues.factValue"></evj-kpe-charts-analytic-card>
+        <evj-kpe-charts-analytic-card type="deviation" [value]="cardValues.deviation"></evj-kpe-charts-analytic-card>
+        <evj-kpe-charts-analytic-card type="plan" [value]="cardValues.planValue"></evj-kpe-charts-analytic-card>
+        <evj-kpe-charts-analytic-card type="interval" [value]="0"></evj-kpe-charts-analytic-card>
       </div>
       <evj-checker
         (changeValue)="syncChange($event)"

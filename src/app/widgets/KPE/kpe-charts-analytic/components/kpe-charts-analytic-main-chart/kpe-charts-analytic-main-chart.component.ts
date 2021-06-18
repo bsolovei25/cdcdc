@@ -1,10 +1,19 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnChanges,
+    OnInit, Renderer2,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import * as d3 from 'd3';
 import * as d3Selection from 'd3-selection';
 import { AsyncRender } from '@shared/functions/async-render.function';
-import { analyticChartData } from './kpe-charts-analytic-main-chart.mock';
-import { KpeHelperService } from '../../../shared/kpe-helper.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
+import { IKpeChartsAnalyticGraphData } from '@dashboard/models/KPE/kpe-charts-analytic.model';
 
 export type LineType = 'fact' | 'plan';
 
@@ -14,6 +23,7 @@ export interface IDeviationDiagramData {
     factValue: number;
 }
 export interface IChartsAnalyticMainChart {
+    graphStyle: string;
     graphType: string;
     graph: IChartsAnalyticDataset[];
 }
@@ -26,13 +36,20 @@ export interface IChartsAnalyticDataset {
     selector: 'evj-kpe-charts-analytic-main-chart',
     templateUrl: './kpe-charts-analytic-main-chart.component.html',
     styleUrls: ['./kpe-charts-analytic-main-chart.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
     @Input()
-    public data: IChartsAnalyticMainChart[] = analyticChartData;
+    public data: IKpeChartsAnalyticGraphData[];
+
+    @Input()
+    public units: string;
 
     @Input()
     public showBorders: boolean = true;
+
+    @Input()
+    public interval: { min: Date | null; max: Date | null };
 
     @ViewChild('chart')
     private chart: ElementRef;
@@ -46,21 +63,13 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
     }
 
     public factDataset: IChartsAnalyticDataset[] = [];
-
     public planDataset: IChartsAnalyticDataset[] = [];
-
     public lowerBorderDataset: IChartsAnalyticDataset[] = [];
-
     public higherBorderDataset: IChartsAnalyticDataset[] = [];
 
     public size: { width: number | null; height: number | null } = { width: null, height: null };
 
     public scales: { x: any; y: any } = { x: null, y: null };
-
-    public sizeX: { min: Date | null; max: Date | null } = {
-        min: new Date(1627776000000),
-        max: new Date(1630368000000),
-    };
 
     public sizeY: { min: number; max: number } = { min: 0, max: 0 };
 
@@ -68,18 +77,23 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         top: 10,
         right: 5,
         bottom: 20,
-        left: 37,
+        left: 45,
     };
 
-    private day: Date | null = new Date(1629849600000); // День с которого факт становится пунктирным
-    private dayFact: IChartsAnalyticDataset | null; // Координаты с которого факт становится пунктирным
-    private dayFactBorder: IChartsAnalyticDataset | null; // Координаты границы с которого факт становится пунктирным
+    private day: Date | null = new Date();
+    private dayFact: IChartsAnalyticDataset | null;
+    private dayFactBorder: IChartsAnalyticDataset | null;
+
+    private graphMaxY: number = 0;
 
     private svg: any = null;
 
     private readonly DELTA: number = 0.05;
 
-    constructor(public kpeHelperService: KpeHelperService) {}
+    private formatDate = d3.timeFormat('%H:%M');
+    private valueFormat = d3.format(',.0f');
+
+    constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.data && this.data.length && this.chart) {
@@ -94,25 +108,32 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
     @AsyncRender
     private drawSvg(): void {
         this.prepareData();
+        this.prepareDayFact();
         this.initScale();
         this.initSvg();
         this.drawAxises();
         this.drawGrid();
         this.drawRectLeft();
-        this.drawDayThreshold();
+
         /*Отрисовка графиков факта и плана*/
         this.drawCurve(this.planDataset, 'plan-curve');
         this.drawCurve(this.factDataset, 'fact-curve');
-        if (!this.showBorders) { return; }
-        /*Отрисовка области границ*/
-        this.drawBorder(this.lowerBorderDataset, 'lowerBorder');
-        this.drawBorder(this.higherBorderDataset, 'higherBorder');
-        /*Отрисовка самих границ пунктиром*/
-        this.drawCurve(this.lowerBorderDataset, 'lowerBorder');
-        this.drawCurve(this.higherBorderDataset, 'higherBorder');
-        /*Поиск и отрисовка областей в которых факт выходит за пределы границы*/
-        this.customizeAreas('lower');
-        this.customizeAreas('higher');
+
+        if (this.showBorders) {
+            /*Отрисовка области границ*/
+            this.drawBorder(this.lowerBorderDataset, 'lowerBorder');
+            this.drawBorder(this.higherBorderDataset, 'higherBorder');
+            /*Отрисовка самих границ пунктиром*/
+            this.drawCurve(this.lowerBorderDataset, 'lowerBorder');
+            this.drawCurve(this.higherBorderDataset, 'higherBorder');
+
+            /*Поиск и отрисовка областей в которых факт выходит за пределы границы*/
+            this.customizeAreas('lower');
+            this.customizeAreas('higher');
+        }
+
+        this.drawDayThreshold();
+        this.drawMouseGroup();
     }
     // Приводим графики к заданному интервалу
     private dataInInteval(
@@ -120,10 +141,11 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         interval: { min: Date | null; max: Date | null }
     ): IChartsAnalyticDataset[] {
         if (
-            dataset.length === 0 ||
-            +dataset[0] > +interval.max ||
+            !dataset ||
+            dataset?.length === 0 ||
+            +dataset[0].x > +interval.max ||
             +dataset[dataset.length - 1] < +interval.min ||
-            (dataset.length === 1 && +dataset[0] >= +interval.min && +dataset[0] <= +interval.max)
+            (dataset.length === 1 && +dataset[0].x >= +interval.min && +dataset[0].x <= +interval.max)
         ) {
             return [];
         }
@@ -131,12 +153,12 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         dataset.forEach((coordinate, index) => {
             if (coordinate.x <= interval.max && coordinate.x >= interval.min) {
                 result.push({ x: coordinate.x, y: coordinate.y });
-            } else if (coordinate.x > interval.max && dataset[index - 1].x <= interval.max) {
-                const k = (coordinate.y - dataset[index - 1].y) / (+coordinate.x - +dataset[index - 1].x);
+            } else if (coordinate.x > interval.max && dataset[index - 1]?.x <= interval.max) {
+                const k = (coordinate.y - dataset[index - 1].y) / (+coordinate.x - +dataset[index - 1]?.x);
                 const b = coordinate.y - k * +coordinate.x;
                 result.push({ x: interval.max, y: k * +interval.max + b });
-            } else if (coordinate.x < interval.min && dataset[index + 1].x >= interval.min) {
-                const k = (coordinate.y - dataset[index + 1].y) / (+coordinate.x - +dataset[index + 1].x);
+            } else if (coordinate.x < interval.min && dataset[index + 1]?.x >= interval.min) {
+                const k = (coordinate.y - dataset[index + 1].y) / (+coordinate.x - +dataset[index + 1]?.x);
                 const b = coordinate.y - k * +coordinate.x;
                 result = [{ x: interval.min, y: k * +interval.min + b }, ...result];
             }
@@ -179,18 +201,31 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         this.higherBorderDataset = [];
 
         this.data.forEach((item) => {
+            const mappedGraph = item?.graph?.map((point) => {
+                if (this.units === 'tons') {
+                    return {
+                        x: new Date(point.timeStamp),
+                        y: point.value * 1000
+                    }
+                }
+
+                return {
+                    x: new Date(point.timeStamp),
+                    y: point.value
+                }
+            });
             switch (item.graphType) {
                 case 'fact':
-                    this.factDataset = this.dataInInteval(item.graph, this.sizeX);
+                    this.factDataset = this.dataInInteval(mappedGraph, this.interval);
                     break;
                 case 'plan':
-                    this.planDataset = this.dataInInteval(item.graph, this.sizeX);
+                    this.planDataset = this.dataInInteval(mappedGraph, this.interval);
                     break;
                 case 'higherBorder':
-                    this.higherBorderDataset = this.dataInInteval(item.graph, this.sizeX);
+                    this.higherBorderDataset = this.dataInInteval(mappedGraph, this.interval);
                     break;
                 case 'lowerBorder':
-                    this.lowerBorderDataset = this.dataInInteval(item.graph, this.sizeX);
+                    this.lowerBorderDataset = this.dataInInteval(mappedGraph, this.interval);
                     break;
                 default:
                     break;
@@ -204,15 +239,38 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         );
         this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
         this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
+
+        this.graphMaxY = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+    }
+
+    private prepareDayFact(): void {
+        const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
+
+        if (dayFactIndex !== 0 && dayFactIndex !== this.factDataset.length) {
+            const k =
+                (this.factDataset[dayFactIndex]?.y - this.factDataset[dayFactIndex - 1]?.y) /
+                (+this.factDataset[dayFactIndex]?.x - +this.factDataset[dayFactIndex - 1]?.x);
+            this.dayFact = {
+                x: this.day,
+                y: k * +this.day + this.factDataset[dayFactIndex]?.y - k * +this.factDataset[dayFactIndex]?.x,
+            };
+        } else {
+            this.dayFact = {
+                x: this.day,
+                y: this.factDataset[dayFactIndex].y,
+            };
+        }
     }
 
     private drawRectLeft(): void {
-        if (this.factDataset.length) {
+        const isCurrDayWithinInterval = (this.scales.x(this.interval.max) - this.scales.x(this.day)) > 0;
+
+        if (this.factDataset.length && isCurrDayWithinInterval) {
             this.svg
                 .append('rect')
                 .attr('x', this.scales.x(this.day))
                 .attr('y', this.scales.y(this.sizeY.max))
-                .attr('width', this.scales.x(this.sizeX.max) - this.scales.x(this.day))
+                .attr('width', this.scales.x(this.interval.max) - this.scales.x(this.day))
                 .attr('height', this.scales.y(this.sizeY.min) - this.scales.y(this.sizeY.max) - 0.5)
                 .attr('class', 'rect-left');
         }
@@ -226,7 +284,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
 
         this.scales.x = d3
             .scaleTime()
-            .domain([this.sizeX.min, this.sizeX.max])
+            .domain([this.interval.min, this.interval.max])
             .range([this.padding.left, this.size.width - this.padding.right]);
         this.scales.y = d3
             .scaleLinear()
@@ -251,7 +309,7 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         // x
         this.svg
             .append('g')
-            .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`) // 5 - дополнительный отступ
+            .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`)
             .attr('class', 'x-axis')
             .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(8).tickFormat(dateFormatLocale()))
             .call((g) => g.select('.domain').remove());
@@ -291,8 +349,8 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
             .attr('class', 'grid grid-second');
     }
 
-    private appendCircle(r: number, x: number, y: number, className: string): void {
-        this.svg
+    private appendCircle(r: number, x: number, y: number, className: string, elementToAppend: any): void {
+        elementToAppend
             .append('circle')
             .attr('class', className)
             .attr('r', r)
@@ -300,8 +358,8 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
             .attr('cy', this.scales.y(y));
     }
 
-    private appendLine(x1: number, x2: number, y1: number, y2: number, className: string): void {
-        this.svg
+    private appendLine(x1: number, x2: number, y1: number, y2: number, className: string, elementToAppend: any): void {
+        elementToAppend
             .append('line')
             .attr('class', className)
             .attr('x1', this.scales.x(x1))
@@ -310,18 +368,31 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
             .attr('y2', this.scales.y(y2));
     }
 
+    private appendText(x: number, y: number, className: string, text: string, elementToAppend: any): void {
+        elementToAppend
+            .append('text')
+            .attr('class', className)
+            .attr('text-anchor', 'start')
+            .attr('font-size', '12px')
+            .attr('x', x)
+            .attr('y', y)
+            .attr('text-anchor', 'middle')
+            .text(text);
+    }
+
     private drawCurve(dataset: { x: Date; y: number }[], className: string): void {
+        const arrayForDashedLine = dataset.filter((item) => +item.x >= +this.day);
+
         if (dataset.length > 0) {
             const line = d3
                 .line()
-                .x((d) => this.scales.x(d.x))
-                .y((d) => this.scales.y(d.y))
+                .x((d) => this.scales.x(d?.x))
+                .y((d) => this.scales.y(d?.y))
                 .curve(d3.curveLinear);
-
-            if (className === 'fact-curve') {
+            if (className === 'fact-curve' && arrayForDashedLine.length > 0) {
                 this.svg
                     .append('path')
-                    .datum([this.dayFact, ...dataset.filter((item) => +item.x >= +this.day)])
+                    .datum([this.dayFact, ...arrayForDashedLine])
                     .attr('class', className + '-dashed')
                     .attr('d', line);
                 this.svg
@@ -335,13 +406,119 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
         }
     }
 
+    private drawMouseGroup(): void {
+        if (this.factDataset.length === 0) {return ; }
+        // группа событий мыши
+        const mouseG = this.svg
+            .append('g')
+            .attr('class', 'mouse-over')
+            .attr('opacity', 1)
+
+        // линия курсора
+        this.appendLine(+this.day, +this.day, this.sizeY.max, this.sizeY.min, 'day-threshold-line', mouseG);
+
+        // круги на линии курсора в точке пересечения с фактом
+        this.appendCircle(16, +this.day, this.dayFact?.y, 'day-circle-1', mouseG);
+        this.appendCircle(8, +this.day, this.dayFact?.y, 'day-circle-2', mouseG);
+        this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3', mouseG);
+        this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4', mouseG);
+
+        // лейбл с датой и временем
+        this.appendText(this.scales.x(this.day) + 30, this.graphMaxY - 40, 'day-text', `${this.formatDate(this.dayFact.x)}`, mouseG );
+
+        // лейбл со значением
+        this.appendText(this.scales.x(this.day) + 30, this.scales.y(this.dayFact?.y), 'value-text', `${this.valueFormat(this.dayFact.y)}`, mouseG);
+
+        // сама зона прослушивания событий
+        const [[mouseListenArea]] = mouseG
+            .append('svg:rect')
+            .attr('width', this.size.width - this.padding.right)
+            .attr('height', this.size.height)
+            .attr('x', this.padding.left )
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all')._groups
+
+        this.listenMouseEvents(mouseListenArea);
+    }
+
+    private listenMouseEvents(element: HTMLElement): () => void {
+        const eventListeners: (() => void)[] = [];
+        const rect = element.getBoundingClientRect();
+        let mousePosition = null;
+
+        eventListeners.push(
+            this.renderer.listen(element, 'mouseleave', () => {
+                mousePosition = null;
+                this.drawDayThreshold();
+            }),
+            this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
+                mousePosition = event.clientX - rect.left + this.padding.left;
+
+                this.svg
+                    .select('.day-threshold-line')
+                    .attr('x1', mousePosition)
+                    .attr('x2', mousePosition)
+
+                this.svg
+                    .selectAll('.day-circle-1,.day-circle-2,.day-circle-3,.day-circle-4')
+                    .attr('cx', mousePosition)
+                    .attr('cy', this.scales.y(this.getValuesAtX(mousePosition)))
+
+                this.svg
+                    .select('.day-text')
+                    .attr('x', mousePosition - 30)
+                    .text(this.formatDate(this.scales.x.invert(mousePosition)))
+
+                this.svg
+                    .select('.value-text')
+                    .attr('x', mousePosition + 30)
+                    .attr('y', this.scales.y(this.getValuesAtX(mousePosition)))
+                    .text(this.valueFormat(this.getValuesAtX(mousePosition)));
+            })
+        );
+
+        return () => eventListeners?.forEach((eventListener) => eventListener());
+    }
+
+    private getValuesAtX(xParam: number): number {
+        const curve = this.svg.select('.fact-curve');
+        return this.yValueForX(xParam, curve);
+    }
+
+    private yValueForX(x: number, path: any): number {
+        const node = path.node();
+        const pathLength = node.getTotalLength();
+
+        if (pathLength <= 0) {
+            return;
+        }
+
+        let start = 0;
+        let end = pathLength;
+        let target = (start + end) / 2;
+
+        x = Math.max(x, node.getPointAtLength(0).x);
+        x = Math.min(x, node.getPointAtLength(pathLength).x);
+
+        while (target >= start && target <= pathLength) {
+            const pos = node.getPointAtLength(target);
+            if (Math.abs(pos.x - x) < 0.1) {
+                return this.scales.y.invert(pos.y);
+            } else if (pos.x > x) {
+                end = target;
+            } else {
+                start = target;
+            }
+            target = (start + end) / 2;
+        }
+    }
+
     private drawBorder(dataset: { x: Date; y: number }[], className: string): void {
-        const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
 
         const areaBottom = d3
             .area()
             .x((d) => this.scales.x(d.x))
-            .y1(graphMaxY - this.padding.bottom)
+            .y1(this.graphMaxY - this.padding.bottom)
             .y0((d) => this.scales.y(d.y))
             .curve(d3.curveLinear);
 
@@ -476,39 +653,29 @@ export class KpeChartsAnalyticMainChartComponent implements OnChanges, OnInit {
     }
 
     private drawDayThreshold(): void {
-        this.appendLine(+this.day, +this.day, this.sizeY.max, this.sizeY.min, 'day-threshold-line');
-
         if (this.factDataset.length > 0) {
-            const dayFactIndex = this.factDataset.findIndex((item) => item.x > this.day);
-            if (dayFactIndex !== 0 && dayFactIndex !== this.factDataset.length) {
-                const k =
-                    (this.factDataset[dayFactIndex].y - this.factDataset[dayFactIndex - 1].y) /
-                    (+this.factDataset[dayFactIndex].x - +this.factDataset[dayFactIndex - 1].x);
-                this.dayFact = {
-                    x: this.day,
-                    y: k * +this.day + this.factDataset[dayFactIndex].y - k * +this.factDataset[dayFactIndex].x,
-                };
-            } else {
-                this.dayFact = {
-                    x: this.day,
-                    y: this.factDataset[dayFactIndex].y,
-                };
-            }
-
-            this.appendCircle(16, +this.day, this.dayFact?.y, 'day-circle-1');
-            this.appendCircle(8, +this.day, this.dayFact?.y, 'day-circle-2');
-            this.appendCircle(4, +this.day, this.dayFact?.y, 'day-circle-3');
-            this.appendCircle(2, +this.day, this.dayFact?.y, 'day-circle-4');
-
-            const graphMaxY: number = +d3Selection.select(this.chart.nativeElement).style('height').slice(0, -2);
+            this.svg
+                .select('.day-threshold-line')
+                .attr('x1', this.scales.x(+this.day))
+                .attr('x2', this.scales.x(+this.day))
+                .attr('y1', this.scales.y(this.sizeY.max))
+                .attr('y2', this.scales.y(this.sizeY.min));
 
             this.svg
-                .append('text')
+                .selectAll('.day-circle-1,.day-circle-2,.day-circle-3,.day-circle-4')
+                .attr('cx', this.scales.x(+this.day))
+                .attr('cy', this.scales.y(this.dayFact?.y))
+
+            this.svg
+                .select('.day-text')
                 .attr('x', this.scales.x(this.day) + 30)
-                .attr('y', graphMaxY - 40)
-                .attr('text-anchor', 'middle')
-                .attr('class', 'day-text')
-                .text('14:02');
+                .text(this.formatDate(this.dayFact?.x))
+
+            this.svg
+                .select('.value-text')
+                .attr('x', this.scales.x(this.dayFact?.x) + 30)
+                .attr('y', this.scales.y(this.dayFact?.y))
+                .text(this.valueFormat(this.dayFact?.y))
         }
     }
 }

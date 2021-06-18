@@ -16,6 +16,7 @@ import { KpeChartsAnalyticBarChart2Component } from './components/kpe-charts-ana
 import { KpeSharedModule } from '../shared/kpe-shared.module';
 import { KpeChartsAnalyticBarChartComponent } from './components/kpe-charts-analytic-bar-chart/kpe-charts-analytic-bar-chart.component';
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { KpeChartsAnalyticViewComponent } from './components/kpe-charts-analytic-view/kpe-charts-analytic-view.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
         KpeChartsAnalyticMainChartComponent,
         KpeChartsAnalyticBarChart2Component,
         KpeChartsAnalyticBarChartComponent,
+        KpeChartsAnalyticViewComponent,
     ],
     imports: [
         CommonModule,
