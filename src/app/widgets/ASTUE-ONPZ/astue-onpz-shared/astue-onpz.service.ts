@@ -5,12 +5,10 @@ import {
     AstueOnpzConsumptionIndicatorType,
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
-import {
-    IMultiChartLine,
-    IMultiChartTransfer,
-} from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { IMultiChartLine, IMultiChartTransfer } from '@dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
+import { WidgetService } from '@dashboard/services/widget.service';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -93,7 +91,11 @@ export class AstueOnpzService {
         return this.multiLinePredictorsChart$.asObservable();
     }
 
-    constructor(private http: HttpClient, private configService: AppConfigService) {
+    constructor(
+        private http: HttpClient,
+        private configService: AppConfigService,
+        private widgetService: WidgetService
+    ) {
         this.restUrl = configService.restUrl;
     }
 
@@ -134,21 +136,21 @@ export class AstueOnpzService {
                 ?.filter((f) => f !== '') ?? [];
         switch (action) {
             case 'add':
-                keys.forEach(key => {
+                keys.forEach((key) => {
                     if (!filterArray.includes(key)) {
                         filterArray.push(key);
                         isChange = true;
                     }
-                })
+                });
                 break;
             case 'delete':
-                keys.forEach(key => {
+                keys.forEach((key) => {
                     const idx = filterArray.findIndex((f) => f === key);
                     if (idx !== -1) {
                         filterArray.splice(idx, 1);
                         isChange = true;
                     }
-                })
+                });
                 break;
         }
         if (!isChange) {
@@ -253,11 +255,16 @@ export class AstueOnpzService {
 
     public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
         try {
-            const response = await this.http
-                .get<{ id: string; sortIndex: number }[]>(
-                    `${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`
-                )
-                .toPromise();
+            const query = `?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`;
+            const response = await this.widgetService.getAvailableChannels<{ id: string; sortIndex: number }>(
+                widgetId,
+                query
+            );
+            // const response = await this.http
+            //     .get<{ id: string; sortIndex: number }[]>(
+            //         `${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`
+            //     )
+            //     .toPromise();
             response.sort((a, b) => a.sortIndex - b.sortIndex);
             return response?.map((x) => x.id) ?? [];
         } catch {}

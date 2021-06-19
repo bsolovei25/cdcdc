@@ -39,6 +39,13 @@ export class AppConfigService {
         return this.appConfig.restUrl;
     }
 
+    get restAddUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.restAddUrl;
+    }
+
     get cmidUrl(): string {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');
