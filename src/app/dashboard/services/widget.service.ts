@@ -45,6 +45,7 @@ export class WidgetService {
     private readonly wsUrl: string;
     private readonly wsAddUrl: string;
     private readonly restUrl: string;
+    private readonly restAddUrl: string;
     private readonly reconnectInterval: number;
 
     public ws: WebSocketSubject<IWebSocket<any, IWebSocketOptions<any>>> = null;
@@ -85,6 +86,7 @@ export class WidgetService {
         private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
+        this.restAddUrl = configService.restAddUrl;
         this.wsUrl = configService.wsUrl;
         this.wsAddUrl = configService.wsUrlAdd;
         this.reconnectInterval = configService.reconnectInterval * 1000;
@@ -157,9 +159,10 @@ export class WidgetService {
         });
     }
 
-    public async getAvailableChannels<T>(widgetId: string): Promise<T[]> {
+    public async getAvailableChannels<T>(widgetId: string, query: string = ''): Promise<T[]> {
+        const restUrl: string = this.getWidgetSource(widgetId) === 'main' ? this.restUrl : this.restAddUrl;
         try {
-            return await this.http.get<T[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels`).toPromise();
+            return await this.http.get<T[]>(`${restUrl}/api/widget-data/${widgetId}/sub-channels${query}`).toPromise();
         } catch (e) {
             return [];
         }
@@ -461,10 +464,6 @@ export class WidgetService {
             return true;
         }
         return this.openedWsChannels[widgetId]?.options?.timeStamp === incoming;
-    }
-
-    public getWidgetSubchannels<T>(widgetId: string): Promise<T[]> {
-        return this.http.get<T[]>(`${this.restUrl}/api/Widget-Data/${widgetId}/sub-channels`).toPromise();
     }
 
     private reconnectWs(source: WebSocketType): void {
