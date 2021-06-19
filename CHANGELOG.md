@@ -1,3 +1,18 @@
+# [1.41.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.40.0...v1.41.0) (2021-06-19)
+
+
+### Bug Fixes
+
+* **front#2215:** Исправлено отображение ГФУ-2 ([9a50008](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/9a500085b95e8c837f2e48027944acb9478e7a84)), closes [front#2215](https://gitlab.funcoff.club/front/issues/2215)
+* **NK:** Рефакторинг. front[#2137](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2137) ([8afb2b4](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/8afb2b48c4a1e0ca1ae4e4267175abe57b7c4cbe))
+
+
+### Features
+
+* **KPE:** КПЭ. Доп. логика и подвязка данных для виджета универсального мониторинга. front[#1676](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1676) ([d6cb789](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d6cb7895ea7da59b6b1b459ef6c8222cc8bffd03))
+* **SOU:** finish with data from BE. [#2165](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2165) ([720f85b](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/720f85b5646a083b5c5c5eb8113d841f926d2909))
+* **ЭВЖ:** Создавать ссылки на события. front[#2040](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2040) ([4dd4d17](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/4dd4d177025f78234535d2b428f4be164e2f64ea))
+
 # [1.40.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.39.0...v1.40.0) (2021-06-18)
 
 
