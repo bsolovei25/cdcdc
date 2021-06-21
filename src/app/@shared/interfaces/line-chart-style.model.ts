@@ -10,8 +10,8 @@ export type ChartStyleType = 'common' | 'main' | 'additional' | 'area';
 
 export class ChartStyle {
     private readonly chartColors: { [key: string]: string } = {
-        white: '#ffffff',
-        active: '#3fa9f5',
+        white: 'var(--index-fact-color)',
+        active: 'var(--index-plan-color)',
     };
 
     public readonly common: IChartStyle = {
