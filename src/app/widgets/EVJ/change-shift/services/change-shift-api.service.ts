@@ -141,25 +141,10 @@ export class ChangeShiftApiService {
             .toPromise();
     }
 
-    public async deleteMember(
-        shiftId: number,
-        memberId: number,
-        widgetId: string,
-        message: string = null
-    ): Promise<IChangeShiftVerifier> {
+    public async deleteMember(shiftId: number, memberId: number, message: string = null): Promise<IChangeShiftModel> {
         const body = { message };
         return await this.http
-            .post<IChangeShiftVerifier>(
-                `${this.restUrl}/ShiftMemberConfirm/shift/${shiftId}/absent-member/${memberId}/widgetId/${widgetId}`,
-                body
-            )
-            .toPromise();
-    }
-
-    public async deleteMemberConfirmed(shiftId: number, memberId: number): Promise<IChangeShiftModel> {
-        const body = {};
-        return await this.http
-            .put<IChangeShiftModel>(`${this.restUrl}/ShiftMember/shift/${shiftId}/absent-member/${memberId}`, body)
+            .put<IChangeShiftModel>(`${this.restUrl}/ShiftMember/shift/${shiftId}/to-absent-member/${memberId}`, body)
             .toPromise();
     }
 

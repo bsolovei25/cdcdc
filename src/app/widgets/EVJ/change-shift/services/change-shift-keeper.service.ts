@@ -61,10 +61,11 @@ export class ChangeShiftKeeperService {
         let reqAction: () => Promise<IChangeShiftVerifier> = null;
         const roleId: number = member?.unitRole?.id;
         const memberId: number = member?.id;
+        let shift: IChangeShiftModel = null;
 
         switch (action) {
             case 'main':
-                const shift = await this.changeShiftApi.setResponsible(memberId, this.shiftId);
+                shift = await this.changeShiftApi.setResponsible(memberId, this.shiftId);
                 this.shift$.next(shift);
                 return;
             case 'add':
@@ -76,20 +77,16 @@ export class ChangeShiftKeeperService {
                 break;
             case 'progress':
                 if (this.isAdminClaim) {
-                    const shift = await this.changeShiftApi.progressMemberConfirmed(this.shiftId, memberId);
+                    shift = await this.changeShiftApi.progressMemberConfirmed(this.shiftId, memberId);
                     this.shift$.next(shift);
                     return;
                 }
                 reqAction = () => this.changeShiftApi.progressMember(this.shiftId, memberId, this.widgetId);
                 break;
             case 'delete':
-                if (this.isAdminClaim) {
-                    const shift = await this.changeShiftApi.deleteMemberConfirmed(this.shiftId, memberId);
-                    this.shift$.next(shift);
-                    return;
-                }
-                reqAction = () => this.changeShiftApi.deleteMember(this.shiftId, memberId, this.widgetId);
-                break;
+                shift = await this.changeShiftApi.deleteMember(this.shiftId, memberId);
+                this.shift$.next(shift);
+                return;
         }
         if (!reqAction) {
             return;
