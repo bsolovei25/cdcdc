@@ -192,9 +192,9 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
                     endPercents = this.chartConfig[this.type].bounds[count]
                         ? 100 - this.chartConfig[this.type].bounds[count]
                         : 0;
-                    index = this.chartConfig[this.type].bounds?.indexOf(prev) - 2;
+                    index = this.chartConfig[this.type].bounds?.indexOf(prev);
 
-                    return curr - prev + value;
+                    return prev;
                 }
                 index = this.chartConfig[this.type].bounds?.indexOf(curr) - 2;
                 return curr;
@@ -440,10 +440,7 @@ export class KpeGaugeChartMultiColorComponent implements OnInit, OnChanges {
 
         // Активная секция(Там где стрелка)
         const sectionActive = createPie(gauge.activeZone[0], gauge.activeZone[1]);
-        if (this.data?.fact < this.data?.plan) {
-            // если мы выполнили план, активной секции нет
-            drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
-        }
+        drawDiagram(`diagram-section-serif-${gauge.activeColorIndex}`, () => sectionActive([null]));
 
         // Края диаграммы
         const serifSize = Math.PI / 180;
