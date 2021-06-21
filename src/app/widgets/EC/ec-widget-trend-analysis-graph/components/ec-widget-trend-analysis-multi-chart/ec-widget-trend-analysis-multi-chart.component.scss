@@ -1,0 +1,14 @@
+.chart::ng-deep {
+  width: 100%;
+  min-width: 1000px;
+  height: 100%;
+
+  .grid {
+    color: var( --chart-segment-color);
+  }
+
+  .grid_bg, .future-rect {
+    fill: var(--bg-dashboard-color);
+    opacity: 0.6;
+  }
+}

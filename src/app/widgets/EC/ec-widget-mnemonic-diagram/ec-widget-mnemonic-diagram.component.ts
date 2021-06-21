@@ -26,6 +26,7 @@ export interface IMnemonicEquipmentData {
 })
 export class EcWidgetMnemonicDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data$: BehaviorSubject<IMnemonicEquipmentData[] | null> = new BehaviorSubject<IMnemonicEquipmentData[] | null>(null);
+    public currentEquipment: string;
 
     private virtualChannel: VirtualChannel<IMnemonicDiagramResponse>;
     private virtualChannelSubscription: Subscription;
@@ -57,6 +58,7 @@ export class EcWidgetMnemonicDiagramComponent extends WidgetPlatform implements 
         this.subscriptions.push(
             this.ecWidgetService.headerWidgetEquipmentId$
                 .subscribe((equipmentPayload: IEquipmentPayload | null) => {
+                    this.currentEquipment = equipmentPayload?.fileName;
                     this.virtualChannel?.dispose();
                     this.virtualChannelSubscription?.unsubscribe();
                     this.data$.next([]);

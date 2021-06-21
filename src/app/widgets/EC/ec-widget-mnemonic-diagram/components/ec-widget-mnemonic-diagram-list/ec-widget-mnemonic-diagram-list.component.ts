@@ -24,6 +24,7 @@ export class EcWidgetMnemonicDiagramListComponent implements OnInit, OnDestroy{
             this.filteringData(this.form.get('search').value);
         }
     };
+    @Input() private currentEquipment: string;
 
     constructor(
         private ecWidgetService: EcWidgetService,
@@ -41,7 +42,7 @@ export class EcWidgetMnemonicDiagramListComponent implements OnInit, OnDestroy{
 
     public onClickEquipment(item: IMnemonicEquipmentData): void {
         if (!item.isActive) {
-            this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(item.id);
+            this.sendEquipmentId(item.id);
         }
 
         if (this.activeEquipment) {
@@ -49,6 +50,14 @@ export class EcWidgetMnemonicDiagramListComponent implements OnInit, OnDestroy{
         }
 
         item.isActive = true;
+    }
+
+    private  sendEquipmentId(id: string): void {
+        if (this.currentEquipment === 'bake') {
+            this.ecWidgetService.mnemonicWidgetBakeItemId$.next(id)
+        } else {
+            this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(id);
+        }
     }
 
     private setActiveEquipment(data: IMnemonicEquipmentData[]): IMnemonicEquipmentData[] {

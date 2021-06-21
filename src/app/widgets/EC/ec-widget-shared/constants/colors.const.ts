@@ -5,4 +5,8 @@ export const lineColors: { [key: string]: string } = {
     4: 'var(--data-c3-color)',
     5: 'var(--data-c7-color)',
     6: 'var(--data-c1-color)',
+    7: 'var(--data-c2-color)',
+    8: 'var(--data-c4-color)',
+    9: 'var(--data-c6-color)',
+    10: 'var(--data-c8-color)',
 };
