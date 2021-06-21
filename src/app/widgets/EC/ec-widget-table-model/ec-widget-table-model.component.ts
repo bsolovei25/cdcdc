@@ -75,13 +75,12 @@ export class EcWidgetTableModelComponent extends WidgetPlatform<unknown> impleme
     }
 
     public onClickRow(event: MouseEvent, element: IECTableIndicatorsItemChild): void {
-        console.log(element);
         event.stopPropagation();
     }
 
     protected dataConnect(): void {
         this.subscriptions.push(
-            this.ecWidgetService.mnemonicWidgetEquipmentItemId$
+            this.ecWidgetService.mnemonicWidgetBakeItemId$
                 .subscribe(id => {
                     this.data$.next(null);
                     this.virtualChannel?.dispose();

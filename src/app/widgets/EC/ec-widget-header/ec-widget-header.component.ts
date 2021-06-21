@@ -113,6 +113,7 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                 fileName: equipment.fileName,
             });
             this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(null);
+            this.ecWidgetService.mnemonicWidgetBakeItemId$.next(null);
         }
     }
 
@@ -146,10 +147,11 @@ export class EcWidgetHeaderComponent extends WidgetPlatform implements OnInit, O
                     debounceTime(100),
                     distinctUntilChanged()
                 )
-                .subscribe(unit => {
+                .subscribe(() => {
                     this.deactivateEquipments();
                     this.ecWidgetService.headerWidgetEquipmentId$.next(null);
                     this.ecWidgetService.mnemonicWidgetEquipmentItemId$.next(null);
+                    this.ecWidgetService.mnemonicWidgetBakeItemId$.next(null);
                 }),
 
             this.data$

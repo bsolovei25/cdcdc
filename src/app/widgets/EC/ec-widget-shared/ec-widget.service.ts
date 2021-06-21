@@ -67,6 +67,7 @@ export class EcWidgetService {
     public headerWidgetUnitId$: BehaviorSubject<string | null> = new BehaviorSubject(null);
     public headerWidgetEquipmentId$: BehaviorSubject<IEquipmentPayload | null> = new BehaviorSubject(null);
     public mnemonicWidgetEquipmentItemId$: BehaviorSubject<string | null> = new BehaviorSubject(null);
+    public mnemonicWidgetBakeItemId$: BehaviorSubject<string | null> = new BehaviorSubject(null);
 
     private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,

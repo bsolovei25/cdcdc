@@ -1,4 +1,7 @@
 <div class="content">
   <evj-contemporary-widget-header icon="factory" type="astue" [widgetTitle]="widgetTitle" [uniqId]="widgetUniqId"></evj-contemporary-widget-header>
-  <evj-ec-widget-mnemonic-diagram-list [inputData]="data$ | async"></evj-ec-widget-mnemonic-diagram-list>
+  <evj-ec-widget-mnemonic-diagram-list
+    [inputData]="data$ | async"
+    [currentEquipment]="currentEquipment"
+  ></evj-ec-widget-mnemonic-diagram-list>
 </div>

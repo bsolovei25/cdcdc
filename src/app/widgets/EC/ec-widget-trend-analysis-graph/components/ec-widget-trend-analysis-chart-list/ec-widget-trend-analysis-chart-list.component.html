@@ -1,0 +1,27 @@
+<div class="toggle-box">
+  <div class="toggle-box__wrapper" [style.border-left]="'4px solid ' + box.color" *ngFor="let box of data">
+    <div class="toggle-box__title title-wrapper">
+      <div
+        evjEcTooltip
+        class="title-wrapper__title"
+        position="bottom"
+        [title]="box?.name"
+      >{{box.name}}</div>
+      <div *ngIf="box.unitsOfMeasure">,</div>
+      <div class="title-wrapper__unit">{{box.unitsOfMeasure}}</div>
+    </div>
+    <div
+      evjEcTooltip
+      class="toggle-box__plan"
+      position="bottom"
+      [title]="box?.currentValue.value"
+    >{{box.currentValue.value}}</div>
+    <div class="toggle-box__toggle">
+      <mat-slide-toggle
+        disableRipple="true"
+        [checked]="box.showGraph"
+        (toggleChange)="OnClickChartItem(box.name)"
+      ></mat-slide-toggle>
+    </div>
+  </div>
+</div>
