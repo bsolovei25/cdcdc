@@ -124,7 +124,7 @@ export class EcWidgetTrendAnalysisMultiChartComponent {
             const minTrendVal = d3.min(trend.trendValues, (ref: IChartMini) => ref.value);
             const maxDomainVal = maxTrendVal + (maxTrendVal - minTrendVal) * this.MAX_COEF;
             const minDomainVal = minTrendVal - (maxTrendVal - minTrendVal) * this.MIN_COEF;
-            const domainValues = [minDomainVal * 0.3, maxDomainVal];
+            const domainValues = [maxDomainVal, minDomainVal];
             const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
 
             this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
