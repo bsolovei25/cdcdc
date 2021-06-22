@@ -1,4 +1,4 @@
-<evj-suutp-header title="УИЛД блок гидроочистки"></evj-suutp-header>
+<evj-suutp-header  [uniqId]="uniqId" title="УИЛН блок гидроочистки"></evj-suutp-header>
 <div class="table-wrapper">
   <ng-container *ngIf="(tables$ | async) as table">
     <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
