@@ -9,6 +9,9 @@ export interface IVirtualChannelSettings {
 }
 
 export class VirtualChannel<T> {
+    public get id(): string {
+        return this.subchannelId ?? this.channelId;
+    }
     // Необходимо подписаться для получения данных из канала / подканала
     public data$: Subject<T> = new Subject<T>();
     private wsSubscription$: Subject<null> = new Subject<null>();

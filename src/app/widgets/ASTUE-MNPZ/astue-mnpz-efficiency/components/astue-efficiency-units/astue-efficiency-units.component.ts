@@ -6,7 +6,7 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-astue-efficiency-units',
     templateUrl: './astue-efficiency-units.component.html',
-    styleUrls: ['./astue-efficiency-units.component.scss']
+    styleUrls: ['./astue-efficiency-units.component.scss'],
 })
 export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public isInitialDataShow: boolean = true;
@@ -16,8 +16,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
     public unitSelection: SelectionModel<string> = new SelectionModel<string>(true);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
-    constructor(private AsEfService: AstueEfficiencyService) {
-    }
+    constructor(private AsEfService: AstueEfficiencyService) {}
 
     public ngOnChanges(): void {
         this.unitSelection.clear();

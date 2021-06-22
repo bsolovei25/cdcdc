@@ -1,0 +1,140 @@
+<div class="table-display">
+  <div class="table-display__header header">
+    <div class="header__buttons" *ngIf="isInitialDataShow;">
+      <div matRipple matRippleColor="white" class="button" (click)="clickDisplayButton()">Графическое отображение</div>
+      <div matRipple matRippleColor="white" class="button button_active">Табличное отображение</div>
+    </div>
+    <div class="header__right">
+      <div class="button" (click)="getTable()">Сформировать отчет</div>
+<!--      <div class="button">Сохранить</div>-->
+<!--      <div class="button">Отмена</div>-->
+    </div>
+  </div>
+  <div class="table-display__container">
+    <div class="table-display__table table" *ngIf="!!dates?.length || !!displayDataComponent?.length; else nodata">
+      <div class="table-header">
+        <div class="table-header__item">{{ isInitialDataShow ? 'Наименование' : 'Показатели' }}</div>
+        <div class="table-header__item">Итого</div>
+        <div class="table-header__item" *ngFor="let value of dates">
+          {{ isCurrentDate ? (value.date | date:'dd.MM.yyyy HH:mm') : (value.date | date:'dd.MM.yyyy') }}
+        </div>
+      </div>
+
+      <table>
+        <tbody>
+        <ng-container *ngFor="let block2 of displayDataComponent">
+          <tr class="table__row separation-line">
+            <td class="separation-line__item">{{ block2.unitName }}</td>
+            <td class="separation-line__item"></td>
+          </tr>
+          <ng-container *ngFor="let block of block2.data">
+            <tr class="table__row block" [ngClass]="{'block_open': isSelectEl(block)}" (click)="toggleEl(block)">
+              <td class="block__item" [ngClass]="{'block__item-status': block.header?.tagName}">
+                <svg-icon class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"></svg-icon>
+                {{block.parent ? block.parent + ' ' : ''}}{{ block.name }}
+                <div class="status" *ngIf="block.header?.tagName">{{ block.header?.tagName }}</div>
+              </td>
+              <div class="block__item" style="border-left: none" *ngIf="block.header?.tagName"></div>
+              <td class="block__item with-status"></td>
+              <td class="block__item with-status" *ngIf="!block.header?.values; else values"></td>
+              <ng-template #values>
+                <td class="block__item">{{block.header?.dataSummary | number:'1.0-2'}}</td>
+                <td class="block__item" *ngFor="let value of block.header?.values">
+                  <input
+                    type="text"
+                    class="cell__input"
+                    [ngModel]="value.value|number:'1.0-2'"
+                    (ngModelChange)="value.value=$event"
+                    [disabled]="!value.isEditable"
+                    placeholder="Введите значение"
+                    (focus)="$event.target.select()"
+                    (change)="defineDataSummary(block)"
+                  />
+                  <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
+                  <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
+                </td>
+              </ng-template>
+            </tr>
+            <ng-container *ngIf="isSelectEl(block)">
+              <tr class="table__row row" *ngFor="let child of block.rows">
+                <td class="row__item">
+                  <div class="unit">{{child?.uom}}</div>
+                  <div class="name"><span [matTooltip]="child?.name">{{child?.name}}</span></div>
+                  <div class="status" *ngIf="child?.tagName">{{child.tagName}}</div>
+                </td>
+                <td class="row__item">{{child?.dataSummary | number:'1.0-2'}}</td>
+                <td class="row__item" *ngFor="let value of child?.values">
+                  <input
+                    type="text"
+                    class="cell__input"
+                    [ngModel]="value.value|number:'1.0-2'"
+                    (ngModelChange)="value.value=$event"
+                    [disabled]="!value.isEditable"
+                    placeholder="Введите значение"
+                    (focus)="$event.target.select()"
+                    (change)="defineDataSummary(child)"
+                  />
+                  <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
+                  <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!isInitialDataShow">
+          <tr class="table__row separation-line">
+            <td class="separation-line__item">Отклонения</td>
+            <td class="separation-line__item"></td>
+          </tr>
+          <ng-container *ngFor="let deviation2 of deviationsDataComponent">
+            <tr class="table__row separation-line">
+              <td class="separation-line__item">{{ deviation2.unitName }}</td>
+              <td class="separation-line__item"></td>
+            </tr>
+            <ng-container *ngFor="let deviation of deviation2.data">
+              <tr class="table__row block" (click)="blockSelection.toggle(deviation)">
+                <td class="block__item" [ngClass]="{'block__item-status': deviation?.status}">
+                  <svg-icon class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"></svg-icon>
+                  {{deviation.name}}
+                  <img class="separator" src="assets/icons/widgets/ASTUE/astue-efficiency/table/separator.svg" />
+                  {{deviation.relativeName}}
+                </td>
+                <div class="block__item" style="border-left: none"></div>
+                <td class="block__item with-status"></td>
+              </tr>
+              <ng-container *ngIf="blockSelection.isSelected(deviation)">
+                <tr class="table__row row" *ngFor="let child of deviation.children">
+                  <td class="row__item">
+                    <div class="name"><span>{{child.name}}</span></div>
+                    <div class="status" *ngIf="deviation.status">{{deviation.status}}</div>
+                    <div class="unit">{{unit}}</div>
+                  </td>
+                  <td class="row__item">{{child?.dataSummary}}</td>
+                  <td class="row__item" *ngFor="let value of child.data">
+                    <input
+                      type="text"
+                      class="cell__input"
+                      [ngModel]="value.value | number:'1.0-2'"
+                      (ngModelChange)="value.value=$event"
+                      [disabled]="!value.isEditable"
+                      placeholder="Введите значение"
+                      (focus)="$event.target.select()"
+                      (change)="defineDataSummary(child)"
+                    />
+                    <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
+                    <svg-icon class="cell__edit" src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"></svg-icon>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #nodata>
+  <div class="no-data">Выберите установку или поток</div>
+</ng-template>

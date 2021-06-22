@@ -1371,6 +1371,15 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'astue-efficiency',
     },
+    'astue-efficiency-channels': {
+        import: async () => await import('src/app/widgets/ASTUE/astue-mnpz-efficiency/astue-mnpz-efficiency.module'),
+        module: 'AstueMnpzEfficiencyModule',
+        itemCols: 58,
+        itemRows: 25,
+        minItemCols: 58,
+        minItemRows: 20,
+        preview: 'astue-efficiency',
+    },
     'production-trend': {
         import: async () => await import('src/app/widgets/ASTUE-MNPZ/production-trend/production-trend.module'),
         module: 'ProductionTrendModule',
@@ -2005,9 +2014,7 @@ export const WIDGETS_LAZY = {
     },
     'ec-widget-header': {
         import: async () => {
-            return await import(
-                'src/app/widgets/EC/ec-widget-header/ec-widget-header.module'
-                );
+            return await import('src/app/widgets/EC/ec-widget-header/ec-widget-header.module');
         },
         module: 'EcWidgetHeaderModule',
         itemCols: 35,

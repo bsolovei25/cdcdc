@@ -6,13 +6,13 @@ import {
     IAsPlanningTable,
     IAsEfProduct,
 } from '../../../models/ASTUE/astue-efficiency.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SnackBarService } from '../../snack-bar.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { log } from 'util';
-import { map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -29,6 +29,10 @@ export class AstueEfficiencyService {
     public unitsTablePlanning$: BehaviorSubject<IAsPlanningTable[]> = new BehaviorSubject<IAsPlanningTable[]>(null);
 
     public data: BehaviorSubject<IAsEfProduct[]> = new BehaviorSubject<IAsEfProduct[]>(null);
+    public loadedUnits$: Observable<IAsEfUnitNew[]> = this.data.pipe(
+        filter((x) => !!x),
+        map((x) => x.flatMap((p) => p.units).filter((u) => !!u.initialData))
+    );
 
     public productId: string;
 
@@ -55,7 +59,7 @@ export class AstueEfficiencyService {
 
     constructor(private snackbar: SnackBarService, public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.selectionUnit$.subscribe(value => console.log(value));
+        this.selectionUnit$.subscribe((value) => console.log(value));
     }
 
     public isCardOpen(unitName: string): boolean {
