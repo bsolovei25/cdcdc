@@ -13,6 +13,7 @@ interface IMnemonicDiagramResponse {
 export interface IMnemonicEquipmentData {
     id: string;
     name: string;
+    deviation: number;
     isActive?: boolean;
     fileName?: string;
     isFiltered?: boolean;

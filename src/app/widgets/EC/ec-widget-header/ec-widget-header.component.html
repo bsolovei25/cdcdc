@@ -41,7 +41,10 @@
           [src]="'assets/icons/widgets/EC/ec-widget-header/' + equipment.fileName + '.svg'"
         ></svg-icon>
         <div class="equipment__title">{{equipment.name}}</div>
-        <div class="equipment__count">2</div>
+        <div
+          class="equipment__count"
+          [class.equipment__count_deviation]="equipment.deviationCount > 0"
+        >{{equipment.deviationCount}}</div>
       </div>
     </div>
   </div>
