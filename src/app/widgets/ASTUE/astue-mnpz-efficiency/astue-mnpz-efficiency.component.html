@@ -1,0 +1,84 @@
+<div class="container pointer-events">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
+  <evj-contemporary-widget-header type="astue" [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
+    <div class="btn-container">
+      <div
+        class="btns"
+        (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
+      >
+        <div class="btn" [class.btn_active]="isInitialDataShow" (click)="toggleIsInitialDataShows(true)">
+          Исходные данные
+        </div>
+        <div class="btn" [class.btn_active]="!isInitialDataShow" (click)="toggleIsInitialDataShows(false)">
+          Планирование
+        </div>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div class="content-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <ng-container *ngIf="data.length">
+      <ng-container *ngIf="isInitialDataShow">
+        <div class="item item_s">
+          <evj-astue-efficiency-items
+            [data]="data"
+            (selectProduct)="onSelectProduct($event)"
+          ></evj-astue-efficiency-items>
+        </div>
+        <div class="item item_s">
+          <evj-astue-efficiency-units
+            [isInitialDataShow]="isInitialDataShow"
+            [units]="units"
+            *ngIf="selection.hasValue()"
+          ></evj-astue-efficiency-units>
+        </div>
+        <ng-container *ngIf="isGraphDisplay; else table">
+          <div class="item item_l">
+            <evj-astue-efficiency-graph-display
+              (toggleDisplay)="toggleDisplay($event)"
+            ></evj-astue-efficiency-graph-display>
+          </div>
+          <div class="item item_m">
+            <evj-astue-efficiency-initial-data></evj-astue-efficiency-initial-data>
+          </div>
+        </ng-container>
+        <ng-template #table>
+          <div class="item item_xl">
+            <evj-astue-efficiency-table-display
+              [isInitialDataShow]="isInitialDataShow"
+              [allData]="units"
+              (toggleDisplay)="toggleDisplay($event)"
+            ></evj-astue-efficiency-table-display>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="!isInitialDataShow">
+        <div class="block">
+          <div class="block__items">
+            <div class="item item_s">
+              <evj-astue-efficiency-items
+                [data]="data"
+                (selectProduct)="onSelectProduct($event)"
+              ></evj-astue-efficiency-items>
+            </div>
+            <div class="item item_s">
+              <evj-astue-efficiency-units
+                [isInitialDataShow]="isInitialDataShow"
+                [units]="units"
+                *ngIf="selection.hasValue()"
+              ></evj-astue-efficiency-units>
+            </div>
+          </div>
+        </div>
+        <div class="item item_xl">
+          <evj-astue-efficiency-table-display
+            [isInitialDataShow]="isInitialDataShow"
+            [planningTable]="tableDisplay"
+          ></evj-astue-efficiency-table-display>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

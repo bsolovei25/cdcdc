@@ -211,7 +211,7 @@ export class WidgetService {
             };
         }
         return this.widgetsSocketObservable.pipe(
-            filter((ref) => ref?.channelId === widgetId),
+            filter((ref) => ref?.channelId === widgetId && !ref?.subChannelId),
             map((ref) => {
                 return this.mapWidgetData(ref.data, widgetType);
             })

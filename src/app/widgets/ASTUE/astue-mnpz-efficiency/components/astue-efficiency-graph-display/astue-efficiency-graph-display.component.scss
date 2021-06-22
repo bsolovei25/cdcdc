@@ -1,0 +1,228 @@
+:host {
+  width: 100%;
+  height: 100%;
+  * {
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--text-contrast-color);
+  }
+}
+
+.graph-display {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__header,
+  &__counters,
+  &__graph,
+  &__scroll {
+    width: 100%;
+  }
+
+  &__header,
+  &__counters,
+  &__graph {
+    margin-bottom: 7px;
+  }
+
+  &__header {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+  }
+
+  &__counters {
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
+  }
+
+  &__graph {
+    height: 100%;
+  }
+
+  &__scroll {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+  }
+
+  .header {
+    position: relative;
+    border-radius: 2px;
+    box-shadow: 0px 4px 4px var(--gradient-main-color-1);
+    background: var(--bg-header-color);
+
+    &__buttons {
+      position: absolute;
+      width: 420px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      display: flex;
+      overflow: hidden;
+      background: transparent;
+
+      .button {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        color: var(--text-main-color);
+
+        &:hover {
+          cursor: pointer;
+          color: var(--text-accent-color);
+        }
+
+        &_active {
+          border-bottom: 2px solid var(--border-blue-color);
+          color: var(--text-accent-color);
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .counters {
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+      height: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    &__cards {
+      height: 70px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .counter {
+    &-header {
+      height: 100%;
+      flex: 3;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      font-size: 12px;
+      color: var(--text-contrast-color);
+
+      &:last-child {
+        flex: 1;
+      }
+    }
+
+    &-card {
+      width: 195px;
+      height: 100%;
+      border-radius: 2px;
+      background: var(--gray-G10-50-color);
+      box-shadow: 0px 4px 4px var(--gradient-main-color-1);
+
+      .unit {
+        color: var(--text-main-color);
+        font-size: 12px;
+        line-height: 16px;
+
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .card {
+    position: relative;
+    padding: 10px 10px 12px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__title {
+      font-size: 12px;
+      color: var(--text-subscript-color);
+    }
+
+    &__value {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    &_single {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: var(--text-contrast-color);
+    }
+  }
+
+  .label {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    font-size: 14px;
+    color: var(--text-contrast-color);
+  }
+
+  .graph {
+    position: relative;
+    border-radius: 2px;
+    box-shadow: 0px 4px 4px var(--gradient-main-color-1);
+    background: var(--bg-body-color);
+    display: flex;
+
+    &__container {
+      width: 100%;
+      height: 80%;
+      align-self: center;
+    }
+  }
+
+  .value {
+    font-size: 18px;
+    color: var(--text-contrast-color);
+    word-break: break-all;
+  }
+
+  .units {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 10px;
+    color: var(--text-subscript-color);
+  }
+
+  .scroll {
+    border-radius: 2px;
+    box-shadow: 0px 4px 4px var(--gradient-main-color-1);
+    background: var(--bg-body-color);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    &__smart {
+      width: 100%;
+      height: 100%;
+
+      &::ng-deep {
+        .scroll-bar .sb__track {
+          background: var(--bg-body-color) !important;
+        }
+      }
+    }
+  }
+}

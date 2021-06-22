@@ -1,0 +1,33 @@
+<div class="items">
+  <div class="items__header header">
+    <div
+      matRipple
+      matRippleColor="white"
+      class="header__item item"
+      [class.item_active]="direction === 'in'"
+      (click)="changeDirection('in')"
+    >
+      Потребление
+    </div>
+    <div
+      matRipple
+      matRippleColor="white"
+      class="header__item item"
+      [class.item_active]="direction === 'out'"
+      (click)="changeDirection('out')"
+    >
+      Выработка
+    </div>
+  </div>
+  <div class="items__content content">
+    <ng-container *ngFor="let card of data">
+      <evj-astue-efficiency-item-card
+        *ngIf="card.direction === direction"
+        [isActive]="cardSelection.isSelected(card)"
+        [card]="card"
+        [background]="true"
+        (click)="onSelectProduct(card)"
+      ></evj-astue-efficiency-item-card>
+    </ng-container>
+  </div>
+</div>
