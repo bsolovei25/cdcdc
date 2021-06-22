@@ -78,9 +78,12 @@
   background-color: var(--bg-header-color);
   padding: 5px 12px;
   display: flex;
-  justify-content: space-between;
   cursor: move;
   height: 40px;
+
+  &__smart {
+    justify-content: space-between;
+  }
 
   .close {
     cursor: pointer;
