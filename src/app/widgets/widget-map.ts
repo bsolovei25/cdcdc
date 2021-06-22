@@ -2035,9 +2035,9 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/SUUTP/suutp-complexes/complexes.module.ts');
         },
         module: 'ComplexesModule',
-        itemCols: 20,
+        itemCols: 16,
         itemRows: 35,
-        minItemCols: 20,
+        minItemCols: 15,
         minItemRows: 6,
         preview: 'default',
     },
@@ -2047,7 +2047,7 @@ export const WIDGETS_LAZY = {
             return await import('@widgets/SUUTP/suutp-complexes-table/suutp-complexes-table.module');
         },
         module: 'SuutpComplexesTableModule',
-        itemCols: 20,
+        itemCols: 48,
         itemRows: 20,
         minItemCols: 10,
         minItemRows: 10,

@@ -12,7 +12,7 @@ import { IHeaderMenu } from '@widgets/SUUTP/shared/header-menu.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuutpHeaderComponent {
-    @Input() private uniqId: string = '';
+    @Input() uniqId: string = '';
     @Input() title: string;
     public isMenuOpen: boolean;
     public isMenuOpen$: Subject<boolean> = new Subject<boolean>();
