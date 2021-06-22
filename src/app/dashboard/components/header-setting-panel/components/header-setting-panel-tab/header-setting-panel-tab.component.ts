@@ -15,10 +15,6 @@ export class HeaderSettingPanelTabComponent implements OnInit {
     public form: FormGroup;
     filterBlock: typeof FilterBlock = FilterBlock;
 
-    public tabForm: FormGroup = new FormGroup({
-        filtration: new FormControl(''),
-        relations: new FormArray([this.createInput()]),
-    });
     public activeBlock: FilterBlock;
     public filterBlocks: typeof FilterBlock = FilterBlock;
 
@@ -30,6 +26,7 @@ export class HeaderSettingPanelTabComponent implements OnInit {
 
     public ngOnInit(): void {
         this.form = (this.controlContainer.control as FormGroup);
+        this.addInput();
     }
 
     public toggleActive(): void {

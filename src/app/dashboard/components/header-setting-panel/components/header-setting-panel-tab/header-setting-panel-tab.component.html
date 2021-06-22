@@ -18,7 +18,7 @@
         (change)="toggleActive()"
       ></mat-slide-toggle>
 
-      <svg-icon (click)="toggleTab()" class="arrow-icon open" src="assets/icons/dashboard/arrow.svg"></svg-icon>
+      <svg-icon (click)="toggleTab()" [class.open]="form.get('isOpen').value" class="arrow-icon" src="assets/icons/dashboard/arrow.svg"></svg-icon>
     </div>
   </div>
   <div class="header-setting-panel-tab__body" *ngIf="form.get('isOpen').value">
@@ -27,6 +27,7 @@
         <div class="header-setting-panel-tab__header">
           <div class="header-setting-panel-tab__title">Фильтрация</div>
         </div>
+        <div class="shadow"></div>
         <div class="group-body">
           <div class="buttons-list">
             <evj-header-setting-panel-button
