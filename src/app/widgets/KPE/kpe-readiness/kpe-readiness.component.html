@@ -186,7 +186,6 @@
         </ng-container>
       </div>
       <div class="readiness__main-new"
-        [class.readiness__main-new--line]="displayMode === 'line'"
         *ngIf="displayNewDesign$ | async"
       >
         <ng-container *ngFor="let card of gaugeCards$ | async; trackBy: trackByIndex">
