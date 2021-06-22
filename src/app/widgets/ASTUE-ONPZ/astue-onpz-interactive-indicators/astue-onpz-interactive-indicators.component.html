@@ -30,7 +30,7 @@
                 [ngClass]="!item.isChoosing ? 'item-color-disabled' : ''"
               ></svg-icon>
             </div>
-            <div class="item__name">{{ item.value.name }}</div>
+            <div class="item__name">{{ item.value?.name }}</div>
             <div class="item__delete" (click)="deleteLabel($event, item.key)">
               <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/close.svg"></svg-icon>
             </div>
@@ -44,7 +44,7 @@
               [value]="selectValue"
               panelClass="mat-select-custom"
             >
-              <mat-option *ngFor="let p of restIndicators" [value]="p.key"> {{ p.value.name }} </mat-option>
+              <mat-option *ngFor="let p of restIndicators" [value]="p.key"> {{ p.value?.name }} </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
