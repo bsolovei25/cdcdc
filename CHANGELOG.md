@@ -1,3 +1,11 @@
+## [1.41.1](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.41.0...v1.41.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **EC:** "Вывод значений отклонений в хэддер виджете ec-widget-header". [#2233](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/2233) ([b043fc6](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/b043fc621e4d8f4cdfb2353aac1a5525a5e0c038))
+* **EC:** "Реализация виджета График анализа трендов" [#1950](https://gitlab.funcoff.club/oaovd/osspu/evj/front/issues/1950) ([d20d9dd](https://gitlab.funcoff.club/oaovd/osspu/evj/front/commit/d20d9dd3e17ca98bbd2ac8d2aa25cad661f1f5a8))
+
 # [1.41.0](https://gitlab.funcoff.club/oaovd/osspu/evj/front/compare/v1.40.0...v1.41.0) (2021-06-19)
 
 
