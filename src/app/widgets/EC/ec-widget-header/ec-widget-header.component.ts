@@ -20,6 +20,7 @@ interface IMenuReferenceModel {
     id: string;
     parentId?: string;
     name: string;
+    deviationCount: number;
     isActive?: boolean;
     fileName?: string;
 }

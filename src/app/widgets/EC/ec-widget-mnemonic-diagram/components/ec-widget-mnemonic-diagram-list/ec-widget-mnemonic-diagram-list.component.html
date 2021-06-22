@@ -17,6 +17,7 @@
           *ngIf="!item.isFiltered"
           class="equipments__item item-equipments"
           [class.item-equipments_active]="item.isActive"
+          [class.item-equipments_deviation]="item.deviation > 0"
           (click)="onClickEquipment(item)"
         >
           <div class="item-equipments__icon-container">

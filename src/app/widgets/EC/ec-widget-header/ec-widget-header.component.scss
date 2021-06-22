@@ -82,6 +82,11 @@
     &__count {
       padding: 1px 5px;
       border-radius: 2px;
+      background-color: var(--border-forms-color);
+      color: var(--text-main-color);
+    }
+
+    &__count_deviation {
       background-color: var(--index-error-color);
       color: var(--text-alwaysWhite-color);
     }

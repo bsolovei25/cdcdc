@@ -109,6 +109,20 @@
           color: var(--text-alwaysWhite-color);
         }
       }
+
+      &_deviation {
+        .item-equipments__icon {
+          color: var(--index-error-color);
+        }
+
+        .item-equipments__title {
+          color: var(--index-error-color);
+        }
+      }
+    }
+    .item-equipments_active.item-equipments_deviation {
+      border: 1px solid var(--index-error-color);
+      box-shadow: 0 0 9px var(--index-error-color);
     }
   }
 }

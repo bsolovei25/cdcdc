@@ -19,6 +19,7 @@ export class EcWidgetTrendAnalysisMultiChartComponent {
             this.transformData();
             this.startDrawChart();
         } else {
+            this.data = [];
             this.dropChart();
         }
     }
