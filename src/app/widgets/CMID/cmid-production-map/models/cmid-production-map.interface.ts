@@ -1,26 +1,21 @@
 export interface ICmidMnpzProductionMapInterface {
-    builds: ICmidMnpzProductionMapInterfaceBuild[];
+    elements: ICmidMnpzProductionMapInterfaceBuild[];
     weather: ICmidMnpzProductionMapInterfaceWeather;
 }
 
 export interface ICmidMnpzProductionMapInterfaceBuild {
-    id: number,
     name: string,
-    options: ICmidMnpzProductionMapInterfaceOptions;
-}
-
-export interface ICmidMnpzProductionMapInterfaceOptions {
-    safety: string,
-    reliability: string,
-    ecology: string
+    safety: number,
+    reliability: number,
+    ecology: number
 }
 
 export interface ICmidMnpzProductionMapInterfaceWeather {
     precipitation: number,
+    windSpeed: number,
+    windDirection: number,
     temperature: number,
-    pressure: number,
-    wind: number,
-    windDirection: string
+    pressure: number
 }
 
 export enum MapTypes {

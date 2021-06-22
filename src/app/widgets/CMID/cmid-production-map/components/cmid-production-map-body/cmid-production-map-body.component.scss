@@ -49,6 +49,7 @@
         transform-box: fill-box;
         will-change: transform;
         backface-visibility: hidden;
+        transform-origin: 25px 25px;
 
         &_mnpz {
           transform-origin: 25px 25px;
