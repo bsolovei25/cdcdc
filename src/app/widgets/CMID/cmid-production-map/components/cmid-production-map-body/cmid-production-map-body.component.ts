@@ -69,30 +69,30 @@ export class CmidProductionMapBodyComponent implements OnDestroy, OnChanges, Aft
         setTimeout(() =>  {
             this.drawData();
             this.drawTooltip();
+            this.rotateCompass(this.data.weather.windDirection);
         }, 200);
-
     }
 
     private drawData(): void {
         this.svgMap = this.productionMap.nativeElement.querySelector('svg-icon').querySelector('svg');
         const productions = this.svgMap.querySelectorAll('.svg-map__production');
         const productionsText = this.svgMap.querySelectorAll('#text');
-        productions.forEach((build) => {
-            const buildDataId = build.getAttribute('data-id');
-            this.data.builds.forEach((item: ICmidMnpzProductionMapInterfaceBuild) => {
-                if (item.id === parseInt(buildDataId, 10)) {
+        productions.forEach((build: SVGElement) => {
+            const buildDataId = build.getAttribute('data-name');
+            this.data.elements.forEach((item: ICmidMnpzProductionMapInterfaceBuild) => {
+                if (item.name === buildDataId) {
                     this.renderer.addClass(build, 'svg-map__production_filled');
                     this.renderer.setAttribute(build, 'data-name', item.name);
-                    this.renderer.setAttribute(build, 'data-safety', item.options?.safety);
-                    this.renderer.setAttribute(build, 'data-reliability', item.options?.reliability);
-                    this.renderer.setAttribute(build, 'data-ecology', item.options?.ecology);
+                    this.renderer.setAttribute(build, 'data-safety', item.safety.toString());
+                    this.renderer.setAttribute(build, 'data-reliability', item.reliability.toString());
+                    this.renderer.setAttribute(build, 'data-ecology', item.ecology.toString());
                 }
             });
         });
-        productionsText.forEach((text) => {
-            const textDataId = text.getAttribute('data-id');
-            this.data.builds.forEach((item: ICmidMnpzProductionMapInterfaceBuild) => {
-                if (item.id === parseInt(textDataId, 10)) {
+        productionsText.forEach((text: SVGElement) => {
+            const textDataName = text.getAttribute('data-name');
+            this.data.elements.forEach((item: ICmidMnpzProductionMapInterfaceBuild) => {
+                if (item.name === textDataName) {
                     this.renderer.addClass(text, 'svg-map__text_filled');
                 }
             });
@@ -103,11 +103,12 @@ export class CmidProductionMapBodyComponent implements OnDestroy, OnChanges, Aft
         const compassArrow = this.svgMap.querySelector('#compassArrow')
         this.renderer.addClass(compassArrow, this.getCompassClass(this.mapType));
         this.renderer.setAttribute(compassArrow, 'style', `transform: rotate(${val + this.normalizeNumber}deg); transition: all, 1s, easy;`);
+
     }
 
     private drawTooltip(): void {
         const selected = this.svgMap.querySelectorAll('.svg-map__production_filled');
-        selected.forEach((rect) => {
+        selected.forEach((rect: SVGElement) => {
             this.mouseEnterUnlistener = this.renderer.listen(rect, 'mouseenter', () => {
                 const parentPos = rect.getBoundingClientRect();
                 const tooltipPosition = this.tooltip.nativeElement.getBoundingClientRect();
@@ -135,6 +136,6 @@ export class CmidProductionMapBodyComponent implements OnDestroy, OnChanges, Aft
     }
 
     private getCompassClass(type: string): string {
-        return type === MapTypes.MNPZ_MAP ? 'compass__arrow_mnpz' : 'compass__arrow_onpz';
+        return type === MapTypes.MNPZ_MAP ? 'compass__arrow_onpz' : 'compass__arrow_mnpz';
     }
 }

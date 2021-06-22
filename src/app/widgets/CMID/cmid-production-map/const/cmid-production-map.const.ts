@@ -1,52 +1,31 @@
-import { ICmidMnpzProductionMapInterface } from "@widgets/CMID/cmid-production-map/models/cmid-production-map.interface";
+import { ICmidMnpzProductionMapInterface } from '@widgets/CMID/cmid-production-map/models/cmid-production-map.interface';
 
 export const cmidMnpzProductionMapData: ICmidMnpzProductionMapInterface = {
-    builds: [
+    elements: [
         {
-            id: 40,
-            name: 'ЭЛОУ-АВТ-6',
-            options: {
-                safety: '2',
-                reliability: '5',
-                ecology: '1'
-            }
+            name: 'БОВ-2',
+            safety: 5,
+            reliability: 5,
+            ecology: 5
         },
         {
-            id: 48,
-            name: 'КЦА',
-            options: {
-                safety: '8',
-                reliability: '1',
-                ecology: '2'
-            }
+            name: 'БОВ-4',
+            safety: 5,
+            reliability: 5,
+            ecology: 5
         },
         {
-            id: 49,
-            name: 'ЛЧ-35/11-1000',
-            options: {
-                safety: '4',
-                reliability: '2',
-                ecology: '2'
-            }
+            name: 'БОВ-5',
+            safety: 5,
+            reliability: 5,
+            ecology: 5
         },
-        {
-            id: 61,
-            name: 'ЛЧ-24-2000',
-            options: {
-                safety: '5',
-                reliability: '3',
-                ecology: '1'
-            }
-        },
-        {
-            id: 86,
-            name: 'УПБ',
-            options: {
-                safety: '10',
-                reliability: '4',
-                ecology: '6'
-            }
-        }
     ],
-    weather: { precipitation: 15, temperature: 320, pressure: 745, wind: 5.1, windDirection: 'ВЮВ' },
+    weather: {
+        precipitation: 0,
+        windSpeed: 0,
+        windDirection: 0,
+        temperature: 0,
+        pressure: 0
+    }
 };

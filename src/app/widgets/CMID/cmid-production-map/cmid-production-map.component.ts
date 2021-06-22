@@ -33,7 +33,6 @@ export class CmidProductionMapComponent extends WidgetPlatform implements OnInit
 
     ngOnInit(): void {
         this.widgetInit();
-        this.data = cmidMnpzProductionMapData;
     }
 
     protected dataConnect(): void {
@@ -41,7 +40,9 @@ export class CmidProductionMapComponent extends WidgetPlatform implements OnInit
         this.isLoad$.next(!!this.widgetType.length);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+    }
 
     public onMouseEnter(): void {
         this.hoverTimer = setTimeout(() => {
