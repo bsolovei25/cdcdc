@@ -15,6 +15,10 @@ import { WORKSPACE_BAR_INFO } from '@widgets/SOU/sou-workspace/mock';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { SouWorkspaceInfoBarComponent } from '@widgets/SOU/sou-workspace/components/sou-workspace-info-bar/sou-workspace-info-bar.component';
+import { SouWorkspaceOperationComponent } from '@widgets/SOU/sou-workspace/components/sou-workspace-operation/sou-workspace-operation.component';
+import { ISouStreamsOperation } from '@dashboard/models/SOU/sou-streams.model';
+import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.service';
 
 @Component({
     selector: 'evj-sou-workspace',
@@ -46,19 +50,24 @@ import { TemplatePortal } from '@angular/cdk/portal';
 })
 export class SouWorkspaceComponent extends WidgetPlatform implements OnInit, AfterViewInit, OnDestroy {
 
+    @Output() closeWorkspaceOut: EventEmitter<boolean> = new EventEmitter();
+
     public workspaceBarInfo: {} = WORKSPACE_BAR_INFO;
     public showChart: boolean = false;
 
-    @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
     private overlayRef: OverlayRef;
     private portal: TemplatePortal;
 
-    @Output() closeWorkspaceOut: EventEmitter<boolean> = new EventEmitter();
+    @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
+    @ViewChild('infoBarSource') infoBarSource: SouWorkspaceInfoBarComponent;
+    @ViewChild('infoBarDestination') infoBarDestination: SouWorkspaceInfoBarComponent;
+    @ViewChild('operation') operation: SouWorkspaceOperationComponent;
 
     constructor(
         protected widgetService: WidgetService,
         private overlay: Overlay,
         private viewContainerRef: ViewContainerRef,
+        private souStreamsService: SouStreamsService,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
@@ -93,8 +102,37 @@ export class SouWorkspaceComponent extends WidgetPlatform implements OnInit, Aft
         this.overlayRef?.attach(this.portal);
     }
 
-    closeWorkspace(): void {
+    public closeWorkspace(): void {
         this.closeWorkspaceOut.emit();
+    }
+
+    public save(): void {
+        if (
+            this.infoBarSource.isValid
+            && this.infoBarDestination.isValid
+            && this.operation.isValid
+        ) {
+            const operation: ISouStreamsOperation = {
+                sourceName: this.infoBarSource?.selectedClient?.objectName,
+                destinationName: this.infoBarDestination?.selectedClient?.objectName,
+                startTime: this.operation?.startTime?.toJSON() || null,
+                endTime: this.operation?.endTime?.toJSON() || null,
+                sourceProduct: this.infoBarSource?.selectedProductName,
+                destinationProduct: this.infoBarDestination?.selectedProductName,
+                sourceMass: this.operation?.sourceMass,
+                destinationMass: this.operation?.destinationMass,
+                flow: '(поз. 2553)',
+            };
+
+            this.souStreamsService
+                .createOperation(operation)
+                .subscribe((resp: unknown) => {
+                    console.log('operation created', resp);
+                    this.closeWorkspace();
+                }, (err) => {
+                    console.error('operation create', err);
+                });
+        }
     }
 
 }

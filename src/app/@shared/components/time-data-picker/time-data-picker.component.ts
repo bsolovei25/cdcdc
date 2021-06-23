@@ -32,7 +32,7 @@ export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     selector: 'evj-time-data-picker',
     templateUrl: './time-data-picker.component.html',
     styleUrls: ['./time-data-picker.component.scss'],
-    providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
+    providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS }],
 })
 export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Inject('isDateTime') isDateTime: boolean = false;
