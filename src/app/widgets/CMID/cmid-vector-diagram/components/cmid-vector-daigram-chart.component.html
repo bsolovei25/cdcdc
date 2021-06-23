@@ -1,10 +1,10 @@
-<div class="radar-chart" [class.radar-chart_selected]="checkedId == data.id">
+<div class="radar-chart" [class.radar-chart_selected]="isChecked">
     <div class="radar-chart__header">
       <div class="radar-chart__name-wrapper">
         <svg-icon [src]="'assets/icons/widgets/CMID/vector-diagram/' + getHeaderIcon(data.id)" class="radar-chart__icon"></svg-icon>
         <span class="radar-chart__name">{{ data?.title }}</span>
       </div>
-      <mat-radio-button value="{{data?.id}}" [disableRipple]="true" (change)="onChartSelected($event.value)"></mat-radio-button>
+      <mat-checkbox #privatUserCheckbox [(ngModel)]="isChecked" value="{{data?.id}}" [disableRipple]="true" (change)="onChartSelected()"></mat-checkbox>
     </div>
   <div #chart class="radar-chart__graph">
     <div class="radar"></div>
