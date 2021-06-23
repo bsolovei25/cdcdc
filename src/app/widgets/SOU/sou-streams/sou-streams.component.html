@@ -247,7 +247,8 @@
 
           <td>
             <div class="table__row__cell-img-only"
-                 *ngIf="(((row['deltaMass']) !== 0)&&(!(row['deltaMass'])) || !(row['endTime'])) else notEmptyEndTime">
+                 *ngIf="(((row['deltaMass']) !== 0)&&(!(row['deltaMass']))
+                 || (!(row['endTime'])&&((row['deltaMass']) === 0))) else notEmptyEndTime">
               <svg-icon
                 src="assets/icons/widgets/SOU/sou-streams/line.svg"
                 class="cell-img"
@@ -256,7 +257,7 @@
             </div>
             <ng-template #notEmptyEndTime>
               <div class="table__row__cell-img-only"
-                   *ngIf="(row['deltaMass'] !== 0) else defaultEndTime">
+                   *ngIf="((row['deltaMass'] !== 0)&&(!(row['endTime']))) else defaultEndTime">
                 <svg-icon
                   src="assets/icons/widgets/SOU/sou-streams/alert_alarm.svg"
                   class="cell-img"
