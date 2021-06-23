@@ -200,7 +200,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 currentDatetime.getTime() - this.timeOffsetLeft * 1000 * 60 * 60,
                 currentDatetime.getTime() + this.timeOffsetRight * 1000 * 60 * 60,
             ];
-            this.data.forEach(
+            this.data?.forEach(
                 (item) =>
                     (item.graph = fillDataArrayChart(
                         item.graph,
@@ -247,7 +247,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private findMinMax(): void {
         this.charts = [];
-        this.data.forEach((graph) => {
+        this.data?.forEach((graph) => {
             const key: string =
                 graph.graphType === 'fact' ||
                 graph.graphType === 'plan' ||
@@ -924,7 +924,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         let factModel: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
-        this.charts.forEach((chart) => {
+        this.charts?.forEach((chart) => {
             const filterChart = chart.graph.filter((item) => item.timeStamp.getTime() <= date.getTime());
             const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;

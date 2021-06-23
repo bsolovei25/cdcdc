@@ -97,17 +97,28 @@
   </div>
   <div class="graph-display__graph graph">
     <div class="units" *ngIf="flowUnits">{{flowUnits}}</div>
-    <div class="graph__container">
-      <evj-line-chart-shared
-        [showAstueLegend]="true"
-        [astueLegendUnit]="unit"
-        [data]="data"
-        [isShowingLegend]="true"
-        [limits]="selectedPeriod"
-        [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
-        chartType="astue-efficiency"
-      ></evj-line-chart-shared>
-    </div>
+    <!--<div class="graph__container">
+      <div class="vertical-scroll">
+        <evj-vertical-smart-scroll
+          [limits]="valuesFrame"
+          [(sbThumbTop)]="sbTop"
+          [(sbThumbHeight)]="sbHeight"
+        ></evj-vertical-smart-scroll>
+      </div>
+      <div class="graph-area">-->
+        <evj-line-chart-shared
+          [showAstueLegend]="true"
+          [astueLegendUnit]="unit"
+          [data]="data"
+          [isShowingLegend]="true"
+          [limits]="selectedPeriod"
+          [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
+          [verticalLimits]="valuesFrame"
+          [verticalScroll]="{top: sbTop, bottom: 100 - sbTop - sbHeight}"
+          chartType="astue-efficiency"
+        ></evj-line-chart-shared>
+      <!--</div>
+    </div>-->
   </div>
   <div class="graph-display__scroll scroll">
     <evj-smart-scroll

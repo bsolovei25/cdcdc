@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef, OnChanges, HostListener, Input, OnInit } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { IProductionTrend, ProductionTrendType } from '../../../dashboard/models/LCO/production-trends.model';
+import { IProductionTrend, ProductionTrendType } from '@dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../interfaces/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../interfaces/line-chart-style.model';
-import { IDatesInterval } from '../../../dashboard/services/widget.service';
+import { IDatesInterval } from '@dashboard/services/widget.service';
 import { setLimits } from '../../functions/set-limits.function';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
@@ -19,12 +19,16 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() public astueLegendUnit: string = 'ед.изм.';
     @Input() public points: IPointTank[] = [];
     @Input() private limits: IDatesInterval = null;
+    @Input() private verticalLimits: {fromValue: number; toValue: number} = null;
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' | 'astue-efficiency' =
         'production-trend';
 
     @Input()
     private scroll: { left: number; right: number } = { left: 0, right: 0 };
+
+    @Input()
+    private verticalScroll: { top: number; bottom: number } = { top: 0, bottom: 0 };
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -134,7 +138,13 @@ export class LineChartComponent implements OnChanges, OnInit {
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         this.scaleFuncs.x = d3.scaleTime().domain(domainDates).rangeRound(rangeX);
 
-        const domainValues = [this.dataMax, this.dataMin];
+        let domainValues;
+        if (!this.verticalScroll) {
+            domainValues = [this.dataMax, this.dataMin];
+        } else {
+            // domainValues = [this.verticalLimits.fromValue, this.verticalLimits.toValue];
+            domainValues = [this.dataMax, this.dataMin];
+        }
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         this.scaleFuncs.y = d3.scaleLinear().domain(domainValues).range(rangeY);
 

@@ -15,7 +15,9 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
 import { AlertWindowComponent } from './components/alert-window/alert-window.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
+import { VerticalSmartScrollComponent } from './components/vertical-smart-scroll/vertical-smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { VerticalTrackComponent } from './components/vertical-smart-scroll/vertical-track/vertical-track.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
@@ -81,7 +83,9 @@ import { DndListenerDirective } from './directives/dnd-listener.directive';
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
+        VerticalSmartScrollComponent,
         LineChartTrackComponent,
+        VerticalTrackComponent,
         LineChartComponent,
         LineChartPickerDirective,
         EmailEditorComponent,
@@ -133,6 +137,7 @@ import { DndListenerDirective } from './directives/dnd-listener.directive';
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
+        VerticalSmartScrollComponent,
         EmailEditorComponent,
         UploadDropZoneComponent,
         LineChartComponent,

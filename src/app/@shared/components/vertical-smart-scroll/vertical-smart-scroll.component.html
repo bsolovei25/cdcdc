@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="scroll-bar">
+    <div class="scroll-bar__bg"></div>
+    <div class="sb__button" #btnTop>
+      <svg-icon
+        src="assets/icons/components/smart-scroll/left-right-icon.svg" class="icon"
+      ></svg-icon>
+    </div>
+    <div class="sb__track" #sbTrack>
+      <!--<evj-vertical-track *ngIf="data?.length" [data]="data" [limits]="limits"></evj-vertical-track>-->
+      <div class="sb__thumb" #sbThumb>
+        <div (mousedown)="$event.stopPropagation()" class="resizer resizer_top" #resizerTop></div>
+        <div class="thumb-body" #sbThumbBody></div>
+        <div (mousedown)="$event.stopPropagation()" class="resizer resizer_bottom" #resizerBottom></div>
+      </div>
+    </div>
+    <div class="sb__button" #btnBottom>
+      <svg-icon
+        src="assets/icons/components/smart-scroll/left-right-icon.svg" class="icon"
+      ></svg-icon>
+    </div>
+  </div>
+</div>

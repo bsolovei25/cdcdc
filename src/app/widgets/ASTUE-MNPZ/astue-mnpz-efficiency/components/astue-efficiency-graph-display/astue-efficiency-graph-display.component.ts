@@ -42,6 +42,8 @@ export class AstueEfficiencyGraphDisplayComponent
 
     public selectedPeriod: IDatesInterval = { fromDateTime: null, toDateTime: null };
 
+    public valuesFrame: {fromValue: number; toValue: number};
+
     public scrollData: IChartMini[] = [];
 
     private subs: Subscription[] = [];
@@ -49,6 +51,10 @@ export class AstueEfficiencyGraphDisplayComponent
     public sbLeft: number = 0;
 
     public sbWidth: number = 100;
+
+    public sbTop: number = 0;
+
+    public sbHeight: number = 100;
 
     private readonly restUrl: string = null;
 
