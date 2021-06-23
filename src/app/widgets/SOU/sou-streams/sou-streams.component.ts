@@ -9,8 +9,7 @@ import {
     OnInit,
     TemplateRef,
     ViewChild,
-    ViewContainerRef
-
+    ViewContainerRef,
 } from '@angular/core';
 import { WidgetService } from '@dashboard/services/widget.service';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
@@ -20,6 +19,8 @@ import { TITLES_OF_TABLE } from '@widgets/SOU/sou-streams/config';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SouStreamsService } from '@dashboard/services/widgets/SOU/sou-streams.service';
 import { ISouStreamsTableContent } from '@dashboard/services/widgets/SOU/sou-streams.service';
+import { ISouOptions, ISouStreamsClient, ISouStreamsObject } from '@dashboard/models/SOU/sou-streams.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -70,9 +71,16 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
     public heightOfViewPort: string = '335px';
     public widthOfTable: string = '1943.2px';
     public widthOfGraphic: number = 70;
+
+    // dropdowns
+    public clients: ISouStreamsClient[];
+    public clientObjects: ISouStreamsClient[];
+    public headerForm: FormGroup;
+
     @ViewChild('widget') child: ElementRef;
 
     @ViewChild('overlayCustom') dialogTemplate: TemplateRef<any>;
+
     private overlayRef: OverlayRef;
     private portal: TemplatePortal;
 
@@ -103,7 +111,6 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
                     this.toDateTime = this.fromDateTime;
                 }
                 this.souStreamsService.getTableContent(this.fromDateTime, this.toDateTime).then((res) => {
-                    console.log(res);
                     this.tableRowsAllOperations = res;
                     this.tableRows = this.tableRowsAllOperations;
                     this.processDataOfTable();
@@ -113,6 +120,10 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
                 }
             )
         );
+
+        this.initHeaderForm();
+        this.loadClients();
+        this.loadClientObjects();
     }
 
     filterTable(titleName: string): void {
@@ -256,8 +267,11 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
         return this.show ? 'show' : 'hide';
     }
 
-    protected dataHandler(ref: unknown): void {
+    protected dataConnect(): void {
+        super.dataConnect();
     }
+
+    protected dataHandler(ref: ISouOptions): void {}
 
     toggle(): void {
         this.show = !this.show;
@@ -282,6 +296,42 @@ export class SouStreamsComponent extends WidgetPlatform implements OnInit, After
 
     openDialog(): void {
         this.overlayRef?.attach(this.portal);
+    }
+
+    private loadClients(): void {
+        this.souStreamsService
+            .getClients()
+            .subscribe((resp: ISouStreamsClient[]) => {
+                this.clients = resp;
+            });
+    }
+
+    private loadClientObjects(): void {
+        const clientId = this.headerForm?.get('clientId').value;
+
+        if (clientId) {
+            this.souStreamsService
+                .getClientObjects(clientId)
+                .subscribe((resp: ISouStreamsObject[]) => {
+                    this.clientObjects = resp;
+                });
+        }
+    }
+
+    private initHeaderForm(): void {
+        this.headerForm = new FormGroup({
+            clientId: new FormControl(null),
+            clientObjectId: new FormControl(null),
+        });
+
+        this.headerForm
+            .get('clientId')
+            .valueChanges
+            .subscribe(() => {
+                this.headerForm.get('clientObjectId').reset(null);
+                this.clientObjects = [];
+                this.loadClientObjects();
+            });
     }
 
 }

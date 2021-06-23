@@ -4,12 +4,15 @@
       [uniqId]="uniqId"
       [widgetTitle]="widgetTitle"
       icon="drop"
-      type="astue">
-      <div class="header"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()">
+      type="astue"
+    >
+      <div
+        class="header"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
 
-        <div class="btn btn__blue btn__save">
+        <div class="btn btn__blue btn__save" (click)="save()">
           <svg-icon
             class="btn__icon"
             src="assets/icons/widgets/SOU/sou-workspace/save.svg"
@@ -40,26 +43,39 @@
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container" (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
+  <div
+    class="container" (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <evj-sou-workspace-info-bar
+      #infoBarSource
       class="info-bar"
-      [data]="workspaceBarInfo[0]">
+      [data]="workspaceBarInfo[0]"
+    >
     </evj-sou-workspace-info-bar>
-    <evj-sou-workspace-operation class="workspace-operation"
-                                 (clickSmartTrend)="openDialog()"></evj-sou-workspace-operation>
+    <evj-sou-workspace-operation
+      #operation
+      class="workspace-operation"
+      [sourceType]="infoBarSource.objectType"
+      [destinationType]="infoBarDestination.objectType"
+      (clickSmartTrend)="openDialog()"
+    ></evj-sou-workspace-operation>
     <!--    <evj-workspace-chart></evj-workspace-chart>-->
     <!--    <div class="default-img"></div>-->
     <evj-sou-workspace-info-bar
+      #infoBarDestination
       class="info-bar"
-      [data]="workspaceBarInfo[1]">
+      [data]="workspaceBarInfo[1]"
+    >
     </evj-sou-workspace-info-bar>
   </div>
 </div>
 <ng-container *ngIf="showChart">
   <div [@animation] style="margin-top: 10px">
-    <div class="widget-header" (mousedown)="$event.stopPropagation()"
-         (touchstart)="$event.stopPropagation()">
+    <div
+      class="widget-header" (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <evj-contemporary-widget-header
         widgetTitle="Умный тренд"
         icon="chart"
@@ -91,8 +107,9 @@
     </span>
       </div>
     </div>
-    <evj-workspace-chart (mousedown)="$event.stopPropagation()"
-                         (touchstart)="$event.stopPropagation()"
+    <evj-workspace-chart
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
     ></evj-workspace-chart>
   </div>
 </ng-template>

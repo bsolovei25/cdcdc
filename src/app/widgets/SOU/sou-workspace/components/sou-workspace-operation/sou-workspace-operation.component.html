@@ -1,6 +1,12 @@
 <div class="operation-section">
-  <div class="operation">
-    <div class="operation__svg operation__svg__source">
+  <div
+    class="operation"
+    [formGroup]="form"
+  >
+    <div
+      class="operation__svg operation__svg__source"
+      [class.is-tank]="isSourceTank"
+    >
       <svg-icon
         src="assets/icons/widgets/SOU/sou-workspace/chart_mountain.svg"
         class="operation__svg__button">
@@ -16,7 +22,12 @@
         </div>
         <div class="operation__info-block">
           <div class="operation__title">Масса по источнику</div>
-          <div class="operation__text">45.32</div>
+          <div class="operation__text">
+            <evj-input
+              formControlName="massSource"
+              [options]="massInputOptions"
+            ></evj-input>
+          </div>
         </div>
       </div>
 
@@ -36,7 +47,9 @@
         </div>
         <div class="operation__info-block">
           <div class="operation__title">Начало операции</div>
-          <div class="operation__text">15.02.2021, 09:00</div>
+          <div class="operation__text">
+            <evj-time-data-picker [data]="form?.get('dateSource').value"></evj-time-data-picker>
+          </div>
         </div>
         <div class="operation__edit-block">
           <svg-icon
@@ -50,7 +63,7 @@
 
     <div class="operation__center-block">
       <div class="operation__center-block__title">
-        2.02
+        {{ delta }}
       </div>
       <div class="operation__center-block__text">
         Δm
@@ -66,7 +79,12 @@
         </div>
         <div class="operation__info-block">
           <div class="operation__title">Масса по приёмнику</div>
-          <div class="operation__text">47.34</div>
+          <div class="operation__text">
+            <evj-input
+              formControlName="massReceiver"
+              [options]="massInputOptions"
+            ></evj-input>
+          </div>
         </div>
       </div>
 
@@ -82,7 +100,9 @@
       </div>
       <div class="line__vertical-dotted"></div>
 
-      <div class="operation__receiver__end-operation operation__block">
+      <div
+        class="operation__receiver__end-operation operation__block"
+      >
         <div class="operation__img-block operation__receiver__img-block">
           <svg-icon
             src="assets/icons/widgets/SOU/sou-workspace/timer-green.svg">
@@ -90,7 +110,9 @@
         </div>
         <div class="operation__info-block">
           <div class="operation__title">Конец операции</div>
-          <div class="operation__text">15.02.2021, 18:00</div>
+          <div class="operation__text">
+            <evj-time-data-picker [data]="form?.get('dateDestination').value"></evj-time-data-picker>
+          </div>
         </div>
         <div class="operation__edit-block">
           <svg-icon
@@ -102,7 +124,10 @@
 
     </div>
 
-    <div class="operation__svg operation__svg__receiver"></div>
+    <div
+      class="operation__svg operation__svg__receiver"
+      [class.is-tank]="isReceiverTank"
+    ></div>
   </div>
   <div class="operation-section__button" (click)="clickBtn()">
     <svg-icon

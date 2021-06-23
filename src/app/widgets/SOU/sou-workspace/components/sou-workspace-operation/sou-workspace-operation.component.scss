@@ -35,7 +35,11 @@
     &__source {
       width: 280px;
       height: 280px;
-      background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-1.svg");
+      background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-2.svg");
+
+      &.is-tank {
+        background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-1.svg");
+      }
     }
 
     &__receiver {
@@ -44,6 +48,10 @@
       margin-top: 9px;
       margin-right: 9px;
       background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-2.svg");
+
+      &.is-tank {
+        background: url("../../../../../../assets/icons/widgets/SOU/sou-workspace/operation-1.svg");
+      }
     }
 
     &__button {
@@ -142,6 +150,7 @@
   &__text {
     color: var(--text-contrast-color);
     padding-bottom: 2px;
+    width: 145px;
   }
 
   .line {

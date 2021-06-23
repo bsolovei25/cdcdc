@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { WorkspaceChartComponent } from './components/workspace-chart/workspace-chart.component';
 import { SouWorkspaceOperationComponent } from '@widgets/SOU/sou-workspace/components/sou-workspace-operation/sou-workspace-operation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SouWorkspaceComponent,
     WorkspaceChartComponent
   ],
-  imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSelectModule, MatTooltipModule, DragDropModule]
+  imports: [CommonModule, SharedModule, AngularSvgIconModule, MatSelectModule, MatTooltipModule, DragDropModule, ReactiveFormsModule]
 })
 
 export class SouWorkspaceModule {

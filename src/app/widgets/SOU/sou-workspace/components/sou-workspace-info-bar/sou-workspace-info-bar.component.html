@@ -1,9 +1,13 @@
 <div class="info-bar">
-  <div class="about-section"
-       [ngStyle]="{ 'backgroundImage': 'url(' + data['backgroundImgSrc'] + ')' }">
+  <div
+    class="about-section"
+    [ngStyle]="{ 'backgroundImage': 'url(' + data['backgroundImgSrc'] + ')' }"
+  >
 
-    <div class="about-section__subtitle"
-         [ngStyle]="{ 'color': data['mainColor'] }">
+    <div
+      class="about-section__subtitle"
+      [ngStyle]="{ 'color': data['mainColor'] }"
+    >
       {{ data['subTitle'] }}
     </div>
 
@@ -14,8 +18,10 @@
     <div class="about-section__details">
       <div *ngIf="data['details'].productName" class="about-section__detail">
         Продукт:
-        <p class="about-section__detail__highlight"
-           [matTooltip]="data['details'].productName">
+        <p
+          class="about-section__detail__highlight"
+          [matTooltip]="data['details'].productName"
+        >
           {{ data['details'].productName }}
         </p>
       </div>
@@ -42,14 +48,18 @@
           [src]="data['mainIconSrc']"
           [ngStyle]="{ 'height.px':20 }"
         ></svg-icon>
-        <div class="about-section__highlight__text"
-             [ngStyle]="{ 'color': data['highlight'].color }">
+        <div
+          class="about-section__highlight__text"
+          [ngStyle]="{ 'color': data['highlight'].color }"
+        >
           {{ data['highlight'].text }}
         </div>
       </div>
 
-      <div *ngIf="data['isDocumentationButton']"
-        class="about-section__button">
+      <div
+        *ngIf="data['isDocumentationButton']"
+        class="about-section__button"
+      >
         <svg-icon
           class="class=about-section__button__icon"
           src="assets/icons/widgets/SOU/sou-workspace/doc.svg"
@@ -58,27 +68,45 @@
         <div class="about-section__button__text">Паспортность</div>
       </div>
     </div>
-
   </div>
-  <div class="selectors-section">
+  <div
+    class="selectors-section"
+    [formGroup]="formGroup"
+  >
 
-    <div class="selectors-section__production">
-      <div class="selectors-section__label">Производство</div>
-      <div class="option-select">
-        <div class="dropdown">
-          <mat-select [placeholder]="data['selectors'].productionText" class="dropdown__select">
-            <mat-option> Не выбрано</mat-option>
-          </mat-select>
-        </div>
-      </div>
-    </div>
+    <!--    <div class="selectors-section__production">-->
+    <!--      <div class="selectors-section__label">Производство</div>-->
+    <!--      <div class="option-select">-->
+    <!--        <div class="dropdown">-->
+    <!--          <mat-select-->
+    <!--            class="dropdown__select"-->
+    <!--            formControlName="manufactureId"-->
+    <!--            [placeholder]="data['selectors'].productionText"-->
+    <!--          >-->
+    <!--            <mat-option>Не выбрано</mat-option>-->
+    <!--            <mat-option-->
+    <!--              *ngFor="let manufacture of manufactures$ | async"-->
+    <!--              [value]="manufacture.id"-->
+    <!--            >{{manufacture.name}}</mat-option>-->
+    <!--          </mat-select>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <div class="selectors-section__object">
       <div class="selectors-section__label">Название объекта</div>
       <div class="option-select">
         <div class="dropdown">
-          <mat-select [placeholder]="data['selectors'].objectText" class="dropdown__select">
-            <mat-option> Не выбрано</mat-option>
+          <mat-select
+            class="dropdown__select"
+            formControlName="clientId"
+            [placeholder]="data['selectors'].objectText"
+          >
+            <mat-option>Не выбрано</mat-option>
+            <mat-option
+              *ngFor="let client of clients"
+              [value]="client.id"
+            >{{ client.objectName }}</mat-option>
           </mat-select>
         </div>
       </div>
@@ -89,8 +117,16 @@
             [src]="data['mainIconSrc']"
             [ngStyle]="{ 'height.px':20 }"
           ></svg-icon>
-          <mat-select [placeholder]="data['selectors'].objectDetailsText" class="dropdown__select">
-            <mat-option> Не выбрано</mat-option>
+          <mat-select
+            class="dropdown__select"
+            formControlName="clientObjectId"
+            [placeholder]="data['selectors'].objectDetailsText"
+          >
+            <mat-option>Не выбрано</mat-option>
+            <mat-option
+              *ngFor="let object of clientObjects"
+              [value]="object.id"
+            >{{ object.objectName }}</mat-option>
           </mat-select>
         </div>
       </div>
@@ -99,11 +135,20 @@
     <div class="selectors-section__product">
       <div class="selectors-section__label">Продукт</div>
       <div class="option-select">
-        <div class="dropdown"
-             [ngClass]="{selectorDisabled: !data['selectors'].product['isActive']}">
-          <mat-select [placeholder]="data['selectors'].product.text"
-                      class="dropdown__select">
-            <mat-option> Не выбрано</mat-option>
+        <div
+          class="dropdown"
+          [ngClass]="{selectorDisabled: !data['selectors'].product['isActive']}"
+        >
+          <mat-select
+            class="dropdown__select"
+            formControlName="objectProductId"
+            [placeholder]="data['selectors'].product.text"
+          >
+            <mat-option>Не выбрано</mat-option>
+            <mat-option
+              *ngFor="let product of objectProducts"
+              [value]="product"
+            >{{ product }}</mat-option>
           </mat-select>
         </div>
       </div>
