@@ -6,7 +6,7 @@
 
 .radar-chart {
   background: var(--bg-body-color);
-  padding: 16px;
+  padding: 10px 16px 6px 16px;
   border: 1px solid var(--border-vidget-color);
   border-radius: 2px;
 
@@ -20,33 +20,27 @@
     justify-content: space-between;
 
     &::ng-deep {
-      .mat-radio-label-content {
-        display: none;
+      .mat-checkbox-frame {
+        border-radius: 50%;
       }
+      .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+      .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+        background-color: var(--border-blue-color);
+        border-radius: 50%;
 
-      .mat-radio-container {
-        width: 16px;
-        height: 16px;
-      }
-
-      .mat-radio-outer-circle {
-        width: 16px;
-        height: 16px;
-        border: 1px solid var(--toggler-border);
-      }
-
-      .mat-radio-checked {
-        .mat-radio-outer-circle {
-          border-color: var(--border-blue-color);
-          border-width: 3px;
+        .mat-checkbox-checkmark {
+          display: none;
         }
+      }
 
-        .mat-radio-inner-circle {
-          @include center-xy;
-
-          background-color: var(--text-accent-color);
-          height: 10px;
-          width: 10px;
+      .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+        &::before {
+          content: '';
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          background-color: var(--gray-G1-color);
+          border-radius: 50%;
         }
       }
     }
@@ -63,7 +57,6 @@
   }
 
   &__graph {
-    min-height: 250px;
     max-width: 428px;
     margin-top: 7px;
     margin-left: auto;
@@ -80,6 +73,8 @@
 }
 
 .radar {
+  height: 255px;
+
   ::ng-deep {
     .radar__grow-up {
       fill: var(--index-green1-color);

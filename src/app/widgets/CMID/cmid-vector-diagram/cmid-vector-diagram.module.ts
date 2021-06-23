@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { SharedModule } from "@shared/shared.module";
 import { CmidVectorDiagrammComponent } from "./cmid-vector-diagram.component";
@@ -10,9 +10,9 @@ import { AngularSvgIconModule } from "angular-svg-icon";
 
 @NgModule({
     declarations: [CmidVectorDiagrammComponent, CmidVectorDiagrammChartComponent],
-    imports: [
-        CommonModule, SharedModule, MatCheckboxModule, ReactiveFormsModule, MatRadioModule, AngularSvgIconModule
-    ]
+  imports: [
+    CommonModule, SharedModule, MatCheckboxModule, ReactiveFormsModule, MatRadioModule, AngularSvgIconModule, FormsModule
+  ]
 })
 
 export class CmidVectorDiagrammModule {

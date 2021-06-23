@@ -8,7 +8,10 @@ import {
     OnInit,
     Output,
     ViewChild,
-    EventEmitter
+    EventEmitter,
+    SimpleChanges,
+    SimpleChange,
+    OnChanges
 } from '@angular/core';
 import { WidgetPlatform } from '@dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '@dashboard/services/widget.service';
@@ -25,24 +28,31 @@ import { radarDataOptions } from '@widgets/CMID/cmid-vector-diagram/const/cmid-v
     templateUrl: './cmid-vector-daigram-chart.component.html',
     styleUrls: ['./cmid-vector-daigram-chart.component.scss']
 })
-export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
+export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> implements OnInit, OnChanges, AfterViewInit {
     @Input() data: ICmidVectorDiagramModel;
     @Input() radarOptions: ICmidVectorDiagramRadarOptions;
     @Input() checkedId: number;
     @Output() checkedChart: EventEmitter<number> = new EventEmitter<number>();
     @ViewChild('chart') chart: ElementRef;
-
     public svg: any;
     public graphTops: string[] = [];
     public radialScale: d3.linearScale;
+    public isChecked: boolean = false;
     private radarDataOptions: ICmidRadarDataOptions[];
     constructor(
         public widgetService: WidgetService,
-
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
     ) {
         super(widgetService, id, uniqId);
+    }
+    @ViewChild('privatUserCheckbox') privatUserCheckbox: ElementRef;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const selectedIdChanges: SimpleChange = changes?.checkedId;
+        if (selectedIdChanges && this.checkedId !== this.data.id) {
+            this.isChecked = false;
+        }
     }
 
     ngOnInit(): void {
@@ -75,8 +85,11 @@ export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> im
         }
     }
 
-    public onChartSelected(value: number): void {
-        this.checkedChart.emit(value);
+    public onChartSelected(): void {
+        if (this.data.id === this.checkedId) {
+            this.checkedChart.emit(null);
+        }
+        this.checkedChart.emit(this.data.id);
     }
 
     private initRadarChart(): void {
@@ -97,7 +110,7 @@ export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> im
             .attr('preserveAspectRatio', 'none')
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.chart.nativeElement.getBoundingClientRect().width + 20} ${this.chart.nativeElement.getBoundingClientRect().height + 20}`);
+            .attr('viewBox', `0 0 ${this.chart.nativeElement.getBoundingClientRect().width + 20} ${this.chart.nativeElement.getBoundingClientRect().height}`);
 
         this.svg.append('defs');
         this.svg.append('mask')
@@ -253,9 +266,9 @@ export class CmidVectorDiagrammChartComponent extends WidgetPlatform<unknown> im
             .style('font-size', '13px')
             .style('line-height', '16px')
         this.svg.append('polygon')
-            .attr('points', '195,136 200,144 190,144')
+            .attr('points', '195,138 200,146 190,146')
             .attr('style', () => {
-                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 196px 140px;'
+                return this.data.growIndex ? 'transform: none' : 'transform: rotate(-180deg); transform-origin: 196px 142px;'
             })
             .attr('class', () => {
                 return this.data.growIndex ? 'radar__grow-up' : 'radar__grow-down'
