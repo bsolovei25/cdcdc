@@ -1,5 +1,11 @@
+:host::ng-deep {
+  .aps-header__background-astue {
+    background: var(--color-header-item-bg-hover);
+    border: 1px solid var(--color-group-control-border-main);
+  }
+}
+
 .container {
-  border: 1px solid var(--bg-header-color);
   border-radius: 2px;
 
   &__form {
